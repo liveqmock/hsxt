@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.EntGroupMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.ent.bean.EntGroup">
+		<id column="GROUP_ID" property="groupId" jdbcType="DECIMAL" />
+		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="GROUP_DESC" property="groupDesc" jdbcType="VARCHAR" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!--查询的列  -->
+	<sql id="Base_Column_List">
+	   GROUP_ID,
+       GROUP_NAME,
+       ENT_CUST_ID,
+       GROUP_DESC,
+       ISACTIVE,
+       CREATE_DATE,
+       CREATEDBY,
+       UPDATE_DATE,
+       UPDATEDBY
+	</sql>
+
+	<!-- 查询用户组通过 主键ID -->
+	<select id="selectByGroupId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_GROUP
+		where GROUP_ID = #{groupId,jdbcType=DECIMAL}
+	</select>
+	
+	<!-- 查询用户组通过 组名-->
+	<select id="selectByGroupName" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_GROUP
+		where ENT_CUST_ID = #{entCustId}
+			AND GROUP_NAME= #{groupName}
+			and rownum=1
+	</select>
+
+	<!--  分页查询用户组-->
+	<select id="pageGroup" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_GROUP
+		where ENT_CUST_ID = #{entCustId}
+		<if test="groupName != null">		
+		and GROUP_NAME like #{groupName}		
+		</if>
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!-- 分页查询 统计用户组数量 -->
+	<select id="countGroup" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from T_ENT_GROUP
+		where ENT_CUST_ID = #{entCustId}
+		<if test="groupName != null">		
+		and GROUP_NAME like #{groupName}		
+		</if>
+	</select>
+
+<!-- 查询当前组的用户数量 -->
+	<select id="countCurrentGroup" resultType="java.lang.Integer" parameterType="java.lang.Long">
+		SELECT COUNT(*) FROM T_ENT_GROUP T1,T_ENT_GROUP_USER T2 WHERE T1.GROUP_ID = T2.GROUP_ID
+		AND T2.GROUP_ID = #{groupId,jdbcType=DECIMAL}
+	</select>
+
+	<!-- 删除用户组通过用户组主键ID -->
+	<delete id="deleteByGroupId" parameterType="java.lang.Long">
+		delete from T_ENT_GROUP
+		where GROUP_ID = #{groupId,jdbcType=DECIMAL}
+	</delete>
+
+	<!-- 插入用户组 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.ent.bean.EntGroup">
+		insert into T_ENT_GROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				GROUP_ID,
+			<if test="groupName != null">
+				GROUP_NAME,
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID,
+			</if>
+			<if test="groupDesc != null">
+				GROUP_DESC,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			SEQ_T_ENT_GROUP.NEXTVAL,
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				#{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupDesc != null">
+				#{groupDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--  修改用户组信息-->
+	<update id="updateByGroupId" parameterType="com.gy.hsxt.uc.ent.bean.EntGroup">
+		update T_ENT_GROUP
+		<set>
+			<if test="groupName != null">
+				GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupDesc != null">
+				GROUP_DESC = #{groupDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where GROUP_ID = #{groupId,jdbcType=DECIMAL}
+	</update>
+
+	<!--分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		<if test="page != null">
+			select * from ( select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+		<if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+		</if>
+	</sql>
+
+</mapper>

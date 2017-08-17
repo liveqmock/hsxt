@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 资源费分配规则 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.resfee.mapper.ResFeeRuleMapper">
+
+    <resultMap id="resFeeRuleResult" type="com.gy.hsxt.bs.bean.resfee.ResFeeRule">
+        <id column="ALLOC_ITEM_ID" property="allocItemId"/>
+        <result column="RES_FEE_ID" property="resFeeId"/>
+        <result column="ALLOC_TARGET" property="allocTarget"/>
+        <result column="ALLOC_WAY" property="allocWay"/>
+        <result column="ALLOC_AMOUNT" property="allocAmount"/>
+    </resultMap>
+
+    <!-- 创建资源费分配规则 -->
+    <insert id="createResFeeRule" parameterType="com.gy.hsxt.bs.bean.resfee.ResFeeRule">
+        INSERT INTO T_BS_RES_FEE_RULE (
+            ALLOC_ITEM_ID,
+            RES_FEE_ID,
+            ALLOC_TARGET,
+            ALLOC_WAY,
+            ALLOC_AMOUNT
+        ) VALUES (
+            #{allocItemId},
+            #{resFeeId},
+            #{allocTarget},
+            #{allocWay},
+            #{allocAmount}
+        )
+    </insert>
+
+    <!-- 查询 某一个资源费方案的分配规则 -->
+    <select id="queryResFeeRuleList" resultMap="resFeeRuleResult">
+        SELECT *
+        FROM
+            T_BS_RES_FEE_RULE
+        WHERE
+            RES_FEE_ID = #{resFeeId}
+    </select>
+
+    <!-- 获取 某一条分配规则 -->
+    <select id="getResFeeRuleBean" resultMap="resFeeRuleResult">
+        SELECT *
+        FROM
+            T_BS_RES_FEE_RULE
+        WHERE
+            ALLOC_ITEM_ID = #{allocItemId}
+    </select>
+
+</mapper>

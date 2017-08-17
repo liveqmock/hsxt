@@ -1,0 +1,77 @@
+﻿<div class="view_info mt20 pr">
+	<div class="goods_detail">
+        <div>
+        <%$.each(obj.ddsplb, function(k, v){%>
+          <dl<%=k > 0 ? ' class="none"' : ''%>>
+            <dt><img src="<%=v.zp%>" width="150" height="150"/></dt>
+            <dd><%=v.mc%></dd>
+            <dd><span class="tit">颜色：</span><%=v.ys%></dd>
+            <dd><span class="tit">尺码：</span><%=v.cm%></dd>
+          </dl>
+         <%})%>
+        </div>
+        <div class="page"><%$.each(obj.ddsplb, function(k, v){%><i<%=k == 0 ? ' class="cur"' : ''%>><%=k+1%></i><%})%></div>
+    </div>
+	<table class="detail disabled" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="335" class="pr10 tr">订单编号</td>
+          <td width="310"><p class="w96pc p6 infobox"><%=obj.ddbh%></p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="pr10 tr">昵称</td>
+          <td><p class="w96pc p6 infobox"><%=obj.nc%></p></td>
+          <td align="left"></td>
+        </tr>
+        <tr>
+          <td class="pr10 tr">申请售后</td>
+          <td><p class="w96pc p6 infobox"><%=obj.sqlx%></p></td>
+          <td align="left"></td>
+        </tr>
+        
+        <tr>
+          <td class="pr10 tr">说明</td>
+          <td><p class="w96pc p6 infobox"><%=obj.sqly%></p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="tr_img">
+          <td class="pr10 tr">&nbsp;</td>
+          <td class="pr">
+            <div class="td_img">
+              <div class="inner_img clearfix" style="width:385px;">
+              <%$.each(obj.sqzplb, function(k, v){%>
+              <img src="<%=v.url%>" width="70" height="57"/>
+              <%})%>
+              </div>
+            </div>
+            <div class="td_img_btn_left">&lt;</div>
+            <div class="td_img_btn_right">&gt;</div>
+          </td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="pr10 tr">快递</td>
+          <td><p class="w96pc p6 infobox"><%=obj.kd%></p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="pr10 tr">快递单号</td>
+          <td><p class="w96pc p6 infobox"><%=obj.kddh%></p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="pr10 tr">状态</td>
+          <td><p class="w96pc p6 infobox"><%=obj.zt%></p></td>
+          <td align="left">&nbsp;</td>
+        </tr>                                 
+        </table>
+
+	<div class="mt20 tc">
+    	<a href="javascript:;" id="btn_shfwlb_fh" class="btn_bg submit mr15">返&#12288;回</a>
+<%if(obj.zt == '未处理'){%>
+    	<a href="javascript:;" id="btn_shfwlb_fhsq" class="btn_bg submit mr15">回复申请</a>
+    	<a href="javascript:;" id="btn_shfwlb_spfh" class="btn_bg submit mr15">发&#12288;货</a>
+    	<a href="javascript:;" id="btn_shfwlb_qrsh" class="btn_bg submit">确认收货</a>
+<%}%>
+    </div>
+</div>

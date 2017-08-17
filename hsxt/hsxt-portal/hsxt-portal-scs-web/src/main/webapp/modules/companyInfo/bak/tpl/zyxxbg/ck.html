@@ -1,0 +1,93 @@
+<div id="zyxxbg_xx" class="view_info p20">
+<div class="mb10 fb">互生卡号: <span><%=obj.entResNo%></span></div>
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+	<tbody><tr>
+		<td width="14%" align="center" class="table_title">信息</td>
+		<td width="30%" align="center" class="table_title">变更前内容</td>
+		<td width="30%" align="center" class="table_title">变更后内容</td>
+		<td width="26%" align="center" class="table_title">关联附件</td>
+	</tr>
+	<tr>
+		<td class="view_item">企业中文名称</td>
+        <td class="view_text"><%=obj.custNameOld%></td>
+        <td class="view_text"><%=obj.custNameNew%></td>
+		<td rowspan="11" valign="top" class="view_text m10 lh150">
+            <a id="busLicenceFileId" href="#" class="mr10 blue">营业执照</a><br>
+            <a id="organizeFileId" href="#" class="mr10 blue">组织机构代码证</a><br>
+            <a id="taxpayerFileId" href="#" class="blue">税务登记证</a><br>
+            <a id="legalfrontFileId" href="#" class="mr10 blue">法人证件正面</a><br>
+            <a id="legalBackFileId" href="#" class="mr10 blue">法人证件反面</a></td>
+		</td>
+	</tr>
+	<tr>
+		<td class="view_item">企业英文名称</td>
+      	   <td class="view_text"><%=obj.custNameEnOld%></td>
+           <td class="view_text"><%=obj.custNameEnNew%></td>
+		</tr>
+	<tr>
+		<td class="view_item">企业地址</td>
+      	   <td class="view_text"><%=obj.custAddressOld%></td>
+           <td class="view_text"><%=obj.custAddressNew%></td>
+		</tr>
+	<tr>
+		<td class="view_item">法人代表</td>
+      	   <td class="view_text"><%=obj.legalRepOld%></td>
+           <td class="view_text"><%=obj.legalRepNew%></td>
+		</tr>
+	<tr>
+		<td class="view_item">法人代表证件类型</td>
+      	   <td class="view_text" id="lrcType_old"></td>
+           <td class="view_text" id="lrcType_new"></td>
+		</tr>
+      <tr>
+        <td class="view_item">法人代表证件号码</td>
+      	   <td class="view_text"><%=obj.legalRepCreNoOld%></td>
+           <td class="view_text"><%=obj.legalRepCreNoNew%></td>
+      </tr>
+      <tr>
+        <td class="view_item">营业执照号</td>
+      	   <td class="view_text"><%=obj.bizLicenseNoOld%></td>
+           <td class="view_text"><%=obj.bizLicenseNoNew%></td>
+      </tr>
+      <tr>
+        <td class="view_item">组织机构代码证号</td>
+      	   <td class="view_text"><%=obj.organizerNoOld%></td>
+           <td class="view_text"><%=obj.organizerNoNew%></td>
+      </tr>
+      
+      <tr>
+        <td class="view_item">纳税人识别号</td>
+      	   <td class="view_text"><%=obj.taxpayerNoOld%></td>
+           <td class="view_text"><%=obj.taxpayerNoNew%></td>
+      </tr>
+      <tr>
+        <td class="view_item">联系人姓名</td>
+      	   <td class="view_text"><%=obj.linkmanOld%></td>
+           <td class="view_text"><%=obj.linkmanNew%></td>
+      </tr>
+      <tr>
+        <td class="view_item">联系人手机</td>
+      	   <td class="view_text"><%=obj.linkmanMobileOld%></td>
+           <td class="view_text"><%=obj.linkmanMobileNew%></td>
+      </tr>
+      <tr>
+        <td class="view_item">申请变更原因</td>
+        <td colspan="3" class="view_text"><%=obj.applyReason%></td>
+      </tr>
+      <tr>
+        <td class="view_item" >审批结果</td>
+			<td colspan="3" class="view_text" id="approveResult"></td>
+      </tr>
+      <tr>
+        <td class="view_item">审批意见</td>
+        <td colspan="3" class="view_text"><%=obj.apprRemark%></td>
+      </tr>
+      <tr>
+        <td class="view_item">审批日期</td>
+        <td colspan="3" class="view_text"><%=obj.updateDate%></td>
+      </tr>
+</tbody></table>
+<div class="mt20" align="center"><a id="btn_ck_fh" class="btn_bg submit"  >返　回</a></div>
+
+</div> 
+<div id="showImageDiv50" class="none"><img alt="上传图片" src="" id="showImage50" width="800" height="600"></div>

@@ -1,0 +1,52 @@
+<div id="qyddglTpl" class="p20">
+    <div class="scrlh yyxt_ddlb_wrap" style="height:400px;"> 
+      <!--搜索条件-->
+      <div class="acct-ct p20 mb5 pb5">
+        <ul class="clearfix yyxt_ddlb_sx">
+          <li><span class="title-txt title-txt2">订单编号：</span>
+            <input type="text" class="text" placeholder="输入订单编号" />
+          </li>
+          <li><span class="title-txt">服务公司名称/资源号：</span>
+            <input type="text" class="text" placeholder="输入服务公司名称/资源号" />
+          </li>
+          <li><span class="title-txt">商城名称/资源号：</span>
+            <input type="text" class="text" placeholder="输入商城名称/资源号" />
+          </li>
+          <li><span class="title-txt title-txt2">订单日期：</span>
+		  	<input type="text" name="textfield" id="timeRange_start" placeholder="输入日期范围" class="text text_time" readonly="readonly" />
+            <input type="text" name="textfield" id="timeRange_end" placeholder="输入日期范围" class="text text_time" readonly="readonly" />
+          </li>
+          <li><span class="title-txt">消费者互生卡号/手机号：</span>
+            <input type="text" class="text" placeholder="输入消费者互生卡号/手机号" />
+          </li>
+          <li><span class="title-txt">实体店名称： </span>
+            <input type="text" class="text" placeholder="输入实体店名称" />
+          </li>
+          <li><span class="title-txt title-txt2">地　　区：</span>
+            <input type="text" class="text text_time" placeholder="选择地区" id="province_slt"/>
+            <input type="text" class="text text_time ml5" placeholder="选择地区" id="city_slt"/>
+          </li>
+          <li class="tr"><a class="btn_bg submit fl">查询</a></li>
+        </ul>
+      </div>
+      
+      <!--局部切换页签-->
+      <div class="pr mb5" id="tabMenu">
+        <div class="tabNav"></div>
+        <ul class="tabList clearfix">
+          <li><a class="active tab01">未支付</a></li>
+          <li><a class="tab02">已支付</a></li>
+          <li><a class="tab03">已完成</a></li>
+          <li><a class="tab04">已取消</a></li>
+          <li><a class="tab05">退款退货订单</a></li>
+          <li><a class="tab06">全部</a></li>
+        </ul>
+      </div>
+      <!--局部切换页签 结束--> 
+      
+      <!--表格区域-->
+      <div id="contentArea"></div>
+      <!--表格区域 结束--> 
+      
+    </div>
+  </div>

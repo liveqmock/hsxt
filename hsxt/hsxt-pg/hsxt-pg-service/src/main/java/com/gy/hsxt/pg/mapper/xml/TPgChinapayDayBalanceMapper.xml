@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgChinapayDayBalanceMapper" >
+
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.pg.mapper.vo.TPgChinapayDayBalance" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MER_ID" property="merId" jdbcType="VARCHAR" />
+    <result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+    <result column="DOWNLOAD_URL" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_SAVE_PATH" property="fileSavePath" jdbcType="VARCHAR" />
+    <result column="DOWNLOAD_STATUS" property="downloadStatus" jdbcType="INTEGER" />
+    <result column="DOWNLOAD_FAIL_COUNTS" property="downloadFailCounts" jdbcType="INTEGER" />
+    <result column="BALANCE_DATE" property="balanceDate" jdbcType="DATE" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+		ID, MER_ID, PAY_CHANNEL, DOWNLOAD_URL, FILE_NAME, FILE_SAVE_PATH,
+		DOWNLOAD_STATUS, DOWNLOAD_FAIL_COUNTS,
+		BALANCE_DATE, CREATED_DATE, UPDATED_DATE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PG_CHINAPAY_DAY_BALANCE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByFileName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+	select 
+	<include refid="Base_Column_List" />
+	from T_PG_CHINAPAY_DAY_BALANCE
+	where FILE_NAME = #{fileName,jdbcType=VARCHAR}
+  </select>
+      
+  <select id="selectByBalanceDate" resultMap="BaseResultMap"
+		parameterType="java.util.Date">
+	select 
+	<include refid="Base_Column_List" />
+	from T_PG_CHINAPAY_DAY_BALANCE
+	where BALANCE_DATE = #{balanceDate,jdbcType=DATE}
+  </select>
+  
+  <insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgChinapayDayBalance" >
+    insert into T_PG_CHINAPAY_DAY_BALANCE (ID, MER_ID, PAY_CHANNEL, 
+      DOWNLOAD_URL, FILE_NAME, FILE_SAVE_PATH, DOWNLOAD_STATUS, 
+      DOWNLOAD_FAIL_COUNTS, BALANCE_DATE, CREATED_DATE, UPDATED_DATE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{merId,jdbcType=VARCHAR}, #{payChannel,jdbcType=INTEGER}, 
+      #{downloadUrl,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileSavePath,jdbcType=VARCHAR}, #{downloadStatus,jdbcType=INTEGER}, 
+      #{downloadFailCounts,jdbcType=INTEGER}, #{balanceDate,jdbcType=DATE}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <update id="updateStatusByFileName" parameterType="com.gy.hsxt.pg.mapper.vo.TPgChinapayDayBalance">
+		update T_PG_CHINAPAY_DAY_BALANCE
+	<set>
+		<if test="merId != null">
+			MER_ID = #{merId,jdbcType=VARCHAR},
+		</if>
+		<if test="payChannel != null">
+			PAY_CHANNEL = #{payChannel,jdbcType=INTEGER},
+		</if>
+		<if test="downloadUrl != null">
+			DOWNLOAD_URL = #{downloadUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="fileSavePath != null">
+			FILE_SAVE_PATH = #{fileSavePath,jdbcType=VARCHAR},
+		</if>
+		<if test="downloadStatus != null">
+			DOWNLOAD_STATUS = #{downloadStatus,jdbcType=INTEGER},
+		</if>
+		<if test="downloadFailCounts != null">
+			DOWNLOAD_FAIL_COUNTS =
+			#{downloadFailCounts,jdbcType=INTEGER},
+		</if>
+		<if test="balanceDate != null">
+			BALANCE_DATE = #{balanceDate,jdbcType=DATE},
+		</if>
+		UPDATED_DATE = SYSDATE()
+	</set>
+	where FILE_NAME = #{fileName, jdbcType=VARCHAR}
+  </update>
+</mapper>

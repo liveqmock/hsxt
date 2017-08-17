@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ao.mapper.AccountingHisMapper">
+
+	<!-- 迁移上一几个月记账分解数据到历史表 -->
+	<insert id="insertAccountingHisLastMath">
+		insert into T_AO_ACCOUNTING_ENTRY_HIS
+		  select * from T_AO_ACCOUNTING_ENTRY WHERE fiscal_Date 
+			&lt;=
+			to_date(to_char(add_months(sysdate,-#{month}),'yyyy-MM-dd')||' 23:59:59','yyyy-MM-dd hh24:mi:ss')
+	</insert>
+</mapper>

@@ -1,0 +1,107 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">配货点名称</td>
+            <td width="32%"><input type="text" class="ml5 h28_middle w96pc" placeholder="输入配货点名称" value="<%=obj.th_1%>" /></td>
+            <td class="view_item" width="18%">仓库名称</td>
+            <td width="32%">
+				<span class="ml5 pr">
+					<input id="warehouseName_xg" readonly="readonly" placeholder="选择仓库名称" />
+				</span>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">配送工具类别</td>
+            <td class="p10">
+				<div class="search-toolbar">
+					<ul class="cssform clearfix">
+						<li class="clearfix">
+							<label class="fl h30_middle">工具类别：</label>
+							<input id="toolCategory_xg" readonly="readonly" placeholder="选择工具类别" />
+						</li>
+						<li>
+							<button id="" type="button" class="btn-search">新增</button>
+						</li>
+					 </ul>
+				</div>
+				<div class="td_hauto ovh h85 overflow_y">
+					<table id="searchTable_toolCategory_xg">
+					  <tr>
+						<th w_index="th_1">配送工具类别</th>
+						<th w_render="operate">操作</th>
+					  </tr>
+					</table>
+				</div>
+            </td>
+            <td class="view_item">配货点配送地区</td>
+            <td class="p10">
+				<div class="search-toolbar">
+					<ul class="cssform clearfix">
+						<li class="clearfix">
+							<label class="fl h30_middle">配送地区：</label>
+							<input id="area_xg" readonly="readonly" placeholder="选择配送地区" />
+						</li>
+						<li>
+							<button id="" type="button" class="btn-search">新增</button>
+						</li>
+					 </ul>
+				</div>
+				<div class="td_hauto ovh h85 overflow_y">
+					<table id="searchTable_area_xg">
+					  <tr>
+						<th w_index="th_1">配货点配送地区</th>
+						<th w_render="operate">操作</th>
+					  </tr>
+					</table>
+				</div>
+        	</td>
+        </tr>
+        <tr>
+            <td class="view_item">配货点所在地区</td>
+            <td>
+				<span class="ml5 pr">
+					<input id="area_2_xg" readonly="readonly" placeholder="选择配货点所在地区" />
+				</span>
+			</td>
+            <td class="view_item">是否默认配货点</td>
+            <td>
+				<input type="radio" name="sss" id="s111" class="ml5" checked="checked" /><label for="s111" class="ml5 mr10">是</label>
+				<input type="radio" name="sss" id="s222" class="" /><label for="s222" class="ml5">否</label>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">配货点地址</td>
+            <td colspan="3"><input type="text" class="ml5 w96pc h28_middle" placeholder="输入仓库地址" value="<%=obj.th_6%>" /></td>
+        </tr>
+        <tr>
+            <td colspan="4" valign="top" class="p10">
+                <div class="view_title">关联配货员列表</div>
+				<div class="search-toolbar">
+					<ul class="cssform clearfix">
+						<li class="clearfix">
+							<label class="fl h30_middle">操作员：</label>
+							<input id="operator_xg" readonly="readonly" placeholder="选择操作员" />
+						</li>
+						<li>
+							<button id="" type="button" class="btn-search">新增</button>
+						</li>
+					 </ul>
+				</div>
+				<div class="td_hauto">
+					<table id="searchTable_operator_xg">
+				  <tr>
+					<th w_index="th_1">操作员号</th>
+					<th w_index="th_2">操作员姓名</th>
+					<th w_render="operate">操作</th>
+				  </tr>
+				</table>
+				</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">备注</td>
+            <td colspan="3">
+				<textarea class="ml5 h50 w98pc rsn pt5 pb5" placeholder="输入备注,字数不超过300个字" maxlength="300">xxx</textarea></td>
+        </tr>
+    </table>
+</div>

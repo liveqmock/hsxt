@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessSysBoSettingMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessSysBoSetting" id="businessSysBoSetting">
+     <!-- 业务操作许可设置对象-->
+        <id column="SYS_BO_SETTING_NO" property="sysBoSettingNo" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="SETTING_NAME" property="settingName" jdbcType="VARCHAR" />
+        <result column="SETTING_VALUE" property="settingValue" jdbcType="VARCHAR" />
+        <result column="SETTING_REMARK" property="settingRemark" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+	<!-- @author 作者 : maocan -->
+
+	<!-- 新增单个业务操作许可设置 -->
+	<insert id="addSysBoSetting" parameterType="BusinessSysBoSetting">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_SYS_BO_SETTING
+		      ( 
+		        SYS_BO_SETTING_NO,
+			    CUST_ID,
+			    SETTING_NAME,
+			    SETTING_VALUE,
+			    SETTING_REMARK,
+			    ISACTIVE,
+			    CREATEDBY,
+			    CREATED_DATE) 
+		VALUES (
+			 	#{sysBoSettingNo,jdbcType=VARCHAR},
+				#{custId,jdbcType=VARCHAR},
+				#{settingName,jdbcType=VARCHAR},
+				#{settingValue,jdbcType=VARCHAR},
+				#{settingRemark,jdbcType=VARCHAR},
+				#{isActive,jdbcType=VARCHAR},
+				#{createdby,jdbcType=VARCHAR},
+				systimestamp)
+	</insert>
+
+	<!-- 批量新增业务操作许可设置 -->
+	<insert id="addSysBoSettingList" parameterType="list">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_SYS_BO_SETTING
+		      ( 
+		        SYS_BO_SETTING_NO,
+			    CUST_ID,
+			    SETTING_NAME,
+			    SETTING_VALUE,
+			    SETTING_REMARK,
+			    ISACTIVE,
+			    CREATEDBY,
+			    CREATED_DATE) 
+		SELECT  SYS_BO_SETTING_NO,
+			    CUST_ID,
+			    SETTING_NAME,
+			    SETTING_VALUE,
+			    SETTING_REMARK,
+			    ISACTIVE,
+			    CREATEDBY,
+			    CREATED_DATE
+				FROM( 
+		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT #{item.sysBoSettingNo,jdbcType=VARCHAR} SYS_BO_SETTING_NO,
+				#{item.custId,jdbcType=VARCHAR} CUST_ID,
+				#{item.settingName,jdbcType=VARCHAR} SETTING_NAME,
+				#{item.settingValue,jdbcType=VARCHAR} SETTING_VALUE,
+				#{item.settingRemark,jdbcType=VARCHAR} SETTING_REMARK,
+				#{item.isActive,jdbcType=VARCHAR} ISACTIVE,
+				#{item.createdby,jdbcType=VARCHAR} CREATEDBY,
+				systimestamp CREATED_DATE  FROM DUAL)
+		</foreach>
+		)
+	</insert>
+
+	<!-- 单个业务操作许可设置修改 -->
+	<update id="updateSysBoSetting" parameterType="BusinessSysBoSetting">
+        UPDATE T_BP_SYS_BO_SETTING
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="settingValue != null and settingValue != '' ">
+                 SETTING_VALUE = #{settingValue,jdbcType=VARCHAR},
+            </if>
+            <if test="settingRemark != null and settingRemark != '' ">
+                 SETTING_REMARK = #{settingRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedby != null and updatedby != '' ">
+                 UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE SYS_BO_SETTING_NO = #{sysBoSettingNo,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 更新多个业务操作许可设置 -->
+	<update id="updateSysBoSettingList" parameterType="list">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE T_BP_SYS_BO_SETTING
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="item.settingValue != null and item.settingValue != '' ">
+	                 SETTING_VALUE = #{item.settingValue,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.settingRemark != null and item.settingRemark != '' ">
+	                 SETTING_REMARK = #{item.settingRemark,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.isActive != null and item.isActive != '' ">
+	                 ISACTIVE = #{item.isActive,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.updatedby != null and item.updatedby != '' ">
+	                 UPDATEDBY = #{item.updatedby,jdbcType=VARCHAR},
+	            </if>
+	                 UPDATED_DATE = systimestamp
+        	</trim>
+         	WHERE SYS_BO_SETTING_NO = #{item.sysBoSettingNo,jdbcType=VARCHAR};
+		</foreach>
+	</update>
+
+
+	<!-- 多个业务操作许可设置查询 -->
+	<select id="searchSysBoSettingList" resultMap="businessSysBoSetting" parameterType="BusinessSysBoSetting">
+        SELECT SYS_BO_SETTING_NO,
+		       CUST_ID,
+		       SETTING_NAME,
+		       SETTING_VALUE,
+		       SETTING_REMARK,
+		       ISACTIVE,
+		       CREATED_DATE,
+		       CREATEDBY,
+		       UPDATED_DATE,
+		       UPDATEDBY
+		  FROM T_BP_SYS_BO_SETTING 
+         WHERE  1 = 1 
+           AND ISACTIVE = 'Y'
+         <if test="custId != null and custId != '' ">
+                AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+          ORDER BY CUST_ID, SETTING_NAME
+	</select>
+
+
+</mapper>

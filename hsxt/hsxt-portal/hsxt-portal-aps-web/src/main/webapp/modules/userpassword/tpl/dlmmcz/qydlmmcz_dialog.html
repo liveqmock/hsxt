@@ -1,0 +1,43 @@
+<div class="info_320 bc">
+	<form id="valid_pwd_form">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+			<tr>
+				<td class="view_item" width="30%">企业互生号</td>
+				<td class="view_text_2" width="70%"><%=obj.entResNo%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">用户名</td>
+				<td class="view_text_2" width="70%"><%=obj.entName%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">姓名</td>
+				<td class="view_text_2" width="80%"><%=obj.contactPerson%></td>
+			</tr>
+		</table>
+		<div class="mt20 mb20 red bc">你确认要重置该企业密码吗？</div>
+		<ul>
+			<!--<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">复核意见</label>
+				<textarea type="text" placeholder="输入复核意见,字数不超过300个字" class="fl ml5 h50 w185 rsn pt5 pb5"></textarea>
+			</li>-->
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h30_middle">选择验证方式</label>
+				<input id="verificationMode_qy" name="verificationMode_qy" readonly="readonly" placeholder="选择验证方式" />
+			 	<span class="required-left330">*</span>
+			</li>
+			<li id="verificationMode_prompt_qy" class="none red h30_middle">
+				当前版本暂时不支持这种验证方式
+			</li>
+			<li class="register_row clearfix pr none" id="fhy_userName_qy">
+				<label class="fl w115 h30_middle">复核员用户名</label>
+				 <input type="text" class="fl w185 h30_middle ml5" id="doubleUserName" name="doubleUserName" placeholder="输入复核员用户名">
+			 	<span class="required-left330">*</span>
+			</li>
+			<li class="register_row clearfix pr none" id="fhy_password_qy">
+				<label class="fl w115 h30_middle">复核员登录密码</label>
+				 <input type="password" class="fl w185 h30_middle ml5" id="doublePassword" name="doublePassword" placeholder="输入复核员登录密码">
+				 <span class="required-left330">*</span>
+			</li>
+		</ul>
+	</form>
+</div>

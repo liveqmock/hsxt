@@ -1,0 +1,36 @@
+<div id="tsxxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>互生号：</label>
+				<input type="text" id="search_enthsResNo" name="search_enthsResNo" placeholder="输入互生号" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clefrfix">
+				<label class="fl h30_middle">适用类别：</label>
+				<input id="search_custType" name="search_custType" readonly="readonly" placeholder="选择适用类别" />
+			</li>
+			<li class="clefrfix">
+				<label class="fl h30_middle">发送状态：</label>
+				<input id="search_status" name="search_status" readonly="readonly" placeholder="选择发送状态" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="msgReceiver" w_render="operate" w_tip="true"  w_align="left">互生号</th>
+        <th w_index="tempName" w_tip="true" width="12%"   w_align="left">使用模板名称</th>
+		<th w_index="custType" w_render="operate" w_align="left">适用类别</th>
+        <th w_index="bizType" w_render="operate" w_align="left">业务类型</th>
+		<th w_index="custName" w_tip="true" width="10%"   w_align="left">单位名称</th>
+		<!-- <th w_index="msgReceiver" w_tip="true"  w_align="left">手机号码</th> -->
+		<th w_index="sendDate" w_tip="true" width="13%"  w_align="left">发送时间</th>
+		<th w_index="status" w_render="operate" w_align="left">发送状态</th> 
+		<th w_render="operate" w_align="left">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="ck_dialog" class="none ovh"></div>

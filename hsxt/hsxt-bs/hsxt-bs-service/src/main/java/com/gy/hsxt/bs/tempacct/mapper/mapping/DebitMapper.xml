@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 临帐记录 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.DebitMapper">
+    <resultMap id="debitResult" type="com.gy.hsxt.bs.bean.tempacct.Debit">
+        <id column="DEBIT_ID" property="debitId"/>
+        <result column="PAY_TIME" property="payTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="PAY_AMOUNT" property="payAmount"/>
+        <result column="PAY_TYPE" property="payType"/>
+        <result column="PAY_ENT_CUST_NAME" property="payEntCustName"/>
+        <result column="PAY_BANK_NAME" property="payBankName"/>
+        <result column="PAY_BANK_NO" property="payBankNo"/>
+        <result column="PAY_USE" property="payUse"/>
+        <result column="USE_ENT_CUST_NAME" property="useEntCustName"/>
+        <result column="DEBIT_STATUS" property="debitStatus"/>
+        <result column="FILENAME" property="filename"/>
+        <result column="FILE_ID" property="fileId"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="AUDIT_RECORD" property="auditRecord"/>
+        <result column="AUDIT_CUST_ID" property="auditCustId"/>
+        <result column="AUDIT_CUST_NAME" property="auditCustName"/>
+        <result column="AUDIT_TIME" property="auditTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="LINK_AMOUNT" property="linkAmount"/>
+        <result column="UNLINK_AMOUNT" property="unlinkAmount"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="ACCOUNT_INFO_ID" property="accountInfoId"/>
+        <result column="ACCOUNT_RECEIVETIME" property="accountReceiveTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="IS_PLATFORM_FILLING" property="isPlatformFilling"/>
+        <result column="REFUND_RECORD" property="refundRecord"/>
+        <result column="REFUND_AUDIT_RECORD" property="refundAuditRecord"/>
+        <result column="BALANCE_RECORD" property="balanceRecord"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdBy"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+        <result column="ISACTIVE" property="isActive"/>
+        <result column="BANK_BRANCH_NAME" property="bankBranchName"/>
+        <result column="RECEIVE_ACCOUNT_NAME" property="receiveAccountName"/>
+        <result column="RECEIVE_ACCOUNT_NO" property="receiveAccountNo"/>
+        <result column="CREATED_NAME" property="createdName"/>
+        <result column="UPDATED_NAME" property="updatedName"/>
+    </resultMap>
+
+    <!-- 创建 临帐记录 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.tempacct.Debit">
+        INSERT INTO T_BS_DEBIT (
+            DEBIT_ID,
+            PAY_TIME,
+            PAY_AMOUNT,
+            PAY_TYPE,
+            PAY_ENT_CUST_NAME,
+            PAY_BANK_NAME,
+            PAY_BANK_NO,
+            PAY_USE,
+            USE_ENT_CUST_NAME,
+            DEBIT_STATUS,
+            FILENAME,
+            FILE_ID,
+            DESCRIPTION,
+            UNLINK_AMOUNT,
+            ACCOUNT_INFO_ID,
+            ACCOUNT_RECEIVETIME,
+            IS_PLATFORM_FILLING,
+            CREATED_DATE,
+            CREATEDBY,
+            ISACTIVE,
+            BANK_BRANCH_NAME,
+            RECEIVE_ACCOUNT_NAME,
+            RECEIVE_ACCOUNT_NO,
+            CREATED_NAME
+        ) VALUES (
+            #{debitId},
+            #{payTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{payAmount},
+            #{payType},
+            #{payEntCustName},
+            #{payBankName},
+            #{payBankNo},
+            #{payUse},
+            #{useEntCustName},
+            0,
+            #{filename},
+            #{fileId},
+            #{description},
+            #{payAmount},
+            #{accountInfoId},
+            #{accountReceiveTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{isPlatformFilling},
+            systimestamp,
+            #{createdBy},
+            'Y',
+            #{bankBranchName},
+            #{receiveAccountName},
+            #{receiveAccountNo},
+            #{createdName}
+        )
+    </insert>
+    <!-- 更新临账记录 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tempacct.Debit">
+        UPDATE
+        T_BS_DEBIT
+        SET
+        UPDATEDBY = #{updatedBy},
+        <if test="payTime != null and payTime != '' ">
+            PAY_TIME=#{payTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+        </if>
+        <if test="payAmount != null and payAmount != '' ">
+            PAY_AMOUNT=#{payAmount},
+        </if>
+        <if test="payType != null">
+            PAY_TYPE=#{payType},
+        </if>
+        <if test="payEntCustName != null and payEntCustName != '' ">
+            PAY_ENT_CUST_NAME=#{payEntCustName},
+        </if>
+        <if test="payBankName != null ">
+            PAY_BANK_NAME=#{payBankName},
+        </if>
+        <if test="payBankNo != null">
+            PAY_BANK_NO=#{payBankNo},
+        </if>
+        <if test="payUse != null ">
+            PAY_USE=#{payUse},
+        </if>
+        <if test="useEntCustName != null">
+            USE_ENT_CUST_NAME=#{useEntCustName},
+        </if>
+        <if test="filename != null and filename != '' ">
+            FILENAME=#{filename},
+        </if>
+        <if test="fileId != null and fileId != '' ">
+            FILE_ID=#{fileId},
+        </if>
+        <if test="description != null ">
+            DESCRIPTION=#{description},
+        </if>
+        <if test="linkAmount != null and linkAmount != '' ">
+            LINK_AMOUNT=#{linkAmount},
+        </if>
+        <if test="unlinkAmount != null and unlinkAmount != '' ">
+            UNLINK_AMOUNT=#{unlinkAmount},
+        </if>
+        <if test="accountInfoId != null and accountInfoId != '' ">
+            ACCOUNT_INFO_ID=#{accountInfoId},
+            BANK_BRANCH_NAME=#{bankBranchName},
+            RECEIVE_ACCOUNT_NAME=#{receiveAccountName},
+            RECEIVE_ACCOUNT_NO=#{receiveAccountNo},
+        </if>
+        <if test="accountReceiveTime != null and accountReceiveTime != '' ">
+            ACCOUNT_RECEIVETIME=#{accountReceiveTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+        </if>
+        <if test="isPlatformFilling != null and isPlatformFilling != '' ">
+            IS_PLATFORM_FILLING=#{isPlatformFilling},
+        </if>
+        <if test="debitStatus != null and debitStatus == 0">
+            DEBIT_STATUS = #{debitStatus},
+        </if>
+        UPDATED_DATE = systimestamp,UPDATED_NAME=#{updatedName}
+        WHERE
+        DEBIT_ID = #{debitId}
+    </update>
+
+    <!-- 分页查询 临帐记录列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.DebitQuery" resultMap="debitResult">
+        SELECT
+        d.*
+        FROM
+        T_BS_DEBIT d
+        WHERE
+        d.ISACTIVE = 'Y'
+        <if test="startDate != null and startDate != '' ">
+            AND d.PAY_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND d.PAY_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="payEntCustName != null and payEntCustName != '' ">
+            AND d.PAY_ENT_CUST_NAME like '%'||#{payEntCustName}||'%'
+        </if>
+
+        <if test="useEntCustName != null and useEntCustName != '' ">
+            AND d.USE_ENT_CUST_NAME like '%'||#{useEntCustName}||'%'
+        </if>
+
+        <if test="debitStatus != null">
+            AND d.DEBIT_STATUS = #{debitStatus}
+        </if>
+        <if test="accountName != null and accountName != '' ">
+            AND d.RECEIVE_ACCOUNT_NAME LIKE '%'|| #{accountName}||'%'
+        </if>
+        ORDER BY d.CREATED_DATE DESC
+    </select>
+
+    <!--根据条件查询临账记录列表-->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.bs.bean.tempacct.DebitQuery" resultMap="debitResult">
+        SELECT
+        d.*
+        FROM
+        T_BS_DEBIT d
+        WHERE
+        d.ISACTIVE = 'Y'
+        <if test="startDate != null and startDate != '' ">
+            AND d.PAY_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND d.PAY_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="payEntCustName != null and payEntCustName != '' ">
+            AND d.PAY_ENT_CUST_NAME like '%'||#{payEntCustName}||'%'
+        </if>
+
+        <if test="useEntCustName != null and useEntCustName != '' ">
+            AND d.USE_ENT_CUST_NAME like '%'||#{useEntCustName}||'%'
+        </if>
+
+        <if test="debitStatus != null">
+            AND d.DEBIT_STATUS = #{debitStatus}
+        </if>
+        <if test="accountName != null and accountName != '' ">
+            AND d.RECEIVE_ACCOUNT_NAME LIKE '%'|| #{accountName}||'%'
+        </if>
+        ORDER BY d.CREATED_DATE DESC
+    </select>
+
+    <!-- 分页查询临账录入复核/退款复核列表-->
+    <select id="selectTaskListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.DebitQuery" resultMap="debitResult">
+        SELECT
+        d.*
+        FROM
+        T_BS_DEBIT d
+        JOIN T_BS_TASK k ON d.DEBIT_ID = k.BIZ_NO
+        WHERE
+        d.ISACTIVE = 'Y' AND d.DEBIT_STATUS=#{debitStatus}
+        AND k.STATUS = #{taskStatus} AND k.BIZ_TYPE = #{taskType}
+        AND k.EXE_CUST_ID = #{optCustId}
+        <if test="startDate != null and startDate != '' ">
+            AND d.PAY_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND d.PAY_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="payEntCustName != null and payEntCustName != '' ">
+            AND d.PAY_ENT_CUST_NAME like '%'||#{payEntCustName}||'%'
+        </if>
+
+        <if test="useEntCustName != null and useEntCustName != '' ">
+            AND d.USE_ENT_CUST_NAME like '%'||#{useEntCustName}||'%'
+        </if>
+        <if test="accountName != null and accountName != '' ">
+            AND d.RECEIVE_ACCOUNT_NAME LIKE '%'|| #{accountName}||'%'
+        </if>
+        ORDER BY d.CREATED_DATE DESC
+    </select>
+
+    <!-- 查询临账记录详情 -->
+    <select id="selectBeanById" parameterType="string" resultMap="debitResult">
+        SELECT *
+        FROM
+            T_BS_DEBIT
+        WHERE
+            DEBIT_ID = #{debitId}
+    </select>
+
+    <!-- 更新临账记录状态 -->
+    <update id="updateDebitStatus" parameterType="com.gy.hsxt.bs.bean.tempacct.Debit">
+        UPDATE
+        T_BS_DEBIT
+        SET
+        DEBIT_STATUS = #{debitStatus},
+        UPDATEDBY = #{updatedBy},
+        <if test="balanceRecord != null and balanceRecord != '' ">
+            BALANCE_RECORD = #{balanceRecord},
+        </if>
+        <if test="auditRecord != null and auditRecord != '' ">
+            AUDIT_RECORD = #{auditRecord},
+        </if>
+        <if test="auditCustId != null and auditCustId != '' ">
+            AUDIT_CUST_ID = #{auditCustId},
+        </if>
+        <if test="auditCustName != null and auditCustName != '' ">
+            AUDIT_CUST_NAME = #{auditCustName},
+            AUDIT_TIME = systimestamp ,
+        </if>
+        <if test="refundAmount != null and refundAmount != '' ">
+            REFUND_AMOUNT = #{refundAmount},
+        </if>
+        <if test="refundRecord != null and refundRecord != '' ">
+            REFUND_RECORD = #{refundRecord},
+        </if>
+        <if test="refundAuditRecord != null and refundAuditRecord != '' ">
+            REFUND_AUDIT_RECORD = #{refundAuditRecord},
+        </if>
+        <if test="unlinkAmount != null and unlinkAmount != '' ">
+            UNLINK_AMOUNT = #{unlinkAmount},
+        </if>
+        <if test="linkAmount != null and linkAmount != '' ">
+            LINK_AMOUNT = #{linkAmount},
+        </if>
+        UPDATED_DATE = systimestamp,UPDATED_NAME=#{updatedName}
+        WHERE
+        DEBIT_ID = #{debitId}
+    </update>
+
+
+    <!-- 分页查询临帐按帐户名称分组统计总金额 -->
+    <select id="selectDebitSumListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.DebitQuery" resultType="com.gy.hsxt.bs.bean.tempacct.DebitSum">
+        SELECT
+            t.RECEIVE_ACCOUNT_NAME        AS receiveAccountName,
+            nvl(sum(t.PAY_AMOUNT), 0)    AS payAllAmount,
+            nvl(sum(t.LINK_AMOUNT), 0)   AS linkAllAmount,
+            nvl(sum(t.UNLINK_AMOUNT), 0) AS unlinkAllAmount,
+            nvl(sum(
+                        CASE WHEN t.DEBIT_STATUS = 5
+                            THEN 0
+                        ELSE t.REFUND_AMOUNT
+                        END
+                ), 0)   AS refundAllAmount
+        FROM
+            T_BS_DEBIT t
+        WHERE
+            t.ISACTIVE = 'Y' AND t.DEBIT_STATUS NOT IN (0, 4)
+        <if test="startDate != null and startDate != '' ">
+            AND t.PAY_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            AND t.PAY_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="accountName != null and accountName != '' ">
+            AND t.RECEIVE_ACCOUNT_NAME LIKE '%'|| #{accountName}||'%'
+        </if>
+        GROUP BY t.RECEIVE_ACCOUNT_NAME
+    </select>
+
+    <!-- 临账统计详情分页查询 -->
+    <select id="selectDebitSumDetail"  resultMap="debitResult">
+        SELECT t.*
+        FROM
+            T_BS_DEBIT t
+        WHERE
+            t.ISACTIVE = 'Y' AND t.DEBIT_STATUS NOT IN (0, 4)
+            AND t.RECEIVE_ACCOUNT_NAME = #{receiveAccountName}
+        <if test="debitQuery.startDate != null and debitQuery.startDate != '' ">
+            AND t.PAY_TIME &gt;= #{debitQuery.startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="debitQuery.endDate != null and debitQuery.endDate != '' ">
+            AND t.PAY_TIME &lt; #{debitQuery.endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+
+    <!-- 统计不动款的总金额 -->
+    <select id="frozenDebitSum" resultType="string" parameterType="int">
+        SELECT nvl(sum(t.UNLINK_AMOUNT), 0)
+        FROM
+            T_BS_DEBIT t
+        WHERE
+            t.ISACTIVE = 'Y'
+            AND t.DEBIT_STATUS = #{debitStatus}
+    </select>
+
+</mapper>

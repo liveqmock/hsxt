@@ -1,0 +1,50 @@
+<div class="table_info info_600 bc">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">转不动款金额</td>
+			<td class="view_text" width="30%"><%=comm.formatMoneyNumber(obj.unlinkAmount)%></td>
+			<td class="view_item" width="20%">付款企业名称</td>
+			<td class="view_text" width="30%"><%=obj.payEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款金额</td>
+			<td class="view_text"><%=comm.formatMoneyNumber(obj.payAmount)%></td>
+			<td class="view_item">拟用企业互生号</td>
+			<td class="view_text"><%=obj.useEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款用途</td>
+			<td class="view_text"><%=obj.payUserString%></td>
+			<td class="view_item">付款时间</td>
+			<td class="view_text"><%=obj.payTime%></td>
+		</tr>
+	</table>
+	<form id="zbdk_form" autocomplete="off">
+		<ul>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">转不动款说明</label>
+				<textarea name="balanceRecord" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入转不动款说明，不超过300字"></textarea>
+				<span class="required-right-15">*</span>
+			</li>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h30_middle">选择验证方式</label>
+				<input id="verificationMode"  name="verificationMode" readonly="readonly" placeholder="选择验证方式" optionvalue="" />
+				<span class="required-right-15">*</span>
+				<span id="verificationMode_prompt" class="none red ml10">当前版本暂时不支持这种验证方式</span>
+			</li>
+			<li class="register_row clearfix pr none" id="fhy_userName">
+				<label class="fl w115 h30_middle">复核员用户名</label>
+				<input type="text" name="txtReviewUser" id="txtReviewUser" class="fl w185 h30_middle ml5" placeholder="输入复核员用户名" maxlength="4" />
+				<span class="required-right-15">*</span>
+			</li>
+			<li class="register_row clearfix pr none" id="fhy_password">
+				<label class="fl w115 h30_middle">复核员登录密码</label>
+				<input type="password" name="txtReviewPwd" id="txtReviewPwd" class="fl w185 h30_middle ml5" placeholder="输入复核员登录密码" maxlength="6" />
+				<input type="hidden" name="debitId" value="<%=obj.debitId%>"/>
+				<input type="hidden" name="dblOptCustId" id="dblOptCustId" value=""/>
+				<input type="hidden" name="debitStatus" value="7"/>
+				<span class="required-right-15">*</span>
+			</li>
+		</ul>
+	</form>
+</div>

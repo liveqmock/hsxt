@@ -1,0 +1,39 @@
+﻿<div class="search-toolbar">
+  <form id="xtywddcx_form" name="xtywddcx_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">订单类型：</label><input type="text" id="orderType" readonly="readonly" placeholder="请选择" optionvalue=""/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">支付方式：</label><input type="text" id="payChannel" readonly="readonly" placeholder="请选择" optionvalue=""/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_serch" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="systemOrder_table" class="bsgrid">
+  	<thead>
+        <tr>
+          <th w_index="orderNo" width="20%" w_align="left">订单号</th>
+          <th w_index="orderTime" w_align="left">订单时间</th>
+          <th w_render="operate" w_align="left">订单类型</th>
+          <th w_render="operate" w_align="left">订单金额</th>
+          <th w_render="operate" w_align="left">支付方式</th>
+          <th w_render="operate" w_align="left">支付状态</th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+<div id="xtywddcx-dialog" class="none"><p></p></div>

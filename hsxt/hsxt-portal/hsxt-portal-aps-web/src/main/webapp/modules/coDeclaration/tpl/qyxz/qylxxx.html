@@ -1,0 +1,104 @@
+<div class="acct-ct mb10 info_800" style="margin:0 auto">
+    <h1 class="clearfix pt10 pb10">
+        <div class="fl tr tcr_blue fb" style="width:38%;">温馨提示：</div>
+        <div class="fl tl" style="width:62%;">申报提交前，请先保存当前填写的资料，以防丢失！</div>
+    </h1>
+</div>
+<div class="bc mt20 info_800">
+    <form id="qylxxx_form" name="qylxxx_form">
+        <div class="clearfix">
+            <ul class="fl info_320">
+                <li class="register_row clearfix pr">
+                    <label class="fl w115 h30_middle">联系人姓名</label>
+                    <input type="text" id="linkman" name="linkman" value="<%=obj.linkman%>" class="fl w185 h30_middle ml5" placeholder="输入联系人姓名"/>
+                    <span class="required-left330">*</span>
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">联系地址</label>
+                    <input type="text" id="address" name="address" value="<%=obj.address%>" class="fl w185 h30_middle ml5" placeholder="输入联系地址"/>
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">企业安全邮箱</label>
+                    <input type="text" id="email" name="email" value="<%=obj.email%>" class="fl w185 h30_middle ml5" placeholder="输入企业安全邮箱"/>
+                </li>
+                <!--<li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">企业网址</label>
+                    <input type="text" class="fl w185 h30_middle ml5" placeholder="输入企业网址" />
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">办公电话</label>
+                    <input type="text" class="fl w185 h30_middle ml5" placeholder="输入办公电话" />
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">联系人职务</label>
+                    <input type="text" class="fl w185 h30_middle ml5" placeholder="输入联系人职务" />
+                </li>-->
+            </ul>
+            <ul class="fr info_320">
+                <li class="register_row clearfix pr">
+                    <label class="fl w115 h30_middle">联系人手机</label>
+                    <input type="text" id="mobile" name="mobile" value="<%=obj.mobile%>" class="fl w185 h30_middle ml5" placeholder="输入联系人手机"/>
+                    <span class="required-left330">*</span>
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">邮政编码</label>
+                    <input type="text" id="zipCode" name="zipCode" value="<%=obj.zipCode%>" class="fl w185 h30_middle ml5" placeholder="输入邮政编码"/>
+                </li>
+
+                <!--<li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">传真号码</label>
+                    <input type="text" class="fl w185 h30_middle ml5" placeholder="输入传真号码" />
+                </li>
+                <li class="register_row clearfix">
+                    <label class="fl w115 h30_middle">企业联系QQ</label>
+                    <input type="text" class="fl w185 h30_middle ml5" placeholder="输入企业联系QQ" />
+                </li>-->
+
+            </ul>
+        </div>
+        <ul>
+<!--            <li class="register_row clearfix pr">
+                <label class="fl w115 h60_middle">联系人授权委托书</label>
+                <span id="bimg" class="fl ml5 mt5 sample_img"><img id="img" src="resources/img/noImg.gif" width="81" height="52"/></span>
+                <div class="fl pr mt15 ml10">
+                    <input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">
+                    <a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate" name="certificate"></a>
+                    <a id="certificateFileId" class="btn_bg viewSample_btn ml10">模板下载</a>
+                </div>
+				<span class="required-right-15" style="top:25px;">*</span>
+            </li>-->
+
+            <li class="register_row clearfix pr">
+                <label class="fl w115 h60_middle">联系人授权委托书</label>
+                <span id="apsXzBImg" class="fl ml5 mt5 sample_img"><img id="apsXzAuthImg" class="imgSample imgSample_01"/></span>
+                <div class="fl mt15 ml10">
+                    <input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">
+                    <a class="input-file btn_bg upload_btn">上传
+                        <input type="file" id="certificate" name="certificate">
+                </a><a id="certificateFileId" class="btn_bg viewSample_btn ml10">模板下载</a> </div>
+                <span class="required-right-15" style="top:25px;">*</span> </li>
+            <li id="venBef_ul" class="register_row clearfix pr">
+                <label class="fl w115 h60_middle">创业帮扶协议</label>
+                <span id="apsXzCImg" class="fl ml5 mt5"><img id="apsXzHelpImg" class="imgSample imgSample_02"/></span>
+                <div class="fl mt15 ml10"> <a class="input-file btn_bg upload_btn">上传
+                    <input type="file" id="protocolApt" name="protocolApt">
+                </a><a id="helpFileId" class="btn_bg viewSample_btn ml10">模板下载</a> </div>
+                <span class="required-right-15" style="top:25px;">*</span> </li>
+        </ul>
+<!--		<ul id="venBef_ul" style="display:none;">
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">创业帮扶协议</label>
+				<span id="cimg" class="fl ml5 mt5 sample_img"><img id="img1" src="resources/img/noImg.gif" width="81" height="52"></span>
+				<div class="fl mt15 ml10"> <a class="input-file btn_bg upload_btn">上传
+					<input type="file" id="protocolApt" name="protocolApt">
+					</a> </div>
+				<span class="required-right-15" style="top:25px;">*</span> </li>
+		</ul>-->
+        <div class="w300 clearfix bc mt20">
+            <a class="btn_bg submit fl none" id="qylxxx_back">返　回</a>
+            <a class="btn_bg submit fl ml15 mr15" id="qylxxx_save">保&#12288;存</a>
+			<a class="btn_bg submit fr" id="qylxxx_sbtj">申报提交</a>
+            <input type="hidden" id="isNew" name="isNew" value="true">
+        </div>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+<div class="search-toolbar">
+    <ul class="cssform clearfix">
+        <li>
+            <label>时间周期：</label>
+            <input id="sjzq" placeholder="选择时间周期" readonly="readonly"/>
+        </li>
+        <li class="clearfix">
+            <label class="fl h30_middle">工号：</label>
+            <input type="text" name="" placeholder="输入工号" class="h28_middle w115 input-txt" id="hjzxbb_search_zxnum" maxlength="3"/>
+        </li>
+        <li class="clearfix">
+            <label class="fl h30_middle">姓名：</label>
+            <input type="text" name="" placeholder="输入姓名" class="h28_middle w115 input-txt" id="hjzxbb_search_name"/>
+        </li>
+        <li>
+            <button id="hjzxbb_search_btn" type="button" class="btn-search">查询</button>
+        </li>
+    </ul>
+</div>
+<table id="searchTable">
+    <tr>
+        <th w_index="AgentNum" w_align="left">工号</th>
+        <th w_index="UserName" w_align="left">姓名</th>
+        <th  w_align="left"  w_render="operate">签入时长</th>    <!-- w_index="LogInTime" -->
+        <th w_index="OnLineTime" w_align="left">在线时长</th>
+        <th  w_align="left" w_render="operate">通话时长</th> <!-- w_index="TalkTime" -->
+        <th  w_align="left"  w_render="operate">置忙时长</th> <!-- w_index="BusyTime" -->
+        <th w_index="CallInTimes" w_align="left">呼入次数</th>
+        <th w_index="CallOutTimes" w_align="left">呼出次数</th>
+        <th w_index="WorkTimeUsage" w_align="left" w_render="operate">工时利用率</th>
+    </tr>
+</table>
+<div id="hjzxbb_ck1_dlg" class="none ovh"></div>
+<div id="hjzxbb_ck2_dlg" class="none ovh"></div>
+<div id="hjzxbb_ck3_dlg" class="none ovh"></div>

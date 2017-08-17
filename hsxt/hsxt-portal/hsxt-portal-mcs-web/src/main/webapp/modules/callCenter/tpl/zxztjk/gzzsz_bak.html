@@ -1,0 +1,180 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+	<li class="clearfix">
+		<label class="fl h30_middle">工作组名称：</label>
+		<input id="groupName" readonly="readonly" placeholder="选择工作组名称" />
+	</li>
+	<li>
+		<label>工作人员：</label>
+		<input type="text" name="textfield" placeholder="输入工作人员名称" class="h28_middle w115 input-txt" />
+	</li>
+	<li class="clearfix">
+		<label class="fl h30_middle">已排班：</label>
+		<input id="scheduling" readonly="readonly" placeholder="选择" />
+	</li>
+	<li>
+		<button id="qry_btn" type="button" class="btn-search">查询</button>
+	</li>
+	<li>
+		<button id="addgzz_btn" type="button" class="btn-search">增加</button>
+	</li>
+	 </ul>
+</div>
+<table id="searchTable">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="th_1">工作组名称</th>
+	<th w_index="th_2">工作人员</th>
+	<th w_index="th_3">是否可以接入客服电话</th>
+	<th w_index="th_4">功能说明</th>
+	<th w_index="th_5">已排班</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+
+<div id="addgzz_content" class="none">
+	<div class="info_600 bc">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">工作组名称</label>
+					<span class="fl ml5"><input id="workingGroupName_add" readonly="readonly" placeholder="选择工作组名称" /></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h200_middle">工作人员</label>
+					<div class="fl mt5 ml5 w465">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td align="center" width="40%">
+									<span class="red">加载公司所有工作人员</span><br />
+									<select multiple="multiple" class="h160 mt5 w96pc" id="leftSelect_zj">
+										<option value="张三">张三</option>
+										<option value="李四">李四</option>
+										<option value="王五">王五</option>
+									</select>
+								</td>
+								<td align="center" width="20%">
+									<button id="add_select_zj" type="button" class="btn-search">&gt;&gt;&gt;</button><br /><br />
+									<button id="del_select_zj" type="button" class="btn-search">&lt;&lt;&lt;</button>
+								</td>
+								<td align="center" width="40%">
+									<span class="red">被选中的人员</span>
+									<select multiple="multiple" class="h160 mt5 w96pc" id="rightSelect_zj">
+									</select>
+								</td>
+							</tr> 
+						</table>
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">接入客服电话</label>
+					<div class="fl h30_middle">
+						<input type="radio" name="name" class="ml10" value="1" checked="checked" /> 是	
+						<input type="radio" name="name" class="ml10" value="0"  /> 否	
+					</div>
+				</li>
+					<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">功能说明</label>
+					<textarea id="name" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入功能说明"></textarea>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+
+<div id="cxfp_content" class="none">
+	<div class="info_600 bc">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">工作组名称</label>
+					<span class="fl ml5"><input id="workingGroupName_cxfp" readonly="readonly" placeholder="选择工作组名称" /></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h200_middle">工作人员</label>
+					<div class="fl mt5 ml5 w465">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td align="center" width="40%">
+									<span class="red">加载公司所有工作人员</span><br />
+									<select multiple="multiple" class="h160 mt5 w96pc" id="leftSelect_cxfp">
+										<option value="张三">张三</option>
+										<option value="李四">李四</option>
+										<option value="王五">王五</option>
+									</select>
+								</td>
+								<td align="center" width="20%">
+									<button id="add_select_cxfp" type="button" class="btn-search">&gt;&gt;&gt;</button><br /><br />
+									<button id="del_select_cxfp" type="button" class="btn-search">&lt;&lt;&lt;</button>
+								</td>
+								<td align="center" width="40%">
+									<span class="red">被选中的人员</span>
+									<select multiple="multiple" class="h160 mt5 w96pc" id="rightSelect_cxfp">
+									</select>
+								</td>
+							</tr> 
+						</table>
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">接入客服电话</label>
+					<div class="fl h30_middle">
+						<input type="radio" name="name" class="ml10" value="1" checked="checked" /> 是	
+						<input type="radio" name="name" class="ml10" value="0"  /> 否	
+					</div>
+				</li>
+					<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">功能说明</label>
+					<textarea id="name" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入功能说明">处理客服信息查询</textarea>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+
+<div id="pb_content" class="none">
+	<div class="info_600 bc">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">工作组名称</label>
+					<span class="fl ml5"><input id="workingGroupName_pb" readonly="readonly" placeholder="选择工作组名称" /></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h200_middle">工作人员</label>
+					<div class="fl mt5 ml5 w465">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td align="center" width="40%">
+									<span class="red">加载公司所有工作人员</span><br />
+									<select multiple="multiple" class="h160 mt5 w96pc" id="leftSelect_pb">
+										<option value="张三">张三</option>
+										<option value="李四">李四</option>
+										<option value="王五">王五</option>
+									</select>
+								</td>
+								<td align="center" width="20%">
+									<button id="add_select_pb" type="button" class="btn-search">&gt;&gt;&gt;</button><br /><br />
+									<button id="del_select_pb" type="button" class="btn-search">&lt;&lt;&lt;</button>
+								</td>
+								<td align="center" width="40%">
+									<span class="red">被选中的人员</span>
+									<select multiple="multiple" class="h160 mt5 w96pc" id="rightSelect_pb">
+									</select>
+								</td>
+							</tr> 
+						</table>
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">班次名称</label>
+					<input type="text" class="fl w185 h30_middle ml5" placeholder="输入班次名称" />
+				</li>
+					<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">排班时间</label>
+					<input type="text" class="fl w185 h30_middle ml5" placeholder="输入排班时间" id="pb_time" />
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>

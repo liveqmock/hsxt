@@ -1,0 +1,35 @@
+﻿<!--实名注册-->
+<div class="p20" data-id="4">
+	<!-- 资料修改开始 -->
+	<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>互生卡挂失后，被挂失的互生卡会被停止使用！</h1>
+	<div class="register_info mt40 info_500">
+		<form id="hsCardLossReg_form">
+		<input type="hidden" id="hsCardLossReg_randomToken" name="hsCardLossReg_randomToken" value="" />
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">互生卡号</label>
+					<input type="text" id="hsCardLossReg_cardNo" name="hsCardLossReg_cardNo" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">互生卡状态</label>
+					<input type="text" id="hsCardLossReg_status" name="hsCardLossReg_status" value="" disabled="disabled"/>
+					</li>
+					<li id="hsCardLossReg_li_reason" class="register_row info_320 clearfix h50 pb10">
+					<label for="name">挂失原因<label for="name"></label></label>
+					<textarea id="hsCardLossReg_reason" name="hsCardLossReg_reason" class="ml10" maxlength="100" style="width:188px;margin:0;"/></textarea><div class="hint" style="color: red;">*</div>
+					</li>
+					<li id="hsCardLossReg_li_loginpwd" class="register_row info_320 clearfix">
+					<label for="name">登录密码</label>
+					<input type="password" id="hsCardLossReg_loginPwd" name="hsCardLossReg_loginPwd" class="input_gray"  placeholder="请输入登录密码" maxlength="6"/><div class="hint" style="color: red;">*</div>
+					</li>
+				</ul>
+			</div>
+			<input type="hidden" id="hsCardLossReg_CardId" name="hsCardLossReg_CardId"/>
+			<div class="tc two_button mt20"><a id="hsCardLossReg_submitBtn" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="hskjg">确认提交</a></div>
+		</fieldset>
+		</form>
+	</div>
+	<!-- 资料修改结束 --> 
+</div>

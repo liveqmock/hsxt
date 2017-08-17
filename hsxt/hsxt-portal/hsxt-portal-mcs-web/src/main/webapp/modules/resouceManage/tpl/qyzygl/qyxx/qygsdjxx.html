@@ -1,0 +1,43 @@
+<div id="qygsdjxxTpl" class="view_info info_800">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">企业名称</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.mainInfo.entName%></td>
+			<td class="view_item" width="20%">企业地址</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.mainInfo.entRegAddr%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">法人代表</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.mainInfo.creName%></td>
+			<td class="view_item" width="20%">企业类型</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.baseInfo.nature%></td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">营业执照注册号</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.mainInfo.busiLicenseNo%></td>
+			<td class="view_item" width="20%">成立日期</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.baseInfo.buildDate%></td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">营业期限</td>
+			<td class="view_text" width="30%"><%=obj.entDetail.baseInfo.endDate%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text" width="30%"></td>
+		</tr>
+		<tr>
+			<td class="view_item_2" width="20%">经营范围</td>
+			<td class="view_text" colspan="3" width="30%"><%=obj.entDetail.baseInfo.businessScope%></td>
+		</tr>
+
+		<tr>
+			<td class="view_item" width="20%" height="60">营业执照扫描件</td>
+			<td colspan="3" class="view_text pt5 pb5">
+			<span id="busi_license_span" class="fl ml5 mt5 sample_img">
+			<a ><img id="busi_license_img" src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" /></a>
+			</span>
+			</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,64 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">企业互生号</td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+            <td class="view_item" width="18%">售后编号</td>
+            <td class="view_text" width="32%"><%=obj.afterOrderNo%></td>
+        </tr>
+       <!-- <tr>
+            <td class="view_item">工具类别</td>
+            <td class="view_text"><%=obj.th_4%></td>
+            <td class="view_item">原订单号</td>
+            <td class="view_text"><%=obj.th_5%></td>
+        </tr>--> 
+        <tr>
+            <td class="view_item">生成时间</td>
+            <td class="view_text"><%=obj.reqTime%></td>
+            <td class="view_item">操作员</td>
+            <td class="view_text"><span id="reqOperator" ><%=obj.reqOperator%></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">问题描述</td>
+            <td class="view_text" colspan="3"><span id="reqRemark" ><%=obj.reqRemark%></span></td>
+        </tr>
+        <!--<tr>
+            <td class="view_item">图片信息</td>
+            <td class="view_text" colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="view_item">收件地址</td>
+            <td class="view_text" colspan="3"><span id="fullAddr"><%=obj.fullAddr%></span></td>
+        </tr>-->
+        <tr>
+        	<td colspan="4" valign="top">
+            	<div class="p10">
+				<div class="search-toolbar clearfix">
+					<ul class="cssform">
+						<li class="h30_middle fb">工具列表</li>
+					</ul>
+				</div>
+					<div class="td_hauto">
+					<table id="searchTable_1">
+						<tr>
+							<th w_num="line" width="5%;">序号</th>
+							<th w_index="deviceSeqNo">工具序列号</th>
+							<th w_index="categoryCode" w_render="operate">工具类别</th>
+							<th w_index="disposeType" w_render="operate">处理结果</th>
+							<th w_index="disposeAmount">维修补款金额</th>
+						</tr>
+					</table>
+					</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">处理说明</td>
+            <td class="view_input pl5" colspan="3"><span id="apprRemark"></span></td>
+        </tr>
+		<tr>
+            <td class="view_item">付款状态</td>
+            <td class="view_input pl5" colspan="3"><span id="payStatus"></span></td>
+        </tr>
+    </table>
+</div>

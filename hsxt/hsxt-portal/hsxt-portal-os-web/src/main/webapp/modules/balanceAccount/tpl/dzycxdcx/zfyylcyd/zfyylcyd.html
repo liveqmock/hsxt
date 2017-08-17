@@ -1,0 +1,35 @@
+<div id="zfyylcydTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>对账日期：</label>
+				<input type="text" name="zfyylcyd_beginDate" id="zfyylcyd_beginDate" placeholder="开始日期" class="queryList-toolbar-text" readonly="readonly">
+        <span class="separator-pd">-</span>
+        <input type="text" name="zfyylcyd_endDate" id="zfyylcyd_endDate" placeholder="截止日期" class="queryList-toolbar-text" readonly="readonly">
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">对账结果：</label>
+				<input id="zfyylcyd_tb_dzjg" name="zfyylcyd_tb_dzxt" placeholder="选择对账结果" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="zfyylcyd_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="zfyylcyd_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="zfyylcyd_date" w_align="left">对账日期</th>
+			<th w_index="zfyylcyd_dzjg" w_align="left">对账结果</th>
+			<th w_index="zfyylcyd_no" w_align="left">交易单号</th>
+			<th w_index="zfyylcyd_pay" w_align="left">交易金额</th>
+			<th w_index="zfyylcyd_stat" w_align="left">交易状态</th>
+            <th w_index="zfyylcyd_ylje" w_align="left">银联金额</th>
+            <th w_index="zfyylcyd_ylzt" w_align="left">银联状态</th>
+            <th w_index="zfyylcyd_ylsj" w_align="left">银联交易时间</th>
+            <th w_index="zfyylcyd_yllsh" w_align="left">银联流水号</th>
+		</tr>
+	</table>
+</div>
+
+<div id="zfyylcyd_dlg" class="none ovh"></div>

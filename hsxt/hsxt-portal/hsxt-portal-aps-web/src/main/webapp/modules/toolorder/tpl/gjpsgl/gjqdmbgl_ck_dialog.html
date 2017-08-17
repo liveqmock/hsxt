@@ -1,0 +1,159 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">模板名称</td>
+            <td class="view_text" width="32%"><%=obj.th_1%></td>
+            <td class="view_item" width="18%">适用申购类型</td>
+            <td class="view_text" width="32%"><%=obj.th_2%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10"><%=obj.th_2%>模板内容</span></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+            	<div class="tab_fieldset">
+                	<fieldset>
+						<% if(obj.th_2 == '申报申购'){ %>
+                    	<legend>签收联</legend>
+						<% } %>
+                        <h1>
+						<% if(obj.th_2 == '新增申购'){ %>
+						配送企业信息
+						<% } else if(obj.th_2 == '申报申购'){ %>
+						配送企业所属服务公司信息
+						<% } %>
+						</h1>
+                        <div class="tab_tinfo mt5">
+                          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                  <td width="9%" align="right">企业互生号：</td>
+                                  <td width="16%"></td>
+                                  <td width="9%" align="right">企业名称：</td>
+                                  <td width="41%"></td>
+                                  <td width="9%" align="right">联系人：</td>
+                                  <td width="16%"></td>	
+                              </tr>
+                              <tr>
+                                  <td align="right">联系电话：</td>
+                                  <td></td>
+                                  <td align="right">联系地址：</td>
+                                  <td></td>
+                                  <td align="right">邮编：</td>
+                                  <td></td>
+                              </tr>
+                          </table>
+                        </div>
+						<% if(obj.th_2 == '新增申购'){ %>
+						<h1 class="mt10">收件信息</h1>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab_tlist mt5">
+                        	<tr>
+                            	<th></th>
+                                <th>姓名</th>
+                                <th>手机号码</th>
+                                <th width="40%">收件地址</th>
+                                <th>邮编</th>
+                            </tr>
+                            <tr>
+                                <td>[联系地址]</td>
+                                <td>张三</td>
+                                <td>13888888888</td>
+                                <td>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+                                <td>518000</td>
+                            </tr>
+                        </table>
+						<% } %>
+                        <h1 class="mt10">配送工具清单</h1>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab_tlist mt5">
+                        	<tr>
+                            	<th>工具名称</th>
+                                <th>工具数量</th>
+                                <th>配送物品类型</th>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>1</td>
+                                <td>订单工具</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>10</td>
+                                <td>配套物品</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>1</td>
+                                <td>赠送物品</td>
+                            </tr>
+                        </table>
+						<% if(obj.th_2 == '申报申购'){ %>
+						<h1 class="mt10">企业签收</h1>
+                        <div class="mt5">
+                        	<p class="ftpts">本企业确认已收到以上互生系统平台的使用工具，且服务公司已针对上述工具进行了相关的使用培训。我单位相关工作人员已熟悉上述工具相关操作。</p>
+                            <p>
+                            	<ul class="cssform fr clearfix">
+                                  <li class="mr20">
+                                      <label class="fl h28_middle">签收人：</label>
+                                      <div class="fl ml5 iptline w115">
+									  	<input type="text" class="h28_middle w100" value="张三" readonly="readonly" />
+									  </div> 
+                                  </li>
+                                  <li>
+                                      <label class="fl h28_middle">签收日期：</label>
+                                      <div class="fl ml5 iptline w115">
+									  	<input type="text" name="textfield" class="h28_middle w100" value="2015-08-31" readonly="readonly" />
+									</div> 
+                                  </li>
+                               </ul>
+                            </p>
+                        </div>
+						<% } %>
+                    </fieldset>
+                </div>
+				<% if(obj.th_2 == '申报申购'){ %>
+				<div class="pr m10"><div class="cline"></div><span class="cft">裁剪线</span></div>
+				<div class="tab_fieldset">
+                	<fieldset>
+                    	<legend>工具清单联</legend>
+                        <h1>配送企业信息</h1>
+                        <div class="tab_tinfo mt5">
+                          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                  <td width="14%" align="right">配送企业管理号：</td>
+                                  <td width="16%"></td>
+                                  <td width="14%" align="right">配送企业名称：</td>
+                                  <td width="56%"></td>
+                              </tr>
+                          </table>
+                        </div>
+                        <h1 class="mt10">配送工具清单</h1>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab_tlist mt5">
+                        	<tr>
+                            	<th>工具名称</th>
+                                <th>工具数量</th>
+                                <th>配送物品类型</th>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>1</td>
+                                <td>订单工具</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>10</td>
+                                <td>配套物品</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxxxxxxx</td>
+                                <td>1</td>
+                                <td>赠送物品</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+				<% } %>
+                
+                
+            </td>
+        </tr>
+    </table>
+</div>

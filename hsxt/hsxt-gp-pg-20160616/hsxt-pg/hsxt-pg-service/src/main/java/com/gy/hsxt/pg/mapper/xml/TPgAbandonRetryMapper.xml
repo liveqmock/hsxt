@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgAbandonRetryMapper">
+	<insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgAbandonRetry">
+		insert into T_PG_ABANDON_RETRY (RETRY_ID, BUSINESS_ID,
+		RETRY_BUSINESS_TYPE,
+		RETRY_STATUS, RETRY_COUNTS, LAST_RETRY_DATE,
+		NEXT_RETRY_DATE, CREATED_DATE, UPDATED_DATE
+		)
+		values (#{retryId,jdbcType=INTEGER}, #{businessId,jdbcType=VARCHAR},
+		#{retryBusinessType,jdbcType=INTEGER},
+		#{retryStatus,jdbcType=INTEGER}, #{retryCounts,jdbcType=INTEGER},
+		#{lastRetryDate,jdbcType=TIMESTAMP},
+		#{nextRetryDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+</mapper>

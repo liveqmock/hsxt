@@ -1,0 +1,56 @@
+<div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">省/州/直辖市：</label>
+                                <input id='provinceNo' placeholder="-请选择-" options="[]" optionValue=""  readonly="readonly"  />       
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">城市/区县：</label>
+                                <input id='cityNo' placeholder="-请选择-" options="[]" optionValue=""  readonly="readonly"  />       
+                            </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="queryBtn" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab-xfz">
+  <tbody><tr>
+    <td class="bg_grey red" width="25%" id="provinceText"></td>
+    <td class="bg_lvse" width="25%">城市/区个数<span class="ml10" id="cityNum"></span></td>
+    <td class="bg_lvse" width="25%">系统资源服务公司配额<span class="ml10" id="sResNum"></span></td>
+    <td class="bg_lvse" width="25%">已使用配额<span class="ml10" id="useSResNum"></span></td>
+  </tr>
+</tbody>
+</table>
+                    
+
+<div class="search-cont mt5">
+<table id="detailTable" class="bsgrid">
+  <tr >
+    <td class="bg_ddd"  rowspan="2">城市、区县</td>
+    <td class="bg_ddd" rowspan="2">城市常住人口</td>
+    <td class="bg_ddd" rowspan="2">城市配额</td>
+    <td class="bg_ddd" rowspan="2">已使用配额</td>
+    <td class="bg_ddd wbd-bt" colspan="3">尚可用配额</td>
+  </tr>
+  <tr  >
+    <td class="bg_ddd" width="10%">总数</th>
+    <td class="bg_ddd" width="10%">未使用</th>
+    <td class="bg_ddd" width="10%">拟使用</th>
+  </tr>
+    <tr class='none'>
+    <th w_index="cityNo" w_render="operate">城市、区县</th>
+    <th w_index="population" >城市常住人口</th>
+    <th w_index="totalQuotaNum" w_render="operate">城市配额</th>
+    <th w_index="usedQuotaNum" w_render="operate">已使用配额</th> 
+    <th w_index="usableQuotaNum" w_render="operate">总数</th>
+    <th w_index="unUseQuotaNum" w_render="operate">未使用</th>
+    <th w_index="usingQuotaNum" w_render="operate">拟使用</th>
+  </tr>
+   
+</table>
+</div>
+<div id="fwgs_dialog" class="none"></div>

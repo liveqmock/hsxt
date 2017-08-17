@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.ProvinceMapper">
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.gpf.gcs.bean.Province">
+	INSERT INTO T_GCS_PROVINCE (
+		PROVINCE_NO,
+		COUNTRY_NO,
+		PROVINCE_NAME_CN,
+		PROVINCE_NAME,
+		DIRECTED_CITY,
+		DEL_FLAG,
+		VERSION
+	)
+	VALUES
+		(
+			#{provinceNo},#{countryNo},#{provinceNameCn},#{provinceName},#{directedCity},#{delFlag},#{version})
+	</insert>
+	<!-- 获取某个条记录 -->
+	<select id="getProvince" parameterType="string"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_GCS_PROVINCE
+		WHERE
+			PROVINCE_NO = #{provinceNo}
+	</select>
+	<!-- 获取列表 -->
+	<select id="getProvinceListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Province"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			VERSION AS version
+		FROM
+			T_GCS_PROVINCE
+		WHERE
+			DEL_FLAG = 0
+		<if test="provinceNo != null and provinceNo != '' "> 
+				<![CDATA[  AND PROVINCE_NO=#{provinceNo}  ]]>
+		</if>
+		<if test="countryNo != null and countryNo != '' "> 
+				<![CDATA[  AND COUNTRY_NO=#{countryNo}  ]]>
+		</if>
+		<if test="provinceNameCn != null and provinceNameCn != '' "> 
+				<![CDATA[  AND PROVINCE_NAME like CONCAT('%',#{provinceNameCn},'%') escape '/'  ]]>
+		</if>
+		 order by PROVINCE_NO
+	</select>
+	<!-- 获取下拉菜单列表 -->
+	<select id="getProvinceDropdownmenu" parameterType="string"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			VERSION AS version
+		FROM
+			T_GCS_PROVINCE
+		WHERE
+			DEL_FLAG = 0
+		AND COUNTRY_NO = #{countryNo}
+		ORDER BY
+			PROVINCE_NO
+	</select>
+	<!-- 更新一条记录 -->
+	<update id="update" parameterType="com.gy.hsxt.gpf.gcs.bean.Province">
+		update T_GCS_PROVINCE
+			<set>
+				COUNTRY_NO=#{countryNo},
+				PROVINCE_NAME_CN=#{provinceNameCn},
+				PROVINCE_NAME=#{provinceName},
+				DIRECTED_CITY=#{directedCity},
+				VERSION=#{version}
+			</set>
+		where PROVINCE_NO=#{provinceNo}
+	</update>
+	<!-- 删除一条记录 -->
+	<update id="delete" parameterType="com.gy.hsxt.gpf.gcs.bean.Province">
+		update T_GCS_PROVINCE
+			<set>
+				DEL_FLAG=#{delFlag},
+				VERSION=#{version}
+			</set>
+		where PROVINCE_NO=#{provinceNo}
+	</update>
+	<!--是否已存在相同代码 -->
+	<select id="existProvince" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_GCS_PROVINCE
+			WHERE
+				PROVINCE_NO = #{provinceNo}
+		]]>
+	</select>
+	<!-- 读取大于某个版本号的数据 -->
+	<select id="queryProvinceSyncData" resultType="com.gy.hsxt.gpf.gcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			VERSION AS version,
+			DEL_FLAG AS delFlag
+		FROM
+			T_GCS_PROVINCE
+		WHERE
+			VERSION > #{version}
+		ORDER BY
+			PROVINCE_NO
+	</select>
+</mapper>

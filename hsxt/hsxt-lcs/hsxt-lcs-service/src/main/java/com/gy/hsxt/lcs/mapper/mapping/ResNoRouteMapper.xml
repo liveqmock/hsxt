@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.ResNoRouteMapper">
+	<!--是否已存在相同-->
+	<select id="existResNoRoute" resultType="string" >
+		SELECT
+			1
+		FROM
+			T_LCS_RESNO_ROUTE
+		WHERE
+			S_RESNO = #{resNo,jdbcType=VARCHAR}
+	</select>
+	<select id="queryResNoRouteWithPK"  resultType="com.gy.hsxt.lcs.bean.ResNoRoute">
+		SELECT
+			S_RESNO resNo,
+			PLAT_NO platNo,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_RESNO_ROUTE
+		WHERE
+			S_RESNO = #{resNo,jdbcType=VARCHAR}
+	</select>   
+	
+	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_RESNO_ROUTE (
+			S_RESNO,
+			PLAT_NO,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	        (#{item.resNo},
+            #{item.platNo},
+            #{item.delFlag},
+            #{item.version})
+	    </foreach>  
+    </insert>
+		      
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_RESNO_ROUTE
+			<set>
+	          PLAT_NO = #{item.platNo},
+	          DEL_FLAG = #{item.delFlag},
+			  VERSION = #{item.version}
+			</set>
+		 WHERE  
+              S_RESNO = #{item.resNo}
+        </foreach>
+    </update> 
+    
+    <select id="getResNoRouteList"  resultType="com.gy.hsxt.lcs.bean.ResNoRoute">
+		SELECT
+			S_RESNO resNo,
+			PLAT_NO platNo,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_RESNO_ROUTE
+		WHERE
+			DEL_FLAG = FALSE
+	</select>  
+     
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.TempAcctRefundMapper">
+    <!-- 临帐 退款申请 -->
+    <resultMap id="tempAcctRefundResult" type="com.gy.hsxt.bs.bean.tempacct.TempAcctRefund">
+        <result column="APPLY_ID" property="applyId"/>
+        <result column="DEBIT_ID" property="debitId"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="STATUS" property="status"/>
+        <result column="REQ_OPERATOR" property="reqOperator"/>
+        <result column="REQ_OPERATOR_NAME" property="reqOperatorName"/>
+        <result column="REQ_TIME" property="reqTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="REQ_REMARK" property="reqRemark"/>
+        <result column="REQ_REMARK" property="reqRemark"/>
+        <result column="APPR_OPERATOR" property="apprOperator"/>
+        <result column="APPR_OPERATOR_NAME" property="apprOperatorName"/>
+        <result column="APPR_TIME" property="apprTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPR_REMARK" property="apprRemark"/>
+    </resultMap>
+
+    <!-- 创建 退款申请 -->
+    <insert id="createTempAcctRefund" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctRefund">
+        INSERT INTO T_BS_TEMP_ACCT_REFUND (
+            APPLY_ID,
+            DEBIT_ID,
+            REFUND_AMOUNT,
+            STATUS,
+            REQ_OPERATOR,
+            REQ_OPERATOR_NAME,
+            REQ_TIME,
+            REQ_REMARK
+        ) VALUES (
+            #{applyId},
+            #{debitId},
+            #{refundAmount},
+            0,
+            #{reqOperator},
+            #{reqOperatorName},
+            systimestamp,
+            #{reqRemark}
+        )
+    </insert>
+    <!-- 审批 临账退款申请单 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctRefund">
+        UPDATE
+            T_BS_TEMP_ACCT_REFUND
+        SET
+            STATUS        = #{status},
+            APPR_OPERATOR = #{apprOperator},
+            APPR_OPERATOR_NAME = #{apprOperatorName},
+            APPR_TIME     = systimestamp,
+            APPR_REMARK   = #{apprRemark}
+        WHERE
+            STATUS = 0 AND
+            DEBIT_ID = #{debitId}
+    </update>
+    <!-- 更加临账ID查询退款信息 -->
+    <select id="selectBeanByDebitId" parameterType="string" resultMap="tempAcctRefundResult">
+        SELECT t.* FROM T_BS_TEMP_ACCT_REFUND t WHERE t.DEBIT_ID = #{debitId}
+    </select>
+
+</mapper>

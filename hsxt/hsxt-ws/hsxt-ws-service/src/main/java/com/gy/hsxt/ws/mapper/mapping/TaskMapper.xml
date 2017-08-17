@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.TaskMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.Task">
+		<id column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+		<result column="BIZ_TYPE" property="bizType" jdbcType="VARCHAR" />
+		<result column="BIZ_NO" property="bizNo" jdbcType="VARCHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="PRIORITY" property="priority" jdbcType="DECIMAL" />
+		<result column="EXE_CUST_ID" property="exeCustId" jdbcType="VARCHAR" />
+		<result column="EXE_CUST_NAME" property="exeCustName" jdbcType="VARCHAR" />
+		<result column="ASSIGNED_TIME" property="assignedTime" jdbcType="TIMESTAMP" />
+		<result column="ACCEPT_TIME" property="acceptTime" jdbcType="TIMESTAMP" />
+		<result column="FINISH_TIME" property="finishTime" jdbcType="TIMESTAMP" />
+		<result column="WARN_FLAG" property="warnFlag" jdbcType="DECIMAL" />
+		<result column="REDIRECT_FLAG" property="redirectFlag" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="ASSIGN_HIS" property="assignHis" jdbcType="VARCHAR" />
+		<result column="TASK_SRC" property="taskSrc" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   TASK_ID,
+       BIZ_TYPE,
+       BIZ_NO,
+       ENT_CUST_ID,
+       CREATED_DATE,
+       PRIORITY,
+       EXE_CUST_ID,
+       EXE_CUST_NAME,
+       ASSIGNED_TIME,
+       ACCEPT_TIME,
+       FINISH_TIME,
+       WARN_FLAG,
+       REDIRECT_FLAG,
+       STATUS,
+       ASSIGN_HIS,
+       TASK_SRC
+	</sql>
+
+	<!-- 查询工单信息通过工单编号 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_TASK
+		where TASK_ID = #{taskId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 插入工单信息 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.Task">
+		insert into T_WS_TASK
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				TASK_ID,
+			</if>
+			<if test="bizType != null">
+				BIZ_TYPE,
+			</if>
+			<if test="bizNo != null">
+				BIZ_NO,
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="priority != null">
+				PRIORITY,
+			</if>
+			<if test="exeCustId != null">
+				EXE_CUST_ID,
+			</if>
+			<if test="exeCustName != null">
+				EXE_CUST_NAME,
+			</if>
+			<if test="assignedTime != null">
+				ASSIGNED_TIME,
+			</if>
+			<if test="acceptTime != null">
+				ACCEPT_TIME,
+			</if>
+			<if test="finishTime != null">
+				FINISH_TIME,
+			</if>
+			<if test="warnFlag != null">
+				WARN_FLAG,
+			</if>
+			<if test="redirectFlag != null">
+				REDIRECT_FLAG,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="assignHis != null">
+				ASSIGN_HIS,
+			</if>
+			<if test="taskSrc != null">
+				TASK_SRC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				#{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="bizType != null">
+				#{bizType,jdbcType=VARCHAR},
+			</if>
+			<if test="bizNo != null">
+				#{bizNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				#{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="priority != null">
+				#{priority,jdbcType=DECIMAL},
+			</if>
+			<if test="exeCustId != null">
+				#{exeCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="exeCustName != null">
+				#{exeCustName,jdbcType=VARCHAR},
+			</if>
+			<if test="assignedTime != null">
+				#{assignedTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="acceptTime != null">
+				#{acceptTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="finishTime != null">
+				#{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="warnFlag != null">
+				#{warnFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="redirectFlag != null">
+				#{redirectFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="assignHis != null">
+				#{assignHis,jdbcType=VARCHAR},
+			</if>
+			<if test="taskSrc != null">
+				#{taskSrc,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改工单信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.Task">
+		update T_WS_TASK
+		<set>
+			<if test="bizType != null">
+				BIZ_TYPE = #{bizType,jdbcType=VARCHAR},
+			</if>
+			<if test="bizNo != null">
+				BIZ_NO = #{bizNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="priority != null">
+				PRIORITY = #{priority,jdbcType=DECIMAL},
+			</if>
+			<if test="exeCustId != null">
+				EXE_CUST_ID = #{exeCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="exeCustName != null">
+				EXE_CUST_NAME = #{exeCustName,jdbcType=VARCHAR},
+			</if>
+			<if test="assignedTime != null">
+				ASSIGNED_TIME = #{assignedTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="acceptTime != null">
+				ACCEPT_TIME = #{acceptTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="finishTime != null">
+				FINISH_TIME = #{finishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="warnFlag != null">
+				WARN_FLAG = #{warnFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="redirectFlag != null">
+				REDIRECT_FLAG = #{redirectFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="assignHis != null">
+				ASSIGN_HIS = #{assignHis,jdbcType=VARCHAR},
+			</if>
+			<if test="taskSrc != null">
+				TASK_SRC = #{taskSrc,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where TASK_ID = #{taskId,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

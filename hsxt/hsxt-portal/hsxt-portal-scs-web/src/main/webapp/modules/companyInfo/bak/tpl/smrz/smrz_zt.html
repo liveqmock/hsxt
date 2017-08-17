@@ -1,0 +1,53 @@
+<div id="smrz_zt_tpl" class="p20 ovh">
+		<div class=" bd_dot_gray">
+		<ul class="certificateSample clearfix">
+		
+    <li><span class="f13">法人代表证件正面</span>
+      <div class="mt10 mb10 sampleBox"><i class="certificateSample_img certificateSample_01" id="lrcFacePic"></i></div>
+    </li>
+    <li><span class="f13">法人代表证件反面</span>
+      <div class="mt10 mb10 sampleBox"><i class="certificateSample_img certificateSample_02" id="lrcBackPic"></i></div>
+    </li>
+    <li><span class="f13">营业执照正本扫描件</span>
+      <div class="mt10 mb10 sampleBox"><i class="certificateSample_img certificateSample_03" id="licensePic"></i></div>
+    </li>
+    <li><span class="f13">组织机构代码证正本扫描件</span>
+      <div class="mt10 mb10 sampleBox"><i class="certificateSample_img certificateSample_04" id="orgPic"></i></div>
+	</li>
+	<li style="margin-right:0;">
+		<span class="f13">税务登记证正本扫描件</span>
+		<div class="mt10 mb10 sampleBox"><i class="certificateSample_img certificateSample_05" id="taxPic"></i></div>
+											
+	</li>
+		</ul>
+	</div>
+
+	<!--审批结果前显示内容结束-->
+    <!--审批驳回后显示内容开始-->
+	<div class="register_info mt20">
+        <ul>
+			<li class="register_row info_320 clearfix">
+			<label for="name">状态</label><span class="fl ml10" id="approve_status" style="height:30px;line-height:30px;vertical-align:middle;"></span>
+			</li>
+			<li class="register_row_2 clearfix">
+			<label for="name">审批意见</label>
+            <div style="height:40px;width:658px;margin-left:121px;padding:10px;overflow-y:auto;line-height:20px;"><%=obj.apprContent%></div>
+			</li>
+		</ul>
+	</div>
+	<div class="mt20" align="center" id="">
+		<a class="btn_bg submit_long" id="btn_cxsmrz">重新实名认证</a>
+	</div>	
+<!--审批驳回后显示内容结束-->
+</div>
+
+
+<div id="smrz_ztts_tpl" class="none">
+    <div class="page_tips_subwrap">
+        <div class="page_tips bc tc">
+            <h1 class="f16 fb">温馨提示</h1>
+            <p class="f14 fb">贵企业已通过实名认证！</p>
+        </div>
+    </div>
+</div>
+<div id="showImageDiv50" class="none"><img alt="上传图片" src="" id="showImage50" width="800" height="600"></div>

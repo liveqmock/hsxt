@@ -1,0 +1,50 @@
+<div class="view_info info_800">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">联系人姓名</td>
+			<td class="view_text" width="30%"><%=obj.contactPerson%></td>
+			<td class="view_item" width="20%">联系人手机</td>
+			<td class="view_text" width="30%"><%=obj.contactPhone%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">联系地址</td>
+			<td class="view_text" width="30%"><%=obj.contactAddr%></td>
+			<td class="view_item" width="20%">邮政编码</td>
+			<td class="view_text" width="30%"><%=obj.postCode%></td>
+		</tr>
+		<tr>
+			
+			<td class="view_item" width="20%">企业安全邮箱</td>
+			<td colspan="3" class="view_text" width="60%"><%=obj.contactEmail%></td>
+		</tr>
+	<!-- 	<tr>
+			<td class="view_item" width="20%">办公电话</td>
+			<td class="view_text" width="30%"><%=obj.officeTel%></td>
+			<td class="view_item" width="20%">传真号码</td>
+			<td class="view_text" width="30%"><%=obj.webSite%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">联系人职务</td>
+			<td class="view_text" width="30%"><%=obj.contactDuty%>务</td>
+			<td class="view_item" width="20%">企业联系QQ</td>
+			<td class="view_text" width="30%"><%=obj.officeQq%></td>
+		</tr> -->
+		<tr>
+			<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+			<td colspan="3" class="view_text pt5 pb5">
+			<a href="#"><img  id="img" src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" /></a>
+			</td>
+		</tr>
+		
+		<%if (3 == obj.custType && 2 == obj.startResType){%>
+		<tr>
+           <td class="view_item" width="20%" height="60">创业帮扶协议</td>
+           <td colspan="3" class="view_text pt5 pb5">
+           	<a href="#"><img id="other_protocol" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+           </td>
+        </tr>
+        <%}%>
+		
+	</table>
+<!-- 	<div class="clearfix mt20" align="center"><a class="btn_bg submit" id="lxxx_back">返&#12288;回</a></div> -->
+</div>

@@ -1,0 +1,46 @@
+ <%
+	 var comment = 0.00;
+	 var shopCommentScore = 0.00;
+	 var description = 0.00;
+	 var service = 0.00;
+	 var prescription = 0.00;
+	 if(null != obj.data){
+	 	comment=obj.data;
+	 	if(null!= comment.shopCommentScore){
+	 	   shopCommentScore = comment.shopCommentScore.toFixed(2);
+	 	 }
+	 	$.each(comment.statisticsList,function(key,el){
+			if(el.type == 1){
+			    if(null!= el.scoreAvg){
+	 	          description = el.scoreAvg.toFixed(2);
+	 	        }
+			}
+			if(el.type == 2){
+			 if(null!= el.scoreAvg){
+	 	          service = el.scoreAvg.toFixed(2);
+	 	        }
+			}	
+			if(el.type == 3){
+			if(null!= el.scoreAvg){
+	 	           prescription = el.scoreAvg.toFixed(2);
+	 	        }
+			
+			}					
+		});
+	 	
+	 }
+	
+ %>
+       		
+                      	   	<!-- 操作台切换标签开始 -->
+                            <div class="czt_Nav">
+                             <div class=" w200 fl fb">&nbsp;</div>
+                               <div class="czt_Nav_pf tc fr ">综合评分：<span class=" tcr_red fb"><%= shopCommentScore%></span>分 | 描述评分：<span class="tcr_red fb"><%= description%></span>分, 服务评分：<span class="tcr_red fb"><%= service%></span>分, 时效评分：<span class="tcr_red fb"><%= prescription%></span>分</div>
+                        
+                            </div>
+                            <!-- 操作台切换标签结束 -->
+                            <div id="marketTable"></div>
+                          <div id="xieyi" class="none"></div>
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>

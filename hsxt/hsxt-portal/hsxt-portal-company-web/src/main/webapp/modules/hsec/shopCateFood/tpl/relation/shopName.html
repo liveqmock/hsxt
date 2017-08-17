@@ -1,0 +1,22 @@
+<div class="clearfix">
+<div class="std_checkbox pr5">
+   <input name="itemDataCheckBox" style="margin-top:34px;" type="checkbox" status="<%=status%>" value="<%=id%>" data-itemId="<%=strId%>"/>
+ </div>
+  <% 
+    var picUrl;
+    try{
+       	var obj =JSON.parse(picList[0].webPicUrl)
+        	picUrl=picList[0].picUrl+obj["68x68"]
+       }catch(e){
+        	picUrl = "";
+       }
+ %>
+ <div class="std_jbxximg"><img class="itemFooImg" src="<%=picUrl%>" width="80" height="80"></div>
+ <div class="fl tl">
+   <ul class="w180">
+     <li class="lh24" style="white-space:nowrap;">商品编号：<%=strId%></li>
+     <li class="lh24"><span class="fl">商品名称：</span><span style="width: 130px;display: inline-block;word-wrap: break-word;"><%=name%></span></a></li>
+     <li class="lh24"><span class="fl">货号：</span><span style="width: 150px;display: inline-block;word-wrap: break-word;"><%=code%></span></li>           
+   </ul>
+ </div>
+</div>

@@ -1,0 +1,100 @@
+<div id="lzlrTpl" class="info_800 bc">
+	<form id="lzlrTpl_form" autocomplete="off">
+		<div class="fb">收款信息</div>
+		<ul>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h30_middle">收款账户名称</label>
+				<span><input id="accountInfoId" name="accountInfoId" readonly="readonly" placeholder="选择收款账户名称" /></span>
+				<span class="required-right-15">*</span>
+			</li>
+		</ul>
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款银行名称</label>
+					<input type="text" value="<%=obj.bankName%>" id="bankName" class="fl w185 h30_middle ml5" readonly="readonly" />
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">到账时间</label>
+					<input type="text" id="accountReceiveTime" name="accountReceiveTime" class="fl w185 h30_middle ml5" readonly="readonly" />
+					<span class="required-left330">*</span>
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款账号</label>
+					<input type="text" value="<%=obj.receiveAccountNo%>" id="receiveAccountNo" class="fl w185 h30_middle ml5" readonly="readonly" />
+				</li>
+				<li class="h30_middle mt5 clearfix">
+					<input type="checkbox" id="isPlatformFilling" name="isPlatformFilling" value="1" class="fl mt8"/> <label for="cb" class="fl ml5 h30_middle label_noStyle">平台补余额</label>
+				</li>
+			</ul>
+		</div>
+		<div class="fb mt20">付款信息</div>
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">付款时间</label>
+					<input type="text" id="payTime" name="payTime" value="" class="fl w185 h30_middle ml5" placeholder="选择付款时间" readonly="readonly" />
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">付款银行名称</label>
+					<input type="text" name="payBankName" value="" class="fl w185 h30_middle ml5" placeholder="输入付款银行名称" maxlength="128"/>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">付款金额</label>
+					<input type="text" name="payAmount" value="" class="fl w185 h30_middle ml5" placeholder="输入付款金额" maxlength="10" />
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">付款方式</label>
+					<span><input type="text" name="payType" id="payType" placeholder=""/></span>
+					<span class="required-left330">*</span>
+				</li>
+			</ul>
+			
+			<ul class="fr info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">付款企业名称</label>
+					<input type="text" value="" name="payEntCustName"  class="fl w185 h30_middle ml5" placeholder="输入付款企业名称" maxlength="128" />
+					<span class="required-right-15">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">付款银行账号</label>
+					<input type="text" value="" id="payBankNo" name="payBankNo" class="fl w185 h30_middle ml5" placeholder="输入付款银行账号" maxlength="30" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">拟用企业互生号</label>
+					<input type="text" value="" name="useEntCustName" class="fl w185 h30_middle ml5" placeholder="输入拟使用企业" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">付款用途</label>
+					<input name="payUseString" value="" id="payUseString" type="text" readonly="readonly" >
+					<a class="fl ml10 btn_bg viewSample_btn mt3" id="select_btn">选择付款用途</a>
+					<input name="payUse" value="" id="payUse" type="hidden">
+				</li>
+			</ul>
+		</div>
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">备注</label>
+				<textarea class="fl ml5 h50 w660 rsn pt5 pb5" name="description" placeholder="输入备注" maxlength="300" ></textarea>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">附件信息</label>
+				<span id="bimg" class="fl ml5 mt5 sample_img"><img id="img1" src="resources/img/noImg.gif" width="81" height="52"></span>
+				<div class="fl pr mt15 ml10">
+				    <input type="hidden" id="fileId" name="fileId" value="<%=obj.fileId%>">
+					<input type="file" name="filename" id="filename" class="file_btn pa">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传</a>
+				</div>
+			</li>
+		</ul>
+		<div class="mt10" align="center">
+			<a class="btn_bg submit"  id="btn_bg">保&#12288;存</a>
+		</div>
+	</form>
+</div>
+
+<div id="dialogBox" class="none"></div>

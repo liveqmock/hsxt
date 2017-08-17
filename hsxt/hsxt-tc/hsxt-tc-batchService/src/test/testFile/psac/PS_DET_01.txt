@@ -1,0 +1,7 @@
+﻿t01|subIdPs|custId1|at1|1|0|1|tt|1
+t02|subId1|custId1|at1|1|0|1|tt|2
+t03|subId1|custId1|at1|1|0|1|tt|3
+t04|subId1|custId1|at1|1|0|1|tt|4
+t05|subIdPs|custId1|at1|1|0|1|tt|5
+end
+交易流水号|业务记账分录ID｜客户号｜账户类型｜增向金额｜减向金额｜记账状态｜交易类型|原单号

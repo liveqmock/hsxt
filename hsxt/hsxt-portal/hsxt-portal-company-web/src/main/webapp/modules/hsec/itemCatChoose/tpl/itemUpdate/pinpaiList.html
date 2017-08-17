@@ -1,0 +1,3 @@
+ <% try { $.each(obj.data,function(key,el){ %>
+     <li data-code="<%=el.id%>" style="line-height:25px;" title="<%=el.cnName%>"><%=el.cnName%></li>
+<% }) }catch(e){} %>

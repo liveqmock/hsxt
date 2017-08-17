@@ -1,0 +1,44 @@
+<div class="search-toolbar">
+<form id="search_form" name="search_form">
+<ul class="cssform clearfix">
+	<li>
+		<label>申请日期范围：</label>
+		<input type="text" id="search_startDate" name="search_startDate" value="" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+		<span class="separator-pd">-</span>
+		<input type="text" id="search_endDate" name="search_endDate" value="" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+	</li>
+	<li class="clearfix">
+		<label class="fl h30_middle">申请类别：</label>
+		<input id='search_appType' name="search_appType" placeholder="选择申请类别" options="[]" optionValue=""  readonly="readonly"/>
+	</li>
+	<li>
+		<label>企业名称：</label>
+		<input type="text" id="search_entCustName" name="search_entCustName" placeholder="输入申请企业名称" class="h28_middle w115 input-txt" />
+	</li>
+	<li class="clearfix">
+		<label class="fl h30_middle">处理状态：</label>
+		<input id='search_status' name="search_status" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+	</li>
+	<li>
+		<button id="queryBtn" type="button" class="btn-search">查询</button>
+	</li>
+ </ul>
+ </form>
+</div>
+<table id="tableDetail" class="bsgrid">
+	<tr>
+		<th w_index="entCustName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="entAddress" w_tip="true" w_length='20'>企业地址</th>
+		<th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+		<th w_index="mobile" w_tip="true">联系人手机</th>
+		<th w_index="serEntResNo" w_tip="true">意向服务公司</th>
+		<th w_index="countryNo" w_render="operate">所在地区</th>
+		<th w_index="appType" w_render="operate">申请类别</th>
+	 	<th w_index="createdDate" w_tip="true">申请日期</th>
+		<th w_index="status" w_render="operate">处理状态</th>
+		<th w_index="apprTime" w_tip="true">状态日期</th>
+		<th w_render="operate">操作</th>
+	</tr>
+</table>
+						
+<div id="yxkhcx_dialog" class="none" title="意向客户详情"><p class="autowidth"></p></div>

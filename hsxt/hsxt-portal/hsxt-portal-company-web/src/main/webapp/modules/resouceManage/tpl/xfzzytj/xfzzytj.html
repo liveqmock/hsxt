@@ -1,0 +1,65 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable pop-up-table">
+  <tr>
+    <td class="billstyle tc">系统资源总数</td>
+    <td class="billstyle tc">系统资源使用数</td>
+    <td class="billstyle tc">激活互生卡数</td>
+    <td class="billstyle tc">活跃互生卡数</td>
+  </tr>
+  <tr>
+  	<td rowspan="3" class="tc red" id = "xtzyzs">9,999</td>
+  	<td rowspan="3" class="tc red" id = "xtzysys"></td>
+    <td class="tc" id = "jhhsks"></td>
+    <td class="tc" id = "hyhsks"></td>
+  </tr>
+  <tr>
+    <td class="billstyle tc">实名注册数</td>
+    <td class="billstyle tc">实名认证数</td>
+  </tr>
+  <tr>
+    <td class="tc" id = "smzcs"></td>
+    <td class="tc" id = "smrzs"></td>
+  </tr>
+</table>
+<div class="search-toolbar mt20">
+  <form id="scpoint_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>日期：</label>
+        <input type="text" name="scpoint_beginDate" id="scpoint_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="scpoint_endDate" id="scpoint_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li>
+        <label>卡号范围：</label>
+        <input type="text" name="scpoint_beginCard" id="scpoint_beginCard" placeholder="输入卡号范围" class="h28_middle input-txt w80"/>
+        <span class="separator-pd">-</span>
+        <input type="text" name="scpoint_endCard" id="scpoint_endCard" placeholder="输入卡号范围" class="h28_middle input-txt w80"/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">消费者状态：</label>
+		<input id="scpoint_consumer" readonly="readonly" placeholder="请选择" optionvalue=""/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">卡状态：</label>
+		<input id="scpoint_card" readonly="readonly" placeholder="请选择" optionvalue=""/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table">
+  	<thead>
+        <tr>
+            <th w_index="hsResNo">互生卡号</th>
+            <th w_index="realnameAuth" w_render="operate">消费者状态</th>
+            <th w_index="realnameAuthDate" w_render="operate">消费者状态完成时间</th>
+            <th w_index="baseStatus" w_render="operate">互生卡状态</th>
+        </tr>
+	</thead>
+  </table>
+</div>

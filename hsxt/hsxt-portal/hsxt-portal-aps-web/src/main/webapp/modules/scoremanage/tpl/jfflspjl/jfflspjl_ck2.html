@@ -1,0 +1,132 @@
+<div class="" id="jfflspjl_ck2Tpl">
+<div class="mb5 fb">申请信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">申请单号</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.applyWelfareNo%></td>
+			<td class="view_item" width="20%">申请时间</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.applyDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">申请福利类别</td>
+			<td class="view_text_2" width="30%">代他人申请身故保障金</td>
+			<td class="view_item" width="20%">申请操作人</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.hsResNo%>（<%=obj.applyInfo.proposerName%>）</td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">身故人互生卡号</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.deathResNo%></td>
+			<td class="view_item" width="20%">身故人姓名</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.diePeopleName%></td>
+		</tr>				
+	</table>
+	
+	<div class="mt10 mb5 fb">申请附件信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">身故死亡证明附件</td>
+			<td class="view_text_2" width="30%"><a id="deathProvePath" class="mr10 lh200 blue none" target="_blank">身故死亡证明附件</a></td>
+			<td class="view_item" width="20%">户籍注销证明</td>
+			<td class="view_text_2" width="30%"><a id="hrcPath" class="mr10 lh200 blue none" target="_blank">户籍注销证明</a></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">直系亲属证明书</td>
+			<td class="view_text_2" width="30%"><a id="ifpPath" class="mr10 lh200 blue none" target="_blank">与被保障人关系证明书</a></td>
+			<td class="view_item" width="20%">代理人法定身份证明</td>
+			<td class="view_text_2" width="30%"><a id="aipPath" class="mr10 lh200 blue none" target="_blank">代办人法定身份证明</a></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">身故人身份证明</td>
+			<td class="view_text_2" width="30%"><a id="diePeopleCerPath" class="mr10 lh200 blue none" target="_blank">身故人身份证明</a></td>
+			<td class="view_item" width="20%">其他证明材料</td>
+			<td class="view_text_2" width="30%">
+				<span id="otherProveSpan0" style="display:none">
+					<a id="otherProvePath0" class="mr10 lh200 blue none" target="_blank">其他证明1</a>
+				</span>
+				<span id="otherProveSpan1" style="display:none">
+					<a id="otherProvePath1" class="mr10 lh200 blue none" target="_blank">其他证明2</a>
+				</span>
+				<span id="otherProveSpan2" style="display:none">
+					<a id="otherProvePath2" class="mr10 lh200 blue none" target="_blank">其他证明3</a>
+				</span>
+				<span id="otherProveSpan3" style="display:none">
+					<a id="otherProvePath3" class="mr10 lh200 blue none" target="_blank">其他证明4</a>
+				</span>
+				<span id="otherProveSpan4" style="display:none">
+					<a id="otherProvePath4" class="mr10 lh200 blue none" target="_blank">其他证明5</a>
+				</span>
+			</td>
+		</tr>				
+	</table>
+	<div class="mt10 mb5 fb">身故人积分福利信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">互生意外保障单生效日期</td>
+			<td class="view_text_2" width="30%"><%=obj.welfareQualify.effectDate==''?'':obj.welfareQualify.effectDate.substr(0,10)%></td>
+			<td class="view_item" width="20%">关联保障单号</td>
+			<td class="view_text_2" width="30%"><%=obj.welfareQualify.welfareId%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">本保障单内积分累计未达300PV日期</td>
+			<td class="view_text_2" width="30%" id="allFailureDateList"></td>
+			<td class="view_item" width="20%">保障单余额</td>
+			<td class="view_text_2" width="30%"><%=obj.welfareQualify.subsidyBalance%></td>
+		</tr>	
+		
+	</table>
+	
+		
+	<% if(obj.firstApprovalInfo!=null&&obj.firstApprovalInfo.approvalStatus!=0 &&obj.reApprovalInfo==null){%>
+	<div class="mt10 mb5 fb" id="firstApprovalDiv">审核信息</div>
+	<table id="firstApprovalTable" width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">审核结果</td>
+			<td class="view_text_2" width="30%"><%=comm.getNameByEnumId(obj.firstApprovalInfo.approvalStatus, comm.lang("pointWelfare").approvalStatus)%></td>
+			<td class="view_item" width="20%">核准金额</td>
+			<td class="view_text_2" width="30%"><%=obj.firstApprovalInfo.approvalAmount==null?'':comm.formatMoneyNumber(obj.firstApprovalInfo.approvalAmount)%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">备注信息</td>
+			<td class="view_text_2" width="30%"><%=obj.firstApprovalInfo.approvalReason%></td>
+			<td class="view_item" width="20%">审核时间</td>
+			<td class="view_text_2" width="30%"><%=obj.firstApprovalInfo.approvalDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">审核操作员</td>
+			<td class="view_text_2" width="30%"><%=obj.firstApprovalInfo.approver%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>			
+	</table>
+	<%}%>
+	
+	<% if(obj.reApprovalInfo!=null&&obj.reApprovalInfo.approvalStatus!=0){%>
+	<div class="mt10 mb5 fb" id="reApprovalDiv">审核信息</div>
+	<table id="reApprovalTable" width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">审核结果</td>
+			<td class="view_text_2" width="30%"><%=comm.getNameByEnumId(obj.reApprovalInfo.approvalStatus, comm.lang("pointWelfare").approvalStatus)%></td>
+			<td class="view_item" width="20%">核准金额</td>
+			<td class="view_text_2" width="30%"><%=obj.reApprovalInfo.approvalAmount==null?'':comm.formatMoneyNumber(obj.reApprovalInfo.approvalAmount)%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="6%">备注信息</td>
+			<td class="view_text_2" width="44%"><%=obj.reApprovalInfo.approvalReason%></td>
+			<td class="view_item" width="20%">审核时间</td>
+			<td class="view_text_2" width="30%"><%=obj.reApprovalInfo.approvalDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">审核操作员</td>
+			<td class="view_text_2" width="30%"><%=obj.reApprovalInfo.approver%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>			
+	</table>
+	<%}%>
+	
+	
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="back2_jfflspjl">返&#12288;回</a>
+	</div>
+</div>

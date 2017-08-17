@@ -1,0 +1,41 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li class="clearfix">
+			<label class="fl h30_middle">客户互生号：</label>
+			<input id="dhgdcx_resNo" type="text" name="" placeholder="输入客户互生号" class="h28_middle w115 input-txt" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">接入电话：</label>
+			<input id="dhgdcx_tel" type="text" name="" placeholder="输入接入电话" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>来电类型：</label>
+			<input id="dhgdcx_type" placeholder="选择来电类型" readonly="readonly" />
+		</li>
+		<li>
+			<label>处理状态：</label>
+			<input id="dhgdcx_status" placeholder="选择处理状态" readonly="readonly" />
+		</li>
+		<li>
+			<button id="dhgdcx_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable">
+  <tr>
+	  <th w_index="StartTime" w_align="left">时间</th>
+	  <th w_index="CallingNum" w_align="left">来电号码</th>
+	  <th w_index="SRN" w_align="left">互生号</th>
+	  <th w_index="UserName" w_align="left">名称</th>
+	  <th w_index="Contact" w_align="left">联系电话</th>
+	  <th w_index="CallerType" w_align="left" w_render="operate">来电类型</th>
+	  <th w_index="Describe" w_align="left">问题描述</th>
+	  <th w_index="TalkTime" w_align="left">通话时长</th>
+	  <th w_index="JoinAgent" w_align="left">接入工号</th>
+	  <th w_index="DealAgent" w_align="left">处理工号</th>
+	  <th w_index="DealStatus" w_align="left" w_render="operate">处理状态</th>
+	  <th w_render="operate" w_align="left">操作</th>
+  </tr>
+</table>
+<div id="dhgdcx_ck_dlg" class="none ovh"></div>
+<div id="dhgdcx_cl_dlg" class="none ovh"></div>

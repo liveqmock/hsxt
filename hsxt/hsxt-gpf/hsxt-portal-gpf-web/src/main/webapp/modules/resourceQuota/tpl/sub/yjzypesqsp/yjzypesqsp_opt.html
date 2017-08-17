@@ -1,0 +1,67 @@
+<div class="w900 bc clearfix">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="20%">管理公司</td>
+            <td class="view_text" width="30%" id="yjzypesqsp_opt_glgs"></td>
+            <td id="yjzypesqsp_opt_glgshsh" hidden="true"></td>
+            <td class="view_item" width="20%">地区平台</td>
+            <td class="view_text" width="30%" id="yjzypesqsp_opt_dqpt"></td>
+        </tr>
+		<tr>
+            <td class="view_item">计划内配额数</td>
+            <td class="view_text" id="yjzypesqsp_opt_jhnpes"></td>
+            <td class="view_item">已分配配额数</td>
+            <td class="view_text" id="yjzypesqsp_opt_yfppes"></td>
+        </tr>
+<!-- 		<tr>
+            <td class="view_item">已使用配额数</td>
+            <td class="view_text" id="yjzypesqsp_opt_ysypes"></td>
+            <td class="view_item">未使用配额数</td>
+            <td class="view_text" id="yjzypesqsp_opt_wsypes"></td>
+        </tr> -->
+		<tr>
+            <td class="view_item">本次申请配额数</td>
+            <td class="view_text" id="yjzypesqsp_opt_bcsqpes"></td>
+            <td class="view_item">配额号段</td>
+            <td class="view_text" id="yjzypesqsp_opt_pehd"></td>
+        </tr>
+		<tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text" id="yjzypesqsp_opt_sqsj"></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text" id="yjzypesqsp_opt_sqczy"></td>
+        </tr>
+    </table>
+	
+	<form id="yjzypesqsp_optForm">
+		<div class="mt10 clearfix">
+			<ul class="inputForm-ul fl w400">
+				<li class="pr">
+					<label class="inputForm-label">批复配额数</label>
+					<input type="text" id="yjzypesqsp_opt_pfpes" name="yjzypesqsp_opt_pfpes" class="inputForm-text"  style="width:200px;" placeholder="选择批复配额" readonly="readonly" />
+					<span id="bcsqpes_zd" style="position: absolute; height: 30px; line-height: 30px; right: 55px; color: #aaa;"></span>
+					<input id="zypesp_xh" type="button" value="选号" class="pt5 pb5 pl10 pr10" >
+					<span class="required">*</span>
+				</li>
+				<li class="pr" style="width:898px;">
+					<label class="inputForm-label">批复号段</label>
+					<input type="text" id="yjzypesqsp_opt_pfhd" name="yjzypesqsp_opt_pfhd" class="inputForm-text" placeholder="选择批复号段" style="width:755px;"  readonly="readonly"/>
+					<span class="required">*</span>
+				</li>
+			</ul>
+		</div>
+		<ul class="inputForm-ul">
+			<li>
+				<label class="inputForm-label">审批结果</label>
+				<input type="radio" name="yjzypesqsp_opt_spjg" value="1" checked="checked" class="input_radio" /> 通过
+				<input type="radio" name="yjzypesqsp_opt_spjg" value="0" class="input_radio ml15" /> 驳回
+			</li>
+			<li class="clearfix">
+				<label class="fl inputForm-label-h60">审核说明</label>
+				<textarea id="jsxxgl_opt_bz" name="jsxxgl_opt_bz" class="fl inputForm-textarea fl ml5" placeholder="输入审核说明，不超过300字"></textarea>
+			</li>
+		</ul>
+	</form>
+	
+	
+</div>

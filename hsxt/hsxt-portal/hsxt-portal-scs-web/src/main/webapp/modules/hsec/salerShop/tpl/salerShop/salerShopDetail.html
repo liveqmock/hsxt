@@ -1,0 +1,97 @@
+<div id="stdsh_qb">
+<%if(obj.data!=null){var salerShop = obj.data %>
+   <div class="stdxq_lbnr stdxq_bgcr">
+     <div class="stdxq_lbxxnr">
+       <ul>
+             <li class="stdxq_linr_salershop_two tcr_White">企&nbsp;业&nbsp;名&nbsp;称：
+             <%if(salerShop.companyName != ''){%>
+             	<%=salerShop.companyName%>
+             <%}else{%>
+             	无
+             <%}%>
+             </li>
+             <li class="stdxq_linr_salershop_two tcr_White">企业互生号：
+             <%if(salerShop.resourceNo != ''){%>
+             	<%=salerShop.resourceNo%>
+             <%}else{%>
+             	无
+             <%}%>
+             </li>
+          </ul>
+        </div>
+      </div>
+   <div class="stdxq_contentbox">
+	 <div class="stdxq_contentleft">
+         <ul>
+             <li class="lh30">
+             	<span><b style="font-size:16px;color:green;">主营分类：</b></span>
+		        <% var types = salerShop.lstshopType %>
+		 	<% if(types != null && types != ''){ %>
+		 	<% $.each(types,function(key,type){ %>
+		 		<%=type.categoryName %>
+		 	<% })%>
+		 	<% }else{ %>
+		 		无
+		 	<% } %>
+             </li>
+             <li class="lh30"><span><b style="font-size:16px;color:green;">特色服务：</b></span>
+             <%if(salerShop.supportServices != ''){%>
+             	<%=salerShop.supportServices%>
+             <%}else{%>
+             	无
+             <%}%>    
+             </li>
+             <li class="lh30">
+             	<span><b style="font-size:16px;color:green;">简&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;介：</b></span>
+             	<% if(salerShop.introduce == null || salerShop.introduce == ''){ %>
+             		无
+             	<% }else{ %>
+             		<%=salerShop.introduce%>
+             	<% } %>
+             </li>
+             <li class="lh30">
+           		<span><b style="font-size:16px;color:green;">联&nbsp; 系&nbsp;人：</b></span>
+             	<% if(salerShop.contactor == null || salerShop.contactor == ''){ %>
+             		无
+             	<% }else{ %>
+             		<%=salerShop.contactor%>
+             	<% } %>
+             </li>
+             <li class="lh30">
+             	<span><b style="font-size:16px;color:green;">联系电话：</b></span>
+             	<% if(salerShop.contactWay == null || salerShop.contactWay == ''){ %>
+             		无
+             	<% }else{ %>
+             		<%=salerShop.contactWay%>
+             	<% } %>
+             </li>
+             <li class="lh30">
+             	<span><b style="font-size:16px;color:green;">服务热线：</b></span>
+               	<% if(salerShop.hotLine == null || salerShop.hotLine == ''){ %>
+               		无
+               	<% }else{ %>
+               		<%=salerShop.hotLine%>
+               	<% } %>
+			</li>
+               <li class="lh30"><span><b style="font-size:16px;color:green;">营业时间：</b></span>
+             <%if(salerShop.openingHours != ""){%>
+             <%=salerShop.openingHours%>
+             <%}else{%>
+            	 无
+             <%}%>
+             </li>
+             <li class="lh30"><span><b style="font-size:16px;color:green;">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</b></span>
+               <%if(salerShop.province==salerShop.city){%>
+			   <%=salerShop.province+salerShop.addr%>
+			<%}else{%>
+				<%=salerShop.province+salerShop.city+salerShop.addr%>
+			<%}%>
+               </li>
+           </ul>
+        </div>
+   <div class="stdxq_contentright" id="detailMap"></div>
+</div>
+<%}else{%>
+  <div align="center"><span style="color:blue">没有找到符合条件的数据</span></div>
+ <%}%>
+</div>

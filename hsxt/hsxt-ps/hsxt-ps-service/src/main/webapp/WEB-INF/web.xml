@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<context-param>
+		<!-- 如果不加, 同一tomcat部署会冲突 -->
+		<param-name>webAppRootKey</param-name>
+		<param-value>hsxt.ps.root</param-value>
+	</context-param>
+
+	<context-param>   
+	      <param-name>log4jConfigLocation</param-name>   
+	      <param-value>file:${user.dir}/conf/hsxt-ps/log4j.properties</param-value>   
+	</context-param> 
+	
+	<context-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>classpath:spring/spring-global.xml</param-value> 
+    </context-param>
+	
+	<listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+
+</web-app>

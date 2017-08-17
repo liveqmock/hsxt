@@ -1,0 +1,76 @@
+<div id="lxxx_xgTpl">
+	<div class="bc mt20 info_800 register_info">
+		<form id = "qylxxx_form" name="qylxxx_form">
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix bg_ef">
+						<label class="fl w115 h30_middle">联系人姓名</label>
+						<input type="text" id="name" value="<%=obj.contactPerson%>" readonly="readonly" class="fl w185 h30_middle ml5 bg_ef" />
+						<input type="hidden" id="legalPerson" value="<%=obj.legalPerson%>">
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle" >联系地址</label>
+						<input type="text" class="fl w185 h30_middle ml5" placeholder="输入联系地址" id="contactAddr" name="contactAddr" value="<%=obj.contactAddr%>"/>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">企业安全邮箱</label>
+						<input name ="contactEmail" type="text" class="fl w185 h30_middle ml5" placeholder="输入企业安全邮箱" id="contactEmail" value="<%=obj.contactEmail%>"/><!--<a href="#" class="dlgEmail btn_bg submit_btn" style="margin-top:2px;">验证</a>-->
+					</li>
+					
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix bg_ef">
+						<label class="fl w115 h30_middle">联系人手机</label>
+						<input type="text" value="<%=obj.contactPhone%>" class="fl w185 h30_middle ml5 bg_ef" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">邮政编码</label>
+						<input type="text" class="fl w185 h30_middle ml5" placeholder="输入邮政编码" id="postCode" name="postCode" value="<%=obj.postCode%>"/>
+					</li>
+				</ul>
+			</div>
+			
+				<!-- <ul>
+						<li class="register_row  clearfix mt5 h60_middle pr">
+							<label for="name" class="fl w115 h60_middle">联系人授权委托书</label>
+							<span id="bimg" class="spanfl sample_img">
+								<img id="img-2" src="resources/img/noImg.gif" width="81" height="52">
+							</span>
+							<%if(comm.isEmpty(obj.contactProxy)){%>
+							<div class="sample_btn fl mt15 ml10">
+								<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.contactProxy%>">
+								<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate" name="certificate"></a>
+			       			</div>
+			       			<a id="certificateFileId" href="#" class="btn_bg viewSample_btn fl mt15 ml10">模板下载</a>
+							<%}%> 
+			       			
+						</li>
+						
+						 <%if('3'==obj.custType && '2'== obj.startResType){%>
+						<li class="register_row  clearfix mt5 h60_middle pr">
+							<label for="name" class="fl w115 h60_middle">创业帮扶协议</label>
+							<span id="bimg2" class="spanfl sample_img">
+								<img id="img-3" src="resources/img/noImg.gif" width="81" height="52">
+							</span>
+							
+							<%if(comm.isEmpty(obj.helpAgreement)){%>
+							<div class="sample_btn fl mt15 ml10">
+								<input type="hidden" id="certificateFile2" name="certificateFile2" value="<%=obj.helpAgreement%>">
+								<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate2" name="certificate2"></a>
+			       			</div>
+			       			<a id="certificateFileId2" href="#" class="btn_bg viewSample_btn fl mt15 ml10">模板下载</a>
+			       			<%}%>
+						</li>
+						<%}%> 
+					
+				</ul> -->
+			
+			
+			<div class="w200 bc mt20">
+				<a class="btn_bg submit fr" id="backBt_qiyelianxi">取&#12288;消</a><a class="btn_bg submit fl" id="submitBt_qiyelianxi">提　交</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">

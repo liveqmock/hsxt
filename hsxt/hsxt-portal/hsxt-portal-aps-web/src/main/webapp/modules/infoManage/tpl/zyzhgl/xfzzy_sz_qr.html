@@ -1,0 +1,73 @@
+<div class="info_500 bc">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="30%">消费者互生号</td>
+			<td class="view_text_2" width="70%" id="hsResNo"></td>
+		</tr>
+		<tr>
+			<td class="view_item">姓名</td>
+			<td class="view_text_2" id="personName"></td>
+		</tr>
+	</table>
+	<div class="view_info mt10">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<% if('2' == obj['jfzhsb_status']) {%>
+			<tr>
+				<td class="view_item" width="25%">积分转互生币</td>
+				<td class="view_text" width="15%"><span id="jfzhsb_new"></span></td>
+				<td class="view_text" width="60%"><span id="jfzhsb_new_info"></span></td>
+			</tr>
+		<%}%>
+		<% if('2' == obj['jftz_status']) {%>
+			<tr>
+				<td class="view_item" width="25%">积分投资</td>
+				<td class="view_text" width="15%"><span id="jftz_new"></span></td>
+				<td class="view_text" width="60%"><span id="jftz_new_info"></span></td>
+			</tr>
+		<%}%>
+		<% if('2' == obj['dhhsb_status']) {%>
+			<tr>
+				<td class="view_item" width="25%">兑换互生币</td>
+				<td class="view_text" width="15%"><span id="dhhsb_new"></span></td>
+				<td class="view_text" width="60%"><span id="dhhsb_new_info"></span></td>
+			</tr>
+			<%}%>
+			<% if('2' == obj['hsbzhb_status']) {%>
+			<tr>
+				<td class="view_item" width="25%">互生币转货币</td>
+				<td class="view_text" width="15%"><span id="hsbzhb_new"></span></td>
+				<td class="view_text" width="60%"><span id="hsbzhb_new_info"></span></td>
+			</tr>
+			<%}%>
+			<% if('2' == obj['hbzyh_status']) {%>
+			<tr>
+				<td class="view_item" width="25%">货币转银行</td>
+				<td class="view_text" width="15%"><span id="hbzyh_new"></span></td>
+				<td class="view_text" width="60%"><span id="hbzyh_new_info"></span></td>
+			</tr>
+			<%}%>
+		</table>	
+	</div>
+	<ul class="mt10">
+		<li class="register_row clearfix pr">
+			<label class="fl w144 h30_middle">选择验证方式</label>
+			<input id="verificationMode" readonly="readonly" placeholder="选择验证方式" />
+			<span class="required-right-15">*</span>
+		</li>
+		<li id="verificationMode_prompt" class="none red h30_middle">
+			当前版本暂时不支持这种验证方式
+		</li>
+		<li class="register_row clearfix pr none" id="fhy_userName">
+			<label class="fl w144 h30_middle">复核员用户名</label>
+			 <input type="text" class="fl w185 h30_middle ml5" id="pk_double_username" placeholder="输入复核员用户名">
+			<span class="required-right-15">*</span>
+		</li>
+		<li class="register_row clearfix pr none" id="fhy_password">
+			<label class="fl w144 h30_middle">复核员登录密码</label>
+			 <input type="password" class="fl w185 h30_middle ml5" id="pk_double_password" placeholder="输入复核员登录密码">
+			 <span class="required-right-15">*</span>
+		</li>
+	</ul>
+</div>
+
+

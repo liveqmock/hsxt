@@ -1,0 +1,23 @@
+<div class="info_320 bc">
+	<form id="confirm_review_form">
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">复核结果</label>
+				<span class="fl h30_middle ml5">
+					<input type="radio" name="status" value="2" checked="checked" /> 复核通过
+					<input type="radio" name="status" class="ml10" value="4" /> 复核驳回
+				</span>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">新税率生效日期</label>
+				<input class="fl w185 h30_middle ml5" readonly="readonly" value="<%=obj.nextMonthDay%>" />
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">复核说明</label>
+				<textarea name="applyReason" class="fl ml5 h50 w185 rsn pt5 pb5" placeholder="输入复核说明，不超过300字" maxlength="300"></textarea>
+				<input name="applyId" value="<%=obj.applyId%>" type="hidden"/>
+			    <input name="customId" value="<%=obj.custId%>" type="hidden"/>
+			</li>
+		</ul>
+	</form>
+</div>

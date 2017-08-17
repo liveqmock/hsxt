@@ -1,0 +1,37 @@
+<div id="kkcxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">快捷日期：</label>
+				<input id="quickDate" readonly placeholder="选择快捷日期" />
+			</li>
+			<li>
+				<label>时间范围：</label>
+				<input type="text" name="textfield" id="timeRange_start" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly />
+				<span class="separator-pd">-</span>
+				<input type="text" name="textfield" id="timeRange_end" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly />
+			</li>
+			<li>
+				<label>互生号：</label>
+				<input type="text" name="textfield" placeholder="输入互生号" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<button id="bjglqry_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+	  <tr>
+		<th w_index="th_1" w_align="left">申请日期</th>
+		<th w_index="th_2" w_align="left">互生号</th>
+		<th w_index="th_3" w_align="left">单位名称</th>
+		<th w_index="th_4" w_align="right">扣款金额</th>
+		<th w_index="th_5" w_align="left">扣款日期</th>
+		<th w_index="th_6" w_align="left">扣款原因</th>
+		<th w_index="th_7" w_align="left">状态</th>
+		<th w_render="operate" w_align="left">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="kkcx_ck_dlg" class="none"></div>
+<div id="kkcx_cx_dlg" class="none"></div>

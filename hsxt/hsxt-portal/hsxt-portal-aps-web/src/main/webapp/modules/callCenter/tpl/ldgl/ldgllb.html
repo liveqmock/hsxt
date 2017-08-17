@@ -1,0 +1,33 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<!--<li class="clearfix">
+			<label class="fl h30_middle">来电状态：</label>
+			<input id="callState" readonly="readonly" placeholder="选择来电状态" />
+		</li>-->
+		<li>
+			<label>时间范围：</label>
+			<input   type="text" name="textfield" id="timeRange_start" placeholder="输入时间范围" class="h28_middle w115 input-txt" readonly="readonly" />
+			<span class="separator-pd">-</span>
+			<input  type="text" name="textfield" id="timeRange_end" placeholder="输入时间范围" class="h28_middle w115 input-txt" readonly="readonly" />
+		</li>
+		<li>
+			<label>坐席号：</label>
+			<input id="wjld_zx_input" type="text" name="textfield" placeholder="输入坐席号" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="wjld_search_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="CallingNum">主叫号码</th>
+	<!--<th w_index="th_2">被叫号码</th>-->
+	<th w_index="Agent_Num">座席号</th>
+	<th w_index="Agent_Name">座席姓名</th>
+	<!--<th w_index="th_5">来电状态</th>-->
+	<th w_index="Start_Time" w_sort="Start_Time desc" id="ldgllb_startTime">开始时间</th>
+	<!--<th w_index="th_7" w_render="operate">操作</th>-->
+  </tr>
+</table>

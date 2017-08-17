@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.res.mapper.InitMapper">
+
+	<!-- 添加平台信息 -->
+	<insert id="addPlatInfo" parameterType="com.gy.hsxt.gpf.res.bean.PlatInfo">
+		INSERT INTO T_RES_PLAT_INFO
+			(PLAT_NO,
+			 ENT_RES_NO,
+			 ENT_CUST_NAME,
+			 EMAIL_A,
+			 EMAIL_B,
+			 CREATED_OPT_ID,
+			 CREATED_OPT_NAME,
+			 CREATED_DATE,
+			 UPDATED_OPT_ID,
+			 UPDATED_OPT_NAME,
+			 UPDATED_DATE,
+			 SYNC_FLAG
+			)
+		VALUES
+		    (#{platNo},
+		     #{entResNo},
+		     #{entCustName},
+		     #{emailA},
+		     #{emailB},
+		     #{createdOptId},
+		     #{createdOptName},
+		     NOW(),
+		     #{updatedOptId},
+		     #{updatedOptName},
+		     NOW(),
+		     0)
+	</insert>
+	
+	<update id="updatePlatInfo" parameterType="com.gy.hsxt.gpf.res.bean.PlatInfo">
+		UPDATE T_RES_PLAT_INFO
+		<set>
+			ENT_CUST_NAME = #{entCustName},
+			EMAIL_A       = #{emailA},
+			EMAIL_B       = #{emailB},
+			UPDATED_DATE  = NOW()
+		</set>
+		<where>
+			PLAT_NO = #{platNo}
+		</where>
+	</update>
+	
+	<!-- 分页查询平台信息 -->
+	<select id="queryPlatInfoListPage" resultType="com.gy.hsxt.gpf.res.bean.PlatInfo">
+		SELECT PLAT_NO       	AS platNo,
+		       ENT_RES_NO    	AS entResNo,
+		       ENT_CUST_NAME	AS entCustName,
+		       EMAIL_A       	AS emailA,
+		       EMAIL_B       	AS emailB,
+		       CREATED_OPT_ID   AS createdOptId, 
+			   CREATED_OPT_NAME AS createdOptName,
+			   CREATED_DATE     AS createdDate,
+			   UPDATED_OPT_ID   AS updatedOptId,
+			   UPDATED_OPT_NAME AS updatedOptName,
+			   UPDATED_DATE     AS updatedDate,
+		       SYNC_FLAG        AS syncFlag
+		 FROM T_RES_PLAT_INFO
+		 WHERE 1=1
+		       <if test="entResNo != null and entResNo != ''">
+		           AND ENT_RES_NO LIKE CONCAT('%',#{entResNo},'%')
+		       </if>
+		       <if test="entCustName != null and entCustName != ''">
+		           AND ENT_CUST_NAME LIKE CONCAT('%',#{entCustName},'%')
+		       </if>
+		 ORDER BY PLAT_NO
+	</select>
+	
+	<!-- 添加管理公司 -->
+	<update id="addMentInfo" parameterType="com.gy.hsxt.gpf.res.bean.MentInfo">
+		UPDATE T_RES_M_ENT_INFO
+		<set>
+			ENT_CUST_NAME    = #{entCustName},
+			EMAIL            = #{email},
+	        CREATED_OPT_ID   = #{createdOptId}, 
+		    CREATED_OPT_NAME = #{createdOptName},
+		    CREATED_DATE     = NOW(),
+		    UPDATED_OPT_ID   = #{updatedOptId},
+		    UPDATED_OPT_NAME = #{updatedOptName},
+		    UPDATED_DATE     = NOW()
+		</set>
+		WHERE ENT_RES_NO = #{entResNo}
+	</update>
+	
+	<!-- 分页查询管理公司 -->
+	<select id="queryMentInfoListPage" resultType="com.gy.hsxt.gpf.res.bean.PlatMent">
+		SELECT t1.ENT_RES_NO       AS entResNo,
+		       t1.ENT_CUST_NAME    AS entCustName,
+		       t2.EMAIL            AS email,
+		       t2.INIT_QUOTA       AS initQuota,
+		       t3.PLAT_NO          AS platNo,
+		       t3.ENT_CUST_NAME    AS platName,
+		       t1.CREATED_OPT_ID   AS createdOptId, 
+			   t1.CREATED_OPT_NAME AS createdOptName,
+			   t1.CREATED_DATE     AS createdDate,
+			   t1.UPDATED_OPT_ID   AS updatedOptId,
+			   t1.UPDATED_OPT_NAME AS updatedOptName,
+			   t1.UPDATED_DATE     AS updatedDate,
+		       t2.UC_SYNC          AS ucSync,
+		       t2.BS_SYNC          AS bsSync
+		FROM T_RES_M_ENT_INFO t1
+				LEFT JOIN T_RES_PLAT_M_ENT t2 ON t1.ENT_RES_NO = t2.ENT_RES_NO
+				LEFT JOIN T_RES_PLAT_INFO t3 ON t2.PLAT_NO = t3.PLAT_NO  
+		WHERE t1.ENT_CUST_NAME IS NOT NULL
+			<if test="entResNo != null and entResNo != ''">
+				AND t1.ENT_RES_NO like CONCAT(#{entResNo},'%')
+			</if> 
+			<if test="entCustName != null and entCustName != ''">
+				AND t1.ENT_CUST_NAME like CONCAT('%',#{entCustName},'%')
+			</if>  
+	    ORDER BY t1.ENT_RES_NO    
+	</select>
+	
+	<!-- 是否存在平台与管理公司关系 -->
+	<select id="isExistPlatMent" resultType="boolean">
+		SELECT  CASE WHEN COUNT(1) = 0 THEN 0 
+				ELSE 1 END 
+		FROM T_RES_PLAT_M_ENT
+		WHERE PLAT_NO = #{platNo}
+		      AND ENT_RES_NO = #{entResNo}
+	</select>
+	
+	<!-- 平台与管理公司是否违反单向一对多原则 -->
+	<select id="violateSingleOne2Many" resultType="boolean">
+		SELECT
+			CASE 
+				(   (SELECT count(DISTINCT PLAT_NO) 
+					 FROM T_RES_PLAT_M_ENT 
+					 WHERE ENT_RES_NO IN (SELECT ENT_RES_NO 
+					  					  FROM T_RES_PLAT_M_ENT  
+					  					  WHERE PLAT_NO= #{platNo}))	 
+				+
+					(SELECT count(DISTINCT ENT_RES_NO) 
+					 FROM T_RES_PLAT_M_ENT 
+					 WHERE PLAT_NO IN (SELECT PLAT_NO 
+					                   FROM T_RES_PLAT_M_ENT  
+					                   WHERE ENT_RES_NO= #{entResNo}))
+				 )	 
+			WHEN 0 THEN 0
+			WHEN 1 THEN 0
+		    ELSE 1 
+		    END
+	</select>
+	
+	<!-- 关联平台与管理公司 -->
+	<insert id="addPlatMent" parameterType="com.gy.hsxt.gpf.res.bean.PlatMent">
+		INSERT INTO T_RES_PLAT_M_ENT
+			(PLAT_NO,
+			 ENT_RES_NO,
+			 INIT_QUOTA,
+			 EMAIL,
+			 CREATED_OPT_ID,
+			 CREATED_OPT_NAME,
+			 CREATED_DATE,
+			 UPDATED_OPT_ID,
+			 UPDATED_OPT_NAME,
+			 UPDATED_DATE,
+			 UC_SYNC,
+			 BS_SYNC
+			)
+		VALUES
+			(#{platNo},
+			 #{entResNo},
+			 #{initQuota},
+			 #{email},
+			 #{createdOptId},
+		     #{createdOptName},
+		     NOW(),
+		     #{updatedOptId},
+		     #{updatedOptName},
+		     NOW(),
+			 0,
+			 0)
+	</insert>
+	
+	<!-- 查询平台与管理公司关系 -->
+	<select id="queryPlatMent" resultType="com.gy.hsxt.gpf.res.bean.PlatMent">
+		SELECT PLAT_NO      	AS platNo,
+		       ENT_RES_NO   	AS entResNo,
+		       CREATED_OPT_ID   AS createdOptId, 
+			   CREATED_OPT_NAME AS createdOptName,
+			   CREATED_DATE     AS createdDate,
+			   UPDATED_OPT_ID   AS updatedOptId,
+			   UPDATED_OPT_NAME AS updatedOptName,
+			   UPDATED_DATE     AS updatedDate,
+		       UC_SYNC          AS ucSync,
+			   BS_SYNC          AS bsSync
+		FROM T_RES_PLAT_M_ENT
+	    WHERE 1=1
+	    	<if test="platNo != null and platNo != ''">
+	    		AND PLAT_NO = #{platNo}
+	    	</if>
+	    	<if test="entResNo != null and entResNo != ''">
+	    		AND ENT_RES_NO = #{entResNo}
+	    	</if>
+	</select>
+	
+	<!-- 更新地区平台开户同步标识 -->
+	<update id="updatePlatInfoSync" parameterType="string">
+		UPDATE T_RES_PLAT_INFO
+		<set>
+			SYNC_FLAG = 1,
+			UPDATED_DATE = NOW()
+		</set>
+		WHERE PLAT_NO = #{platNo}
+	</update>
+	
+	<!-- 更新管理公司开户同步标识 -->
+	<update id="updatePlatMentSync">
+		UPDATE T_RES_PLAT_M_ENT
+		<set>
+			 <if test="ucSync == true">
+			   UC_SYNC = 1,
+			 </if>
+			 <if test="bsSync == true">
+		       BS_SYNC = 1,
+		     </if>
+		     UPDATED_DATE = NOW()
+		</set>
+		WHERE PLAT_NO = #{platNo}
+			  AND ENT_RES_NO = #{entResNo}
+	</update>
+	
+	<!-- 通过平台代码查询平台信息 -->
+	<select id="getPlatInfoById" parameterType="string" resultType="com.gy.hsxt.gpf.res.bean.PlatInfo">
+		SELECT PLAT_NO       	AS platNo,
+		       ENT_RES_NO    	AS entResNo,
+		       ENT_CUST_NAME 	AS entCustName,
+		       EMAIL_A       	AS emailA,
+		       EMAIL_B       	AS emailB,
+		       CREATED_OPT_ID   AS createdOptId, 
+			   CREATED_OPT_NAME AS createdOptName,
+			   CREATED_DATE     AS createdDate,
+			   UPDATED_OPT_ID   AS updatedOptId,
+			   UPDATED_OPT_NAME AS updatedOptName,
+			   UPDATED_DATE     AS updatedDate,
+		       SYNC_FLAG     	AS syncFlag
+		 FROM T_RES_PLAT_INFO
+		 WHERE PLAT_NO = #{platNo}
+	</select>
+	
+	<!-- 根据管理互生号查询管理公司信息 -->
+	<select id="getMentInfoById" resultType="com.gy.hsxt.gpf.res.bean.MentInfo">
+		SELECT ENT_RES_NO     	AS entResNo,
+		       ENT_CUST_NAME  	AS entCustName,
+		       EMAIL            AS email,
+		       CREATED_OPT_ID   AS createdOptId, 
+			   CREATED_OPT_NAME AS createdOptName,
+			   CREATED_DATE     AS createdDate,
+			   UPDATED_OPT_ID   AS updatedOptId,
+			   UPDATED_OPT_NAME AS updatedOptName,
+			   UPDATED_DATE     AS updatedDate
+		FROM T_RES_M_ENT_INFO 
+		WHERE ENT_RES_NO = #{entResNo}
+	</select>
+	
+	<!-- 查询所有平台代码 -->
+	<select id="queryPlatNoList" resultType="string">
+		SELECT PLAT_NO
+		FROM T_RES_PLAT_INFO
+		ORDER BY PLAT_NO 	
+	</select>
+	
+	
+	<!-- 查询管理公司信息 -->
+	<select id="queryPlatMentById" resultType="com.gy.hsxt.gpf.res.bean.PlatMent">
+		SELECT t1.ENT_RES_NO       AS entResNo,
+		       t1.ENT_CUST_NAME    AS entCustName,
+		       t2.EMAIL            AS email,
+		       t2.INIT_QUOTA       AS initQuota,
+		       t3.PLAT_NO          AS platNo,
+		       t3.ENT_CUST_NAME    AS platName,
+		       t1.CREATED_OPT_ID   AS createdOptId, 
+			   t1.CREATED_OPT_NAME AS createdOptName,
+			   t1.CREATED_DATE     AS createdDate,
+			   t1.UPDATED_OPT_ID   AS updatedOptId,
+			   t1.UPDATED_OPT_NAME AS updatedOptName,
+			   t1.UPDATED_DATE     AS updatedDate
+		FROM T_RES_M_ENT_INFO t1
+				LEFT JOIN T_RES_PLAT_M_ENT t2 ON t1.ENT_RES_NO = t2.ENT_RES_NO
+				LEFT JOIN T_RES_PLAT_INFO t3 ON t2.PLAT_NO = t3.PLAT_NO  
+		WHERE t1.ENT_CUST_NAME IS NOT NULL
+			  AND t2.PLAT_NO = #{platNo}
+			  AND t2.ENT_RES_NO = #{entResNo}
+	</select>
+	
+	<select id="platListAll" resultType="com.gy.hsxt.gpf.res.bean.PlatInfo">
+		SELECT PLAT_NO       	AS platNo,
+		       ENT_RES_NO    	AS entResNo,
+		       ENT_CUST_NAME 	AS entCustName,
+		       EMAIL_A       	AS emailA,
+		       EMAIL_B       	AS emailB,
+			   CREATED_OPT_ID   AS createdOptId, 
+			   CREATED_OPT_NAME AS createdOptName,
+			   CREATED_DATE     AS createdDate,
+			   UPDATED_OPT_ID   AS updatedOptId,
+			   UPDATED_OPT_NAME AS updatedOptName,
+			   UPDATED_DATE     AS updatedDate,
+		       SYNC_FLAG     	AS syncFlag
+		 FROM T_RES_PLAT_INFO
+	</select>
+	
+	<select id="isExistMent" resultType="boolean">
+		SELECT  CASE WHEN COUNT(1) = 0 THEN 0 ELSE 1 END 
+		FROM T_RES_M_ENT_INFO
+		WHERE ENT_RES_NO = #{entResNo}
+			  AND ENT_CUST_NAME IS NOT NULL
+	</select>
+	
+	<select id="queryMentInitQuota" resultType="int">
+		SELECT CASE WHEN SUM(INIT_QUOTA) IS NULL THEN 0 ELSE  SUM(INIT_QUOTA) END 
+		FROM T_RES_PLAT_M_ENT
+		WHERE 1 = 1
+		<if test="entResNo != null and entResNo != ''">
+			AND ENT_RES_NO = #{entResNo}
+		</if> 
+		<if test="platNo != null and platNo != ''">
+			AND PLAT_NO = #{platNo}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.device.mapper.CardReaderDeviceMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		<id column="DEVICE_CUST_ID" property="deviceCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="DEVICE_SEQ" property="deviceSeq" jdbcType="VARCHAR" />
+		<result column="MACHINE_NO" property="machineNo" jdbcType="VARCHAR" />
+		<result column="POINT_RATE" property="pointRate" jdbcType="VARCHAR" />
+		<result column="MODIFY_ACOUNT" property="pointRateVer" jdbcType="VARCHAR" />
+		<result column="SWIPE_TYPE" property="swipeType" jdbcType="DECIMAL" />
+		<result column="KSN_CODE1" property="ksnCode1" jdbcType="VARCHAR" />
+		<result column="KSN_CODE2" property="ksnCode2" jdbcType="VARCHAR" />
+		<result column="KSN_CODE3" property="ksnCode3" jdbcType="VARCHAR" />
+		<result column="CIPHERTEXT1" property="ciphertext1" jdbcType="VARCHAR" />
+		<result column="CIPHERTEXT2" property="ciphertext2" jdbcType="VARCHAR" />
+		<result column="CIPHERTEXT3" property="ciphertext3" jdbcType="VARCHAR" />
+		<result column="KSN_VALID1" property="ksnValid1" jdbcType="VARCHAR" />
+		<result column="KSN_VALID2" property="ksnValid2" jdbcType="VARCHAR" />
+		<result column="KSN_VALID3" property="ksnValid3" jdbcType="VARCHAR" />
+		<result column="PWD_VERSION" property="pwdVersion" jdbcType="VARCHAR" />
+		<result column="DEVICE_STATUS" property="deviceStatus" jdbcType="DECIMAL" />
+		<result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的显示的列 -->
+	<sql id="Base_Column_List">
+		DEVICE_CUST_ID,
+		ENT_RES_NO,
+		ENT_CUST_ID,
+		DEVICE_SEQ,
+		MACHINE_NO,
+		SWIPE_TYPE,
+		KSN_CODE1,
+		KSN_CODE2,
+		KSN_CODE3,
+		CIPHERTEXT1,
+		CIPHERTEXT2,
+		CIPHERTEXT3,
+		KSN_VALID1,
+		KSN_VALID2,
+		KSN_VALID3,
+		PWD_VERSION,
+		DEVICE_STATUS,
+		LAST_LOGIN_DATE,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY
+	</sql>
+
+	<!-- 通过设备客户号查询 刷卡器设备信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE_SWIPE
+		where DEVICE_CUST_ID =#{deviceCustId,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<!--  通过企业客户号查询所有刷卡器-->
+	<select id="listAllCardReaderDevice" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT ENT_RES_NO,DEVICE_SEQ FROM T_DEVICE_SWIPE
+		WHERE ENT_CUST_ID =#{entCustId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过终端编号 查询设备信息 -->
+	<select id="findCardReaderByDeviceNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select PR.POINT_RATE,
+		       PR.MODIFY_ACOUNT,
+		       T.DEVICE_CUST_ID,
+		       T.ENT_RES_NO,
+		       T.ENT_CUST_ID,
+		       T.DEVICE_SEQ,
+		       T.MACHINE_NO,
+		       T.SWIPE_TYPE,
+		       T.KSN_CODE1,
+		       T.KSN_CODE2,
+		       T.KSN_CODE3,
+		       T.CIPHERTEXT1,
+		       T.CIPHERTEXT2,
+		       T.CIPHERTEXT3,
+		       T.KSN_VALID1,
+		       T.KSN_VALID2,
+		       T.KSN_VALID3,
+		       T.PWD_VERSION,
+		       T.DEVICE_STATUS,
+		       T.LAST_LOGIN_DATE,
+		       T.ISACTIVE,
+		       T.CREATE_DATE,
+		       T.CREATEDBY,
+		       T.UPDATE_DATE,
+		       T.UPDATEDBY
+		  from T_DEVICE_SWIPE T, T_DEVICE_POINT_RATE PR
+		 where T.DEVICE_CUST_ID = PR.CUST_ID(+)
+		   and T.ENT_RES_NO = #{0}
+		   and (T.MACHINE_NO = #{1} or T.DEVICE_SEQ = #{1} or T.KSN_CODE1=#{1})
+	</select>
+	
+	<!-- 删除刷卡器设备通过设备客户号 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from T_DEVICE_SWIPE
+		 where DEVICE_CUST_ID = #{deviceCustId, jdbcType = VARCHAR}
+	</delete>
+
+	<!-- 插入刷卡器设备 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		insert into T_DEVICE_SWIPE
+		(DEVICE_CUST_ID,
+		ENT_RES_NO,
+		ENT_CUST_ID,
+		DEVICE_SEQ,
+		MACHINE_NO,
+		SWIPE_TYPE,
+		KSN_CODE1,
+		KSN_CODE2,
+		KSN_CODE3,
+		CIPHERTEXT1,
+		CIPHERTEXT2,
+		CIPHERTEXT3,
+		KSN_VALID1,
+		KSN_VALID2,
+		KSN_VALID3,
+		PWD_VERSION,
+		DEVICE_STATUS,
+		LAST_LOGIN_DATE,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY)
+		values (
+		#{deviceCustId,jdbcType=VARCHAR},
+		#{entResNo,jdbcType=CHAR},
+		#{entCustId,jdbcType=VARCHAR},
+		#{deviceSeq,jdbcType=VARCHAR},
+		#{machineNo,jdbcType=VARCHAR},
+		#{swipeType,jdbcType=DECIMAL},
+		#{ksnCode1,jdbcType=VARCHAR},
+		#{ksnCode2,jdbcType=VARCHAR},
+		#{ksnCode3,jdbcType=VARCHAR},
+		#{ciphertext1,jdbcType=VARCHAR},
+		#{ciphertext2,jdbcType=VARCHAR},
+		#{ciphertext3,jdbcType=VARCHAR},
+		#{ksnValid1,jdbcType=VARCHAR},
+		#{ksnValid2,jdbcType=VARCHAR},
+		#{ksnValid3,jdbcType=VARCHAR},
+		#{pwdVersion,jdbcType=VARCHAR},
+		#{deviceStatus,jdbcType=DECIMAL},
+		#{lastLoginDate,jdbcType=TIMESTAMP},
+		#{isactive,jdbcType=CHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createdby,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{updatedby,jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 插入刷卡器设备  -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		insert into T_DEVICE_SWIPE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deviceCustId != null">
+				DEVICE_CUST_ID,
+			</if>
+			<if test="entResNo != null">
+				ENT_RES_NO,
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID,
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ,
+			</if>
+			<if test="machineNo != null">
+				MACHINE_NO,
+			</if>
+			<if test="swipeType != null">
+				SWIPE_TYPE,
+			</if>
+			<if test="ksnCode1 != null">
+				KSN_CODE1,
+			</if>
+			<if test="ksnCode2 != null">
+				KSN_CODE2,
+			</if>
+			<if test="ksnCode3 != null">
+				KSN_CODE3,
+			</if>
+			<if test="ciphertext1 != null">
+				CIPHERTEXT1,
+			</if>
+			<if test="ciphertext2 != null">
+				CIPHERTEXT2,
+			</if>
+			<if test="ciphertext3 != null">
+				CIPHERTEXT3,
+			</if>
+			<if test="ksnValid1 != null">
+				KSN_VALID1,
+			</if>
+			<if test="ksnValid2 != null">
+				KSN_VALID2,
+			</if>
+			<if test="ksnValid3 != null">
+				KSN_VALID3,
+			</if>
+			<if test="pwdVersion != null">
+				PWD_VERSION,
+			</if>
+			<if test="deviceStatus != null">
+				DEVICE_STATUS,
+			</if>
+			<if test="lastLoginDate != null">
+				LAST_LOGIN_DATE,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="deviceCustId != null">
+				#{deviceCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="entResNo != null">
+				#{entResNo,jdbcType=CHAR},
+			</if>
+			<if test="entCustId != null">
+				#{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				#{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="machineNo != null">
+				#{machineNo,jdbcType=VARCHAR},
+			</if>
+			<if test="swipeType != null">
+				#{swipeType,jdbcType=DECIMAL},
+			</if>
+			<if test="ksnCode1 != null">
+				#{ksnCode1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode2 != null">
+				#{ksnCode2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode3 != null">
+				#{ksnCode3,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext1 != null">
+				#{ciphertext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext2 != null">
+				#{ciphertext2,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext3 != null">
+				#{ciphertext3,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid1 != null">
+				#{ksnValid1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid2 != null">
+				#{ksnValid2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid3 != null">
+				#{ksnValid3,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdVersion != null">
+				#{pwdVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceStatus != null">
+				#{deviceStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="lastLoginDate != null">
+				#{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改刷卡器设备信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		update T_DEVICE_SWIPE
+		<set>
+			<if test="entResNo != null">
+				ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="machineNo != null">
+				MACHINE_NO = #{machineNo,jdbcType=VARCHAR},
+			</if>
+			<if test="swipeType != null">
+				SWIPE_TYPE = #{swipeType,jdbcType=DECIMAL},
+			</if>
+			<if test="ksnCode1 != null">
+				KSN_CODE1 = #{ksnCode1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode2 != null">
+				KSN_CODE2 = #{ksnCode2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode3 != null">
+				KSN_CODE3 = #{ksnCode3,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext1 != null">
+				CIPHERTEXT1 = #{ciphertext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext2 != null">
+				CIPHERTEXT2 = #{ciphertext2,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext3 != null">
+				CIPHERTEXT3 = #{ciphertext3,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid1 != null">
+				KSN_VALID1 = #{ksnValid1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid2 != null">
+				KSN_VALID2 = #{ksnValid2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid3 != null">
+				KSN_VALID3 = #{ksnValid3,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdVersion != null">
+				PWD_VERSION = #{pwdVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceStatus != null">
+				DEVICE_STATUS = #{deviceStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="lastLoginDate != null">
+				LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where DEVICE_CUST_ID = #{deviceCustId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 修改刷卡器设备信息 -->
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		update
+		T_DEVICE_SWIPE
+		set ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+		ENT_CUST_ID =#{entCustId,jdbcType=VARCHAR},
+		DEVICE_SEQ =#{deviceSeq,jdbcType=VARCHAR},
+		MACHINE_NO=#{machineNo,jdbcType=VARCHAR},
+		SWIPE_TYPE =#{swipeType,jdbcType=DECIMAL},
+		KSN_CODE1=#{ksnCode1,jdbcType=VARCHAR},
+		KSN_CODE2 = #{ksnCode2,jdbcType=VARCHAR},
+		KSN_CODE3 = #{ksnCode3,jdbcType=VARCHAR},
+		CIPHERTEXT1=#{ciphertext1,jdbcType=VARCHAR},
+		CIPHERTEXT2 =#{ciphertext2,jdbcType=VARCHAR},
+		CIPHERTEXT3=#{ciphertext3,jdbcType=VARCHAR},
+		KSN_VALID1 =#{ksnValid1,jdbcType=VARCHAR},
+		KSN_VALID2=#{ksnValid2,jdbcType=VARCHAR},
+		KSN_VALID3 =#{ksnValid3,jdbcType=VARCHAR},
+		PWD_VERSION =#{pwdVersion,jdbcType=VARCHAR},
+		DEVICE_STATUS=#{deviceStatus,jdbcType=DECIMAL},
+		LAST_LOGIN_DATE =#{lastLoginDate,jdbcType=TIMESTAMP},
+		ISACTIVE=#{isactive,jdbcType=CHAR},
+		CREATE_DATE =#{createDate,jdbcType=TIMESTAMP},
+		CREATEDBY=#{createdby,jdbcType=VARCHAR},
+		UPDATE_DATE =#{updateDate,jdbcType=TIMESTAMP},
+		UPDATEDBY =#{updatedby,jdbcType=VARCHAR}
+		where DEVICE_CUST_ID=#{deviceCustId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 通过终端编号修改设备信息 -->
+	<update id="updateByDeviceNoSelective" parameterType="com.gy.hsxt.uc.device.bean.CardReaderDevice">
+		update T_DEVICE_SWIPE
+		<set>
+			<if test="entResNo != null">
+				ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="machineNo != null">
+				MACHINE_NO = #{machineNo,jdbcType=VARCHAR},
+			</if>
+			<if test="swipeType != null">
+				SWIPE_TYPE = #{swipeType,jdbcType=DECIMAL},
+			</if>
+			<if test="ksnCode1 != null">
+				KSN_CODE1 = #{ksnCode1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode2 != null">
+				KSN_CODE2 = #{ksnCode2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnCode3 != null">
+				KSN_CODE3 = #{ksnCode3,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext1 != null">
+				CIPHERTEXT1 = #{ciphertext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext2 != null">
+				CIPHERTEXT2 = #{ciphertext2,jdbcType=VARCHAR},
+			</if>
+			<if test="ciphertext3 != null">
+				CIPHERTEXT3 = #{ciphertext3,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid1 != null">
+				KSN_VALID1 = #{ksnValid1,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid2 != null">
+				KSN_VALID2 = #{ksnValid2,jdbcType=VARCHAR},
+			</if>
+			<if test="ksnValid3 != null">
+				KSN_VALID3 = #{ksnValid3,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdVersion != null">
+				PWD_VERSION = #{pwdVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceStatus != null">
+				DEVICE_STATUS = #{deviceStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="lastLoginDate != null">
+				LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+		AND MACHINE_NO =#{deviceSeq,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

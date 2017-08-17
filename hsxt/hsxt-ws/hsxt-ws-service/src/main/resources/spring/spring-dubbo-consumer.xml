@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+	<!-- 工单系统保存工单服务 -->
+	<dubbo:reference id="tmTaskService" interface="com.gy.hsxt.tm.api.ITMTaskService"
+		timeout="${dubbo.service.timeout30000}" retries="0" check="false" version="1.0.0" />
+
+	<!-- 账务系统记账服务 -->
+	<dubbo:reference id="accountEntryService" interface="com.gy.hsxt.ac.api.IAccountEntryService"
+		timeout="${dubbo.service.timeout30000}" retries="0" check="false" version="1.0.0" />
+
+	<!-- 业务参数系统获取参数配置服务 -->
+	<dubbo:reference id="businessParamSearchService" interface="com.gy.hsxt.bp.api.IBusinessParamSearchService"
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout30000}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+		
+	<dubbo:reference id="dsBatchCallback"
+		interface="com.gy.hsi.ds.api.IDSBatchServiceListener" 
+        async="true" sent="false" version="1.0.0" />
+    
+    <!-- 用户中心服务 -->
+    <dubbo:reference id="asEntService" interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService"
+		timeout="${dubbo.service.timeout10000}" retries="0" check="false" version="1.0.0" />
+		
+    <dubbo:reference id="asCardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService"
+		timeout="${dubbo.service.timeout10000}" retries="0" check="false" version="1.0.0" />
+		
+    <dubbo:reference id="asCardHolderStatusInfoService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderStatusInfoService"
+		timeout="${dubbo.service.timeout10000}" retries="0" check="false" version="1.0.0" />
+		
+		
+	<!-- 全局配置参数 -->
+	<dubbo:reference interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" id="lcsBaseDataService" 
+		 timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+		 
+	<!-- 通知服务 -->
+    <dubbo:reference id="ntService" interface="com.gy.hsi.nt.api.service.INtService"  timeout="${dubbo.service.timeout10000}" retries="0"  check="false" version="1.0.0"/>
+</beans>

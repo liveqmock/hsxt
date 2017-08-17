@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.VersionMapper">
+
+	<insert id="addVersion" parameterType="com.gy.hsxt.lcs.bean.Version" >
+		INSERT INTO T_LCS_VERSION (
+			VERSION_CODE,
+			VERSION,
+			NOTIFY_FLAG
+		)
+		VALUES
+			(
+				#{versionCode,jdbcType=VARCHAR},
+				#{version,jdbcType=INTEGER},
+				#{notifyFlag,jdbcType=TINYINT}
+			);
+	</insert>
+	
+	<update id="updateVersion" parameterType="com.gy.hsxt.lcs.bean.Version">
+		 UPDATE T_LCS_VERSION
+		 <set>
+       		 VERSION = #{version,jdbcType=BIGINT},
+             NOTIFY_FLAG = #{notifyFlag,jdbcType=TINYINT}
+		 </set>
+		 WHERE  
+		     VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="queryVersion" resultType="com.gy.hsxt.lcs.bean.Version">
+		SELECT
+			VERSION_CODE versionCode,
+			VERSION version,
+			NOTIFY_FLAG notifyFlag
+	    FROM
+			T_LCS_VERSION
+		WHERE
+			VERSION_CODE = #{versionCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findAll" resultType="com.gy.hsxt.lcs.bean.Version">
+		SELECT
+			VERSION_CODE versionCode,
+			VERSION version,
+			NOTIFY_FLAG notifyFlag
+		FROM
+			T_LCS_VERSION
+	</select>
+</mapper>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.device.mapper.PointRateMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.device.bean.PointRate">
+		<id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="DEVICE_SEQ" property="deviceSeq" jdbcType="VARCHAR" />
+		<result column="POINT_RATE" property="pointRate" jdbcType="VARCHAR" />
+		<result column="MODIFY_ACOUNT" property="modifyAcount" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--查询的列 -->
+	<sql id="Base_Column_List">
+		CUST_ID, 
+		ENT_RES_NO, 
+		ENT_CUST_ID, 
+		DEVICE_SEQ, 
+		POINT_RATE, 
+		MODIFY_ACOUNT, 
+		ISACTIVE,
+		CREATE_DATE, 
+		CREATEDBY,
+		UPDATE_DATE, 
+		UPDATEDBY
+	</sql>
+	
+	<!-- 通过主键查询积分比例-->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_DEVICE_POINT_RATE
+		where CUST_ID = #{custId,jdbcType=VARCHAR}
+	</select>
+	
+	<!--通过主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from T_DEVICE_POINT_RATE
+		where CUST_ID =
+		#{custId,jdbcType=VARCHAR}
+	</delete>
+	
+	<!--插入积分比例 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.device.bean.PointRate">
+		insert into T_DEVICE_POINT_RATE
+			  (CUST_ID,
+			   ENT_RES_NO,
+			   ENT_CUST_ID,
+			   DEVICE_SEQ,
+			   POINT_RATE,
+			   MODIFY_ACOUNT,
+			   ISACTIVE,
+			   CREATE_DATE,
+			   CREATEDBY,
+			   UPDATE_DATE,
+			   UPDATEDBY)
+			values
+			  (#{custId,jdbcType = VARCHAR},
+			   #{entResNo,jdbcType = VARCHAR},
+			   #{entCustId,jdbcType = VARCHAR},
+			   #{deviceSeq,jdbcType = VARCHAR},
+			   #{pointRate,jdbcType = VARCHAR},
+			   #{modifyAcount,jdbcType = DECIMAL},
+			   #{isactive,jdbcType = CHAR},
+			   #{createDate,jdbcType = TIMESTAMP},
+			   #{createdby,jdbcType = VARCHAR},
+			   #{updateDate,jdbcType = TIMESTAMP},
+			   #{updatedby,jdbcType = VARCHAR})
+	</insert>
+	
+	<!--插入积分比例 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.device.bean.PointRate">
+		insert into T_DEVICE_POINT_RATE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="custId != null">
+				CUST_ID,
+			</if>
+			<if test="entResNo != null">
+				ENT_RES_NO,
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID,
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ,
+			</if>
+			<if test="pointRate != null">
+				POINT_RATE,
+			</if>
+			<if test="modifyAcount != null">
+				MODIFY_ACOUNT,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="entResNo != null">
+				#{entResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				#{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				#{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="pointRate != null">
+				#{pointRate,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyAcount != null">
+				#{modifyAcount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!--修改积分比例 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.device.bean.PointRate">
+		update T_DEVICE_POINT_RATE
+		<set>
+			<if test="entResNo != null">
+				ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="pointRate != null">
+				POINT_RATE = #{pointRate,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyAcount != null">
+				MODIFY_ACOUNT = MODIFY_ACOUNT+1,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where CUST_ID = #{custId,jdbcType=VARCHAR}
+	</update>
+	
+	<!--修改积分比例 -->
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.device.bean.PointRate">
+		update T_DEVICE_POINT_RATE
+			set ENT_RES_NO =#{entResNo,jdbcType=VARCHAR},
+			ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR},
+			POINT_RATE = #{pointRate,jdbcType=VARCHAR},
+			MODIFY_ACOUNT = #{modifyAcount,jdbcType=DECIMAL},
+			ISACTIVE =#{isactive,jdbcType=CHAR},
+			CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+		where CUST_ID =#{custId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 修改积分比例通过设备终端编号-->
+	<update id="updateByDeviceNoSelective" parameterType="com.gy.hsxt.uc.device.bean.PointRate">
+		update T_DEVICE_POINT_RATE
+		<set>
+			<if test="entResNo != null">
+				ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceSeq != null">
+				DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR},
+			</if>
+			<if test="pointRate != null">
+				POINT_RATE = #{pointRate,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyAcount != null">
+				MODIFY_ACOUNT = MODIFY_ACOUNT+1,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+			AND DEVICE_SEQ = #{deviceSeq,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

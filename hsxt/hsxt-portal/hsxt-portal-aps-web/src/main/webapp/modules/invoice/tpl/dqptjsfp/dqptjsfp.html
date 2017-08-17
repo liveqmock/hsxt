@@ -1,0 +1,43 @@
+<div id="dqptjsfpTpl">
+	<div class="search-toolbar">
+	<form id="jsfp_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_resNo" value="" maxlength="11" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="search_companyName" value="" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="search_status" name="search_status" value="" readonly="readonly" placeholder="选择状态" />
+				<input id="search_invoiceMaker" name="search_invoiceMaker" type="hidden" value="1" />
+			</li>
+			<li>
+				<button id="jsfp_query" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="addInvoices_btn" type="button" class="btn-search">新增企业发票</button>
+			</li>
+		 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate">企业互生号</th>
+		<th w_index="custName" w_tip=true w_align="left">企业名称</th>
+		<th w_index="openTime">开票日期</th>
+		<th w_index="allAmount" w_render="operate" w_align="right">开票总金额</th>
+		<th w_index="updatedDate">状态日期</th>
+		<th w_index="status"  w_render="operate">状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dqptjsfp_ckTpl" class="none"></div>
+<div id="dqptjsfp_xzTpl" class="none"></div>
+<div id="ckqyxxTpl" class="none"></div>
+<div id="dqptjsfp_qs" class="none"></div>
+<div id="dqptjsfp_jq" class="none ovh"></div>

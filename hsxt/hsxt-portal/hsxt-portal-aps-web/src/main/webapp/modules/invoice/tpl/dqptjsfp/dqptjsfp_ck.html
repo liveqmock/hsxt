@@ -1,0 +1,86 @@
+<div class="mb5 fb">发票抬头信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">发票抬头</td>
+		<td class="view_text_2" width="30%"><%=obj.invoiceTitle%></td>
+		<td class="view_item" width="20%">纳税人识别号</td>
+		<td class="view_text_2" width="30%"><%=obj.taxpayerNo%></td>
+	</tr>
+	<tr>
+		<td class="view_item">地址、电话</td>
+		<td class="view_text_2" colspan="3"><%=obj.address%> <%=obj.telephone%></td>
+	</tr>
+	<tr>
+		<td class="view_item">开户行及账号</td>
+		<td class="view_text_2" colspan="3"><%=obj.bankBranchName%><%=obj.bankNo%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">发票类型</td>
+		<td class="view_text_2" width="30%"><%=comm.lang("invoice").invoice_type[obj.invoiceType]%></td>
+		<td class="view_item" width="20%">发票金额</td>
+		<td class="view_text_2" width="30%"><%=comm.formatMoneyNumber(obj.allAmount)%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">开票内容</td>
+		<td class="view_text_2" width="30%"><%=obj.openContent%></td>
+		<td class="view_item" width="20%"></td>
+		<td class="view_text_2" width="30%"></td>
+	</tr>
+</table>
+<div class="mt15 mb5 fb">发票记录</div>
+<table id="searchTable_ck">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="invoiceCode">发票代码</th>
+	<th w_index="invoiceNo">发票号码</th>
+	<th w_index="invoiceAmount"  w_render="operate">发票金额</th>
+  </tr>
+</table>
+<div class="mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table-2">
+		<tr>
+			<td class="view_item" width="20%" height="40">配送方式</td>
+			<td class="view_text_2" width="30%"><%=comm.lang("invoice").post_way[obj.postWay]%></td>
+			<td class="view_item" width="20%">承运公司</td>
+			<td class="view_text_2" width="30%"><%=obj.expressName%></td>
+		</tr>
+		<%if(obj.status == 3){%>
+		<tr>
+			<td class="view_item" width="20%" height="40">运单号</td>
+			<td class="view_text_2" width="30%"><%=obj.trackingNo%></td>
+			<td class="view_item" width="20%" ></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+		<%}%>
+		
+		<%if(obj.status == 4){%>
+		<tr>
+			<td class="view_item" width="20%" height="40">签收方式</td>
+			<td class="view_text_2" width="30%"><%=comm.lang("invoice").receive_way[obj.receiveWay]%></td>
+			<td class="view_item" width="20%">运单号</td>
+			<td class="view_text_2" width="30%"><%=obj.trackingNo%></td>
+		</tr>
+		<%}%>
+		
+	</table>
+</div>
+
+<% if(obj.status == 5){ %>
+<div class="mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">拒签原因</td>
+			<td class="view_text_2" width="80%"><%=obj.refuseRemark%></td>
+		</tr>
+	</table>
+</div>
+<% } %>
+<div></div>
+
+<div class="w300 bc mt10" align="center">
+	<%if(obj.status==3){%>
+		<a class="btn_bg submit fl" id="qianShou_btn">签　收</a>
+		<a class="btn_bg submit fl ml15" id="juQian_btn">拒　签</a>
+	<%}%>
+	<a class="btn_bg submit" id="ck_back_dqptjsfp">返&#12288;回</a>
+</div>

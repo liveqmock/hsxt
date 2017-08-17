@@ -1,0 +1,40 @@
+<table id="searchTable_selected">
+	  <tr>
+		<th w_num="line" width="4%;">序号</th>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="entCustName" w_tip="true">企业名称</th>
+		<!--<th w_index="th_3">工具订单编号</th>-->
+		<th w_index="deviceSeqNo" w_tip="true">机器码/序列号</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="terminalNo" w_tip="true">终端编号</th>
+		<th w_render="operate" width="10%;">工具处理结果</td>
+		<th w_render="operate" width="13%;">维修补款金额</td>
+	  </tr>
+	</table>
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="15%">备注</td>
+            <td width="85%" colspan="3"><textarea id="reqRemark" maxlength="300" class="fl ml5 h50 w98pc rsn pt5 pb5" placeholder="输入备注，最长不超过300个字"></textarea></td>
+        </tr>		
+		<tr>
+            <td class="view_item">选择验证方式</td>
+            <td colspan="3" class="pr">
+				<input id="verificationMode_cxgl" readonly="readonly" placeholder="选择验证方式" />
+				<span class="ml10 red none" id="verificationMode_prompt_cxgl">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+        <tr id="fhyPwd_cxgl" class="none">
+            <td class="view_item">复核员</td>
+            <td><input type="text" id="cxglOptUserId" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+            <td class="view_item">复核员密码</td>
+            <td class="pr">
+				<input type="password" id="cxglPwd" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+		
+		
+    </table>
+</div>

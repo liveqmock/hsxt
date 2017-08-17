@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.PwdQuestionMapper" >
+<!-- 密保信息 -->
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.PwdQuestion" >
+    <id column="QUESTION_ID" property="questionId" jdbcType="DECIMAL" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="PWD_REST_QUESTION" property="pwdRestQuestion" jdbcType="VARCHAR" />
+    <result column="PWD_REST_PWD_ANSWER" property="pwdRestPwdAnswer" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATEDBY" property="updateBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <!-- 查询的列名 -->
+  <sql id="Base_Column_List" >
+    QUESTION_ID, 
+    CUST_ID, 
+    PWD_REST_QUESTION, 
+    PWD_REST_PWD_ANSWER, 
+    CREATE_DATE, 
+    UPDATE_DATE,
+    CREATEDBY,
+    UPDATEDBY
+  </sql>
+  
+  <!-- 根据ID查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PWD_QUESTION
+    where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+  </select>
+  
+  <!-- 根据ID删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_PWD_QUESTION
+    where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!-- 添加密保 -->
+  <insert id="insert" parameterType="com.gy.hsxt.uc.common.bean.PwdQuestion" >
+    insert into T_PWD_QUESTION (
+    QUESTION_ID, 
+    CUST_ID, 
+    PWD_REST_QUESTION, 
+    PWD_REST_PWD_ANSWER, 
+    CREATE_DATE, 
+    UPDATE_DATE,
+    CREATEDBY,
+    UPDATEDBY
+    )
+    values (
+    #{questionId,jdbcType=DECIMAL}, 
+    #{custId,jdbcType=VARCHAR}, 
+    #{pwdRestQuestion,jdbcType=VARCHAR}, 
+    #{pwdRestPwdAnswer,jdbcType=VARCHAR}, 
+    #{createDate,jdbcType=TIMESTAMP}, 
+    #{updateDate,jdbcType=TIMESTAMP},
+    #{createBy,jdbcType=VARCHAR}, 
+    #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 添加字段值不为空的密保 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.PwdQuestion" >
+    insert into T_PWD_QUESTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        QUESTION_ID,
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="pwdRestQuestion != null" >
+        PWD_REST_QUESTION,
+      </if>
+      <if test="pwdRestPwdAnswer != null" >
+        PWD_REST_PWD_ANSWER,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="createBy != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateBy != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	seq_t_pwd_question.nextval,
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdRestQuestion != null" >
+        #{pwdRestQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdRestPwdAnswer != null" >
+        #{pwdRestPwdAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据客户号查询密保问题 -->
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PWD_QUESTION
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 更新密保 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.PwdQuestion" >
+    update T_PWD_QUESTION
+    <set >
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdRestQuestion != null" >
+        PWD_REST_QUESTION = #{pwdRestQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdRestPwdAnswer != null" >
+        PWD_REST_PWD_ANSWER = #{pwdRestPwdAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        CREATEDBY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATEDBY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 根据Id更新密保 -->
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.common.bean.PwdQuestion" >
+    update T_PWD_QUESTION
+    set CUST_ID = #{custId,jdbcType=VARCHAR},
+      PWD_REST_QUESTION = #{pwdRestQuestion,jdbcType=VARCHAR},
+      PWD_REST_PWD_ANSWER = #{pwdRestPwdAnswer,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createBy,jdbcType=VARCHAR},
+      UPDATEDBY = #{updateBy,jdbcType=VARCHAR}
+    where QUESTION_ID = #{questionId,jdbcType=DECIMAL}
+  </update>
+  
+   <!-- 批量插入密保信息-->
+	<insert id="batchInsertSelective"   parameterType="java.util.List">
+	    INSERT  INTO T_PWD_QUESTION (QUESTION_ID,CUST_ID,CREATEDBY) 
+	     SELECT SEQ_T_PWD_QUESTION.NEXTVAL,A.* FROM
+  		(<foreach collection="list" item="item" index="index" separator=" union all "> 
+		SELECT 
+			#{item.custId,jdbcType=VARCHAR},
+			#{item.createBy,jdbcType=VARCHAR}
+		FROM DUAL
+		</foreach>) A
+	</insert>
+	
+	 <!-- 批量删除密保信息-->
+	<update id="batchDeleteByPrimaryKey"  parameterType="java.util.Map">
+                DELETE FROM T_PWD_QUESTION 
+                where CUST_ID IN
+                 <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                  '${item}'
+                 </foreach>
+    </update>
+</mapper>

@@ -1,0 +1,12 @@
+ <h6><%=obj.title%></h6>
+  <div class="tit_img tr_img">
+    <div class="td_img">
+      <div class="inner_img clearfix">
+      <%$.each(obj.picUrls.split(","),function(k,v){%>
+      	<img data-src="<%=v%>" width="68" height="68" class="imgSrc"/>
+      <%})%>
+	</div>
+    </div>
+    <div class="arrow_left">&lt;</div>
+    <div class="arrow_right">&gt;</div>
+  </div>

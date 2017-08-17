@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.PointInvestMapper">
+
+	<resultMap type="java.util.HashMap" id="investResultMap">
+		<result column="returnStatus" property="resultStatus" javaType="java.lang.Integer"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 插入积分投资记录 -->
+	<insert id="insertPointInvest" parameterType="com.gy.hsxt.bs.bean.order.PointInvest">
+		INSERT INTO T_BS_POINT_INVEST
+		(
+		INVEST_NO,
+		INVEST_DATE,
+		INVEST_AMOUNT,
+		ACCUMULATIVE_INVEST_COUNT,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		CHANNEL
+		)
+		VALUES
+		(
+		#{investNo},
+		to_date(#{investDate},'yyyy-MM-dd HH24:mi:ss'),
+		#{investAmount},
+		(select case when sum(INVEST_AMOUNT) is null then to_number(#{investAmount}) else sum(INVEST_AMOUNT)+to_number(#{investAmount}) end from T_BS_POINT_INVEST where HS_RES_NO = #{hsResNo}),
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{channel}
+		)
+	</insert>
+	
+	<!-- 查询积分投资 -->
+	<select id="findPointInvestListPage" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.PointInvest">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_BS_POINT_INVEST
+		<where>
+			<if test="custId!=null and custId!=''">
+				and CUST_ID = #{custId}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				and INVEST_DATE &gt;= to_date(#{startDate},'yyyy-mm-dd
+				hh24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and INVEST_DATE &lt;= to_date(#{endDate},'yyyy-mm-dd
+				hh24:mi:ss')
+			</if>
+		</where>
+		order by INVEST_DATE desc,INVEST_NO desc
+	</select>
+	
+	<!-- 查询投资记录超过365天并还未分红的记录 -->
+	<select id="findPointInvestMoreThan365" resultType="com.gy.hsxt.bs.bean.order.PointInvest">
+		select
+		p.cust_id as custId,sum(p.invest_amount) as investAmount
+		from
+		T_BS_POINT_INVEST p
+		where
+		p.invest_date &lt;
+		add_months(trunc(sysdate,'yyyy'),-12)
+		and
+		not exists
+		(
+		select
+		d.cust_id
+		from T_BS_POINT_DIVIDEND d
+		where
+		p.cust_id =
+		d.cust_id
+		and
+		d.dividend_year
+		= (select dr.dividend_year from
+		T_BS_DIVIDEND_RATE dr where
+		dr.dividend_status=1)
+		)
+		group by p.cust_id
+	</select>
+
+	<!-- 根据客户号查询积分投资小于365天的记录 -->
+	<select id="findPointInvestLessThan365" parameterType="string"
+		resultType="com.gy.hsxt.bs.order.bean.PointInvestCustom">
+		select
+		<include refid="base_column_list"></include>
+		,
+		(trunc(sysdate,'yyyy')-1) -
+		to_date(to_char(p.invest_date,'yyyy-MM-dd'),'yyyy-MM-dd') as
+		investDays
+		from
+		T_BS_POINT_INVEST p
+		where
+		p.invest_date &gt;=
+		add_months(trunc(sysdate,'yyyy'),-12)
+		and
+		p.invest_date &lt;
+		trunc(sysdate,'yyyy')-1
+		<if test="custId != null and custId !=''">
+			and p.cust_id=#{custId}
+		</if>
+		and
+		not exists
+		(
+		select
+		d.cust_id
+		from T_BS_POINT_DIVIDEND d
+		where
+		p.cust_id
+		=
+		d.cust_id
+		and
+		d.dividend_year = (select dr.dividend_year from
+		T_BS_DIVIDEND_RATE dr
+		where dr.dividend_status=1)
+		)
+	</select>
+
+	<!-- 查询积分投资小于365天且无大于365天的记录 -->
+	<select id="findUnPointInvestLessThan365" resultType="com.gy.hsxt.bs.order.bean.PointInvestCustom">
+		select
+		<include refid="base_column_list"></include>
+		,
+		(trunc(sysdate,'yyyy')-1) -
+		to_date(to_char(p.invest_date,'yyyy-MM-dd'),'yyyy-MM-dd') as
+		investDays
+		from
+		T_BS_POINT_INVEST p
+		where
+		p.invest_date &gt;=
+		add_months(trunc(sysdate,'yyyy'),-12)
+		and
+		p.invest_date &lt;
+		trunc(sysdate,'yyyy')-1
+		and p.cust_id not in
+		(
+		select p1.cust_id from
+		T_BS_POINT_INVEST p1
+		where p1.invest_date &lt;
+		add_months(trunc(sysdate,'yyyy'),-12)
+		group by cust_id having count(*)
+		&gt;=1
+		)
+		<if test="custId != null and custId !=''">
+			and p.cust_id=#{custId}
+		</if>
+		and
+		not exists
+		(
+		select
+		d.cust_id
+		from T_BS_POINT_DIVIDEND d
+		where
+		p.cust_id
+		=
+		d.cust_id
+		and
+		d.dividend_year = (select dr.dividend_year from
+		T_BS_DIVIDEND_RATE dr
+		where dr.dividend_status=1)
+		)
+	</select>
+
+	<!-- 查询是否还有未分红的记录数 -->
+	<select id="findUnDividendCount" parameterType="string"
+		resultType="int">
+		select count(*)
+		from T_BS_POINT_INVEST p
+		where not exists
+		(
+		select d.cust_id
+		from T_BS_POINT_DIVIDEND d
+		where p.cust_id = d.cust_id
+		and d.dividend_year = #{dividendYear}
+		)
+	</select>
+	<!-- 查询积分投资客户信息 -->
+	<select id="findPointInvestByCustId" parameterType="string"
+		resultType="com.gy.hsxt.bs.bean.order.PointInvest">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_BS_POINT_INVEST
+		where CUST_ID = #{custId}
+		and rownum =1
+	</select>
+
+	<!-- 查询积分投资信息 -->
+	<select id="findPointInvestInfo" parameterType="string"
+		resultType="com.gy.hsxt.bs.bean.order.PointInvest">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_BS_POINT_INVEST
+		where
+		invest_no = #{investNo}
+	</select>
+
+	<!-- 调用存储过程进行投资分红 -->
+	<select id="callGenInvestDividend" parameterType="java.util.Map" statementType="CALLABLE">
+	   <![CDATA[
+        {call P_BS_GEN_POINT_DIVIDEND(
+            #{dividendYear,jdbcType=VARCHAR, mode=IN},
+            #{custDividendTaux,jdbcType=DECIMAL, mode=IN},
+            #{perDividHsbScale,jdbcType=DECIMAL, mode=IN},
+            #{perDirectHsbScale,jdbcType=DECIMAL, mode=IN},
+            #{entDividHsbScale,jdbcType=DECIMAL, mode=IN},
+            #{entDirectHsbScale,jdbcType=DECIMAL, mode=IN},
+            #{returnStatus,jdbcType=INTEGER, mode=OUT}
+            )
+        }
+        ]]>
+	</select>
+	<!-- 调用存储过程进行投资分红记帐分解 -->
+	<select id="callGenInvestDividendAC" parameterType="java.util.Map" statementType="CALLABLE">
+	   <![CDATA[
+        {call P_BS_GEN_INVEST_ACCOUNT_DETAIL(
+            #{dividendYear,jdbcType=VARCHAR, mode=IN},
+            #{normalAccount,jdbcType=VARCHAR, mode=IN},
+            #{directionalAccount,jdbcType=VARCHAR, mode=IN},
+            #{fundAccount,jdbcType=VARCHAR, mode=IN},
+            #{tuaxAccount,jdbcType=VARCHAR, mode=IN},
+            #{custDividendTaux,jdbcType=DECIMAL, mode=IN},
+            #{currencyCode,jdbcType=VARCHAR, mode=IN},
+            #{transCodeEnt,jdbcType=VARCHAR, mode=IN},
+            #{transCodePer,jdbcType=VARCHAR, mode=IN},
+            #{returnStatus,jdbcType=INTEGER, mode=OUT}
+            )
+        }
+        ]]>
+	</select>
+
+	<!-- 获取累计积分投资总数 -->
+	<select id="findInvestCount" resultType="string">
+	   select sum(pi.invest_amount)
+	   from T_BS_POINT_INVEST pi
+       where HS_RES_NO = #{hsResNo}
+	</select>
+	
+	<!-- 获取分红积分投资总数 -->
+	<select id="findDividendInvestCount" resultType="string">
+	   select sum(pi.invest_amount)
+	   from T_BS_POINT_INVEST pi
+       where HS_RES_NO = #{hsResNo}
+       and invest_date &lt;to_date(#{dividendYear},'yyyy-MM-dd HH24:mi:ss')
+	</select>
+
+	<!-- 表字段片段 -->
+	<sql id="base_column_list">
+		INVEST_NO AS investNo,
+		INVEST_DATE AS investDate,
+		INVEST_AMOUNT AS investAmount,
+		ACCUMULATIVE_INVEST_COUNT AS accumulativeInvestCount,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CUST_TYPE AS custType,
+		OPT_CUST_ID AS optCustId,
+		OPT_CUST_NAME AS optCustName,
+		CHANNEL AS channel
+	</sql>
+</mapper>

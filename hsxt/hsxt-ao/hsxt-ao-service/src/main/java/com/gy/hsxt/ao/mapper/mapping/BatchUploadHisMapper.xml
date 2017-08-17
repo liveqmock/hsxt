@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.BatchUploadHisMapper">
+
+
+	<!-- 插入终端批上传明细数据 -->
+	<insert id="insertBatchUploadHisLastMath">
+		  insert into T_AO_BATCH_UPLOAD_HIS
+		    select *
+		    from
+		    T_AO_BATCH_UPLOAD
+		    WHERE batch_check_id in
+		    (select batch_check_id
+		    FROM
+		    t_ao_batch_settle
+		    WHERE upload_date &lt; last_day(add_months(SYSDATE,
+		    -#{month})))
+	</insert>
+
+
+
+</mapper>

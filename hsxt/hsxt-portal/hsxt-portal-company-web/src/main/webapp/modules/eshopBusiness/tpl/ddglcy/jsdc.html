@@ -1,0 +1,12 @@
+﻿<div>
+    <ul class="tabs-food clearfix" id="food_tabs">
+    	<li><a data-id="">所有分类</a></li>
+    <%$.each(obj.cdfllb, function(k, v) {%>
+    	<li><a data-id="<%=v.id%>"><%=v.name%></a></li>
+    <%})%>
+    </ul>
+    <div class="mt10 clearfix">
+        <label class="fl h30_middle">查询菜品：</label><input type="text" class="fl h28_middle input-txt w150" id="btn_jsdc_cppy" placeholder="支持拼音简码输入"/><button id="btn_jsdc_cx" class="btn-search ml10" type="button">查询</button>
+    </div>
+    <ul class="food-list mt10 clearfix" id="food_lists"></ul>
+</div>

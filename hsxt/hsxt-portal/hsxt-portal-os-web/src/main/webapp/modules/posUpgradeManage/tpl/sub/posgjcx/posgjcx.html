@@ -1,0 +1,39 @@
+<div class="search-toolbar">
+  <form id="posgjcx">
+  <div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>机型号：</label>
+				<input type="text" id="posType" name="posType" class="queryList-toolbar-text" placeholder="输入机型号" />
+			</li>
+			<li>
+				<label>更新标识：</label>
+				<input type="text" id="isUpgrade" name="isUpgrade" class="queryList-toolbar-text" style="border:1px;" placeholder="输入更新标识" />
+			</li>
+			<li>
+				<label>开始日期：</label>
+				<input id="search_beginDate" name="search_beginDate" placeholder="选择开始日期" class="h28_middle input-txt w80" />
+			</li>
+			<li>
+				<label>结束日期：</label>
+				<input id="search_endDate" name="search_endDate" placeholder="选择结束日期" class="h28_middle input-txt w80" />
+			</li>
+			<li>
+				<button id="searchBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="tableDetail" class="bsgrid">   
+      <tr>       
+          <th w_index="posDeviceType">机型号</th>
+          <th w_index="posUpgradeVerNo">版本号</th>
+          <th w_render="operate">更新标记</th>
+          <th w_render="operate">强制更新标记</th>
+          <th w_render="operate">操作</th>
+      </tr>            
+  </table> 
+</div>
+ <div id="posgjxgDlg" class="none"></div>

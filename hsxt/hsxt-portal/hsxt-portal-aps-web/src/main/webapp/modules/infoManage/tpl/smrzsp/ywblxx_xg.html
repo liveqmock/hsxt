@@ -1,0 +1,225 @@
+<div id="ywblxx_xgTpl" class="table_info info_800">
+	<% if(obj.num == 'xfz'){ %>
+	<div class="mb10 fb">互生卡号:<%=obj.perResNo%></div>
+	
+	<form id="ywblxx_xg_personinfo_form" name="ywblxx_xg_personinfo_form">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">修改前内容</td>
+			<td class="table_title" width="40%">修改后内容</td>
+		</tr>
+		<%if(obj.certype == '1' || obj.certype == '2'){%>
+		<tr>
+			<td class="table_item">姓名</td>
+			<td class="view_text"><%=obj.name%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="name" name="name" maxlength="20" placeholder="输入姓名" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">性别</td>
+			<td class="view_text"><%=obj.sexText%></td>
+			<td class="table_text"><input type="text" id="sex_type"  name="sex" placeholder="输入性别" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">国籍</td>
+			<td class="view_text"><%=obj.countryText%></td>
+			<td class="table_text">
+			<div data-tag="div-input-select" style="width:299px;display:inline-block;">
+			<select class="selectList-input" id="countryName"  name="countryName" style="width:295px;height:24px;font-size:12px;line-height:30px;border:0px solid rgb(102, 204, 102);margin-bottom:3px;" ></select>
+			<span data-tag="span-icon-select" tabindex="0" hidefocus="true" class="selectList-span" style="margin-top: -27.5px;"></span></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">证件类型</td>
+			<td class="view_text"><%=obj.certypeText%></td>
+			<td class="table_text"><div class="pr"><input id="certificates_type" optionvalue="<%=obj.certype%>" disabled="disabled" name="certype" readonly="readonly" placeholder="选择证件类型" /></div></td>
+		</tr>
+		<tr>
+			<td class="table_item">证件号码</td>
+			<td class="view_text"><%=obj.credentialsNo%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value=""  id="credentialsNo" name="credentialsNo" placeholder="输入证件号码" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">证件有效期</td>
+			<td class="view_text"><%=obj.validDate%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="validDate" name="validDate" placeholder="输入证件有效期" /></td>
+		</tr>
+		<%}%>
+		<%if(obj.certype == '1'){%>
+		<tr>
+			<td class="table_item">户籍地址</td>
+			<td class="view_text"><%=obj.birthAddr%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="birthAddr" maxlength="128" name="birthAddr" placeholder="输入户籍地址" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">发证机关</td>
+			<td class="view_text"><%=obj.licenceIssuing%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="licenceIssuing" maxlength="20" name="licenceIssuing" placeholder="输入发证机关" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">职业</td>
+			<td class="view_text"><%=obj.profession%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="profession" maxlength="20" name="profession" placeholder="输入职业" /></td>
+		</tr>
+		<%}%>
+		<%if(obj.certype == '2'){%>
+		<tr>
+			<td class="view_item">出生地点</td>
+			<td class="view_text"><%=obj.birthAddr%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="birthAddr" maxlength="128" name="birthAddr" placeholder="输入出生地点" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">签发地点</td>
+			<td class="view_text"><%=obj.issuePlace%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="issuePlace" maxlength="128" name="issuePlace" placeholder="输入签发地点" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">签发机关</td>
+			<td class="view_text"><%=obj.licenceIssuing%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="licenceIssuing" maxlength="20" name="licenceIssuing" placeholder="输入签发机关" /></td>
+		</tr>
+		<%}%>
+		<%if(obj.certype == '3'){%>
+		<tr>
+			<td class="view_item">企业名称</td>
+			<td class="view_text"><%=obj.entName%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" maxlength="64" value="" id="entName" name="entName" placeholder="输入企业名称" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">证件类型</td>
+			<td class="view_text"><%=obj.certypeText%></td>
+			<td class="table_text">
+			<input type="hidden" class="isChange" value="<%=obj.certype%>" id="certype" name="certype"/>
+			<div class="pr"><input id="certificates_type" optionvalue="<%=obj.certype%>" disabled="disabled" placeholder="选择证件类型" /></div></td>
+		</tr>
+		<tr>
+			<td class="view_item">证件号码</td>
+			<td class="view_text"><%=obj.credentialsNo%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="credentialsNo" name="credentialsNo" placeholder="输入证件号码" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">注册地址</td>
+			<td class="view_text"><%=obj.entRegAddr%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="entRegAddr" maxlength="128" name="entRegAddr" placeholder="输入注册地址" /></td>
+		</tr>
+		<tr>
+			<td class="view_item">成立日期</td>
+			<td class="view_text"><%=obj.entBuildDate%></td>
+			<td class="table_text">
+			<input type="text" class="table_info_input isChange" value="" id="entBuildDate" name="entBuildDate" readonly="readonly" placeholder="输入成立日期"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">公司类型</td>
+			<td class="view_text"><%=obj.entType%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="entType" name="entType" placeholder="输入公司类型" /></td>
+		</tr>
+		<%}%>
+		<tr>
+			<td class="table_item">认证附言</td>
+			<td class="view_text"><%=obj.postScript%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="postScript" name="postScript" maxlength="300" placeholder="输入认证附言"/></td>
+		</tr>
+	</table>
+	<div class="prompt clearfix mt20">
+		<i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！
+	</div>			
+	<div class="certificateBox">
+		<ul class="certificateSample clearfix">
+			<li>
+				<span class="f13">证件正面</span>
+				<div class="mt10 mb10 sampleBox" id="cerpica_img_div">
+					<i id="thum-1"  tabindex="cerpica" class="certificateSample_img certificateSample_01"></i>
+				</div>
+				<div class="bc w140">
+					<a class="input-file btn_bg upload_btn">上传<input type="file" id="cerpica"  name="cerpica"/></a>
+					<a id="person_demo_1" class="btn_bg viewSample_btn ml5">查看示例图片</a>
+				</div>
+			</li>
+			<%if(obj.certype == '1'){%>
+			<li>
+				<span class="f13">证件反面</span>
+				<div class="mt10 mb10 sampleBox" id="cerpicb_img_div">
+					<i id="thum-2"  tabindex="cerpicb" class="certificateSample_img certificateSample_02"></i>
+				</div>
+				<div class="bc w140">
+					<a class="input-file btn_bg upload_btn">上传<input type="file" id="cerpicb" name="cerpicb"/></a>
+					<a id="person_demo_2" class="btn_bg viewSample_btn ml5">查看示例图片</a>
+				</div>
+			</li>
+			<%}%>
+			<li>
+				<span class="f13">手持证件照</span>
+				<div class="mt10 mb10 sampleBox" id="cerpich_img_div">
+					<i id="thum-3"  tabindex="cerpich" class="certificateSample_img certificateSample_01"></i>
+				</div>
+				<div class="bc w140">
+					<a class="input-file btn_bg upload_btn">上传<input type="file" id="cerpich" name="cerpich"/></a>
+					<a id="person_demo_3" class="btn_bg viewSample_btn ml5">查看示例图片</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	</form>
+	<% }else{ %>
+	<div class="mb10 fb">企业互生号:<%=obj.entResNo%></div>
+	
+	<form id="ywblxx_xg_entinfo_form" name="ywblxx_xg_entinfo_form">
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">修改前内容</td>
+			<td class="table_title" width="40%">修改后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item">企业名称</td>
+			<td class="table_text"><%=obj.entCustName%></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="entCustName" maxlength="64" name="entCustName" placeholder="输入企业中文名称" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">企业地址</td>
+			<td class="table_text"><%=obj.entAddr %></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange"  id="entAddr" maxlength="128" name="entAddr" placeholder="输入企业地址" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">法人代表</td>
+			<td class="table_text"><%=obj.legalName %></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="legalName" maxlength="20" name="legalName" placeholder="输入法人代表" /></td>
+		</tr>
+		<tr>
+			<td class="table_item">营业执照注册号</td>
+			<td class="table_text"><%=obj.licenseNo %></td>
+			<td class="table_text"><input type="text" class="table_info_input isChange" value="" id="licenseNo" maxlength="20" name="licenseNo" placeholder="输入营业执照号" /></td>
+		</tr>
+	</table>
+	<div class="prompt clearfix mt20">
+		<i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！
+	</div>					
+	<div class="certificateBox">
+		<ul class="certificateSample clearfix">
+			<li>
+				<span class="f13">营业执照扫描件</span>
+				<div class="mt10 mb10 sampleBox">
+					<i id="thum-3" tabindex="licensePic" class="certificateSample_img certificateSample_01"></i>
+				</div>
+				<div class="bc w140">
+					<a class="input-file btn_bg upload_btn">上传<input type="file" id="licensePic"  name="licensePic"/></a>
+					<a id="ent_demo_3" class="btn_bg viewSample_btn ml5">查看示例图片</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	</form>
+	<% } %>	
+	
+				
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="ywblxx_xg_cancel">取&#12288;消</a>
+		<a class="btn_bg submit fr" id="ywblxx_xg_save">保&#12288;存</a>
+	</div>					
+</div>
+
+<div id="confirm_dialogBox" class="none">
+	<div class="view_info mt10"></div>
+</div>

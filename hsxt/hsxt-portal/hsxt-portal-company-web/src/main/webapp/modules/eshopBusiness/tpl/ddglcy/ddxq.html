@@ -1,0 +1,68 @@
+﻿<div class="pr">
+  <div class="order-detail-tips clearfix">
+    <div class="fl ml15">
+      订单号：<span class="mr20 red"><%=obj.ddbh%></span>状态：<span class="mr20 red"><%=obj.fkxx%></span>来源：<span class="mr20 red"><%=obj.ddly%></span>折扣率：<span class="mr20 red"><%=obj.zkl%>%</span>实付款：<span class="mr20 red"><%=obj.sfk%></span>
+    </div>
+    <div class="fr mr15">
+      <input type="button" class="order-btn order-btn-zk" value="折扣" id="cyddgl_xq_btn_zk"/><input type="button" class="order-btn order-btn-jsdc" value="继续点菜" id="cyddgl_xq_btn_jsdc"/><input type="button" class="order-btn" value="去结算" id="cyddgl_xq_btn_qjs"/>
+    </div>
+  </div>
+</div>
+<div class="pt5 pl20 pr20 operations_content h400">
+	<h1 class="fb f14 h22_middle">客户信息</h1>
+    <div class="cutline mb5"></div>
+    <table class="detail-table2" width="900" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="25%">联系人：<%=obj.khxm%></td>
+          <td width="25%">手机号：<%=obj.sjhm%></td>
+          <td width="25%">预计到店时间：<%=obj.yjddsj%></td>
+          <td width="25%">就餐人数：<%=obj.jcrs%></td>
+        </tr>
+        <tr>
+          <td>预计人均消费：<%=obj.yjrjxf%></td>
+          <td>已预付商家定金：<span class="red"><%=obj.yyfsjdj%></span></td>
+          <td colspan="2">留言：<%=obj.gkly%></td>
+        </tr>
+     </table>
+	<h1 class="fb f14 mt5 h22_middle">商品清单</h1>
+    <div class="cutline mb5"></div>
+    <table id="cyddgl_spcd_table">
+    <thead>
+        <tr>
+          <th w_render="renderImg" w_align="left">商品</th>
+          <th w_index="gg" w_align="left">规格</th>
+          <th w_index="cpzt" w_align="left">菜品状态</th>
+          <th w_render="operate" w_align="left">单价</th>
+          <th w_render="operate" w_align="left">数量</th>
+          <th w_render="operate" w_align="left">消费积分</th>
+          <th w_render="operate" w_align="left">商品总价</th>
+          <th w_render="operate" w_align="left">消费总积分</th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+    </thead>
+	</table>
+    <div class="cutline mt5 mb5"></div>
+    <div class="pr30 mt5">
+    	<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="tr">消费积分总计：</td>
+                <td class="tr" width="120"><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"/><span class="blue"><%=obj.xfjfzj%></span></td>
+            </tr>
+            <tr>
+                <td class="tr">茶位费：</td>
+                <td class="tr"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/><em class="red fb"><%=obj.cwf%></em></td>
+            </tr>
+            <tr>
+                <td class="tr">服务费：</td>
+                <td class="tr"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/><em class="red fb"><%=obj.fwf%></em></td>
+            </tr>
+            <tr>
+                <td class="tr">应付款：</td>
+                <td class="tr"><img src="resources/img/price.png" width="18" height="18"/><b class="red f20"><%=obj.yfk%></b></td>
+            </tr>
+    	</table>
+    </div>
+    <div class="cutline mb5"></div>
+	<div class="mt20 tc"><a href="javascript:;" id="btn_cyddgl_xq_qr" class="btn_bg submit mr30">确&#12288;认</a><a href="javascript:;" id="btn_cyddgl_xq_qx" class="btn_bg submit">取&#12288;消</a></div>
+  <div class="mt30">&nbsp;</div>
+</div>

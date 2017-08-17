@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcGpchSummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.tc.batch.bean.TcGpchSummary" >
+    <id column="SUM_ID" property="sumId" jdbcType="DECIMAL" />
+    <result column="ACC_DATE" property="accDate" jdbcType="CHAR" />
+    <result column="GP_TRAN_NUM" property="gpTranNum" jdbcType="DECIMAL" />
+    <result column="GP_TRAN_AMOUNT" property="gpTranAmount" jdbcType="DECIMAL" />
+    <result column="CH_TRAN_NUM" property="chTranNum" jdbcType="DECIMAL" />
+    <result column="CH_TRAN_AMOUNT" property="chTranAmount" jdbcType="DECIMAL" />
+    <result column="FLAT_NUM" property="flatNum" jdbcType="DECIMAL" />
+    <result column="FLAT_AMOUNT" property="flatAmount" jdbcType="DECIMAL" />
+    <result column="CH_HAVE_NUM" property="chHaveNum" jdbcType="DECIMAL" />
+    <result column="CH_HAVE_AMOUNT" property="chHaveAmount" jdbcType="DECIMAL" />
+    <result column="GP_HAVE_NUM" property="gpHaveNum" jdbcType="DECIMAL" />
+    <result column="GP_HAVE_AMOUNT" property="gpHaveAmount" jdbcType="DECIMAL" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="OTHER" />
+    <result column="TC_RESULT" property="tcResult" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SUM_ID, ACC_DATE, GP_TRAN_NUM, GP_TRAN_AMOUNT, CH_TRAN_NUM, CH_TRAN_AMOUNT, FLAT_NUM, 
+    FLAT_AMOUNT, CH_HAVE_NUM, CH_HAVE_AMOUNT, GP_HAVE_NUM, GP_HAVE_AMOUNT, UPDATED_DATE,TC_RESULT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_TC_GPCH_SUMMARY
+    where SUM_ID = #{sumId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_TC_GPCH_SUMMARY
+    where SUM_ID = #{sumId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsxt.tc.batch.bean.TcGpchSummary" >
+    insert into T_TC_GPCH_SUMMARY (SUM_ID, ACC_DATE, GP_TRAN_NUM, 
+      GP_TRAN_AMOUNT, CH_TRAN_NUM, CH_TRAN_AMOUNT, 
+      FLAT_NUM, FLAT_AMOUNT, CH_HAVE_NUM, 
+      CH_HAVE_AMOUNT, GP_HAVE_NUM, GP_HAVE_AMOUNT, 
+      UPDATED_DATE, TC_RESULT)
+    values (seq_t_tc_gpch_summary.nextval, #{accDate,jdbcType=CHAR}, #{gpTranNum,jdbcType=DECIMAL}, 
+      #{gpTranAmount,jdbcType=DECIMAL}, #{chTranNum,jdbcType=DECIMAL}, #{chTranAmount,jdbcType=DECIMAL}, 
+      #{flatNum,jdbcType=DECIMAL}, #{flatAmount,jdbcType=DECIMAL}, #{chHaveNum,jdbcType=DECIMAL}, 
+      #{chHaveAmount,jdbcType=DECIMAL}, #{gpHaveNum,jdbcType=DECIMAL}, #{gpHaveAmount,jdbcType=DECIMAL}, 
+      #{updatedDate,jdbcType=OTHER}, #{tcResult,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.tc.batch.bean.TcGpchSummary" >
+    insert into T_TC_GPCH_SUMMARY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      
+        SUM_ID,
+      <if test="accDate != null" >
+        ACC_DATE,
+      </if>
+      <if test="gpTranNum != null" >
+        GP_TRAN_NUM,
+      </if>
+      <if test="gpTranAmount != null" >
+        GP_TRAN_AMOUNT,
+      </if>
+      <if test="chTranNum != null" >
+        CH_TRAN_NUM,
+      </if>
+      <if test="chTranAmount != null" >
+        CH_TRAN_AMOUNT,
+      </if>
+      <if test="flatNum != null" >
+        FLAT_NUM,
+      </if>
+      <if test="flatAmount != null" >
+        FLAT_AMOUNT,
+      </if>
+      <if test="chHaveNum != null" >
+        CH_HAVE_NUM,
+      </if>
+      <if test="chHaveAmount != null" >
+        CH_HAVE_AMOUNT,
+      </if>
+      <if test="gpHaveNum != null" >
+        GP_HAVE_NUM,
+      </if>
+      <if test="gpHaveAmount != null" >
+        GP_HAVE_AMOUNT,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="tcResult != null" >
+        TC_RESULT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      seq_t_tc_gpch_summary.nextval,
+      <if test="accDate != null" >
+        #{accDate,jdbcType=CHAR},
+      </if>
+      <if test="gpTranNum != null" >
+        #{gpTranNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gpTranAmount != null" >
+        #{gpTranAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="chTranNum != null" >
+        #{chTranNum,jdbcType=DECIMAL},
+      </if>
+      <if test="chTranAmount != null" >
+        #{chTranAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="flatNum != null" >
+        #{flatNum,jdbcType=DECIMAL},
+      </if>
+      <if test="flatAmount != null" >
+        #{flatAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="chHaveNum != null" >
+        #{chHaveNum,jdbcType=DECIMAL},
+      </if>
+      <if test="chHaveAmount != null" >
+        #{chHaveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="gpHaveNum != null" >
+        #{gpHaveNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gpHaveAmount != null" >
+        #{gpHaveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=OTHER},
+      </if>
+      <if test="tcResult != null" >
+        #{tcResult,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.tc.batch.bean.TcGpchSummary" >
+    update T_TC_GPCH_SUMMARY
+    <set >
+      <if test="accDate != null" >
+        ACC_DATE = #{accDate,jdbcType=CHAR},
+      </if>
+      <if test="gpTranNum != null" >
+        GP_TRAN_NUM = #{gpTranNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gpTranAmount != null" >
+        GP_TRAN_AMOUNT = #{gpTranAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="chTranNum != null" >
+        CH_TRAN_NUM = #{chTranNum,jdbcType=DECIMAL},
+      </if>
+      <if test="chTranAmount != null" >
+        CH_TRAN_AMOUNT = #{chTranAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="flatNum != null" >
+        FLAT_NUM = #{flatNum,jdbcType=DECIMAL},
+      </if>
+      <if test="flatAmount != null" >
+        FLAT_AMOUNT = #{flatAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="chHaveNum != null" >
+        CH_HAVE_NUM = #{chHaveNum,jdbcType=DECIMAL},
+      </if>
+      <if test="chHaveAmount != null" >
+        CH_HAVE_AMOUNT = #{chHaveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="gpHaveNum != null" >
+        GP_HAVE_NUM = #{gpHaveNum,jdbcType=DECIMAL},
+      </if>
+      <if test="gpHaveAmount != null" >
+        GP_HAVE_AMOUNT = #{gpHaveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=OTHER},
+      </if>
+    </set>
+    where SUM_ID = #{sumId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.tc.batch.bean.TcGpchSummary" >
+    update T_TC_GPCH_SUMMARY
+    set ACC_DATE = #{accDate,jdbcType=CHAR},
+      GP_TRAN_NUM = #{gpTranNum,jdbcType=DECIMAL},
+      GP_TRAN_AMOUNT = #{gpTranAmount,jdbcType=DECIMAL},
+      CH_TRAN_NUM = #{chTranNum,jdbcType=DECIMAL},
+      CH_TRAN_AMOUNT = #{chTranAmount,jdbcType=DECIMAL},
+      FLAT_NUM = #{flatNum,jdbcType=DECIMAL},
+      FLAT_AMOUNT = #{flatAmount,jdbcType=DECIMAL},
+      CH_HAVE_NUM = #{chHaveNum,jdbcType=DECIMAL},
+      CH_HAVE_AMOUNT = #{chHaveAmount,jdbcType=DECIMAL},
+      GP_HAVE_NUM = #{gpHaveNum,jdbcType=DECIMAL},
+      GP_HAVE_AMOUNT = #{gpHaveAmount,jdbcType=DECIMAL},
+      UPDATED_DATE = #{updatedDate,jdbcType=OTHER}
+    where SUM_ID = #{sumId,jdbcType=DECIMAL}
+  </update>
+</mapper>

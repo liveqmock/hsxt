@@ -1,0 +1,35 @@
+<%
+var param = obj.data;
+var myparam = obj.responses2.data;
+%>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix">
+  <tr>
+    <th width="81" class="nobd"><input class="mr5" type="checkbox" id="allrole" />全选</th>
+    <th width="182">角色名称</th>
+    <th width="200">角色描述</th>
+    <th class="thfix"></th>
+  </tr>
+</table>
+<div class="heightscroll">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix" style="word-break:break-all;word-wrap:break-word;">
+<%$.each(param,function(key,el){%>
+  <tr <%=key%2==1?"class='table-tr-c'":""%>>
+    <td class="nobd roleBox" width="80"><input class="mr5" name="authCheckBox" type="checkbox" value="<%=el.id%>" 
+    <%if(myparam != null && myparam != ""){%>
+    <%$.each(myparam,function(keys,els){%>
+	    <%if(el.id == els.id){%>
+	    checked
+	    <%return%>
+	    <%}%>
+   	 <%})%>
+    <%}%>
+    ><%=key+1%></td>
+    <td width="180"><%=el.roleName%></td>
+    <td width="200"><%=el.remark%></td>
+  </tr>
+<%})%>
+</table>
+</div>
+
+
+

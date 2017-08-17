@@ -1,0 +1,42 @@
+﻿<div id="gjqddyTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>生成日期：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>互生号：</label>
+					<input type="text" name="textfield" id="hsResNo" placeholder="输入互生号" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>单位名称：</label>
+					<input type="text" name="textfield" id="hsCustName" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">申购类型：</label>
+					<input id="orderType" readonly="readonly" placeholder="选择申购类型" optionvalue=""/>
+				</li>
+				<li>
+					<button id="serchBtn" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+<table id="searchTable" class="bsgrid">
+	<tr>
+		<!--<th w_check="true" width="3%;"></th>-->
+		<th w_index="shippingId" width="20%" w_tip="true" w_length='20'>配送单号</th>
+		<th w_index="deliveryTime">生成日期</th>
+		<th w_index="custName" w_tip="true" w_length='30'>单位名称</th>
+		<th w_index="entResNo">互生号</th>
+		<th w_index="shippingType" w_render="operate">申购类型</th>
+		<th w_render="operate">操作</th>
+	</tr>
+</table>
+</div>
+<div id="dialogBox_ck" class="none ovh"></div>
+<div id="dialogBox_dy" class="none ovh"></div>

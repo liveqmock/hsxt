@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IRoleMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="roleResult" type="com.gy.hsxt.gpf.um.bean.Role">
+        <id property="roleId" column="ROLE_ID"/>
+        <result property="roleName" column="ROLE_NAME"/>
+        <result property="roleType" column="ROLE_TYPE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="createdDate" column="CREATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
+        <result property="updatedDate" column="UPDATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.Role">
+        INSERT INTO T_UM_ROLE (
+            ROLE_ID,
+            ROLE_NAME,
+            ROLE_TYPE,
+            DESCRIPTION,
+            CREATED_BY,
+            DEL_FLAG,
+            CREATED_DATE
+        )  VALUES (
+           #{roleId},
+           #{roleName},
+           #{roleType},
+           #{description},
+           #{createdBy},
+           #{delFlag},
+           #{createdDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        )
+    </insert>
+
+    <!-- 查询符合条件的总记录数 -->
+    <select id="selectCountForPage" parameterType="com.gy.hsxt.gpf.um.bean.RoleQuery" resultType="int">
+        SELECT count(*) FROM T_UM_ROLE t where 1=1
+        <if test="roleName != null and roleName != ''">
+            AND t.ROLE_NAME LIKE concat('%',#{roleName},'%')
+        </if>
+    </select>
+
+    <!-- 分页查询符合条件的记录 -->
+    <select id="selectBeanListForPage" resultMap="roleResult">
+        SELECT t.* FROM T_UM_ROLE t where 1=1
+        <if test="roleQuery.roleName != null and roleQuery.roleName != ''">
+            AND t.ROLE_NAME LIKE concat('%',#{roleQuery.roleName},'%')
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+        LIMIT #{gridPage.startNo},#{gridPage.pageSize}
+    </select>
+
+    <!-- 根据唯一条件查询角色 -->
+    <select id="selectBeanByQuery" parameterType="com.gy.hsxt.gpf.um.bean.RoleQuery" resultMap="roleResult">
+        SELECT t.*
+        FROM T_UM_ROLE t
+        WHERE t.ROLE_NAME = #{roleName}
+    </select>
+
+    <update id="updateBean" parameterType="com.gy.hsxt.gpf.um.bean.Role">
+        UPDATE T_UM_ROLE
+        SET UPDATED_BY     = #{updatedBy},
+        <if test="roleName != null and roleName != ''">
+            ROLE_NAME = #{roleName},
+        </if>
+        <if test="description != null and description != ''">
+            DESCRIPTION = #{description},
+        </if>
+        UPDATED_DATE = #{updatedDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        WHERE ROLE_ID = #{roleId}
+    </update>
+
+    <delete id="deleteBeanById" parameterType="string">
+        DELETE FROM T_UM_ROLE WHERE ROLE_ID = #{id}
+    </delete>
+</mapper>

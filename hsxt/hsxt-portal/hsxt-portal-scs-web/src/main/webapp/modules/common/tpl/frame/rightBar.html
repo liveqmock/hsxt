@@ -1,0 +1,95 @@
+<dl class="corporate_info clearfix">
+    <dt><i class="corporate_logo corporate_logo_01"></i></dt>
+  <dd> <b id="bEntName"></b><br />
+    企业类型：<span id="sEntTypeName"></span><br />
+    系统开启日期：<span id="sEntRegTime"></span><br />
+    目前年费有效期：<span id="sEntExpireDate"></span> </dd>
+</dl>
+<div class="online_service">
+  <div class="serviceNav">
+    <ul>
+      <li class="myFriend rightTab cur" style="width:123px;">消息</li>
+      <li><i class="serviceItem_line"></i></li>
+      <li class="tourist rightTab" id="unread_msg_count" style="width:123px;">企业通讯录</li>
+    </ul>
+  </div>
+  <div class="serviceItem" role="tablist">
+    <h3 class="ui-accordion-header-active ui-state-active ui-corner-top" role="tab" id="ui-accordion-1-header-0" aria-controls="ui-accordion-1-panel-0" aria-selected="true" aria-expanded="true" tabindex="0">
+      <ul class="clearfix">
+        <li><i class="serviceItem_icon icon_serviceItem_03"></i></li>
+        <li class="f14 serviceItem_text">系统消息<span id="unread_system_msg_count" class="count" style="display:none;font-size:12px;"></span></li>
+        <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+      </ul>
+    </h3>
+    <div class="message order ui-accordion-content-active" id="ui-accordion-1-panel-0" aria-labelledby="ui-accordion-1-header-0" role="tabpanel" aria-hidden="false" style="display: block; height: 438.60000038147px;">
+      <ul class="sImsg" id="ul_system">
+      </ul>
+		<table class="bsgridPaging" style="width:130px; display:none; margin:0 auto;">
+      <tbody>
+      <tr><td><input class="pagingBtn prevPage disabledCls" type="button" id="searchTable_pt_prevPage" value="上一页"></td>
+      <td>1/1</td>
+      <td><input class="pagingBtn nextPage disabledCls" type="button" id="searchTable_pt_nextPage" value="下一页"></td>
+      </tr>
+      </tbody>
+      </table>
+      </ul>
+    </div>
+   <h3 class="ui-corner-all" role="tab" id="ui-accordion-1-header-1" aria-controls="ui-accordion-1-panel-1" aria-selected="false" aria-expanded="false" tabindex="-1">
+      <ul class="clearfix">
+        <li><i class="serviceItem_icon icon_serviceItem_03"></i></li>
+        <li class="f14 serviceItem_text">服务信息<span id="unread_service_msg_count" class="count" style="display:none;font-size:12px;"></span></li>
+        <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+      </ul>
+    </h3>
+  <div class="message order" id="ui-accordion-1-panel-1" aria-labelledby="ui-accordion-1-header-1" role="tabpanel" aria-hidden="true" style="display: none; height: 438.60000038147px;">
+      <ul class="sImsg" id="ul_service">
+      </ul>
+    </div>
+  </div>
+  <div class="serviceItem addressBook">
+  	<div class="message">
+	
+	<!--搜索框开始-->
+	<span class="m5 addressBook_search_span clearfix">
+		<i class="serviceItem_icon icon_serviceItem_search"></i> 
+		<span class="fl search_combobox_style">
+			<select id="rightBar_qytxl_search" name="rightBar_qytxl_search">
+			</select>
+		</span> 
+	</span> 
+	<!--搜索框结束-->
+      <ul id="qytxl_ul" class="sImsg">
+        
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="xtxx_div"></div>
+<div id="companyChatBox_div"></div>
+
+<!--系统信息模板-->
+<ul style="display: none;" id="system_example">
+	<li class="liClassName" id="li-id">
+	  <dl>
+		<dt>msgIcon</dt>
+		<dd class="name" style="margin-left:50px;"><span class="hd-txt-limit100">subject</span></dd>
+		<dd style="margin-left:55px;"><span class="hd-txt-limit">msgContent</span></dd>
+		<dd class="time">msgTime</dd>
+	  </dl>
+	</li>
+</ul>
+
+<!--服务信息模板-->
+<ul style="display: none;" id="service_example">
+	<li class="liClassName" id="li-id">
+	  <dl>
+		<dt></dt>
+		<dd class="name"><div class="ddClassName"></div><span class="hd-txt-limit125">subject</span></dd>
+		<dd>msgContent</dd>
+		<dd class="time">msgTime</dd>
+	  </dl>
+	</li>
+</ul>
+
+<!--音频文件-->
+<a id="playMedia" style="width:0px; height:0px;"></a>

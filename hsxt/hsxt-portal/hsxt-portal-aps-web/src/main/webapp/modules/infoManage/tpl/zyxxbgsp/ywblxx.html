@@ -1,0 +1,295 @@
+<div id="ywblxxTpl" class="view_info info_800">
+	<% if(obj.num == 'xfz' || obj.num == 'xfzspcx'){ %>
+	<div class="mb10 fb">互生卡号: <%=obj.perResNo%></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td width="20%" align="center" rowspan="2" class="table_title">信息</td>
+			<td width="30%" align="center" rowspan="2" class="table_title">变更前内容</td>
+			<td width="30%" align="center" rowspan="2" class="table_title">变更后内容</td>
+			<td width="20%" align="center" class="table_title">关联附件</td>
+		</tr>
+		<tr>
+			<td rowspan="<%=obj.rowspan%>" valign="top"  align="center" class="table_text lh180">
+				<a class="blue" id="creFacePicOld" >证件正面</a><br />
+				
+				<%if(obj.creTypeNew == '1'){%>
+					<a class="blue" id="creBackPicOld" >证件反面</a><br />
+				<%}%>
+				
+				<a class="blue" id="creHoldPicOld" >手持证件照</a><br/>
+				
+				<%if(obj.creTypeNew == '1'){%>
+					<a class="blue" id="registorAddressPicOld" >户籍变更证明</a>
+				<%}%>
+			</td>
+		</tr>
+		<!-- 当证件类型为身份证或护照时加载的数据 -->
+		<%if(obj.creTypeNew == '1' || obj.creTypeNew == '2'){%>
+		
+			<%if(obj.nameOld != obj.nameNew && comm.isNotEmpty(obj.nameNew)){%>
+				<tr>
+					<td class="view_item">姓名</td>
+					<td class="view_text"><%=obj.nameOld%></td>
+					<td class="view_text"><%=obj.nameNew%></td>
+				</tr>
+			<%}%>
+			<%if(obj.sexOld != obj.sexNew && comm.isNotEmpty(obj.sexNew+"")){%>
+			<tr>
+				<td class="view_item">性别</td>
+				<td class="view_text"><%=obj.sexOldText%></td>
+				<td class="view_text"><%=obj.sexNewText%></td>
+			</tr>
+			<%}%>
+			<%if(obj.nationalityOld != obj.nationalityNew && comm.isNotEmpty(obj.nationalityNew)){%>	
+			<tr>
+				<td class="view_item">国籍</td>
+				<td class="view_text" id="ywblxx_nationalityOld"><%=obj.nationalityOld%></td>
+				<td class="view_text" id="ywblxx_nationalityNew"><%=obj.nationalityNew%></td>
+			</tr>
+			<%}%>
+			<tr>
+				<td class="view_item">证件类型</td>
+				<td class="view_text"><%=obj.creTypeOldText%></td>
+				<td class="view_text"><%=obj.creTypeNewText%></td>
+			</tr>
+			<%if(obj.creNoOld != obj.creNoNew && comm.isNotEmpty(obj.creNoNew)){%>
+			<tr>
+				<td class="view_item">证件号码</td>
+				<td class="view_text"><%=obj.creNoOld%></td>
+				<td class="view_text"><%=obj.creNoNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.creExpireDateOld != obj.creExpireDateNew && comm.isNotEmpty(obj.creExpireDateNew)){%>
+			<tr>
+				<td class="view_item">证件有效期</td>
+				<td class="view_text"><%=obj.creExpireDateOld%></td>
+				<td class="view_text"><%=obj.creExpireDateNew%></td>
+			</tr>
+			<%}%>
+		
+		<%}%>
+		<%if(obj.creTypeNew == '1'){%>
+			<%if(obj.creIssueOrgOld != obj.creIssueOrgNew && comm.isNotEmpty(obj.creIssueOrgNew)){%>
+			<tr>
+				<td class="view_item">发证机关</td>
+				<td class="view_text"><%=obj.creIssueOrgOld%></td>
+				<td class="view_text"><%=obj.creIssueOrgNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.registorAddressOld != obj.registorAddressNew && comm.isNotEmpty(obj.registorAddressNew)){%>
+			<tr>
+				<td class="view_item">户籍地址</td>
+				<td class="view_text"><%=obj.registorAddressOld%></td>
+				<td class="view_text"><%=obj.registorAddressNew%></td>
+			</tr>
+			<%}%>
+		<%}%>
+		<%if(obj.creTypeNew == '2'){%>
+			<%if(obj.registorAddressOld != obj.registorAddressNew && comm.isNotEmpty(obj.registorAddressNew)){%>
+			<tr>
+				<td class="view_item">出生地点</td>
+				<td class="view_text"><%=obj.registorAddressOld%></td>
+				<td class="view_text"><%=obj.registorAddressNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.issuePlaceOld != obj.issuePlaceNew && comm.isNotEmpty(obj.issuePlaceNew)){%>
+			<tr>
+				<td class="view_item">签发地点</td>
+				<td class="view_text"><%=obj.issuePlaceOld%></td>
+				<td class="view_text"><%=obj.issuePlaceNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.creIssueOrgOld != obj.creIssueOrgNew && comm.isNotEmpty(obj.creIssueOrgNew)){%>
+			<tr>
+				<td class="view_item">签发机关</td>
+				<td class="view_text"><%=obj.creIssueOrgOld%></td>
+				<td class="view_text"><%=obj.creIssueOrgNew%></td>
+			</tr>
+			<%}%>
+		<%}%>
+		
+		<!-- 当证件类型为营业执照时加载的数据 -->
+		<%if(obj.creTypeNew == '3'){%>
+			<%if(obj.entNameOld != obj.entNameNew && comm.isNotEmpty(obj.entNameNew)){%>
+			<tr>
+				<td class="view_item">企业名称</td>
+				<td class="view_text" style="word-wrap:break-word;word-break:break-all;"><%=obj.entNameOld%></td>
+				<td class="view_text" style="word-wrap:break-word;word-break:break-all;"><%=obj.entNameNew%></td>
+			</tr>
+			<%}%>
+			<tr>
+				<td class="view_item">证件类型</td>
+				<td class="view_text"><%=obj.creTypeOldText%></td>
+				<td class="view_text"><%=obj.creTypeNewText%></td>
+			</tr>
+			<%if(obj.creNoOld != obj.creNoNew && comm.isNotEmpty(obj.creNoNew)){%>
+			<tr>
+				<td class="view_item">营业执照号码</td>
+				<td class="view_text"><%=obj.creNoOld%></td>
+				<td class="view_text"><%=obj.creNoNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.entRegAddrOld != obj.entRegAddrNew && comm.isNotEmpty(obj.entRegAddrNew)){%>
+			<tr>
+				<td class="view_item">注册地址</td>
+				<td class="view_text"><%=obj.entRegAddrOld%></td>
+				<td class="view_text"><%=obj.entRegAddrNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.entTypeOld != obj.entTypeNew && comm.isNotEmpty(obj.entTypeNew)){%>
+			<tr>
+				<td class="view_item">企业类型</td>
+				<td class="view_text"><%=obj.entTypeOld%></td>
+				<td class="view_text"><%=obj.entTypeNew%></td>
+			</tr>
+			<%}%>
+			<%if(obj.entBuildDateOld != obj.entBuildDateNew && comm.isNotEmpty(obj.entBuildDateNew)){%>
+			<tr>
+				<td class="view_item">成立日期</td>
+				<td class="view_text"><%=obj.entBuildDateOld%></td>
+				<td class="view_text"><%=obj.entBuildDateNew%></td>
+			</tr>
+			<%}%>
+		<%}%>
+		<tr>
+			<td class="view_item">申请变更原因</td>
+			<td class="view_text" colspan="2"><%=obj.applyReason%></td>
+		</tr>
+	</table>
+	<% if((obj.status == '0' || obj.status == '1')&&comm.isEmpty(obj.optType)){ %>
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="xfz_ywblxx_cancel">取&#12288;消</a>
+		<a class="btn_bg submit fr" id="ywblxx_modify">修&#12288;改</a>
+	</div>
+	<% } else { %>
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="xfzspcx_ywblxx_cancel">返&#12288;回</a>
+	</div>
+	<% } %>
+	
+	<% } else { %>
+	<div class="mb10 fb">企业互生号: <%=obj.entResNo%></div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td width="20%" align="center" rowspan="2" class="table_title">信息</td>
+			<td width="30%" align="center" rowspan="2" class="table_title">变更前内容</td>
+			<td width="30%" align="center" rowspan="2" class="table_title">变更后内容</td>
+			<td width="20%" align="center" class="table_title">关联附件</td>
+		</tr>
+		<tr>
+			<td rowspan="<%=obj.rowspan%>" valign="top" class="table_text lh180">
+			<a class="blue" id="bizLicenseCrePicNew1" target="_blank">营业执照</a><br />
+			<a class="blue" id="linkAuthorizePicNew1" target="_blank">联系人授权委托书</a><br />
+			<a class="blue" id="imptappPic1" target="_blank">重要信息变更业务办理申请书</a>
+			</td>
+		</tr>
+		<%if(obj.custNameOld != obj.custNameNew && comm.isNotEmpty(obj.custNameNew)){%>
+		<tr>
+			<td class="view_item">企业中文名称</td>
+			<td class="view_text" style="word-wrap:break-word;word-break:break-all;"><%=obj.custNameOld%></td>
+			<td class="view_text" style="word-wrap:break-word;word-break:break-all;"><%=obj.custNameNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.custNameEnOld != obj.custNameEnNew && comm.isNotEmpty(obj.custNameEnNew)){%>
+		<tr>
+			<td class="view_item">企业英文名称</td>
+			<td class="view_text"><%=obj.custNameEnOld%></td>
+			<td class="view_text"><%=obj.custNameEnNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.custAddressOld != obj.custAddressNew && comm.isNotEmpty(obj.custAddressNew)){%>
+		<tr>
+			<td class="view_item">企业地址</td>
+			<td class="view_text"><%=obj.custAddressOld%></td>
+			<td class="view_text"><%=obj.custAddressNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.legalRepOld != obj.legalRepNew && comm.isNotEmpty(obj.legalRepNew)){%>
+		<tr>
+			<td class="view_item">法人代表</td>
+			<td class="view_text"><%=obj.legalRepOld%></td>
+			<td class="view_text"><%=obj.legalRepNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.legalRepCreTypeOld != obj.legalRepCreTypeNew && comm.isNotEmpty(obj.legalRepCreTypeNew)){%>
+		<tr>
+			<td class="view_item">法人代表证件类型</td>
+			<td class="view_text"><%=obj.legalRepCreTypeOldText%></td>
+			<td class="view_text"><%=obj.legalRepCreTypeNewText%></td>
+		</tr>
+		<%}%>
+		<%if(obj.legalRepCreNoOld != obj.legalRepCreNoNew && comm.isNotEmpty(obj.legalRepCreNoNew)){%>
+		<tr>
+			<td class="view_item">法人代表证件号码</td>
+			<td class="view_text"><%=obj.legalRepCreNoOld%></td>
+			<td class="view_text"><%=obj.legalRepCreNoNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.bizLicenseNoOld != obj.bizLicenseNoNew && comm.isNotEmpty(obj.bizLicenseNoNew)){%>
+		<tr>
+			<td class="view_item">营业执照号</td>
+			<td class="view_text"><%=obj.bizLicenseNoOld%></td>
+			<td class="view_text"><%=obj.bizLicenseNoNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.organizerNoOld != obj.organizerNoNew && comm.isNotEmpty(obj.organizerNoNew)){%>
+		<tr>
+			<td class="view_item">组织机构代码证号</td>
+			<td class="view_text"><%=obj.organizerNoOld%></td>
+			<td class="view_text"><%=obj.organizerNoNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.taxpayerNoOld != obj.taxpayerNoNew && comm.isNotEmpty(obj.taxpayerNoNew)){%>
+		<tr>
+			<td class="view_item">纳税人识别号</td>
+			<td class="view_text"><%=obj.taxpayerNoOld%></td>
+			<td class="view_text"><%=obj.taxpayerNoNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.linkmanOld != obj.linkmanNew && comm.isNotEmpty(obj.linkmanNew)){%>
+		<tr>
+			<td class="view_item">联系人姓名</td>
+			<td class="view_text"><%=obj.linkmanOld%></td>
+			<td class="view_text"><%=obj.linkmanNew%></td>
+		</tr>
+		<%}%>
+		<%if(obj.linkmanMobileOld != obj.linkmanMobileNew && comm.isNotEmpty(obj.linkmanMobileNew)){%>
+		<tr>
+			<td class="view_item">联系人手机</td>
+			<td class="view_text"><%=obj.linkmanMobileOld%></td>
+			<td class="view_text"><%=obj.linkmanMobileNew%></td>
+		</tr>
+		<%}%>
+		<tr>
+			<td class="view_item">申请变更原因</td>
+			<td class="view_text" colspan="2"><%=obj.applyReason%></td>
+		</tr>
+	</table>
+	<% if((obj.status == '0' || obj.status == '1')&&comm.isEmpty(obj.optType)){ %>
+	<div class="w200 bc clearfix mt20">
+		<% if(obj.num == 'tgqy'){ %>
+		<a class="btn_bg submit fl" id="tgqy_ywblxx_cancel">取&#12288;消</a>
+		<% } else if(obj.num == 'cyqy'){ %>
+		<a class="btn_bg submit fl" id="cyqy_ywblxx_cancel">取&#12288;消</a>
+		<% } else if(obj.num == 'fwgs'){ %>
+		<a class="btn_bg submit fl" id="fwgs_ywblxx_cancel">取&#12288;消</a>
+		<% }%>
+		
+		<a class="btn_bg submit fr" id="ywblxx_modify">修&#12288;改</a>
+	</div>
+	<% } else { %>
+	<div class="mt20" align="center">
+		<% if(obj.num == 'tgqy'){ %>
+		<a class="btn_bg submit" id="tgqy_ywblxx_cancel">返&#12288;回</a>
+		<% } else if(obj.num == 'cyqy'){ %>
+		<a class="btn_bg submit" id="cyqy_ywblxx_cancel">返&#12288;回</a>
+		<% } else if(obj.num == 'fwgs'){ %>
+		<a class="btn_bg submit" id="fwgs_ywblxx_cancel">返&#12288;回</a>
+		<% } else if(obj.num == 'qyspcx'){%>
+		<a class="btn_bg submit" id="qyspcx_ywblxx_cancel">返&#12288;回</a>
+		<% }%>
+	</div>
+	<% } %>
+	
+	<% } %>
+</div>

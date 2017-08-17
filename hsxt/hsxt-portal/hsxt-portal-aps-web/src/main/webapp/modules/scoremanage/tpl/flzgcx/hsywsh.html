@@ -1,0 +1,26 @@
+<!-- 福利资格查询-互生意外伤害保障 -->
+<div id="hsywshTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+		<li>
+			<label>互生卡号：</label>
+			<input type="text" name="hsResNo" id="hsResNo" maxlength="11" placeholder="输入11位消费者互生卡号" class="h28_middle input-txt w120" />
+			<input type="hidden" name="welfareType" id="welfareType" value="0">
+		</li>
+		<li>
+			<button id="sc_hsywsh_btn" type="button" class="btn-search">查询</button>
+		</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="welfareId" w_tip="true"  width="30%">保障单号</th>
+		<th w_index="hsResNo" w_tip="true"  width="15%">互生卡号</th>
+		<th w_index="custName" w_tip="true">姓名</th>
+		<th w_index="effectDate" w_tip="true" >生效日期</th>
+		<th w_index="failureDate" w_tip="true" >失效日期</th>
+		<th w_index="allFailureDateList" w_render="operate" w_tip="true">保证期内无效日期</th>
+		<!--<th w_render="operate">操作</th>-->
+	  </tr>
+	</table>
+</div>

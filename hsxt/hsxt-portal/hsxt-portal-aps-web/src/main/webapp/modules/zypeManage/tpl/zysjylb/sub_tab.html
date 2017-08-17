@@ -1,0 +1,14 @@
+<div class="infobox">
+	<div class="pr">
+		<div class="tabNav_s"></div>
+		<ul id="uEnt" class="tabList_s clearfix">
+		<% $.each(obj,function(k, v){%>
+			<li id="sub_tab_0<%=k%>">
+				<a><%=v.mEntResNo%></a>
+			</li>
+		<% }) %>
+			<li id="xq" class="tabNone"><a>详情</a></li>
+		</ul>
+	</div>
+	<div class="infobox_sro" id="infobox"></div>
+</div>

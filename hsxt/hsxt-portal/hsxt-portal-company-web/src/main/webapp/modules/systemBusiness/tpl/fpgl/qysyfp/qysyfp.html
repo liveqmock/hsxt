@@ -1,0 +1,92 @@
+<div id="gsdjxx_xgTpl"  >
+	<div class="bc"> 
+			<div class="clearfix">
+				<form>
+					<table width="100%" id="res_table">
+						<tbody><tr>
+							<td width="50%">
+									<table width="100%" class="fixtable  mt10 mb10">
+										<tbody id="remain_tr" width="100%">
+											<tr>
+											 <td id="remain_td" rowspan="6" class="p5">可索取发票总金额</td>			 
+											</tr>
+										</tbody>
+									</table>	
+							</td>
+							<td> 
+							</td>
+							<td width="50%" align="right">
+								<table width="95%" class="fixtable mt10 mb10 bg_ef">
+									<tbody id="opended_tr" width="100%">
+										<tr>
+										 <td id="opended_td" rowspan="6" class="p5">已索取发票总金额</td>			 
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						 
+					</tbody>
+					</table>
+				</form> 
+				  
+			</div>
+			  <div class="search-toolbar mt10">
+			  <form id="qysyfp_queryform">
+					<ul class="cssform clearfix">
+						 <li class="pr" >
+					        <label>申请日期从：</label>
+					        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="选择起始日期" class="h28_middle input-txt w100" />
+					   
+					      </li>	
+					      <li class="pr" >
+					        <label>到：</label>
+					        <input type="text" name="search_endDate" id="search_endDate" placeholder="选择结束日期" class="h28_middle input-txt w100" />
+					   
+					      </li>							      
+						  <li class="pr" >
+					        <label>配送状态：</label> 
+					     	<input type="text" name="search_status" id="search_status" readonly="readonly" placeholder="选择配送状态" class="h28_middle input-txt w100" />
+					     	 <input id="search_invoiceMaker" name="search_invoiceMaker" type="hidden" value="0" />	
+					     	  <input id="search_queryType" name="search_queryType" type="hidden" value="0" />
+					      </li>
+					      <li class="">
+					        <div class="cont-int">
+					          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+					        </div>
+					      </li>
+					    </ul> 
+					    </form>
+					</div>
+					<table id="fpsq_table" class="bsgrid">
+						<tr>
+						  <th w_index="applyTime" w_tip="true" w_align="left" w_length="18">申请日期</th>
+						  <th w_render="operate" w_align="right" width="8%;">开票金额</th>
+						  <th w_index="bizType" w_render="operate"w_align="left"  width="12%;">业务类别</th>
+						  <!--<th w_index="openOperator" w_tip="true" w_align="left" width="8%;">经办人</th>-->
+						  <th w_index="postWay" w_render="operate" w_align="left" width="8%;">配送方式</th>
+						  <th w_index="expressName" w_tip="true" w_align="left" w_length="18">承运公司</th>
+						  <th w_index="trackingNo" w_tip="true" w_align="left">运单号</th>
+						  <th w_index="status" w_render="operate" w_align="left" width="8%;">状态</th>
+						  <th w_index="updatedDate" w_tip="true" w_align="left" w_length="18">状态日期</th>
+						  <th w_render="operate" width="8%;">操作</th>					   
+						</tr>
+					</table>
+		
+	</div>
+</div>
+
+<!-- 索票对话框  -->
+<div id="qysyfp_dialog" class="none"></div>
+<div  id="qysyfp_xq_dialog" class="bc  info_800 none"> </div>
+
+
+
+
+
+
+
+
+
+
+

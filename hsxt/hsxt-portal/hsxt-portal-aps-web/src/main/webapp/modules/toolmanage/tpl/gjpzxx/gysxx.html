@@ -1,0 +1,40 @@
+﻿<div id="gysxxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>供应商名称：</label>
+				<input type="text" id="search_supplierName" name="search_supplierName" placeholder="输入供应商名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>公司名称：</label>
+				<input type="text" id="search_corpName" name="search_corpName" placeholder="输入公司名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>业务联系人：</label>
+				<input type="text" id="search_linkMan" name="search_linkMan" placeholder="输入业务联系人" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="tjgys_btn" type="button" class="btn-search">添加供应商</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="supplierName" w_tip=true>供应商名称</th>
+		<th w_index="corpName" w_tip=true>公司名称</th>
+		<th w_index="addr" w_tip=true>供应商地址</th>
+		<!--<th w_index="th_4">供应工具类别</th>-->
+		<th w_index="linkMan" w_tip=true>业务联系人</th>
+		<th w_index="phone">办公电话</th>
+		<th w_index="mobile">手机号码</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_tjgys" class="none"></div>
+<div id="dialogBox_gygj" class="none"></div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_xg" class="none"></div>

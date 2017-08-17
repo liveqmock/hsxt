@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.CountryCurrencyMapper">
+	<!-- 获取某个条记录 -->
+	<select id="queryCountryCurrency" resultType="com.gy.hsxt.lcs.bean.CountryCurrency">
+		SELECT
+			CURRENCY_SEQNO AS currencySeqNo,
+			CURRENCY_NO AS currencyNo,
+			CURRENCY_CODE AS currencyCode,
+			CURRENCY_NAME AS currencyName,
+			VERSION AS version 
+		FROM
+			T_LCS_POS_COUNTRY_CURR 
+		ORDER BY
+			CURRENCY_SEQNO
+	</select>
+</mapper>

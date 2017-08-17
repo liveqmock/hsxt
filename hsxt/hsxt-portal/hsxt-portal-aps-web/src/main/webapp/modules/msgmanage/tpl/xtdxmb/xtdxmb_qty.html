@@ -1,0 +1,47 @@
+﻿<div id="xtdxmb_qtyTpl">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">模版名称</td>
+			<td class="view_text_2" width="30%"><%=obj.th_1%></td>
+			<td class="view_item" width="20%">模版用途</td>
+			<td class="view_text_2" width="30%"><%=obj.th_2%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">模版状态</td>
+			<td class="view_text_2" width="30%"><%=obj.th_4%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+		
+			<td class="view_item" width="20%">短信内容</td>
+			<td colspan="3" width="80%" class="view_text_2"><%=obj.th_3%></td>
+		</tr>
+		<% if(obj.th_4 == '已停用'){ %>
+		<tr>
+			<td class="view_item" width="20%">提示</td>
+			<td colspan="3" width="80%" class="view_text_2"><span class="red">请确认同一用途的模版已经停用</span></td>
+		</tr>
+		<% } %>
+	</table>
+	<% if(obj.th_4 == '已启用'){ %>
+	<div class="info_600 bc mt10">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">停用说明</label>
+					<textarea class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入停用说明，最长不超过300个字" ></textarea>	
+				</li>
+			</ul>
+		</form>
+	</div>
+	<% } %>
+	<div class="w200 bc clearfix mt20">
+		<% if(obj.th_4 == '已启用'){ %>
+		<a class="btn_bg submit fl">停&#12288;用</a>
+		<% }else if(obj.th_4 == '已停用'){ %>
+		<a class="btn_bg submit fl">启&#12288;用</a>
+		<% } %>
+		<a class="btn_bg submit fr" id="cancel">取&#12288;消</a>
+		
+	</div>
+</div>

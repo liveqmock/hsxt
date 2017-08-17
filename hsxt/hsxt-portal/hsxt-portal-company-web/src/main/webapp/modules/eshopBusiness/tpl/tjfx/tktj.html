@@ -1,0 +1,37 @@
+﻿<div class="search-toolbar">
+  <form id="tktj_form" name="tktj_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>退款日期：</label>
+        <input type="text" name="tktj_beginDate" id="tktj_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="tktj_endDate" id="tktj_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">企业互生号：</label>
+		<input type="text" class="h28_middle input-txt w100" placeholder="输入企业互生号"/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">支付方式：</label>
+		<input type="text" id="tktj_zffs" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_cx" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="tktj_table">
+  	<thead>
+        <tr>
+          <th w_index="qyhsh" w_align="left">企业互生号</th>
+          <th w_index="tkjsrq" w_align="left">退款结束日期</th>
+          <th w_index="tkzje" w_align="left">退款总金额</th>
+          <th w_index="tjfze" w_align="left">退积分总额</th>
+        </tr>
+	</thead>
+  </table>
+</div>

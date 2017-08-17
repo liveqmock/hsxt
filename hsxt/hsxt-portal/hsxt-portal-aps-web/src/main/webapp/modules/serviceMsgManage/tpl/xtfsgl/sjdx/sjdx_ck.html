@@ -1,0 +1,30 @@
+<div class="bc info_800">
+	<div class="clearfix">
+		<ul class="fl info_320">
+			<li class="register_row clearfix cannotEdit-bg">
+				<label class="fl w115 h30_middle">互生号</label>
+				<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" value="<%=obj.hsResNo%>" readonly="readonly">
+			</li>
+			<li class="register_row clearfix cannotEdit-bg">
+				<label class="fl w115 h30_middle">单位名称</label>
+				<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" value="<%=obj.custName%>" readonly="readonly">
+			</li>
+		</ul>
+		<ul class="fr info_320">
+			<li class="register_row clearfix cannotEdit-bg">
+				<label class="fl w115 h30_middle">手机号码</label>
+				<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" value="<%=obj.msgReceiver%>" readonly="readonly">
+			</li>
+			<li class="register_row clearfix cannotEdit-bg">
+				<label class="fl w115 h30_middle">发送时间</label>
+				<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" value="<%=obj.sendDate%>" readonly="readonly">
+			</li>
+		</ul>
+	</div>
+	<ul>
+		<li class="register_row clearfix cannotEdit-bg">
+			<label class="fl w115 h60_middle">短信内容</label>
+			<textarea class="fl ml5 h50 w660 rsn pt5 pb5 cannotEdit-bg" readonly="readonly"><%=obj.msgContent%></textarea>
+		</li>
+	</ul>
+</div>

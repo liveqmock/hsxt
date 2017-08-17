@@ -1,0 +1,42 @@
+﻿	<!--列表内容开始-->
+		<div class="search-toolbar">
+			<ul class="cssform clearfix">
+				<li class="mr20"><label class="title-int">商品名称：</label>
+					<div class="cont-int">
+						<input type="text" class="input-txt" value="" id="itemName" name="textfield">
+					</div></li>
+				<li class="mr20"><label class="title-int">评价日期：</label>
+					<div class="cont-int">
+						<input type="text" class="input-txt" readonly="readonly" value="" id="dateStart" name="textfield"> 
+						<span class="white"> - </span> 
+						<input type="text" class="input-txt" readonly="readonly" value="" id="dateEnd" name="textfield">
+					</div></li>
+				<li class="last">
+					<div class="cont-int">
+						<button name="judgeQuery" class="btn-search ml10" type="button" id="judgeQuery">查询</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+ <div class="shopebox comment">		
+		<table id="judge_ls">
+        	 <tr>
+        		<th width="10%">
+        		<li>
+					<select name="select" id="select">
+							<option value="" selected="selected">评分</option>
+							<option value="1">好评</option>
+							<option value="2">中评</option>
+							<option value="3">差评</option>
+					</select>
+				</li></th>
+        		<th width="15%">标签</th>
+        		<th width="30%">内容</th>
+        		<th width="25%">商品信息</th>
+        		<th width="20%">操作</th>
+        	</tr> 
+        	<tr class="none">
+		      <th w_index="" w_align="left" colspan="5"></th>
+		    </tr>
+        </table>            
+	</div>

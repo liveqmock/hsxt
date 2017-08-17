@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.common.mapper.OperationMapper">
+	
+	<!-- 创建审批操作历史 -->
+	<insert id="createOptHis" parameterType="java.util.Map">
+		INSERT INTO ${tableName} 
+		     (OPERATION_APPR_ID,
+		      APPLY_ID,
+		      BIZ_ACTION_CODE,
+		      STATUS,
+		      CREATED_DATE,
+		      OPERATOR,
+		      OPERATOR_NAME,
+		      OPT_ENT_NAME,
+			  DOUBLE_OPERATOR,
+			  REMARK,
+			  CHANGE_CONTENT) 
+    	VALUES 
+		 	 (#{his.optHisId},
+		 	  #{his.applyId},
+		 	  #{his.bizAction},
+		 	  #{his.bizStatus},
+		 	  SYSDATE,
+		 	  #{his.optId},
+		 	  #{his.optName},
+		 	  #{his.optEntName},
+		  	  #{his.dblOptId},
+		  	  #{his.optRemark},
+		  	  #{his.changeContent})
+	</insert>
+	
+	<select id="queryOptHisListPage" resultType="com.gy.hsxt.bs.bean.base.OptHisInfo">
+		SELECT OPERATION_APPR_ID AS optHisId,
+		       BIZ_ACTION_CODE   AS bizAction,
+		       STATUS            AS bizStatus,
+		       to_char(CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS optDate,
+		       OPERATOR          AS optId,
+		       OPERATOR_NAME     AS optName,
+		       OPT_ENT_NAME		 AS optEntName,
+		       REMARK            AS optRemark,
+		       CHANGE_CONTENT    AS changeContent
+		 FROM ${tableName}
+		 WHERE APPLY_ID = #{applyId}
+		 ORDER BY CREATED_DATE DESC, OPERATION_APPR_ID desc
+	</select>
+	
+	<select id="queryOptHisAll" resultType="com.gy.hsxt.bs.bean.base.OptHisInfo">
+		SELECT OPERATION_APPR_ID AS optHisId,
+		       BIZ_ACTION_CODE   AS bizAction,
+		       STATUS            AS bizStatus,
+		       to_char(CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS optDate,
+		       OPERATOR          AS optId,
+		       OPERATOR_NAME     AS optName,
+		       OPT_ENT_NAME		 AS optEntName,
+		       REMARK            AS optRemark,
+		       CHANGE_CONTENT    AS changeContent
+		 FROM ${tableName}
+		 WHERE APPLY_ID = #{applyId}
+		 ORDER BY CREATED_DATE DESC, OPERATION_APPR_ID desc
+	</select>
+</mapper>

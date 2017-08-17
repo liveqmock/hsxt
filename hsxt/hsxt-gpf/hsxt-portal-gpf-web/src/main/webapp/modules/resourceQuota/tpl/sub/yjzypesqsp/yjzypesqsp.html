@@ -1,0 +1,40 @@
+<div id="yjzypesqspTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>日期：</label>
+				<input type="text" name="yjzypesqsp_tb_timeRange_start" id="yjzypesqsp_tb_timeRange_start" placeholder="输入时间范围" class="queryList-toolbar-text" readonly="readonly" />
+				<span class="separator-pd">-</span>
+				<input type="text" name="yjzypesqsp_tb_timeRange_end" id="yjzypesqsp_tb_timeRange_end" placeholder="输入时间范围" class="queryList-toolbar-text" readonly="readonly" />
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">地区平台：</label>
+				<input id="yjzypesqsp_tb_dqpt" name="yjzypesqsp_tb_dqpt" readonly="readonly" placeholder="选择地区平台" />
+			</li>
+			<li>
+				<label>管理公司：</label>
+				<input type="text" id="yjzypesqsp_tb_glgs" name="yjzypesqsp_tb_glgs" class="queryList-toolbar-text" placeholder="输入管理公司" />
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">状态：</label>
+				<input id="yjzypesqsp_tb_zt" name="yjzypesqsp_tb_zt" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li>
+				<button id="yjzypesqsp_tb_cx" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="yjzypesqsp_ql">
+		<tr>
+			<th w_index="platName" w_align="left">地区平台名称</th>
+			<th w_index="entCustName" w_align="left">管理公司名称</th>
+			<th w_index="applyNum" w_align="left">申请配额数</th>
+			<th w_index="reqTime" w_align="left">申请日期</th>
+			<th w_index="status" w_render="operate" w_align="left">审核结果</th>
+			<th w_render="operate" width="8%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="yjzypesqspDlg" class="none ovh"></div>
+<div id="yjzypesqsp_xhDlg" class="none"></div>

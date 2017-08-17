@@ -1,0 +1,37 @@
+﻿<div id="kctjTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">工具类别：</label>
+				<input id="search_categoryCode" readonly="readonly" placeholder="选择工具类别" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">工具名称：</label>
+				<input id="search_productId" readonly="readonly" placeholder="选择工具名称" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">仓库名称：</label>
+				<input id="search_whId" readonly="readonly" placeholder="选择仓库名称" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_index="batchNo" w_tip=true>批次号</th>
+	  	<th w_index="productName" w_tip=true>工具名称</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="whName" w_tip=true>仓库名称</th>
+		<th w_index="enterNum">入库总数</th>
+		<th w_index="outNum">出库总数</th>
+		<th w_index="shouldNum">应存库存</th>
+		<th w_index="actualNum">实际库存</th>
+		<th w_render="operate" width="18%;">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_pk" class="none"></div>
+<div id="dialogBox_rkcj" class="none"></div>
+<div id="dialogBox_ckjqm" class="none"></div>

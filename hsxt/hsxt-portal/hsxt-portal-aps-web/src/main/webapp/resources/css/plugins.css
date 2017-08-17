@@ -1,0 +1,140 @@
+/*.clearfix:after {content:'.';display:block;clear:both;visibility:hidden;height:0px;}
+.clearfix {*zoom:1;}
+*/
+/*选择列表 万华成*/
+.selectList-active{background-color:#ddd}
+.selectList-div{position:relative;display:inline-block}
+.selectList-input{position:relative;width:100px;height:22px;display:block;font-size:14px;border:solid 1px #6C6;line-height:22px;padding:0 0 0 5px!important;border-radius:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.selectList-span{position:relative;float:right;width:24px;height:24px;display:block;background-image:url(../img/custom/selectList/select_bt_down.gif);background-repeat:no-repeat;background-position:right center;z-index:1;outline:0}
+.selectList-span-active{background-image:url(../img/custom/selectList/select_bt_down_hover.gif)}
+.selectList-span-disabled{background-image:url(../img/custom/selectList/select_bt_down_disabled.gif)}
+.selectList-ol{position:absolute;list-style-type:none;margin-top:-1px;padding:0;border:solid 1px #6C9;background-color:#FFF;z-index:1000}
+.selectList-ol li{width:100%;text-align:left;padding-left:.3em;font-size:12px;font-weight:400;color:#000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;height:24px!important;line-height:24px!important;border-top:none!important;border-left:none!important;border-right:none!important;border-bottom:solid 1px #CCC!important;margin-bottom:0!important;margin-top:0!important;padding-top:0!important;white-space:nowrap}
+/*end*/
+/*字符长度  */
+.charcount2-display{height:30px;line-height:30px;vertical-align:middle;width:130px;position:absolute;top:0;left:330px}
+/*end*/
+/*城市选择    万华成*/
+.selectCity-input{position:relative;width:100px;height:22px;display:block;font-size:14px;border:solid 1px #6C6;line-height:22px;padding:0 0 0 20px!important;border-radius:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:url(../img/custom/selectCity/pos.png) no-repeat left center}
+.selectCity-box{width:300px;min-height:100px;position:absolute;border:solid 1px #00B83F;border-radius:5px;margin-top:-1px;background:#fff}
+.selectCity-box .selBox{width:300px;min-height:30px;border-bottom:solid 1px #00B83F;overflow:auto;zoom:1;max-height:60px}
+.selectCity-box .selBox .leftSelBox{float:left;width:236px;padding:3px;min-height:30px;color:#8c8c8c;font-weight:700}
+.selectCity-box .selBox .rightSelBox{position:absolute;float:right;margin:2px 1px 0 0;width:40px;height:26px;line-height:26px;border-radius:5px;text-align:center;cursor:pointer;color:#fff;display:inline-block;box-shadow:1px 1px 2px rgba(0,0,0,.15);background:#6dbce3;background:-moz-linear-gradient(top,#6dbce3 0,#5d9ec0 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#6dbce3),color-stop(100%,#5d9ec0));background:-webkit-linear-gradient(top,#6dbce3 0,#5d9ec0 100%);background:linear-gradient(to bottom,#6dbce3 0,#5d9ec0 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#6dbce3', endColorstr='#5d9ec0', GradientType=0 )}
+.selectCity-box .firstChild{float:left;width:120px;min-height:100px;height:150px;top:0;overflow-y:auto;overflow-x:hidden}
+.selectCity-box .firstChild .city-uncheck,.selectCity-box .lastChild .city-uncheck{padding:10px 0 7px 20px;border-right:solid 1px #bbe3f6;background:url(../img/custom/selectCity/check.png) no-repeat left center;cursor:pointer}
+.selectCity-box .firstChild .city-checked,.selectCity-box .lastChild .city-checked{padding:10px 0 7px 20px;border-right:solid 1px #bbe3f6;background:url(../img/custom/selectCity/checked.png) no-repeat left center;cursor:pointer}
+.selectCity-box .firstChild .no-check,.selectCity-box .lastChild .no-check{padding:10px 0 7px 20px;border-right:solid 1px #bbe3f6;background:0 0;cursor:pointer;height:14px}
+.selectCity-box .bottom-line{border-bottom:dotted 1px #bbe3f6}
+.selectCity-box .lastChild{float:right;width:180px;min-height:100px;height:150px;top:0;overflow-y:auto;overflow-x:auto}
+.selectCity-leftOL{position:relative;width:120px;list-style-type:none;padding:0}
+.selectCity-rightOL{position:relative;width:100%;list-style-type:none;padding:0}
+.selectCity-leftOL li{width:99px;text-align:left;padding-left:20px;font-size:12px;font-weight:400;color:#000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;height:24px!important;line-height:24px!important;border-right:solid 1px #bbe3f6;margin-bottom:0!important;white-space:nowrap;cursor:pointer}
+.selectCity-rightOL li{text-align:left;padding-left:40px;font-size:12px;font-weight:400;color:#000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;height:24px!important;line-height:24px!important;border-right:solid 1px #bbe3f6;margin-bottom:0!important;white-space:nowrap;cursor:pointer;background:url(../img/custom/selectCity/check.png) no-repeat 10% 50%}
+.selectCity-rightOL .liSelected{background:url(../img/custom/selectCity/checked.png) no-repeat 10% 50%}
+.cityList-active{background-color:#f7fafb;border-top:solid 1px #bbe3f6!important;border-bottom:solid 1px #bbe3f6!important;border-right:solid 1px #f7fafb!important}
+.city-selLabel{position:relative;margin-left:3px;margin-top:3px;color:#298eb9;padding:3px 16px 3px 5px;background-color:#d9d9d9;border-radius:8px;background-image:url(../img/custom/selectCity/del.png);background-position:right;background-repeat:no-repeat;cursor:pointer;display:inline-block}
+/*end*/
+
+/*选支付卡插件   万华成*/
+.bank_card_select{position:relative;border:solid 2px #d8e8d3;width:346px;height:26px}
+.bank_card_option{position:relative;border-bottom:solid 1px #d8e8d3;width:366px;height:25px;padding:6px 0;cursor:pointer}
+.bank_card_select .bank-logo{margin-top:2px;width:151px}
+.bank_card_select .listIcon{width:26px;height:26px;vertical-align:middle;display:inline-block;background:url(../img/custom/selectBank/down.gif);background-repeat:no-repeat;background-position:50% 50%}
+.bank_card_select .ul_options{position:absolute;left:-2px;top:26px;max-height:200px;background:#fff;border:solid 2px #d8e8d3;padding-top:6px;overflow-y:auto;overflow-x:hidden;z-index:1000}
+.bank_card_select .opt_status{width:46px;height:26px;vertical-align:middle;display:inline-block}
+.bank_card_select .opt_selected{background:url(../img/custom/selectBank/right.png);background-position:left middle;background-repeat:no-repeat}
+.bank_card_select .cardInfo{margin-top:0!important;cursor:pointer}
+.bank_card_select span{margin-top:-2px!important;vertical-align:middle} 
+/**2016-02-04添加*/
+.bank_card_select{position:relative;border:solid 2px #d8e8d3;width:346px;height:31px}
+.bank_card_option{position:relative;border-bottom:solid 1px #d8e8d3;width:366px;height:31px;padding:6px 0;cursor:pointer}
+.bank_card_select span{vertical-align:middle}
+.bank_card_select .listIcon{width:26px;height:26px;vertical-align:middle;display:inline-block;background:url(../img/custom/selectBank/down.gif);background-repeat:no-repeat;background-position:50% 50%;margin-top:2px;}
+/* end */
+
+
+.ztree * {padding:0; margin:0; font-size:12px; font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif}
+.ztree {margin:0; padding:5px; color:#333}
+.ztree li{padding:0; margin:0; list-style:none; line-height:14px; text-align:left; white-space:nowrap; outline:0}
+.ztree li ul{ margin:0; padding:0 0 0 18px}
+.ztree li ul.line{ background:url(../img/ztree/line_conn.gif) 0 0 repeat-y;}
+.ztree li a {padding:1px 3px 0 0; margin:0; cursor:pointer; height:17px; color:#333; background-color: transparent;text-decoration:none; vertical-align:top; display: inline-block}
+.ztree li a:hover {text-decoration:underline}
+.ztree li a.curSelectedNode {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.curSelectedNode_Edit {padding-top:0px; background-color:#FFE6B0; color:black; height:16px; border:1px #FFB951 solid; opacity:0.8;}
+.ztree li a.tmpTargetNode_inner {padding-top:0px; background-color:#316AC5; color:white; height:16px; border:1px #316AC5 solid;opacity:0.8; filter:alpha(opacity=80)}
+.ztree li a.tmpTargetNode_prev {}
+.ztree li a.tmpTargetNode_next {}
+.ztree li a input.rename {height:14px; width:80px; padding:0; margin:0;font-size:12px; border:1px #7EC4CC solid; *border:0px}
+.ztree li span {line-height:16px; margin-right:2px}
+.ztree li span.button {line-height:0; margin:0; width:16px; height:16px; display: inline-block; vertical-align:middle;border:0 none; cursor: pointer;outline:none;background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;background-image:url("../img/ztree/zTreeStandard.png"); *background-image:url("../img/ztree/zTreeStandard.gif")}
+.ztree li span.button.chk {width:13px; height:13px; margin:0 3px 0 0; cursor: auto}
+.ztree li span.button.chk.checkbox_false_full {background-position:0 0}
+.ztree li span.button.chk.checkbox_false_full_focus {background-position:0 -14px}
+.ztree li span.button.chk.checkbox_false_part {background-position:0 -28px}
+.ztree li span.button.chk.checkbox_false_part_focus {background-position:0 -42px}
+.ztree li span.button.chk.checkbox_false_disable {background-position:0 -56px}
+.ztree li span.button.chk.checkbox_true_full {background-position:-14px 0}
+.ztree li span.button.chk.checkbox_true_full_focus {background-position:-14px -14px}
+.ztree li span.button.chk.checkbox_true_part {background-position:-14px -28px}
+.ztree li span.button.chk.checkbox_true_part_focus {background-position:-14px -42px}
+.ztree li span.button.chk.checkbox_true_disable {background-position:-14px -56px}
+.ztree li span.button.chk.radio_false_full {background-position:-28px 0}
+.ztree li span.button.chk.radio_false_full_focus {background-position:-28px -14px}
+.ztree li span.button.chk.radio_false_part {background-position:-28px -28px}
+.ztree li span.button.chk.radio_false_part_focus {background-position:-28px -42px}
+.ztree li span.button.chk.radio_false_disable {background-position:-28px -56px}
+.ztree li span.button.chk.radio_true_full {background-position:-42px 0}
+.ztree li span.button.chk.radio_true_full_focus {background-position:-42px -14px}
+.ztree li span.button.chk.radio_true_part {background-position:-42px -28px}
+.ztree li span.button.chk.radio_true_part_focus {background-position:-42px -42px}
+.ztree li span.button.chk.radio_true_disable {background-position:-42px -56px}
+.ztree li span.button.switch {width:18px; height:18px}
+.ztree li span.button.root_open{background-position:-92px -54px}
+.ztree li span.button.root_close{background-position:-74px -54px}
+.ztree li span.button.roots_open{background-position:-92px 0}
+.ztree li span.button.roots_close{background-position:-74px 0}
+.ztree li span.button.center_open{background-position:-92px -18px}
+.ztree li span.button.center_close{background-position:-74px -18px}
+.ztree li span.button.bottom_open{background-position:-92px -36px}
+.ztree li span.button.bottom_close{background-position:-74px -36px}
+.ztree li span.button.noline_open{background-position:-92px -72px}
+.ztree li span.button.noline_close{background-position:-74px -72px}
+.ztree li span.button.root_docu{ background:none;}
+.ztree li span.button.roots_docu{background-position:-56px 0}
+.ztree li span.button.center_docu{background-position:-56px -18px}
+.ztree li span.button.bottom_docu{background-position:-56px -36px}
+.ztree li span.button.noline_docu{ background:none;}
+.ztree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.add {margin-right:2px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.ico_loading{margin-right:2px; background:url(../img/ztree/loading.gif) no-repeat scroll 0 0 transparent;vertical-align:top; *vertical-align:middle}
+ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
+span.tmpzTreeMove_arrow {width:16px; height:16px; display: inline-block; padding:0; margin:2px 0 0 1px; border:0 none; position:absolute;background-color:white; background-repeat:no-repeat; background-attachment: scroll;background-position:-110px -80px; background-image:url("../img/ztree/zTreeStandard.png"); *background-image:url("../img/ztree/zTreeStandard.gif")}
+ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden;background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
+.zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
+
+/*来电弹屏重写样式 2016-03-16 kuangrb add*/
+.ui-dialog-titlebar-max, .ui-dialog-titlebar-max-hover, .ui-dialog-titlebar-min, .ui-dialog-titlebar-min-hover, .ui-dialog-titlebar-rest, .ui-dialog-titlebar-rest_hover{
+	width:18px;height:16px;
+	margin:0 3px;
+	float:right;display:inline-block;
+	background:url(../img/dialogr_btn.png) no-repeat;overflow:hidden;
+	}
+.ui-dialog-titlebar-max{background-position:-18px 0;}
+.ui-dialog-titlebar-max-hover{background-position:-18px -16px;}
+.ui-dialog-titlebar-min{background-position:-0 0;}
+.ui-dialog-titlebar-min-hover{background-position:-0 -16px;}
+.ui-dialog-titlebar-rest{background-position:-36px 0;}
+.ui-dialog-titlebar-rest-hover{background-position:-36px -16px;}
+.ui-dialogr-titlebar-close{
+	margin:0 3px!important;
+	position:static !important;
+	padding: 0 !important;
+	float:right;
+	}
+/*end*/

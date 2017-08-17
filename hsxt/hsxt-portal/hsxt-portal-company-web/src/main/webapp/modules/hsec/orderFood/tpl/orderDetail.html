@@ -1,0 +1,124 @@
+<%
+var param = obj.data.QueryResult
+%>
+ <%if(null==param){%>       
+
+ <%}else{  %>
+ 
+ <tr class="ord-detail"  style="display:none;" id="order<%=param.orderId%>" >
+	   <td colspan="7">
+		 <div class="order-detail-tips clearfix">
+		   	<div class="fl fb f14">订单详情</div>
+		     <div class="fr">
+		      <input type="button" class="order-btn dcai" value="改单" />			
+		     <!--<input type="button" class="order-btn orderSendToUser" orderStatus="<%=param.orderStatus%>" userId="<%=param.userId%>" orderId="<%=param.orderId%>" value="打单发送" /></div>  -->
+		 	 </div>
+		 <div>
+		   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table mt5">
+		     <th width="">菜品信息</th>
+		     <th width="">规格</th>
+		       <th width="">单价</th>
+		       <th width="">数量</th>
+		       <th width="">菜品总价</th>
+		       <th width="">消费总积分</th>
+		       <th width="">状态</th>
+		       <th width="">操作</th>
+		     </tr>
+		       <% $.each(param.orderDetailList,function(key,el){ %>
+		        <tr>
+			       <td><div class="clearfix lh200">
+			           <div class="fl mr10"><img src="<%=el.webShowPic%>" width="50" height="50" /></div>
+			           <h4 class="fl"><a href="#"><%=el.itemName%></a></h4>
+			         </div></td>
+			       <td>份</td>
+			       <td><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><span class="red fb"><%=comm.formatMoneyNumber(el.price)%></span></td>
+			       <td>
+			           <div class="cn pr">
+			             <span><%=el.quantity%></span>
+			           	<div class="changNo none">
+				           	<input class="cnbtn" type="button" value="-" />
+				           	<input class="cntxt" type="text" value="1" />
+				           	<input class="cnbtn" type="button" value="+" />
+			           	</div>
+			           </div>
+			       </td>
+			       <td><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><span class="red fb"><%=comm.formatMoneyNumber(el.priceTotal)%></span></td>
+			       <td><img src="resources/img/pv.png" width="25" style="vertical-align:middle;"><span class="blue"><%=comm.formatMoneyNumber(el.pointTotal)%></span></td>
+			       <td>
+				       	<% if(el.status=='0'){%>
+				 		未删除
+				   		<%} else if(el.status=='1') {%>
+				   		<font color='red'>已删除</font>
+				   		<%} else if(el.status=='2') {%>
+				   		  <font color='red'>永久删除</font>
+				   		<%}%>			       
+			      </td>
+			      <td><a href="#" orderDetailId="<%=el.id%>" class="deleteOrderDetail"> 删除</a></td>
+		     </tr> 
+		     <% }) %>    
+		    
+		    </table>
+		    <div class="cutline"></div>
+		    <div class="clearfix">
+		    <div class="fl tr lh150">
+		<ul>		
+		      	<li class="pt10 clearfix"><span class="fl mr5 w120 tr">订单金额：</span><span class="fl f14 red"><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><%=comm.formatMoneyNumber(param.amountTotal)%></span></li>
+		         <li class="pt10 clearfix"><span class="fl mr5 w120 tr">已预付商家定金：</span><span class="fl f14 red"><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><%=comm.formatMoneyNumber(param.moneyEarnest)%>	</span></li>
+		         <li class="pt10 clearfix"><span class="fl mr5 w120 tr">已付金额：</span><span class="fl f14 red"><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><%=comm.formatMoneyNumber(param.amountPaid)%></span></li>
+		         <li class="pt10 clearfix"><span class="fl mr5 w120 tr">配送费：</span><span class="fl f14 red"><img src="resources/img/price.png" width="18" style="vertical-align:middle;"><%=comm.formatMoneyNumber(param.amountLogistic)%></span></li>
+		         <li class="pt10 clearfix"><span class="fl mr5 w120 tr">积分：</span><span class="fl f14 blue"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;"><%=comm.formatMoneyNumber(param.pointsTotal)%></span></li>
+		        </ul>
+		      </div>
+		      <div class="fr tr lh150">
+				<ul class="mr50">
+		        	<li class="pt10 clearfix">
+		        		<span class="fl mr5 w120 tr">折扣方式：</span>
+		        		<span class="fl">
+		        			<label><input class="mr5" type="radio" name="discount" value='1'/>抵扣卷</label>
+		        			<label class="ml20"><input class="mr5" type="radio" name="discount" value='2'/>输入折扣</label>
+		        		</span>
+		        	</li>
+		            <li class="pt10 clearfix">
+		            	<span class="fl mr5 w120 tr lh22">使用抵扣券：</span>
+		            	<span class="fl">面值<input class="cy-ipt" name='couponInfo' type="text" style="width:30px" value="">元，使用
+		            	<input class="cy-ipt" type="text" style="width:30px" name='amountCoupon' value="">张</b></span>
+		            </li>
+		            <li class="pt10 clearfix">
+		            	<span class="fl mr5 w120 tr lh22">折扣率(50-100)%：</span>
+		            	<span class="fl">
+		            		<input class="cy-ipt" type="text" style="width:80px" name='discountRate' value=""><b class="ml5 fn">%</b>
+		            	</span>
+		            </li>
+		            
+		            <li class="pt10 clearfix">
+		            	<span class="fl mr5 w120 tr lh22">折扣金额：</span>
+		            	<span class="fl">
+		            		<input  class="cy-ipt" type="text" name='discountRateMoney' style="width:80px" value="<%=param.amountCoupon%>">
+		            	</span>
+		            </li>
+		            
+		            <input type='hidden' name='amountTotal' value='<%=comm.formatMoneyNumber(param.amountTotal)%>'/>
+		            <input type='hidden' name='moneyEarnest' value='<%=comm.formatMoneyNumber(param.moneyEarnest)%>'/>
+		            <input type='hidden' name='amountPaid' value='<%=comm.formatMoneyNumber(param.amountPaid)%>'/>		            
+		            <li class="pt10 clearfix"><span class="fl mr5 w120 tr fb">应付金额：
+		            </span><span class="fl f14 red fb"><img src="resources/img/price.png" width="18" style="vertical-align:middle;" name='orderMoney' >
+		            <% if((param.amountTotal-param.moneyEarnest+param.amountLogistic)>=0){%>
+		           	 <%=comm.formatMoneyNumber(param.amountTotal-param.moneyEarnest+param.amountLogistic)%>
+		            <%}else{%>
+				   		  0
+				   	<%}%>
+		            </span></li>
+		     </ul>
+		   </div>
+		   </div>
+		   <div class="cutline mt10"></div>
+		   <div class="two_button h30 clearfix mt20" style="width: 100px" align="center"  orderStatus="<%=param.orderStatus%>" userId="<%=param.userId%>" orderId="<%=param.orderId%>">
+			   <a href="#" align="center" class="btn_bg submit fl diancai">继续点菜</a>				
+			   <!--<a href="#" class="btn_bg submit fr payOrder">现金结账</a>  -->
+		   </div>		   
+		 </div>
+	 </td>
+ </tr>
+  <% } %>    
+  
+      

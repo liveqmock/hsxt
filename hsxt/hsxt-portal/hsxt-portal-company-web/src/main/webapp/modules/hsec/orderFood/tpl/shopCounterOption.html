@@ -1,0 +1,13 @@
+<!-- 营业点option -->
+<%
+var shopStores=obj.data
+%>
+<option value="">请选择</option>
+<%if(null==shopStores||shopStores.size==0){%>
+     
+<%}else{$.each(shopStores,function(key,store){ %> 
+ 		<option value="<%=store.salerShopStore.id%>"><%=store.salerShopStore.name%></option>       
+     <%})%> 
+<%}%>     
+ 
+ 

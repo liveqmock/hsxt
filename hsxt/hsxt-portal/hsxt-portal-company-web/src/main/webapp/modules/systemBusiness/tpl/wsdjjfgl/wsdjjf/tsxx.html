@@ -1,0 +1,63 @@
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30%" align="right" class="gray"></td>
+    <td width="70%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">企业名称：</td>
+    <td><%=obj.entName %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">企业互生号：</td>
+    <td><%=obj.entResNo %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">操作员编号：</td>
+    <td><%=obj.entResNo %>-<%=obj.operNo %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">互生卡号：</td>
+    <td><%=obj.perResNo %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易类别：</td>
+    <td>消费积分</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">积分流水号：</td>
+    <td><%=obj.sourceTransNo %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">日期/时间：</td>
+    <td><%=obj.sourceTransDate %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">消费金额：</td>
+    <td><%=comm.navNull(obj.orderAmount,obj.sourceTransAmount) %></td>
+  </tr>
+   <tr>
+    <td align="right" class="gray">实付金额：</td>
+    <td><%=obj.sourceTransAmount %>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td><%=obj.currencyNameCn %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">积分比例：</td>
+    <td><%=obj.pointRate %></td>
+  </tr>
+ <tr>
+    <td align="right" class="gray">应支付积分数：</td>
+    <td><%=obj.pointSum %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">货币转换比率：</td>
+    <td><%=obj.currencyRate %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">折合扣除互生币：</td>
+    <td><%=obj.pointSum %></td>
+  </tr>
+</table>

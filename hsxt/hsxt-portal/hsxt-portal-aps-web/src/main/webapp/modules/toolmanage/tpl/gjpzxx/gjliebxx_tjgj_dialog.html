@@ -1,0 +1,43 @@
+<div class="view_info">
+	<form id="gjtj_form">
+		<input type="hidden" id="microPic_hidden"/>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+	        <tr>
+	        	<td class="view_item" width="18%">工具名称</td>
+	            <td width="32%">
+					<input type="text" class="h28_middle w96pc ml5" maxlength="20" name="productName" id="productName" placeholder="输入工具名称，不超过20字" /></td>
+	        	
+	            <td class="view_item" width="18%">工具类别</td>
+	            <td width="32%">
+					<span class="ml5 pr">
+						<input id="toolCategory" name="toolCategory" readonly="readonly" placeholder="选择工具类别" />
+					</span>
+				</td>
+	          </tr>  
+	        <tr>
+	            <td class="view_item" width="18%">价格</td>
+	            <td width="32%">
+					<input type="text" class="h28_middle w96pc ml5" id="price" maxlength="10" name="price"  placeholder="输入价格" /></td>
+	            <td class="view_item" width="18%">计量单位</td>
+	            <td width="32%">
+					<input type="text" class="h28_middle w96pc ml5" id="unit" name="unit" maxlength="3"  placeholder="输入单位，例：张、个" /></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item">工具说明</td>
+	            <td colspan="3">
+					<textarea  class="ml5 h50 w98pc rsn pt5 pb5" id="description" maxlength="300" name ="description" placeholder="输入添加原因,字数不超过300个字" ></textarea>
+				</td>
+	        </tr>
+	        <tr>
+	            <td class="view_item">工具图片</td>
+	            <td colspan="3">
+				<div class="clearfix ml5">
+					<input id="txtImgName" readonly="readonly" type="text" name="textfield" class="fl h28_middle w140 input-txt" />
+					<!-- <button type="button" class="fl ml10 input-file btn_bg upload_btn">上传<input type="file" id="microPic" name="microPic"></button> -->
+				<a href="javascript:void(0);" class="input-file btn_bg upload_btn ml5">上传<input type="file" id="microPic" name="microPic"></a>
+				</div>
+				</td>
+	        </tr>
+	    </table>
+    </form>
+</div>

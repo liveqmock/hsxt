@@ -1,0 +1,30 @@
+<%$.each(obj.consultationList,function(k,v){%>
+	<%var time,str,headPic,boolred=0,imgBool=0;%>
+	<%headPic = v.fromHeadImg%>
+	<%$.each(v.content,function(k2,v2){%>
+		<%if(v2.newStr == 1 || v2.newStr == -1){%>
+			<%if(v2.msg_code == 10){%>
+				<%imgBool = 1;%>
+			<%}%>
+			<%if(v2.newStr == -1){boolred = -1}else{boolred = 1}%>
+			<%str = v2.msg_content%>
+			<%time = v2.time%>
+			<%return;%>
+		<%}%>
+	<%})%>
+	<li data-id="<%=v.fromId%>">
+	<dl>
+	<dt>
+	<img src="<%=headPic!=null && headPic!=''?headPic:'resources/img/defaultheadimg.png'%>" height="50" width="50">
+	</dt>
+	<dd class="name">
+	<span>
+	<%=v.fromId%>
+	</span>
+	</dd>
+	<dd style="font-weight:bold;word-break:break-all;word-wrap:break-word;" class="newContent"><span style="width: 120px" class="classtext"><%if(imgBool == 1){%>图片信息<%}else{%><%=str%><%}%></span><span <%if(boolred == 1){%>class="count"<%}%>></span>
+	</dd>
+	<dd class="time"><%=obj.DatetimeNew(time)%></dd>
+	</dl>
+	</li>
+<%})%>

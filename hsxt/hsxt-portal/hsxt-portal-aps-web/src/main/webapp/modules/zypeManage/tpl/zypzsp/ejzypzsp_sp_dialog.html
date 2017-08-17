@@ -1,0 +1,74 @@
+<div class="view_info">
+	<table width="100%" border="" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">管理公司当前资源配额信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mCustName %></td>
+            <td class="view_item" width="20%">企业互生号</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mEntResNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司资源总数</td>
+            <td class="view_text" colspan="3"><%= obj.entDetail.mEntResNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">计划城市配额</td>
+            <td class="view_text"><%= obj.entDetail.planNum %></td>
+            <td class="view_item">计划外城市配额</td>
+            <td class="view_text"><%= obj.entDetail.notPlanNum %></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请分配信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司配额</td>
+            <td class="view_text"><%= obj.scDetail.sResNum %></td>
+            <td class="view_item">已使用配额</td>
+            <td class="view_text"><%= obj.scDetail.useSResNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">尚可用配额</td>
+            <td class="view_text"><%= (obj.scDetail.sResNum-obj.scDetail.useSResNum) %></td>
+            <td class="view_item">省/州/直辖市</td>
+            <td class="view_text"><%=comm.getProvNameByCode(obj.scDetail.provinceNo)%></td>
+        </tr>
+        <tr>
+            <td class="view_item">配置类型</td>
+            <td class="view_text"><%=comm.lang("zypeManage").quotaTypeEnume[obj.applyDetail.applyType] %></td>
+            <td class="view_item">申请配额数</td>
+            <td class="view_text"><%=obj.applyDetail.applyNum%></td>
+        </tr>
+        <tr>
+            <td class="view_item">备注</td>
+            <td class="view_text" colspan="3"><%=obj.applyDetail.reqRemark%></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.applyDetail.reqTime%></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text" id="tdReqOperator"></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审批信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">审批结果</td>
+            <td class="view_text">
+				<input type="radio" id="p1" name="radStatus" value="1" checked="checked"><label for="p1" class="ml5 mr20">审批通过</label>
+				<input type="radio" id="p2" name="radStatus" value="2" ><label for="p2" class="ml5">审批驳回</label>
+			</td>
+            <td class="view_item">批复数量</td>
+            <td>
+				<input id="txtApprNum" type="text" name="textfield" placeholder="输入批复数量,不可大于申请数" value="<%=obj.applyDetail.applyNum%>" class="ml5 h28_middle w96pc" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">审批信息</td>
+            <td colspan="3">
+				<textarea id="txtApprRemark" class="fl ml5 h50 w98pc rsn pt5 pb5" maxlength="300" placeholder="输入备注,字数不超过300个字"></textarea>
+			</td>
+        </tr>
+    </table>
+</div>

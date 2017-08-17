@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.TemplateApprMapper">
+
+	<resultMap id="templateApprResult" type="com.gy.hsxt.bs.bean.apply.TemplateAppr">
+		<result column="APPLY_ID" property="applyId" />
+		<result column="TEMPLET_ID" property="templetId" />
+		<result column="APPR_STATUS" property="apprStatus" />
+		<result column="APPR_RESULT" property="apprResult" />
+		<result column="REQ_OPERATOR" property="reqOperator" />
+		<result column="REQ_NAME" property="reqName" />
+		<result column="REQ_TIME" property="reqTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+		<result column="REQ_REMARK" property="reqRemark" />
+		<result column="APPR_OPERATOR" property="apprOperator" />
+		<result column="APPR_NAME" property="apprName" />
+		<result column="APPR_TIME" property="apprTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler" />
+		<result column="APPR_REMARK" property="apprRemark" />
+
+	</resultMap>
+
+	<!-- 创建模板 -->
+	<insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.apply.TemplateAppr">
+		INSERT INTO T_BS_TEMPLET_APPR (
+			APPLY_ID,
+			TEMPLET_ID,
+			APPR_STATUS,
+			APPR_RESULT,
+			REQ_OPERATOR,
+			REQ_NAME,
+			REQ_TIME,
+			REQ_REMARK
+		) VALUES (
+			#{applyId},
+			#{templetId},
+			#{apprStatus},
+			#{apprResult},
+			#{reqOperator},
+			#{reqName},
+			sysdate,
+			#{reqRemark}
+		)
+	</insert>
+	
+	<!-- 更新模板审核 -->
+	<update id="updateBean" parameterType="com.gy.hsxt.bs.bean.apply.TemplateAppr">
+		UPDATE T_BS_TEMPLET_APPR SET
+		APPR_RESULT = #{apprResult},
+		APPR_OPERATOR = #{apprOperator},
+		<if test="apprName != null and apprName !='' ">
+			APPR_NAME = #{apprName},
+		</if>
+		<if test="apprRemark != null and apprRemark !='' ">
+			APPR_REMARK = #{apprRemark},
+		</if>
+		APPR_TIME = sysdate
+		WHERE TEMPLET_ID = #{templetId} AND APPR_STATUS = #{apprStatus} AND APPR_RESULT= 0
+	</update>
+	
+
+	<!-- 查询模板审核列表 -->
+	<select id="selectBeanList" resultMap="templateApprResult">
+		SELECT *
+		FROM T_BS_TEMPLET_APPR
+	    WHERE TEMPLET_ID = #{templetId}
+	</select>
+
+	<select id="selectLastBeanByTemplateId" resultMap="templateApprResult">
+		SELECT *
+		FROM T_BS_TEMPLET_APPR
+		WHERE APPLY_ID = (
+			SELECT max(t.APPLY_ID)
+			FROM T_BS_TEMPLET_APPR t
+			WHERE TEMPLET_ID = #{templetId}
+		)
+	</select>
+
+</mapper>

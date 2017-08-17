@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd
+            http://code.alibabatech.com/schema/dubbo    
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+            
+    <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+	
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+
+	<!-- 消费服务 -->
+
+	<dubbo:reference id="gpPaymentService2"
+		interface="com.gy.hsxt.gp.api.IGPPaymentService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+		
+	<dubbo:reference id="gpTransService2"
+		interface="com.gy.hsxt.gp.api.IGPTransCashService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+	    <!-- disconf.properties存放路径 -->
+        <constructor-arg name="disconfFile" 
+                        value="file:${user.dir}/conf/hsxt-gp/disconf.properties" />
+		
+		<!-- 本地配置文件[只有配置到本地] -->
+		<property name="locations">
+			<list></list>
+		</property>
+		
+		<!-- 远程配置文件[远程存在, 将会同步到本地] -->
+		<property name="remoteLocations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-gp/hsxt-gp.properties</value>			
+				<value>file:${user.dir}/conf/hsxt-gp/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsxt-gp/log4j.xml</value>
+			</list>
+		</property>
+	</bean>
+</beans>
+ 

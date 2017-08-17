@@ -1,0 +1,85 @@
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+  <tr>
+    <td class="billstyle p5" rowspan="5" align="center">积分预付款预缴总金额：<span id="ai_cpointPrepayTotal"></span></td>
+    <td class="billstyle p5" colspan="2" align="left">余额：<span id="ai_cpointTotal"></span></td>
+  </tr>
+  <tr align="left">
+    <td class="billstyle p5" rowspan="2">已使用金额：<span id="ai_usedMoney"></span></td>
+    <td class="billstyle p5">已开发票金额：<span id="ai_issuedInvoice"></span></td>
+  </tr>
+  <tr align="left">
+    <td class="billstyle p5">未开发票金额：<span id="ai_unIssuedInvoice"></span></td>
+  </tr>
+  <!--tr align="left">
+    <td class="billstyle p5">申请中的发票金额：<span id="ai_appleingInvoiceNum"></span></td>
+  </tr-->
+  <tr align="left">
+    <td class="billstyle p5" colspan="2">已退回金额：<span id="ai_backedMoney"></span></td>
+  </tr>
+</table>
+</div>
+<div class="billstyle p10">
+  <form id="ai_applyForm" autocomplete="off" name="ai_applyForm">
+    <ul class="cssform clearfix">
+      <li class="mr10">
+        <label class="title-int">申请发票金额：</label>
+        <input title="" type="text" name="ai_applyInvoiceMoney" id="ai_applyInvoiceMoney" placeholder="输入申请发票金额,最多不超过未开发票金额" class="h28_middle input-txt w282" maxlength="10"/>
+      </li>
+      <li class="mr10">
+        <div class="cont-int">
+          <button id="ai_applyBtn" type="button" class="btn-search">申请发票</button>
+        </div>
+      </li>
+      <li class="mr10">
+        <label class="title-int"><span class="red" id="ai_applyError">
+          <!--提示-->
+          </span></label>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-toolbar">
+  <form id="applyInvoice_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix">
+        <label class="fl h30_middle">快捷日期：</label>
+        <input id="quickDate" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <label class="title-int">日期：</label>
+        <input type="text" name="ai_beginDate" id="ai_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="ai_endDate" id="ai_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">状态：</label>
+		<input type="text" id="ai_bBuyType" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="ai_searchInvoice" type="button" class="btn-search">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont scrlh">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="ai_result_table" class="search-table bsgrid">
+  	<thead>
+      <tr>
+        <th w_index="xh" w_align="left">序号</th>
+        <th w_index="rq" w_align="left">申请日期</th>
+        <th w_index="je" w_align="left">申请发票金额</th>
+        <th w_index="zt" w_align="left">状态</th>
+        <th w_render="operate" w_align="left">操作</th>
+      </tr>
+	</thead>
+  </table>
+</div>
+</div>
+</div>
+<!--弹出框内容及脚本开始-->
+<div id="sqfpck-dialog" class="none">
+  <p></p>
+</div>

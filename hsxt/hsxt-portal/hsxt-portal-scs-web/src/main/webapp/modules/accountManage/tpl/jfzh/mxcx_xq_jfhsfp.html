@@ -1,0 +1,74 @@
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+  <tr>
+    <td class="billstyle p5 bm0 tr br0" width="15%">汇总时间范围：</td>
+    <td class="billstyle p5 bm0"><%=obj.calcStartTime %> - <%=obj.calcEndTime %></td>
+    <td class="billstyle p5 bm0 tr br0" width="15%">积分汇总：</td>
+    <td class="billstyle p5 bm0"><%=obj.points %><span class="ml10"><%=obj.totalRow %>笔</span><span class="ml10">扣除税金：<%=obj.tax %></span></td>
+  </tr>
+</table>
+</div>
+<div class="search-cont">
+  <table id="jjfhsfp_details_table" width="100%"  class="search-table bsgrid">
+    <tr>
+      <th rowspan="3">流水号</th>
+      <th rowspan="3">发生日期</th>
+      <th rowspan="3">分配合计</th>
+      <th colspan="5">1增值分配点</th>
+      <th colspan="5">2增值分配点</th>
+      <th colspan="5">3增值分配点</th>
+    </tr>
+    <tr>
+      <th colspan="2">左增值区</th>
+      <th colspan="2">右增值区</th>
+      <th rowspan="2">分配数</th>
+      <th colspan="2">左增值区</th>
+      <th colspan="2">右增值区</th>
+      <th rowspan="2">分配数</th>
+      <th colspan="2">左增值区</th>
+      <th colspan="2">右增值区</th>
+      <th rowspan="2">分配数</th>
+    </tr>
+    <tr>
+      <th>积点数</th>
+      <th>增值点</th>
+      <th>积点数</th>
+      <th>增值点</th>
+      <th>积点数</th>
+      <th>增值点</th>
+      <th>积点数</th>
+      <th>增值点</th>
+      <th>积点数</th>
+      <th>增值点</th>
+      <th>积点数</th>
+      <th>增值点</th>
+    </tr>
+   <% $.each(details,function(i,itme){ %>
+					<tr>
+						<td><%=itme.totalId %></td>
+						<td><%=itme.date %></td>
+						<td><%=itme.pv %></td>
+
+                        <td><%=itme.leftP1 %></td>
+                        <td><%=itme.leftCount1 %></td>
+                        <td><%=itme.rightP1 %></td>
+                        <td><%=itme.rightCount1 %></td>
+						<td><%=itme.mlmPoint1 %></td>
+
+                        <td><%=itme.leftP2 %></td>
+                        <td><%=itme.leftCount2 %></td>
+                        <td><%=itme.rightP2 %></td>
+                        <td><%=itme.rightCount2 %></td>
+						<td><%=itme.mlmPoint2 %></td>
+
+                        <td><%=itme.leftP3 %></td>
+                        <td><%=itme.leftCount3 %></td>
+                        <td><%=itme.rightP3 %></td>
+                        <td><%=itme.rightCount3 %></td>
+						<td><%=itme.mlmPoint3 %></td>
+
+	            	</tr>		
+				<%});%> 
+  </table>
+</div>
+<div class="mt20 tc"><a id="mxcx_xq_btn_fh"  class="btn_bg submit">返&#12288;回</a></div> 

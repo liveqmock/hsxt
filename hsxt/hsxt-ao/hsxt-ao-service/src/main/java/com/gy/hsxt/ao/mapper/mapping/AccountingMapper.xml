@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ao.mapper.AccountingMapper">
+	<!-- 插入记帐分解记录 -->
+	<insert id="insertAccounting" parameterType="com.gy.hsxt.ao.bean.AccountingEntry">
+		INSERT INTO
+		T_AO_ACCOUNTING_ENTRY
+		(
+		ACCOUNTING_ENTRY_NO,
+		TRANS_NO,
+		TRANS_TYPE,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_TYPE,
+		ACC_TYPE,
+		ADD_AMOUNT,
+		DEC_AMOUNT,
+		CURRENCY_CODE,
+		FISCAL_DATE,
+		CREATED_DATE,
+		REMARK,
+		STATUS,
+		UPDATED_DATE
+		)
+		VALUES
+		(
+		#{accountingEntryNo},
+		#{transNo},
+		#{transType},
+		#{custId},
+		#{hsResNo},
+		#{custType},
+		#{accType},
+		#{addAmount},
+		#{decAmount},
+		#{currencyCode},
+		#{detail.fiscalDate},
+		sysdate,
+		#{remark},
+		#{status},
+		null
+		)
+	</insert>
+
+	<!-- 批量插入内部转帐记录 -->
+	<insert id="insertBatchAccounting" parameterType="com.gy.hsxt.ao.bean.AccountingEntry">
+		INSERT INTO 
+		T_AO_ACCOUNTING_ENTRY
+		(
+		ACCOUNTING_ENTRY_NO,
+		TRANS_NO,
+		TRANS_TYPE,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_TYPE,
+		ACC_TYPE,
+		ADD_AMOUNT,
+		DEC_AMOUNT,
+		CURRENCY_CODE,
+		FISCAL_DATE,
+		CREATED_DATE,
+		REMARK,
+		STATUS
+		)
+		<foreach collection="details" item="detail" index="index" open="(" close=")" separator="union all">
+			SELECT
+			#{detail.accountingEntryNo},
+			#{detail.transNo},
+			#{detail.transType},
+			#{detail.custId},
+			#{detail.hsResNo},
+			#{detail.custType},
+			#{detail.accType},
+			#{detail.addAmount},
+			#{detail.decAmount},
+			#{detail.currencyCode},
+			to_date(#{detail.fiscalDate},'yyyy-mm-dd hh24:mi:ss'),
+			sysdate,
+			#{detail.remark},
+			#{detail.status}
+			FROM DUAL
+		</foreach>
+	</insert>
+
+	<!-- 更新记帐状态 -->
+	<update id="updateStatus">
+		update
+		T_AO_ACCOUNTING_ENTRY
+		set
+		STATUS = #{status},
+		UPDATED_DATE = sysdate
+		where
+		TRANS_NO = #{transNo}
+	</update>
+
+	<delete id="deleteAccountingLastMath">
+		delete from T_AO_ACCOUNTING_ENTRY
+		WHERE fiscal_Date
+		&lt;=
+		to_date(to_char(add_months(sysdate,-#{month}),'yyyy-MM-dd')||' 23:59:59','yyyy-MM-dd hh24:mi:ss')
+	</delete>
+
+	<select id="findAccountingEntryRange" resultType="com.gy.hsxt.ao.bean.AccountingEntry">
+		SELECT
+			ACCOUNTING_ENTRY_NO AS accountingEntryNo,
+			TRANS_NO AS transNo,
+			TRANS_TYPE AS transType,
+			CUST_ID AS custId,
+			HS_RES_NO AS hsResNo,
+			CUST_TYPE AS custType,
+			ACC_TYPE AS accType,
+			ADD_AMOUNT AS addAmount,
+			DEC_AMOUNT AS decAmount,
+			CURRENCY_CODE AS currencyCode,
+			FISCAL_DATE AS fiscalDate,
+			CREATED_DATE AS createdDate,
+			REMARK AS remark,
+			STATUS AS status,
+			UPDATED_DATE AS updatedDate
+		FROM
+			t_ao_accounting_entry
+		WHERE
+			status = 1
+		<![CDATA[
+		AND TRANS_NO >= #{startTransNo}
+		AND TRANS_NO <= #{endTransNo}
+		AND FISCAL_DATE >= #{startDate}
+		AND FISCAL_DATE < #{endDate}
+		]]>
+		ORDER BY
+			TRANS_NO
+	</select>
+
+	<!-- 根据会计日期范围查询已记账交易流水号 -->
+	<select id="findTransNoByFiscalDate" resultType="string">
+		SELECT DISTINCT
+			TRANS_NO
+		FROM
+			t_ao_accounting_entry
+		WHERE
+			status = 1 
+		<![CDATA[
+		AND FISCAL_DATE >= #{startDate}
+		AND FISCAL_DATE < #{endDate}
+		]]>
+		ORDER BY
+			TRANS_NO
+	</select>
+	
+	<!-- 查询是否已存在分解记录 -->
+	<select id="findExistGenAccDetail" resultType="int">
+		select count(0) from t_ao_accounting_entry where TRANS_NO = #{bizNo}
+	</select>
+</mapper>

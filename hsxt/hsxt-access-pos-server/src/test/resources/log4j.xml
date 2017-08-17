@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%x %d [%-5p] %c %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG"/>
+            <!-- DEBUG -->
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+
+    <appender name="LOG.DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/debug.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG"/>
+            <param name="LevelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="LOG.INFO" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/info.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO"/>
+            <param name="LevelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="LOG.WARN" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/warn.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN"/>
+            <param name="LevelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="LOG.ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/error.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="ERROR"/>
+            <param name="LevelMax" value="ERROR"/>
+        </filter>
+    </appender>
+
+    <appender name="LOG.FATAL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/var/log/fatal.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="FATAL"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender>
+    <!-- 下面是打印mybatis语句的配置-->
+    <!-- <logger name="com.ibatis" additivity="true">
+     <level value="DEBUG" />
+    </logger>
+    <logger name="java.sql.Connection" additivity="true">
+     <level value="DEBUG" />
+    </logger>
+    <logger name="java.sql.Statement" additivity="true">
+     <level value="DEBUG" />
+    </logger>
+    <logger name="java.sql.PreparedStatement" additivity="true">
+     <level value="DEBUG" />
+    </logger>
+    <logger name="java.sql.ResultSet" additivity="true">
+     <level value="DEBUG" />
+    </logger>  -->
+    <!-- 解决ecms服务总线在debug模式下大量心跳日志问题 BEGIN -->
+    <logger name="org.apache.zookeeper.ClientCnxn" additivity="true">
+        <level value="INFO"/>
+    </logger>
+    <logger name="com.alibaba.dubbo.remoting.exchange.support.header"
+            additivity="true">
+        <level value="INFO"/>
+    </logger>
+    <logger name="org.I0Itec.zkclient" additivity="true">
+        <level value="INFO"/>
+    </logger>
+    <!-- 解决ecms服务总线在debug模式下大量心跳日志问题 END -->
+    <logger name="org.springframework" additivity="false">
+        <level value="ERROR"/>
+    </logger>
+    <logger name="org.quartz" additivity="false">
+        <level value="ERROR"/>
+    </logger>
+
+    <root>
+        <priority value="${log.level}"/>
+        <appender-ref ref="LOG.DEBUG"/>
+        <appender-ref ref="LOG.INFO"/>
+        <appender-ref ref="LOG.WARN"/>
+        <appender-ref ref="LOG.ERROR"/>
+        <appender-ref ref="LOG.FATAL"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</log4j:configuration>

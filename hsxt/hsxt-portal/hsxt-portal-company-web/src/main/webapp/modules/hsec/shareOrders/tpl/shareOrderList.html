@@ -1,0 +1,51 @@
+     <%var param = obj.queryResult %> 
+      <%var httpUrl = obj.httpUrl %> 
+    <div>
+      <table width="100%" id="tableShare" border="0" cellspacing="0" cellpadding="0" class="search-table">
+      <thead>
+           <tr>
+		        <th width="20%">标题</th>
+		        <th width="20%">心得</th>
+		        <th width="10%">时间</th>
+		        <th width="30%">商品信息</th>
+<!-- 		        <th>营业点</th> -->
+      		</tr>
+      </thead>
+	<% $.each(param.result,function(key,data){ %>
+        <tr class="<%=key%2!=0?'table-tr-c':''%>">
+          <td><h6><%=data.title%></h6>
+            <div class="tit_img tr_img">
+              <div class="td_img">
+                <div class="inner_img clearfix">
+                <%$.each(data.picUrls.split(","),function(k,v){%>
+                	<img  src="<%=httpUrl%><%=v%>" width="68" height="68"/>
+                <%})%>
+			</div>
+              </div>
+              <div class="arrow_left">&lt;</div>
+              <div class="arrow_right">&gt;</div>
+            </div></td>
+          <td><div class="tl"><%=data.cnt%></div></td>
+          <td><%=data.shareTime%></td>
+          <td align="left">
+              <p align="left">商品名称：<%=data.itemName%></p>
+              <p align="left"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格：<span class="red"><%=comm.formatMoneyNumber(data.price)%></span></p>
+              <p align="left">订单编号：<%=data.orderId%></p>
+              <p align="left">订单日期：<%=data.buyTime%></p>
+              <p align="left">昵称：<%=data.userName%></p>
+            </td>
+<!--           <td><%=data.shopName%></td> -->
+        </tr>
+<%})%>
+      </table></div>
+         <div>
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=param.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/><span class="page-go">页/<%=param.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.recoredCount%>条</a>
+</div>
+                        </div>

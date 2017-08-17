@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.EntQkAccountMapper" >
+  <!-- 企业快捷银行账户信息-->
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.EntQkAccount">
+		<id column="ACC_ID" property="accId" jdbcType="DECIMAL" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+		<result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+		<result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+		<result column="BANK_CARD_NO" property="bankCardNo" jdbcType="VARCHAR" />
+		<result column="BANK_CARD_TYPE" property="bankCardType" jdbcType="DECIMAL" />
+		<result column="BANK_SIGN_NO" property="bankSignNo" jdbcType="VARCHAR" />
+		<result column="SMALL_PAY_EXPIRE_DATE" property="smallPayExpireDate" jdbcType="OTHER" />
+		<result column="AMOUNT_TOTAL_LIMIT" property="amountTotalLimit" jdbcType="DECIMAL" />
+		<result column="AMOUNT_SINGLE_LIMIT" property="amountSingleLimit" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT_ACCOUNT" property="isDefaultAccount" jdbcType="DECIMAL" />
+	</resultMap>
+	
+  <!-- 查询的列-->
+  <sql id="Base_Column_List" >
+    ACC_ID, 
+    ENT_CUST_ID, 
+    ENT_RES_NO, 
+    BANK_NAME, 
+    BANK_CODE, 
+    BANK_CARD_NO, 
+    BANK_CARD_TYPE,
+    BANK_SIGN_NO, 
+    SMALL_PAY_EXPIRE_DATE, 
+    AMOUNT_TOTAL_LIMIT, 
+    AMOUNT_SINGLE_LIMIT, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY, 
+    IS_DEFAULT_ACCOUNT
+  </sql>
+ 
+  <!--查询企业快捷支付账户 通过主键ID -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_QUICK_PAY
+		where ACC_ID = #{accId,jdbcType=DECIMAL}
+	</select>
+
+	<!--查询企业快捷支付账户列表 -->
+	<select id="listAccountByCustId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_QUICK_PAY
+		where ENT_CUST_ID = #{custId,jdbcType=VARCHAR}
+	</select>
+  
+  	<!--删除企业快捷支付账户 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_ENT_QUICK_PAY
+		where ACC_ID = #{accId,jdbcType=DECIMAL}
+	</delete>
+  
+  <!-- 插入企业快捷支付账户-->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.EntQkAccount" >
+    insert into T_ENT_QUICK_PAY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        ACC_ID,
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="bankCardNo != null" >
+        BANK_CARD_NO,
+      </if>
+      <if test="bankCardType != null">
+				BANK_CARD_TYPE,
+	  </if>
+      <if test="bankSignNo != null" >
+        BANK_SIGN_NO,
+      </if>
+      <if test="smallPayExpireDate != null" >
+        SMALL_PAY_EXPIRE_DATE,
+      </if>
+      <if test="amountTotalLimit != null" >
+        AMOUNT_TOTAL_LIMIT,
+      </if>
+      <if test="amountSingleLimit != null" >
+        AMOUNT_SINGLE_LIMIT,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="isDefaultAccount != null" >
+        IS_DEFAULT_ACCOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     
+      <if test="accId != null">
+				#{accId,jdbcType=DECIMAL},
+	  </if>
+	  <if test="accId == null">
+				SEQ_T_ENT_QUICK_PAY.Nextval,
+	  </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNo != null" >
+        #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardType != null">
+				#{bankCardType,jdbcType=DECIMAL},
+	  </if>
+      <if test="bankSignNo != null" >
+        #{bankSignNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smallPayExpireDate != null" >
+        #{smallPayExpireDate,jdbcType=OTHER},
+      </if>
+      <if test="amountTotalLimit != null" >
+        #{amountTotalLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="amountSingleLimit != null" >
+        #{amountSingleLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultAccount != null" >
+        #{isDefaultAccount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  	<!--更新企业快捷支付账户 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.EntQkAccount" >
+    update T_ENT_QUICK_PAY
+    <set >
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNo != null" >
+        BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardType != null">
+				BANK_CARD_TYPE = #{bankCardType,jdbcType=DECIMAL},
+	  </if>
+      <if test="bankSignNo != null" >
+        BANK_SIGN_NO = #{bankSignNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smallPayExpireDate != null" >
+        SMALL_PAY_EXPIRE_DATE = #{smallPayExpireDate,jdbcType=OTHER},
+      </if>
+      <if test="amountTotalLimit != null" >
+        AMOUNT_TOTAL_LIMIT = #{amountTotalLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="amountSingleLimit != null" >
+        AMOUNT_SINGLE_LIMIT = #{amountSingleLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultAccount != null" >
+        IS_DEFAULT_ACCOUNT = #{isDefaultAccount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ACC_ID = #{accId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 投资分红 -->
+<mapper namespace="com.gy.hsxt.bs.order.mapper.PointDividendMapper">
+	<!-- 插入投资分红记录 -->
+	<insert id="insertPointDividend" parameterType="com.gy.hsxt.bs.bean.order.PointDividend">
+		INSERT INTO
+		T_BS_POINT_DIVIDEND
+		(
+		DIVIDEND_NO,
+		DIVIDEND_YEAR,
+		NORMAL_DIVIDEND,
+		DIRECTIONAL_DIVIDEND,
+		TOTAL_DIVIDEND,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_TYPE
+		)
+		VALUES
+		(
+		#{dividendNo},
+		#{dividendYear},
+		#{normalDividend},
+		#{directionalDividend},
+		#{totalDividend},
+		#{custId},
+		#{hsResNo},
+		#{custType}
+		)
+	</insert>
+
+	<!-- 查询积分投资分红 -->
+	<select id="findPointDividendListPage" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.PointDividend">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_BS_POINT_DIVIDEND
+		<where>
+			<if test="custId!=null and custId!=''">
+				and CUST_ID = #{custId}
+			</if>
+			<if test="startYear!=null and startYear!=''">
+				and dividend_year &gt;= #{startYear}
+			</if>
+			<if test="endYear!=null and endYear!=''">
+				and dividend_year &lt;= #{endYear}
+			</if>
+		</where>
+		order by dividend_year desc
+	</select>
+	
+	<!-- 查询地区平台积分投资分红 -->
+	<select id="findPlatformPointDividendListPage" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.PointDividend">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_BS_POINT_DIVIDEND d
+		<where>
+			<if test="startYear!=null and startYear!=''">
+				and d.dividend_year &gt;= #{startYear}
+			</if>
+			<if test="endYear!=null and endYear!=''">
+				and d.dividend_year &lt;= #{endYear}
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and d.hs_res_no = #{hsResNo}
+			</if>
+			<if test="custType!=null and custType == 1">
+				and d.cust_type = 1
+			</if>
+			<if test="custType!=null and custType == 2">
+				and d.cust_type in (3,4)
+			</if>
+			<if test="custName!=null and custName != ''">
+				and d.cust_id in (select t.cust_id from T_BS_POINT_INVEST t where t.cust_name like '%'||#{custName}||'%')
+			</if>
+		</where>
+		order by d.dividend_year desc,d.dividend_no desc
+	</select>
+
+	<!-- 查询年度积分投资分红 -->
+	<select id="findYearPointDividend" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.PointDividend">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_BS_POINT_DIVIDEND
+		where
+		HS_RES_NO = #{hsResNo}
+		and DIVIDEND_YEAR = #{dividendYear}
+	</select>
+
+	<!-- 查询投资分红详情 -->
+	<select id="findPointDividendInfo" resultType="com.gy.hsxt.bs.bean.order.PointDividend">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_BS_POINT_DIVIDEND
+		where
+		DIVIDEND_NO = #{dividendNo}
+	</select>
+
+	<sql id="base_column_list">
+		DIVIDEND_NO AS dividendNo,
+		DIVIDEND_YEAR AS dividendYear,
+		NORMAL_DIVIDEND AS normalDividend,
+		DIRECTIONAL_DIVIDEND AS
+		directionalDividend,
+		TOTAL_DIVIDEND AS totalDividend,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_TYPE AS custType,
+		DIVIDEND_TIME AS
+		dividendTime
+	</sql>
+
+</mapper>

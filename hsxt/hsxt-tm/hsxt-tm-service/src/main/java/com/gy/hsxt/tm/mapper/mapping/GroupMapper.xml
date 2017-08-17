@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.GroupMapper">
+	<resultMap id="BaseGroupResultMap" type="com.gy.hsxt.tm.bean.Group" >
+	    <id column="GROUP_ID" property="groupId" />
+	    <result column="NAME" property="groupName" />
+	    <result column="GROUP_TYPE" property="groupType"  />
+	    <result column="OPENED" property="opened"/>
+	    <result column="ENT_CUST_ID" property="entCustId" />
+	    <result column="DESCRIPTION" property="description" />
+  	</resultMap>
+  	
+    <resultMap type="com.gy.hsxt.tm.bean.Group" id="GroupAndOperatorResultMap">
+        <id column="groupId" property="groupId"/>
+        <result column="entCustId" property="entCustId"/>
+        <result column="groupName" property="groupName"/>
+        <result column="groupType" property="groupType"/>
+        <result column="opened" property="opened"/>
+	    <!-- 关联查询出组下面的操作员 -->
+        <collection property="operators" ofType="com.gy.hsxt.tm.bean.Operator">
+            <id column="optCustId" property="optCustId" />
+            <result column="groupId" property="groupId" />
+            <result column="optWorkNo" property="optWorkNo" />
+            <result column="operatorName" property="operatorName" />
+            <result column="chief" property="chief" />
+        </collection>
+    </resultMap>
+
+
+	<!-- 保存值班组 -->
+	<insert id="insertGroup" parameterType="com.gy.hsxt.tm.bean.Group">
+		INSERT INTO T_TM_GROUP
+		(
+			GROUP_ID,
+			NAME,
+			GROUP_TYPE,
+			OPENED,
+			ENT_CUST_ID
+		)
+		VALUES
+		(
+			#{groupId},
+			#{groupName},
+			#{groupType},
+			1,
+			#{entCustId}
+		)
+	</insert>
+
+	<!-- 查询值班组是否存在 -->
+	<select id="findGroupIsExists" resultType="int">
+		SELECT
+			count(0)
+		FROM
+			T_TM_GROUP
+		WHERE
+			NAME = #{groupName}
+		AND GROUP_ID = #{groupId}
+	</select>
+
+	<!-- 查询值班组名称是否存在 -->
+    <select id="findGroupNameIsExists" resultType="int">
+        SELECT
+        count(0)
+        FROM T_TM_GROUP t
+        where
+        t.ent_cust_id = #{entCustId}
+        and t.NAME = #{groupName}
+    </select>
+    
+	<!-- 查询值班组名称是否存在 -->
+    <select id="findGroupNameIsExistsByModify" resultType="int">
+        SELECT
+        count(0)
+        FROM T_TM_GROUP t
+        where
+        t.ent_cust_id = #{entCustId}
+		and t.group_id != #{groupId}
+        and t.NAME = #{groupName}
+    </select>
+
+	<!-- 修改值班组 -->
+	<update id="updateGroup" parameterType="com.gy.hsxt.tm.bean.Group">
+		update T_TM_GROUP
+	    <set >
+	      <if test="groupName != null" >
+	        NAME = #{groupName},
+	      </if>
+	      <if test="groupType != null" >
+	        GROUP_TYPE = #{groupType},
+	      </if>
+	      <if test="opened != null" >
+	        OPENED = #{opened},
+	      </if>
+	      <if test="description != null" >
+	        DESCRIPTION = #{description},
+	      </if>
+	    </set>
+		WHERE
+			GROUP_ID = #{groupId}
+	</update>
+
+	<!-- 修改值班组类型 -->
+	<update id="updateGroupType">
+		UPDATE
+			T_TM_GROUP
+		SET
+			GROUP_TYPE = #{groupType}
+		WHERE
+			GROUP_ID = #{groupId}
+	</update>
+	<!-- 修改值班组开关状态 -->
+	<update id="updateGroupOpened">
+		UPDATE
+			T_TM_GROUP
+		SET
+			OPENED = #{opened}
+		WHERE
+			GROUP_ID = #{groupId}
+	</update>
+
+    <!-- 查询值班组关联值班员 -->
+    <select id="findGroupAndOperatorResMap" parameterType="string" resultMap="GroupAndOperatorResultMap">
+        SELECT
+        	g.GROUP_ID AS groupId,
+        	g.ENT_CUST_ID AS entCustId,
+        	g.NAME AS groupName,
+        	g.GROUP_TYPE AS groupType,
+        	g.OPENED AS opened,
+        	o.OPT_CUST_ID AS optCustId,
+        	o.GROUP_ID AS groupId,
+        	o.OPT_WORK_NO AS optWorkNo,
+        	o.NAME AS operatorName,
+        	o.CHIEF AS chief
+        FROM
+        	T_TM_GROUP g,T_TM_OPERATOR o
+        WHERE
+        	g.GROUP_ID = o.GROUP_ID
+        AND g.GROUP_ID = #{groupId}
+    </select>
+    
+    <!-- 查询值班组关联值班员 -->
+    <select id="findGroupAndOperator" parameterType="string" resultMap="GroupAndOperatorResultMap">
+        SELECT
+        	g.GROUP_ID AS groupId,
+        	g.ENT_CUST_ID AS entCustId,
+        	g.NAME AS groupName,
+        	g.GROUP_TYPE AS groupType,
+        	g.OPENED AS opened,
+        	o.OPT_CUST_ID AS optCustId,
+        	o.GROUP_ID AS groupId,
+        	o.OPT_WORK_NO AS optWorkNo,
+        	o.NAME AS operatorName,
+        	o.CHIEF AS chief
+        FROM
+        	T_TM_GROUP g,T_TM_OPERATOR o
+        WHERE
+        	g.GROUP_ID = o.GROUP_ID
+        AND g.ENT_CUST_ID = #{entCustId}
+        <if test="isAll==0">
+	        and g.OPENED = #{isOpen}
+        </if>
+    </select>
+
+
+	<!-- 查询企业开启的值班组列表 -->
+	<select id="findOpenedGroupList" resultType="com.gy.hsxt.tm.bean.Group">
+		SELECT
+			GROUP_ID AS groupId,
+			NAME AS groupName,
+			GROUP_TYPE AS groupType,
+			OPENED AS opened,
+			ENT_CUST_ID AS entCustId
+			FROM T_TM_GROUP
+		WHERE
+			ENT_CUST_ID = #{entCustId}
+		AND OPENED = 1
+	</select>
+
+	<!-- 查询值班组列表 -->
+	<select id="findGroupList" resultType="com.gy.hsxt.tm.bean.Group">
+		SELECT
+			GROUP_ID AS groupId,
+			NAME AS groupName,
+			GROUP_TYPE AS groupType,
+			OPENED AS opened,
+			ENT_CUST_ID AS entCustId
+			FROM T_TM_GROUP
+		WHERE
+			ENT_CUST_ID = #{entCustId}
+	</select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.mapper.PsAcImbalanceMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.tc.bean.PsAcImbalance">
+		<id column="IMBALANCE_ID" property="imbalanceId" jdbcType="DECIMAL" />
+		<result column="IMBALANCE_RESULT" property="imbalanceType" jdbcType="DECIMAL" />
+		<result column="ACC_DATE" property="tcDate" jdbcType="CHAR" />
+		<result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_SUB_ID" property="accountSubId" jdbcType="VARCHAR" />
+		<result column="PS_CUST_ID" property="psCustId" jdbcType="VARCHAR" />
+		<result column="PS_ACC_TYPE" property="psAccType" jdbcType="CHAR" />
+		<result column="PS_ADD_AMOUNT" property="psAddAmount" jdbcType="DECIMAL" />
+		<result column="PS_DEC_AMOUNT" property="psDecAmount" jdbcType="DECIMAL" />
+		<result column="PS_STATUS" property="psStatus" jdbcType="DECIMAL" />
+		<result column="PS_TRANS_TYPE" property="psTransType" jdbcType="VARCHAR" />
+		<result column="PS_SOURCE_TRANS_NO" property="psSourceTransNo" jdbcType="VARCHAR" />
+		<result column="AC_ENTRY_NO" property="acEntryNo" jdbcType="VARCHAR" />
+		<result column="AC_CUST_ID" property="acCustId" jdbcType="VARCHAR" />
+		<result column="AC_ACC_TYPE" property="acAccType" jdbcType="CHAR" />
+		<result column="AC_ADD_AMOUNT" property="acAddAmount" jdbcType="DECIMAL" />
+		<result column="AC_DEC_AMOUNT" property="acDecAmount" jdbcType="DECIMAL" />
+		<result column="AC_TRANS_DATE" property="acTransDate" jdbcType="TIMESTAMP" />
+		<result column="AC_TRANS_TYPE" property="acTransType" jdbcType="VARCHAR" />
+		<result column="AC_SOURCE_TRANS_NO" property="acSourceTransNo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--查询的列 -->
+	<sql id="Base_Column_List">
+	   IMBALANCE_ID,
+       IMBALANCE_RESULT,
+       ACC_DATE,
+       TRANS_NO,
+       ACCOUNT_SUB_ID,
+       PS_CUST_ID,
+       PS_ACC_TYPE,
+       PS_ADD_AMOUNT,
+       PS_DEC_AMOUNT,
+       PS_STATUS,
+       AC_ENTRY_NO,
+       AC_CUST_ID,
+       AC_ACC_TYPE,
+       AC_ADD_AMOUNT,
+       AC_DEC_AMOUNT,
+       AC_TRANS_DATE,
+       AC_TRANS_TYPE
+	</sql>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<where>
+			<if test="beginDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &gt;= TO_DATE(#{beginDate},'YYYY-MM-DD')
+			</if>
+			<if test="endDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &lt;= TO_DATE(#{endDate},'YYYY-MM-DD')
+			</if>
+			<if test="imbalanceType != null">
+				And IMBALANCE_RESULT = #{imbalanceType}
+			</if>
+		</where>
+	</sql>
+
+	<!--分页查询 -->
+	<select id="pagination" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		from T_TC_PSAC_IMBALANCE
+		<include refid="Where_Condition" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!--统计查询的总数 -->
+	<select id="countTotalSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from T_TC_PSAC_IMBALANCE
+		<include refid="Where_Condition" />
+	</select>
+
+	<!--分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		<if test="page != null">
+			select * from ( select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+		<if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+		</if>
+	</sql>
+
+</mapper>

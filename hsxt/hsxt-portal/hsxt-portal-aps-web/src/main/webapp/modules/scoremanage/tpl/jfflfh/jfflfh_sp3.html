@@ -1,0 +1,141 @@
+<div class="" id="jfflsp_sp3Tpl">
+	<div class="mb5 fb">申请信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">申请单号</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.applyWelfareNo%></td>
+			<td class="view_item" width="20%">申请时间</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.applyDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">申请福利类别</td>
+			<td class="view_text_2" width="30%">互生医疗补贴计划</td>
+			<td class="view_item" width="20%">医保卡号</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.healthCardNo%></td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">所在城市</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.city%></td>
+			<td class="view_item" width="20%">诊疗起始日期</td>
+			<td class="view_text_2" width="30%"><%=comm.formatDate(obj.applyInfo.startDate,'yyyy-MM-dd')%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">诊疗终止日期</td>
+			<td class="view_text_2" width="30%"><%=comm.formatDate(obj.applyInfo.endDate,'yyyy-MM-dd')%></td>
+			<td class="view_item" width="20%">所在医院</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.hospital%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">关联保障单号</td>
+			<td class="view_text_2" width="30%"><%=obj.welfareQualify.welfareId%></td>
+			<td class="view_item" width="20%">保障单余额</td>
+			<td class="view_text_2" width="30%"><%=obj.firstApprovalInfo.subsidyBalance%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">申请操作人</td>
+			<td class="view_text_2" width="30%"><%=obj.applyInfo.hsResNo%>（<%=obj.applyInfo.proposerName%>）</td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>				
+	</table>
+	
+	
+	
+	<div class="mt20 mb5 fb">资料附件</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">互生卡正面</td>
+			<td class="view_text_2" width="30%"><a id="hscPositivePath" class="mr10 lh200 blue none" target="_blank">互生卡正面</a> </td>
+			<td class="view_item" width="20%">互生卡背面</td>
+			<td class="view_text_2" width="30%"><a id="hscReversePath" class="mr10 lh200 blue none" target="_blank">互生卡背面</a></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">身份证正面</td>
+			<td class="view_text_2" width="30%"><a id="cerPositivePath" class="mr10 lh200 blue none" target="_blank">身份证正面</a></td>
+			<td class="view_item" width="20%">身份证背面</td>
+			<td class="view_text_2" width="30%"><a id="cerReversePath" class="mr10 lh200 blue none" target="_blank">身份证背面</a></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">原始收费收据复印件(一份)</td>
+			<td class="view_text_2" width="30%"><a id="ofrPath" class="mr10 lh200 blue none" target="_blank">原始收费收据</a></td>
+			<td class="view_item" width="20%">费用明细清单复印件(一份)</td>
+			<td class="view_text_2" width="30%"><a id="cdlPath" class="mr10 lh200 blue none" target="_blank">费用明细清单</a></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">门诊病历复印件(一份)</td>
+			<td class="view_text_2" width="30%"><a id="omrPath" class="mr10 lh200 blue none" target="_blank">门诊病历</a></td>
+			<td class="view_item" width="20%">住院病历复印件(一份)</td>
+			<td class="view_text_2" width="30%"><a id="imrPath" class="mr10 lh200 blue none" target="_blank">住院病历</a></td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">医保中心的受理回执</td>
+			<td class="view_text_2" width="30%"><a id="medicalAcceptPath" class="mr10 lh200 blue none" target="_blank">医保中心的受理回执</a></td>
+			<td class="view_item" width="20%">消费者本人的社会保障卡</td>
+			<td class="view_text_2" width="30%"><a id="sscPath" class="mr10 lh200 blue none" target="_blank">消费者本人的社会保障卡</a></td>
+		</tr>
+		
+		<tr>
+			<td class="view_item" width="20%">疾病诊断证明书</td>
+			<td class="view_text_2" width="30%"><a id="ddcPath" class="mr10 lh200 blue none" target="_blank">疾病诊断证明书</a></td>
+			<td class="view_item" width="20%">其它证明</td>
+			<td class="view_text_2" width="30%">
+				<span id="otherProveSpan0" style="display:none">
+					<a id="otherProvePath0" class="mr10 lh200 blue none" target="_blank">其他证明1</a>
+				</span>
+				<span id="otherProveSpan1" style="display:none">
+					<a id="otherProvePath1" class="mr10 lh200 blue none" target="_blank">其他证明2</a>
+				</span>
+				<span id="otherProveSpan2" style="display:none">
+					<a id="otherProvePath2" class="mr10 lh200 blue none" target="_blank">其他证明3</a>
+				</span>
+				<span id="otherProveSpan3" style="display:none">
+					<a id="otherProvePath3" class="mr10 lh200 blue none" target="_blank">其他证明4</a>
+				</span>
+				<span id="otherProveSpan4" style="display:none">
+					<a id="otherProvePath4" class="mr10 lh200 blue none" target="_blank">其他证明5</a>
+				</span>
+			</td>
+		</tr>		
+		
+		<tr>
+			<td class="view_item" width="20%">医疗费用报销计算表复印件</td>
+			<td class="view_text_2" width="30%"><a id="costCountPath" class="mr10 lh200 blue none" target="_blank">医疗费用报销计算表复印件</a></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>			
+	</table>
+	<div class="mt20 mb5 fb">申请人积分福利信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">投资达10000PV日期</td>
+			<td class="view_text_2"><%=obj.welfareQualify.effectDate==''?'':obj.welfareQualify.effectDate.substr(0,10)%></td>
+			</tr>
+		<!--<tr>
+			<td class="view_item" width="20%">本保障单内积分累计未达300PV日期</td>
+			<td class="view_text_2">2014-12-30&nbsp;&nbsp;&nbsp;2014-12-30&nbsp;&nbsp;&nbsp;2014-12-30</td>
+			</tr>	-->		
+	</table>
+	
+	<div class="mt10 mb5 fb">初审信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="6%">审核说明</td>
+			<td class="view_text_2" width="44%"><%=obj.firstApprovalInfo.approvalReason%></td>
+			<td class="view_item" width="20%">审核结果</td>
+			<td class="view_text_2" width="30%">审批通过</td>
+			</tr>
+		<tr>
+			<td class="view_item" width="20%">审核操作员</td>
+			<td class="view_text_2"><%=obj.firstApprovalInfo.approver%></td>
+			<td class="view_item" width="20%">审核时间</td>
+			<td class="view_text_2"><%=obj.firstApprovalInfo.approvalDate%></td>
+			</tr>			
+	</table>
+	
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="sh3_btn">审&#12288;核</a>
+		<a class="btn_bg submit fr" id="back3_jfflsp">返&#12288;回</a>
+	</div>
+</div>

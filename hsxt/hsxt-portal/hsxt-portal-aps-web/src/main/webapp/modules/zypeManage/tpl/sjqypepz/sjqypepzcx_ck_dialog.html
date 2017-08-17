@@ -1,0 +1,81 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">管理公司当前资源配额信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"> <%= obj.entDetail.mCustName %> </td>
+            <td class="view_item" width="20%">企业互生号</td>
+            <td class="view_text" width="30%"> <%= obj.entDetail.mEntResNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司资源总数</td>
+            <td class="view_text" colspan="3"><%= obj.entDetail.sResNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">计划城市配额</td>
+            <td class="view_text"><%= obj.entDetail.planNum %></td>
+            <td class="view_item">计划外城市配额</td>
+            <td class="view_text"><%= obj.entDetail.notPlanNum %></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">服务公司配额申请</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司配额</td>
+            <td class="view_text">
+            <% if(obj.scDetail.totalNum){%>
+            	<%=obj.scDetail.totalNum%>
+            <% }else{ %>
+            	0
+            <% } %>
+            </td>
+            <td class="view_item">已使用配额</td>
+            <td class="view_text">
+             <% if(obj.scDetail.usedNum){%>
+            	<%=obj.scDetail.usedNum%>
+            <% }else{ %>
+            	0
+            <% } %>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">尚可用配额</td>
+            <td class="view_text">
+             <% if(obj.scDetail.usableNum){%>
+            	<%=obj.scDetail.usableNum%>
+            <% }else{ %>
+            	0
+            <% } %>
+			</td>
+            <td class="view_item">城市名称</td>
+            <td class="view_text"><%= comm.getCityNameByCode(obj.areaDetail.provinceNo, obj.areaDetail.cityNo) %></td>
+        </tr>
+        <tr>
+            <td class="view_item">结算币种</td>
+            <td class="view_text"><%=obj.currencyName%></td>
+            <td class="view_item">配置类型</td>
+            <td class="view_text"><%=comm.lang("zypeManage").quotaTypeEnume[obj.areaDetail.applyType] %></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请数量</td>
+            <td class="view_text"><%= obj.areaDetail.applyNum %></td>
+            <td class="view_item">申请理由</td>
+            <td class="view_text"><%= obj.areaDetail.apprRemark %></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请办理结果</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">结果</td>
+            <td class="view_text"><%=comm.lang("zypeManage").quotaStatusEnume[obj.areaDetail.status] %></td>
+            <td class="view_item">批复数量</td>
+            <td class="view_text"><%= obj.areaDetail.apprNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">批复企业系统资源号</td>
+            <td class="view_text" colspan="3"><div class="td_sro"><%= obj.areaDetail.resNoList %></div></td>
+        </tr>
+    </table>
+</div>

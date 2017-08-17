@@ -1,0 +1,46 @@
+<form id="search_form" name="search_form">
+<div  id="tgqysbfk_tpl">      
+                 	<div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">申报日期：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_startDate" id="search_startDate" value="" placeholder="--请选择--" class="input-txt w100"><span class="separator-pd">-</span><input type="text" name="search_endDate" id="search_endDate" value="" placeholder="--请选择--" class="input-txt w100">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">企业互生号：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_entResNo" id="search_entResNo" placeholder="输入企业互生号"   class="input-txt input_gray w100">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">企业名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_entName" id="search_entName" placeholder="输入企业名称"   class="input-txt input_gray w100">
+                                </div> 
+                            </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="queryBtn" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="search-cont">
+                    	 		<table id="tableDetail"  class="bsgrid">
+								    <tr>     
+								        <th w_index="entResNo" >企业互生号</th>
+								        <th w_index="entName" w_length="18"  w_tip="true">企业名称</th>
+								        <th w_index="linkman" w_length="10"  w_tip="true">联系人姓名</th>
+								        <th w_index="linkmanMobile">联系人手机</th>
+								        <th w_index="declareDate" >申报日期</th>
+								        <th w_index="status" w_render="operate">申报状态</th>  
+								        <th w_render="operate" >业务详细</th>
+								    </tr>            
+								</table> 
+
+                    </div>
+           
+</div>
+</form>

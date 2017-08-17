@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpRetryMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpRetry">
+		<id column="RETRY_ID" property="retryId" jdbcType="INTEGER" />
+		<result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+		<result column="RETRY_BUSINESS_TYPE" property="retryBusinessType" jdbcType="INTEGER" />
+		<result column="RETRY_STATUS" property="retryStatus" jdbcType="INTEGER" />
+		<result column="RETRY_COUNTS" property="retryCounts" jdbcType="INTEGER" />
+		<result column="LAST_RETRY_DATE" property="lastRetryDate" jdbcType="TIMESTAMP" />
+		<result column="NEXT_RETRY_DATE" property="nextRetryDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		RETRY_ID, BUSINESS_ID, RETRY_BUSINESS_TYPE, RETRY_STATUS, RETRY_COUNTS,
+		LAST_RETRY_DATE,
+		NEXT_RETRY_DATE, CREATED_DATE, UPDATED_DATE
+	</sql>
+	
+	<!-- 分页查询重试记录 -->
+	<select id="selectRetryByPage" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_RETRY
+ 		where RETRY_STATUS = 1
+		and NEXT_RETRY_DATE is not null
+		<![CDATA[ and NEXT_RETRY_DATE <= SYSDATE()]]>
+		limit #{start}, #{pageSize}
+	</select>
+	
+	<!-- 根据businessId查询重试记录 -->
+	<select id="selectByBusinessId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_RETRY
+		where BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+		and
+		RETRY_BUSINESS_TYPE=#{retryBusinessType,jdbcType=INTEGER}
+    </select>
+	
+	<!-- 根据businessId删除重试记录 -->
+	<delete id="deleteByBusinessIdAndType">
+		delete
+		from T_GP_RETRY
+		where BUSINESS_ID = #{businessId,jdbcType=VARCHAR} and
+		RETRY_BUSINESS_TYPE = #{retryBusinessType,jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 删除指定日期之前的重试记录 -->
+    <delete id="deleteBeforeDate">
+		delete
+		from T_GP_RETRY
+		where 
+		<![CDATA[ CREATED_DATE <= #{retryDate,jdbcType=TIMESTAMP} ]]> 
+    </delete>
+	
+	<!-- 插入重试记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpRetry">
+		insert into T_GP_RETRY (RETRY_ID, BUSINESS_ID, RETRY_BUSINESS_TYPE,
+		RETRY_STATUS, RETRY_COUNTS, LAST_RETRY_DATE,
+		NEXT_RETRY_DATE, CREATED_DATE, UPDATED_DATE
+		)
+		values (#{retryId,jdbcType=INTEGER}, 
+		#{businessId,jdbcType=VARCHAR},
+		#{retryBusinessType,jdbcType=INTEGER},
+		#{retryStatus,jdbcType=INTEGER}, 
+		#{retryCounts,jdbcType=INTEGER},
+		#{lastRetryDate,jdbcType=TIMESTAMP},
+		#{nextRetryDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP}, 
+		#{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<!-- 修改重试记录 -->
+	<update id="updateByBusinessId" parameterType="com.gy.hsxt.gp.mapper.vo.TGpRetry">
+		update T_GP_RETRY
+		set
+		RETRY_STATUS = #{retryStatus,jdbcType=INTEGER},
+		RETRY_COUNTS = #{retryCounts,jdbcType=INTEGER},
+		LAST_RETRY_DATE = #{lastRetryDate,jdbcType=TIMESTAMP},
+		NEXT_RETRY_DATE = #{nextRetryDate,jdbcType=TIMESTAMP},
+		UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+		where BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

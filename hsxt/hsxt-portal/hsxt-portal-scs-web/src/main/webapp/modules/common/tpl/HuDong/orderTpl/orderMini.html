@@ -1,0 +1,21 @@
+<%$.each(obj.orderList,function(k,v){%>
+<%$.each(v.orderList,function(k2,v2){%>
+<%if(v2.newStr == 1 || v2.newStr == -1){%>
+	<li data-id="<%=v.codeId%>" orderTime-id = "<%=v2.orderTimeId%>">
+		<dl>
+			<dt>
+			</dt>
+		<dd class="name">
+			<span class="remind">
+			</span>
+			<span><%=obj.orderType(v.codeId)%><span <%if(v2.newStr == 1){%> class='count' <%}%>></span></span>
+		</dd>
+			<dd class="classtext"><%=v2.orderInfo.msg_content%><span class=""></span>
+			</dd>
+			<dd class="time"><%=obj.DatetimeNew(v2.time)%>
+			</dd>
+		</dl>
+	</li>
+<%}%>
+<%})%>
+<%})%>

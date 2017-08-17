@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.AfterServiceSelectMapper">
+		
+	<!-- 查询制作和发货配置单字段 -->
+	<sql id="selectMarkOrShippConfigSql">
+		O.ORDER_NO AS orderNo,
+		O.ORDER_TYPE AS orderType,
+		O.BIZ_NO AS afterOrderNo,
+		TC.CONFIG_NO AS confNo,
+		TC.HS_RES_NO AS entResNo,
+		TC.CUST_ID AS entCustId,
+		O.CUST_NAME AS custName,
+		TC.CATEGORY_CODE AS categoryCode,
+		TC.QUANTITY AS quantity,
+		TC.TOOL_STATUS AS confStatus,
+		TC.CONFIG_DATE AS confDate
+	</sql>
+	
+	<!-- 查询配置单公共查询条件部分 -->
+	<sql id="selectConfigCommomIf">
+		  AND TC.CONFIG_TYPE = 3
+	  	<if test="roleId != null and roleId != ''">
+	  		AND W.WH_ROLE_ID  ${roleId}
+	  	</if>
+		<if test="startDate != null and startDate != ''">
+			AND TC.CONFIG_DATE &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND TC.CONFIG_DATE &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND TC.HS_RES_NO LIKE #{hsResNo} ||'%'
+		</if>
+		<if test="hsCustName != null and hsCustName != '' ">
+			AND O.CUST_NAME LIKE '%'|| #{hsCustName}||'%'
+		</if>
+	</sql>
+	
+	<!-- 分页查询工具制作配置单(刷卡工具) 售后-->
+	<select id="selectToolAfterConfigListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO 
+			 LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID 
+		WHERE TC.CATEGORY_CODE IN ('P_POS','POINT_MCR','CONSUME_MCR','TABLET')
+		  AND TC.TOOL_STATUS = 2
+		<include refid="selectConfigCommomIf"/> 
+		<if test="type != null and type != '' ">
+			AND TC.CATEGORY_CODE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC			
+	</select>
+	
+	<!-- 售后刷卡工具订单sql -->
+	<sql id="selectServiceToolOrderAfterSql">
+		SELECT 
+			TC.HS_RES_NO AS entResNo,
+	        TC.CUST_ID AS entCustId,
+	        O.CUST_NAME AS custName,
+	        O.ORDER_NO AS orderNo,
+	        TC.CONFIG_NO AS confNo,
+	        TC.CATEGORY_CODE AS categoryCode,
+	        TC.PRODUCT_NAME AS productName,
+	        NVL(A.CONF_NUM, 0) AS confedNum,
+	        NVL(A.NCONF_NUM, 0) AS confingNum,
+	        TC.TOOL_STATUS AS status,
+	        TC.CONFIG_DATE AS confDate
+		  FROM T_BS_TOOL_CONFIG TC
+		  LEFT JOIN T_BS_ORDER O
+		    ON TC.ORDER_NO = O.ORDER_NO
+		  LEFT JOIN (SELECT AST.CONFIG_NO,
+		                    SUM(DECODE(AST.IS_CONFIG, 1, 1, 0)) CONF_NUM,
+		                    SUM(DECODE(AST.IS_CONFIG, 0, 1, 0)) NCONF_NUM
+		               FROM T_BS_AFTER_SERVICE_LIST AST
+		              GROUP BY AST.CONFIG_NO) A
+		    ON TC.CONFIG_NO = A.CONFIG_NO
+		  LEFT JOIN T_BS_WAREHOUSE W
+		    ON TC.WH_ID = W.WH_ID
+		 WHERE TC.CONFIG_TYPE = 3
+	</sql>
+	
+	<!-- 分页查询售后灌秘钥工具订单 -->
+	<select id="selectAfterSecretKeyOrderByListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.SecretKeyOrderInfoPage">
+		<include refid="selectServiceToolOrderAfterSql"/>
+			AND TC.TOOL_STATUS = 2
+			AND TC.CATEGORY_CODE IN ('P_POS')
+			<if test="roleId != null and roleId != ''">
+				AND W.WH_ROLE_ID  ${roleId}
+			</if>
+			<if test="hsResNo != null and hsResNo != ''">
+				AND TC.HS_RES_NO = #{hsResNo}
+			</if>
+			<if test="hsCustName != null and hsCustName != ''">
+				AND O.CUST_NAME  LIKE #{hsCustName}||'%'
+			</if>
+			ORDER BY TC.CONFIG_DATE	
+	</select>
+	
+	<!-- 查询售后秘钥设备配置清单 -->
+	<select id="selectAfterSecretKeyConfigDetail" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.resultbean.AfterDeviceDetail">
+		SELECT 
+			AST.AFTER_ORDER_NO AS afterOrderNo,
+			AST.DEVICE_SEQ_NO AS deviceSeqNo,
+			AST.CONFIG_NO AS confNo,
+			AST.TERMINAL_NO AS terminalNo,
+			AST.IS_CONFIG AS isConfig 
+		FROM T_BS_AFTER_SERVICE_LIST AST
+		WHERE AST.CONFIG_NO = #{confNo}
+	</select>
+	
+	<!-- 分页查询售后工具配送配送单(生成发货单)-->
+	<select id="selectToolConfigShippingAfterListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO
+				LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID 
+		WHERE TC.TOOL_STATUS = 5
+		  AND TC.CATEGORY_CODE IN ('P_POS','POINT_MCR','CONSUME_MCR','TABLET')
+		<include refid="selectConfigCommomIf"/>
+		<if test="type != null and type != '' ">
+			AND TC.CATEGORY_CODE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC			
+	</select>
+	
+	<!-- 根据订单号查询售后清单 -->
+	<select id="selectAfterServiceDetailByOrderNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		SELECT 
+			ASL.CATEGORY_CODE AS categoryCode,
+       		ASL.DEVICE_SEQ_NO AS deviceSeqNo,
+           	ASL.TERMINAL_NO AS terminalNo,
+       		ASL.DISPOSE_STATUS AS disposeStatus, 
+       		ASL.DISPOSE_TYPE AS disposeType,
+       		ASL.IS_CONFIG AS isConfig,
+       		ASL.DISPOSE_AMOUNT AS disposeAmount
+		  FROM T_BS_AFTER_SERVICE_LIST ASL
+		 WHERE ASL.CONFIG_NO IN
+		       (SELECT TC.CONFIG_NO
+		          FROM T_BS_TOOL_CONFIG TC
+		         WHERE TC.ORDER_NO = #{orderNo})
+	</select>
+	
+</mapper>

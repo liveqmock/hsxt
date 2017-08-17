@@ -1,0 +1,58 @@
+<div id="kqxtTpl">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">企业互生号</td>
+			<td class="view_text_2" width="30%"><%=obj.entResNo%></td>
+			<td class="view_item" width="20%">企业名称</td>
+			<td class="view_text_2" width="30%"><%=obj.entName%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">企业地址</td>
+			<td class="view_text_2" width="30%"><%=obj.entAddr%></td>
+			<td class="view_item" width="20%">联系人姓名</td>
+			<td class="view_text_2" width="30%"><%=obj.contactPerson%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">联系人手机</td>
+			<td class="view_text_2" width="30%"><%=obj.contactPhone%></td>
+			<td class="view_item" width="20%">企业类别</td>
+			<td class="view_text_2" width="30%"><%=obj.entCustTypeName%></td>
+		</tr>
+	</table>
+	<% if(obj.applyOptCustId!=null ){ %>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+		<tr>
+			<td class="view_item" width="20%">关闭系统操作员</td>
+			<td class="view_text_2" width="30%"><%=obj.applyOptCustName%></td>
+			<td class="view_item" width="20%">关闭系统日期</td>
+			<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">关闭系统说明</td>
+			<td class="view_text_2" width="80%" colspan="3"><%=obj.applyRemark%></td>
+		</tr>
+	</table>
+		<% } %>
+	<div class="info_600 bc mt10">
+		<form id="kqxt_form">
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">开启系统说明</label>
+					<textarea name="reqRemark"  class="fl ml5 h50 w465 rsn pt5 pb5" maxlength="300" placeholder="输入开启系统说明，最长不超过300个字"></textarea>
+					<input type="hidden" name="companyCustId" value="<%=obj.entCustId%>">
+					<input type="hidden" name="companyResNo" value="<%=obj.entResNo%>">
+					<input type="hidden" name="companyName" value="<%=obj.entName%>">
+					<input type="hidden" name="companyCustType" value="<%=obj.entCustType%>">
+					<input type="hidden" name="address" value="<%=obj.entAddr%>">
+					<input type="hidden" name="linkman" value="<%=obj.contactPerson%>">
+					<input type="hidden" name="mobile" value="<%=obj.contactPhone%>">
+				</li>
+			</ul>
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="kqxt_submit">确定</a>
+				<a class="btn_bg submit fr" id="cancel_kqqyxt">取&#12288;消</a>
+			</div>
+		</form>
+		
+	</div>
+</div>

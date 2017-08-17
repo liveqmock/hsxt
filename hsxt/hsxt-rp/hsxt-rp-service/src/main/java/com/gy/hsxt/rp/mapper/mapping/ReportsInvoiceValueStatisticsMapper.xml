@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.ReportsInvoiceValueStatisticsMapper"><!-- map的类 -->
+
+<resultMap type="com.gy.hsxt.rp.bean.ReportsInvoiceValueStatistics" id="reportsInvoiceValueStatistics">
+        <!--  企业发票金额实体类 -->
+        <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="ENT_CUST_NAME" property="custName" jdbcType="INTEGER" />
+        <result column="BIZ_TYPE" property="bizType" jdbcType="VARCHAR" />
+        <result column="AMOUNT" property="amount" jdbcType="VARCHAR" />
+    </resultMap>
+	
+	
+	<!-- 企业发票金额查询 -->
+	<select id="searchEntInvoiceValueStatisticsCount"  resultType="int" parameterType="map">
+		SELECT COUNT(EIVS.CUST_ID)
+		  FROM (SELECT BSORDER.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       DECODE(BSORDER.ORDER_TYPE,
+				              100,
+				              'PC003',
+				              101,
+				              DECODE(ENTEXTEND.CUST_TYPE,
+				                     4,
+				                     'PC001',
+				                     2,
+				                     'PC007',
+				                     3,
+				                     DECODE(ENTEXTEND.ART_RES_TYPEST,
+				                            1,
+				                            'PC008',
+				                            2,
+				                            'PC009',
+				                            3,
+				                            'PC010')),
+				              103,
+				              'PC002',
+				              107,
+				              'PC006',
+				              110,
+				              'PC011') BIZ_TYPE,
+				       SUM(BSORDER.ORDER_CASH_AMOUNT -
+					           NVL((SELECT ALLOC_AMT
+					                 FROM DBBS01.T_BS_RES_FEE_ALLOC ALLOC
+					                WHERE ALLOC.TOTAL_ID = BSORDER.BIZ_NO
+					                  AND BSORDER.CUST_ID = ALLOC.CUST_ID),
+					               0)) AMOUNT
+				  FROM DBBS01.T_BS_ORDER BSORDER, DBUC01.T_ENT_EXTEND ENTEXTEND
+				 WHERE BSORDER.ORDER_STATUS = 3
+				   AND BSORDER.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				   AND BSORDER.ORDER_TYPE IN (100, 101, 103, 107, 110)
+				   AND BSORDER.CUST_ID IS NOT NULL
+				   <if test="beginDate != null and beginDate !=''">
+				   		<![CDATA[
+						AND BSORDER.FINISHED_DATE >= #{beginDate}
+						]]>
+				   </if>
+				   <if test="endDate != null and endDate !=''">
+				   		<![CDATA[
+						AND BSORDER.FINISHED_DATE <= #{endDate}
+						]]>
+				   </if>
+				 GROUP BY BSORDER.CUST_ID,
+				          ENTEXTEND.ENT_CUST_NAME,
+				          BSORDER.ORDER_TYPE,
+				          ENTEXTEND.CUST_TYPE,
+				          ENTEXTEND.ART_RES_TYPEST
+				HAVING SUM(BSORDER.ORDER_CASH_AMOUNT) != 0
+				
+				UNION ALL
+				
+				SELECT T.CUST_ID,T.ENT_CUST_NAME,'PC005' BIZ_TYPE,TRUNC(SUM(T.AMOUNT) / ${exchangeRate}, 2) AMOUNT FROM 
+					<!-- 线上消费积分 -->
+					(SELECT PSONENTRY.ENT_CUST_ID CUST_ID,
+					       ENTEXTEND.ENT_CUST_NAME ENT_CUST_NAME,
+					       <![CDATA[
+					       SUM(NVL(PSONENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSONENTRY.ENT_ADD_POINT_AMOUNT, 0)) AMOUNT
+					       ]]>
+					  FROM DBPS01.T_PS_ONLINE_ENTRY  PSONENTRY,
+					       DBUC01.T_ENT_EXTEND       ENTEXTEND
+					 WHERE PSONENTRY.ENT_CUST_ID = ENTEXTEND.ENT_CUST_ID				   
+					   AND PSONENTRY.TRANS_TYPE NOT IN ('G11000', 'G12000')
+					   <if test="beginDate != null and beginDate !=''">
+					   		<![CDATA[
+							AND PSONENTRY.SOURCE_TRANS_DATE >= #{beginDate}
+							]]>
+					   </if>
+					   <if test="endDate != null and endDate !=''">
+					   		<![CDATA[
+							AND PSONENTRY.SOURCE_TRANS_DATE <= #{endDate}
+							]]>
+					   </if>
+					 GROUP BY PSONENTRY.ENT_CUST_ID, ENTEXTEND.ENT_CUST_NAME
+					 HAVING SUM(NVL(PSONENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSONENTRY.ENT_ADD_POINT_AMOUNT, 0)) != 0
+					
+					UNION ALL
+					<!-- 线下消费积分 -->
+					SELECT PSOFFENTRY.ENT_CUST_ID CUST_ID,
+					       ENTEXTEND.ENT_CUST_NAME ENT_CUST_NAME,
+					       <![CDATA[
+					       SUM(NVL(PSOFFENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSOFFENTRY.ENT_ADD_POINT_AMOUNT, 0)) AMOUNT
+					       ]]>
+					  FROM DBPS01.T_PS_OFFLINE_ENTRY  PSOFFENTRY,
+					       DBUC01.T_ENT_EXTEND       ENTEXTEND
+					 WHERE PSOFFENTRY.ENT_CUST_ID = ENTEXTEND.ENT_CUST_ID				   
+					   AND PSOFFENTRY.TRANS_TYPE NOT IN ('G11000', 'G12000')
+					   <if test="beginDate != null and beginDate !=''">
+					   		<![CDATA[
+							AND PSOFFENTRY.SOURCE_TRANS_DATE >= #{beginDate}
+							]]>
+					   </if>
+					   <if test="endDate != null and endDate !=''">
+					   		<![CDATA[
+							AND PSOFFENTRY.SOURCE_TRANS_DATE <= #{endDate}
+							]]>
+					   </if>
+					 GROUP BY PSOFFENTRY.ENT_CUST_ID, ENTEXTEND.ENT_CUST_NAME
+					 HAVING SUM(NVL(PSOFFENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSOFFENTRY.ENT_ADD_POINT_AMOUNT, 0)) != 0) T 
+				GROUP BY T.CUST_ID,T.ENT_CUST_NAME
+				
+				UNION ALL
+		
+				SELECT BMLMDETALL.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       'CP101' BIZ_TYPE,
+				       TRUNC(SUM(BMLMDETALL.BMLM_POINT) / ${exchangeRate}, 2) AMOUNT
+				  FROM DBBS01.T_BS_BMLM_DETAIL BMLMDETALL,
+				       DBUC01.T_ENT_EXTEND     ENTEXTEND
+				 <![CDATA[
+				 WHERE BMLMDETALL.TAX <= 0
+				 ]]>
+				 <if test="beginDate != null and beginDate !=''">
+			   		<![CDATA[
+					AND BMLMDETALL.CALC_END_TIME >= to_char(#{beginDate},'yyyy-MM-dd HH24:mi:ss')
+					]]>
+				 </if>
+				 <if test="endDate != null and endDate !=''">
+				 	<![CDATA[
+					AND BMLMDETALL.CALC_END_TIME <= to_char(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+					]]>
+				 </if>
+				   AND BMLMDETALL.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				 GROUP BY BMLMDETALL.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+				HAVING TRUNC(SUM(BMLMDETALL.BMLM_POINT) / ${exchangeRate}, 2) != 0
+				 
+				UNION ALL
+				
+				SELECT MLMTOTAL.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       'CP101' BIZ_TYPE,
+				       TRUNC(SUM(MLMTOTAL.POINTS) / ${exchangeRate}, 2) AMOUNT
+				  FROM DBBS01.T_BS_MLM_TOTAL MLMTOTAL,
+				       DBUC01.T_ENT_EXTEND   ENTEXTEND
+				 <![CDATA[
+				 WHERE MLMTOTAL.TAX <= 0
+				 ]]>
+				 <if test="beginDate != null and beginDate !=''">
+			   		<![CDATA[
+					AND MLMTOTAL.CALC_END_TIME >= to_char(#{beginDate},'yyyy-MM-dd HH24:mi:ss')
+					]]>
+				 </if>
+				 <if test="endDate != null and endDate !=''">
+				 	<![CDATA[
+					AND MLMTOTAL.CALC_END_TIME <= to_char(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+					]]>
+				 </if>
+				   AND MLMTOTAL.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				 GROUP BY MLMTOTAL.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+				HAVING TRUNC(SUM(MLMTOTAL.POINTS) / ${exchangeRate}, 2) != 0
+				
+				UNION ALL
+				
+				SELECT RESFEEALLOC.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       'CP101' BIZ_TYPE,
+				       SUM(RESFEEALLOC.ALLOC_AMT) AMOUNT
+				  FROM DBBS01.T_BS_RES_FEE_ALLOC RESFEEALLOC,
+				       DBUC01.T_ENT_EXTEND       ENTEXTEND
+				 WHERE RESFEEALLOC.CUST_TYPE = 4
+				   AND RESFEEALLOC.TAX_AMOUNT = 0
+				 <if test="beginDate != null and beginDate !=''">
+			   		<![CDATA[
+					AND RESFEEALLOC.ALLOC_DATE >= #{beginDate}
+					]]>
+				 </if>
+				 <if test="endDate != null and endDate !=''">
+				 	<![CDATA[
+					AND RESFEEALLOC.ALLOC_DATE <= #{endDate}
+					]]>
+				 </if>
+				   AND RESFEEALLOC.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				 GROUP BY RESFEEALLOC.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+				HAVING SUM(RESFEEALLOC.ALLOC_AMT) != 0
+				
+				UNION ALL
+				
+				SELECT ACENTRRY.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       'CP101' BIZ_TYPE,
+				       <![CDATA[
+				       TRUNC(SUM(NVL(ACENTRRY.ADD_AMOUNT, 0) - NVL(ACENTRRY.SUB_AMOUNT, 0)) / ${exchangeRate}, 2) AMOUNT
+				       ]]>
+				  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRRY,
+				       DBUC01.T_ENT_EXTEND       ENTEXTEND
+				 WHERE ACENTRRY.ACC_TYPE = '10110'
+				   AND ACENTRRY.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				   AND ACENTRRY.TRANS_SYS = 'PS'
+				   AND ACENTRRY.CUST_TYPE IN (3, 4)
+				   AND ACENTRRY.WRITE_BACK = 0
+				   <if test="beginDate != null and beginDate !=''">
+				   		<![CDATA[
+						AND ACENTRRY.CREATED_DATE >= #{beginDate}
+						]]>
+				   </if>
+				   <if test="endDate != null and endDate !=''">
+				   		<![CDATA[
+						AND ACENTRRY.CREATED_DATE <= #{endDate}
+						]]>
+				   </if>
+				   AND NOT EXISTS (SELECT 1
+				          FROM DBPS01.T_PS_PIONT_ALLOC_TAX TAX
+				         WHERE ACENTRRY.TRANS_NO = TAX.REL_SUM_NO
+				           AND TAX.ADD_AMOUNT != 0)
+				 GROUP BY ACENTRRY.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+				HAVING TRUNC(SUM(NVL(ACENTRRY.SUB_AMOUNT, 0) - NVL(ACENTRRY.ADD_AMOUNT, 0)) / ${exchangeRate}, 2) != 0
+				
+				UNION ALL
+				
+				SELECT ACENTRRY.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       'CP101' BIZ_TYPE,
+				       <![CDATA[
+				       TRUNC(SUM(NVL(ACENTRRY.ADD_AMOUNT, 0) - NVL(ACENTRRY.SUB_AMOUNT, 0)) / ${exchangeRate}, 2) AMOUNT
+				       ]]>
+				  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRRY,
+				       DBUC01.T_ENT_EXTEND       ENTEXTEND
+				 WHERE ACENTRRY.ACC_TYPE = '20110'
+				   AND ACENTRRY.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				   AND ACENTRRY.TRANS_SYS = 'PS'
+				   AND ACENTRRY.CUST_TYPE = 4
+				   AND ACENTRRY.WRITE_BACK = 0
+				   <if test="beginDate != null and beginDate !=''">
+				   		<![CDATA[
+						AND ACENTRRY.CREATED_DATE >= #{beginDate}
+						]]>
+				   </if>
+				   <if test="endDate != null and endDate !=''">
+				   		<![CDATA[
+						AND ACENTRRY.CREATED_DATE <= #{endDate}
+						]]>
+				   </if>
+				   AND NOT EXISTS (SELECT 1
+				          FROM DBPS01.T_PS_PIONT_ALLOC_TAX TAX
+				         WHERE ACENTRRY.TRANS_NO = TAX.REL_SUM_NO
+				           AND TAX.ADD_AMOUNT != 0)
+				 GROUP BY ACENTRRY.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+				HAVING TRUNC(SUM(NVL(ACENTRRY.SUB_AMOUNT, 0) - NVL(ACENTRRY.ADD_AMOUNT, 0)) / ${exchangeRate}, 2) != 0
+				 ) EIVS
+	</select>
+	
+	<!-- 企业发票金额查询 -->
+	<select id="searchEntInvoiceValueStatisticsListPage"  resultMap="reportsInvoiceValueStatistics" parameterType="ReportsInvoiceValueStatisticsInfo">
+		SELECT BSORDER.CUST_ID,
+				       ENTEXTEND.ENT_CUST_NAME,
+				       DECODE(BSORDER.ORDER_TYPE,
+				              100,
+				              'PC003',
+				              101,
+				              DECODE(ENTEXTEND.CUST_TYPE,
+				                     4,
+				                     'PC001',
+				                     2,
+				                     'PC007',
+				                     3,
+				                     DECODE(ENTEXTEND.ART_RES_TYPEST,
+				                            1,
+				                            'PC008',
+				                            2,
+				                            'PC009',
+				                            3,
+				                            'PC010')),
+				              103,
+				              'PC002',
+				              107,
+				              'PC006',
+				              110,
+				              'PC011') BIZ_TYPE,
+				       SUM(BSORDER.ORDER_CASH_AMOUNT -
+					           NVL((SELECT ALLOC_AMT
+					                 FROM DBBS01.T_BS_RES_FEE_ALLOC ALLOC
+					                WHERE ALLOC.TOTAL_ID = BSORDER.BIZ_NO
+					                  AND BSORDER.CUST_ID = ALLOC.CUST_ID),
+					               0)) AMOUNT
+				  FROM DBBS01.T_BS_ORDER BSORDER, DBUC01.T_ENT_EXTEND ENTEXTEND
+				 WHERE BSORDER.ORDER_STATUS = 3
+				   AND BSORDER.CUST_ID = ENTEXTEND.ENT_CUST_ID
+				   AND BSORDER.ORDER_TYPE IN (100, 101, 103, 107, 110)
+				   AND BSORDER.CUST_ID IS NOT NULL
+		   <if test="beginDate != null and beginDate !=''">
+		   		<![CDATA[
+				AND BSORDER.FINISHED_DATE >= #{beginDate}
+				]]>
+		   </if>
+		   <if test="endDate != null and endDate !=''">
+		   		<![CDATA[
+				AND BSORDER.FINISHED_DATE <= #{endDate}
+				]]>
+		   </if>
+		 GROUP BY BSORDER.CUST_ID,
+		          ENTEXTEND.ENT_CUST_NAME,
+		          BSORDER.ORDER_TYPE,
+		          ENTEXTEND.CUST_TYPE,
+		          ENTEXTEND.ART_RES_TYPEST
+		HAVING SUM(BSORDER.ORDER_CASH_AMOUNT) != 0
+		
+		UNION ALL
+		
+		SELECT T.CUST_ID,T.ENT_CUST_NAME,'PC005' BIZ_TYPE,TRUNC(SUM(T.AMOUNT) / ${exchangeRate}, 2) AMOUNT FROM 
+			<!-- 线上消费积分 -->
+			(SELECT PSONENTRY.ENT_CUST_ID CUST_ID,
+			       ENTEXTEND.ENT_CUST_NAME ENT_CUST_NAME,
+			       <![CDATA[
+			       SUM(NVL(PSONENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSONENTRY.ENT_ADD_POINT_AMOUNT, 0)) AMOUNT
+			       ]]>
+			  FROM DBPS01.T_PS_ONLINE_ENTRY  PSONENTRY,
+			       DBUC01.T_ENT_EXTEND       ENTEXTEND
+			 WHERE PSONENTRY.ENT_CUST_ID = ENTEXTEND.ENT_CUST_ID				   
+			   AND PSONENTRY.TRANS_TYPE NOT IN ('G11000', 'G12000')
+			   <if test="beginDate != null and beginDate !=''">
+			   		<![CDATA[
+					AND PSONENTRY.SOURCE_TRANS_DATE >= #{beginDate}
+					]]>
+			   </if>
+			   <if test="endDate != null and endDate !=''">
+			   		<![CDATA[
+					AND PSONENTRY.SOURCE_TRANS_DATE <= #{endDate}
+					]]>
+			   </if>
+			 GROUP BY PSONENTRY.ENT_CUST_ID, ENTEXTEND.ENT_CUST_NAME
+			 HAVING SUM(NVL(PSONENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSONENTRY.ENT_ADD_POINT_AMOUNT, 0)) != 0
+			
+			UNION ALL
+			<!-- 线下消费积分 -->
+			SELECT PSOFFENTRY.ENT_CUST_ID CUST_ID,
+			       ENTEXTEND.ENT_CUST_NAME ENT_CUST_NAME,
+			       <![CDATA[
+			       SUM(NVL(PSOFFENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSOFFENTRY.ENT_ADD_POINT_AMOUNT, 0)) AMOUNT
+			       ]]>
+			  FROM DBPS01.T_PS_OFFLINE_ENTRY  PSOFFENTRY,
+			       DBUC01.T_ENT_EXTEND       ENTEXTEND
+			 WHERE PSOFFENTRY.ENT_CUST_ID = ENTEXTEND.ENT_CUST_ID				   
+			   AND PSOFFENTRY.TRANS_TYPE NOT IN ('G11000', 'G12000')
+			   <if test="beginDate != null and beginDate !=''">
+			   		<![CDATA[
+					AND PSOFFENTRY.SOURCE_TRANS_DATE >= #{beginDate}
+					]]>
+			   </if>
+			   <if test="endDate != null and endDate !=''">
+			   		<![CDATA[
+					AND PSOFFENTRY.SOURCE_TRANS_DATE <= #{endDate}
+					]]>
+			   </if>
+			 GROUP BY PSOFFENTRY.ENT_CUST_ID, ENTEXTEND.ENT_CUST_NAME
+			 HAVING SUM(NVL(PSOFFENTRY.ENT_SUB_POINT_AMOUNT, 0) - NVL(PSOFFENTRY.ENT_ADD_POINT_AMOUNT, 0)) != 0) T 
+		GROUP BY T.CUST_ID,T.ENT_CUST_NAME
+		
+		UNION ALL
+
+		SELECT BMLMDETALL.CUST_ID,
+		       ENTEXTEND.ENT_CUST_NAME,
+		       'CP101' BIZ_TYPE,
+		       TRUNC(SUM(BMLMDETALL.BMLM_POINT) / ${exchangeRate}, 2) AMOUNT
+		  FROM DBBS01.T_BS_BMLM_DETAIL BMLMDETALL,
+		       DBUC01.T_ENT_EXTEND     ENTEXTEND
+		 <![CDATA[
+		 WHERE BMLMDETALL.TAX <= 0
+		 ]]>
+		 <if test="beginDate != null and beginDate !=''">
+	   		<![CDATA[
+			AND BMLMDETALL.CALC_END_TIME >= to_char(#{beginDate},'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		 </if>
+		 <if test="endDate != null and endDate !=''">
+		 	<![CDATA[
+			AND BMLMDETALL.CALC_END_TIME <= to_char(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		 </if>
+		   AND BMLMDETALL.CUST_ID = ENTEXTEND.ENT_CUST_ID
+		 GROUP BY BMLMDETALL.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+		HAVING TRUNC(SUM(BMLMDETALL.BMLM_POINT) / ${exchangeRate}, 2) != 0
+		 
+		UNION ALL
+		
+		SELECT MLMTOTAL.CUST_ID,
+		       ENTEXTEND.ENT_CUST_NAME,
+		       'CP101' BIZ_TYPE,
+		       TRUNC(SUM(MLMTOTAL.POINTS) / ${exchangeRate}, 2) AMOUNT
+		  FROM DBBS01.T_BS_MLM_TOTAL MLMTOTAL,
+		       DBUC01.T_ENT_EXTEND   ENTEXTEND
+		 <![CDATA[
+		 WHERE MLMTOTAL.TAX <= 0
+		 ]]>
+		 <if test="beginDate != null and beginDate !=''">
+	   		<![CDATA[
+			AND MLMTOTAL.CALC_END_TIME >= to_char(#{beginDate},'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		 </if>
+		 <if test="endDate != null and endDate !=''">
+		 	<![CDATA[
+			AND MLMTOTAL.CALC_END_TIME <= to_char(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+			]]>
+		 </if>
+		   AND MLMTOTAL.CUST_ID = ENTEXTEND.ENT_CUST_ID
+		 GROUP BY MLMTOTAL.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+		HAVING TRUNC(SUM(MLMTOTAL.POINTS) / ${exchangeRate}, 2) != 0
+		
+		UNION ALL
+		
+		SELECT RESFEEALLOC.CUST_ID,
+		       ENTEXTEND.ENT_CUST_NAME,
+		       'CP101' BIZ_TYPE,
+		       SUM(RESFEEALLOC.ALLOC_AMT) AMOUNT
+		  FROM DBBS01.T_BS_RES_FEE_ALLOC RESFEEALLOC,
+		       DBUC01.T_ENT_EXTEND       ENTEXTEND
+		 WHERE RESFEEALLOC.CUST_TYPE = 4
+		   AND RESFEEALLOC.TAX_AMOUNT = 0
+		 <if test="beginDate != null and beginDate !=''">
+	   		<![CDATA[
+			AND RESFEEALLOC.ALLOC_DATE >= #{beginDate}
+			]]>
+		 </if>
+		 <if test="endDate != null and endDate !=''">
+		 	<![CDATA[
+			AND RESFEEALLOC.ALLOC_DATE <= #{endDate}
+			]]>
+		 </if>
+		   AND RESFEEALLOC.CUST_ID = ENTEXTEND.ENT_CUST_ID
+		 GROUP BY RESFEEALLOC.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+		HAVING SUM(RESFEEALLOC.ALLOC_AMT) != 0
+		
+		UNION ALL
+		
+		SELECT ACENTRRY.CUST_ID,
+		       ENTEXTEND.ENT_CUST_NAME,
+		       'CP101' BIZ_TYPE,
+		       <![CDATA[
+		       TRUNC(SUM(NVL(ACENTRRY.ADD_AMOUNT, 0) - NVL(ACENTRRY.SUB_AMOUNT, 0)) / ${exchangeRate}, 2) AMOUNT
+		       ]]>
+		  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRRY,
+		       DBUC01.T_ENT_EXTEND       ENTEXTEND
+		 WHERE ACENTRRY.ACC_TYPE = '10110'
+		   AND ACENTRRY.CUST_ID = ENTEXTEND.ENT_CUST_ID
+		   AND ACENTRRY.TRANS_SYS = 'PS'
+		   AND ACENTRRY.CUST_TYPE IN (3, 4)
+		   AND ACENTRRY.WRITE_BACK = 0
+		   <if test="beginDate != null and beginDate !=''">
+		   		<![CDATA[
+				AND ACENTRRY.CREATED_DATE >= #{beginDate}
+				]]>
+		   </if>
+		   <if test="endDate != null and endDate !=''">
+		   		<![CDATA[
+				AND ACENTRRY.CREATED_DATE <= #{endDate}
+				]]>
+		   </if>
+		   AND NOT EXISTS (SELECT 1
+		          FROM DBPS01.T_PS_PIONT_ALLOC_TAX TAX
+		         WHERE ACENTRRY.TRANS_NO = TAX.REL_SUM_NO
+		           AND TAX.ADD_AMOUNT != 0)
+		 GROUP BY ACENTRRY.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+		HAVING TRUNC(SUM(NVL(ACENTRRY.SUB_AMOUNT, 0) - NVL(ACENTRRY.ADD_AMOUNT, 0)) / ${exchangeRate}, 2) != 0
+		
+		UNION ALL
+		
+		SELECT ACENTRRY.CUST_ID,
+		       ENTEXTEND.ENT_CUST_NAME,
+		       'CP101' BIZ_TYPE,
+		       <![CDATA[
+		       TRUNC(SUM(NVL(ACENTRRY.ADD_AMOUNT, 0) - NVL(ACENTRRY.SUB_AMOUNT, 0)) / ${exchangeRate}, 2) AMOUNT
+		       ]]>
+		  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRRY,
+		       DBUC01.T_ENT_EXTEND       ENTEXTEND
+		 WHERE ACENTRRY.ACC_TYPE = '20110'
+		   AND ACENTRRY.CUST_ID = ENTEXTEND.ENT_CUST_ID
+		   AND ACENTRRY.TRANS_SYS = 'PS'
+		   AND ACENTRRY.CUST_TYPE = 4
+		   AND ACENTRRY.WRITE_BACK = 0
+		   <if test="beginDate != null and beginDate !=''">
+		   		<![CDATA[
+				AND ACENTRRY.CREATED_DATE >= #{beginDate}
+				]]>
+		   </if>
+		   <if test="endDate != null and endDate !=''">
+		   		<![CDATA[
+				AND ACENTRRY.CREATED_DATE <= #{endDate}
+				]]>
+		   </if>
+		   AND NOT EXISTS (SELECT 1
+		          FROM DBPS01.T_PS_PIONT_ALLOC_TAX TAX
+		         WHERE ACENTRRY.TRANS_NO = TAX.REL_SUM_NO
+		           AND TAX.ADD_AMOUNT != 0)
+		 GROUP BY ACENTRRY.CUST_ID, ENTEXTEND.ENT_CUST_NAME
+		HAVING TRUNC(SUM(NVL(ACENTRRY.SUB_AMOUNT, 0) - NVL(ACENTRRY.ADD_AMOUNT, 0)) / ${exchangeRate}, 2) != 0
+	</select>
+
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.mapper.AccountBatchProcesMapper"><!-- map的类 -->
+	
+	
+	<!-- 新增批处理任务记录 -->
+	<insert id="addBatchJob" parameterType="accountBatchJob">
+		INSERT INTO T_AC_BATCH_JOB
+			(BATCH_JOB_ID,
+			 BATCH_DATE,
+			 BATCH_JOB_NAME,
+			 BATCH_STATUS,
+			 BATCH_FILE_NAME,
+			 BATCH_FILE_ADDRESS,
+			 BATCH_LINES,
+			 BATCH_FILE_MDFIVE,
+			 BATCH_BEGIN_DATE)
+		VALUES(
+			 SEQ_AC_BATCH_JOB_ID.NEXTVAL,
+			 #{batchDate,jdbcType=VARCHAR},
+			 #{batchJobName,jdbcType=VARCHAR},
+			 #{batchStatus,jdbcType=INTEGER},
+			 #{batchFileName,jdbcType=VARCHAR},
+			 #{batchFileAddress,jdbcType=VARCHAR},
+			 #{batchLines,jdbcType=INTEGER},
+			 #{batchFileMDFive,jdbcType=VARCHAR},
+			 #{batchBeginDate,jdbcType=TIMESTAMP}
+		)
+		
+	</insert>
+	
+	<!-- 更新批处理任务记录 -->
+	<update id="updateBatchJob" parameterType="accountBatchJob">
+		UPDATE T_AC_BATCH_JOB
+		   SET BATCH_STATUS = #{batchStatus,jdbcType=INTEGER},
+		       BATCH_END_DATE = #{batchEndDate,jdbcType=TIMESTAMP},
+		       BATCH_ACHIEVE_LINES = #{batchAchieveLines,jdbcType=INTEGER}
+		 WHERE BATCH_DATE = #{batchDate,jdbcType=VARCHAR}
+		   AND BATCH_JOB_NAME = #{batchJobName,jdbcType=VARCHAR}
+		   AND BATCH_FILE_NAME = #{batchFileName,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 删除批处理任务记录 -->
+	<delete id="deleteBatchJob" parameterType="accountBatchJob">
+		DELETE FROM T_AC_BATCH_JOB
+		      WHERE BATCH_DATE = #{batchDate,jdbcType=VARCHAR}
+		        AND BATCH_JOB_NAME = #{batchJobName,jdbcType=VARCHAR}
+	</delete>
+	
+	
+	<!-- 新增批处理任务报错记录 -->
+	<insert id="addBatchError" parameterType="accountEntry">
+	       INSERT INTO T_AC_BATCH_ERROR
+	       		(BATCH_ERROR_ID,
+	       		 BATCH_JOB_NAME,
+	       		 BATCH_DATE,
+	       		 ERROR_FILE_ADDRESS,
+				 CUST_ID,
+				 HS_RES_NO,
+				 CUST_TYPE,
+				 BATCH_NO,
+	             ACC_TYPE,
+	             ADD_AMOUNT,
+	             SUB_AMOUNT,
+	             WRITE_BACK,
+	             TRANS_TYPE,
+	             TRANS_NO,
+	             TRANS_DATE,
+	             FISCAL_DATE,
+	             REL_TRANS_TYPE,
+	             REL_TRANS_NO,
+	             REMARK,
+	             ERROR_DESCRIPTION,
+	             CREATED_DATE,
+	             UPDATED_DATE) 
+		  VALUES (       
+		  		SEQ_AC_BATCH_ERROR_ID.NEXTVAL,
+				#{batchJobName,jdbcType=VARCHAR},
+				#{batchDate,jdbcType=VARCHAR},
+				#{errorFileAddress,jdbcType=VARCHAR},
+				#{custID,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{custType,jdbcType=INTEGER},
+				#{batchNo,jdbcType=VARCHAR},
+				#{accType,jdbcType=VARCHAR},
+				#{addAmount,jdbcType=NUMERIC},
+				#{subAmount,jdbcType=NUMERIC},
+				#{writeBack,jdbcType=INTEGER},
+				#{transType,jdbcType=VARCHAR},
+				#{transNo,jdbcType=VARCHAR},
+				#{transDateTim,jdbcType=TIMESTAMP},
+				#{fiscalDateTim,jdbcType=TIMESTAMP},
+				#{relTransType,jdbcType=VARCHAR},
+				#{relTransNo,jdbcType=VARCHAR},
+				#{remark,jdbcType=VARCHAR},
+				#{errorDescription,jdbcType=VARCHAR},
+				systimestamp,
+				systimestamp)
+	</insert>
+	
+	<!-- 批量新增批处理任务报错记录 -->
+	<insert id="addBatchErrores" parameterType="list">
+	       INSERT INTO T_AC_BATCH_ERROR
+	       		(BATCH_ERROR_ID,
+	       		 BATCH_JOB_NAME,
+	       		 BATCH_DATE,
+	       		 ERROR_FILE_ADDRESS,
+				 CUST_ID,
+				 HS_RES_NO,
+				 CUST_TYPE,
+				 BATCH_NO,
+	             ACC_TYPE,
+	             ADD_AMOUNT,
+	             SUB_AMOUNT,
+	             WRITE_BACK,
+	             TRANS_TYPE,
+	             TRANS_NO,
+	             TRANS_DATE,
+	             FISCAL_DATE,
+	             REL_TRANS_TYPE,
+	             REL_TRANS_NO,
+	             REMARK,
+	             ERROR_DESCRIPTION,
+	             CREATED_DATE,
+	             UPDATED_DATE) 
+		 SELECT  SEQ_AC_BATCH_ERROR_ID.NEXTVAL,
+		 		 BATCH_JOB_NAME,
+		 		 BATCH_DATE,
+		 		 ERROR_FILE_ADDRESS,
+				 CUST_ID,
+				 HS_RES_NO, 
+				 CUST_TYPE,
+				 BATCH_NO,
+	             ACC_TYPE,
+	             ADD_AMOUNT,
+	             SUB_AMOUNT,
+	             WRITE_BACK,
+	             TRANS_TYPE,
+	             TRANS_NO,
+	             TRANS_DATE,
+	             FISCAL_DATE,
+	             REL_TRANS_TYPE,
+	             REL_TRANS_NO,
+	             REMARK,
+	             ERROR_DESCRIPTION,
+	             CREATED_DATE,
+	             UPDATED_DATE FROM(      
+		  		<foreach collection="list" item="item" index="index" separator="union all" > 
+				(SELECT 
+				#{item.batchJobName,jdbcType=VARCHAR} as BATCH_JOB_NAME,
+				#{item.batchDate,jdbcType=VARCHAR} as BATCH_DATE,
+				#{item.errorFileAddress,jdbcType=VARCHAR} as ERROR_FILE_ADDRESS,
+				#{item.custID,jdbcType=VARCHAR} as CUST_ID,
+				#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+				#{item.custType,jdbcType=INTEGER} as CUST_TYPE,
+				#{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+				#{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+				#{item.addAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+				#{item.subAmount,jdbcType=NUMERIC} as SUB_AMOUNT,
+				#{item.writeBack,jdbcType=INTEGER} as WRITE_BACK,
+				#{item.transType,jdbcType=VARCHAR} as TRANS_TYPE,
+				#{item.transNo,jdbcType=VARCHAR} as TRANS_NO,
+				#{item.transDateTim,jdbcType=VARCHAR} as TRANS_DATE,
+				#{item.fiscalDateTim,jdbcType=VARCHAR} as FISCAL_DATE,
+				#{item.relTransType,jdbcType=VARCHAR} as REL_TRANS_TYPE,
+				#{item.relTransNo,jdbcType=VARCHAR} as REL_TRANS_NO,
+				#{item.remark,jdbcType=VARCHAR} as REMARK,
+				#{item.errorDescription,jdbcType=VARCHAR} as ERROR_DESCRIPTION,
+				systimestamp as CREATED_DATE,
+				systimestamp as UPDATED_DATE FROM DUAL)
+				</foreach>
+			)   
+	</insert>
+
+	<!-- 删除批处理任务报错记录 -->
+	<delete id="deleteBatchError"  parameterType="accountBatchJob">
+		DELETE FROM T_AC_BATCH_ERROR
+		      WHERE BATCH_DATE = #{batchDate,jdbcType=VARCHAR}
+		        AND BATCH_JOB_NAME = #{batchJobName,jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 根据批处理任务名称与任务文件名称查询批处理任务信息 -->
+	<select id="searchAccountBatchJobByJobNameAndFileName" resultType="accountBatchJob" parameterType="map">
+		SELECT BATCH_DATE AS batchDate,
+			   BATCH_JOB_NAME AS batchJobName,
+			   BATCH_STATUS AS batchStatus,
+			   BATCH_FILE_NAME AS batchFileName,
+			   BATCH_FILE_ADDRESS AS batchFileAddress,
+			   BATCH_LINES AS batchLines,
+			   NVL(BATCH_ACHIEVE_LINES,0) AS batchAchieveLines,
+			   BATCH_FILE_MDFIVE AS batchFileMdfive,
+			   BATCH_DESCRIPTION AS batchDescription,
+			   BATCH_BEGIN_DATE AS batchBeginDate,
+			   BATCH_END_DATE AS batchEndDate
+		  FROM T_AC_BATCH_JOB
+		 WHERE BATCH_JOB_NAME = #{batchJobName,jdbcType=VARCHAR}
+		   AND BATCH_FILE_NAME = #{batchFileName,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+ xsi:schemaLocation="
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://code.alibabatech.com/schema/dubbo		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+  	<!-- 打开Spring的Annotation支持 -->
+	<!-- <context:annotation-config /> -->
+	<!-- 设定Spring 去哪些包中找Annotation -->
+	<!-- <context:component-scan base-package="com.gy.hsxt"/> -->
+	
+	
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}" default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}" threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+	
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+	
+	 <!-- 查询银行账户服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCAsBankAcctInfoService" id="iuCAsBankAcctInfoService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+	 <!-- 查询企业信息服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" id="iuCAsEntService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    <!--  成员企业服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.entstatus.IBSMemberQuitService" id="iBSMemberQuitService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    <!--  积分活动服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.entstatus.IBSPointActivityService" id="iBSPointActivityService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    <!--  实名认证服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.entstatus.IBSRealNameAuthService" id="ibSRealNameAuthService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    <!--  重要信息变跟服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.entstatus.IBSChangeInfoService" id="ibSChangeInfoService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />	
+    <!--  工具订单服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolOrderService" id="ibSToolOrderService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />	
+    <!--  刷卡工具制作服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolMarkService" id="ibSToolMarkService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />	
+    <!--  工具配送管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolSendService" id="ibSToolSendService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />	
+
+	<!-- 账户名称接口 -->
+	<dubbo:reference id="BSTempAccountService" interface="com.gy.hsxt.bs.api.tempacct.IBSAccountService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+	<!-- 临账关联接口 -->
+	<dubbo:reference interface="com.gy.hsxt.bs.api.tempacct.IBSTempAcctService" id="BSTempAcctService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+	<!-- 订单工单接口 -->
+	<dubbo:reference interface=" com.gy.hsxt.bs.api.order.IBSOrderService" id="BSOrderService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />		
+	
+	<!-- 税率调整接口 -->
+	<dubbo:reference interface="com.gy.hsxt.bs.api.tax.IBSTaxrateChangeService" id="BSTaxrateChangeService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />		
+	
+	<!-- 发票管理接口 -->
+	<dubbo:reference interface="com.gy.hsxt.bs.api.invoice.IBSInvoiceService" id="BSInvoiceService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />		
+	
+	<!-- 随机token服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCAsTokenService" id="ucAsTokenService"  retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    
+	 <!-- 查询企业信息服务 -->
+   <!--  <dubbo:reference interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" id="iuCAsEntService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+ -->
+	<!-- 配额的申请服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.quota.IBSQuotaService" id="ibsQuotaService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+	
+	<!-- 全局配置参数 -->
+	<dubbo:reference id="lcsBaseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"/>
+
+	<!-- 订单服务 -->
+  <!--   <dubbo:reference interface="com.gy.hsxt.bs.api.order.IBSOrderService" id="ibsOrderService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+     -->
+    <!-- 意向客户管理服务 -->
+    <dubbo:reference id="iBSIntentCustService" interface="com.gy.hsxt.bs.api.apply.IBSIntentCustService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+        
+    <!-- 报备管理服务  -->
+    <dubbo:reference id="iBSFilingService" interface="com.gy.hsxt.bs.api.apply.IBSFilingService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+        
+    <!-- 申报管理服务  -->
+    <dubbo:reference id="iBSDeclareService" interface="com.gy.hsxt.bs.api.apply.IBSDeclareService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+     
+	<!-- 年费服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.annualfee.IBSAnnualFeeService" id="ibsAnnualFeeService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+	<!-- 系统销售费欠款管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.apply.IBSDebtOrderService" id="ibsDebtOrderService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+ 	<!--  任务工单服务 -->
+    <dubbo:reference interface="com.gy.hsxt.tm.api.ITMTaskService" id="itmTaskService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    
+    <!-- 值班管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.tm.api.ITMOnDutyService" id="itmOnDutyService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    
+    <!-- 值班计划服务 -->
+    <dubbo:reference interface="com.gy.hsxt.tm.api.ITMWorkPlanService" id="itmWorkPlanService" timeout="15000" retries="0" actives="500" version="1.0.0"/>
+      
+     <!-- 业务权限管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.tm.api.ITMBizAuthService" id="itmBizAuthService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    
+    <dubbo:reference id="iucBsEntService" interface="com.gy.hsxt.uc.bs.api.ent.IUCBsEntService"  timeout="15000" retries="0" check="false" version="1.0.0"/>
+    
+    <!-- 登陆服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCLoginService" id="ucLoginService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+ 
+  	<!-- 工具管理-工具服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolProductService" id="bsToolProductService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+ 
+  	<!-- 工具管理-仓库服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolStockService" id="bsToolStockService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+    <!-- 积分福利-审批 - 地区平台 -->
+    <dubbo:reference interface="com.gy.hsxt.ws.api.IWsApplyService" id="wsApplyService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"  group="HSXT_WS" />
+
+    <!-- 积分福利-审批 - 地区平台 -->
+ 	<dubbo:reference interface="com.gy.hsxt.ws.api.IWsApprovalService" id="wsApprovalService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"  group="HSXT_WS" />
+ 	
+ 	<!-- 积分福利-理赔核算 - 地区平台 -->
+ 	<dubbo:reference interface="com.gy.hsxt.ws.api.IWsClaimsAccountingService" id="wsClaimsAccountingService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"  group="HSXT_WS" />
+ 	
+ 	<!-- 积分福利-福利发放 - 地区平台 -->
+ 	<dubbo:reference interface="com.gy.hsxt.ws.api.IWsGrantService" id="wsGrantService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"  group="HSXT_WS" />
+ 	
+ 	<!-- 积分福利-福利资格 - 地区平台 -->
+ 	<dubbo:reference interface="com.gy.hsxt.ws.api.IWsWelfareService" id="wsWelfareService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0"  group="HSXT_WS" />
+ 	<!-- 账务余额查询服务 -->
+	<dubbo:reference interface="com.gy.hsxt.ac.api.IAccountSearchService" id="accountSearchService" retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+ 	<!-- 操作员服务 -->
+ 	<dubbo:reference interface="com.gy.hsxt.uc.as.api.operator.IUCAsOperatorService" id="ucAsOperatorService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+  <!-- 关闭、开启系统服务 -->
+ 	<dubbo:reference interface="com.gy.hsxt.bs.api.entstatus.IBSCloseOpenEntService" id="ibsCloseOpenEntService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+    <!-- 用户组服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntGroupService" id="iuCAsEntGroupService" retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+    <!-- 角色管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.auth.IUCAsRoleService" id="iuCAsRoleService" retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+    <!-- 权限管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.auth.IUCAsPermissionService" id="iuCAsPermissionService" retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+    
+  	 <!-- 查询消费者信息服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService" timeout="60000"   id="asCardHolderService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+  	
+  	 <!-- 查询非持卡人服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCAsNetworkInfoService"  id="asNetworkInfoService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+  	
+  	<!-- BS合同管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.apply.IBSContractService"  id="bSContractService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+  	<!-- BS证书管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.apply.IBSCertificateService"  id="bSCertificateService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+	<!-- BS官网服务 -->
+    <dubbo:reference interface=" com.gy.hsxt.bs.api.apply.IBSOfficialWebService"  id="bSOfficialWebService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+  <!-- 查询交易密码企业信息服务 -->
+    <dubbo:reference interface=" com.gy.hsxt.bs.api.pwd.IBSTransPwdService"  id="ibsTransPwdService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+<!-- 消费者登陆密码重置 -->
+    <dubbo:reference interface=" com.gy.hsxt.uc.as.api.common.IUCAsPwdService"  id="asPwdService" retries="${dubbo.reference.retires}"  check="false" version="1.0.0" />
+
+    <!-- 投资查询接口 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.order.IBSInvestProfitService" id="bsInvestProfitService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+	
+	<!-- 邮件管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCAsEmailService" id="ucEmailService" timeout="15000" retries="0" actives="500" version="1.0.0"/>
+	<!-- AO账户操作服务 -->
+    <dubbo:reference interface="com.gy.hsxt.ao.api.IAOExchangeHsbService" id="aoExchangeHsbService" timeout="15000" retries="0" actives="500" version="1.0.0"/>
+	<!-- 账户操作-银行账户管理-->
+    <dubbo:reference interface="com.gy.hsxt.ao.api.IAOCurrencyConvertService" id="aoCurrencyConvertService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+   <!-- 账户操作-银行转账-->
+   <dubbo:reference interface="com.gy.hsxt.ao.api.IAOBankTransferService" id="aoBankTransferService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+   <!-- 网上积分登记查询-->
+   <dubbo:reference interface="com.gy.hsxt.ps.api.IPsQueryService" id="ipsQueryService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}"  group="ps"  version="1.0.0" />
+   <dubbo:reference id="businessParamSearchService"
+		interface="com.gy.hsxt.bp.api.IBusinessParamSearchService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+	
+	<!-- 账户流水查询接口-->
+   <dubbo:reference interface="com.gy.hsxt.rp.api.IReportsAccountEntryService" id="iReportsAccountEntryService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}"  version="1.0.0" />
+   
+   <!-- 投资查询接口 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.bm.IBSmlmService" id="iBSmlmService"  timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+	
+	<!-- 业务系统消息与公告服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.message.IBSMsgSendService" id="bsMsgService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	<!-- 业务系统消息与公告服务 -->
+    <dubbo:reference interface="com.gy.hsxt.bp.api.IBusinessSysBoSettingService" id="businessSysBoSettingService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- -->
+    <dubbo:reference interface="com.gy.hsxt.rp.api.IReportsSystemResourceService" id="reportsSystemResourceService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 业务文件管理 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.bizfile.IBSBizFileService" id="bsBizFileService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 工单管理 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.task.IBSTaskService" id="iBSTaskService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 工具制作管理 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.tool.IBSToolAfterService" id="bsToolAfterService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	<!-- 代购工具管理 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.common.IUCAsReceiveAddrInfoService" id="iucasReceiveAddrInfoService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	<!-- 代购工具管理 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.device.IUCAsDeviceService" id="iucasDeviceService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 收款管理 -->
+    <dubbo:reference interface="com.gy.hsxt.rp.api.IRPPaymentManagementService" id="rpPaymentManagementService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 服务消息管理 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.msgtpl.IBSMessageTplService" id="bsMessageTplService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 报表导出服务 -->
+    <dubbo:reference interface="com.gy.hsxt.rp.api.IReportsSystemResourceExportService" id="reportsSystemResourceExportService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	 
+	<!-- 通知系统 -->
+    <dubbo:reference interface="com.gy.hsi.nt.api.service.INtQueryService" id="intQueryService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 调账系统 -->
+    <dubbo:reference interface="com.gy.hsxt.tc.api.ITcCheckBalanceService" id="itcCheckBalanceService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	<!--平台业务扣款 -->
+    <dubbo:reference interface="com.gy.hsxt.bs.api.deduction.IBSHsbDeductionService" id="ibsHsbDeductionService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!--持卡人证件信息管理服务 -->
+    <dubbo:reference interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderAuthInfoService" id="iucAsCardHolderAuthInfoService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" actives="${dubbo.service.actives}" version="1.0.0"/>
+	 
+</beans>

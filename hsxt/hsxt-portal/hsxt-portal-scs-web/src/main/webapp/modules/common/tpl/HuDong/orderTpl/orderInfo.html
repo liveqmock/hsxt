@@ -1,0 +1,74 @@
+<div class="hdNode" style="width:800px"> 
+  
+  <!--锟斤拷锟斤拷锟斤拷涌锟绞-->
+  <div class="shopebox">
+    <div id="hd_order_main" style="" class="popup_left">
+      <div class="hd_leftMenu" id="hd_leftScr">
+     <ul>
+        <li class="hd_left_cur" orderTime-id="<%=obj.thisId%>">
+        <p class="classtext" style="width: 130px"><%$.each(obj.orderList[0].orderList,function(k,v){%><%if(v.orderTimeId == obj.thisId){%><%=v.orderInfo.msg_subject%><%}%><%})%></p>
+        <i><img src="resources/img/order/hslt_i.gif" width="6" height="6"></i></li>
+      </ul>
+      </div>
+      
+  		<div class="hd_msg_content" style="display:block;" id="hd_msg_content" code-id="<%=obj.codeId%>">
+  		<div id="hd_msg_top">
+  		<div class="hd_msg_topTags">
+		<ul class="hd_box_hslt_cd">
+		<li class="hd_box_hslt_cdtx fl">
+		<span class="hd_span_name">订单消息 - <%$.each(obj.orderList[0].orderList,function(k,v){%><%if(v.orderTimeId == obj.thisId){%><%=obj.orderType(v.orderInfo.sub_msg_code)%><%}%><%})%><b></b></span>
+		</li>
+		<li class="hd_box_hslt_cdgbk fr">
+		<!-- 
+		<span><img src="resources/img/order/hslt_0333.gif" width="16" height="16"></span>
+		<span><img src="resources/img/order/hslt_033.gif" width="16" height="16"></span>
+		-->
+		<span class="gbck"><img src="resources/img/order/hslt_03.gif" width="16" height="16"></span>
+		</li>
+		</ul>
+		</div>
+		</div>
+		
+		<div class="hd_box_hslt1_right" id="rightHtml">
+		<div class="hd_rightxx mt10 ml10">
+		<div class="hd_hslt_hd"><span><%=obj.orderType(obj.codeId)%></span>列表</div>
+		<ul class="hd_hslt_list">
+		<%var orderFenye = obj.orderList[0].orderList;%>
+		<%for(var i = orderFenye.length - 1;i>=0;i--){%>
+		<%if(i > (orderFenye.length - 6)){%>
+		<li orderTime-id="<%=orderFenye[i].orderTimeId%>" style="display: list-item;">
+		<b <%if(orderFenye[i].orderTimeId != obj.thisId){%>class="unread"<%}%>><%=orderFenye[i].orderInfo.msg_subject%></b><%=obj.NowtimeNew(orderFenye[i].time)%></li>
+		<%}%>
+		<%}%>
+		</ul><div class="hd_hslt_page">
+		当前页:
+		<select class="fenye">
+		<%for(var i = 1;i<=Math.ceil(obj.orderList[0].orderList.length/5);i++){%>
+		<option value="<%=i%>"><%=i%></option>
+		<%}%>
+		</select>
+		</div></div></div>
+		
+		<div class="con_warp">
+		<%$.each(obj.orderList[0].orderList,function(k,v){%>
+		<%if(v.orderTimeId == obj.thisId){%>
+		<div class="clearfix hd_order_content" style="display: block;"><div class="hd_hslt_ddxx clearfix">
+		<div class="fb tcr_lvse fl">【互商订单消息】<span><%=v.orderInfo.msg_subject%></span></div>
+		<div class="mr10 tcr_grey fr"><%=obj.NowtimeNew(v.time)%></div>
+		</div>
+		<div class="hd_hslt_ddxxbox tcr_grey clearfix"><ul><li class="tcr_grey lh30">
+		<b class="unread">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</b><%=v.orderInfo.msg_subject%></li>
+		<li class="tcr_grey lh30">
+		<b class="unread">消息类型：</b>
+		<%=obj.orderType(obj.codeId)%>
+		</li>
+		<li class="tcr_grey lh30" style="word-break:break-all;word-wrap:break-word;"><b class="unread">消息内容：</b><%=$('<div/>').html($('<div/>').html(v.orderInfo.msg_content).text()).text()%></li>
+		</ul></div></div>
+		<%return ;}%>
+		<%})%>
+		</div>
+		</div>
+           
+            </div>      
+                </div>
+          </div>

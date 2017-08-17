@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+
+	<!--发布服务 -->
+	<!--消费积分，积分撤单，积分退货，积分冲正 -->
+	<dubbo:service ref="pointService" interface="com.gy.hsxt.ps.api.IPsPointService"
+		timeout="${dubbo.service.timeout5000}" actives="${dubbo.service.actives}"
+		group="ps" version="1.0.0"  retries="0"/>
+	<!--积分、互生币详单查询 -->
+	<dubbo:service ref="querysService" interface="com.gy.hsxt.ps.api.IPsQueryService"
+		timeout="${dubbo.service.timeout5000}" actives="${dubbo.service.actives}"
+		group="ps" version="1.0.0" />
+	<!--对账(批结算，批上送) -->
+	<dubbo:service ref="posSettleService" interface="com.gy.hsxt.ps.api.IPsSettleService"
+		timeout="${dubbo.service.timeout5000}" actives="${dubbo.service.actives}"
+		group="ps" version="1.0.0" />
+
+	<!-- 日终批处理任务-积分分配 -->
+	<!--<bean id="psPointAllocBatchService" class="com.gy.hsxt.ps.settlement.service.PointAllocBatchJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="pointAllocBatchJobService" 	timeout="${dubbo.service.timeout5000}"   group="HSXT_PS_POINTALLOC" version="1.0.0" />
+
+	<!-- 日终批处理任务-积分结算 -->
+	<!--<bean id="psPointBalanceBatchService" class="com.gy.hsxt.ps.settlement.service.PointSumBatchJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="pointSumBatchJobService" 	timeout="${dubbo.service.timeout5000}"    group="HSXT_PS_POINTBALANCE" version="1.0.0"/>
+
+	<!-- 日终批处理任务-税收结算(积分税收)  -->
+	<!--<bean id="psTaxBalanceBatchService" class="com.gy.hsxt.ps.settlement.service.PointTaxBatchJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="pointTaxBatchJobService" 	timeout="${dubbo.service.timeout5000}"   group="HSXT_PS_TAXBALANCE" version="1.0.0"/>
+
+ 	 <!-- 日终批处理任务-互生币结算 -->
+	<!--<bean id="psHsbBalanceBatchService" class="com.gy.hsxt.ps.settlement.service.HsbSumBatchJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="hsbSumBatchJobService" 	timeout="${dubbo.service.timeout5000}"   group="HSXT_PS_HSBBALANCE" version="1.0.0"/>
+
+	 <!-- 月终批处理任务-服务费结算(商业服务费) -->
+	<!--	<bean id="psHsbTollBalanceBatchService" class="com.gy.hsxt.ps.settlement.service.HsbTollBatchJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="hsbTollBatchJobService" 	timeout="${dubbo.service.timeout5000}"    group="HSXT_PS_TOLLBALANCE" version="1.0.0"/>
+
+	<!-- 日终批处理任务-日终批量退税 -->
+	<!--	<bean id="psDailyBackTaxJobService" class="com.gy.hsxt.ps.settlement.service.DailyBackTaxJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="dailyBackTaxJobService" 	timeout="${dubbo.service.timeout5000}" group="HSXT_PS_DAILYBACKTAX" version="1.0.0"/>
+
+	<!-- 日终批处理任务-日终对账 -->
+	<!--	<bean id="reconciliationJobService" class="com.gy.hsxt.ps.settlement.service.ReconciliationJobService"/>-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="reconciliationJobService" timeout="${dubbo.service.timeout5000}" group="HSXT_PS_RECONCILIATION" version="1.0.0"/>
+
+	<!-- 批生成互商结算信息文件列表 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="psBatchSettleFileService" timeout="${dubbo.service.timeout5000}" group="HSXT_PS_HSEC_SETTLEFILE" version="1.0.0"/>
+
+
+	<!-- 全局配置参数 -->
+	<dubbo:reference id="baseDataService" 	interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"
+					 retries="${dubbo.reference.retires}"  	connections="${dubbo.reference.connections}"
+					 check="false" version="1.0.0"/>
+					 
+	<!-- 支付系统通知服务 -->
+    <dubbo:service interface="com.gy.hsxt.gp.api.IGPNotifyService"
+                group="${system.id}" ref="pointService" timeout="${dubbo.service.timeout15000}"
+                actives="${dubbo.service.actives}" version="1.0.0" />
+
+</beans>

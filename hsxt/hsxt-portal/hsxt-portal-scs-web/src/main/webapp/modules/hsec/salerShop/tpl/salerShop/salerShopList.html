@@ -1,0 +1,43 @@
+<!--内容添加开始-->
+
+	<!--列表内容开始-->
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+
+			<li class="mr20"><label class="title-int">企业互生号：</label>
+				<div class="cont-int">
+					<input type="text" name="resourceNo" id="resourceNo" value="" class="input-txt w80" maxlength="11"/>
+				</div></li>
+			<li class="mr20"><label class="title-int">企业名称：</label>
+				<div class="cont-int">
+					<input type="text" name="companyName" id="companyName" value=""
+						class="input-txt w80" />
+				</div></li>
+			<li class="mr20"><label class="title-int">营业点类型：</label>
+				<input id="shopTypeSelect" placeholder="全部" readonly="readonly" optionvalue=""  /> 
+			</li>
+			<li>
+				<div class="cont-int">
+					<button id="findSalerShopList" ctype="1" type="button"
+						class="btn-search ml10">查询</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+<div class="shopebox">
+	<table id="saler_shop">
+		<tr>
+			<th w_render="operate" w_align="center" width="10%">企业互生号</th>
+			<th w_render="operate" w_align="left" width="20%">企业名称</th>
+			<th w_render="operate" w_align="left" width="25%">主营分类</th>
+			<th w_render="operate" w_align="left" width="25%">地址</th>
+			<th w_render="operate" w_align="center" width="20%">操作</th>
+		</tr>
+	</table>
+</div>
+<div id="showSalerShop" class="none"></div>
+<div id="checkList" class="none"></div>
+<div id="popMap" class="none"></div>
+<div id="popImg" class="none"></div>
+
+<div id="dialog-msg" style="display: none;"></div>

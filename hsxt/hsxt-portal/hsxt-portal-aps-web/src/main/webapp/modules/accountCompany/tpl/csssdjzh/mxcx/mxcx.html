@@ -1,0 +1,46 @@
+﻿<div class="search-toolbar">
+  <form id="scpoint_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li class="clearfix pr">
+        <label class="fl h30_middle">快捷日期：</label>
+        <input type="text" id="quickDate" readonly="readonly" placeholder=""/>
+      </li>
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_startDate" id="search_startDate" placeholder="开始日期" class="h28_middle input-txt w80"   />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80"   />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">税金类别：</label>
+		<input type="text" id="scpoint_subject" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="bsgrid">
+      <thead>
+        <tr>
+        	<th w_index="hsResNo" w_align="left">企业互生号</th>	
+          <th w_index="sourceTransNo" w_align="left" w_tip=true>交易流水号</th>
+          <th w_index="fiscalDate" w_render="operate" w_align="left">交易时间</th>
+          <th w_index="type" w_align="left" w_render="operate">交易类型</th>
+          <th w_index="code" w_align="left" w_render="operate">税金类别</th>
+          <th w_index="amout" w_align="left" w_render="operate">税金</th>
+          <!-- <th w_render="operate" w_align="left">详情</th> -->
+        </tr>
+      </thead>
+  </table>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="csssdjzh-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

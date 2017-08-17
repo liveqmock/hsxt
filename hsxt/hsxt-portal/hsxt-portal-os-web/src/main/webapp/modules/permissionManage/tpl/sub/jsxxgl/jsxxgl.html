@@ -1,0 +1,44 @@
+<div id="jsxxglTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>平台编码：</label>
+				<input type="text" id="jsxxgl_tb_ptbm" name="jsxxgl_tb_ptbm" class="queryList-toolbar-text" placeholder="输入平台编码" />
+			</li>
+			<li>
+				<label>子系统编码：</label>
+				<input type="text" id="jsxxgl_tb_zxtbm" name="jsxxgl_tb_zxtbm" class="queryList-toolbar-text" placeholder="输入子系统编码" />
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">角色类型：</label>
+				<input id="jsxxgl_tb_jslx" name="jsxxgl_tb_jslx" placeholder="选择权限类型" readonly="readonly"/>
+			</li>
+			<li>
+				<label>企业客户号：</label>
+				<input type="text" id="jsxxgl_tb_qykhh" name="jsxxgl_tb_qykhh" class="queryList-toolbar-text" placeholder="输入企业客户号" />
+			</li>
+			<li>
+				<button id="jsxxgl_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="jsxxgl_tb_addBtn" type="button" class="queryList-toolbar-btn">新 增</button>
+			</li>
+		 </ul>
+	</div>
+	  <table id="queryList_jsxxgl">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="roleId" w_align="left">角色ID</th>
+			<th w_index="roleName" w_align="left">角色名称</th>
+			<th w_index="platformCode" w_align="left">平台</th>
+			<th w_index="subSystemCode" w_align="left">子系统</th>
+			<th w_index="entCustId" w_align="left">企业客户号</th>
+			<th w_index="roleType" w_render="operate" w_align="left">角色类型</th>
+			<th w_index="roleDesc" w_align="left">角色描述</th>
+			<th w_render="operate" w_align="left" width="8%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="jsxxgl_dlg" class="none ovh"></div>
+

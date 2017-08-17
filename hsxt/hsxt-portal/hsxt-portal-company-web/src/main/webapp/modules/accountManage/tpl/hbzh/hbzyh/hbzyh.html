@@ -1,0 +1,36 @@
+
+<div id="hbPoint">
+    <div class="acct-ct mb20">
+		<h1 class="acct-tips lh150 bc" style="width:450px;text-align:left;"><span class="tcr_blue fb">温馨提示：</span><br>1、货币账户可转出，转出金额为不小于100.00的整数！<br>2、转账手续费从货币账户余额中扣除，请保证余额充足，以确保能顺利进行转账。</h1>
+    </div>
+    <div class="bc mt20 w400">
+     <form id="ac_appform" autocomplete="off" name="ac_appform" action="" method="post" onsubmit="return false;"> 
+		<input type="hidden" id="ac_minCashNum" value=""/>
+		<input type="hidden" id="ac_maxCashNum" value=""/>
+		<input type="hidden" id="ac_randomToken" value=""/>
+		<input type="hidden" id="cashAccTotal" value=""/>
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w115">货币账户余额</label><div class="cont-chk tbox"><span class="ml10" id="ac_cashAccTotal"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">转出金额</label>
+				<input id="ac_appTransferMoneyNum" name="ac_appTransferMoneyNum" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入转出金额"  maxlength="10"/>
+				<div class="hint red" style="left: 403px;">*</div>
+            </li>
+            <li class="clearfix pr">
+                <label class="title-txt w115">转入银行账户</label>
+                <select id="ac_bankCardList" style="width:275px;margin-top:5px"></select>
+				<div class="hint red" style="left: 403px;">*</div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">当地结算货币</label><div class="cont-chk tbox"><span class="ml10">人民币</span></div>
+            </li>
+        </ul>
+        <div class="mt20 tc">
+            <a href="javascript:;" id="btn_hbzyh_post" class="btn_bg submit">提&#12288;交</a>
+        </div>
+    </form>
+    </div>
+</div>
+<div class="view_info info_500 none" id="hbPoint_affirm"></div>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.annualfee.mapper.AnnualFeeInfoMapper">
+    <!-- 企业年费信息 -->
+    <resultMap id="annualFeeInfoResult" type="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfo">
+        <result column="ENT_CUST_ID" property="entCustId"/>
+        <result column="ENT_RES_NO" property="entResNo"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="ENT_CUST_NAME" property="entCustName"/>
+        <result column="END_DATE" property="endDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="ARREAR_AMOUNT" property="arrearAmount"/>
+        <result column="PRICE" property="price"/>
+        <result column="ARREAR_YEAR_NUM" property="arrearYearNum"/>
+        <result column="WARNING_DATE" property="warningDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="IS_ARREAR" property="isArrear"/>
+        <result column="STATUS_CHANGE_DATE" property="statusChangeDate"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdby"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedby"/>
+    </resultMap>
+
+    <!-- 创建 企业年费信息 -->
+    <insert id="insertAnnualFeeInfo" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfo">
+        INSERT INTO T_BS_ENT_ANNUAL_FEE_INFO (
+            ENT_CUST_ID,
+            ENT_RES_NO,
+            CUST_TYPE,
+            ENT_CUST_NAME,
+            END_DATE,
+            ARREAR_AMOUNT,
+            ARREAR_YEAR_NUM,
+            WARNING_DATE,
+            IS_ARREAR,
+            STATUS_CHANGE_DATE,
+            CREATED_DATE,
+            CREATEDBY
+        ) VALUES (
+            #{entCustId},
+            #{entResNo},
+            #{custType},
+            #{entCustName},
+            #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            0,
+            0,
+            #{warningDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            0,
+            sysdate,
+            systimestamp,
+            #{createdby})
+    </insert>
+
+    <!-- 判断是否存在 企业年费信息 -->
+    <select id="existEntAnnualFeeInfo" resultType="int">
+        SELECT COUNT(0)
+        FROM
+            T_BS_ENT_ANNUAL_FEE_INFO
+        WHERE
+            ENT_CUST_ID = #{entCustId}
+    </select>
+
+    <!-- 获取 某一个企业年费信息 -->
+    <select id="selectBeanById" resultMap="annualFeeInfoResult">
+        SELECT
+            i.*,
+            p.PRICE
+        FROM
+            T_BS_ENT_ANNUAL_FEE_INFO i
+            JOIN T_BS_ANNUAL_FEE_PRICE p ON i.CUST_TYPE = p.CUST_TYPE
+        WHERE
+            p.STATUS = 1
+            AND i.ENT_CUST_ID = #{entCustId}
+    </select>
+
+    <!-- 更新 某一个企业年费信息 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfo">
+        UPDATE
+        T_BS_ENT_ANNUAL_FEE_INFO t
+        SET
+        t.IS_ARREAR = #{isArrear},
+        <if test="endDate != null and endDate !='' ">
+            t.END_DATE = #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+        </if>
+        <if test="warningDate != null and warningDate != '' ">
+            t.WARNING_DATE = #{warningDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+        </if>
+        <if test="arrearAmount != null and arrearAmount != '' ">
+            t.ARREAR_AMOUNT = #{arrearAmount},
+        </if>
+        <if test="arrearYearNum != null ">
+            t.ARREAR_YEAR_NUM = #{arrearYearNum},
+        </if>
+        <if test="statusChangeDate != null and statusChangeDate !='' ">
+            t.STATUS_CHANGE_DATE = #{statusChangeDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+        </if>
+        t.UPDATED_DATE = systimestamp,
+        t.UPDATEDBY = #{updatedby}
+        WHERE
+        ENT_CUST_ID = #{entCustId}
+    </update>
+
+    <!-- 修改支付完成的年费信息 -->
+    <update id="updateBeanForPaid" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfo">
+        UPDATE
+            T_BS_ENT_ANNUAL_FEE_INFO
+        SET
+            END_DATE           = #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            WARNING_DATE       = #{warningDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            IS_ARREAR          = #{isArrear},
+            ARREAR_AMOUNT      = #{arrearAmount},
+            ARREAR_YEAR_NUM    = #{arrearYearNum},
+            UPDATED_DATE       = systimestamp,
+            STATUS_CHANGE_DATE = #{statusChangeDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            UPDATEDBY          = #{updatedby}
+        WHERE
+            ENT_CUST_ID = #{entCustId}
+    </update>
+
+    <!-- 查询当天年费到时期未生成计费和订的客户列表 -->
+    <select id="selectListByQuery" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfoQuery" resultMap="annualFeeInfoResult">
+        SELECT
+        t.*
+        FROM T_BS_ENT_ANNUAL_FEE_INFO t
+        WHERE 1=1
+        <if test="endDate != null and endDate !=''">
+            AND t.END_DATE = #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="(endDate ==null or endDate == '') and endLineDate != null and endLineDate !=''">
+            AND t.END_DATE &lt; #{endLineDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="entCustName != null and entCustName != ''">
+            AND t.ENT_CUST_NAME LIKE '%'||#{entCustName}||'%'
+        </if>
+        <if test="custType != null">
+            AND t.CUST_TYPE = #{custType}
+        </if>
+        <if test="warningDate != null and warningDate != ''">
+            AND t.WARNING_DATE = #{warningDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="isArrear != null">
+            AND t.IS_ARREAR = #{isArrear}
+        </if>
+        <if test="statusChangeDate != null and statusChangeDate != ''">
+            AND t.STATUS_CHANGE_DATE = #{statusChangeDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+
+    </select>
+
+    <!-- 根据查询条件分页查询年费信息列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfoQuery" resultMap="annualFeeInfoResult">
+        SELECT
+        t.*
+        FROM T_BS_ENT_ANNUAL_FEE_INFO t
+        WHERE 1=1
+        <if test="endDate != null and endDate !=''">
+            AND t.END_DATE = #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="(endDate ==null or endDate == '') and endLineDate != null and endLineDate !=''">
+            AND t.END_DATE &lt; #{endLineDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="entCustName != null and entCustName != ''">
+            AND t.ENT_CUST_NAME LIKE '%'||#{entCustName}||'%'
+        </if>
+        <if test="custType != null">
+            AND t.CUST_TYPE = #{custType}
+        </if>
+        <if test="warningDate != null and warningDate != ''">
+            AND t.WARNING_DATE = #{warningDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+        <if test="isArrear != null">
+            AND t.IS_ARREAR = #{isArrear}
+        </if>
+        <if test="statusChangeDate != null and statusChangeDate != ''">
+            AND t.STATUS_CHANGE_DATE = #{statusChangeDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+        </if>
+
+    </select>
+
+    <!-- 查询当天有变更的企业年费信息 -->
+    <select id="queryDayChangeEntAnnualFeeInfoList" resultType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeInfo">
+		<![CDATA[
+        SELECT
+            T.ENT_CUST_ID   AS entCustId,
+            T.ENT_RES_NO    AS entResNo,
+            T.ENT_CUST_NAME AS entCustName,
+            T.IS_ARREAR     AS isArrear,
+            T.END_DATE      AS endDate
+        FROM
+            T_BS_ENT_ANNUAL_FEE_INFO T
+        WHERE
+            TO_CHAR(T.STATUS_CHANGE_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+        ]]>
+	</select>
+</mapper>

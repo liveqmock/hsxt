@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.mapper.AccountBalanceMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.ac.bean.AccountBalance" id="accountBalance">
+    <!-- 账户余额对象 -->
+        <id column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <id column="CUST_ID" property="custID" jdbcType="VARCHAR" />
+        <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custID" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="ACC_BALANCE" property="accBalance" jdbcType="VARCHAR" />
+        <result column="ACC_STATUS" property="accStatus" jdbcType="INTEGER" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+    </resultMap>
+
+<!-- @author 作者 : weixz -->
+<!-- 新增多个余额账户 -->
+<insert id="addAccountBalances" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		INSERT /*+ APPEND */ INTO 
+		<if test="item.custTypeCategory == 0 ">
+			T_AC_PER_ACCOUNT_BALANCE
+		</if>
+		<if test="item.custTypeCategory == 1 ">
+			T_AC_ENT_ACCOUNT_BALANCE
+		</if>
+		<if test="item.custTypeCategory == 2 ">
+			T_AC_PF_ACCOUNT_BALANCE
+		</if>
+			( 	CUST_ID, 
+				ACC_TYPE, 
+				HS_RES_NO, 
+				ACC_BALANCE, 
+				ACC_STATUS,
+				CUST_TYPE, 
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES
+			(	#{item.custID,jdbcType=VARCHAR} ,
+			 	#{item.accType,jdbcType=VARCHAR} ,
+			 	#{item.hsResNo,jdbcType=VARCHAR} ,
+			 	#{item.accBalance,jdbcType=NUMERIC} ,
+				#{item.accStatus,jdbcType=INTEGER} ,
+				#{item.custType,jdbcType=INTEGER} ,
+  				systimestamp ,
+  			 	systimestamp);
+	</foreach>
+</insert>
+<!-- 新增单个余额账户 -->
+<insert id="addAccountBalance" parameterType="AccountBalance">
+		INSERT /*+ APPEND */ INTO 
+		<if test="custTypeCategory == 0 ">
+            T_AC_PER_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 1 ">
+            T_AC_ENT_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 2 ">
+            T_AC_PF_ACCOUNT_BALANCE
+        </if>
+		      ( 
+				CUST_ID, 
+				ACC_TYPE, 
+				HS_RES_NO, 
+				ACC_BALANCE,
+				ACC_STATUS,
+				CUST_TYPE, 
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES (
+			 	#{custID,jdbcType=VARCHAR},
+				#{accType,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{accBalance,jdbcType=NUMERIC},
+				#{accStatus,jdbcType=INTEGER},
+				#{custType,jdbcType=INTEGER},
+		  		systimestamp,
+		  		systimestamp)
+</insert>
+<!-- 新增单个企业余额账户 -->
+<insert id="addEntAccountBalance" parameterType="AccountBalance">
+		INSERT /*+ APPEND */ INTO T_AC_ENT_ACCOUNT_BALANCE( 
+				CUST_ID, 
+				ACC_TYPE, 
+				HS_RES_NO, 
+				ACC_BALANCE,
+				ACC_STATUS,
+				CUST_TYPE, 
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES (
+			 	#{custID,jdbcType=VARCHAR},
+				#{accType,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{accBalance,jdbcType=NUMERIC},
+				#{accStatus,jdbcType=INTEGER},
+				#{custType,jdbcType=INTEGER},
+		  		systimestamp,
+		  		systimestamp)
+</insert>
+<!-- 新增单个个人余额账户 -->
+<insert id="addPerAccountBalance" parameterType="AccountBalance">
+		INSERT /*+ APPEND */ INTO T_AC_PER_ACCOUNT_BALANCE( 
+				CUST_ID, 
+				ACC_TYPE, 
+				HS_RES_NO, 
+				ACC_BALANCE,
+				ACC_STATUS,
+				CUST_TYPE, 
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES (
+			 	#{custID,jdbcType=VARCHAR},
+				#{accType,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{accBalance,jdbcType=NUMERIC},
+				#{accStatus,jdbcType=INTEGER},
+				#{custType,jdbcType=INTEGER},
+		  		systimestamp,
+		  		systimestamp)
+</insert>
+<!-- 新增单个平台余额账户 -->
+<insert id="addPfAccountBalance" parameterType="AccountBalance">
+		INSERT /*+ APPEND */ INTO T_AC_PF_ACCOUNT_BALANCE( 
+				CUST_ID, 
+				ACC_TYPE, 
+				HS_RES_NO, 
+				ACC_BALANCE,
+				ACC_STATUS,
+				CUST_TYPE, 
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES (
+			 	#{custID,jdbcType=VARCHAR},
+				#{accType,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{accBalance,jdbcType=NUMERIC},
+				#{accStatus,jdbcType=INTEGER},
+				#{custType,jdbcType=INTEGER},
+		  		systimestamp,
+		  		systimestamp )
+</insert>
+
+<!-- 新增单个余额账户状态变更记录 -->
+<insert id="addAccStatusChangeInfo" parameterType="AccountStatusChange">
+        INSERT /*+ append */ INTO T_AC_ACCOUNT_STATUS_CHANGE( 
+            ACC_STATUS_CHANGE_ID, 
+            CUST_ID, 
+            ACC_TYPE,
+            HS_RES_NO, 
+            ACC_STATUS_OLD, 
+            ACC_STATUS_NEW,
+            REMARKS,
+            UPDATEDBY,
+            UPDATED_DATE) 
+        VALUES(
+            SEQ_AC_STATUS_CHANGE_ID.Nextval,
+            #{custID,jdbcType=VARCHAR},
+            #{accType,jdbcType=VARCHAR},
+            #{hsResNo,jdbcType=VARCHAR},
+            #{accStatusOld,jdbcType=NUMERIC},
+            #{accStatusNew,jdbcType=NUMERIC},
+            #{remarks,jdbcType=VARCHAR},
+            #{updatedby,jdbcType=VARCHAR},
+            systimestamp)
+</insert>
+
+<!-- 新增批量余额账户状态变更记录 -->
+<insert id="addAccStatusChangeInfos" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		INSERT /*+ append */ INTO T_AC_ACCOUNT_STATUS_CHANGE(
+            ACC_STATUS_CHANGE_ID, 
+            CUST_ID, 
+            ACC_TYPE,
+            HS_RES_NO, 
+            ACC_STATUS_OLD, 
+            ACC_STATUS_NEW,
+            REMARKS,
+            UPDATEDBY,
+            UPDATED_DATE)
+        VALUES(   
+            SEQ_AC_STATUS_CHANGE_ID.Nextval,
+            #{item.custID,jdbcType=VARCHAR},
+            #{item.accType,jdbcType=VARCHAR},
+            #{item.hsResNo,jdbcType=VARCHAR},
+            #{item.accStatusOld,jdbcType=NUMERIC},
+            #{item.accStatusNew,jdbcType=NUMERIC},
+            #{item.remarks,jdbcType=VARCHAR},
+            #{item.updatedby,jdbcType=VARCHAR},
+            systimestamp);
+    </foreach>
+		
+</insert>
+
+<!-- 新增单个余额快照信息 -->
+<insert id="addAccountBalanceSnap" parameterType="AccountBalanceSnap">
+		INSERT /*+ append */ INTO T_AC_ACCOUNT_BALANCE_SNAP( 
+				ACC_SNAP_ID, 
+				CUST_ID, 
+				HS_RES_NO, 
+				CUST_TYPE,
+				ACC_TYPE,
+				ACC_BALANCE_OLD, 
+				ACC_BALANCE_NEW,
+				SNAP_DATE,
+				CHANGE_TYPE,
+				CHANGE_RECORD_ID,
+				CREATED_DATE, 
+				UPDATED_DATE) 
+		VALUES (
+			 	SEQ_AC_SNAP_ID.NEXTVAL,
+				#{custID,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{custType,jdbcType=INTEGER}, 
+				#{accType,jdbcType=VARCHAR},
+				#{accBalanceOld,jdbcType=NUMERIC},
+				#{accBalanceNew,jdbcType=NUMERIC},
+				systimestamp,
+				#{changeType,jdbcType=INTEGER},
+				#{changeRecordID,jdbcType=VARCHAR},
+		  		#{createdDateTim,jdbcType=TIMESTAMP},
+		  		systimestamp)
+</insert>
+
+<!-- 批量新增余额快照信息 -->
+<insert id="addAccountBalanceSnaps" parameterType="list">
+		INSERT /*+ APPEND */ INTO T_AC_ACCOUNT_BALANCE_SNAP(
+				ACC_SNAP_ID, 
+				CUST_ID, 
+				HS_RES_NO, 
+				CUST_TYPE,
+				ACC_TYPE,
+				ACC_BALANCE_OLD, 
+				ACC_BALANCE_NEW,
+				SNAP_DATE,
+				CHANGE_TYPE,
+				CHANGE_RECORD_ID,
+				CREATED_DATE,
+				UPDATED_DATE)
+			SELECT
+				SEQ_AC_SNAP_ID.NEXTVAL,
+				CUST_ID, 
+				HS_RES_NO, 
+				CUST_TYPE,
+				ACC_TYPE,
+				ACC_BALANCE_OLD, 
+				ACC_BALANCE_NEW,
+				SNAP_DATE,
+				CHANGE_TYPE,
+				CHANGE_RECORD_ID,
+				CREATED_DATE,
+				UPDATED_DATE
+			FROM(
+			<foreach collection="list" item="item" index="index" separator="union all" >
+			( SELECT
+				#{item.custID,jdbcType=VARCHAR} as CUST_ID,
+				#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+				#{item.custType,jdbcType=INTEGER} as CUST_TYPE, 
+				#{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+				NVL((SELECT ACC_BALANCE FROM
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				),0)as ACC_BALANCE_OLD,
+				NVL((SELECT ACC_BALANCE FROM 
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				),0) + #{item.amount,jdbcType=INTEGER} as ACC_BALANCE_NEW,
+				systimestamp as SNAP_DATE,
+				#{item.changeType,jdbcType=INTEGER} as CHANGE_TYPE,
+				#{item.changeRecordID,jdbcType=VARCHAR} as CHANGE_RECORD_ID,
+				(SELECT CREATED_DATE FROM 
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				) as CREATED_DATE,
+				systimestamp as UPDATED_DATE
+				 FROM DUAL)
+			</foreach>
+			)
+</insert>
+
+<!-- 批处理批量新增余额快照信息 -->
+<insert id="addBatchAccountBalanceSnaps" parameterType="list">
+		INSERT /*+ APPEND */ INTO T_AC_ACCOUNT_BALANCE_SNAP(
+				ACC_SNAP_ID, 
+				CUST_ID, 
+				HS_RES_NO, 
+				CUST_TYPE,
+				ACC_TYPE,
+				ACC_BALANCE_OLD, 
+				ACC_BALANCE_NEW,
+				SNAP_DATE,
+				CHANGE_TYPE,
+				CHANGE_RECORD_ID,
+				CREATED_DATE,
+				UPDATED_DATE)
+			SELECT
+				SEQ_AC_SNAP_ID.NEXTVAL,
+				CUST_ID, 
+				HS_RES_NO, 
+				CUST_TYPE,
+				ACC_TYPE,
+				ACC_BALANCE_OLD, 
+				ACC_BALANCE_NEW,
+				SNAP_DATE,
+				CHANGE_TYPE,
+				CHANGE_RECORD_ID,
+				CREATED_DATE,
+				UPDATED_DATE
+			FROM(
+			<foreach collection="list" item="item" index="index" separator="union all" >
+			( SELECT
+				#{item.custID,jdbcType=VARCHAR} as CUST_ID,
+				#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+				#{item.custType,jdbcType=INTEGER} as CUST_TYPE, 
+				#{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+				NVL((SELECT ACC_BALANCE FROM
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				),0) - #{item.amount,jdbcType=INTEGER} as ACC_BALANCE_OLD,
+				NVL((SELECT ACC_BALANCE FROM 
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				),0) as ACC_BALANCE_NEW,
+				systimestamp as SNAP_DATE,
+				#{item.changeType,jdbcType=INTEGER} as CHANGE_TYPE,
+				#{item.changeRecordID,jdbcType=VARCHAR} as CHANGE_RECORD_ID,
+				(SELECT CREATED_DATE FROM 
+				<if test="item.custTypeCategory == 0 ">
+		            T_AC_PER_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 1 ">
+		            T_AC_ENT_ACCOUNT_BALANCE
+		        </if>
+		        <if test="item.custTypeCategory == 2 ">
+		            T_AC_PF_ACCOUNT_BALANCE
+		        </if>
+				WHERE CUST_ID = #{item.custID,jdbcType=VARCHAR}
+				  AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR}
+				) as CREATED_DATE,
+				systimestamp as UPDATED_DATE
+				 FROM DUAL)
+			</foreach>
+			)
+</insert>
+<!-- 单个账户类型查询 -->
+<select id="searchAccountBalanceInfo" resultMap="accountBalance" parameterType="map">
+		SELECT PER.CUST_ID, 
+		       PER.ACC_TYPE, 
+		       PER.HS_RES_NO,
+		       PER.CUST_TYPE, 
+		       nvl(PER.ACC_BALANCE,0) ACC_BALANCE,
+		       PER.ACC_STATUS,
+		       PER.CREATED_DATE, 
+		       PER.UPDATED_DATE  
+		  FROM T_AC_PER_ACCOUNT_BALANCE PER 
+		 WHERE PER.CUST_ID = #{custID} AND PER.ACC_TYPE = #{accType}
+		       UNION ALL
+		SELECT PF.CUST_ID, 
+		       PF.ACC_TYPE, 
+		       PF.HS_RES_NO,
+		       PF.CUST_TYPE, 
+		       nvl(PF.ACC_BALANCE,0) ACC_BALANCE,
+		       PF.ACC_STATUS,
+		       PF.CREATED_DATE, 
+		       PF.UPDATED_DATE  
+		  FROM T_AC_PF_ACCOUNT_BALANCE PF 
+		 WHERE PF.CUST_ID = #{custID} AND PF.ACC_TYPE = #{accType}
+		       UNION ALL
+		SELECT ENT.CUST_ID, 
+		       ENT.ACC_TYPE, 
+		       ENT.HS_RES_NO,
+		       ENT.CUST_TYPE, 
+		       nvl(ENT.ACC_BALANCE,0) ACC_BALANCE,
+		       ENT.ACC_STATUS,
+		       ENT.CREATED_DATE, 
+		       ENT.UPDATED_DATE  
+		  FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+		 WHERE ENT.CUST_ID = #{custID} AND ENT.ACC_TYPE = #{accType}
+</select>
+
+<!-- 单个账户类型查询 -->
+<select id="searchAccountBalance" resultMap="accountBalance" parameterType="map">
+		SELECT PER.CUST_ID, 
+		       PER.ACC_TYPE, 
+		       PER.HS_RES_NO,
+		       PER.CUST_TYPE, 
+		       nvl(PER.ACC_BALANCE,0) ACC_BALANCE,
+		       PER.ACC_STATUS,
+		       PER.CREATED_DATE, 
+		       PER.UPDATED_DATE  
+		  FROM T_AC_PER_ACCOUNT_BALANCE PER 
+		 WHERE PER.CUST_ID = #{custID,jdbcType=VARCHAR} 
+		   AND PER.ACC_TYPE = #{accType,jdbcType=VARCHAR}
+		   AND PER.CUST_TYPE = #{custType,jdbcType=INTEGER}
+		       UNION ALL
+		SELECT PF.CUST_ID, 
+		       PF.ACC_TYPE, 
+		       PF.HS_RES_NO,
+		       PF.CUST_TYPE, 
+		       nvl(PF.ACC_BALANCE,0) ACC_BALANCE,
+		       PF.ACC_STATUS,
+		       PF.CREATED_DATE, 
+		       PF.UPDATED_DATE  
+		  FROM T_AC_PF_ACCOUNT_BALANCE PF 
+		 WHERE PF.CUST_ID = #{custID,jdbcType=VARCHAR} 
+		   AND PF.ACC_TYPE = #{accType,jdbcType=VARCHAR}
+		   AND PF.CUST_TYPE = #{custType,jdbcType=INTEGER}
+		       UNION ALL
+		SELECT ENT.CUST_ID, 
+		       ENT.ACC_TYPE, 
+		       ENT.HS_RES_NO,
+		       ENT.CUST_TYPE, 
+		       nvl(ENT.ACC_BALANCE,0) ACC_BALANCE,
+		       ENT.ACC_STATUS,
+		       ENT.CREATED_DATE, 
+		       ENT.UPDATED_DATE  
+		  FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+		 WHERE ENT.CUST_ID = #{custID,jdbcType=VARCHAR} 
+		   AND ENT.ACC_TYPE = #{accType,jdbcType=VARCHAR}
+		   AND ENT.CUST_TYPE = #{custType,jdbcType=INTEGER}
+</select>
+
+<!-- 多个账户余额的汇总额查询 -->
+<select id="searchAccountBalanceSumAmount" resultType="String" parameterType="map">
+        SELECT sum(ACC_BALANCE) FROM 
+        <if test="custTypeCategory == 0 ">
+            T_AC_PER_ACCOUNT_BALANCE 
+        </if>
+        <if test="custTypeCategory == 1 ">
+            T_AC_ENT_ACCOUNT_BALANCE 
+        </if>
+        <if test="custTypeCategory == 2 ">
+            T_AC_PF_ACCOUNT_BALANCE 
+        </if>
+            WHERE ACC_TYPE in (${accType})
+</select>
+
+<!-- 集合正常账户类型查询 -->
+<select id="seachAccNormalListPage" resultMap="accountBalance" parameterType="AccountBalance">
+		SELECT PER.CUST_ID, 
+		       PER.ACC_TYPE, 
+		       PER.HS_RES_NO,
+		       PER.CUST_TYPE, 
+		       PER.ACC_BALANCE,
+		       PER.ACC_STATUS,
+		       PER.CREATED_DATE, 
+		       PER.UPDATED_DATE 
+		  FROM T_AC_PER_ACCOUNT_BALANCE PER
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND PER.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType != null and accType != ''">
+		       	  AND PER.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(PER.ACC_TYPE, 5) = '0'
+		       </if>
+		        <if test="hsResNo != null and hsResNo != ''">
+		       	  AND PER.HS_RES_NO = #{hsResNo}
+		       </if>
+		        <if test="custType != null and custType != ''">
+		       	  AND PER.CUST_TYPE = #{custType}
+		       </if>
+		        <if test="accStatus != null and accStatus != ''">
+		       	  AND PER.ACC_STATUS = #{accStatus}
+		       </if>
+		       UNION ALL
+		SELECT PF.CUST_ID, 
+		       PF.ACC_TYPE, 
+		       PF.HS_RES_NO,
+		       PF.CUST_TYPE, 
+		       PF.ACC_BALANCE,
+		       PF.ACC_STATUS,
+		       PF.CREATED_DATE, 
+		       PF.UPDATED_DATE 
+		  FROM T_AC_PF_ACCOUNT_BALANCE PF 
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND PF.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType != null and accType != ''">
+		       	  AND PF.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(PF.ACC_TYPE, 5) = '0'
+		       </if>
+		       <if test="hsResNo != null and hsResNo != ''">
+		       	  AND PF.HS_RES_NO = #{hsResNo}
+		       </if>
+		       <if test="custType != null and custType != ''">
+		       	  AND PF.CUST_TYPE = #{custType}
+		       </if>
+		       <if test="accStatus != null and accStatus != ''">
+		       	  AND PF.ACC_STATUS = #{accStatus}
+		       </if>
+		       UNION ALL
+		SELECT ENT.CUST_ID, 
+		       ENT.ACC_TYPE, 
+		       ENT.HS_RES_NO,
+		       ENT.CUST_TYPE, 
+		       ENT.ACC_BALANCE,
+		       ENT.ACC_STATUS,
+		       ENT.CREATED_DATE, 
+		       ENT.UPDATED_DATE 
+		  FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND ENT.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType !=null and accType != ''">
+		       	  AND ENT.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(ENT.ACC_TYPE, 5) = '0'
+		       </if>
+		       <if test="hsResNo != null and hsResNo != ''">
+		       	  AND ENT.HS_RES_NO = #{hsResNo}
+		       </if>
+		        <if test="custType != null and custType != ''">
+		       	  AND ENT.CUST_TYPE = #{custType}
+		       </if>
+		        <if test="accStatus != null and accStatus != ''">
+		       	  AND ENT.ACC_STATUS = #{accStatus}
+		       </if>
+</select>
+
+<!-- 集合特殊账户类型查询 -->
+<select id="seachAccSpecialListPage" resultMap="accountBalance" parameterType="AccountBalance">
+		SELECT PER.CUST_ID, 
+		       PER.ACC_TYPE, 
+		       PER.HS_RES_NO,
+		       PER.CUST_TYPE, 
+		       PER.ACC_BALANCE,
+		       PER.ACC_STATUS,
+		       PER.CREATED_DATE, 
+		       PER.UPDATED_DATE 
+		  FROM T_AC_PER_ACCOUNT_BALANCE PER
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND PER.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType != null and accType != ''">
+		       	  AND PER.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(PER.ACC_TYPE, 5) != '0'
+		       </if>
+		        <if test="hsResNo != null and hsResNo != ''">
+		       	  AND PER.HS_RES_NO = #{hsResNo}
+		       </if>
+		        <if test="custType != null and custType != ''">
+		       	  AND PER.CUST_TYPE = #{custType}
+		       </if>
+		        <if test="accStatus != null and accStatus != ''">
+		       	  AND PER.ACC_STATUS = #{accStatus}
+		       </if>
+		       UNION ALL
+		SELECT PF.CUST_ID, 
+		       PF.ACC_TYPE, 
+		       PF.HS_RES_NO,
+		       PF.CUST_TYPE, 
+		       PF.ACC_BALANCE,
+		       PF.ACC_STATUS,
+		       PF.CREATED_DATE, 
+		       PF.UPDATED_DATE 
+		  FROM T_AC_PF_ACCOUNT_BALANCE PF 
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND PF.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType != null and accType != ''">
+		       	  AND PF.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(PF.ACC_TYPE, 5) != '0'
+		       </if>
+		       <if test="hsResNo != null and hsResNo != ''">
+		       	  AND PF.HS_RES_NO = #{hsResNo}
+		       </if>
+		       <if test="custType != null and custType != ''">
+		       	  AND PF.CUST_TYPE = #{custType}
+		       </if>
+		       <if test="accStatus != null and accStatus != ''">
+		       	  AND PF.ACC_STATUS = #{accStatus}
+		       </if>
+		       UNION ALL
+		SELECT ENT.CUST_ID, 
+		       ENT.ACC_TYPE, 
+		       ENT.HS_RES_NO,
+		       ENT.CUST_TYPE, 
+		       ENT.ACC_BALANCE,
+		       ENT.ACC_STATUS,
+		       ENT.CREATED_DATE, 
+		       ENT.UPDATED_DATE 
+		  FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+		 WHERE 1=1 
+		       <if test="custID != null and custID != ''">
+		       	  AND ENT.CUST_ID = #{custID}
+		       </if> 
+		       <if test="accType != null and accType != ''">
+		       	  AND ENT.ACC_TYPE = #{accType}
+		       </if>
+		       <if test="accType == null or accType == ''">
+		       	  AND SUBSTR(ENT.ACC_TYPE, 5) != '0'
+		       </if>
+		       <if test="hsResNo != null and hsResNo != ''">
+		       	  AND ENT.HS_RES_NO = #{hsResNo}
+		       </if>
+		        <if test="custType != null and custType != ''">
+		       	  AND ENT.CUST_TYPE = #{custType}
+		       </if>
+		        <if test="accStatus != null and accStatus != ''">
+		       	  AND ENT.ACC_STATUS = #{accStatus}
+		       </if>
+</select>
+
+<!-- 客户全局编码和客户类型对应关系下的所有账户余额查询 -->
+<select id="searchAccBalanceByCustId" resultMap="accountBalance" parameterType="String">
+        SELECT PER.CUST_ID, 
+               PER.ACC_TYPE, 
+               PER.HS_RES_NO,
+               PER.CUST_TYPE, 
+               PER.ACC_BALANCE,
+               PER.ACC_STATUS,
+               PER.CREATED_DATE, 
+               PER.UPDATED_DATE  
+          FROM T_AC_PER_ACCOUNT_BALANCE PER 
+         WHERE PER.CUST_ID = #{custID} 
+           <!-- AND PER.ACC_TYPE in (select ACC_TYPE from T_AC_CUST_ACC_TYPE A where A.CUST_TYPE = #{custType}) -->
+               UNION ALL
+        SELECT PF.CUST_ID, 
+               PF.ACC_TYPE, 
+               PF.HS_RES_NO,
+               PF.CUST_TYPE, 
+               PF.ACC_BALANCE,
+               PF.ACC_STATUS,
+               PF.CREATED_DATE, 
+               PF.UPDATED_DATE  
+          FROM T_AC_PF_ACCOUNT_BALANCE PF 
+         WHERE PF.CUST_ID = #{custID} 
+           <!-- AND PF.ACC_TYPE in (select ACC_TYPE from T_AC_CUST_ACC_TYPE B where B.CUST_TYPE = #{custType}) -->
+               UNION ALL
+        SELECT ENT.CUST_ID, 
+               ENT.ACC_TYPE, 
+               ENT.HS_RES_NO,
+               ENT.CUST_TYPE, 
+               ENT.ACC_BALANCE,
+               ENT.ACC_STATUS,
+               ENT.CREATED_DATE, 
+               ENT.UPDATED_DATE  
+          FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+         WHERE ENT.CUST_ID = #{custID} 
+           <!-- AND ENT.ACC_TYPE in (select ACC_TYPE from T_AC_CUST_ACC_TYPE C where C.CUST_TYPE = #{custType}) -->
+</select>
+
+<!-- 客户对应的账户类型分类下的所有该类型账户余额查询-->
+<select id="searchAccBalanceByAccCategory" resultMap="accountBalance" parameterType="map">
+        SELECT PER.CUST_ID, 
+               PER.ACC_TYPE, 
+               PER.HS_RES_NO,
+               PER.CUST_TYPE, 
+               PER.ACC_BALANCE,
+               PER.ACC_STATUS,
+               PER.CREATED_DATE, 
+               PER.UPDATED_DATE  
+          FROM T_AC_PER_ACCOUNT_BALANCE PER 
+         WHERE PER.CUST_ID = #{custID} 
+           AND SUBSTR(PER.ACC_TYPE, 1, 1) = #{accCategory} 
+               UNION ALL
+        SELECT PF.CUST_ID, 
+               PF.ACC_TYPE, 
+               PF.HS_RES_NO,
+               PF.CUST_TYPE, 
+               PF.ACC_BALANCE,
+               PF.ACC_STATUS,
+               PF.CREATED_DATE, 
+               PF.UPDATED_DATE  
+          FROM T_AC_PF_ACCOUNT_BALANCE PF 
+         WHERE PF.CUST_ID = #{custID} 
+           AND SUBSTR(PF.ACC_TYPE, 1, 1) = #{accCategory}
+               UNION ALL
+        SELECT ENT.CUST_ID, 
+               ENT.ACC_TYPE, 
+               ENT.HS_RES_NO,
+               ENT.CUST_TYPE, 
+               ENT.ACC_BALANCE,
+               ENT.ACC_STATUS,
+               ENT.CREATED_DATE, 
+               ENT.UPDATED_DATE  
+          FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+         WHERE ENT.CUST_ID = #{custID} 
+           AND SUBSTR(ENT.ACC_TYPE, 1, 1) = #{accCategory}
+</select>
+
+
+<!-- 客户对应的账户类型分类下的所有该类型账户余额查询-->
+<select id="searchAccBalanceByCustIdAndAccType" resultMap="accountBalance" parameterType="map">
+        SELECT PER.CUST_ID, 
+               PER.ACC_TYPE, 
+               PER.HS_RES_NO,
+               PER.CUST_TYPE, 
+               PER.ACC_BALANCE,
+               PER.ACC_STATUS,
+               PER.CREATED_DATE, 
+               PER.UPDATED_DATE  
+          FROM T_AC_PER_ACCOUNT_BALANCE PER 
+         WHERE PER.CUST_ID = #{custID} 
+           AND PER.ACC_TYPE IN
+               <foreach item="item" index="index" collection="accTypes" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+               UNION ALL
+        SELECT PF.CUST_ID, 
+               PF.ACC_TYPE, 
+               PF.HS_RES_NO,
+               PF.CUST_TYPE, 
+               PF.ACC_BALANCE,
+               PF.ACC_STATUS,
+               PF.CREATED_DATE, 
+               PF.UPDATED_DATE  
+          FROM T_AC_PF_ACCOUNT_BALANCE PF 
+         WHERE PF.CUST_ID = #{custID} 
+           AND PF.ACC_TYPE IN
+               <foreach item="item" index="index" collection="accTypes" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+               UNION ALL
+        SELECT ENT.CUST_ID, 
+               ENT.ACC_TYPE, 
+               ENT.HS_RES_NO,
+               ENT.CUST_TYPE, 
+               ENT.ACC_BALANCE,
+               ENT.ACC_STATUS,
+               ENT.CREATED_DATE, 
+               ENT.UPDATED_DATE  
+          FROM T_AC_ENT_ACCOUNT_BALANCE ENT 
+         WHERE ENT.CUST_ID = #{custID} 
+           AND ENT.ACC_TYPE IN
+               <foreach item="item" index="index" collection="accTypes" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+</select>
+
+
+<!-- 更新单个余额账户 -->
+<update id="updateAccountBalance" parameterType="AccountBalance">
+		UPDATE 
+		<if test="custTypeCategory == 0 ">
+            T_AC_PER_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 1 ">
+            T_AC_ENT_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 2 ">
+            T_AC_PF_ACCOUNT_BALANCE
+        </if>
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="accBalance != null and accBalance != '' ">
+				 ACC_BALANCE = NVL(ACC_BALANCE,0) + #{accBalance,jdbcType=NUMERIC},
+			</if>
+			<if test="accStatus != null and accStatus != '' ">
+				 ACC_STATUS = #{accStatus},
+			</if>
+				 UPDATED_DATE = systimestamp
+		</trim>
+		WHERE CUST_ID = #{custID} AND ACC_TYPE = #{accType}
+		<if test="accBalance != null and accBalance != '' and accBalance &lt; 0  and custTypeCategory != 2 ">
+			<!-- 账户是否可以为负数，标识为2，则不用做以下保底值的限制 -->
+			<if test="accFlag != 2 ">
+				<![CDATA[AND ACC_BALANCE >= (0 - #{accBalance,jdbcType=NUMERIC}) + NVL(#{guaranteeIntegral,jdbcType=NUMERIC},0)]]>
+			</if>
+		</if>
+</update>
+
+<!-- 更新单个余额账户 -->
+<update id="updateAccBalance" parameterType="AccountBalance">
+        UPDATE 
+        <if test="custTypeCategory == 0 ">
+            T_AC_PER_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 1 ">
+            T_AC_ENT_ACCOUNT_BALANCE
+        </if>
+        <if test="custTypeCategory == 2 ">
+            T_AC_PF_ACCOUNT_BALANCE
+        </if>
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accBalance != null and accBalance != '' ">
+                 ACC_BALANCE = #{accBalance,jdbcType=NUMERIC},
+            </if>
+            <if test="accStatus != null and accStatus != '' ">
+                 ACC_STATUS = #{accStatus},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+        WHERE CUST_ID = #{custID} AND ACC_TYPE = #{accType}
+</update>
+
+
+<!-- 更新多个余额账户 -->
+<update id="updateAccountBalances" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE 
+			<if test="item.custTypeCategory == 0 ">
+                T_AC_PER_ACCOUNT_BALANCE
+	        </if>
+	        <if test="item.custTypeCategory == 1 ">
+	            T_AC_ENT_ACCOUNT_BALANCE
+	        </if>
+	        <if test="item.custTypeCategory == 2 ">
+	            T_AC_PF_ACCOUNT_BALANCE
+	        </if>
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="item.accBalance != null and item.accBalance != '' ">
+					 ACC_BALANCE = NVL(ACC_BALANCE,0) + #{item.accBalance,jdbcType=NUMERIC},
+				</if>
+				<if test="item.accStatus != null and item.accStatus != '' ">
+					 ACC_STATUS = #{item.accStatus},
+				</if>
+					 UPDATED_DATE = systimestamp
+			</trim>
+			WHERE CUST_ID = #{item.custID} AND ACC_TYPE = #{item.accType} ;
+	</foreach>
+</update>
+
+<!-- 更新多个余额账户 -->
+<update id="updateAccBalances" parameterType="list">
+    <foreach collection="list" item="item" index="index" open="begin" close="end;">
+            UPDATE 
+           <if test="item.custTypeCategory == 0 ">
+                T_AC_PER_ACCOUNT_BALANCE
+	        </if>
+	        <if test="item.custTypeCategory == 1 ">
+	            T_AC_ENT_ACCOUNT_BALANCE
+	        </if>
+	        <if test="item.custTypeCategory == 2 ">
+	            T_AC_PF_ACCOUNT_BALANCE
+	        </if>
+            <trim prefix="SET" suffixOverrides=",">
+                <if test="item.accBalance != null and item.accBalance != '' ">
+                     ACC_BALANCE = #{item.accBalance,jdbcType=NUMERIC},
+                </if>
+                <if test="item.accStatus != null and item.accStatus != '' ">
+                     ACC_STATUS = #{item.accStatus},
+                </if>
+                     UPDATED_DATE = systimestamp
+            </trim>
+            WHERE CUST_ID = #{item.custID} AND ACC_TYPE = #{item.accType} ;
+    </foreach>
+</update>
+
+<!-- 更新单个企业余额账户 -->
+<update id="updateEntAccountBalance" parameterType="AccountBalance">
+		UPDATE  T_AC_ENT_ACCOUNT_BALANCE
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="hsResNo != null and hsResNo != '' ">
+				 HS_RES_NO = #{hsResNo},
+			</if>
+			<if test="accBalance != null and accBalance != '' ">
+				 ACC_BALANCE = #{accBalance,jdbcType=NUMERIC},
+			</if>
+			<if test="accStatus != null and accStatus != '' ">
+				 ACC_STATUS = #{accStatus},
+			</if>
+			<if test="custType != null and custType != '' ">
+				 CUST_TYPE = #{custType},
+			</if>
+				 UPDATED_DATE = systimestamp
+		</trim>
+		WHERE CUST_ID = #{custID} AND ACC_TYPE = #{accType}
+</update>
+<!-- 更新单个个人余额账户 -->
+<update id="updatePerAccountBalance" parameterType="AccountBalance">
+		UPDATE T_AC_PER_ACCOUNT_BALANCE 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="hsResNo != null and hsResNo != '' ">
+				 HS_RES_NO = #{hsResNo},
+			</if>
+			<if test="accBalance != null and accBalance != '' ">
+				 ACC_BALANCE = #{accBalance,jdbcType=NUMERIC},
+			</if>
+			<if test="accStatus != null and accStatus != '' ">
+				 ACC_STATUS = #{accStatus},
+			</if>
+			<if test="custType != null and custType != '' ">
+				 CUST_TYPE = #{custType},
+			</if>
+				 UPDATED_DATE = systimestamp
+		</trim>
+		WHERE CUST_ID = #{custID} AND ACC_TYPE = #{accType}
+</update>
+<!-- 更新单个平台余额账户 -->
+<update id="updatePfAccountBalance" parameterType="AccountBalance">
+		UPDATE T_AC_PF_ACCOUNT_BALANCE 
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="hsResNo != null and hsResNo != '' ">
+				 HS_RES_NO = #{hsResNo},
+			</if>
+			<if test="accBalance != null and accBalance != '' ">
+				 ACC_BALANCE = #{accBalance,jdbcType=NUMERIC},
+			</if>
+			<if test="accStatus != null and accStatus != '' ">
+				 ACC_STATUS = #{accStatus},
+			</if>
+			<if test="custType != null and custType != '' ">
+				 CUST_TYPE = #{custType},
+			</if>
+				 UPDATED_DATE = systimestamp
+		</trim>
+		WHERE CUST_ID = #{custID} AND ACC_TYPE = #{accType}
+</update>
+</mapper>

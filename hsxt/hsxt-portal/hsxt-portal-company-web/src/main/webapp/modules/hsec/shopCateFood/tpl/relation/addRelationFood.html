@@ -1,0 +1,47 @@
+<!-- 新增关联餐饮商品 -->
+<%
+var param = obj.data.result;
+var https = obj.data.httpUrl;
+var picname = "";
+%>
+
+<% try { if(param != null && param.length > 0){ $.each(param,function(key,value){ %>            
+   <h1 class="mt10"><label><input type="checkbox" class="mr5 allgetchk" /><%=value.itemCustomCategoryName%>（<%=value.itemNum%>）</label></h1>
+   <div class="clearfix">
+   <ul class="floatlist clearfix pt20list">
+   <%$.each(value.itemInfoFoodList,function(k,v){
+	if(v.pics != null && v.pics != ""){
+		var picObj = eval(v.pics);//转换对象
+		try{
+		$.each(picObj[0].web,function(y,o){
+			if(o.size=="400*400"){
+				picname = o.name;
+			}
+		});
+		}catch(e){}
+	}
+	%>
+<li class="w20p">
+ 		<div class="pr addcp bc w120">
+          <i class="cp_get none" title="添加菜品" itemId="<%=v.id%>"></i> 
+          		<%if(v.ishaspv == 1){%>
+				<div class="fiximg">
+					<img width="120" height="120" src="resources/img/item_df.png">
+				</div>
+				<%}else {%>
+				<div class="fiximg">
+					<img width="120" height="120" src="<%=https+picname%>">
+				</div>
+				<% }%>  
+          <h2 class="mt5 f12"><%=v.name%></h2>
+          <div class="mt5">
+          	<span class="f12 mr5 lh12 red"><img src="resources/img/price.png" width="16" style="vertical-align:middle;"><%=comm.formatMoneyNumber(v.price)%></span>
+        	<span class="f12 lh12 blue"><img src="resources/img/pv.png" width="22" style="vertical-align:middle;"><%=comm.formatMoneyNumber(v.pv)%></span>
+     </div>
+    </div>
+</li>
+    <%})%>
+</ul>
+</div>
+<%}) } else {} }catch(e){}%>   	
+      

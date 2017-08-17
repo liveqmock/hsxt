@@ -1,0 +1,81 @@
+<div id="lzcx_ck1Tpl" class="table_info">
+	
+	<div class="mt10 mb5 fb">收款信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">收款银行名称</td>
+			<td class="view_text" width="30%"><%=obj.bankBranchName%></td>
+			<td class="view_item" width="20%">收款账户名称</td>
+			<td class="view_text" width="30%"><%=obj.receiveAccountName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">收款账号</td>
+			<td class="view_text"><%=obj.receiveAccountNo%></td>
+			<td class="view_item">收款时间</td>
+			<td class="view_text"><%=obj.accountReceiveTime%></td>
+		</tr>
+	</table>
+	<div class="fb mb5 mt10">付款信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">付款时间</td>
+			<td class="view_text" width="30%"><%=obj.payTime%></td>
+			<td class="view_item" width="20%">付款企业名称</td>
+			<td class="view_text" width="30%"><%=obj.payEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款银行名称</td>
+			<td class="view_text"><%=obj.payBankName%></td>
+			<td class="view_item">付款银行账号</td>
+			<td class="view_text"><%=obj.payBankNo%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款金额</td>
+			<td class="view_text"><%=comm.formatMoneyNumber(obj.payAmount)%></td>
+			<td class="view_item">拟用企业互生号</td>
+			<td class="view_text"><%=obj.useEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款方式</td>
+			<td class="view_text"><%=obj.payType%></td>
+			<td class="view_item">付款用途</td>
+			<td class="view_text"><%=obj.payUseString%></td>
+		</tr>
+		<tr>
+			<td class="view_item" height="60">备注</td>
+			<td class="view_text"><%=obj.description%></td>
+			<td class="view_item">附件信息</td>
+			<td colspan="3" class="view_text pt5 pb5">
+			<a><img id="img" src="resources/img/noImg.gif" width="81" height="52"  title="点击查看图片" /></a>
+			</td>
+			</tr>
+	</table>
+	<% if(obj.debitStatus=='4') {%>
+	<div id="lzlrsp_div">
+		<div class="fb mb5 mt10">临账录入审批</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">审批结果</td>
+				<td class="view_text" width="30%"><span id="lr_spjg_txt">审批驳回</span></td>
+				<td class="view_item" width="20%">审批操作员</td>
+				<td class="view_text" width="30%"><span id="lr_spczy_txt"><%=obj.auditCustName%></span></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批时间</td>
+				<td class="view_text"><span id="lr_spsj_txt"><%=obj.auditTime%></span></td>
+				<td class="view_item"></td>
+				<td class="view_text"></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批意见</td>
+				<td class="view_text" colspan="3"><span id="lr_spyj_txt"><%=obj.auditRecord%></span></td>
+			</tr>
+		</table>
+	</div>
+	<% } %>
+	<div class="mt10" align="center">
+		<a class="btn_bg submit" id="ck1_back">返&#12288;回</a>
+	</div>
+</div>
+
+<div id="dialogBox" class="none"></div>

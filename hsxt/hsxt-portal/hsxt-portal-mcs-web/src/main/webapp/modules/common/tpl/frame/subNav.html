@@ -1,0 +1,9 @@
+	 <% var param =obj;%>
+	 <% var reserveInfo = comm.getCookie('reserveInfo');%>
+	 <% var custName = comm.getCookie("custName");%>
+	 <%$.each(param,function(key,el){%>
+	 	<%if(reserveInfo == '' && el.permUrl == "safeSetSrc/xgylxx/tab") return true;%>
+	 	<%if(reserveInfo != '' && el.permUrl == "safeSetSrc/szylxx/tab") return true;%>
+		<%if(custName != '0000' && el.permUrl == "safeSetSrc/szmbwt/tab") return true;%>
+	    <li class="clearfix"><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+	  <%})%>

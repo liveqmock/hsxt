@@ -1,0 +1,47 @@
+﻿<div class="h ovh clearfix">
+     <div class="search-toolbar">
+      <form id="spfl_form" name="spfl_form">
+        <ul class="cssform clearfix">
+          <li class="clearfix">
+            <label class="fl h30_middle">商品编号：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入商品编号"/>
+          </li>
+          <li class="clearfix">
+            <label class="fl h30_middle">商品名称：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入商品名称"/>
+          </li>
+          <li class="clearfix">
+            <label class="h30_middle fl">商品类目：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入商品类目"/>
+          </li>
+          <li>
+            <div class="cont-int">
+              <button id="glsp_btn_cx" class="btn-search" type="button">查询</button>
+            </div>
+          </li>
+          <li class="fr">
+            <div class="cont-int">
+              <button id="glsp_btn_jlgl" class="btn-search" type="button">建立关联</button><button id="glsp_btn_qx" class="btn-search ml10" type="button">取消</button>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="search-cont">
+    <div class="scrlh h400 pr" id="glsp_table_div">
+      <table id="glsp_table">
+          <thead>
+            <tr>
+              <th w_check="true" width="30"></th>
+              <th w_render="renderImg" w_align="left">商品名称</th>
+              <th w_index="pp" w_align="left">品牌</th>
+              <th w_index="jg" w_align="left"><img src="resources/img/price.png" width="20" height="20" style="vertical-align:middle;"><span class="ml5">价格</span></th>
+              <th w_index="jf" w_align="left"><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"><span class="ml5">积分</span></th>
+              <th w_index="sjsj" w_align="left">上架时间</th>
+              <th w_index="zt" w_align="left"><div class="ineblk ml5 infobox2 pr pr1"><input type="text" id="glsp_zt" readonly="readonly" optionValue=""/></div></th>
+            </tr>
+          </thead>
+      </table>
+    </div>
+    </div>
+</div>

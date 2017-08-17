@@ -1,0 +1,22 @@
+<br><br>
+
+<div>
+		<div ><%=obj.title %></div>
+		<br>
+		<table id="testTable" border="1" cellpadding="10" cellspacing="10" style="padding: 10px; border-spacing: 10px;">
+				<tr>
+					<td><%=obj.xm%></td>
+					<td><%=obj.xb%></td>
+					<td><%=obj.km%></td>
+					<td><%=obj.fs%></td>
+				</tr>
+				<% $.each( obj.data ,function(key ,tdObj ) { %>			
+				<tr>
+					<td><%=tdObj.xm %></td>
+					<td><%=tdObj.xb %></td>
+					<td><%=tdObj.km %></td>
+					<td><%=tdObj.fs %></td>
+				</tr>
+				<% }) %>				
+		</table>
+</div>

@@ -1,0 +1,71 @@
+<div class="bc info_800">
+	<form id="filing_form" name="filing_form">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">企业名称</label>
+					<input type="text" id="entCustName" name="entCustName" value="<%=obj.entCustName%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业名称" maxlength="64" />
+					<div class="required-left330">*</div>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">企业地址</label>
+					<input type="text" id="entAddress" name="entAddress" value="<%=obj.entAddress%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业地址" />
+					<div class="required-left330">*</div>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">企业法人代表</label>
+					<input type="text" id="legalName" name="legalName" value="<%=obj.legalName%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业法人代表姓名" />
+					<div class="required-left330">*</div>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人姓名</label>
+					<input type="text" id="linkman" name="linkman" value="<%=obj.linkman%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人姓名" />
+					<div class="required-left330">*</div>
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">所在地区</label>
+					<div class="two_column_select fl">
+						<input id="provinceNo" name="provinceNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+					</div>
+					<div class="two_column_select fr">
+						<input id="cityNo" name="cityNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+					</div>
+					<div class="required-left330">*</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">营业执照注册号</label>
+					<input type="text" id="licenseNo" name="licenseNo" value="<%=obj.licenseNo%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入营业执照号" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">企业类型</label>
+					<input type="text" id="entType" name="entType" value="<%=obj.entType%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业类型" />
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人手机</label>
+					<input type="text" id="phone" name="phone" value="<%=obj.phone%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人手机" />
+					<div class="required-left330">*</div>
+				</li>
+			</ul>
+		</div>
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">经营范围</label>
+				<textarea id="dealArea" name="dealArea" class="fl ml5 h50 w660 rsn pt5 pb5 isChange" placeholder="输入经营范围，最长不超过1000个字"><%=obj.dealArea%></textarea>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">报备说明</label>
+				<textarea id="reqReason" name="reqReason" class="fl ml5 h50 w660 rsn pt5 pb5 isChange" placeholder="输入报备说明，最长不超过300个字"><%=obj.reqReason%></textarea>
+			</li>
+		</ul>
+		<div class="w200 bc clearfix mt20">
+			<a class="btn_bg submit fl" id="qybb_bc">保&#12288;存</a>
+			<a class="btn_bg submit fr" id="cancel_btn">取&#12288;消</a>
+		</div>
+	</form>
+</div>
+
+<div id="qyjbxx_dialog" class="none" title="企业基本信息修改确认">
+	<p class="autowidth"></p>
+</div>

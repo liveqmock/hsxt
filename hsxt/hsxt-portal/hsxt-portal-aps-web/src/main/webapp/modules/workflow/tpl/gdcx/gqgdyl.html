@@ -1,0 +1,50 @@
+<div id="gqgdylTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li class="clearfix">
+					<label class="fl h30_middle">快捷日期：</label>
+					<input id="quickDate" readonly="readonly" placeholder="选择快捷日期" optionvalue=""/>
+				</li>
+				<li>
+					<label>时间范围：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">业务类型：</label>
+					<input id="service_type" readonly="readonly" placeholder="选择业务类型" optionvalue=""/>
+				</li>
+				<li>
+					<label>互生号：</label>
+					<input type="text" name="txtQueryResNo" id="txtQueryResNo" placeholder="输入互生号" class="h28_middle input-txt w115" maxlength="11" />
+				</li>
+				<li>
+					<button id="gqgdqry_btn" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_check="true" width="3%;"></th>
+		<th w_index="taskId" w_align="left" w_tip=true>工单号</th>
+		<th w_index="exeCustName" w_align="left" w_tip=true>经办人</th>
+		<th w_index="bizTypeName" w_align="left" w_tip=true>业务类型</th>
+		<th w_render="operate" w_align="left" w_tip=true>互生号</th>
+		<th w_render="operate" w_align="left" w_tip=true>名称</th>
+		<th w_index="createdDate" w_align="left" w_tip=true>发起时间</th>
+		<th w_index="assignedTime" w_align="left" w_tip=true>派单时间</th>
+		<th w_index="hangUpTime" w_align="left" w_tip=true>挂起时间</th>
+		<th w_index="remark" w_align="left" w_tip=true>挂起原因</th>
+		<th w_render="operate" w_index="assignHis" w_align="left">转派历史</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+	<div class="mt20" align="center"><a class="btn_bg submit" id="plzrdb_btn">批量转入待办</a></div>
+</div>
+<!-- <div id="zrdb_dialog" class="none"></div>
+<div id="zzgd_dialog" class="none"></div> -->
+
+<div id="gd_dialog" class="none"></div>

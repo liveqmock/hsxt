@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.FilingMapper">
+	
+	<!-- 创建企业报备申请 -->
+	<insert id="createFilingApp" parameterType="com.gy.hsxt.bs.bean.apply.FilingApp" >
+		INSERT INTO T_BS_FILING
+		      (APPLY_ID,
+		       OP_RES_NO,
+		       ENT_CUST_NAME,
+		       ENT_TYPE,
+		       ENT_ADDR,
+		       LEGAL_NAME,
+		       LINKMAN,
+		       PHONE,
+		       DEAL_AREA,
+		       COUNTRY_NO,
+		       PROVINCE_NO,
+		       CITY_NO,
+		       LICENSE_NO,
+		       STATUS,
+		       REQ_REASON,
+		       CREATED_DATE,
+		       CREATEDBY) 
+		 VALUES 
+		      (#{applyId},
+		       #{opResNo},
+		       #{entCustName},
+		       #{entType},
+		       #{entAddress},
+		       #{legalName},
+		 	   #{linkman},
+		 	   #{phone},
+		 	   #{dealArea},
+		 	   #{countryNo},
+		 	   #{provinceNo},
+		 	   #{cityNo},
+		 	   #{licenseNo},
+		 	   #{status},
+		 	   #{reqReason},
+		 	   SYSDATE,
+		 	   #{createdBy})
+	</insert>
+	
+	<!-- 更新企业报备申请 -->
+	<update id="updateFilingApp" parameterType="com.gy.hsxt.bs.bean.apply.FilingApp">
+		UPDATE T_BS_FILING SET
+		   ENT_CUST_NAME = #{entCustName},
+	       ENT_TYPE     = #{entType},
+	       ENT_ADDR     = #{entAddress},
+	       LEGAL_NAME   = #{legalName},
+	       LINKMAN      = #{linkman},
+	       PHONE        = #{phone},
+	       DEAL_AREA    = #{dealArea},
+	       COUNTRY_NO   = #{countryNo},
+	       PROVINCE_NO  = #{provinceNo},
+	       CITY_NO      = #{cityNo},
+	       LICENSE_NO   = #{licenseNo},
+	       REQ_REASON   = #{reqReason},
+	       UPDATED_DATE = SYSDATE,
+	       UPDATEDBY    = #{updatedBy}
+		WHERE
+			APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 创建报备企业股东信息 -->
+	<insert id="createShareHolder"  parameterType="com.gy.hsxt.bs.bean.apply.FilingShareHolder">
+		INSERT INTO T_BS_FILING_SHAREHOLDER
+		     (FILING_SH_ID,
+		      APPLY_ID,
+		      SH_NAME,
+		      SH_TYPE,
+		      ID_TYPE,
+		      ID_NO,
+		      PHONE,
+		      CREATED_DATE,
+		      CREATEDBY) 
+		VALUES 
+			 (#{filingShId},
+			  #{applyId},
+			  #{shName},
+			  #{shType},
+			  #{idType},
+			  #{idNo},
+			  #{phone},
+			  SYSDATE,
+			  #{optCustId})		
+	</insert>
+	
+	<!-- 更新报备企业股东信息 -->
+	<update id="updateShareHolder" parameterType="com.gy.hsxt.bs.bean.apply.FilingShareHolder">
+		UPDATE T_BS_FILING_SHAREHOLDER 
+		<set>
+		   SH_NAME      = #{shName},
+	       SH_TYPE      = #{shType},
+	       ID_TYPE      = #{idType},
+	       ID_NO        = #{idNo},
+	       PHONE        = #{phone},
+	       UPDATED_DATE = SYSDATE,
+	       UPDATEDBY    = #{optCustId} 
+		</set>
+		<where>
+			FILING_SH_ID = #{filingShId}
+		</where>
+	</update> 
+	
+	<!-- 删除股东 -->
+	<delete id="deleteShareHolder">
+		DELETE FROM T_BS_FILING_SHAREHOLDER
+		<where>
+			FILING_SH_ID = #{id}
+		</where>
+	</delete>
+	
+	<!-- 通过ID查询股东 -->
+	<select id="queryShById" resultType="com.gy.hsxt.bs.bean.apply.FilingShareHolder">
+		SELECT FILING_SH_ID AS filingShId,
+		       APPLY_ID     AS applyId,
+		       SH_NAME      AS shName,
+		       SH_TYPE      AS shType,
+		       ID_TYPE      AS idType,
+		       ID_NO        AS idNo,
+		       PHONE        AS phone
+		FROM T_BS_FILING_SHAREHOLDER
+		<where>
+			FILING_SH_ID = #{id}
+		</where>
+	</select>
+	
+	
+	<!-- 根据报备申请编号+股东证件类型+股东证件查询股东编号 -->
+	<select id="findShareHolder" resultType="string">
+		SELECT FILING_SH_ID FROM T_BS_FILING_SHAREHOLDER
+		<where>
+			APPLY_ID = #{applyId} 
+			AND ID_TYPE = #{idType} 
+			AND ID_NO = #{idNo} 
+		</where>
+	</select>
+	
+	<!-- 创建报备企业资质 -->
+	<insert id="createAptitude"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		INSERT INTO T_BS_FILING_APTITUDE
+			  (FILING_APT_ID,
+			   APPLY_ID,
+			   APT_TYPE,
+			   FILE_ID,
+			   APT_NAME,
+			   CREATED_DATE,
+			   CREATEDBY)
+		VALUES 
+		      (#{item.filingAptId},
+		       #{item.applyId},
+		       #{item.aptType},
+		       #{item.fileId},
+		       #{item.aptName},
+		       SYSDATE,
+		       #{item.createdBy});		
+		</foreach>
+	</insert>
+	
+	<!-- 更新报备企业资质 -->
+	<update id="updateAptitude" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE T_BS_FILING_APTITUDE 
+			<trim prefix="SET" suffixOverrides=",">
+			    APT_TYPE     = #{item.aptType},
+			    FILE_ID      = #{item.fileId},
+			    APT_NAME     = #{item.aptName},
+			    UPDATED_DATE = SYSDATE,
+			    UPDATEDBY    = #{item.updatedBy}
+			</trim>
+			WHERE FILING_APT_ID = #{item.filingAptId};
+		</foreach>
+	</update>
+	
+	<!-- 查询企业报备 -->
+	<select id="queryFilingAppById" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.FilingApp">
+		SELECT APPLY_ID        AS applyId,
+		       OP_RES_NO       AS opResNo,
+		       ENT_CUST_NAME   AS entCustName,
+		       ENT_TYPE        AS entType,
+		       ENT_ADDR        AS entAddress,
+		       LEGAL_NAME      AS legalName,
+		       LEGAL_TYPE      AS legalType,
+		       LEGAL_NO        AS legalNo,
+		       LINKMAN         AS linkman,
+		       PHONE           AS phone,
+		       DEAL_AREA       AS dealArea,
+		       COUNTRY_NO      AS countryNo,
+		       PROVINCE_NO     AS provinceNo,
+		       CITY_NO         AS cityNo,
+		       LICENSE_NO      AS licenseNo,
+		       STATUS          AS status,
+		       REQ_REASON      AS reqReason,
+		       APPR_REMARK     AS apprRemark,
+		       DISAGREEING     AS disagreeing,
+		       EXIST_SAME_ITEM AS existSameItem,
+		       CREATED_DATE    AS createdDate,
+		       CREATEDBY       AS createdBy,
+		       UPDATED_DATE    AS updatedDate,
+		       UPDATEDBY       AS updatedBy
+		FROM T_BS_FILING
+	   <where>
+	   		APPLY_ID = #{applyId}
+	   </where>
+	</select>
+	
+	<!-- 是否存在完全相同企业名 -->
+	<select id="existSameEntName" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1)
+		FROM T_BS_FILING
+		WHERE
+		STATUS not in ( 0,6,7)
+		AND ENT_CUST_NAME = #{entCustName}
+	<if test="applyId != null and applyId != ''">
+		AND APPLY_ID &lt;&gt; #{applyId}
+	</if>
+
+	</select>
+	
+	<!-- 审批报备 -->
+	<update id="apprFiling">
+		UPDATE T_BS_FILING
+		<set>
+		    STATUS = #{status},
+		    UPDATEDBY = #{apprOperator},
+		    UPDATED_DATE = sysdate,
+		    APPR_REMARK = #{apprRemark}
+		</set>
+		    WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 查询企业报备 -->
+	<select id="queryFilingListPage" parameterType="com.gy.hsxt.bs.apply.bean.FilingParam" 
+			resultType="com.gy.hsxt.bs.bean.apply.FilingAppInfo">
+			SELECT DISTINCT t1.APPLY_ID    AS applyId,
+		                t1.ENT_CUST_NAME   AS entCustName,
+		                t1.LINKMAN         AS linkman,
+		                t1.PHONE           AS phone,
+		                t1.COUNTRY_NO      AS countryNo,
+		                t1.PROVINCE_NO     AS provinceNo,
+		                t1.CITY_NO         AS cityNo,
+		                t1.ENT_ADDR        AS entAddress,
+		                t1.STATUS          AS status,
+		                t1.EXIST_SAME_ITEM AS existSameItem,
+		                TO_CHAR(t1.CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS filingDate,
+		                TO_CHAR(t1.UPDATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS statusDate
+		  FROM T_BS_FILING t1
+		<if test="shareHolder != null and shareHolder != '' "> 
+			,T_BS_FILING_SHAREHOLDER t2
+		</if>
+		WHERE 
+		     1=1
+			  <if test="shareHolder != null and shareHolder != '' "> 
+				AND t1.APPLY_ID = t2.APPLY_ID 
+				AND UPPER(t2.SH_NAME) like UPPER('%'||#{shareHolder}||'%') 
+			  </if>
+		      <if test="serResNo != null and serResNo != '' "> 
+		      	AND t1.OP_RES_NO = #{serResNo}
+		      </if>
+		      <if test="isDisagreed != null and isDisagreed == true "> 
+		      	AND t1.DISAGREEING IS NOT NULL
+		      </if>
+		      <if test="isDisagreed != null and isDisagreed == false "> 
+		      	AND t1.DISAGREEING IS NULL
+		      </if>
+		      <if test="startDate != null and startDate != '' "> 
+		      	<![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+		      </if>
+		      <if test="endDate != null and endDate != '' "> 
+		      	<![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>	 
+		      </if>
+		      <if test="entName != null and entName != '' "> 
+		      	AND UPPER(t1.ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+		      </if>
+		      <if test="linkman != null and linkman != '' "> 
+		      	AND UPPER(t1.LINKMAN) like UPPER('%'||#{linkman}||'%')
+		      </if>
+		      <if test="linkmanTel != null and linkmanTel != '' "> 
+		      	AND t1.PHONE = #{linkmanTel}
+		      </if>
+		      <if test="countryNo != null and countryNo != '' "> 
+		      	AND t1.COUNTRY_NO = #{countryNo}
+		      </if>		
+		      <if test="provinceNo != null and provinceNo != '' "> 
+		      	AND t1.PROVINCE_NO = #{provinceNo}
+		      </if>				            
+		      <if test="cityNo != null and cityNo != '' "> 
+		      	AND t1.CITY_NO = #{cityNo}
+		      </if>	
+		      <if test="legalNo != null and legalNo != ''">
+		      	AND UPPER(t1.LEGAL_NO) like UPPER('%'||#{legalNo}||'%')
+		      </if>			      		      
+		      <if test="status != null"> 
+		      	AND t1.STATUS = #{status}
+		      </if>
+		      <if test="notInStatus != null and notInStatus != ''">
+		      	AND t1.STATUS NOT IN ${notInStatus}
+		      </if>
+		  ORDER BY t1.CREATED_DATE DESC
+	</select> 
+	
+	<!-- 关联工单查询企业报备（工单） -->
+	<select id="queryFiling4ApprListPage" parameterType="com.gy.hsxt.bs.apply.bean.FilingParam" 
+			resultType="com.gy.hsxt.bs.bean.apply.FilingAppInfo">
+		SELECT t1.APPLY_ID        AS applyId,
+		       t1.ENT_CUST_NAME   AS entCustName,
+		       t1.LINKMAN         AS linkman,
+		       t1.PHONE           AS phone,
+		       t1.COUNTRY_NO      AS countryNo,
+		       t1.PROVINCE_NO     AS provinceNo,
+		       t1.CITY_NO         AS cityNo,
+		       t1.ENT_ADDR        AS entAddress,
+		       t1.STATUS          AS status,
+		       t1.EXIST_SAME_ITEM AS existSameItem,
+		       TO_CHAR(t1.CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS filingDate
+		FROM T_BS_FILING t1, T_BS_TASK t2
+		WHERE 
+			  t1.APPLY_ID = t2.BIZ_NO
+			  AND t2.STATUS = 2
+			  AND t2.EXE_CUST_ID = #{optCustId}
+		      <if test="isDisagreed != null and isDisagreed == true "> 
+		      	AND t1.DISAGREEING IS NOT NULL
+		      </if>
+		      <if test="isDisagreed != null and isDisagreed == false "> 
+		      	AND t1.DISAGREEING IS NULL
+		      </if>
+		      <if test="startDate != null and startDate != '' "> 
+		      	<![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+		      </if>
+		      <if test="endDate != null and endDate != '' "> 
+		      	<![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>	 
+		      </if>
+		      <if test="entName != null and entName != '' "> 
+		      	AND UPPER(t1.ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+		      </if>
+		      <if test="linkman != null and linkman != '' "> 
+		      	AND UPPER(t1.LINKMAN) like UPPER('%'||#{linkman}||'%')
+		      </if>
+		      <if test="countryNo != null and countryNo != '' "> 
+		      	AND t1.COUNTRY_NO = #{countryNo}
+		      </if>		
+		      <if test="provinceNo != null and provinceNo != '' "> 
+		      	AND t1.PROVINCE_NO = #{provinceNo}
+		      </if>				            
+		      <if test="cityNo != null and cityNo != '' "> 
+		      	AND t1.CITY_NO = #{cityNo}
+		      </if>		
+		      <if test="legalNo != null and legalNo != ''">
+		      	AND UPPER(t1.LEGAL_NO) like UPPER('%'||#{legalNo}||'%')
+		      </if>			      		      
+		      <if test="status != null"> 
+		      	AND t1.STATUS = #{status}
+		      </if>
+		      <if test="notInStatus != null and notInStatus != ''">
+		      	AND t1.STATUS NOT IN ${notInStatus}
+		      </if>
+		   ORDER BY t1.CREATED_DATE DESC
+	</select> 
+	
+	<!-- 查询股东列表 -->
+	<select id="queryShByApplyId" resultType="com.gy.hsxt.bs.bean.apply.FilingShareHolder">
+		SELECT FILING_SH_ID AS filingShId,
+		       APPLY_ID     AS applyId,
+		       SH_NAME      AS shName,
+		       SH_TYPE      AS shType,
+		       ID_TYPE      AS idType,
+		       ID_NO        AS idNo,
+		       PHONE        AS phone
+		FROM T_BS_FILING_SHAREHOLDER
+	    WHERE APPLY_ID = #{applyId}
+	</select> 
+	
+	<!-- 查询报备企业资质 -->
+	<select id="queryAptitudeByApplyId" resultType="com.gy.hsxt.bs.bean.apply.FilingAptitude">
+		SELECT FILING_APT_ID AS filingAptId,
+		       APPLY_ID      AS applyId,
+		       APT_TYPE      AS aptType,
+		       APT_NAME      AS aptName,
+		       FILE_ID       AS fileId
+		FROM T_BS_FILING_APTITUDE
+		WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 查询相同项 -->
+	<select id="querySameItem" parameterType="com.gy.hsxt.bs.apply.bean.SameItemParam" 
+				resultType="com.gy.hsxt.bs.apply.bean.SameItemParam">
+		SELECT APPLY_ID      AS applyId,
+		       OP_RES_NO     AS opResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       LICENSE_NO    AS licenseNo,
+		       LEGAL_NAME    AS legalName,
+		       LINKMAN       AS linkman,
+		       PHONE         AS phone
+		FROM T_BS_FILING
+		WHERE 1=1
+		<![CDATA[ 
+		      AND STATUS <> 7
+		      AND APPLY_ID <> #{applyId}
+		]]>
+		      <if test="entCustName != null and entCustName != '' "> 
+		      	AND (UPPER(ENT_CUST_NAME) like UPPER('%'||#{entCustName}||'%') or instr(#{entCustName},ENT_CUST_NAME)>0)
+		      </if>
+		      <if test="licenseNo != null and licenseNo != '' "> 
+		      	AND LICENSE_NO =#{licenseNo}
+		      </if>
+		      
+		      <if test="legalName != null and legalName != ''">
+		      	AND LEGAL_NAME =#{legalName}
+		      </if>
+		      <if test="linkman != null and linkman != '' and phone != null and phone != ''"> 
+		      	AND LINKMAN = #{linkman}
+		      	AND PHONE = #{phone}
+		      </if>
+		   ORDER BY OP_RES_NO,ENT_CUST_NAME
+	</select> 
+	
+	<!-- 查询相同股东 -->
+	<select id="querySameSh" parameterType="com.gy.hsxt.bs.apply.bean.SameItemParam" 
+		    resultType="com.gy.hsxt.bs.apply.bean.SameItemParam">
+		SELECT DISTINCT t1.APPLY_ID      AS applyId,
+		                t1.OP_RES_NO     AS opResNo,
+		                t1.ENT_CUST_NAME AS entCustName,
+		                t2.SH_NAME       AS shName,
+		                t2.ID_TYPE       AS idType,
+		                t2.ID_NO         AS idNo
+		FROM T_BS_FILING t1, T_BS_FILING_SHAREHOLDER t2
+		WHERE 
+			 <![CDATA[ 
+			  t1.APPLY_ID = t2.APPLY_ID 
+		      AND t1.STATUS <> 7
+		      AND t1.APPLY_ID <> #{applyId}
+			  AND t2.SH_NAME = #{shName}
+			  AND t2.ID_TYPE = #{idType}
+			  AND t2.ID_NO = #{idNo}
+			]]>
+		ORDER BY OP_RES_NO,ENT_CUST_NAME
+	</select> 
+	
+	<!-- 异议报备 -->
+	<update id="disagreedReject">
+		UPDATE T_BS_FILING
+		<set>
+		    STATUS       = #{status},
+		    UPDATEDBY    = #{operator},
+		    UPDATED_DATE = SYSDATE,
+		    DISAGREEING  = #{remark}
+		</set>
+		    WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 企业是否被服务公司报备过 -->
+	<select id="isFiling" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1) 
+		FROM T_BS_FILING
+		WHERE OP_RES_NO = #{serResNo}
+			  AND ENT_CUST_NAME = #{entCustName}
+		      AND STATUS = 5
+	</select>
+	
+	<!-- 删除报备  -->
+	<delete id="deleteFilingApp">
+		DELETE FROM T_BS_FILING
+		<where>
+			APPLY_ID = #{applyId}
+		</where>
+	</delete>
+	
+	<!-- 删除股东 -->
+	<delete id="deleteShareHolderByApplyId">
+		DELETE FROM T_BS_FILING_SHAREHOLDER
+		<where>
+			APPLY_ID = #{applyId}
+		</where>
+	</delete>
+	
+	<!-- 删除资质附件 -->
+	<delete id="deleteAptByApplyId">
+		DELETE FROM T_BS_FILING_APTITUDE
+		<where>
+			APPLY_ID = #{applyId}
+		</where>
+	</delete>
+	
+	<!-- 更新相同项标识 -->
+	<update id="updateSameItemFlag">
+		UPDATE T_BS_FILING
+		<set>
+			EXIST_SAME_ITEM = #{existSameItem},
+			UPDATEDBY = #{operator}
+		</set>
+		<where>
+			APPLY_ID = #{applyId}
+		</where>
+	</update>
+	
+</mapper>

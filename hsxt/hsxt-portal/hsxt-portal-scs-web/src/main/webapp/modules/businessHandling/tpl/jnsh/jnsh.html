@@ -1,0 +1,56 @@
+ <form id="search_form">
+<div class="searchbox p20"><!--实际内容显示框架开始-->
+            	<!--查询列表页不需要此DIV--<div class="scrlh">-->
+                	<div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">快捷日期：</label>
+                                <div class="cont-chk setdiy100">
+                                      
+                                       <input id='sel_kjrq' placeholder="--请选择--" optionValue=""  readonly="readonly"  />
+                                      
+                                      </div>
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">日期：</label>
+                                <div class="cont-int">
+                                	<input type="text" placeholder="--请选择--" name="search_startDate" id="search_startDate" value="" class="input-txt w100"><span class="separator-pd">-</span><input type="text" placeholder="--请选择--" name="search_endDate" id="search_endDate" value="" class="input-txt w100">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">订单状态：</label>
+                                <div class="cont-chk setdiy100"> 
+                                      
+                                      <input id='sel_ddzt' placeholder="--请选择--" optionValue=""  readonly="readonly"  />
+                                      
+                              </div>
+                            </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="btn_cx" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="search-cont">
+                    	<table id="tableDetail" class="bsgrid">
+							  <tr>
+							    <th w_index="order.orderNo" w_render="operate">订单号</th>
+							    <th w_index="order.orderTime" w_render="operate">订单时间</th>
+							    <th w_render="operate">订单类型</th>
+							    <th w_index="order.orderCashAmount" w_render="operate">订单金额</th>
+							    <th w_render="operate">支付方式</th>
+							    <th w_render="operate">订单状态</th>
+							    <th w_render="operate">操作</th>
+							  </tr>
+						 </table> 
+                    </div>
+                                
+            <!--</div>查询列表页不需要此DIV-->
+            <!--操作页面按钮所在位置-->
+        </div><!--实际内容显示框架结束-->
+   </form>
+        
+<div id="jnsh_dialog" class="none" title="互生币支付-缴纳系统使用年费订单详情">
+</div>
+

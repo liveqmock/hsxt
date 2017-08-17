@@ -1,0 +1,24 @@
+<!-- 主菜单开始 -->
+<%var param  = obj.data;  %>
+<!-- 主菜单开始 -->
+<div class="mainNav">
+	<ul id="navUl" class="ulNav clearfix">
+		<%
+			$.each(param,function(key,el){ 
+				if(0==el.parentId&&0==el.permType&&1==el.layout){ 
+		%>
+			        <li>
+						<div class="navMenu"><i class="nav_menu_icon <%=el.permDesc%>"></i><span class="f13" id="<%=el.permId%>"><%=el.permName%></span></div>
+					</li>
+        <%
+        		}
+			})
+		%>
+	</ul>
+</div>
+<!-- 主菜单结束-->
+
+<!-- 子菜单开始 -->
+<div class="subNav1 pr" id="subNav"><!-- 子菜单滚动 add by kuangrb 2016-04-27 -->
+</div>
+<!-- 子菜单结束 -->

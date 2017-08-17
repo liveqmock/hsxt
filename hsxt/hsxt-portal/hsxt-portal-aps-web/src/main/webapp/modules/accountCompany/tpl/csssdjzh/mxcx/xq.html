@@ -1,0 +1,175 @@
+﻿<%if (obj.transType == '消费积分'){%>
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="40%" align="right" class="gray"></td>
+        <td width="60%"></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易流水号：</td>
+        <td><%=obj.transNo%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易时间：</td>
+        <td><%=obj.transDate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易类型：</td>
+        <td><%=obj.transType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税金类别：</td>
+        <td><%=obj.accType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">受理方式：</td>
+        <td><%=obj.channle%></td>
+      </tr>
+      <tr align="right">
+        <td colspan="2"><div class="cutline"></div></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">消费积分收入：</td>
+        <td><%=obj.pointIncome%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税率：</td>
+        <td><%=obj.taxRate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">纳税扣除税金：</td>
+        <td><%=obj.pointTax%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">货币转换比率：</td>
+        <td>1.011</td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">折合税金：</td>
+        <td><%=obj.transBalance%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">备注：</td>
+        <td><%=obj.remark%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray"></td>
+        <td></td>
+      </tr>
+    </table>
+<%} else if (obj.transType == '互生积分分配'){%>
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="40%" align="right" class="gray"></td>
+        <td width="60%"></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易流水号：</td>
+        <td><%=obj.transNo%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易时间：</td>
+        <td><%=obj.transDate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易类型：</td>
+        <td><%=obj.transType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税金类别：</td>
+        <td><%=obj.accType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">受理方式：</td>
+        <td><%=obj.channle%></td>
+      </tr>
+      <tr align="right">
+        <td colspan="2"><div class="cutline"></div></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">积分互生分配收入：</td>
+        <td><%=obj.points%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税率：</td>
+        <td><%=obj.taxRate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">纳税扣除积分数：</td>
+        <td><%=obj.tax%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">货币转换比率：</td>
+        <td>1.011</td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">折合税金：</td>
+        <td><%=obj.tax%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">备注：</td>
+        <td><%=obj.remark%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray"></td>
+        <td></td>
+      </tr>
+    </table>
+<%} else if (obj.transType == '积分再增值分配'){%>
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="40%" align="right" class="gray"></td>
+        <td width="60%"></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易流水号：</td>
+        <td><%=obj.transNo%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易时间：</td>
+        <td><%=obj.transDate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">交易类型：</td>
+        <td><%=obj.transType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税金类别：</td>
+        <td><%=obj.accType%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">受理方式：</td>
+        <td><%=obj.channle%></td>
+      </tr>
+      <tr align="right">
+        <td colspan="2"><div class="cutline"></div></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">积分再增值分配收入：</td>
+        <td><%=obj.bmlmPoint%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">税率：</td>
+        <td><%=obj.taxRate%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">纳税扣除积分数：</td>
+        <td><%=obj.tax%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">货币转换比率：</td>
+        <td>1.011</td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">折合税金：</td>
+        <td><%=obj.tax%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray">备注：</td>
+        <td><%=obj.remark%></td>
+      </tr>
+      <tr>
+        <td align="right" class="gray"></td>
+        <td></td>
+      </tr>
+    </table>
+<%}%>

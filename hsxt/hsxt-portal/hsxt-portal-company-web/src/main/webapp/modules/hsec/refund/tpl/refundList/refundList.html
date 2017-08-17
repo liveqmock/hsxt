@@ -1,0 +1,79 @@
+<div class="operationsInner" id="shlb"> 
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div class="mallStore after-sale p10" style="overflow: hidden;height: auto;">
+    <div class="tabs">
+      <ul>
+      <!-- 
+等接口修改查询状态参数
+未处理：提交申请（0）; 
+处理中：非（提交申请【0】、退换货完成【6】、取消申请【-1】、未申请【-2】）
+退款中：退款中（5）
+全部：-->
+ 
+    	<li name="pageLabel" id="untreatedList" litype="0" class="refundTypes cur">未处理</li>
+        <li name="pageLabel" id="processingList" litype="2,3,4,8,9,10" class="refundTypes">处理中</li>
+        <li name="pageLabel" id="refundList" litype="5" class="refundTypes">退款中</li>
+        <li name="pageLabel" id="AllList" litype="" class="refundTypes">全部</li>
+      </ul>
+    </div>
+    <div class="search-toolbar">
+      <ul class="cssform clearfix">
+        <li class="mr20">
+          <label class="title-int">订单编号：</label>
+          <div class="cont-int">
+            <input type="text" name="orderId" id="orderId" value="" class="input-txt" />
+          </div>
+        </li>
+        <li class="mr20">
+          <label class="title-int" style="width: 170px">买家昵称/互生卡号/手机号码：</label>
+          <div class="cont-int">
+            	<input type="text" name="nickName" id="nickName" value="" class="input-txt" />
+          </div>
+        </li>
+ 
+     <li id="selectStatus">
+                            	<label class="title-int ">状态：</label>
+                                <div class="cont-chk"><select class="select_radius" id="status" style="width:140px">
+                                    <option value="">全部</option>
+                                    <option value="0">未处理</option>
+                                    <option value="1">不同意</option>
+                                    <option value="2">上门取货</option>
+                                    <option value="3">待买家发货</option>
+                                    <option value="4">收货确认</option>
+                                    <option value="5">退款中</option>
+                                    <option value="6">退/换货结束</option>
+                                    <option value="7">退款失败</option>
+                                    <option value="8">待发货/换货</option>
+                                    <option value="9">待确认收货/换货</option>
+                                    <option value="10">待送货上门/换货</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="last">
+                                <div class="cont-int">
+                                	<button id="queryRefundList"  values="0"  type="button" class="btn-search ml10">查询</button>
+                                    
+                                </div>
+                            </li>
+      </ul>
+    </div>
+    <div class="search-cont" style="overflow: hidden;height:auto;">
+
+
+    </div>
+  </div>
+  <!--内容添加结束--> 
+</div>
+<div id="refundInfoAll"></div>
+<div id="dlg2" class="none">
+</div>
+<div id="dlg3" class="none">
+  <p class="table-del">确认删除？</p>
+</div>
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg4" class="none mallStore">
+	拒绝理由：<textarea id="noRefund" rows="5" cols="10"></textarea>
+</div>

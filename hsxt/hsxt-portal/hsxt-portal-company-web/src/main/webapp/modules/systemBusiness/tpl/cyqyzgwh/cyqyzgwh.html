@@ -1,0 +1,32 @@
+﻿<div class="bc mt50">
+
+    <div class="page_tips bc" style="height: auto;">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <%if (obj.status == '1') {%>
+      	<p class="f14 fb tc">您的企业资格状态：正常</p>
+   	  <%} else if(obj.status == '2' || obj.status == '3' || obj.status == '4' || obj.status == '5'){%>
+      	<p class="f14 fb tc">您的企业资格状态处于非正常状态（预警、休眠、长眠、注销）中！</p>
+   	  <%} else if(obj.status == '6'){%>
+      	<p class="f14 fb tc">您已提交了停止积分活动申请，目前正在处理中，处理需要15个工作日，请耐心等待！</p>
+   	  <%} else if(obj.status == '7'){%>
+   	  	<p class="f14 fb tc">停止积分活动！</p>
+   	  <%} else if(obj.status == '8'){%>
+   	  	<p class="f14 fb tc">您已于 <%=obj.appDate%> 提交了成员企业注销申请，目前正在处理中，处理需要15个工作日，请耐心等待！！</p>
+   	  <%} else if(obj.status=='999'){%>
+		<div id="tips_999" style="width:500px;margin-left:100px;margin-bottom: 6px">
+			<div class="warmTips mt10">
+		        <ul>
+		            <li class="warmTipsLi">贵企业于<%=obj.memb.applyDate%>提交的企业注销申请失败！</li>
+		            <li class="warmTipsLi">审批结果：驳回申请</li>
+		            <li class="warmTipsLi">审批意见：<%=obj.memb.apprRemark%></li>
+		            <li class="warmTipsLi">审核日期：<%=obj.memb.apprDate%></li>
+		        </ul>
+		    </div>
+		</div>
+	<%}%>
+    </div>
+    <%if (obj.status == '1' || obj.status == '999') {%>
+    	<div class="mt20" align="center"><a href="javascript:;" id="btn_cyqyzgzx" class="btn_bg submit_long">成员企业资格注销</a></div>
+    <%}%>
+
+</div>

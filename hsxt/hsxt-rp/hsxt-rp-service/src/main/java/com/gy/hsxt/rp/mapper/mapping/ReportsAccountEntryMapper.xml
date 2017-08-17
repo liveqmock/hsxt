@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.ReportsAccountEntryMapper"><!-- map的类 -->
+
+	<resultMap type="com.gy.hsxt.rp.bean.ReportsAccountEntry" id="reportsAccountEntry">
+        <!--  账务分录实体类 -->
+        <id column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+        <result column="ENTRY_NO" property="entryNo" jdbcType="VARCHAR" />
+        <result column="SYSENTRY_NO" property="sysEntryNo" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custID" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+        <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <result column="ADD_AMOUNT" property="addAmount" jdbcType="VARCHAR" />
+        <result column="SUB_AMOUNT" property="subAmount" jdbcType="VARCHAR" />
+        <result column="WRITE_BACK" property="writeBack" jdbcType="INTEGER" />
+        <result column="TRANS_TYPE" property="transType" jdbcType="VARCHAR" />
+        <result column="TRANS_SYS" property="transSys" jdbcType="VARCHAR" />
+        <result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+        <result column="TRANS_DATE" property="transDate" jdbcType="VARCHAR" />
+        <result column="FISCAL_DATE" property="fiscalDate" jdbcType="VARCHAR" />
+        <result column="TRANS_DATE" property="transDateTim" jdbcType="TIMESTAMP" />
+        <result column="FISCAL_DATE" property="fiscalDateTim" jdbcType="TIMESTAMP" />
+        <result column="REL_TRANS_TYPE" property="relTransType" jdbcType="VARCHAR" />
+        <result column="REL_TRANS_NO" property="relTransNo" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="WRITE_BACKED_AMOUNT" property="writeBackedAmount" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+        <result column="SOURCE_TRANS_NO" property="sourceTransNo" jdbcType="VARCHAR" />
+       <!--  <result column="" property="businessType" jdbcType="INTEGER" />
+        <result column="" property="accName" jdbcType="VARCHAR" /> -->
+    </resultMap>
+
+	<!-- 企业账户流水分页查询 -->
+	<select id="searchEntAccountEntryListPage" resultMap="reportsAccountEntry" parameterType="ReportsAccountEntryInfo">
+	        SELECT T.ENTRY_NO,
+			       T.SYSENTRY_NO,  
+				   T.CUST_ID, 
+				   T.CUST_TYPE,
+			       T.ACC_TYPE, 
+			       (select ACC_NAME from DBAC01.T_AC_ACCOUNT_TYPE where ACC_TYPE = T.ACC_TYPE) accName,
+			       T.HS_RES_NO,
+			       T.ADD_AMOUNT, 
+			       T.SUB_AMOUNT,
+			       T.WRITE_BACK,
+			       T.TRANS_TYPE, 
+			       T.TRANS_SYS, 
+			       T.TRANS_NO,
+			       T.REL_TRANS_TYPE,
+			       T.REL_TRANS_NO,
+			       T.TRANS_DATE,
+			       nvl(T.ADD_AMOUNT,0) + nvl(T.SUB_AMOUNT,0) amount,
+			       CASE WHEN NVL(T.ADD_AMOUNT,0)>0 THEN 1 ELSE 2 END businessType,
+			       <!-- (select ACC_BALANCE_NEW from DBAC01.T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = T.ENTRY_NO) accBalanceNew, -->
+			       SNA.ACC_BALANCE_NEW accBalanceNew,
+			       SNA.ACC_SNAP_ID accSnapId,
+			       T.CREATED_DATE,
+			       T.UPDATED_DATE,
+			       T.FISCAL_DATE, 
+			       T.BATCH_NO,
+			       T.REMARK,
+			       T.WRITE_BACKED_AMOUNT,
+			       T.SOURCE_TRANS_NO 
+			  FROM DBAC01.T_AC_ACCOUNT_ENTRY T,
+			  	   DBUC01.T_ENT_EXTEND ENT,
+			  	   DBAC01.T_AC_ACCOUNT_BALANCE_SNAP SNA 
+			 WHERE T.ACC_TYPE IN (${accType})
+			   AND T.ENTRY_NO = SNA.CHANGE_RECORD_ID
+			   AND T.CUST_ID = ENT.ENT_CUST_ID
+			       <if test="businessType == 1">
+			       	  <![CDATA[ AND T.ADD_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="businessType == 2 ">
+			       	  <![CDATA[ AND T.SUB_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="custName != null and custName != '' ">
+			       	  <![CDATA[
+			       	  	AND ENT.ENT_CUST_NAME = #{custName,jdbcType=VARCHAR}
+			       	  ]]>
+			       </if>
+			       <if test="hsResNo != null and hsResNo != '' ">
+			       	  AND ENT.ENT_RES_NO like #{hsResNo,jdbcType=VARCHAR} ||'%'
+			       </if>
+			   AND T.WRITE_BACK = 0
+			       	<![CDATA[
+						AND T.CREATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND T.CREATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+					<![CDATA[
+						 AND (T.ADD_AMOUNT<>0 or T.SUB_AMOUNT<>0) 
+					]]>
+			ORDER BY T.CREATED_DATE DESC,SNA.ACC_SNAP_ID DESC 
+	</select>
+
+	<!-- 企业分红流水分页查询 -->
+	<select id="searchEntAccountEntryDividendListPage" resultMap="reportsAccountEntry" parameterType="ReportsAccountEntryInfo">
+	        SELECT T.CUST_ID, 
+			       T.HS_RES_NO,
+			       T.TRANS_NO,
+			       SUM(T.ADD_AMOUNT) amount,
+			       TO_CHAR(T.FISCAL_DATE, 'YYYY') fiscalDate
+			  FROM DBAC01.T_AC_ACCOUNT_ENTRY T,
+			  	   DBUC01.T_ENT_EXTEND ENT
+			 WHERE T.CUST_ID = ENT.ENT_CUST_ID
+			       <if test="custName != null and custName != '' ">
+			       	  <![CDATA[
+			       	  	AND ENT.ENT_CUST_NAME = #{custName,jdbcType=VARCHAR}
+			       	  ]]>
+			       </if>
+			       <if test="hsResNo != null and hsResNo != '' ">
+			       	  AND ENT.ENT_RES_NO like #{hsResNo,jdbcType=VARCHAR} ||'%'
+			       </if>
+			       <if test="transType != null and transType != '' ">
+			       	  AND T.TRANS_TYPE = #{transType,jdbcType=VARCHAR}
+			       </if>
+			   AND T.WRITE_BACK = 0
+			       	<![CDATA[
+						AND FISCAL_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND FISCAL_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			GROUP BY T.CUST_ID, 
+			       	 T.HS_RES_NO,
+			         T.TRANS_NO,
+			         TO_CHAR(T.FISCAL_DATE, 'YYYY')
+			ORDER BY TO_CHAR(T.FISCAL_DATE, 'YYYY') DESC
+	</select>
+
+	<!-- 消费者账户流水分页查询 -->
+	<select id="searchCarAccountEntryListPage" resultMap="reportsAccountEntry" parameterType="ReportsAccountEntryInfo">
+			SELECT T.ENTRY_NO,
+			       T.SYSENTRY_NO,  
+				   T.CUST_ID, 
+				   T.CUST_TYPE,
+			       T.ACC_TYPE, 
+			       (select ACC_NAME from DBAC01.T_AC_ACCOUNT_TYPE where ACC_TYPE = T.ACC_TYPE) accName,
+			       T.HS_RES_NO,
+			       (SELECT NDETAIL.SOURCE_TRANS_AMOUNT
+					  FROM DBPS01.T_PS_NDETAIL NDETAIL
+					 WHERE NDETAIL.TRANS_NO = T.TRANS_NO
+					UNION ALL
+					SELECT CDETAIL.SOURCE_TRANS_AMOUNT
+					  FROM DBPS01.T_PS_CDETAIL CDETAIL
+					 WHERE CDETAIL.TRANS_NO = T.TRANS_NO
+					UNION ALL
+					SELECT DETAIL.SOURCE_TRANS_AMOUNT
+					  FROM DBPS01.T_PS_BDETAIL DETAIL
+					 WHERE DETAIL.TRANS_NO = T.TRANS_NO) sourceTransAmount,
+				   (SELECT NDETAIL.POINT_RATE
+					  FROM DBPS01.T_PS_NDETAIL NDETAIL
+					 WHERE NDETAIL.TRANS_NO = T.TRANS_NO
+					UNION ALL
+					SELECT CDETAIL.POINT_RATE
+					  FROM DBPS01.T_PS_CDETAIL CDETAIL
+					 WHERE CDETAIL.TRANS_NO = T.TRANS_NO
+					UNION ALL
+					SELECT DETAIL.POINT_RATE
+					  FROM DBPS01.T_PS_BDETAIL DETAIL
+					 WHERE DETAIL.TRANS_NO = T.TRANS_NO) pointRate,
+			       T.ADD_AMOUNT, 
+			       T.SUB_AMOUNT,
+			       T.WRITE_BACK,
+			       T.TRANS_TYPE, 
+			       T.TRANS_SYS, 
+			       T.TRANS_NO,
+			       T.REL_TRANS_TYPE,
+			       T.REL_TRANS_NO,
+			       T.TRANS_DATE,
+			       nvl(T.ADD_AMOUNT,0) + nvl(T.SUB_AMOUNT,0) amount,
+			       CASE WHEN NVL(T.ADD_AMOUNT,0)>0 THEN 1 ELSE 2 END businessType,
+			       <!-- (select ACC_BALANCE_NEW from DBAC01.T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = T.ENTRY_NO) accBalanceNew, -->
+			       SNA.ACC_BALANCE_NEW accBalanceNew,
+			       SNA.ACC_SNAP_ID accSnapId,
+			       T.CREATED_DATE,
+			       T.UPDATED_DATE,
+			       T.FISCAL_DATE, 
+			       T.BATCH_NO,
+			       T.REMARK,
+			       T.WRITE_BACKED_AMOUNT,
+			       T.SOURCE_TRANS_NO 
+			  FROM DBAC01.T_AC_ACCOUNT_ENTRY T,
+			  	 <!--   DBUC01.T_CUST_ID_INFO CUST, -->
+			  	   DBAC01.T_AC_ACCOUNT_BALANCE_SNAP SNA 
+			 WHERE T.ACC_TYPE IN (${accType})
+			   AND T.ENTRY_NO = SNA.CHANGE_RECORD_ID 
+			    AND T.WRITE_BACK = 0
+			    AND T.CUST_TYPE = 1
+			  <!--  AND T.CUST_ID = CUST.PER_CUST_ID -->
+			       <if test="businessType == 1">
+			       	  <![CDATA[ AND T.ADD_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="businessType == 2 ">
+			       	  <![CDATA[ AND T.SUB_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="custName != null and custName != '' ">
+			            AND EXISTS (SELECT PER_CUST_ID FROM DBUC01.T_CUST_ID_INFO where T.CUST_ID = PER_CUST_ID AND PER_NAME = #{custName,jdbcType=VARCHAR})
+			       </if>
+			       <if test="custIdNo != null and custIdNo != '' ">
+			       		AND CUST.ID_NO = #{custIdNo}
+			       </if>
+			       <if test="hsResNo != null and hsResNo != '' ">
+			       	  AND T.HS_RES_NO like #{hsResNo,jdbcType=VARCHAR} ||'%'
+			       </if>
+			  
+			       	<![CDATA[
+						AND T.CREATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND T.CREATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+					<![CDATA[
+						 AND (T.ADD_AMOUNT<>0 or T.SUB_AMOUNT<>0) 
+					]]>
+			ORDER BY T.CREATED_DATE DESC,SNA.ACC_SNAP_ID DESC 
+	</select>
+
+	<!-- 非持卡人账户流水分页查询 -->
+	<select id="searchNoCarAccountEntryListPage" resultMap="reportsAccountEntry" parameterType="ReportsAccountEntryInfo">
+			SELECT T.ENTRY_NO,
+			       T.SYSENTRY_NO,  
+				   T.CUST_ID, 
+				   T.CUST_TYPE,
+			       T.ACC_TYPE, 
+			       (select MOBILE from DBUC01.T_CUST_NONCARDHOLDER where PER_CUST_ID = T.CUST_ID) mobile,
+			       T.HS_RES_NO,
+			       T.ADD_AMOUNT, 
+			       T.SUB_AMOUNT,
+			       T.WRITE_BACK,
+			       T.TRANS_TYPE, 
+			       T.TRANS_SYS, 
+			       T.TRANS_NO,
+			       T.REL_TRANS_TYPE,
+			       T.REL_TRANS_NO,
+			       T.TRANS_DATE,
+			       nvl(T.ADD_AMOUNT,0) + nvl(T.SUB_AMOUNT,0) amount,
+			       CASE WHEN NVL(T.ADD_AMOUNT,0)>0 THEN 1 ELSE 2 END businessType,
+			      <!--  (select ACC_BALANCE_NEW from DBAC01.T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = T.ENTRY_NO) accBalanceNew, -->
+			       SNA.ACC_BALANCE_NEW accBalanceNew,
+			       SNA.ACC_SNAP_ID accSnapId,
+			       T.CREATED_DATE,
+			       T.UPDATED_DATE,
+			       T.FISCAL_DATE, 
+			       T.BATCH_NO,
+			       T.REMARK,
+			       T.WRITE_BACKED_AMOUNT,
+			       T.SOURCE_TRANS_NO  
+			  FROM DBAC01.T_AC_ACCOUNT_ENTRY T,
+			  	   DBAC01.T_AC_ACCOUNT_BALANCE_SNAP SNA 
+			 WHERE T.ACC_TYPE IN (${accType})
+			   AND T.ENTRY_NO = SNA.CHANGE_RECORD_ID 
+			   AND T.CUST_TYPE = '51'
+			       <if test="businessType == 1">
+		       	      AND T.ADD_AMOUNT > 0 
+			       </if>
+			       <if test="businessType == 2 ">
+			       	  AND T.SUB_AMOUNT > 0 
+			       </if>
+			       <if test="mobile != null and mobile != '' ">
+		       	 	  AND T.CUST_ID in(select PER_CUST_ID from DBUC01.T_CUST_NONCARDHOLDER where MOBILE = #{mobile,jdbcType=VARCHAR})
+			       </if>
+			       <if test="custName != null and custName != '' ">
+		       	 	  AND T.CUST_ID in(select PER_CUST_ID from DBUC01.T_NETWORK_INFO where NICKNAME = #{custName,jdbcType=VARCHAR})
+			       </if>
+			   AND T.WRITE_BACK = 0
+			       	<![CDATA[
+						AND T.CREATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND T.CREATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			ORDER BY T.CREATED_DATE DESC,SNA.ACC_SNAP_ID DESC 
+	</select>
+
+	<!-- 消费者分红流水分页查询 -->
+	<select id="searchCarAccountEntryDividendListPage" resultMap="reportsAccountEntry" parameterType="ReportsAccountEntryInfo">
+			SELECT T.CUST_ID, 
+			       T.HS_RES_NO,
+			       T.TRANS_NO,
+			       SUM(T.ADD_AMOUNT) amount,
+			       TO_CHAR(T.FISCAL_DATE, 'YYYY') fiscalDate
+			  FROM DBAC01.T_AC_ACCOUNT_ENTRY T
+			 WHERE T.WRITE_BACK = 0
+			   AND T.CUST_TYPE = 1
+				   <if test="custName != null and custName != '' ">
+			            AND EXISTS (SELECT PER_CUST_ID FROM DBUC01.T_CUST_ID_INFO where T.CUST_ID = PER_CUST_ID AND PER_NAME = #{custName,jdbcType=VARCHAR})
+			       </if>
+			       <if test="hsResNo != null and hsResNo != '' ">
+			       	  AND T.HS_RES_NO like #{hsResNo,jdbcType=VARCHAR} ||'%'
+			       </if>
+			       <if test="transType != null and transType != '' ">
+			       	  AND T.TRANS_TYPE = #{transType,jdbcType=VARCHAR}
+			       </if>
+			       	<![CDATA[
+						AND FISCAL_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND FISCAL_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			GROUP BY T.CUST_ID, 
+			       	 T.HS_RES_NO,
+			         T.TRANS_NO,
+			         TO_CHAR(T.FISCAL_DATE, 'YYYY')
+			ORDER BY TO_CHAR(T.FISCAL_DATE, 'YYYY') DESC
+	</select>
+
+</mapper>

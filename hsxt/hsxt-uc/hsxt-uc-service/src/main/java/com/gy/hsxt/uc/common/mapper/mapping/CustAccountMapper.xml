@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.CustAccountMapper">
+<!-- 消费者银行账户信息-->
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.CustAccount">
+		<id column="ACC_ID" property="accId" jdbcType="DECIMAL" />
+		<result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+		<result column="PER_RES_NO" property="perResNo" jdbcType="VARCHAR" />
+		<result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+		<result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+		<result column="BANK_ACC_NAME" property="bankAccName" jdbcType="VARCHAR" />
+		<result column="BANK_ACC_NO" property="bankAccNo" jdbcType="VARCHAR" />
+		<result column="BANK_CARD_TYPE" property="bankCardType" jdbcType="DECIMAL" />
+		<result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+		<result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+		<result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+		<result column="BANK_BRANCH" property="bankBranch" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT_ACCOUNT" property="isDefaultAccount" jdbcType="DECIMAL" />
+		<result column="IS_VALID_ACCOUNT" property="isValidAccount" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   ACC_ID,
+       PER_CUST_ID,
+       PER_RES_NO,
+       BANK_NAME,
+       BANK_CODE,
+       BANK_ACC_NAME,
+       BANK_ACC_NO,
+       BANK_CARD_TYPE,
+       COUNTRY_NO,
+       PROVINCE_NO,
+       CITY_NO,
+       BANK_BRANCH,
+       IS_DEFAULT_ACCOUNT,
+       IS_VALID_ACCOUNT,
+       ISACTIVE,
+       CREATE_DATE,
+       CREATEDBY,
+       UPDATE_DATE,
+       UPDATEDBY
+	</sql>
+
+	<!-- 通过消费者银行账户主键ID查询 账户信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_CUST_ACCOUNT
+		where ACC_ID = #{accId,jdbcType=DECIMAL}
+	</select>
+
+	<!-- 查询消费者银行账户列表-->
+	<select id="listAccountByCustId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_CUST_ACCOUNT
+		where PER_CUST_ID = #{custId,jdbcType=VARCHAR} ORDER BY IS_DEFAULT_ACCOUNT DESC
+	</select>
+
+	<!-- 删除银行账户-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_CUST_ACCOUNT
+		where ACC_ID = #{accId,jdbcType=DECIMAL}
+	</delete>
+
+	<!-- 插入银行账户-->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.CustAccount">
+		insert into T_CUST_ACCOUNT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			ACC_ID,
+			<if test="perCustId != null">
+				PER_CUST_ID,
+			</if>
+			<if test="perResNo != null">
+				PER_RES_NO,
+			</if>
+			<if test="bankName != null">
+				BANK_NAME,
+			</if>
+			<if test="bankCode != null">
+				BANK_CODE,
+			</if>
+			<if test="bankAccName != null">
+				BANK_ACC_NAME,
+			</if>
+			<if test="bankAccNo != null">
+				BANK_ACC_NO,
+			</if>
+			<if test="bankCardType != null">
+				BANK_CARD_TYPE,
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO,
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO,
+			</if>
+			<if test="cityNo != null">
+				CITY_NO,
+			</if>
+			<if test="bankBranch != null">
+				BANK_BRANCH,
+			</if>
+			<if test="isDefaultAccount != null">
+				IS_DEFAULT_ACCOUNT,
+			</if>
+			<if test="isValidAccount != null">
+				IS_VALID_ACCOUNT,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+			<if test="accId != null">
+				#{accId,jdbcType=DECIMAL},
+			</if>
+			<if test="accId == null">
+				SEQ_T_CUST_ACCOUNT.Nextval,
+			</if>
+			<if test="perCustId != null">
+				#{perCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="perResNo != null">
+				#{perResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				#{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCode != null">
+				#{bankCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccName != null">
+				#{bankAccName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccNo != null">
+				#{bankAccNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCardType != null">
+				#{bankCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="countryNo != null">
+				#{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				#{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				#{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankBranch != null">
+				#{bankBranch,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefaultAccount != null">
+				#{isDefaultAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isValidAccount != null">
+				#{isValidAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--更新银行账户信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.CustAccount">
+		update T_CUST_ACCOUNT
+		<set>
+			<if test="perCustId != null">
+				PER_CUST_ID = #{perCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="perResNo != null">
+				PER_RES_NO = #{perResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				BANK_NAME = #{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCode != null">
+				BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccName != null">
+				BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccNo != null">
+				BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCardType != null">
+				BANK_CARD_TYPE = #{bankCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankBranch != null">
+				BANK_BRANCH = #{bankBranch,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefaultAccount != null">
+				IS_DEFAULT_ACCOUNT = #{isDefaultAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isValidAccount != null">
+				IS_VALID_ACCOUNT = #{isValidAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ACC_ID = #{accId,jdbcType=DECIMAL}
+	</update>
+	
+	<!--更新银行账户信息 -->
+	<update id="updateByUniqueKeySelective" parameterType="com.gy.hsxt.uc.common.bean.CustAccount">
+		update T_CUST_ACCOUNT
+		<set>
+			<if test="perResNo != null">
+				PER_RES_NO = #{perResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				BANK_NAME = #{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCode != null">
+				BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bankAccName != null">
+				BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCardType != null">
+				BANK_CARD_TYPE = #{bankCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankBranch != null">
+				BANK_BRANCH = #{bankBranch,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefaultAccount != null">
+				IS_DEFAULT_ACCOUNT = #{isDefaultAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isValidAccount != null">
+				IS_VALID_ACCOUNT = #{isValidAccount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR} and BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 设置消费者银行账户为 非默认账户-->
+	<update id="setDefaultAccToGeneral" parameterType="java.lang.String">
+		update T_CUST_ACCOUNT
+		set IS_DEFAULT_ACCOUNT = 0
+		where PER_CUST_ID = #{custId,jdbcType=VARCHAR}
+	</update>
+
+
+
+<!-- 根据客户号和银行账户编号查询记录数 -->
+   <select id="selectCounts" resultType="java.lang.Integer"  parameterType="java.util.Map" >
+    select 
+   		COUNT(*)
+    from T_CUST_ACCOUNT
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR} 
+    <if test="bankAccNo != null">
+    and BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

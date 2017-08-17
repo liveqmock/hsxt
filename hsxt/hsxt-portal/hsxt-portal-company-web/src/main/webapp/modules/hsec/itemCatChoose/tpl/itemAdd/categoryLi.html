@@ -1,0 +1,16 @@
+ <%
+	var category = obj.category;
+	var cateId = obj.cateId;
+%>
+   			<div class="cl1">
+             <ul class="mg4 list_sc">
+             	<%
+             		try {$.each(category,function(key,c){
+             		if(cateId == c.parentId){
+             	%>
+             		<li data-id="<%=c.id%>"><a class="clearfix category"><span class="gct"><%=c.categoryName %></span><i class="cbox-gcont-arrow"></i></a></li>
+             	<%	
+             		} }) }catch(e){};
+             	%>
+             </ul>
+           </div>

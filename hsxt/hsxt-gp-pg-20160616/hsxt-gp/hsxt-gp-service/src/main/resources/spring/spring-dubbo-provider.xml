@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+	<!-- <dubbo:monitor protocol="registry" /> -->
+
+	<!-- 发布服务 -->
+	<!-- 中国银联支付接口 -->
+	<dubbo:service interface="com.gy.hsxt.gp.api.IGPPaymentService"
+		ref="gpPaymentService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+
+	<!-- 平安银行提现转账接口 -->
+	<dubbo:service interface="com.gy.hsxt.gp.api.IGPTransCashService"
+		ref="gpTransCashService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+
+	<!-- 实现支付网关结果通知接口, 通过system.group.id区分互生GP和互商GP -->
+	<dubbo:service interface="com.gy.hsxt.pg.api.IPGNotifyService"
+		ref="pgNotifyService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		group="${system.group.id}" version="1.0.0" />
+
+	<!-- GP-AO提现转账对账文件调度接口 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="gpAoTransAccountingFileDSBatchService" group="HSXT_GP_AO_TRANS_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+	<!-- GP-AO支付交易对账文件调度接口 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="gpAoPayAccountingFileDSBatchService" group="HSXT_GP_AO_PAY_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+	<!-- GP-BS支付交易对账文件调度接口 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="gpBsPayAccountingFileDSBatchService" group="HSXT_GP_BS_PAY_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+	<!-- GP-PS消费积分支付交易对账文件调度接口 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="gpPsPayAccountingFileDSBatchService" group="HSXT_GP_PS_PAY_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+	<!-- GP-CH银联支付交易对账文件调度接口 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="gpChPayAccountingFileDSBatchService" group="HSXT_GP_CH_PAY_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+</beans>

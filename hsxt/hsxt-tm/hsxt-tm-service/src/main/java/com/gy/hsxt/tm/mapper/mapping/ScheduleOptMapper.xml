@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.ScheduleOptMapper">
+	<!-- 新增值班员排班 -->
+	<insert id="insertScheduleOpt" parameterType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		INSERT INTO
+		T_TM_SCHEDULE_OPT (
+		SCHEDULE_ID,
+		OPT_CUST_ID,
+		PLAN_DATE,
+		WORK_TYPE_TEMP
+		)
+		VALUES
+		(
+		#{scheduleId},
+		#{optCustId},
+		to_date(#{planDate},'yyyy-MM-dd'),
+		#{workTypeTemp}
+		)
+	</insert>
+	<!-- 新增值班员排班:执行值班计划时用 -->
+	<insert id="insertExecuteScheduleOpt" parameterType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		INSERT INTO
+		T_TM_SCHEDULE_OPT (
+		SCHEDULE_ID,
+		OPT_CUST_ID,
+		PLAN_DATE,
+		WORK_TYPE
+		)
+		VALUES
+		(
+		#{scheduleId},
+		#{optCustId},
+		to_date(#{planDate},'yyyy-MM-dd'),
+		#{workType}
+		)
+	</insert>
+
+	<!-- 批量插入值班员排班 -->
+	<insert id="insertBatchScheduleOpt" parameterType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		INSERT INTO T_TM_SCHEDULE_OPT (
+		SCHEDULE_ID,
+		OPT_CUST_ID,
+		PLAN_DATE,
+		WORK_TYPE_TEMP
+		)
+		<foreach collection="scheduleOpts" item="opt" separator="union all">
+			(SELECT
+			#{opt.scheduleId},
+			#{opt.optCustId},
+			to_date(#{opt.planDate},'yyyy-MM-dd'),
+			#{task.workTypeTemp}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 查询排班计划 -->
+	<select id="findScheduleOpt" resultType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		SELECT
+		SCHEDULE_ID AS scheduleId,
+		OPT_CUST_ID AS optCustId,
+		PLAN_DATE AS planDate,
+		WORK_TYPE AS workType,
+		WORK_TYPE_TEMP AS workTypeTemp
+		FROM
+		T_TM_SCHEDULE_OPT
+		WHERE
+		SCHEDULE_ID = #{scheduleId}
+		AND OPT_CUST_ID = #{optCustId}
+		AND PLAN_DATE = to_date(#{planDate},'yyyy-MM-dd')
+	</select>
+
+	<!-- 查询排班计划 -->
+	<select id="findOperatorScheduleOpt" resultType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		select
+		tso.opt_cust_id as optCustId,
+		to_char(tso.plan_date,'dd') as planDate,
+		tso.work_type as workType,
+		tso.work_type_temp as workTypeTemp,
+		tso.SCHEDULE_ID as scheduleId
+		from
+		T_TM_SCHEDULE ts,
+		T_TM_SCHEDULE_OPT tso
+		where
+		ts.schedule_id = tso.schedule_id
+		and ts.GROUP_ID = #{groupId}
+		and ts.PLAN_YEAR = #{planYear}
+		and ts.PLAN_MONTH = #{planMonth}
+	</select>
+
+	<!-- 查询未开始的排班计划 -->
+	<select id="findUnStartWorkPlan">
+		SELECT
+		COUNT(0)
+		FROM
+		T_TM_SCHEDULE ts,
+		T_TM_SCHEDULE_OPT so
+		WHERE
+		ts.SCHEDULE_ID = so.SCHEDULE_ID
+		AND ts. STATUS = 1
+		AND so.OPT_CUST_ID = #{optCustId}
+		AND ts.SCHEDULE_ID = #{scheduleId}
+		AND so.PLAN_DATE IN
+		<foreach collection="arrPlanDate" item="type" open="('"
+			separator="','" close="')">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 查询休假天数 -->
+	<select id="findRestNum" resultType="int">
+		select count(1) 
+		from T_TM_SCHEDULE_OPT t 
+		where  t.work_type = 3 
+		and to_char(t.plan_date,'yyyyMM')=#{planDate} 
+		and t.OPT_CUST_ID = #{optCustId}
+	</select>
+	
+	<!-- 查询当天值班状态 -->
+	<select id="findWorkType" resultType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		select 
+		SCHEDULE_ID AS scheduleId,
+		OPT_CUST_ID AS optCustId,
+		PLAN_DATE AS planDate,
+		WORK_TYPE AS workType,
+		WORK_TYPE_TEMP AS workTypeTemp
+		from T_TM_SCHEDULE_OPT t 
+		where  
+		t.plan_date=to_date(#{planDate},'yyyy-MM-dd')
+		and t.OPT_CUST_ID = #{optCustId}
+		and t.SCHEDULE_ID = #{scheduleId}
+	</select>
+
+	<!-- 查询指定日期未开始的排班计划 -->
+	<select id="findUnStartWorkPlanSimDate" parameterType="com.gy.hsxt.tm.bean.ScheduleOpt"
+		resultType="com.gy.hsxt.tm.bean.ScheduleOpt">
+		SELECT
+		so.SCHEDULE_ID,
+		so.OPT_CUST_ID,
+		so.PLAN_DATE,
+		so.WORK_TYPE,
+		so.WORK_TYPE_TEMP
+		FROM
+		T_TM_SCHEDULE ts,
+		T_TM_SCHEDULE_OPT so
+		WHERE
+		ts.SCHEDULE_ID = so.SCHEDULE_ID
+		AND ts.STATUS = 1
+		AND ts.GROUP_ID = #{groupId}
+		AND
+		so.PLAN_DATE = to_date(#{planDate},'yyyy-MM-dd')
+		AND so.OPT_CUST_ID = #{optCustId}
+		AND
+		ts.SCHEDULE_ID = #{scheduleId}
+	</select>
+
+	<!-- 修改值班员状态 -->
+	<update id="updateWorkType">
+		UPDATE T_TM_SCHEDULE_OPT
+		SET WORK_TYPE = #{workType}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+	</update>
+	
+	<!-- 修改值班员状态 -->
+	<update id="updateTempWorkTypeToWorkType">
+		UPDATE T_TM_SCHEDULE_OPT
+		SET
+		WORK_TYPE = WORK_TYPE_TEMP,
+		WORK_TYPE_TEMP=null
+		WHERE
+		plan_date >= to_date(to_char(sysdate,'yyyy-MM-dd'),'yyyy-MM-dd')
+		and WORK_TYPE_TEMP is not null
+	</update>
+	
+	<!-- 修改值班员临时状态 -->
+	<update id="updateTempWorkType">
+		UPDATE T_TM_SCHEDULE_OPT
+		SET 
+		WORK_TYPE_TEMP = #{tempWorkType}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+		and SCHEDULE_ID = #{scheduleId}
+		and PLAN_DATE = to_date(#{planDate},'yyyy-MM-dd')
+	</update>
+	
+	<!-- 修改值班员临时状态 -->
+	<update id="updateTempWorkTypeWorkType">
+		UPDATE 
+		T_TM_SCHEDULE_OPT
+		SET 
+		WORK_TYPE = #{tempWorkType}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+		and SCHEDULE_ID = #{scheduleId}
+		and PLAN_DATE = to_date(#{planDate},'yyyy-MM-dd')
+	</update>
+
+	<!-- 修改值班员状态 -->
+	<update id="updateWorkTypeByPlanDate">
+		UPDATE T_TM_SCHEDULE_OPT
+		SET 
+		WORK_TYPE = #{workType}
+		WHERE
+		SCHEDULE_ID = #{scheduleId}
+		AND OPT_CUST_ID = #{optCustId}
+		AND PLAN_DATE =	to_date(#{planDate},'yyyy-MM-dd')
+	</update>
+	
+	<!-- 删除当前时间以后的排班 -->
+	<delete id="deleteScheduleOptNowAfter">
+		delete from t_tm_schedule_opt 
+		<where>	
+			plan_date > sysdate
+			<if test="scheduleIds!=null">
+				and schedule_id in 
+				<foreach collection="scheduleIds" item="scheduleId" open="(" close=")" separator=",">
+					#{scheduleId}
+				</foreach>
+			</if>
+			<if test="optCustId != null and optCustId !=''">
+				and opt_cust_id = #{optCustId}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteScheduleOpt">
+		DELETE
+		FROM
+		T_TM_SCHEDULE_OPT
+		WHERE
+		SCHEDULE_ID = #{scheduleId}
+		AND OPT_CUST_ID 
+		<foreach collection="optCustIds" item="custId" open="not in(" close=")"
+			separator=",">
+			#{custId}
+		</foreach>
+	</delete>
+</mapper>

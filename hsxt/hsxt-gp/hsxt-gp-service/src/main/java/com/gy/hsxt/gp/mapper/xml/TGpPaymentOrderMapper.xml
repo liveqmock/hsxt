@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpPaymentOrderMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrder">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="ORIG_ORDER_NO" property="origOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_SEQ_ID" property="bankOrderSeqId" jdbcType="VARCHAR" />
+		<result column="MER_ID" property="merId" jdbcType="CHAR" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+		<result column="EXPIRED_DATE" property="expiredDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CHANNEL_PROVIDER" property="channelProvider" jdbcType="VARCHAR" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="TRANS_DESC" property="transDesc" jdbcType="VARCHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="PRIV_OBLIGATE" property="privObligate" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="SRC_SUBSYS_ID" property="srcSubsysId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap id="PaymentOrderStateMap" type="com.gy.hsxt.gp.bean.PaymentOrderState">
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="SRC_SUBSYS_ID" property="srcSubsysId" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="GPCHPayResultMap" type="com.gy.hsxt.gp.mapper.vo.GPCHPayBalanceVo">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="GPBSPayResultMap" type="com.gy.hsxt.gp.mapper.vo.GPBSPayBalanceVo">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="GPPSPayResultMap" type="com.gy.hsxt.gp.mapper.vo.GPPSPayBalanceVo">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		TRANS_SEQ_ID, ORDER_NO, ORDER_DATE, ORIG_ORDER_NO,
+		BANK_ORDER_NO,
+		BANK_ORDER_SEQ_ID,
+		MER_ID, TRANS_TYPE, TRANS_AMOUNT,
+		TRANS_STATUS, TRANS_DATE, EXPIRED_DATE,
+		PAY_CHANNEL, CHANNEL_PROVIDER, 
+		CURRENCY_CODE,
+		TRANS_DESC, FAIL_REASON, PRIV_OBLIGATE, CREATED_DATE,
+		UPDATED_DATE,SRC_SUBSYS_ID
+	</sql>
+	<sql id="GPCH_PAY_Column_List">
+		TRANS_SEQ_ID,
+		BANK_ORDER_NO,
+		TRANS_TYPE, TRANS_AMOUNT,
+		TRANS_STATUS, TRANS_DATE
+	</sql>
+	<sql id="GPBS_PAY_Column_List">
+		TRANS_SEQ_ID, ORDER_NO, ORDER_DATE,TRANS_TYPE,
+		TRANS_AMOUNT, TRANS_STATUS
+	</sql>
+	<sql id="GPPS_PAY_Column_List">
+		TRANS_SEQ_ID, ORDER_NO, ORDER_DATE,TRANS_TYPE,
+		TRANS_AMOUNT, TRANS_STATUS
+	</sql>
+	<sql id="PaymentOrderState_List">
+		ORDER_NO, ORDER_DATE,TRANS_AMOUNT,
+		TRANS_STATUS,
+		PAY_CHANNEL,
+		CURRENCY_CODE,
+		FAIL_REASON,SRC_SUBSYS_ID
+	</sql>
+		
+	<select id="selectOrderStateByPrimary" resultMap="PaymentOrderStateMap">
+		select
+		<include refid="PaymentOrderState_List" />
+		from T_GP_PAYMENT_ORDER
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectOneBySucHanding" resultType="java.lang.Integer">
+		select
+		   TRANS_STATUS
+		from T_GP_PAYMENT_ORDER
+		where 
+		   ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		   and MER_ID = #{merId,jdbcType=VARCHAR}
+		   and (TRANS_STATUS=100 or TRANS_STATUS=102) 
+		order by TRANS_STATUS ASC,TRANS_DATE DESC 
+		LIMIT 1
+	</select>
+	
+	<select id="selectOneBySelective" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from (select T.*,
+		case TRANS_STATUS
+			when '100' then 100
+			when '102' then 120
+			when '101' then 140
+			when '-1' then 160
+			when '-2' then 180
+		end as orderstatus
+		from T_GP_PAYMENT_ORDER T
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		      and MER_ID = #{merId,jdbcType=VARCHAR}
+		order by orderstatus ASC,TRANS_DATE DESC LIMIT 1) alias
+	</select>
+	
+	<select id="selectPaymentOrderState" resultMap="PaymentOrderStateMap">
+		select
+		<include refid="PaymentOrderState_List" />
+		from (select T.*,
+		case TRANS_STATUS
+			when '100' then 100
+			when '102' then 120
+			when '101' then 140
+			when '-1' then 160
+			when '-2' then 180
+		end as orderstatus
+		from T_GP_PAYMENT_ORDER T
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		      and MER_ID = #{merId,jdbcType=VARCHAR}
+		order by orderstatus ASC,TRANS_DATE DESC LIMIT 1) alias
+	</select>
+	
+	<!-- 废弃不用, 暂时不删除!!! -->
+	<select id="selectNearReadyOrder" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_PAYMENT_ORDER
+		where 
+		   ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		   and MER_ID=#{merId,jdbcType=VARCHAR}
+		   and TRANS_STATUS=-1 
+		order by TRANS_DATE DESC 
+		LIMIT 1
+	</select>
+	
+	<select id="selectByBankOrderNo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_PAYMENT_ORDER
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+		LIMIT 1
+	</select>
+	
+	<insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrder">
+		insert into T_GP_PAYMENT_ORDER (
+				TRANS_SEQ_ID, 
+				ORDER_NO, 
+				ORDER_DATE,
+				ORIG_ORDER_NO, 
+				BANK_ORDER_NO,
+				BANK_ORDER_SEQ_ID, 
+				MER_ID, 
+				TRANS_TYPE, 
+				TRANS_AMOUNT,
+				TRANS_STATUS, 
+				TRANS_DATE, 
+				EXPIRED_DATE,
+				PAY_CHANNEL, 
+				CHANNEL_PROVIDER, 
+				CURRENCY_CODE, 
+				TRANS_DESC,
+				FAIL_REASON, 
+				PRIV_OBLIGATE,
+				CREATED_DATE, 
+				UPDATED_DATE, 
+				SRC_SUBSYS_ID, 
+				ORDER_DATE_S, 
+				TRANS_DATE_S
+			)
+		values (
+				#{transSeqId,jdbcType=VARCHAR}, 
+				#{orderNo,jdbcType=VARCHAR},
+				#{orderDate,jdbcType=TIMESTAMP},
+				#{origOrderNo,jdbcType=VARCHAR},
+				#{bankOrderNo,jdbcType=VARCHAR}, 
+				#{bankOrderSeqId,jdbcType=VARCHAR},
+				#{merId,jdbcType=CHAR}, 
+				#{transType,jdbcType=INTEGER},
+				#{transAmount,jdbcType=DECIMAL},
+				#{transStatus,jdbcType=INTEGER},
+				#{transDate,jdbcType=TIMESTAMP}, 
+				#{expiredDate,jdbcType=TIMESTAMP},
+				#{payChannel,jdbcType=INTEGER}, 
+				#{channelProvider,jdbcType=VARCHAR},
+				#{currencyCode,jdbcType=CHAR},
+				#{transDesc,jdbcType=VARCHAR},
+				#{failReason,jdbcType=VARCHAR},
+				#{privObligate,jdbcType=VARCHAR},
+				#{createdDate,jdbcType=TIMESTAMP},
+				#{updatedDate,jdbcType=TIMESTAMP},
+				#{srcSubsysId,jdbcType=VARCHAR},
+				#{orderDateS,jdbcType=DATE},
+				#{transDateS,jdbcType=DATE}
+			)
+	</insert>
+
+	<update id="updateStatusByBankOrderNo" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrder">
+		update T_GP_PAYMENT_ORDER
+		<set>
+			<if test="bankOrderSeqId != null">
+				BANK_ORDER_SEQ_ID = #{bankOrderSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="transStatus != null">
+				TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+			</if>
+			<if test="failReason != null">
+				FAIL_REASON = #{failReason,jdbcType=VARCHAR},
+			</if>
+			UPDATED_DATE = SYSDATE()
+		</set>
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+	</update>
+
+	<update id="update2InvalidByPrimary" parameterType="java.lang.String">
+		update
+			T_GP_PAYMENT_ORDER
+		set
+			TRANS_STATUS =-2, UPDATED_DATE =SYSDATE()
+		where
+			TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="listSameOrder" resultMap="BaseResultMap">
+		select
+			t.ORDER_NO, 
+			t.MER_ID, 
+			t.TRANS_DATE, 
+			TRANS_SEQ_ID,
+			ORDER_DATE, 
+			ORIG_ORDER_NO,
+			BANK_ORDER_NO,
+			BANK_ORDER_SEQ_ID,
+			TRANS_TYPE, 
+			TRANS_AMOUNT,
+			TRANS_STATUS,
+			EXPIRED_DATE,
+			PAY_CHANNEL,
+			CHANNEL_PROVIDER,
+			CURRENCY_CODE,
+			TRANS_DESC,
+			FAIL_REASON, 
+			PRIV_OBLIGATE, 
+			CREATED_DATE,
+			UPDATED_DATE
+		from T_GP_PAYMENT_ORDER t 
+		INNER JOIN (
+			select order_no, mer_id, MAX(TRANS_DATE) trans_date 
+			from T_GP_PAYMENT_ORDER
+			where TRANS_STATUS=100 
+			group by order_no, mer_id 
+			HAVING COUNT(TRANS_SEQ_ID)>1
+		) p
+		on 
+		    t.order_no=p.order_no
+			and t.mer_id=p.mer_id 
+			and t.TRANS_DATE=p.trans_date
+			and t.TRANS_STATUS=100
+	</select>
+	
+	<select id="selectRefundByPrimary" resultType="com.gy.hsxt.gp.mapper.vo.RefundVo">
+		select
+			ORIG_ORDER_NO
+			BANK_ORDER_NO,
+			MER_ID
+		from T_GP_PAYMENT_ORDER
+		where
+			TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</select>
+
+    <!-- [对账文件生成]: 查询与银行的对账数据 -->
+	<select id="selectByTransDate" resultMap="GPCHPayResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="GPCH_PAY_Column_List" />
+		from T_GP_PAYMENT_ORDER
+		where 
+			  <![CDATA[ TRANS_DATE_S >= #{startDate,jdbcType=VARCHAR} ]]>
+			and
+			  <![CDATA[ TRANS_DATE_S <= #{endDate,jdbcType=VARCHAR} ]]>
+		LIMIT #{fromIndex,jdbcType=INTEGER},#{limitCount,jdbcType=INTEGER}
+	</select>
+	
+	<!-- [对账文件生成]: 查询与银行的对账数据条数 -->
+	<select id="getcountByTransDate" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select
+		count(TRANS_SEQ_ID)
+		from T_GP_PAYMENT_ORDER
+		where 
+			  <![CDATA[ TRANS_DATE_S >= #{startDate,jdbcType=VARCHAR} ]]> 
+			and 
+			  <![CDATA[ TRANS_DATE_S <= #{endDate,jdbcType=VARCHAR} ]]>
+	</select>
+	
+	<!-- [对账文件生成]: 查询与BS、AO系统的对账数据 -->
+	<select id="selectByOrderDate$GPBS" resultMap="GPBSPayResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="GPBS_PAY_Column_List" />
+		from T_GP_PAYMENT_ORDER
+		where 
+			 <![CDATA[ ORDER_DATE_S >= #{startDate,jdbcType=VARCHAR} ]]>
+			and  <![CDATA[ ORDER_DATE_S <= #{endDate,jdbcType=VARCHAR} ]]>
+			and SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR}
+		LIMIT #{fromIndex,jdbcType=INTEGER},#{limitCount,jdbcType=INTEGER}
+	</select>
+
+	<!-- [对账文件生成]: 查询与PS系统的对账数据 -->
+	<select id="selectByOrderDate$GPPS" resultMap="GPPSPayResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="GPPS_PAY_Column_List" />
+		from T_GP_PAYMENT_ORDER
+		where 
+			 <![CDATA[ ORDER_DATE_S >= #{startDate,jdbcType=VARCHAR} ]]>
+			and  <![CDATA[ ORDER_DATE_S <= #{endDate,jdbcType=VARCHAR} ]]>
+			and SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR}
+		LIMIT #{fromIndex,jdbcType=INTEGER},#{limitCount,jdbcType=INTEGER}
+	</select>
+
+	<!-- [对账文件生成]: 查询与BS、AO系统的对账数据条数 -->
+	<select id="getcountByOrderDate$GPBS" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select
+		count(TRANS_SEQ_ID)
+		from T_GP_PAYMENT_ORDER
+		where 
+		 <![CDATA[ ORDER_DATE_S >= #{startDate} ]]>
+		and <![CDATA[ ORDER_DATE_S <= #{endDate} ]]>
+		and SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- [对账文件生成]: 查询与PS系统的对账数据条数 -->
+	<select id="getcountByOrderDate$GPPS" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select
+		count(TRANS_SEQ_ID)
+		from T_GP_PAYMENT_ORDER
+		where 
+		 <![CDATA[ ORDER_DATE_S >= #{startDate} ]]> 
+		and <![CDATA[ ORDER_DATE_S <= #{endDate} ]]>
+		and SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR}
+	</select>
+</mapper>

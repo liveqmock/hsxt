@@ -1,0 +1,20 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix">
+  <tr>
+    <th width="80" class="nobd leftfix"><label><input class="cdsq_chkAll m03vm mr5" name="" type="checkbox" value="">序号</label></th>
+    <th>菜单名称</th>
+    <th>菜单描述</th>
+    <th class="thfix"></th>
+  </tr>
+</table>
+<div class="heightscroll">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix">
+<%$.each(obj.cdsqlb, function(k, v) {%>
+  <tr<%= k % 2 == 1 ? ' class="table-tr-c"' : ''%>>
+    <td width="80" class="nobd"><label><input class="cdsq_chk m03vm mr5" name="" type="checkbox" value="<%=v.id%>"><%=k + 1%></label></td>
+    <td><%=v.cdmc%></td>
+    <td><%=v.cdms%></td>
+  </tr>
+<%})%>
+</table>
+</div>
+ 

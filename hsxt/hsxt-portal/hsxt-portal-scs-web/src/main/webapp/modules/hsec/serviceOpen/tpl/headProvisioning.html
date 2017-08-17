@@ -1,0 +1,64 @@
+
+          <!--内容添加开始-->
+          <div class="searchbox"> 
+             <div class="search-toolbar">
+		        <ul class="clearfix cssform">
+		         <li class="mr20">                     
+			          <label class="title-int">企业互生号：</label>
+			          <div class="cont-int">                   
+			            <input type="text" name="companyNo" class="input-txt" id="companyNo" maxlength="11"/>
+			          </div> 
+		          </li>
+		          <li class="mr20"><label class="title-int">服务状态：</label>
+		          	<input id="evorimentEvaluateSelect" placeholder="请选择" readonly="readonly" optionvalue="" />
+		          	<!-- <div class="cont-int">
+		          	    <select class="select_radius" id="evorimentEvaluateSelect"> 
+				        	<option value="">全部</option>
+				            <option value="0">未开通</option>
+				            <option value="1">已开通</option>
+				            <option value="2">暂停</option>
+		        		</select>
+		            </div> -->
+		          </li>
+		       		<li class="last">
+		              <div class="cont-int">
+		              	<button id="orderList_search" type="button" class="btn-search ml10">查询</button>    
+		              </div>
+		          </li>
+		        </ul>
+        	</div>   
+        	<div class="shopebox">       
+    		<table id="openService">
+    			<tr>
+		           <th w_index="shopResourceNo" w_algin="center" width="10%">企业互生号</th>
+		           <th w_index="companyName" w_algin="center" width="25%">企业名称</th>
+		           <th w_render="operate" w_algin="center" width="10%">服务类型</th>
+		           <th w_render="operate" w_algin="center" width="45%">服务描述</th>
+		           <th w_render="operate" w_algin="center" width="10%">服务状态</th>
+		         </tr>
+    		</table>
+    		</div>
+		  </div>
+          <!--内容添加结束--> 
+
+<!--弹出框内容及脚本开始{分页提示信息}-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="dlg1" class="none">
+  <div class="clearfix">
+    	<i class="icon_tips tips_ques"></i>
+        <span class="fl fb f14 ml10 pt9">确认关闭该服务？</span>
+    </div>
+</div>
+<div id="dlg3" class="none">
+  <div class="clearfix">
+    	<i class="icon_tips tips_ques"></i>
+        <span class="fl fb f14 ml10 pt9">开通当即扣款10元</span>
+    </div>
+</div>
+<div id="dlg2" class="none">
+</div>
+<!--弹出框内容及脚本结束-->

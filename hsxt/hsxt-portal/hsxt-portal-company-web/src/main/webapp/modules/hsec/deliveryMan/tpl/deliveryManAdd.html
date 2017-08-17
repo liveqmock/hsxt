@@ -1,0 +1,36 @@
+<form id="submitMan"> 
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="30%">送货员名称：<span class="red">*</span></td>
+      <td><input type="text" id="deliveryName" name="name" />
+        </td>
+    </tr>
+    <tr>
+      <td align="right">联系电话：<span class="red">*</span></td>
+      <td><input type="text" name="phone" id="deliveryPhone"/>
+        </td>
+    </tr>
+    <tr>
+      <td align="right">照片：<span class="red">*</span></td>
+      <td><img src="resources/img/defaultheadimg.png" class="imgLicense" width="68" height="68"/>
+      	<b id="imgLoad" style="position:relative; ">
+      	<input type="file" name="itemPhotoAdd" class="inputFile" id="itemPhotoAdd">
+      	<input type="button" class="loadpic" value="上传图片">
+      	</b>
+      	<span id="shopImg" style="color: red;padding-left: 130px;"></span>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">性别：<span class="red">*</span></td>
+      <td><input type="radio" name="sex"  id="male" />
+        <label for="male">男</label>
+        <input type="radio" name="sex" id="female"/>
+        <label for="female">女</label>
+        </td>
+    </tr>
+    <tr>
+      <td align="right">备注：</td>
+      <td><textarea id="remark" name="remark"></textarea></td>
+    </tr>
+  </table>
+  </form>

@@ -1,0 +1,78 @@
+<div id="yhzzcxTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>时间范围：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">状态：</label>
+					<input id="transStatus" readonly="readonly" placeholder="选择状态" />
+				</li>
+				<li>
+					<label>互生号/手机号：</label>
+					<input type="text" name="hsResNo" id="hsResNo" placeholder="输入互生号/手机号" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<button id="qry_yhzz_btn" type="button" class="btn-search">查询</button>
+				</li>
+				<li>
+					<button id="btnExport" type="button" class="btn-search">导出</button>
+				</li>
+			 </ul>
+		 </form>
+		</div>
+		
+	<table id="listCountTable" class="w searchTable mt5 mb5" style="border:solid 1px #ddd;">
+		<tr>
+			<td width="14%" class="pl10">
+				转账总笔数:<span class="ml5" id="totalNum" ></span>
+			</td>
+			<td width="16%" class="lh180">
+			转账总金额:<span class="ml5" id="totalAmount" ></span><br/>
+			扣除手续费:<span class="ml5" id="deductFeeAmount" ></span><br/>
+			待转账退款:<span class="ml5" id="waitBackAmount" ></span>
+			</td>
+			<td width="75%" class="bg_lvse">
+				<table width="95%" border="0" cellspacing="0" cellpadding="0" align="right">
+					<tr>
+						<td height="30"><div class="fl w80">申请中:</div><div class="fl w60 tr" id="applyingAmount" ></div></td>
+						<td><div class="fl w80">已冲正:</div><div class="fl w60 tr" id="reversedAmount" ></div></td>	
+						<td><div class="fl w80">银行退票:</div><div class="fl w60 tr" id="bankBackAmount" ></div></td>
+						<td><div class="fl w80">转账成功:</div><div class="fl w60 tr" id="transSuccessAmount" ></div></td>			
+					</tr>
+					<tr>			 
+						<td height="30"><div class="fl w80">付款中:</div><div class="fl w60 tr" id="payingAmount" ></div></td>
+						<td><div class="fl w80">已撤单:</div><div class="fl w60 tr" id="revokedAmount" ></div></td>		
+						<td><div class="fl w80">转账退款完成:</div><div class="fl w60 tr" id="backSuccessAmount" ></div></td>
+						<td><div class="fl w80">转账失败:</div><div class="fl w60 tr" id="transFailAmount" ></div></td>		
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>	
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="transNo" w_render="operate">交易流水号</th>
+		<th w_index="hsResNo" w_tip="true">互生号/手机号</th>
+		<th w_index="custName" w_render="operate">单位名称</th>
+		<th w_index="reqTime" w_tip="true">申请时间</th>
+		
+		
+		<th w_index="amount" w_render="operate">转账金额</th>
+		<th w_index="feeAmt" w_render="operate">银行扣除手续费</th>
+		<!-- <th w_index="th_7">到账金额</th> -->
+		<th w_index="bankTransNo" w_tip="true">银行流水号</th>
+		<th w_index="transStatus" w_render="operate">状态</th>
+		<th w_index="resultTime"  w_render="operate">状态日期</th>
+		<th w_index="commitType" w_render="operate">提交类型</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="yhzzcx_operation_tpl" class="none">
+
+</div>

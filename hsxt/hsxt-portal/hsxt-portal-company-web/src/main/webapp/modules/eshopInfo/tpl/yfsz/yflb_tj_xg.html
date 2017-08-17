@@ -1,0 +1,28 @@
+﻿<form id="yflb_form" name="yflb_form">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="30%">物流名称：</td>
+      <td><div class="ineblk infobox2 pr pr1"><input type="text" id="yflb_wlmc" name="yflb_wlmc" readonly="readonly" placeholder="请选择" options="<%=obj.wlmclb%>" optionValue="<%=obj.wlgsid%>"/></div><span class="ml5 red">*</span></td>
+    </tr>
+    <tr>
+      <td align="right">模板名称：</td>
+      <td><input type="text" id="yflb_mbmc" name="yflb_mbmc" value="<%=obj.mbmc%>" class="w200 p5 infobox2" placeholder="输入模板名称"></td>
+    </tr>
+    <tr>
+      <td align="right">类型：</td>
+      <td><label><input type="checkbox" id="yflb_lx" name="yflb_lx" class="m03vm"<%if(obj.lx === '包邮'){%> checked="checked"<%}%>>包邮</label><span class="ml5 red">*</span></td>
+    </tr>
+    <tr class="yflb_by_td<%if(obj.lx !== '包邮'){%> none<%}%>">
+      <td align="right">包邮价：</td>
+      <td><input type="text" id="yflb_byj" name="yflb_byj" value="<%=obj.byj%>" class="w200 p5 infobox2" placeholder="输入包邮价"></td>
+    </tr>
+    <tr>
+      <td align="right">运费：</td>
+      <td><input type="text" id="yflb_yf" name="yflb_yf" value="<%= obj.yf || 8%>" class="w200 p5 infobox2" placeholder="输入运费"><span class="ml5 red">*</span></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>100以上包邮，100以下运费8元</td>
+    </tr>
+</table>
+</form>

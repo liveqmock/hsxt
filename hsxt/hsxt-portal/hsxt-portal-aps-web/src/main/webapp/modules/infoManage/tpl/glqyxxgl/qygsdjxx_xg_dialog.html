@@ -1,0 +1,37 @@
+<form id="confirm_dialog_form" name="confirm_dialog_form">
+	<div class="view_info mt10">
+	<table id="copTable"  width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td width="20%" align="center" class="table_title">信息</td>
+			<td width="40%" align="center" class="table_title">修改前内容</td>
+			<td width="40%" align="center" class="table_title">修改后内容</td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">备注</td>
+			<td colspan="2"><textarea class="rsn h100 w98pc ml5" id="viewMark" name="viewMark" maxlength="300" placeholder="输入备注,字数不超过300个字"></textarea></td>
+		 </tr>
+		 <tr>
+			<td class="view_item" width="20%">选择验证方式</td>
+			<td colspan="2" class="pr">
+				<input id="verificationMode" name="verificationMode" readonly="readonly" placeholder="选择验证方式" />
+				<span class="ml10 red none" id="verificationMode_prompt">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+		 <tr id="doubleUserNameTr">
+			<td class="view_item" width="20%">复核员用户名</td>
+			<td colspan="2" class="pr">
+				<input type="text" id="doubleUserName" name="doubleUserName" class="ml5 h30_middle w115" placeholder="输入复核员用户名" />
+				<span class="required-right-10">*</span>
+			</td>
+		 </tr>
+		 <tr id="doublePasswordTr">
+			<td class="view_item" width="20%">复核员登录密码</td>
+			<td colspan="2" class="pr">
+				<input type="password" id="doublePassword" name="doublePassword" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+		 </tr>
+	</table>
+	</div>
+</form>	

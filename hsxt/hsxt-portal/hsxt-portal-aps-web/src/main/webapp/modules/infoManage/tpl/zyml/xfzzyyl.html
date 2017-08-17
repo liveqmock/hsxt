@@ -1,0 +1,43 @@
+﻿<div id="xfzzyylTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>互生卡号：</label>
+					<input type="text" name="xfzzyyl_res_no" id="xfzzyyl_res_no" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入互生卡号" />
+				</li>
+				<li>
+					<label>单位名称：</label>
+					<input type="text" id="xfzzyyl_real_name" name="xfzzyyl_real_name" class="h28_middle w115 input-txt" placeholder="输入单位名称" />
+				</li>
+				<li>
+					<label>消费者状态：</label>
+					<input id="xfzzyyl_zt" type="text" name="textfield" class="h28_middle w80 input-txt" placeholder="--消费者状态--"  readonly="readonly"/>
+				</li>
+				<li>
+					<label>日期：</label>
+					<input id="search_startDate" type="text" name="search_startDate" class="h28_middle w80 input-txt" placeholder="选择开始日期" />--
+					<input id="search_endDate" type="text" name="search_endDate" class="h28_middle w80 input-txt" placeholder="选择结束日期" />
+				</li>
+				<li>
+					<button id="btn_query_xfzzyyl" type="button" class="btn-search">查询</button>
+				</li>
+				<li>
+					<button id="btn_export" type="button" class="btn-search">导出</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="hsResNo" w_render="operate">互生卡号</th>
+		<th w_index="perName">单位名称</th>
+		<th w_index="idType" w_render="operate">证件类型</th>
+		<th w_index="mobile">手机号码</th>
+		<th w_index="idNo">证件号码</th>
+		<th w_render="operate">消费者状态</th>
+		<th w_render="operate">消费者状态完成时间</th>
+		<th w_render="operate">互生卡状态</th>
+	  </tr>
+	</table>
+</div>

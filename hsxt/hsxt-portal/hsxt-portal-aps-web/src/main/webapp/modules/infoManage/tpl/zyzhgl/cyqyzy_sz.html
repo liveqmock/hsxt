@@ -1,0 +1,49 @@
+<div class="view_info info_500">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="30%" id="jfzhsb_text">积分转互生币</td>
+			<td class="view_text" width="70%">
+				<label><input type="radio" name="jfzhsb" value="0" class="input_radio mr5" <%if(obj.PV_TO_HSB == '0'){%> checked="checked" <%}%> />开启</label>
+				<label><input type="radio" name="jfzhsb" value="1" class="input_radio mr5 ml10" <%if(obj.PV_TO_HSB == '1'){%> checked="checked" <%}%>/>限制</label>
+				<input type="text" class="h28_middle infobox ml10 w185 pl5 pr5" id="jfzhsb_info" name="jfzhsb_info" value="<%=obj.PV_TO_HSBRemark%>" placeholder="输入说明信息" maxlength="300"/>
+				<span class="red ml5">*</span>
+			</td>
+		</tr>
+		<!-- <tr>
+			<td class="view_item">积分投资</td>
+			<td class="view_text">
+				<label><input type="radio" name="jftz" value="0" class="input_radio mr5" <%if(obj.PV_INVEST == '0'){%> checked="checked" <%}%>/>开启</label>
+				<label><input type="radio" name="jftz" value="1" class="input_radio mr5 ml10" <%if(obj.PV_INVEST == '1'){%> checked="checked" <%}%> />限制</label>
+				<input type="text" class="h28_middle infobox ml10 w185 pl5 pr5" id="jftz_info" placeholder="输入说明信息"/>
+				<span class="red ml5">*</span>
+			</td>
+		</tr> -->
+		<tr>
+			<td class="view_item" id="dhhsb_text">兑换互生币</td>
+			<td class="view_text">
+				<label><input type="radio" name="dhhsb" value="0" class="input_radio mr5" <%if(obj.BUY_HSB == '0'){%> checked="checked" <%}%> />开启</label>
+				<label><input type="radio" name="dhhsb" value="1" class="input_radio mr5 ml10" <%if(obj.BUY_HSB == '1'){%> checked="checked" <%}%>/>限制</label>
+				<input type="text" class="h28_middle infobox ml10 w185 pl5 pr5" id="dhhsb_info" name="dhhsb_info" value="<%=obj.BUY_HSBRemark%>" placeholder="输入说明信息" maxlength="300"/>
+				<span class="red ml5">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item" id="hsbzhb_text">互生币转货币</td>
+			<td class="view_text">
+				<label><input type="radio" name="hsbzhb" value="0" class="input_radio mr5" <%if(obj.HSB_TO_CASH == '0'){%> checked="checked" <%}%> />开启</label>
+				<label><input type="radio" name="hsbzhb" value="1" class="input_radio mr5 ml10" <%if(obj.HSB_TO_CASH == '1'){%> checked="checked" <%}%>/>限制</label>
+				<input type="text" class="h28_middle infobox ml10 w185 pl5 pr5" id="hsbzhb_info" name="hsbzhb_info" value="<%=obj.HSB_TO_CASHRemark%>" placeholder="输入说明信息" maxlength="300"/>
+				<span class="red ml5">*</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item" id="hbzyh_text">货币转银行</td>
+			<td class="view_text">
+				<label><input type="radio" name="hbzyh" value="0" class="input_radio mr5" <%if(obj.CASH_TO_BANK == '0'){%> checked="checked" <%}%> />开启</label>
+				<label><input type="radio" name="hbzyh" value="1" class="input_radio mr5 ml10" <%if(obj.CASH_TO_BANK == '1'){%> checked="checked" <%}%>/>限制</label>
+				<input type="text" class="h28_middle infobox ml10 w185 pl5 pr5" id="hbzyh_info" name="hbzyh_info" value="<%=obj.CASH_TO_BANKRemark%>" placeholder="输入说明信息" maxlength="300"/>
+				<span class="red ml5">*</span>
+			</td>
+		</tr>
+	</table>	
+</div>

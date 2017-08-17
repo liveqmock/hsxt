@@ -1,0 +1,62 @@
+
+<!-- 搜索条件区域 -->
+		<div class="search-toolbar">
+			<ul class="cssform clearfix">
+				<li class="mr20"><label class="title-int">企业互生号：</label>
+					<div class="cont-int">
+						<input type="text" name="textfield" id="companyResourceNoInPage" value=""
+							class="input-txt w100" maxlength="11"/>
+					</div></li>
+				<li class="mr20"><label class="title-int">企业类型：</label>
+				    <input id="companyTypeInPage" placeholder="全部" readonly="readonly" optionvalue=""  /> 
+				</li>
+				<li class="mr20"><label class="title-int">企业名称：</label>
+					<div class="cont-int">
+						<input type="text" name="textfield" id="companyNameInPage" value=""
+							class="input-txt w100" maxlength="128"/>
+					</div></li>
+				<li class="mr20">
+					<label class="title-int">地区：</label>
+					<input id="countryInPage" placeholder="请选择" readonly="readonly" optionvalue=""  /> 
+					<input id="provinceInPage" placeholder="请选择" readonly="readonly" optionvalue="" class="none"/> 
+					<input id="cityInPage" placeholder="请选择" readonly="readonly" optionvalue="" class="none"/> 
+				</li>
+				<li>
+					<div class="cont-int">
+					</div>
+				</li>
+				<li class="last">
+					<div class="cont-int">
+						<button id="vsQuery" type="button" class="btn-search ml10">查询</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+<div class="shopebox">
+	<table id="virtual_shop">
+		<tr>
+			<th w_render="operate" w_align="center" width="8%">企业Logo</th>
+			<th w_render="operate" w_align="center" width="8%">企业互生号</th>
+			<th w_render="operate" w_align="center" width="14%">企业名称</th>
+			<th w_render="operate" w_align="center" width="5%">营业执照</th>
+			<th w_render="operate" w_align="center" width="5%">企业类型</th>
+			<th w_render="operate" w_align="center" width="5%">营业点数量</th>
+			<th w_render="operate" w_align="center" width="10%">创建日期</th>
+			<th w_render="operate" w_align="center" width="5%">状态</th>
+			<% if(showType == "tabOpenApply" || showType == "tabCloseApply" || showType == 'tabAll'){ %>
+				<th w_render="operate" w_align="center" width="20%">操作</th>
+			<% } %>
+		</tr>
+	</table>
+</div>
+<div id="virtualShopPic" class="none"></div>
+<!--弹出框内容及脚本开始-->
+<div id="virtual_shop_new_add" class="none">
+</div>
+	
+<div id="dialog-msg" style="display:none;"></div>
+
+<!-- 弹出框内容及脚本结束 -->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>

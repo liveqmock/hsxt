@@ -1,0 +1,67 @@
+<%
+var address=obj.data
+if(address==null){
+	address={};
+}
+%>
+<form id="addr_form" name="addr_form">
+<div class="border-gray mt30 pt5 pl20 pr20 pb20">
+<input type="hidden" id="addrId" name="addrId" value="<%=address.addrId%>"/>
+<input type='hidden' id='countryNo' name='countryNo'/>
+ 	<table class="w">
+    	<tr>
+        	<td >收货人：</td>
+            <td>
+            	<input type="text" id="receiver" name="receiver" value="<%=address.receiver%>" class="h26" />
+            	<div class="errorInfo"></div>
+            </td>
+            <td>手机：</td>
+            <td colspan="2">
+            	<input type="text" id="mobile" name="mobile" value="<%=address.mobile%>" class="h26" maxlength="11"/>
+            	<div class="errorInfo"></div>
+            	<em class="ml20">或</em>
+            		<em class="ml20 mr10">固定电话：</em>
+            		<input type="text" id="telphone" name="telphone" value="<%=address.telphone%>" class="h26" />
+            		<a class="errorInfo mt5"></a>
+            </td>
+        </tr>
+        <tr>
+        	<td>所在地区：</td>
+        	<td colspan="5">
+               <select id="provinceNo" name="provinceNo" class="h30 w160">
+           		<option value="-1">请选择</option>
+               </select>
+               <select id="cityNo" name="cityNo" class="h30 w160">
+               	<option value="-1">请选择</option>
+               </select>
+            </td>
+        </tr>
+         <tr>
+        	<td>详细地址：</td>
+        	<td colspan="5">
+            	<input type="text" id="address" name="address" value="<%=address.address%>" class="h26 w650"  maxlength="200"/> 
+            	<div class="errorInfo"></div>
+            </td>
+        </tr>
+        <tr>
+        	<td>邮编：</td>
+        	<td colspan="5">
+            	<input type="text" id="postCode" name="postCode" value="<%=address.postCode%>" class="h26 " /> 
+            	<div class="errorInfo"></div>
+            	<input type="checkbox" <%if(address.isDefault==1){%>checked='checked'<%}%> style="width: 16px;height: 16px;margin-left: 10px;" id="isDefault" value="<%=address.isDefault %>"/> 默认地址
+            </td>
+        </tr>
+        
+         <tr>
+        	<tr>
+				<td class="w100 tr   "></td>
+				<td class="w300 pr30 pt20 " colspan="3"><a class="baseInfo_save w120 f16 tc" id="bc_btn">保  存</a></td>
+        	<td colspan="4">
+            	 
+            
+            </td>
+        </tr>
+        
+    </table>
+</div>  
+<form>

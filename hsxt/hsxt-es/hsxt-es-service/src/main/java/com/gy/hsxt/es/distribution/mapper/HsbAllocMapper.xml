@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.es.distribution.mapper.HsbAllocMapper"> 
+	<!-- 日终汇总企业互生币交易销售额 -->
+	<select id="queryHsbTrans" resultType="Alloc">
+	    SELECT SUM(t.ADD_AMOUNT) "addAmount",
+           	   SUM(t.SUB_AMOUNT) "subAmount",
+           	   COUNT(CUST_ID) "addCount",
+               t.CUST_ID "custId",
+               t.HS_RES_NO "hsResNo",
+               t.ACC_TYPE "accType",
+               t.BATCH_NO "batchNo"
+        FROM T_PS_ENTRY t 
+        WHERE  t.ACC_TYPE = '20111' 
+        AND t.BATCH_NO = TO_CHAR((SYSDATE),'YYYYMMDD') 
+	    GROUP BY t.CUST_ID,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO
+	</select>
+
+	<!-- 日终汇总电商企业交易销售额 -->
+	<select id="queryElectricityTrans" resultType="Alloc">
+	    SELECT COUNT(1) "addCount",
+	    	   SUM(t.ADD_AMOUNT) "addAmount",
+           	   SUM(t.SUB_AMOUNT) "subAmount",
+               t.CUST_ID "custId",
+               t.HS_RES_NO "hsResNo",
+               t.ACC_TYPE "accType",
+               t.BATCH_NO "batchNo"
+        FROM T_PS_EC_ENTRY t 
+        WHERE t.CUST_TYPE = 2 AND t.ACC_TYPE = '20111'
+        AND  t.BATCH_NO = TO_CHAR((SYSDATE),'YYYYMMDD') 
+	    GROUP BY t.CUST_ID,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO
+	</select>
+	<!-- 批量插入商业服务费 (日终、月终)-->
+	<insert id="insertDailyCsc" parameterType="java.util.List">
+	    INSERT /*+APPEND*/ INTO T_PS_HSB_ALLOC_CSC (
+			    CSC_NO, 
+			    CUST_ID, 
+			    CUST_TYPE, 
+			    BATCH_NO, 
+			    SOURCE_BATCH_NO,
+	    		HS_RES_NO, 
+	    		ACC_TYPE, 
+	    		CSC_AMOUNT, 
+	    		CREATED_DATE, 
+	    		UPDATED_DATE) 
+  		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT 
+			#{item.cscNo,jdbcType=VARCHAR} AS CSC_NO,
+			#{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+			#{item.custType,jdbcType=VARCHAR} AS CUST_TYPE,
+			#{item.batchNo,jdbcType=VARCHAR} AS BATCH_NO,
+			#{item.sourceBatchNo,jdbcType=VARCHAR} AS SOURCE_BATCH_NO,
+			#{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+			#{item.taxAccType,jdbcType=VARCHAR} AS ACC_TYPE,
+			#{item.cscAmount,jdbcType=NUMERIC} AS CSC_AMOUNT,
+			SYSTIMESTAMP, SYSTIMESTAMP
+		FROM DUAL)
+		</foreach>
+	</insert>
+	<!-- 查询当月的商业服务费 -->
+	<select id="queryMonthCsc" resultType="Alloc">
+	   SELECT  SUM(t.CSC_AMOUNT) "taxAmount",
+	    	   t.CUST_ID "custId",
+	      	   t.HS_RES_NO "hsResNo", 
+	     	   t.ACC_TYPE "accType", 
+	     	   t.BATCH_NO "batchNo"
+       FROM  T_PS_HSB_ALLOC_CSC t  
+	   WHERE t.CREATED_DATE &gt;= TRUNC(SYSDATE, 'MM')  
+	   AND t.CREATED_DATE &lt;= LAST_DAY(SYSDATE)
+	   GROUP BY t.CUST_ID, t.CUST_TYPE, t.HS_RES_NO, t.ACC_TYPE, t.BATCH_NO
+	</select>
+	<!-- 日终互生币减去商业服务费后批量插入 -->
+	<insert id="insertHsbSum" parameterType="list">
+		INSERT /*+APPEND*/ INTO T_PS_HSB_ALLOC_SUM (
+			   HSB_SUM_NO, 
+			   CUST_ID, 
+			   CUST_TYPE, 
+			   HS_RES_NO,
+			   ACC_TYPE, 
+			   ADD_AMOUNT, 
+			   SUB_AMOUNT, 
+			   ADD_COUNT, 
+			   TRANS_TYPE, 
+			   REL_TRANS_NO, 
+			   BATCH_NO, 
+			   SOURCE_BATCH_NO) 
+  		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT 
+			#{item.hsbSumNo,jdbcType=VARCHAR} AS HSB_SUM_NO,
+			#{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+			#{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+			#{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+			#{item.accType,jdbcType=VARCHAR} AS ACC_TYPE,
+			#{item.addAmount,jdbcType=NUMERIC} AS ADD_AMOUNT,
+			#{item.subAmount,jdbcType=NUMERIC} AS SUB_AMOUNT,
+			#{item.addCount,jdbcType=INTEGER} AS ADD_COUNT,
+			#{item.transType,jdbcType=VARCHAR}  AS TRANS_TYPE,
+			#{item.relTransNo,jdbcType=VARCHAR} AS REL_TRANS_NO,
+			#{item.batchNo,jdbcType=VARCHAR} AS BATCH_NO,
+			#{item.sourceBatchNo,jdbcType=VARCHAR} AS SOURCE_BATCH_NO
+		FROM DUAL)			
+		</foreach>
+	</insert>
+	
+</mapper>
+

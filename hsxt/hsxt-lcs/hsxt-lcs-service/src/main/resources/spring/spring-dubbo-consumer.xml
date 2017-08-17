@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+    <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+
+	<!-- 生成远程服务代理 -->
+
+    <!-- 用户中心服务 -->
+    <dubbo:reference id="deviceService" interface="com.gy.hsxt.uc.as.api.device.IUCAsDeviceService"  timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+    <!-- 调度回调服务 -->       
+	<dubbo:reference id="dsBatchCallback" interface="com.gy.hsi.ds.api.IDSBatchServiceListener" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout15000}" async="true" sent="false" version="1.0.0" />
+
+</beans>

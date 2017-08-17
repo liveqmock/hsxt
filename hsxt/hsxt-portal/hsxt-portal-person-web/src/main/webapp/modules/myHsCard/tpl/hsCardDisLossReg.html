@@ -1,0 +1,42 @@
+﻿<!--在卡报失有效期内，消费者解除卡报失请求-->
+<!--实名注册-->
+<div class="p20" data-id="5">
+	<!-- 资料修改开始 -->
+	<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>互生卡解除挂失后，被挂失的互生卡会被恢复使用！</h1>
+	<div class="register_info mt40 info_500">
+		<form id="hsCardDisLossReg_form">
+		<input type="hidden" id="hsCardDisLossReg_randomToken" name="hsCardDisLossReg_randomToken" value="" />
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix">
+					<label for="name">互生卡号</label>
+					<input type="text" id="hsCardDisLossReg_cardNo" name="hsCardDisLossReg_cardNo" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix">
+					<label for="name">互生卡状态</label>
+					<input type="text" id="hsCardDisLossReg_status" name="hsCardDisLossReg_status" value="" disabled="disabled" />
+					</li>
+					<li id="hsCardDisLossReg_li_loginpwd" class="register_row info_320 clearfix">
+					<label for="name">登录密码</label>
+					<input type="password" id="hsCardDisLossReg_loginPwd" name="hsCardDisLossReg_loginPwd" value="" maxlength="6"/><div class="hint"></div>
+					</li>
+				</ul>
+			</div>
+			<input type="hidden"  id="hsCardDisLossReg_CardId" name="hsCardDisLossReg_CardId"/>
+			<div class="tc two_button mt20"><a id="hsCardDisLossReg_submitBtn" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="hskgs">确认提交</a></div>
+		</fieldset>
+		</form>
+	</div>
+	<!-- 资料修改结束 --> 
+</div>
+
+<div class="jqp-dialog" style="display:none;">
+	<div class="title">挂失成功</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">挂失成功提交成功！</span></div></td></tr>
+			<tr><td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn">确定</a></td></tr>
+		</table>
+	</div>
+</div>

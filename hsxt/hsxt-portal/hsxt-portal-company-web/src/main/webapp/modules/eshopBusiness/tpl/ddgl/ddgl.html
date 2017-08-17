@@ -1,0 +1,52 @@
+﻿<div id="ddgl_content1">
+    <div class="search-toolbar">
+      <form id="ddgl_form" name="ddgl_form">
+        <ul class="cssform clearfix">
+          <li class="clearfix">
+            <label class="fl h30_middle">订单编号：</label>
+            <input type="text" class="h28_middle input-txt w100" placeholder="输入订单编号"/>
+          </li>
+          <li class="clearfix">
+             <label class="fl h30_middle">消费者昵称/互生卡号/手机号码：</label>
+            <input type="text" class="h28_middle input-txt w190" placeholder="输入消费者昵称/互生卡号/手机号码"/>
+          </li>
+          <li>
+            <label>日期范围：</label>
+            <input type="text" name="ddgl_beginDate" id="ddgl_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+            <span class="separator-pd">-</span>
+            <input type="text" name="ddgl_endDate" id="ddgl_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+          </li>
+          <li class="clearfix pr">
+        <input type="text" id="ddgl_yyd" readonly="readonly" placeholder="营业点"/>
+          </li>
+          <li>
+            <div class="cont-int">
+              <button id="btn_cx" class="btn-search" type="button">查询</button>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="search-cont">
+      <table id="ddgl_table">
+  		<thead>
+            <tr>
+              <th>订单信息</th>
+              <th>单价</th>
+              <th>数量</th>
+              <th><img src="resources/img/price.png" width="20" height="20" style="vertical-align:middle;"/><span class="ml5">实付款</span></th>
+              <th><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"/><span class="ml5">消费积分</span></th>
+              <th>配送方式</th>
+              <th>支付方式</th>
+              <th>交易状态</th>
+              <th>操作</th>
+            </tr>
+            <tr class="none">
+              <th w_index="" w_align="left" colspan="9"></th>
+            </tr>
+      </thead>
+      </table>
+    </div>
+</div>
+<div id="ddgl_content2" class="none"></div>
+<div id="ddgl-dialog" class="none"><p></p></div>

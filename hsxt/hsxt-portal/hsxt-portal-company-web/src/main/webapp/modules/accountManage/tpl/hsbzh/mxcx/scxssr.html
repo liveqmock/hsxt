@@ -1,0 +1,81 @@
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易流水号：</td>
+    <td><%=obj.transNo%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易时间：</td>
+    <td><%=obj.transDate%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易类型：</td>
+    <td>商城销售结算</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">业务类别：</td>
+    <td><%=obj.businessTypeName%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td>系统终端</td>
+  </tr>
+  <tr align="right">
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+   <tr>
+    <td align="right" class="gray">商城日结订单交易额（含运费）：</td>
+    <td><%=obj.dayTurnover%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">互生币结算订单金额：</td>
+    <td><%=obj.dayHsbTurnover%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">现金结算订单金额：</td>
+    <td><%=obj.dayCashTurnover%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">日结销售额：</td>
+    <td><%=obj.daySale%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">扣除商业服务费：</td>
+    <td><%=obj.cscTurnover%></td>
+  </tr>
+   <tr>
+    <td align="right" class="gray">扣除积分金额：</td>
+    <td><%=obj.deductPointAmount%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">已结订单退回积分金额：</td>
+    <td><%=obj.dayBackPointTurnover%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">日结互生币金额：</td>
+    <td><%=obj.dayHsbAmount%></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="gray">备注：</td>
+    <td></td>
+  </tr>
+   <tr>
+  	<td colspan="2">
+    	<div class="cutline"></div>
+        <div class="lh180 mt10 bc">
+        <h1 class="fb red mb5">说明：</h1>
+        <p>商城日结订单交易额 = 互生币结算订单金额 + 现金结算订单金额；</p>
+        <p>日结销售额 = 互生币结算订单金额 + 现金结算订单金额；</p>
+        <p>扣除商业服务费 = 日结销售额 * 1%；</p>
+        <p>日结互生币金额 = 互生币结算订单金额 - 扣除商业服务费 - 扣除积分金额 + 已结订单退回积分金额。</p>
+        </div>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" class="gray"></td>
+    <td></td>
+  </tr>
+</table>

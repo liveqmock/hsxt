@@ -1,0 +1,44 @@
+﻿<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="35%" align="right">订单编号：</td>
+      <td><%=obj.ddbh%></td>
+    </tr>
+<%if(obj.shxq_fhsq){%>
+    <tr>
+      <td align="right">昵称：</td>
+      <td><%=obj.nc%></td>
+    </tr>
+<%}%>
+<%if(!obj.shxq_fhsq){%>
+    <tr>
+      <td align="right">买家昵称/互生卡号/手机号码：</td>
+      <td><%=obj.mjnc_hskh_sjhm%></td>
+    </tr>
+<%}%>
+    <tr>
+      <td align="right">商品名称：</td>
+      <td><%=obj.spmc%></td>
+    </tr>
+    <tr>
+      <td align="right">申请类型：</td>
+      <td><%=obj.sqlx%></td>
+    </tr>
+<%if(!obj.shxq_fhsq){%>
+    <tr>
+      <td align="right">申请理由：</td>
+      <td><%=obj.sqly%></td>
+    </tr>
+    <tr>
+      <td align="right"><img src="resources/img/price.png" width="25" height="25" style="vertical-align:middle;"/><span class="ml5">退款金额：</span></td>
+      <td><%=obj.tkje%>元</td>
+    </tr>
+    <tr>
+      <td align="right"><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"/><span class="ml5">退还积分：</span></td>
+      <td><%=obj.thjf%></td>
+    </tr>
+<%}%>
+    <tr>
+      <td align="right">说明：</td>
+      <td><textarea class="infobox2 attxta w96pc h50"><%=obj.sm%></textarea></td>
+    </tr>
+</table>

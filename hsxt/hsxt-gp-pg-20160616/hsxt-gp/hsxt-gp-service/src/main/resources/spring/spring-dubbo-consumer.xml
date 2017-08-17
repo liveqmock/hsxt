@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+
+	<!-- 消费服务 -->
+
+	<!-- 支付网关 支付接口 -->
+	<dubbo:reference id="pgPaymentService"
+		interface="com.gy.hsxt.pg.api.IPGPaymentService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+	<!-- 支付网关提现接口 -->
+	<dubbo:reference id="pgTransCashService"
+		interface="com.gy.hsxt.pg.api.IPGTransCashService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+	<!-- 用户中心系统签约号通知接口 -->
+	<dubbo:reference id="gpNotifyBingNoService"
+		interface="com.gy.hsxt.gp.api.IGPNotifyBingNoService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+	<!-- 业务系统异步通知接口 -->
+	<dubbo:reference id="gpNotifyServiceBS"
+		interface="com.gy.hsxt.gp.api.IGPNotifyService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" group="BS" />
+
+	<!-- 账户服务系统异步通知接口 -->
+	<dubbo:reference id="gpNotifyServiceAO"
+		interface="com.gy.hsxt.gp.api.IGPNotifyService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" group="AO" />
+		
+	<!-- 消费积分系统异步通知接口 -->
+	<dubbo:reference id="gpNotifyServicePS"
+		interface="com.gy.hsxt.gp.api.IGPNotifyService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" group="PS" />
+		
+    <!-- DS调度状态上报服务接口[必须为异步方式] -->
+	<dubbo:reference id="dsBatchCallback"
+		interface="com.gy.hsi.ds.api.IDSBatchServiceListener" retries="${dubbo.reference.retires}"
+		timeout="${dubbo.service.timeout15000}" async="true" sent="false"
+		version="1.0.0" />
+		
+	<!-- 查询UPOP快捷支付银行名称 -->
+	<dubbo:reference id="lcsBaseDataService"
+		interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" retries="1"
+		timeout="${dubbo.service.timeout10000}" version="1.0.0" />
+		
+</beans>

@@ -1,0 +1,52 @@
+<% var param = obj %>
+<!-- 20150408 zhanghh insert -->
+<!--弹出框内容及脚本开始-->
+	<form id="addOrEditForm">
+	<table class="detail-table" width="100%" border="0" cellspacing="0"
+		cellpadding="0">
+		<tr>
+			<td align="right">企业互生号：</td>
+			<td><input id="parmResourceNoInputInPage" type="text"  readonly="readonly" value="<%=param.resourceNo%>"/></td>
+		</tr>
+		<tr>
+			<td align="right">企业名称：</td>
+			<td><input id="parmCompanyNameInputInPage" name="parmCompanyNameInputInPage" type="text" value="<%=param.companyName%>" readonly="readonly" /></td>
+		</tr>
+		<tr>
+			<td align="right">商城名称：</td>
+			<td><input id="parmVsBaseInfoInputInPage" type="text" maxlength="100" value="<%=param.vsBaseInfo%>"/><span class="red">*</span></td>
+		</tr>
+		<tr>
+			<td align="right">营业执照：</td>
+			<td><input id="parmBusLicenceInputInPage" type="text"  readonly="readonly" value="<%=param.busLicence%>"/></td>
+		</tr>
+		<tr>
+			<td align="right">企业类型：</td>
+			<td><input id="parmCompanyTypeInputInPage" type="text"  readonly="readonly" value="<%=param.companyType%>"/></td>
+		</tr>
+		<!--tr>
+			<td align="right">营业点数量：</td>
+			<td><input id="parmShopNumberInputInPage" type="text"  readonly="readonly" value="<%=param.shopNumber%>"/></td>
+		</tr-->
+		<tr>
+			<td align="right">创建日期：</td>
+			<td><input id="parmCreateDateInputInPage" type="text"  readonly="readonly" value="<%=param.createDate%>"/></td>
+		</tr>
+		<!--tr>
+			<td align="right">申请时间：</td>
+			<td><input id="parmApplyDateInputInPage" type="text"  readonly="readonly" value="<%=param.applyDate%>"/></td>
+		</tr-->
+		<tr>
+			<td align="right">状态：</td>
+			<td><input id="parmStatusInputInPage" type="text"  readonly="readonly" value="<%=param.status%>"/></td>
+		</tr>
+		
+			<td colspan="2" align="center">
+				<input id="editSave" type="submit" value="保存" class="btn-search ml10 new_add"/>
+				<input id="editCancel" type="button" value="取消" class="btn-search ml10 new_add"/>
+			</td>
+		
+	</table>
+	</form>
+<!--弹出框内容及脚本结束-->
+<!-- ============================================================================ -->

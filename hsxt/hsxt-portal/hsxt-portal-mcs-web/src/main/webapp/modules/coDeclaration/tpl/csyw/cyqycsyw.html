@@ -1,0 +1,46 @@
+<div  id="tgqycsyw_tpl">      
+                 	<div class="search-toolbar">
+                    	<form id="cy_search_form" name="cy_search_form">
+							<ul class="cssform clearfix">
+								<li class="clearfix">
+									<label class="title-int">快捷日期：</label>
+									<input id="quickDate" readonly="readonly" placeholder="选择快捷日期" optionvalue=""/>
+								</li>
+								<li>
+									<label class="title-int">申报日期：</label>
+									<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="input-txt  w100" readonly="readonly" />
+									<span class="separator-pd">-</span>
+									<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="input-txt  w100" readonly="readonly" />
+								</li>
+								<li>
+									<label class="ml20 title-int">企业互生号：</label>
+									<input type="text" name="search_resNo" id="search_resNo" placeholder="输入企业互生号" class="input-txt  w100" />
+								</li>
+								<li>
+									<label class="ml20 title-int">企业名称：</label>
+									<input type="text" name="search_entName" id="search_entName" placeholder="输入企业名称" class="input-txt  w100" />
+								</li>
+								<li>
+									<div class="cont-int">
+										<button id="queryBtn" type="button" class="btn-search ml20">查询</button>
+									</div>
+								</li>
+							 </ul>
+						</form>
+                    </div>
+                    <div class="search-cont">
+                    	 		<table id="tableDetail" class="bsgrid">   
+								    <tr>     
+								        <th w_index="entResNo">企业互生号</th>
+								        <th w_index="entName" w_tip="true" w_length='30'>企业名称</th>
+								        <th w_index="entAddress" w_tip="true" w_length='30'>企业地址</th>
+								        <th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+								        <th w_index="linkmanMobile">联系人手机</th>
+								        <th w_index="declareDate">申报日期</th>
+								        <th w_index="status" w_render="operate">申报状态</th>  
+								        <th w_render="operate">业务详细</th>
+								        <th w_render="operate">工单操作</th>
+								    </tr>
+								</table> 
+                    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="view_info mt40 info_500 none" id="ddhsb_qrTpl">
+	<div class="acct-ct">
+		<div class="clearfix pt10 h60 bc" style="width:450px;">
+			<span class="tcr_blue fb fl">温馨提示：</span><br />
+			<div class="fl ml5 tl" style="width:">
+				已实名注册用户单笔兑换数量为<span id="qr_regMinAount_buyHsb"></span>-<span id="qr_regMaxAount_buyHsb"></span>互生币；<br /> 
+				未实名注册用户单笔兑换数量为<span id="qr_unRegMinAount_buyHsb"></span>-<span id="qr_unRegMaxAount_buyHsb"></span>互生币；<br />
+				每日兑换互生币数量最多为<span id="qr_maxAountDaily_buyHsb"></span>,今日还可兑换<span id="qr_leftAountDaily_buyHsb"></span>互生币。
+			</div>
+		</div>
+		<p class="acct-line"></p> 
+	</div>
+<form id="ddhsb_qrForm" name="ddhsb_qrForm" action="" method="post">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">互生卡号</td>
+			<td class="view_text" width="30%"><span id="numberTxt"></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">代兑金额(本币)</td>
+			<td class="view_text"><span id="ddjeTxt"></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">货币转换比率</td>
+			<td class="view_text"><span id="rateTxt"></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">折合扣除企业互生币</td>
+			<td class="view_text"><span id="payHsbTxt"></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">消费者到账互生币金额</td>
+			<td class="view_text"><span id="getHsbTxt"></span></td>
+		</tr>
+	</table>
+	<div class="clearfix mt20 tc"><a href="javascript:;" id="dh_btn" class="btn_bg submit mr30">兑&#12288;换</a><a href="javascript:;" id="cancel_btn" class="btn_bg submit">取&#12288;消</a></div>
+</form>
+</div>

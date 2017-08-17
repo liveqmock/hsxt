@@ -1,0 +1,49 @@
+<div id="cpointBack">
+    <div class="acct-ct mb20">
+        <h1 class="acct-tips lh150 bc" style="width:460px; text-align: left;">
+        <span class="tcr_blue fb">温馨提示:</span><br />
+        1、积分预付款账户要求保底预付积分数为500.00，该部分不可退回;<br/>
+        2、积分预付款非保底部分可以退回，退回金额为不小于0的整数;<br/>
+        3、若须将积分预付款账户余额全部取回，需在“<span id="acpoint_remind"></span>”栏办理;<br/>
+        4、退回的积分预付款将按货币转换比率折合为互生币后转入互生币账户;<br/>
+        5、企业需自行在互生币账户转入货币账户，然后申请转账至企业绑定的银行账户。
+        </h1>
+    </div>
+    <div class="bc mt20 info_320">
+    <form action="" autocomplete="off" id="acb_appForm" name="acb_appForm" method="post">
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w115">积分预付款余额</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_cpointTotalNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">折合预付积分数</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_cpointConverNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">保底预付积分数</label><div class="cont-chk tbox"><span class="ml10" id="acb_minMoney"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">可退回预付积分数</label><div class="cont-chk tbox"><span class="ml10" id="acb_usableCpointNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">当地结算货币</label><div class="cont-chk tbox"><span class="ml10" id="acb_currency">人民币</span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">货币转换比率</label><div class="cont-chk tbox"><span class="ml10" id="acb_rate"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">可退回积分预付款</label><div class="cont-chk tbox"><span class="ml10" id="acb_usableCpointMoney"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">退回积分预付款</label><input id="acb_appBackNum" name="acb_appBackNum" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入退回积分预付款"  maxlength="10"/><div class="hint"></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">转入账户</label><div class="cont-chk tbox"><span class="ml10">互生币账户</span></div>
+            </li>
+        </ul>
+        <div class="mt20 mb20 tc">
+            <a href="javascript:;" id="acbQrBtn" class="btn_bg submit">提&#12288;交</a>
+        </div>
+    </form>
+    </div>
+</div>
+<div class="view_info mt40 info_500 none" id="cpointBack_affirm"></div>

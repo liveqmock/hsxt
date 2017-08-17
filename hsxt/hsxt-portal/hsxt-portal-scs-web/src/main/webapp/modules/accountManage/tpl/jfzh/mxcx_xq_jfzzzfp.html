@@ -1,0 +1,77 @@
+
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td align="right" width="160" class="gray"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易流水号：</td>
+    <td><%=obj.transNo %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易时间：</td>
+    <td><%=obj.transDate %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">交易类型：</td>
+    <td><%=obj.transTypeName %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">业务类别：</td>
+    <td><%=obj.businessTypeName %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td>系统终端</td>
+  </tr>
+  <tr align="right">
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">汇总时间：</td>
+    <td><%=obj.calcTime %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">分配基数：</td>
+    <td><%=baseVal %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">分配比参考数：</td>
+    <td><%=obj.pointREF %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">百位分配比：</td>
+    <td><%=obj.percent %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">再增值分配积分数：</td>
+    <td><%=bmlmPoint %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">笔数：</td>
+    <td><%=obj.totalRow %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">扣除税金：</td>
+    <td><%=obj.tax %></td>
+  </tr>
+  <tr align="right">
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="lh150">
+    	<h2 class="fb">积分再增值分配说明</h2>
+<ul><li>• 分配比参考数：是以企业每月支付消费者积分的汇总数按1%来计算分配比参考数。</li>
+<li>• 分配基数：是按月将所有隶属本企业系统中的企业分配比参考数合计而得出的数据。</li>
+<li>• 当企业的分配比参考数在10～100时，用分配基数按百位2.5%，千位0.25%，万位0.025%，依此类推，计算所得；</li>
+<li>• 当企业的分配比参考数在101～300时，用分配基数按百位5%，千位0.5%，万位0.05%，依此类推，计算所得；</li>
+<li>• 当企业的分配比参考数在301～500时，用分配基数按百位7.5%，千位0.75%，万位0.075%，依此类推，计算所得；</li>
+<li>• 当企业的分配比参考数在501以上时，用分配基数按百位10%，千位1%，万位0.1%，依此类推，计算所得。</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="right" class="gray"></td>
+    <td></td>
+  </tr>
+</tbody></table>
+ 

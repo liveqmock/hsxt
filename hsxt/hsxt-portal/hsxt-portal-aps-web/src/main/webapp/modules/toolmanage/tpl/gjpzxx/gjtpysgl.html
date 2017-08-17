@@ -1,0 +1,43 @@
+﻿<div id="gjtpysglTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+		<!--	<li class="clearfix">
+				<label class="fl h30_middle">工具名称：</label>
+				<input id="toolName" readonly="readonly" placeholder="选择工具名称" />
+			</li>-->
+			<li>
+				<label>互生卡样式名称：</label>
+				<input type="text" id="search_cardStyleName" name="search_cardStyleName" placeholder="输入名称" class="h28_middle w115 input-txt" />
+			</li>
+		<!--	<li class="clearfix">
+				<label class="fl h30_middle">工具图片样式：</label>
+				<input id="toolPicStyle" readonly="readonly" placeholder="选择工具图片样式" />
+			</li>-->
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="tj_btn" type="button" class="btn-search">添加</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<!--<th w_index="th_1">工具名称</th>
+		<th w_index="th_2">工具图片样式名称</th>-->
+		<th w_index="cardStyleName"  w_tip=true>互生卡样式名称</th>
+		<th w_index="reqTime">上传日期</th>
+		<th w_index="reqOperator">上传操作员</th>
+		<th w_index="enableStatus" w_render="operate">样式状态</th>
+        <th w_index="reqTime">状态日期</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_tj" class="none"></div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_jrqr" class="none"></div>
+
+<!--
+<div id="dialogBox_ztxg" class="none"></div>
+<div id="dialogBox_ztfh" class="none"></div>-->

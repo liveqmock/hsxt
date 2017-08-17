@@ -1,0 +1,54 @@
+<div class="w900 bc">
+	<form id="jsxxgl_optForm">
+		
+		
+		<div class="clearfix">
+			<ul class="inputForm-ul fl w400">
+				<li class="pr">
+					<label class="inputForm-label">角色ID</label>
+					<input type="text" id="jsxxgl_opt_jsid" name="roleId" class="inputForm-text" placeholder="输入角色ID" maxlength="32" />
+					<span class="required">*</span>
+				</li>
+				
+				<li class="pr">
+					<label class="inputForm-label">角色名称</label>
+					<input type="text" id="jsxxgl_opt_jsmc" name="roleName" class="inputForm-text" placeholder="输入角色名称" maxlength="30" />
+					<span class="required">*</span>
+				</li>
+				<li>
+					<label class="inputForm-label">角色类型</label>
+					<input type="text" id="jsxxgl_opt_jslx" name="roleType" readonly="readonly" placeholder="选择角色类型" />
+				</li>
+				<li>
+					<label class="inputForm-label">企业客户号</label>
+					<input type="text" id="jsxxgl_opt_qykhh" name="entCustId" class="inputForm-text" placeholder="输入企业客户号" maxlength="32" />
+				</li>
+			</ul>
+			
+			
+			<ul class="inputForm-ul fr w400">
+				<li class="pr">
+					<label class="inputForm-label">子系统编码</label>
+					<input type="text" id="jsxxgl_opt_zxxbm" name="subSystemCode" class="inputForm-text" placeholder="输入子系统编码" maxlength="128" />
+					<span class="required">*</span>
+				</li>
+				<li>
+					<label class="inputForm-label">平台编码</label>
+					<input type="text" id="jsxxgl_opt_ptbm" name="platformCode" class="inputForm-text" placeholder="输入平台编码" maxlength="128" />
+				</li>
+				<li>
+					<label class="inputForm-label">状态</label>
+					<input type="text" id="jsxxgl_opt_zt" name="jsxxgl_opt_zt" readonly="readonly" placeholder="选择状态" />
+				</li>
+			</ul>
+		</div>
+		<ul class="inputForm-ul mt5">
+			<li class="clearfix">
+				<label class="inputForm-label-h60 fl">角色描述</label>
+				<textarea id="jsxxgl_opt_jsms" name="roleDesc" class="inputForm-textarea fl ml5" placeholder="输入角色描述,字数不超过300个字" maxlength="300" ></textarea>
+			</li>
+		</ul>
+	</form>
+</div>
+
+<div id="alert_error" class="none ovh"></div>

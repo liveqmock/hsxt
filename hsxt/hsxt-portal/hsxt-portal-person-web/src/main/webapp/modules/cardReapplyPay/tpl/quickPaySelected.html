@@ -1,0 +1,22 @@
+<%
+var bankLogoClass = 'bank-' + (obj.bankName || 'zgjsyh');
+var cardNo = obj.cardNo || '***4054' ;
+%>
+<form id="selectedForm">
+	<ul class="fl clearfix pay-ul">
+		<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+		<li class="ml15 mt5 fb f14">银行卡</li>
+		<li class="w200 ml30">
+			<label class="clearfix pay-label">
+				<input type="radio" name="selectedMethod" value="quickPay" class="mt5" checked="checked" ><i class="ml5 bank-logo <%=bankLogoClass%>"></i>
+			</label>
+		</li>
+		<li class="pay-card-no"><%=cardNo%></li>
+		<li><span class="ml10 pay-icon-xyk">信用卡</span></li>
+		<li><span class="ml5 pay-icon-quick">快捷</span></li>
+		<li class="ml15 mt5"><a id="openQuickPay_btn">添加新的银行卡</a></li>
+	</ul>
+	<div class="fr f14 mt5">
+		支付金额：<span class="pay-text-red fb f16"><%=obj.paymentAmount%></span> 元
+	</div>
+</form>

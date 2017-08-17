@@ -1,0 +1,53 @@
+<div id="lxxxTpl">
+	<div class="view_info mt40 info_800">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+	            <td class="view_item" width="20%">联系人姓名</td>
+	            <td class="view_text" width="30%"><%=obj.contactPerson%></td>
+	            <td class="view_item" width="20%">联系人手机</td>
+	            <td class="view_text" width="30%"><%=obj.contactPhone%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%">联系地址</td>
+	            <td class="view_text" width="30%"><%=obj.contactAddr%></td>
+	            <td class="view_item" width="20%">邮政编码</td>
+	            <td class="view_text" width="30%"><%=obj.postCode%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%">企业安全邮箱</td>
+	            <td class="view_text" width="30%">
+					<div class="clearfix mr5">
+						<%=obj.contactEmail%>
+					</div>
+				</td>
+				<td class="view_item" width="20%"><!--企业网址--></td>
+	            <td class="view_text" width="30%"><!--www.123.com--></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%" height="60">联系人授权委托书</td>
+	            <td colspan="3" class="view_text pt5 pb5">&nbsp;
+	            <a ><img id="aimg" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+	            </td>
+	         </tr>
+	        <%if (3 == obj.custType && 2 == obj.startResType){%>
+	        <tr>
+            <td class="view_item" width="20%" height="60">创业帮扶协议</td>
+            
+            <td colspan="3" class="view_text pt5 pb5">
+            <span id="helpAgreement_span" class="fl ml5 mt5 sample_img">
+            <a ><img id="helpAgreement_img" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a></td>
+           	</span>
+            </tr>
+	        <%}%>
+		</table>
+		 <div class="mt20" align="center">
+		<% if(num == 'tgqy'){ %>
+		<a class="btn_bg submit" id="back_tgqyzy">返&#12288;回</a>
+		<% } else if(num == 'cyqy'){ %>
+		<a class="btn_bg submit" id="back_cyqyzy">返&#12288;回</a>
+		<% } else if(num == 'fwgs'){ %>
+		<a class="btn_bg submit" id="back_fwgszy">返&#12288;回</a>
+		<% } %>
+		</div>
+	</div>
+</div>

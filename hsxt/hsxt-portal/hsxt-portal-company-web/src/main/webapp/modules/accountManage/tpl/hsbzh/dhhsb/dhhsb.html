@@ -1,0 +1,35 @@
+<div id="cpointPrepay">
+    <div class="acct-ct mb20">
+    	<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>单笔兑换数量为<span id="amountMinByTime"></span>-<span id="amountMaxByTime"></span></h1>
+    </div>
+    <div class="bc info_320">
+    <form id="acpoint_appForm" autocomplete="off" name="acpoint_appForm" action="" method="post" onsubmit="return false;">
+        <input type="hidden" id="acpoint_appMinNum" value=""/>
+        <input type="hidden" id="acpoint_currency" name="acpoint_currency" value=""/>
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w115">兑换互生币数量</label><input id="acpoint_appBuyCpointNum" name="acpoint_appBuyCpointNum" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入兑换互生币数量" maxlength="10"/><div class="hint"></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">当地结算货币</label><div class="cont-chk tbox"><span class="ml10" id="currencyNameCn"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">货币转换比率</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_rate"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">折合货币金额</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_convertAppNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">应支付金额</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_realMoney"></span></div>
+            </li>
+            <!--li class="clearfix">
+                <label class="title-txt w115">支付方式</label><div class="cont-txt h30_middle"><label><input type="radio" class="m03vm" name="acpoint_checkbox" id="acpoint_cashAcct" checked="checked" value="acpoint_cashAcctValue"/>货币支付</label><label class="ml10"><input type="radio" name="acpoint_checkbox" id="acpoint_ebank" value="acpoint_ebankValue" class="m03vm"/>网银支付</label></div>
+            </li-->
+        </ul>
+        <div class="mt20 tc">
+            <a href="javascript:;" id="acpointQrBtn" class="btn_bg submit">去付款</a>
+        </div>
+    </form>
+    </div>
+</div>
+<div class="none" id="dhhsb-dialog"><p></p></div>

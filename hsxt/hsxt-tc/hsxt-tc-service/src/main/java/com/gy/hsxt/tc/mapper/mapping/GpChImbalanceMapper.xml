@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.mapper.GpChImbalanceMapper">
+
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.tc.bean.GpChImbalance">
+		<id column="IMBALANCE_ID" property="imbalanceId" jdbcType="DECIMAL" />
+		<result column="ACC_DATE" property="tcDate" jdbcType="CHAR" />
+		<result column="TRAN_NUM" property="tranNum" jdbcType="VARCHAR" />
+		<result column="GP_SEQ_ID" property="gpSeqId" jdbcType="VARCHAR" />
+		<result column="GP_TRANS_TYPE" property="gpTransType" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_AMOUNT" property="gpTransAmount" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_STATUS" property="gpTransStatus" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_DATE" property="gpTransDate" jdbcType="TIMESTAMP" />
+		<result column="CH_SEQ_ID" property="chSeqId" jdbcType="VARCHAR" />
+		<result column="CH_TRANS_TYPE" property="chTransType" jdbcType="DECIMAL" />
+		<result column="CH_TRANS_AMOUNT" property="chTransAmount" jdbcType="DECIMAL" />
+		<result column="CH_TRANS_STATUS" property="chTransStatus" jdbcType="DECIMAL" />
+		<result column="CH_TRANS_DATE" property="chTransDate" jdbcType="TIMESTAMP" />
+		<result column="CH_MERCHANT_DATE" property="chMerchantDate" jdbcType="TIMESTAMP" />
+		<result column="IMBALANCE_RESULT" property="imbalanceType" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<!--查询的列 -->
+	<sql id="Base_Column_List">
+	   IMBALANCE_ID,
+       ACC_DATE,
+       TRAN_NUM,
+       GP_SEQ_ID,
+       GP_TRANS_TYPE,
+       GP_TRANS_AMOUNT,
+       GP_TRANS_STATUS,
+       GP_TRANS_DATE,
+       CH_SEQ_ID,
+       CH_TRANS_TYPE,
+       CH_TRANS_AMOUNT,
+       CH_TRANS_STATUS,
+       CH_TRANS_DATE,
+       CH_MERCHANT_DATE,
+       IMBALANCE_RESULT
+	</sql>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<where>
+			<if test="beginDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &gt;= TO_DATE(#{beginDate},'YYYY-MM-DD')
+			</if>
+			<if test="endDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &lt;= TO_DATE(#{endDate},'YYYY-MM-DD')
+			</if>
+			<if test="imbalanceType != null">
+				And IMBALANCE_RESULT = #{imbalanceType}
+			</if>
+
+		</where>
+	</sql>
+
+	<!--分页查询 -->
+	<select id="pagination" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		from T_TC_GPCH_IMBALANCE
+		<include refid="Where_Condition" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!--统计查询的总数 -->
+	<select id="countTotalSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from T_TC_GPCH_IMBALANCE
+		<include refid="Where_Condition" />
+	</select>
+
+	<!--分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		<if test="page != null">
+			select * from ( select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+		<if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+		</if>
+	</sql>
+
+</mapper>

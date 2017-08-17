@@ -1,0 +1,312 @@
+<%
+  var param = obj.data.RefundDetail;
+  var refund =obj.data.RefundDetail;
+  var httpUrl = obj.data.httpUrl;
+  var lstOrderDetail = obj.data.lstOrderDetail;
+  var logistic =obj.data.RefundDetail.logistic;
+%>
+      <!-- 操作台开始 -->
+      <div  class="mallStore goods">
+        <div class="operationsInner"> 
+        
+          <!-- 操作台切换标签开始 -->
+          <div class="pr">
+              <div class="tabNav"></div>
+              <ul class="tabList clearfix">
+                  <li><span class="active">售后详情</span></li>
+              </ul>
+          </div>
+          <!-- 操作台切换标签结束 --> 
+          <!--内容添加开始-->
+          <div class="searchbox p20">                        
+            <div class="search-cont">
+            
+            <div id="tab1">
+               <div class="goods_detail">
+            	<div>
+            	<%if(lstOrderDetail.length < 100){%>
+            	<%$.each(lstOrderDetail,function(key,value){%>
+            	       <% 
+						    var pic;
+						    try{
+					        	var picObj =JSON.parse(value.picUrl)
+					         	pic=httpUrl+picObj["68x68"]
+					        }catch(e){
+					         	pic = "";
+					        }
+					        
+					         %>
+                  <dl>
+                    <dt><img src="<%=pic%>" width="110" height="110"/></dt>
+                    <dd><%=value.itemName%></dd>
+                    <dd><%var skus = value.skus.split(",")%>
+                   <%$.each(skus,function(k,vl){%>
+                   <%=vl%><br/>
+                   <%})%>   
+                    </dd>
+                  </dl>         
+                 <%})%>   
+                 <%}%>
+                </div>
+                <div class="page"></div>
+            </div>
+             <table class="detail" width="970" border="0" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+                <tr>
+                  <td width="335" align="right">订单号</td>
+                  <td width="310"><input class="inpt disabled" type="text" id="orderIds" value="<%=param.ordId%>" disabled="disabled">
+                  <input  type="hidden" id="refId" value="<%=param.refundId%>" disabled="disabled">
+                  <input  type="hidden" id="userId" value="<%=param.userId%>" disabled="disabled">
+                  </td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">买家昵称/互生卡号/手机号码</td>
+                  <td ><input class="inpt disabled" type="text" value="<%=(param.nickName!=null && param.nickName!='' ? param.nickName:param.buyerAccountNo)%>" disabled="disabled"></td>
+                  <td align="left"></td>
+                </tr>
+                <tr>
+                  <td align="right">申请售后</td>
+                  <td><input class="inpt disabled" type="text" id="refundType" refundType="<%=param.refundType%>"  value="<% if(param.refundType==1){%>退款退货<%}else if(param.refundType==2){%>仅退款<%}else{%>换货<%}%>" disabled="disabled"></td>
+                  <td align="left"></td>
+                </tr>
+               
+                <tr>
+                  <td align="right">说明</td>
+                  <td><textarea class="inpt disabled" type="text" disabled="disabled" rows="3"><%=param.reasonDesc%></textarea></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <%if(param.picUrls!=''){%>
+                <tr class="tr_img">
+                  <td align="right">&nbsp;</td>
+                  <td style="position:relative;">
+                    <div class="td_img">
+                      <div class="inner_img clearfix">
+                      <%
+                         var pic=param.picUrls.split(',');
+                         for(var i=0;i<pic.length;i++){%>
+                         <img src="<%=httpUrl+pic[i]%>" width="68px" height="68px" style="margin-left:6px;margin-right:0px;"/>
+                      <%}%>
+                      </div>
+                    </div>
+                    <div class="shfw_arrow fl  shfw_arrow_left" style="left:-20px;"><</div>
+                    <div class="shfw_arrow fr shfw_arrow_right" style="left: 330px;" >></div>
+                  </td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <%}%>
+                <%if(param.status == 0&&(param.refundType == 1||param.refundType == 3)){%>
+                <tr>
+                  <td align="right">收货地址</td>
+                  <td><input class="inpt" type="text" value="" id="salerAddress"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">联系方式</td>
+                  <td><input class="inpt" type="text" value="" id="salerContact"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">联系人</td>
+                  <td><input class="inpt" type="text" value="" id="salerContactor"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">邮政编码</td>
+                  <td><input class="inpt" type="text" value="" id="salerPostCode"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <%}%>
+                <%if(param.status == 8){%>
+                <tr>
+                  <td align="right">快递</td>
+                  <td><input class="inpt" type="text" value="" id="logisticName"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">快递单号</td>
+                  <td><input class="inpt" type="text" value="" id="logId" maxlength="19"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                 <tr>
+			       <td align="right">备注</td>
+			       <td><textarea rows="5" cols="10" id="salerNote"></textarea></td>
+			       <td align="left">&nbsp;</td>
+			     </tr>
+                <%}%>
+                </table>
+                 <p class="ta">
+                 <%if(param.status == 0){%>
+                 <input class="btn_bg submit mr10 popup02 status" status="<%=param.status%>" updateStatus="0" type="button" value="同&nbsp;&nbsp;意">
+                 <input class="btn_bg submit mr10 popup02 status" status="<%=param.status%>" updateStatus="1" type="button" value="拒&nbsp;&nbsp;绝">
+                 <%}%>
+                 <%if(param.status == 8){%>
+                 <input class="btn_bg submit mr10 popup01 status" status="<%=param.status%>" updateStatus="2" type="button" value="发&nbsp;&nbsp;货">
+                 <%}%>
+                 <%if(param.status == 4){%>
+                 <input class="btn_bg submit status" type="button" status="<%=param.status%>" updateStatus="3" value="确认收货">
+                 <%}%>
+                 <input class="btn_bg submit" id="returnRefund" type="button"  value="返回列表">
+                 </p></div>
+                <div id="tab2">
+              
+                <table id="searchTable" class="bsgrid">
+                        <tr class="tc bg_grey">
+                          <th width="20%">日期</th>
+                          <th width="20%">申请</th>
+                          <th>说明</th>
+                          <!-- 退款退货 -->
+                           <% if(refund.refundType==1){%>
+                                 <!-- 步骤1 -->
+                                   <tr class="tc">
+                                        <td><%=refund.createTime%></td>
+                                        <td>申请售后</td>
+                                        <td class="huanhang"><%=refund.reasonDesc%></td>
+                                   </tr>
+                                   <!-- 步骤2 -->
+                                   <% if(refund.refDetailList.length){ %>
+                                       <% $.each(refund.refDetailList,function(key,rd){ %>
+                                          <%  if(rd.status == 3 || rd.status == 1){  %>
+		                                      <tr class="tc">
+		                                        <td><%=rd.checkDateTime%></td>
+		                                        <%if (rd.status == 3){ %>
+		                                        <td>待买家发货</td>
+		                                        <%}else{%>
+		                                        <td>企业不同意</td>
+		                                        <%}%>
+		                                        <td class="huanhang"><%=rd.checkResult%></td>
+		                                     </tr> 
+                                       <% } })%>
+                                   <%}%>
+                                   <!-- 步骤3 -->
+                                   <% if(refund.logisticList.length != 0){%>
+                                        <% $.each(refund.logisticList,function(key,logistic){ %>
+			                                        <tr class="tc">
+				                                        <td><%=logistic.createTime%></td>
+				                                        <% if(logistic.deliveryType == 0){ %>
+				                                        <td>消费者发货</td>
+				                                         <td class="huanhang"><%=logistic.userNote%></td>
+				                                        <%}%>
+			                                       </tr>
+			                                  <%} ) %>
+                                   <%}%>
+                                   <!-- 步骤4-->
+                                   <% if(refund.salerConfirmDeyTime != null ){ %>
+                                          <tr class="tc">
+	                                        <td><%=refund.salerConfirmDeyTime%></td>
+	                                        <td>商家收货确认</td>
+	                                        <td></td>
+                                       </tr>
+                                   <%}%>
+                                   <!-- 步骤5-->
+                                   <% if(refund.endTime != null){%>
+                                          <tr class="tc">
+	                                        <td><%=refund.endTime %></td>
+	                                        <td>退款退货完成</td>
+	                                         <td></td>
+                                       </tr>
+                                   <%}%>
+                                   
+                            <%}%>
+                            <!-- 仅退款 -->
+                              <% if(refund.refundType==2){%>
+                                     <!-- 步骤1 -->
+                                   <tr class="tc">
+                                        <td><%=refund.createTime%></td>
+                                        <td>申请售后</td>
+                                        <td class="huanhang"><%=refund.reasonDesc%></td>
+                                   </tr>
+                                   
+                                    <!-- 步骤2 -->
+                                   <% if(refund.refDetailList.length){ %>
+                                       <% $.each(refund.refDetailList,function(key,rd){ %>
+		                                      <tr class="tc">
+		                                        <td><%=rd.checkDateTime%></td>
+		                                        <td>商家确认</td>
+		                                        <td class="huanhang"><%=rd.checkResult%></td>
+		                                     </tr> 
+                                       <% })%>
+                                   <%}%>
+                                     <!-- 步骤3 -->
+                                   <% if(refund.status == 6){ %>
+                                        <tr class="tc">
+		                                        <td><%=refund.endTime %></td>
+		                                        <td>退款完成</td>
+		                                        <td></td>
+		                                 </tr> 
+                                   <%}%>
+                                   
+                              <%}%>
+                            <!-- 换货 -->
+                             <% if(refund.refundType==3){%>
+                                     <!-- 步骤1 -->
+                                   <tr class="tc">
+                                        <td><%=refund.createTime%></td>
+                                        <td>申请售后</td>
+                                        <td class="huanhang"><%=refund.reasonDesc%></td>
+                                   </tr>
+                                     <!-- 步骤2 -->
+                                   <% if(refund.refDetailList.length){ %>
+                                       <% $.each(refund.refDetailList,function(key,rd){ %>
+                                          <%  if(rd.status == 3 || rd.status == 1){  %>
+		                                      <tr class="tc">
+		                                        <td><%=rd.checkDateTime%></td>
+		                                        <%if (rd.status == 3){ %>
+		                                        <td>待买家发货</td>
+		                                        <%}else{%>
+		                                        <td>企业不同意</td>
+		                                        <%}%>
+		                                        <td class="huanhang"><%=rd.checkResult%></td>
+		                                     </tr> 
+                                       <% } })%>
+                                   <%}%>
+                                     <!-- 步骤3 -->
+                                   <% if(refund.logisticList.length != 0){%>
+                                        <% $.each(refund.logisticList,function(key,logistic){%>
+                                        	<% if(logistic.deliveryType == 0){ %>
+			                                        <tr class="tc">
+				                                        <td><%=logistic.createTime%></td>
+				                                        <td>消费者发货</td>
+				                                         <td class="huanhang"><%=logistic.userNote%></td>
+			                                       </tr>
+			                                       <%}%>
+			                                  <%} ) %>
+                                   <%}%>
+                                      <!-- 步骤4-->
+                                   <% if(refund.salerConfirmDeyTime != null ){ %>
+                                          <tr class="tc">
+	                                        <td><%=refund.salerConfirmDeyTime%></td>
+	                                        <td>商家收货确认</td>
+	                                        <td></td>
+                                       </tr>
+                                   <%}%>
+                                   <!-- 步骤5-->
+                                   <% 
+										$.each(refund.logisticList,function(key,logistic){
+										if(logistic.deliveryType == 1){
+									%>
+									    <tr class="tc">
+	                                        <td><%=logistic.createTime%></td>
+	                                        <td>商家发货</td>
+	                                        <td class="huanhang"><%=logistic.salerNote%></td>
+                                       </tr>
+									<%} } ) %>
+									 <!-- 步骤6-->
+                                   <% if(refund.endTime != null){%>
+                                          <tr class="tc">
+	                                        <td><%=refund.endTime %></td>
+	                                        <td>换货完成</td>
+	                                         <td></td>
+                                       </tr>
+                                   <%}%>
+                             
+                             <%}%>
+                      </table>
+                      </div></div>
+          </div>
+          <!--内容添加结束--> 
+        </div>
+      </div>
+      <!-- 操作台结束 --> 
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>

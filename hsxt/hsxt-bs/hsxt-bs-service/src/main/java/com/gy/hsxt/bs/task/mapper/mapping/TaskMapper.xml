@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.task.mapper.TaskMapper">
+	<!-- 插入工单 -->
+	<insert id="insertTask" parameterType="com.gy.hsxt.bs.task.bean.Task">
+		INSERT
+		INTO T_BS_TASK
+		(
+		TASK_ID,
+		BIZ_TYPE,
+		BIZ_NO,
+		ENT_CUST_ID,
+		CREATED_DATE,
+		PRIORITY,
+		EXE_CUST_ID,
+		EXE_CUST_NAME,
+		ASSIGNED_TIME,
+		ACCEPT_TIME,
+		WARN_FLAG,
+		REDIRECT_FLAG,
+		STATUS,
+		ASSIGN_HIS,
+		TASK_SRC,
+		HS_RES_NO,
+		CUST_NAME,
+		REMARK
+		)
+		select 
+		#{taskId},
+		#{bizType},
+		#{bizNo},
+		#{entCustId},
+		sysdate,
+		<if test="priority == null or priority == ''">
+			0,
+		</if>
+		<if test="priority !=null and priority != ''">
+			#{priority},
+		</if>
+		null,
+		null,
+		null,
+		null,
+		0,
+		0,
+		0,
+		null,
+		#{taskSrc},
+		#{hsResNo},
+		#{custName},
+		#{remark}
+		from 
+		dual
+		where not exists (select * from T_BS_TASK where
+		biz_no = ${bizNo}
+		and biz_type =${bizType}
+		and status=0)
+	</insert>
+
+	<!-- 批量插入任务单 -->
+	<insert id="batchInsertTask" parameterType="com.gy.hsxt.bs.task.bean.Task">
+		INSERT INTO T_BS_TASK
+		(
+		TASK_ID,
+		BIZ_TYPE,
+		BIZ_NO,
+		ENT_CUST_ID,
+		CREATED_DATE,
+		PRIORITY,
+		EXE_CUST_ID,
+		EXE_CUST_NAME,
+		ASSIGNED_TIME,
+		ACCEPT_TIME,
+		WARN_FLAG,
+		REDIRECT_FLAG,
+		STATUS,
+		ASSIGN_HIS,
+		TASK_SRC,
+		HS_RES_NO,
+		CUST_NAME,
+		REMARK
+		)
+		<foreach collection="tasks" item="task" separator="union all">
+			(SELECT
+			#{task.taskId},
+			#{task.bizType},
+			#{task.bizNo},
+			#{task.entCustId},
+			SYSDATE,
+			#{task.priority},
+			null,
+			null,
+			null,
+			null,
+			0,
+			0,
+			0,
+			null,
+			#{task.taskSrc},
+			#{task.hsResNo},
+			#{task.custName},
+			#{task.remark}
+			FROM
+			DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 获取原业务的任务ID -->
+	<select id="findSrcTaskId" resultType="string">
+		select
+		TASK_ID
+		FROM
+		T_BS_TASK
+		where
+		BIZ_NO = #{bizNo}
+		and EXE_CUST_ID = #{exeCustId}
+		and	STATUS = 2
+	</select>
+
+	<!-- 是否存在该记录 -->
+	<select id="findTaskById" resultType="com.gy.hsxt.bs.task.bean.Task">
+		select
+		BIZ_TYPE AS bizType,
+		TASK_ID AS taskId,
+		ENT_CUST_ID AS entCustId,
+		CREATED_DATE AS	createdDate,
+		PRIORITY AS priority,
+		EXE_CUST_ID AS exeCustId,
+		EXE_CUST_NAME AS exeCustName,
+		ASSIGNED_TIME AS assignedTime,
+		ACCEPT_TIME AS acceptTime,
+		WARN_FLAG AS warnFlag,
+		REDIRECT_FLAG AS redirectFlag,
+		STATUS AS status,
+		ASSIGN_HIS AS assignHis,
+		TASK_SRC AS	taskSrc,
+		BIZ_NO AS bizNo,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		REMARK AS remark
+		FROM
+		T_BS_TASK
+		where
+		STATUS not in (3,5)
+		and TASK_ID = #{taskId}
+	</select>
+
+	<!-- 更新任务执行人 -->
+	<update id="updateTaskExecutor">
+		UPDATE T_BS_TASK
+		<set>
+			<if test="exeCustId!=null and exeCustId!=''">
+				EXE_CUST_ID = #{exeCustId},
+			</if>
+			<if test="exeCustName!=null and exeCustName!=''">
+				EXE_CUST_NAME = #{exeCustName},
+			</if>
+			<if test="status!=null">
+				STATUS = #{status},
+			</if>
+			<if test="assignHis!=null and assignHis!=''">
+				ASSIGN_HIS = #{assignHis},
+			</if>
+			ASSIGNED_TIME = sysdate
+		</set>
+		WHERE 
+		STATUS not in (3,5)
+		and TASK_ID = #{taskId}
+	</update>
+
+	<!-- 更新任务状态 -->
+	<update id="updateTaskStatus">
+		UPDATE
+		T_BS_TASK
+		SET
+		ACCEPT_TIME = sysdate,
+		STATUS = #{status}
+		where
+		STATUS not in (3,5)
+		and TASK_ID = #{taskId}
+	</update>
+</mapper>

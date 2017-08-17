@@ -1,0 +1,242 @@
+﻿<div id="fbsp_content1">
+<form id="fbsp_form" name="fbsp_form">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr10" width="25%"><span class="mr5 red">*</span>菜品名称</td>
+          <td><input type="text" id="fbsp_cpmc" name="fbsp_cpmc" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入菜品名称"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10" width="25%"><span class="mr5 red">*</span>拼音码</td>
+          <td><input type="text" id="fbsp_pym" name="fbsp_pym" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入拼音码"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>菜品价格</td>
+          <td><input type="text" id="fbsp_cpjg" name="fbsp_cpjg" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入菜品价格"/><span class="ml10">价格必须在0~999999999 之间，单位：互生币</span></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>菜品图片</td>
+          <td>
+          	<ul class="pImgList clearfix" id="fbsp_cptp">
+                 <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_main_img_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+          	<div class="red clearfix">
+              <div class="fl h18_middle">温馨提示：</div>
+              <div class="fl">
+              	<p class="h18_middle">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</p>
+				<p class="h18_middle">2、上传图片大小不超过1M。</p>
+                <p class="h18_middle">3、最多可上传6张图片。</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">口味</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%$.each(obj.kwlb, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" data-value="<%=v.id%>" class="feellist_chk kw_ckh"/><%=v.name%></label></li>
+                  <%})%>
+                  </ul>
+              </div>
+              <input type="text" id="fbsp_zxfg" name="fbsp_zxfg" class="feellist_input" value="" data-value="" readonly="readonly"/><span class="ml10">最多可选择<span class="red">5</span>个</span>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">企业自定义分类</td>
+          <td>
+          <div class="infobox2 w282 p10">
+             <ul class="shopDiyClass">
+         	 <%$.each(obj.sczdyfl, function(k, v) {%>
+             	<li>
+                	<p data-value="<%=v.id%>"><%=v.name%></p>
+                    <ul class="ml20">
+         			<%$.each(v.data, function(k1, v1) {%>
+                    	<li>
+                        	<p><label><input type="checkbox" value="<%=v1.id%>" class="m03vm"><%=v1.name%></label></p>
+                            <ul class="ml20">
+                            <%$.each(v1.data, function(k2, v2) {%>
+                                <li><label><input type="checkbox" value="<%=v2.id%>" class="m03vm"><%=v2.name%></label></li>
+                            <%})%>
+                            </ul>
+                        </li>
+         	 		<%})%>
+                    </ul>
+                </li>
+         	 <%})%>
+             </ul>
+          </div>
+          </td>
+        </tr>
+    </table>
+    <div class="mt20 tc"><a href="javascript:;" id="fbsp_btn_xyb" class="btn_bg submit mr30">下一步</a><a href="javascript:;" id="fbsp_btn_qx" class="btn_bg submit">取&#12288;消</a></div>
+    <div class="mt30">&nbsp;</div>
+</form>
+</div>
+<div class="bc w940 none" id="fbsp_content2">
+<form id="fbsp_next_form" name="fbsp_next_form">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr10" width="10%">菜品分类</td>
+          <td>
+          <div class="goodslist_div">
+              <div class="goodslist" id="fbsp_splm_list">
+                  <ul class="clearfix">
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc">
+                			<%$.each(obj.splm, function(k, v) { if(v.pid === '0') {%>
+                                <li><a class="clearfix" data-id="<%=v.id%>"><%if(v.letter) {%><span class="list_sc_letter"><%=v.letter%></span><%}%><span class="gct"><%=v.name%></span><i class="list_sc_arrow"></i></a></li>
+                			<%}})%>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc"></ul>
+                        </div>
+                    </li>
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc"></ul>
+                        </div>
+                    </li>
+                  </ul>
+                  <div class="mt10 tc"><button type="button" class="btn-search mr10" id="fbsp_splm_btn_qd">确定</button><button type="button" class="btn-search" id="fbsp_splm_btn_qx">取消</button></div>
+              </div>
+              <input type="text" id="fbsp_splm" name="fbsp_splm" class="feellist_input" value="" readonly="readonly"/>
+          </div>
+          </td>
+        </tr>
+        <tr>
+        	<td class="tr pr10">规格</td>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="infobox2 p5">
+                    <tr>
+                        <td width="70" align="right">份量：</td>
+                        <td>
+                        <ul class="editval clearfix" id="fbsp_gg_fl_list">
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>大份</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>中份</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>小份</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="edipt clearfix none"><span class="fl"><input type="checkbox" checked="checked" class="m03vm"/><input type="text" class="w50 infobox2 p2 edipt-input"/></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="edipt"></i></a></li>
+                        </ul>
+                        </td>
+                        <td width="30" class="tc"><a class="editval-add" id="fbsp_gg_fl_btn_add" title="新增"></a></td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mt20 search-table bsgrid" id="fbsp_gg_fl_table">
+  					<thead>
+                      <tr>
+                        <th width="19%">份量</th>
+                        <th width="15%">
+                        	<span>价格</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th width="15%">
+                        	<span>积分值</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th width="21%">
+                            <span>积分百分比</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/> <span>%</span>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th width="15%">扣除积分预付款</th>
+                        <th width="15%">持卡人可得积分</th>
+                      </tr>
+                  </thead>
+                  <tr>
+                    <td>大份</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="even_index_row">
+                    <td>中份</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                 <tr>
+                    <td>小份</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <div class="mt20 tc">
+        <a href="javascript:;" id="fbsp_btn_syb" class="btn_bg submit mr30">上一步</a><a href="javascript:;" id="fbsp_btn_bc" class="btn_bg submit mr30">保&#12288;存</a><a href="javascript:;" id="fbsp_next_btn_qx" class="btn_bg submit">取&#12288;消</a>
+    </div>
+  <div class="mt30">&nbsp;</div>
+</form>
+</div>

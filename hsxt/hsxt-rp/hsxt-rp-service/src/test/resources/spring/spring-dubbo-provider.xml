@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+    
+    <!-- dubbo 基本配置 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"  default="true"/>
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}" 
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+
+    
+    <!-- 发布服务 -->
+    
+    <!-- 生成系统资源报表数据 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="reportsSystemResourceBatchService"  group="HSXT_RP_SYSTEM_RESOURCE" version="1.0.0" />
+
+	<!-- 日福利积分文件生成-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="reportsBatchWelfareScoreFileBatchService" group="HSXT_RP_WELFARE_SCORE_FILE" version="1.0.0" />
+	
+	<!-- 发票金额每日统计文件生成-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="reportsInvoiceValueStatisticsBatchService" group="HSXT_RP_INVOICE_VALUE_STATISTICS" version="1.0.0" />
+	
+	<!-- 消费积分扣除每日统计生成-->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="reportsPointDeductionBatchService" group="HSXT_RP_POINT_DEDUCTION" version="1.0.0" />
+	
+
+	<!-- 系统资源报表查询 -->
+	<dubbo:service interface="com.gy.hsxt.rp.api.IReportsSystemResourceService" ref="reportsSystemResourceService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+
+	<!-- 账户流水查询 -->
+	<dubbo:service interface="com.gy.hsxt.rp.api.IReportsAccountEntryService" ref="reportsAccountEntryService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+
+	<!-- 系统资源报表导出 -->
+	<dubbo:service interface="com.gy.hsxt.rp.api.IReportsSystemResourceExportService" ref="reportsSystemResourceExportService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 消费积分扣除统计查询 -->
+	<dubbo:service interface="com.gy.hsxt.rp.api.IReportsPointDeductionSearchService" ref="reportsPointDeductionSearchService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	
+	<!-- 收款管理业务订单查询 -->
+	<dubbo:service interface="com.gy.hsxt.rp.api.IRPPaymentManagementService" ref="paymentManagementService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+	
+	<!-- 批生成企业月送积分列表调度 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="accountBatchEntGiveIntegralMonthFileService" group="HSXT_RP_BATCH_ENT_GIVE_INTEGRAL_MONTH_FILE" version="1.0.0">
+	</dubbo:service>
+	
+	<!-- 批生成日积分活动资源列表调度 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="accountBatchIntegralActiveFileService" group="HSXT_RP_BATCH_INTEGRAL_ACTIVE_FILE" version="1.0.0">
+	</dubbo:service>
+	
+	
+	
+</beans>

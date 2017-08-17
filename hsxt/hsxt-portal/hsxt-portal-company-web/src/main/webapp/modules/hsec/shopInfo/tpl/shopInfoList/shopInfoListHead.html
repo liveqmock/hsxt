@@ -1,0 +1,65 @@
+<%var param = obj;%>
+<div class="operationsInner" id="shopPanel"> 
+  <!-- 操作台切换标签开始 -->
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div class="mallStore std p20">
+    <div class="search-toolbar">
+      <ul class="cssform clearfix" style="float: left; width: 750px;">
+        <li>
+          <label class="title-int">营业点地址：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="shopInfoNames" value="" class="input-txt" style="width:250px" />
+          </div>
+        </li>
+        <li>
+          <label class="title-int">所属商圈：</label>
+          <div class="cont-chk">
+            <select class="select_radius" id="shopInfoSection" style="width: 210px">
+            <option value="">全部</option>
+            <%$.each(param,function(key,value){%>
+              <option value="<%=key%>"><%=value%></option>
+             <%})%>
+            </select>
+          </div>
+        </li>
+<!--          <li> -->
+<!--           <label class="title-int">营业点状态：</label> -->
+<!--           <div class="cont-chk"> -->
+<!--             <select class="select_radius" id="status" style="width: 110px"> -->
+<!--               <option value="">全部</option> -->
+<!--               <option value="2">启用中</option> -->
+<!--               <option value="6">冻结</option> -->
+<!--               <option value="7">积分停用</option> -->
+<!--             </select> -->
+<!--           </div> -->
+<!--         </li> -->
+      </ul>
+      <div style="height:100%; width:200px; float:left;">
+      <div class="cont-int">
+            <button id="search" type="button" class="btn-search ml10">搜索</button>
+            <button id="addShopInfo" type="button" class="btn-search ml10">新增营业点</button>
+          </div>
+      </div>
+    </div>
+    <div id="typeHide">
+	    <div class="mt0" id="shopInfoTable" style="min-height: 375px">
+	
+	    </div>
+    </div>
+  </div>
+  <!--内容添加结束--> 
+</div>
+<!--弹出框内容及脚本开始-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>  
+<div id="dlg2" class="none">
+</div>
+<div id="dlgSetFoodMenuItem" class="none">
+</div>  
+<!--弹出框内容及脚本结束--> 
+

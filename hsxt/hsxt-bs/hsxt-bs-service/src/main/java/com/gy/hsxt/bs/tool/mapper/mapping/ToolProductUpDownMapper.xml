@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ToolProductUpDownMapper">
+	<!-- 新增工具产品上架或下架申请 -->
+	<insert id="insertToolProductUpDown" parameterType="com.gy.hsxt.bs.bean.tool.ToolProductUpDown">
+		INSERT INTO T_BS_TOOL_UP_DOWN (
+			APPLY_ID,
+			PRODUCT_ID,
+			APPLY_TYPE,
+			OLD_PRICE,
+			APPLY_PRICE,
+			down_reason,
+			STATUS,
+			status_time,
+			req_opt_id,
+			req_opt_name,
+			req_time
+		) VALUES (
+			#{applyId},
+			#{productId},
+			#{applyType},
+			#{oldPrice},
+			#{applyPrice},
+			#{downReason},
+			#{status},
+			SYSDATE,
+			#{reqOptId},
+			#{reqOptName},
+			SYSDATE
+			)
+	</insert>
+
+	<!-- 审批后修改工具产品上下架审批信息 -->
+	<update id="updateToolProductUpDownForAppr" parameterType="com.gy.hsxt.bs.bean.tool.ToolProductUpDown">
+		UPDATE T_BS_TOOL_UP_DOWN
+		<set>
+			APPR_TIME		= SYSDATE,
+			appr_opt_id 	= #{apprOptId},
+  			appr_opt_name 	= #{apprOptName},
+  			STATUS 			= #{status},
+  			appr_remark  	= #{apprRemark}
+		</set>
+		WHERE APPLY_ID = #{applyId}	
+	</update>
+
+	<!-- 根据ID查询工具产品上下架申请记录 -->
+	<select id="getToolProductUpDownById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolProductUpDown">
+		SELECT 
+			UD.APPLY_ID 		as applyId,
+			UD.PRODUCT_ID 		as productId,
+			UD.APPLY_TYPE 		as applyType,
+			UD.OLD_PRICE 		as oldPrice,
+			UD.APPLY_PRICE 		as applyPrice,
+			UD.down_reason 		as downReason,
+			UD.STATUS 			as status,
+			UD.status_time 		as statusTime,
+			ud.req_opt_id 		as reqOptId,
+			ud.req_opt_name 	as reqOptName,
+  			ud.req_time			as reqTime,
+  			ud.appr_opt_id  	as apprOptId,
+  			ud.appr_opt_name 	as apprOptName,
+  			ud.appr_time     	as apprTime,
+  			ud.appr_remark  	as apprRemark,
+  			p.PRODUCT_NAME   	as toolProductName,
+  			p.DESCRIPTION		as toolDescription,
+  			p.UNIT				as toolUnit,
+  			p.MICRO_PIC			as toolMicroPic,
+  			p.ENABLE_STATUS		as enableStatus,
+  			P.PRICE	            as price,
+  			c.CATEGORY_NAME		as toolCategoryName
+		FROM T_BS_TOOL_UP_DOWN UD, T_BS_TOOL_PRODUCT P, T_BS_TOOL_CATEGORY C
+		WHERE UD.PRODUCT_ID = P.PRODUCT_ID 
+			AND P.LAST_APPLY_ID = UD.APPLY_ID 
+			AND P.CATEGORY_CODE = C.CATEGORY_CODE 
+			AND APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 根据产品ID查询工具产品上下架申请记录 -->
+	<select id="getToolProductUpDownByProductId" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolProductUpDown">
+		SELECT 
+			UD.APPLY_ID 		as applyId,
+			UD.APPLY_TYPE 		as applyType,
+			UD.OLD_PRICE 		as oldPrice,
+			UD.APPLY_PRICE 		as applyPrice,
+			UD.down_reason 		as downReason,
+			UD.STATUS 			as status,
+			UD.status_time 		as statusTime,
+			ud.req_opt_id 		as reqOptId,
+			ud.req_opt_name 	as reqOptName,
+  			ud.req_time			as reqTime,
+  			ud.appr_opt_id  	as apprOptId,
+  			ud.appr_opt_name 	as apprOptName,
+  			ud.appr_time     	as apprTime,
+  			ud.appr_remark  	as apprRemark,
+  			p.PRODUCT_ID 		as productId,
+  			p.PRODUCT_NAME   	as toolProductName,
+  			p.DESCRIPTION		as toolDescription,
+  			p.UNIT				as toolUnit,
+  			p.MICRO_PIC			as toolMicroPic,
+  			p.ENABLE_STATUS		as enableStatus,
+  			P.PRICE	            as price,
+  			c.CATEGORY_NAME		as toolCategoryName
+		FROM 
+			T_BS_TOOL_PRODUCT P,
+			T_BS_TOOL_CATEGORY C,
+			T_BS_TOOL_UP_DOWN UD 
+		WHERE P.LAST_APPLY_ID = UD.APPLY_ID(+) 
+		AND P.CATEGORY_CODE = C.CATEGORY_CODE 
+		AND p.PRODUCT_ID = #{productId}
+	</select>
+	
+	<!-- 查询工具产品上下架待审批记录 -->
+	<select id="findToolProductUpDownListPage" resultType="com.gy.hsxt.bs.bean.tool.ToolProductUpDown">
+		SELECT 
+			UD.APPLY_ID 		as applyId,
+			UD.PRODUCT_ID 		as productId,
+			UD.APPLY_TYPE 		as applyType,
+			UD.OLD_PRICE 		as oldPrice,
+			UD.APPLY_PRICE 		as applyPrice,
+			UD.down_reason 		as downReason,
+			UD.STATUS 			as status,
+			UD.status_time 		as statusTime,
+			ud.req_opt_id 		as reqOptId,
+			ud.req_opt_name 	as reqOptName,
+  			ud.req_time			as reqTime,
+  			ud.appr_opt_id  	as apprOptId,
+  			ud.appr_opt_name 	as apprOptName,
+  			ud.appr_time     	as apprTime,
+  			ud.appr_remark  	as apprRemark,
+  			p.PRODUCT_NAME   	as toolProductName,
+  			p.DESCRIPTION		as toolDescription,
+  			p.UNIT				as toolUnit,
+  			p.MICRO_PIC			as toolMicroPic,
+  			P.PRICE	            as price,
+  			p.ENABLE_STATUS		as enableStatus,
+  			c.CATEGORY_NAME		as toolCategoryName
+		FROM T_BS_TOOL_UP_DOWN UD, T_BS_TOOL_PRODUCT P, T_BS_TOOL_CATEGORY C
+		<choose>
+	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when>
+	    </choose>	
+		WHERE UD.PRODUCT_ID = P.PRODUCT_ID
+			AND P.CATEGORY_CODE = C.CATEGORY_CODE 
+			AND P.LAST_APPLY_ID = UD.APPLY_ID 
+			AND (UD.STATUS = 0 OR UD.STATUS = 3)
+		<if test="exeCustId != null and exeCustId != '' ">
+			AND UD.APPLY_ID = T.BIZ_NO
+			AND T.STATUS = 2
+			AND T.EXE_CUST_ID = #{exeCustId}
+		</if>
+		<if test="productName != null and productName != '' ">
+			AND P.PRODUCT_NAME LIKE '%'||#{productName}||'%'
+		</if>
+		<if test="categoryName != null and categoryName != '' ">
+			AND C.CATEGORY_NAME LIKE '%'||#{categoryName}||'%'
+		</if>	
+			AND UD.APPLY_TYPE=#{applyType} 
+		ORDER BY UD.REQ_TIME DESC			
+	</select>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.ExecuteLogMapper" >
+
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.ExecuteLog" >
+    <result column="EXECUTE_DATE" property="executeDate" jdbcType="VARCHAR" />
+    <result column="EXECUTE_SERVICE" property="executeService" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="ERROR_DESC" property="errorDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   EXECUTE_DATE,
+       EXECUTE_SERVICE,
+       STATUS,
+       ERROR_DESC,
+       CREATE_DATE,
+       UPDATE_DATE
+	</sql>
+	
+	<!-- 通过执行成功日志通过执行日期、执行名称 -->
+	<select id="querySucessLog" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_EXECUTE_LOG
+		where execute_date = #{executeDate,jdbcType=VARCHAR}
+		and  execute_service  = #{executeService,jdbcType=VARCHAR}
+		and  STATUS = 1
+	</select>
+  
+
+  <insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.ExecuteLog" >
+    insert into T_WS_EXECUTE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="executeDate != null" >
+        EXECUTE_DATE,
+      </if>
+      <if test="executeService != null" >
+        EXECUTE_SERVICE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="errorDesc != null" >
+        ERROR_DESC,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="executeDate != null" >
+        #{executeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="executeService != null" >
+        #{executeService,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="errorDesc != null" >
+        #{errorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

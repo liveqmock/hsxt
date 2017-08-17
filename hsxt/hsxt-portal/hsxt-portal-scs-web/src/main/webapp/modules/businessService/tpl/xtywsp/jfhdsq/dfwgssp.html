@@ -1,0 +1,40 @@
+<div class="view_info mt10">
+
+								<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+									<tbody><tr>
+										<td colspan="4" class="tab_trbg"><span class="ml10">托管企业停止积分活动申请信息</span></td>
+									</tr>
+                                    <tr>
+										<td class="view_item" width="20%">企业互生号</td>
+										<td class="view_text" width="30%"><%=obj.POINT_ACTIVITY.entResNo %></td>
+                                        <td class="view_item" width="20%">企业名称</td>
+										<td class="view_text" width="30%"><%=obj.POINT_ACTIVITY.entCustName %></td>
+									</tr>
+									<tr>
+										<td class="view_item">企业地址</td>
+										<td class="view_text" colspan="3"><%=obj.POINT_ACTIVITY.entAddress %></td>
+									</tr>
+                                    <tr>
+										<td class="view_item">联系人姓名</td>
+										<td class="view_text"><%=obj.POINT_ACTIVITY.linkman %></td>
+                                        <td class="view_item">联系人手机</td>
+										<td class="view_text"><%=obj.POINT_ACTIVITY.linkmanMobile %></td>
+									</tr>
+									<tr>
+										<td class="view_item">申请时间</td>
+										<td class="view_text"><%=obj.POINT_ACTIVITY.createdDate %></td>
+                                        <td class="view_item">办理业务</td>
+										<td class="view_text"><span class="red">停止积分活动申请</span></td>
+									</tr>
+                                    <tr>
+										<td class="view_item">申请原因</td>
+										<td class="view_text" colspan="3"><%=obj.POINT_ACTIVITY.applyReason %></td>
+									</tr>
+                                    <tr>
+										<td class="view_item">办理操作员</td>
+										<td class="view_text"><%=obj.POINT_ACTIVITY.createdBy %></td>
+                                        <td class="view_item">业务办理申请书</td>
+										<td class="view_text"><a id="ywblsqs" target="_blank" class="blue">下载</a></td>
+									</tr>
+								</tbody></table>
+				   </div>

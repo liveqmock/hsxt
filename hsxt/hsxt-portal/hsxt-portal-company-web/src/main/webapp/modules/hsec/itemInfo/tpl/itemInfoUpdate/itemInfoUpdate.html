@@ -1,0 +1,552 @@
+<%var param = obj.data.ItemWebInfo %>
+<%var item = obj.data.ItemInfo %>
+<%var shopCat = obj.data.lstShopCat %>
+<%var salerShop = obj.data.lstSalerShop %>
+<!-- Sku已选择复选框 -->
+<%var lstPVid = obj.data.lstPVid %>
+<div class="mallStore goods">
+<div class="operationsInner" id="itemBlock"> 
+          <!-- 操作台切换标签开始 -->
+          <div class="pr">
+             	<div class="tabNav"></div>
+                 <ul class="tabList clearfix">
+                 	<li><span class="active" num="-1">基本信息</span></li>
+                     <li><span class="" num="1">商品属性</span></li>
+                     <li><span class="" num="2">其它信息</span></li>
+					<li><span class="" num="3">商品详情</span></li>
+                 </ul>
+             </div>
+          <!-- 操作台切换标签结束 --> 
+          <!--内容添加开始-->
+          <div class="searchbox p20" id="itemMain">                        
+            <div class="search-cont">
+            <form id="item_add_form">
+           <div id="goods_page1">
+           
+              <table id="tab1" class="detail" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="38%" align="right">商品类目</td>
+                  <td width="490px"><input class="inpt bg_grey1" readonly="readonly"  name="categoryName" type="text" value="<%=item.categoryName%>" /></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">商品名称</td>
+                  <td ><input class="inpt" type="text" name="name" value="<%=item.name%>"  id="itemName"/></td>
+                  <td align="left"></td>
+                </tr>
+                     <tr>
+                  <td align="right">卖点信息</td>
+                  <td><textarea name="sellPoint" id="sellPoint" style="height: 72px"><%=item.sellPoint%></textarea></td>
+                  <td align="left"></td>
+                </tr>
+                <tr>
+                  <td align="right">品牌</td>
+                  <td><input id="brand" class="inpt bg_grey1"  value="<%=item.brandName%>" name="brandName" type="text" readonly="readonly"/>
+                  </td>
+                  <td align="left"></td>
+                </tr>
+                <tr>
+                  <td align="right"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格</td>
+                  <td><input class="inpt" type="text" id="originalPrice" name="originalPrice" value="<%=item.originalPrice%>"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">货号</td>
+                  <td><input class="inpt" type="text" name="code" value="<%=item.code%>"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">厂家名称</td>
+                  <td><input class="inpt" type="text" name="factoryName" value="<%=item.factoryName%>"></td>
+                  <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td align="right">标签</td>
+                  <td class="pr">
+                  <input type="checkbox" name="hotSell" <%if(item.hotSell == 1){%>checked="checked"<%}%> value="1" <%if(param.hasHotSellCount >= param.canHotSellCount && item.hotSell != 1){%>disabled="disabled"<%}%>/>热销（已发布<%=param.hasHotSellCount%>个热销商品,最多不超过<%=param.canHotSellCount%>个.）
+                  </td>
+                  <td align="left"></td>
+                </tr>
+                </table>
+                
+                  <div id="pingbi">
+                  <div style="text-align: center;max-width:970px;width:<%=125+130*7%>px" class="bc">
+                  <ul style="width: 112px;float: left;" id="imgitemUpload">
+							<li data-index="0">
+								<span class="pr addImgBox_style" style="width: 112px;height: 112px">
+										<input type="file" name="itemPhoto" id="itemPhoto" style="width: 112px;height: 112px">
+										<img src="resources/img/add_img_bt.gif" width="112" height="112">
+								</span>
+                            </li>
+                            </ul>
+                	<div id="itemImgList" class="multimage-gallery">
+                    <ul>
+                       			     <%$.each(item.picList,function(key,value){%>
+				                  		<%var imglist = eval('('+value.webPicUrl+')')%>
+				                  			<li <%if(key==0){%>class="primaryItem"<%}%>>
+												<div style="display: none;" class="imgObject" imgid="<%=value.id%>"></div>
+				                            	 <div class="preview">
+				                            	 <img src="<%=value.picUrl%><%=imglist['68x68']%>" width="111px" height="110px"/>
+												 </div>
+												 	 <%if(key==0){%>
+													 	<div class="info red">
+						                                <span class="bright">*</span> 主图
+						                            	</div>
+					                            	<%}%>
+												<div class="operate">
+				                                <i class="toleft">左移</i>
+				                                <i class="toright">右移</i>
+				                                <i class="del">删除</i>
+				                            	</div>
+				                       		</li>
+				                  	<%})%>
+				          <%for(var i = item.picList.length;i<7;i++){%>
+							<li <%if(i==0){%>class="primaryItem"<%}%>>
+								<div style="display: none;" class="imgObject"></div>
+                            	 <div class="preview">
+								 </div>
+								 	 				<%if(i==0){%>
+													 	<div class="info red">
+						                                <span class="bright">*</span> 主图
+						                            	</div>
+					                            	<%}%>
+								<div class="operate">
+                                <i class="toleft">左移</i>
+                                <i class="toright">右移</i>
+                                <i class="del">删除</i>
+                            	</div>
+                       		</li>
+                       		<%}%>
+					</ul>
+                </div>
+                </div>
+      					<div  style="text-align: center;padding-top: 10px"><span style="color: red;" id="itemPhotoCheck">请上传正确格式!如:JPG,JPEG,PNG,GIF,BMP,不超过1024KB,不超过7张!建议图片大于700X700!</span></div>
+                </div>
+                
+            <p class="ta" style="padding-top: 10px"><input type="button" class="btn_bg submit mr10 nextstep01" value="下一步"/></p>
+                </div>
+<div id="goods_page2"><div id="tab2">
+<div>
+		<%
+		var spuList = eval('('+item.propKey+')')
+		if(spuList != null && spuList != ""){
+		%>
+            <ul class="cssform clearfix" id="itemspu">   
+           <% $.each(param.lstItemOfKeyProps,function(key,el){ %> 
+           	<%var isDeng = "";%> 
+           		<%if(spuList.length != 0){%>
+		           <% $.each(spuList,function(kMy,vMy){ %>  
+		           		<%if(vMy.pId == el.id){
+		           			isDeng = vMy;
+		           			spuList.remove(kMy);
+		           			return false;
+		           		}%>
+		           <%})%>  
+	           <%}%>                 
+                    <li class="clearfix goods_list spucheck" displayType = "<%=el.displayType%>">
+                      <label class="title-int" valueId="<%=el.id%>"><%=el.attrName%></label>
+                            <div class="cont-int">
+                      <%if(el.displayType == 1){%>
+                      <input type="text" class="inpt spuCheckMax" value="<%if(isDeng.pId == el.id){%><%=isDeng.pVName%><%}%>"/>
+                      <span class="red">注：修改该属性商品将会重新进行审核!</span>
+                      <%}%>
+                      <%if(el.displayType == 2){%>
+                        <select>
+                       <% $.each(el.propValues,function(keys,els){ %>     
+                        <option value="<%=els.id%>" <%if(isDeng.pId == els.id){%><%='selected'%><%}%>><%=els.value%></option>
+                       <% }) %>
+                       </select>
+                       <span class="red">注：修改该属性商品将会重新进行审核!</span>
+                      <%}%>
+                         <%if(el.displayType == 3){%>
+                         <%if(isDeng.pId == el.id){var pvids = isDeng.pVId.split(",")}%>
+                         <% $.each(el.propValues,function(keys,els){ %>
+                      	<input type="checkbox" pid="<%=els.id%>" name="spu_<%=el.id%>"
+	                     <% $.each(pvids,function(k,v){ %>  
+	                    <% if(els.id == v){ %>
+                      	 checked 
+                      	 <%}%>
+                      	 <% }) %>
+                      	 value="<%=els.value%>"/><%=els.value%>
+                      	<% }) %>
+                      	<span class="red">注：修改该属性商品将会重新进行审核!</span>
+                      <%}%>
+                      <%if(el.displayType == 4){%>
+	                      <% $.each(el.propValues,function(keys,els){ %>
+	                      	<input type="radio" pid="<%=els.id%>" 
+	                      	<%if(isDeng.pVId==els.id && isDeng.pId == el.id){%>
+	                      	checked
+	                      	<%}%>
+	                      	 name="spu_<%=el.id%>" value="<%=els.value%>"/><%=els.value%>
+	                      <% }) %>
+	                      <span class="red">注：修改该属性商品将会重新进行审核!</span>
+                      <%}%>
+                      <span style="color: red" class="spuError"></span>
+                      </div> 
+                    </li>
+           <% }) %>
+                </ul>
+		<%}else{%>
+		        <ul class="cssform clearfix" id="itemspu">   
+           <% $.each(param.lstItemOfKeyProps,function(key,el){ %>                     
+                    <li class="clearfix goods_list spucheck" displayType = "<%=el.displayType%>">
+                      <label class="title-int" valueId="<%=el.id%>"><%=el.attrName%></label>
+                      <div class="cont-int">
+                      <%if(el.displayType == 1){%>
+                      <input type="text" class="inpt spuCheckMax"/>
+                      <%}%>
+                      <%if(el.displayType == 2){%>
+                       <select>
+                       <% $.each(el.propValues,function(keys,els){ %>     
+                        <option value="<%=els.id%>"><%=els.value%></option>
+                       <% }) %>
+                       </select>
+                      <%}%>
+                         <%if(el.displayType == 3){%>
+                         <% $.each(el.propValues,function(keys,els){ %>
+                      	<input type="checkbox" pid="<%=els.id%>" name="spu_<%=el.id%>" value="<%=els.value%>"/><%=els.value%>
+                      	<% }) %>
+                      <%}%>
+                      <%if(el.displayType == 4){%>
+	                      <% $.each(el.propValues,function(keys,els){ %>
+	                      	<input type="radio" pid="<%=els.id%>" name="spu_<%=el.id%>" value="<%=els.value%>"/><%=els.value%>
+	                      <% }) %>
+                      <%}%>
+                      <span style="color: red" class="spuError"></span>
+                      </div> 
+                    </li>
+           <% }) %>
+                </ul>
+		<%}%>
+            </div>
+            	<%
+								var skutype = 0;
+						 		var skuBig = new Array();
+						 		var skuxiao = new Array();
+						 	 $.each(lstPVid!=null?lstPVid:'',function(k1,v1){
+                            	 var skuMy = v1.split("&&");
+                            	 skuBig.push(skuMy[0]);
+                            	 skuxiao.push(skuMy[1]);
+                             })
+                             	
+                             	skuBig = obj.uniqueArray(skuBig);
+								skuxiao =obj.uniqueArray(skuxiao);
+                             	
+                             		$.each(param.lstItemOfSaleProps,function(key,el){
+	                             		$.each(skuBig,function(k1,v1){
+		                             		if(v1 == el.id){
+		                             			skutype++;
+		                             			return false;
+		                             		}
+	                             		})
+                             	})
+            	%> 
+            		
+                   <div id="skuTabs">
+					<ul <%if(skutype == param.lstItemOfSaleProps.length){%>style="display: none;"<%}%>>
+						<li><a href="#tabs-1">商品属性(旧版)</a></li>
+						<li><a href="#tabs-2">商品属性(新版)</a></li>
+						<center style="padding-top: 6px;"><span>商品属性有变动,建议使用新销售属性.</span></center>
+					</ul>
+					<div id="tabs-1" isshow="1">
+							
+                  <%if(skutype != param.lstItemOfSaleProps.length){%> 
+                   	
+               <div class="nav-panel skulength" id="skuMain" level="<%=skuBig.length%>"> 
+                <%var imgbool = 0;%>
+                <%$.each(skuBig,function(k1,v1){%> 
+                	<%$.each(lstPVid,function(k2,v2){%>
+                		<%var skuMy = v2.split("&&");%>
+                	<%if(v1 == skuMy[0]){%>
+                	<%if(skuMy[6] == 1){imgbool = skuMy[6]}%>
+                   <dl class="nav-block skuDl">
+                        	<dt items="<%=skuMy[2]%>&<%=skuMy[3]%>" isColor="<%=skuMy[6]%>"><%=skuMy[3]%><img src="resources/img/zeng.png" maxCount="0" class="addSkuNode" style="cursor: pointer;vertical-align:middle;display: none;"/></dt>
+                            <dd class="Father_Item<%=k1%>">
+                             <%$.each(skuxiao,function(k3,v3){%> 
+                             <%$.each(lstPVid,function(k4,v4){%>
+                             <%var skuMy4 = v4.split("&&");%>
+                             <%if(v3 == skuMy4[1] && v1 == skuMy4[0]){%>
+                            <span style="line-height: 20px"><a href="javascript:;" class="skuName"><input type="checkbox" class="sku"  value="<%=skuMy4[4]%>&<%=skuMy4[5]%>"
+                              isColor="<%=skuMy4[6]%>" checked="checked"/><%=skuMy4[5]%></a></span>
+                             <% return false;} %>  
+                            <% }) %>  
+                            <% }) %> 
+                                <%var skuxiao2 = skuxiao;%>
+                                <%$.each(param.lstItemOfSaleProps,function(key,el){%> 
+                            	<%if(el.id == v1){%>
+                            			<%
+                            				var skuxiao3 = el.propValues;
+                            			%>
+                            	
+                            		 <% $.each(skuxiao3,function(keys,els){ %> 
+                            		<% var boolId = "";%> 
+                            		 <%$.each(skuxiao2,function(k5,v5){%>
+                            		 		<%if(v5 == els.id){
+                            		 			boolId = els.id;
+                            		 		}%>
+                            		 <%})%>
+                            		 <%if(els.id == boolId){
+                            		 	return true;
+                            		 }%>
+                            		        <span style="line-height: 20px"><a href="javascript:;" class="skuName"><input type="checkbox" class="sku"  value="<%=els.id%>&<%=els.value%>"
+                                      		isColor="<%=el.isColorProp%>"/><%=els.value%></a></span>
+                            		 <% }) %>
+                            	<%}%>
+                                
+                            <% }) %>    
+                             
+                            </dd>
+                   </dl>
+                   	<% return false;} %>
+                    <% }) %>
+                    <% }) %>
+				 </div>	
+				 
+				 <%}else{%>
+				<div class="nav-panel skulength" id="skuMain" level="<%=param.lstItemOfSaleProps.length%>"> 
+                <%var imgbool = 0;%>
+                <%$.each(param.lstItemOfSaleProps,function(key,el){%> 
+                 <%if(el.isColorProp == 1){imgbool = 1;}%>
+                   <dl class="nav-block skuDl">
+                        	<dt items="<%=el.id%>&<%=el.attrName%>" isColor="<%=el.isColorProp%>"><%=el.attrName%><img src="resources/img/zeng.png" maxCount="<%=el.valueCount%>" class="addSkuNode" style="cursor: pointer;vertical-align:middle;<%if(el.valueCount <= el.propValues.length){%>display: none;<%}%>"/></dt>
+                            <dd class="Father_Item<%=key%>">
+                             <% $.each(el.propValues,function(keys,els){ %> 
+                            <span style="line-height: 20px"><a href="javascript:;" class="skuName"><input type="checkbox" class="sku"  value="<%=els.id%>&<%=els.value%>"
+                             <%$.each(lstPVid!=null?lstPVid:'',function(index,lst){%>
+                             <%var skuMy = lst.split("&&")%>
+                             <%if(els.id==skuMy[1]){%>
+                             	<%='checked'%>
+                             	<%lstPVid.remove(index)%>
+                             	<%return false;%>
+                             <%}%>
+                             <%})%> 
+                              isColor="<%=el.isColorProp%>"/><%=els.value%></a></span>
+                            <% }) %>     
+                            <%$.each(lstPVid,function(k,v){%>
+                            <%var sku  = v.split("&&")%>
+                            <%if(el.id == sku[0]){%>
+                            <span style="line-height: 20px">
+                            <a href="javascript:;" class="skuName">
+                            <input type="checkbox" class="sku" value="<%=sku[1]%>&amp;<%=sku[2]%>" checked iscolor="<%=el.isColorProp%>"><%=sku[2]%></a></span>
+                            <%}%>
+                            <%})%>                       
+                            </dd>
+                   </dl>
+                    <% }) %>
+                </div>		
+				<%}%>			
+                <div id="createTable">
+                </div>
+                      <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+                      <h6>图片上传</h6>
+                      <ul id="imgLoad">
+    
+                      </ul>
+                      </div>		
+
+					</div>
+					<div id="tabs-2" isshow="2">
+					
+					<div class="nav-panel skulength" id="skuMainAdd" level="<%=param.lstItemOfSaleProps.length%>"> 
+	                <%var imgbool = 0;%>
+	                <% $.each(param.lstItemOfSaleProps,function(key,el){ %> 
+	                <%if(el.isColorProp == 1){imgbool = 1;}%>
+	                   <dl class="nav-block skuDl2">
+	                        	<dt items="<%=el.id%>&<%=el.attrName%>" isColor="<%=el.isColorProp%>"><%=el.attrName%><img src="resources/img/zeng.png" class="addSkuNode" maxCount="<%=el.valueCount%>" style="cursor: pointer;vertical-align:middle;<%if(el.valueCount <= el.propValues.length){%>display: none;<%}%>"/></dt>
+	                            <dd class="Father_ItemTwo<%=key%>">
+	                             <% $.each(el.propValues,function(keys,els){ %> 
+	                            <span style="line-height: 20px"><a href="javascript:;" class="skuName"><input type="checkbox" class="skuAdd" value="<%=els.id%>&<%=els.value%>" isColor="<%=el.isColorProp%>"   /><%=els.value%></a></span>
+	                            <% }) %>                            
+	                            </dd>
+	                   </dl>
+	                    <% }) %>
+	                </div>
+                	<div id="createTableAdd"></div>
+                      <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+                      <h6>图片上传</h6>
+                      <ul id="imgLoadAdd"></ul>
+                      </div>
+
+					</div>
+				</div>
+                      
+               <p class="ta"><button class="btn_bg submit mr10 nextstep02">下一步</button><button class="btn_bg submit upstep02">返&nbsp;&nbsp;回</button></p>
+                </div></div>
+                <div id="goods_page3">
+                <table class="detail" id="tab3" width="100%" border="0" cellspacing="0" cellpadding="0">          
+                <tr>
+	                  <td align="right">是否支持抵扣劵</td>
+	                  <% var hasCoupon = item.hasCoupon; %>
+	                  <td><input class="inpt" type="checkbox" name="hasCoupon" <%=hasCoupon == 1?'checked':''%> value="1"/></td>
+	                  <td align="left"></td>
+                </tr>      
+                <tr class="dikouquan" id="dikouquan" style="<%=hasCoupon==0?'display:none;':''%>">
+		          <td align="right"></td>
+		          <td colspan="2">
+		          	<ul>  
+		              <%
+		                var couponPartitionId = item.couponPartitionId;
+		          	    $.each(param.shopCouponList,function(key,coupon){
+		          	    	var cid = coupon.id;
+						%>
+		          	    <li class="lh24">
+			                <input name="dkq" id="dkq<%=cid %>" class="mr5" <%=couponPartitionId==cid?'checked':''%> type="radio" value="<%=cid %>" data-name="<%=coupon.couponName %>" data-fv="<%=coupon.faceValue %>" data-amount="<%=coupon.useAmount %>" data-num="<%=coupon.useNumber %>">
+			                <label for="dkq<%=cid %>"><%=coupon.couponName %><em class="ml20">每满<%=coupon.useAmount %>元使用<%=coupon.useNumber %>张</em><em class="ml20">面值：<%=coupon.faceValue %></em></label>
+		                </li> 
+		          	  <%});
+		          	  %>
+		             </ul>
+		          </td>
+		        </tr>                 
+                <tr>
+                  <td width="38%" align="right">运费信息</td>
+                  <td width="20%"><p><input class="inpt" type="checkbox" id="noShipping" name="isFreePostage" <%=item.isFreePostage==1?'checked':''%> value="1"><label class="ml8">免运费</label></p></td>
+                  <td align="left"></td>
+                </tr>
+                
+                <tr id="checkShipping"
+                <%if(item.isFreePostage==1){%>
+                	style="display: none;"
+                <%}%>
+                >
+                  <td align="right"></td>
+                  <td><select class="w300" name="postageId" id="shippingSelect">
+				<option value="">请选择运费模板</option>
+                  <%$.each(param.lstSalerStorage,function(key,el){%>
+                  		<option value="<%=el.id%>" <%=item.postageId==el.id?'selected':''%>><%=el.name%></option>
+                  <%})%>
+                  </select></td>
+                  <td align="left"><button type="button" class="btn-search dlg2" id="addShipping">新建运费模板</button><span class="red ml10">*</span></td>
+                </tr>
+                <tr>
+                  <td align="right"></td>
+                  <td>
+                  </td>
+                  <td align="left"><span class="red"></span></td>
+                </tr>
+                
+                   <tr class="primary_del">
+                  <td align="right"><span class="tit_primary"></span></td>
+                  <td>
+                  	<dl class="primary clearfix">
+                    	<dt style="color: blue"></dt>
+                        <dd></dd>
+                    </dl>
+                  </td>
+                  <td align="left"><input type="button" class="btn-search tr_del" value="删除"/></td>
+                </tr>
+                  <%$.each(shopCat!=null?shopCat:'',function(keys,els){%>
+                <tr class="new_del">
+                  <td align="right"><span class="tit_primary"></span></td>
+                  <td>
+                  	<dl class="primary clearfix">
+                    	<dt style="color: blue"><%=els.name%></dt>
+                        <%$.each(els.childrenList,function(key,el){%>
+                    	<dd value="<%=el.id%>" valuename="<%=el.name%>"><%=el.name%></dd>
+                    	<%})%>
+                    </dl>
+                  </td>
+                  <td align="left"><input type="button" class="btn-search tr_del" value="删除"></td>
+                </tr>
+                <%})%>
+                
+                <tr class="primary_add">
+                  <td align="right"><span class="tit_primary">主营分类</span></td>
+                  <td>
+                  <div class="primary clearfix">
+                  	<div class="fir_class"><span class="classtext itemtype">一级目录</span><span class="arrow_down"></span>
+                    	<div class="droplist" id="droplist" style="overflow:auto;max-height:150px">
+                        	<ul>
+                            	<!--<h5>一级目录<span class="arrow_down"></h5>-->
+                             <%$.each(param.lstSalerShopCategory,function(key,el){%>
+			                  	<%if(el.parentId==0 || el.parentId==null || el.parentId==''){ %>
+			                  	<li lId="<%=el.id%>"><%=el.name%></li>
+			                   	<%}%>
+			                   <%})%>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>|</div>
+                    <div class="sec_class"><span>二级目录</span>
+                      <ul class="list clearfix">
+                      
+                      </ul>
+                    </div>
+                  </div>
+                  </td>
+                  <td align="left"><input type="button" class="btn-search tr_add" value="添加"/><input type="button" class="btn-search tr_cancel" value="取消"/></td>
+                </tr>
+                <!-- 
+                <tr>
+                  <td align="right">上架类型</td>
+                  <td><p><input class="inpt" type="radio" <%=item.putonType==2?'checked':''%> name="putonType" value="2"><label class="ml8">手动上架</label>
+                  <input class="inpt ml20" type="radio" <%=item.putonType==1?'checked':''%> name="putonType" value="1"><label class="ml8">自动上架</label></p></td>
+                  <td align="left"></td>
+                </tr>
+                 -->
+                <tr>
+                  <td align="right">关联营业点</td>
+                  <td>
+                  <div class="storeSelect">
+                  <%$.each(param.lstSalerShops,function(key,el){%>
+				       <span class="fl lh24" style="padding-bottom: 2px"><input class="mr10 listShopIds" name="guanlian" type="checkbox"
+                  <%$.each(salerShop,function(k,value){%>
+                  	<%if(value == el.id){%>
+                  	<%="checked"%>
+                  	<%}%>
+                  <%})%>
+                   value="<%=el.id%>"/><label><input class="inpt" style="width: 200px;line-height:0px;" type="text" readonly="readonly"  title="【<%=el.addrInfo%>】" value="【<%=el.addrInfo%>】"/></label></span>         
+					<%})%>  
+					</div>
+                  
+                  <td align="left"></td>
+                </tr>
+              </table>
+           
+              <p class="ta"><button class="btn_bg submit mr10 nextstep03" class="">下一步</button><button class="btn_bg submit upstep03" id="">返&nbsp;&nbsp;回</button></p>
+               </div>
+                  
+              	<div id="goods_page4">
+              	 <div class="bc" style="width:1000px;">
+              		
+              		<div id="detailsTabs">
+					<ul>
+						<li><a href="#tabs-1">电脑端</a></li>
+						<li><a href="#tabs-2">手机端</a></li>
+					</ul>
+					<div id="tabs-1">
+						<ul>
+							<li class="clearfix" style="text-align: center;">
+								<span><textarea id="xheditor" style="width: 900px;height:450px"></textarea></span>
+							</li>
+						</ul>
+					</div>
+					<div id="tabs-2">
+						<ul>
+							<li class="clearfix" style="text-align: center;">
+								<textarea name="itemSummary" rows="10" id="itemSummary" style="width: 380px;height:420px"><%=item.itemSummary%></textarea>
+							</li>
+						</ul>
+					</div>
+				</div>
+              		
+              	</div>
+                <p class="ta" style="padding-top: 10px"><input class="btn_bg submit mr10" type="submit" id="saveItem" value="保&nbsp;&nbsp;存"><button class="btn_bg submit upstep04" id="">返&nbsp;&nbsp;回</button></p>
+                </div>
+              	</form>
+            </div>
+            </div>
+          </div>
+          <!--内容添加结束--> 
+        </div>
+      <!-- 操作台结束 --> 
+      
+      
+<div id="dlg2" class="none" >
+</div>
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>

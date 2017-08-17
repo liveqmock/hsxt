@@ -1,0 +1,212 @@
+<!--姓名、性别、国籍、证件类型(只显示，不可变更)、证件号码、证件有效期、户籍地址、证件图片（正面照、反面照、手持正面半身照）附件。证通过后此功能隐藏。-->
+
+<div class="register_info mt20 info_800" data-id="3" id="trueNameAut_view_div">
+
+	<!--证件类型为身份证-->
+	<div id="ID_div" class="none">
+		<form id="trueNameAut_ID_form">
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="trueNameAut_name_1">姓名</label>
+						<input type="text" id="trueNameAut_name_1" name="trueNameAut_name_1" value="" disabled="disabled" />
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_country_1">国籍</label>
+						<select id="trueNameAut_country_1" name="trueNameAut_country_1"></select>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_sex_1">性别</label>
+						<select id="trueNameAut_sex_1" name="trueNameAut_sex_1">
+							<option value="">请选择</option>
+							<option value="1">男</option>
+							<option value="0">女</option>
+						</select>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_birthAddress_1">户籍地址</label>
+						<input type="text" id="trueNameAut_birthAddress_1" name="trueNameAut_birthAddress_1" value="" maxlength=128 placeholder="请输入户籍地址"/>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_licenceIssuing_1">发证机关</label>
+						<input type="text" id="trueNameAut_licenceIssuing_1" name="trueNameAut_licenceIssuing_1" value="" maxlength="20"  placeholder="请输入发证机关"/>
+						<span class="required-box">*</span>
+					</li>
+				</ul>
+				<ul class="fr">
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_certype_1">证件类型</label>
+						<select id="trueNameAut_certype_1" name="trueNameAut_certype_1"></select>
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="trueNameAut_creNo_1">证件号码</label>
+						<input type="text" id="trueNameAut_creNo_1" name="trueNameAut_creNo_1" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_creExpiryDate_1">证件有效期</label>
+						<input type="text" id="trueNameAut_creExpiryDate_1" name="trueNameAut_creExpiryDate_1" value="" class="jqp-datepicker" readonly="readonly"/>
+						<div class="hint"><input id="trueNameAut_limitDateChk_1" type="checkbox" style="height:14px;width:14px;margin:8px 2px 0 0;">长期 </div>
+						<span class="required-box" style="right:-70px;">*</span>
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="trueNameAut_profession_1">职业</label>
+						<input type="text" id="trueNameAut_profession_1" name="trueNameAut_profession_1" value="" maxlength="20" placeholder="请输入职业"/>
+						<span class="required-box" >*</span>
+					</li>
+				</ul>
+			</div>
+			<div class="clearfix mt5" style="border:1px solid #CCC;">
+				<label for="trueNameAut_postscript_1" style="height:60px;">认证附言</label><textarea id="trueNameAut_postscript_1" name="trueNameAut_postscript_1" style="width:640px;" maxlength="300" placeholder="请输入认证附言"></textarea>
+			</div>
+			<div class="tc two_button h50 mt20"><a id="trueNameAut_submitBtn_1" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="smrz2">下一步</a><div id="trueNameAut_Apptext"></div></div>
+		</fieldset>
+		</form>
+	</div>
+	<!--end-->
+	
+	<!--证件类型为护照-->
+	<div id="passport_div" class="none">
+		<form id="trueNameAut_passport_form">
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="trueNameAut_name_2">姓名</label>
+						<input type="text" id="trueNameAut_name_2" name="trueNameAut_name_2" value="" disabled="disabled" />
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_country_2">国籍</label>
+						<select id="trueNameAut_country_2" name="trueNameAut_country_2"></select>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_sex_2">性别</label>
+						<select id="trueNameAut_sex_2" name="trueNameAut_sex_2">
+							<option value="">请选择</option>
+							<option value="1">男</option>
+							<option value="0">女</option>
+						</select>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="PlaceOfBirth_2">出生地点</label>
+						<input type="text" id="PlaceOfBirth_2" name="PlaceOfBirth_2" value="" maxlength="128"  placeholder="请输入出生地点"/>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_creExpiryDate_2">证件有效期</label>
+						<input type="text" id="trueNameAut_creExpiryDate_2" name="trueNameAut_creExpiryDate_2" value="" class="jqp-datepicker" readonly="readonly"/>
+						<span class="required-box" style="right:-20px;">*</span>
+					</li>
+				</ul>
+				<ul class="fr">
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_certype_2">证件类型</label>
+						<select id="trueNameAut_certype_2" name="trueNameAut_certype_2"></select>
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="trueNameAut_creNo_2">证件号码</label>
+						<input type="text" id="trueNameAut_creNo_2" name="trueNameAut_creNo_2" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="issuingAuthority_2">签发机关</label>
+						<input type="text" id="issuingAuthority_2" name="issuingAuthority_2" value="" maxlength="20" placeholder="请输入签发机关"/>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="PlaceOfIssue_2">签发地点</label>
+						<input type="text" id="PlaceOfIssue_2" name="PlaceOfIssue_2" value="" maxlength="40" placeholder="请输入签发地点"/>
+						<span class="required-box">*</span>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="clearfix mt5" style="border:1px solid #CCC;">
+				<label for="trueNameAut_postscript_2" style="height:60px;">认证附言</label><textarea id="trueNameAut_postscript_2" name="trueNameAut_postscript_2" style="width:640px;" maxlength="300" placeholder="请输入认证附言"></textarea>
+			</div>
+			<div class="tc two_button h50 mt20"><a id="trueNameAut_submitBtn_2" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="smrz2">下一步</a><div id="trueNameAut_Apptext"></div></div>
+		</fieldset>
+		</form>
+	</div>
+	<!--end-->
+	
+	<!--证件类型为营业执照-->
+	<div id="businessLicense_div" class="none">
+		<form id="trueNameAut_businessLicense_form">
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<!--<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="trueNameAut_name_3">姓名</label>
+						<input type="text" id="trueNameAut_name_3" name="trueNameAut_name_3" value="" disabled="disabled" />
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="trueNameAut_country_3">国籍</label>
+						<select id="trueNameAut_country_3" name="trueNameAut_country_3"></select>
+					</li>-->
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="enterpriseName_3">企业名称</label>
+						<input type="text" id="enterpriseName_3" name="enterpriseName_3" value="" maxlength="64" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="registeredAddress_3">注册地址</label>
+						<input type="text" id="registeredAddress_3" name="registeredAddress_3" value="" maxlength="128"  disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+						<label for="datOfEstablishment_3">成立日期</label>
+						<input type="text" id="datOfEstablishment_3" name="datOfEstablishment_3" value="" maxlength="30" placeholder="请输入成立日期"/>
+						<span class="required-box">*</span>
+					</li>
+					
+				</ul>
+				<ul class="fr">
+					<li class="register_row info_320 clearfix pr">
+						<label for="trueNameAut_certype_3">证件类型</label>
+						<select id="trueNameAut_certype_3" name="trueNameAut_certype_3"></select>
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="trueNameAut_creNo_3">营业执照号码</label>
+						<input type="text" id="trueNameAut_creNo_3" name="trueNameAut_creNo_3" value="" disabled="disabled"/>
+					</li>
+					
+					<li class="register_row info_320 clearfix pr">
+						<label for="companyType_3">公司类型</label>
+						<input type="text" id="companyType_3" name="companyType_3" value="" maxlength="20" placeholder="请输入公司类型"/>
+						<span class="required-box">*</span>
+					</li>
+					<!--<li class="register_row info_320 clearfix pr">
+						<label for="operatingPeriod_3">营业期限</label>
+						<input type="text" id="operatingPeriod_3" name="operatingPeriod_3" value="" maxlength="50" placeholder="请输入营业期限"/>
+						<span class="required-box">*</span>
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="registeredCapital_3">注册资本</label>
+						<input type="text" id="registeredCapital_3" name="registeredCapital_3" value="" placeholder="请输入注册资本"/>
+					</li>-->
+				</ul>
+			</div>
+			<!--<div class="clearfix mt5 pr" style="border:1px solid #CCC;">
+				<label for="operatingRange_3" style="height:60px;">经营范围</label>
+				<textarea id="operatingRange_3" name="operatingRange_3" style="width:640px;" maxlength="300" placeholder="请输入经营范围"></textarea>
+				<span class="required-box" style="top:15px;">*</span>
+			</div>-->
+			<div class="clearfix mt5" style="border:1px solid #CCC;">
+				<label for="trueNameAut_postscript_3" style="height:60px;">认证附言</label><textarea id="trueNameAut_postscript_3" name="trueNameAut_postscript_3" style="width:640px;" maxlength="300" placeholder="请输入认证附言"></textarea>
+			</div>
+			<div class="tc two_button h50 mt20"><a id="trueNameAut_submitBtn_3" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="smrz2">下一步</a><div id="trueNameAut_Apptext"></div></div>
+		</fieldset>
+		</form>
+	</div>
+	<!--end-->
+	
+	<input id="applyId" name="applyId" type="hidden"/><!-- 申请编号 -->
+	<input id="certype" name="certype" type="hidden"/><!-- 证件类型 -->
+</div>
+<div class="page_tips_subwrap pt100 pb100 none" id="noRealNameReg">
+	<div class="page_tips bc tc">
+		<h1 class="f16 fb">温馨提示</h1>
+		<p class="f14 fb">请完成实名注册后再进行实名认证申请。</p>
+	</div>
+</div>

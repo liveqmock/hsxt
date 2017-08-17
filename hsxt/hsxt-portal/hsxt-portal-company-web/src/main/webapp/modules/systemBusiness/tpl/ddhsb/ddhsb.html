@@ -1,0 +1,29 @@
+<div id="ddhsbTpl">
+	<div style="background-color:#e8f4e6; text-align:center; color:#333333; padding:10px 0px; line-height:20px;"><span class="tcr_blue fb">温馨提示：</span>1、已实名注册用户单笔兑换数量为<span id="regMinAount_buyHsb"></span>-<span id="regMaxAount_buyHsb"></span>互生币；<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、未实名注册用户单笔兑换数量为<span id="unRegMinAount_buyHsb"></span>-<span id="unRegMaxAount_buyHsb"></span>互生币；</div>
+    <div class="bc info_320">
+		<form id="proxyHsbForm" name="proxyHsbForm" action="" method="post">
+			<ul class="cssform2 clearfix">
+				<li class="clearfix bg_ef">
+					<label class="title-txt w115">企业互生币余额</label>
+					<input  class="fl w185 h30_middle ml5 bg_ef" type="text" id="acctBal" readonly="readonly" />
+				</li>
+				<li class="clearfix">
+					<label class="title-txt w115">互生卡号</label>
+					<input id="cardNo" name="cardNo" class="fl w185 h30_middle ml5" type="text" maxlength="11" placeholder="输入互生卡号" />
+					<div class="hint red">*</div>
+				</li>
+				<li class="clearfix">
+					<label class="title-txt w115">代兑金额(本币)</label>
+					<input id="proxyAmount" name="proxyAmount" class="fl w185 h30_middle ml5" type="text" placeholder="输入代兑金额(本币)" /><div class="hint red">*</div>
+				</li>
+				<li class="clearfix bg_ef">
+					<label class="title-txt w115">货币转换比率</label>
+					<input id="changeRate" name="changeRate" class="fl w185 h30_middle ml5 bg_ef" type="text"  />
+				</li>
+			</ul>
+			<div class="mt20 tc">
+				<a href="javascript:;" id="confirmBtn" class="btn_bg submit">确&#12288;定</a>
+			</div>
+		</form>
+    </div>
+</div>

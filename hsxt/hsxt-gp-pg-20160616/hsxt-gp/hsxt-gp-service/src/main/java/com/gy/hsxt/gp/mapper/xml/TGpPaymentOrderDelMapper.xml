@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpPaymentOrderDelMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrderDel">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="ORIG_ORDER_NO" property="origOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_SEQ_ID" property="bankOrderSeqId" jdbcType="VARCHAR" />
+		<result column="MER_ID" property="merId" jdbcType="CHAR" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+		<result column="EXPIRED_DATE" property="expiredDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="TRANS_DESC" property="transDesc" jdbcType="VARCHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="PRIV_OBLIGATE" property="privObligate" jdbcType="VARCHAR" />
+		<result column="NOTIFY_URL" property="notifyUrl" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<resultMap id="PaymentOrderStateMap" type="com.gy.hsxt.gp.bean.PaymentOrderState">
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />	
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		TRANS_SEQ_ID, ORDER_NO, ORDER_DATE, ORIG_ORDER_NO, BANK_ORDER_NO,
+		BANK_ORDER_SEQ_ID,
+		MER_ID, TRANS_TYPE, TRANS_AMOUNT, TRANS_STATUS, TRANS_DATE, EXPIRED_DATE,
+		PAY_CHANNEL,
+		CURRENCY_CODE, TRANS_DESC, FAIL_REASON, PRIV_OBLIGATE, NOTIFY_URL, CREATED_DATE,
+		UPDATED_DATE
+	</sql>
+	
+	<sql id="PaymentOrderState_List">
+		ORDER_NO, ORDER_DATE,TRANS_AMOUNT,
+		TRANS_STATUS, 
+		PAY_CHANNEL,
+		CURRENCY_CODE,
+		FAIL_REASON
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_PAYMENT_ORDER_DEL
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectOneBySelective" resultMap="PaymentOrderStateMap"
+		parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrder">
+		select
+		<include refid="PaymentOrderState_List" />
+		from T_GP_PAYMENT_ORDER_DEL
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		and
+		MER_ID=#{merId,jdbcType=VARCHAR}
+		order by TRANS_DATE LIMIT 1
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from T_GP_PAYMENT_ORDER_DEL
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrderDel">
+		insert into T_GP_PAYMENT_ORDER_DEL (TRANS_SEQ_ID, ORDER_NO,
+		ORDER_DATE,
+		ORIG_ORDER_NO, BANK_ORDER_NO, BANK_ORDER_SEQ_ID,
+		MER_ID, TRANS_TYPE, TRANS_AMOUNT,
+		TRANS_STATUS, TRANS_DATE, EXPIRED_DATE,
+		PAY_CHANNEL, CURRENCY_CODE, TRANS_DESC,
+		FAIL_REASON, PRIV_OBLIGATE, NOTIFY_URL,
+		CREATED_DATE, UPDATED_DATE)
+		values (#{transSeqId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR},
+		#{orderDate,jdbcType=TIMESTAMP},
+		#{origOrderNo,jdbcType=VARCHAR}, #{bankOrderNo,jdbcType=VARCHAR}, #{bankOrderSeqId,jdbcType=VARCHAR},
+		#{merId,jdbcType=CHAR}, #{transType,jdbcType=INTEGER},
+		#{transAmount,jdbcType=DECIMAL},
+		#{transStatus,jdbcType=INTEGER}, #{transDate,jdbcType=TIMESTAMP}, #{expiredDate,jdbcType=TIMESTAMP},
+		#{payChannel,jdbcType=INTEGER}, #{currencyCode,jdbcType=CHAR},
+		#{transDesc,jdbcType=VARCHAR},
+		#{failReason,jdbcType=VARCHAR}, #{privObligate,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR},
+		#{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrderDel">
+		insert into T_GP_PAYMENT_ORDER_DEL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="transSeqId != null">
+				TRANS_SEQ_ID,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE,
+			</if>
+			<if test="origOrderNo != null">
+				ORIG_ORDER_NO,
+			</if>
+			<if test="bankOrderNo != null">
+				BANK_ORDER_NO,
+			</if>
+			<if test="bankOrderSeqId != null">
+				BANK_ORDER_SEQ_ID,
+			</if>
+			<if test="merId != null">
+				MER_ID,
+			</if>
+			<if test="transType != null">
+				TRANS_TYPE,
+			</if>
+			<if test="transAmount != null">
+				TRANS_AMOUNT,
+			</if>
+			<if test="transStatus != null">
+				TRANS_STATUS,
+			</if>
+			<if test="transDate != null">
+				TRANS_DATE,
+			</if>
+			<if test="expiredDate != null">
+				EXPIRED_DATE,
+			</if>
+			<if test="payChannel != null">
+				PAY_CHANNEL,
+			</if>
+			<if test="currencyCode != null">
+				CURRENCY_CODE,
+			</if>
+			<if test="transDesc != null">
+				TRANS_DESC,
+			</if>
+			<if test="failReason != null">
+				FAIL_REASON,
+			</if>
+			<if test="privObligate != null">
+				PRIV_OBLIGATE,
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="transSeqId != null">
+				#{transSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				#{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="origOrderNo != null">
+				#{origOrderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankOrderNo != null">
+				#{bankOrderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankOrderSeqId != null">
+				#{bankOrderSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="merId != null">
+				#{merId,jdbcType=CHAR},
+			</if>
+			<if test="transType != null">
+				#{transType,jdbcType=INTEGER},
+			</if>
+			<if test="transAmount != null">
+				#{transAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="transStatus != null">
+				#{transStatus,jdbcType=INTEGER},
+			</if>
+			<if test="transDate != null">
+				#{transDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expiredDate != null">
+				#{expiredDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payChannel != null">
+				#{payChannel,jdbcType=INTEGER},
+			</if>
+			<if test="currencyCode != null">
+				#{currencyCode,jdbcType=CHAR},
+			</if>
+			<if test="transDesc != null">
+				#{transDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="failReason != null">
+				#{failReason,jdbcType=VARCHAR},
+			</if>
+			<if test="privObligate != null">
+				#{privObligate,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				#{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrderDel">
+		update T_GP_PAYMENT_ORDER_DEL
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="origOrderNo != null">
+				ORIG_ORDER_NO = #{origOrderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankOrderNo != null">
+				BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankOrderSeqId != null">
+				BANK_ORDER_SEQ_ID = #{bankOrderSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="merId != null">
+				MER_ID = #{merId,jdbcType=CHAR},
+			</if>
+			<if test="transType != null">
+				TRANS_TYPE = #{transType,jdbcType=INTEGER},
+			</if>
+			<if test="transAmount != null">
+				TRANS_AMOUNT = #{transAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="transStatus != null">
+				TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+			</if>
+			<if test="transDate != null">
+				TRANS_DATE = #{transDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expiredDate != null">
+				EXPIRED_DATE = #{expiredDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payChannel != null">
+				PAY_CHANNEL = #{payChannel,jdbcType=INTEGER},
+			</if>
+			<if test="currencyCode != null">
+				CURRENCY_CODE = #{currencyCode,jdbcType=CHAR},
+			</if>
+			<if test="transDesc != null">
+				TRANS_DESC = #{transDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="failReason != null">
+				FAIL_REASON = #{failReason,jdbcType=VARCHAR},
+			</if>
+			<if test="privObligate != null">
+				PRIV_OBLIGATE = #{privObligate,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.gp.mapper.vo.TGpPaymentOrderDel">
+		update T_GP_PAYMENT_ORDER_DEL
+		set ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+		ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+		ORIG_ORDER_NO = #{origOrderNo,jdbcType=VARCHAR},
+		BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR},
+		BANK_ORDER_SEQ_ID = #{bankOrderSeqId,jdbcType=VARCHAR},
+		MER_ID = #{merId,jdbcType=CHAR},
+		TRANS_TYPE = #{transType,jdbcType=INTEGER},
+		TRANS_AMOUNT = #{transAmount,jdbcType=DECIMAL},
+		TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+		TRANS_DATE = #{transDate,jdbcType=TIMESTAMP},
+		EXPIRED_DATE = #{expiredDate,jdbcType=TIMESTAMP},
+		PAY_CHANNEL = #{payChannel,jdbcType=INTEGER},
+		CURRENCY_CODE = #{currencyCode,jdbcType=CHAR},
+		TRANS_DESC = #{transDesc,jdbcType=VARCHAR},
+		FAIL_REASON = #{failReason,jdbcType=VARCHAR},
+		PRIV_OBLIGATE = #{privObligate,jdbcType=VARCHAR},
+		NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</update>
+</mapper>

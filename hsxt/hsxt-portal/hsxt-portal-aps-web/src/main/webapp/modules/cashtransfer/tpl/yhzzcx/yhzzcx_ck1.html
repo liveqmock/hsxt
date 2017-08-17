@@ -1,0 +1,70 @@
+<div id="yhzzcx_ck1Tpl" class="none">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mb10">
+	<tr>
+		<td class="view_item" width="20%">申请时间</td>
+		<td class="view_text_2" width="30%"><%=obj.reqTime %></td>
+		<td class="view_item" width="20%">申请转账操作员</td>
+		<td class="view_text_2" width="30%"><%=obj.reqOptId %>(<%=obj.reqOptName %>)</td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">交易流水号</td>
+		<td class="view_text_2" width="30%"><%=obj.transNo %></td>
+		<td class="view_item" width="20%">提交类型</td>
+		<td class="view_text_2" width="30%"><%=obj.commitTypeName %></td>
+	</tr>
+</table>	
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mb10">	
+	<tr>
+		<td class="view_item" width="20%">单位名称</td>
+		<td class="view_text_2" width="30%"><a id="companyDetails_btn"><%=obj.custName %></a></td>
+		<td class="view_item" width="20%">互生号/手机号</td>
+		<td class="view_text_2" width="30%"><%=obj.hsResNo %></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">申请转银行账户金额</td>
+		<td class="view_text_2" width="30%"><%=obj.amountDisp %></td>
+		<td class="view_item" width="20%">银行扣除手续费</td>
+		<td class="view_text_2" width="30%"><%=obj.feeAmtDisp %></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">到账金额</td>
+		<td class="view_text_2" width="30%"><%=obj.realAmtDisp %></td>
+		<td class="view_item" width="20%">转账成功日期</td>
+		<td class="view_text_2" width="30%"><%=(obj.transStatus==8?obj.resultTime:"")%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">银行流水号</td>
+		<td class="view_text_2" width="30%"><%=obj.bankTransNo%></td>
+		<td class="view_item" width="20%">开户银行</td>
+		<td class="view_text_2" width="30%"><%=obj.bankBranch%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">银行账号</td>
+		<td class="view_text_2" width="30%"><%=obj.bankAcctNo%></td>
+		<td class="view_item" width="20%">账户名称</td>
+		<td class="view_text_2" width="30%"><%=obj.bankAcctName%></td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">	
+	<%if(comm.isNotEmpty(obj.apprTime)){%>
+	<tr>
+		<td class="view_item" width="20%">办理转账提交时间</td>
+		<td class="view_text_2" width="30%"><%=obj.apprTime%></td>
+		<td class="view_item" width="20%">办理转账操作员</td>
+		<td class="view_text_2" width="30%">
+			<%if( obj.apprOptName!=null ){%>
+				<%=obj.apprOptId%>(<%=obj.apprOptName%>)
+			<%}%>
+		</td>
+	</tr>
+	<%}%>	
+	
+	<tr>
+		<td class="view_item" width="20%">备注</td>
+		<td  class="view_text_2"><%=obj.apprRemark %></td>
+		<td class="view_item" width="20%">状态</td>
+		<td class="view_text_2" width="30%"><%=obj.transStatusName %></td>
+	</tr>
+</table>
+<div class="mt20" align="center"><a class="btn_bg submit" id="ck1_back">返&#12288;回</a></div>
+</div>

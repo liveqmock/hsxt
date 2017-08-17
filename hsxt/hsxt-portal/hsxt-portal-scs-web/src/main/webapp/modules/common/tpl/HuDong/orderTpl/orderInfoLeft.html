@@ -1,0 +1,10 @@
+<%$.each(obj.orderList.orderList,function(k,v){%>
+<%if(obj.orderTimeId == v.orderTimeId){%>
+<li class="hd_left_cur" orderTime-id = "<%=obj.orderTimeId%>">
+	<p class="classtext" style="width: 130px"><%=v.orderInfo.msg_subject%></p>
+	<i>
+	<img src="resources/img/order/hslt_i.gif" width="6" height="6">
+	</i>
+</li>
+<%}%>
+<%})%>

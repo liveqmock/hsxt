@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.WelfareQualificationMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.WelfareQualification">
+		<id column="WELFARE_ID" property="welfareId" jdbcType="VARCHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="HS_RES_NO" property="hsResNo" jdbcType="CHAR" />
+		<result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+		<result column="SUBSIDY_TOTAL_AMOUNT" property="subsidyTotalAmount" jdbcType="DECIMAL" />
+		<result column="GRANT_AMOUNT" property="grantAmount" jdbcType="DECIMAL" />
+		<result column="SUBSIDY_BALANCE" property="subsidyBalance" jdbcType="DECIMAL" />
+		<result column="WELFARE_TYPE" property="welfareType" jdbcType="DECIMAL" />
+		<result column="ISVALID" property="isvalid" jdbcType="DECIMAL" />
+		<result column="EFFECT_DATE" property="effectDate" jdbcType="TIMESTAMP" />
+		<result column="FAILURE_DATE" property="failureDate" jdbcType="TIMESTAMP" />
+		<result column="FAILURE_REASON" property="failureReason" jdbcType="DECIMAL" />
+		<result column="DUR_INVALID_DAYS" property="durInvalidDays" jdbcType="DECIMAL" />
+		<result column="ALL_FAILURE_DATE" property="allFailureDate" jdbcType="VARCHAR" />
+		<result column="LAST_INVALID_DATE" property="lastInvalidDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="CONSUME_POINT" property="consumePoint" jdbcType="DECIMAL" />
+		<result column="INVEST_POINT" property="investPoint" jdbcType="DECIMAL" />
+		<result column="EFFECT_POINTS" property="effectPoint" jdbcType="DECIMAL" />
+		
+		<collection property="allFailureDateList" column="ALL_FAILURE_DATE" select="queryfailureDate" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   W.WELFARE_ID,
+       W.CUST_ID,
+       W.HS_RES_NO,
+       W.CUST_NAME,
+       W.SUBSIDY_TOTAL_AMOUNT,
+       W.GRANT_AMOUNT,
+       W.SUBSIDY_BALANCE,
+       W.WELFARE_TYPE,
+       W.ISVALID,
+       W.EFFECT_DATE,
+       W.FAILURE_DATE,
+       W.FAILURE_REASON,
+       W.DUR_INVALID_DAYS,
+       W.ALL_FAILURE_DATE,
+       W.LAST_INVALID_DATE,
+       W.CREATED_DATE,
+       W.UPDATED_DATE,
+       W.EFFECT_POINTS,
+       P.CONSUME_POINT, 
+       P.INVEST_POINT
+	</sql>
+
+	<!-- 查询福利资格 通过资格编号（主键） -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_WELFARE  W, T_WS_ACCUMULATIVE_POINT P 
+		WHERE W.CUST_ID = P.CUST_ID
+		 and  W.WELFARE_ID = #{welfareId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 统计客户是否有福利资格 -->
+	<select id="countWelfareQualify" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from T_WS_WELFARE
+		where ISVALID = 1
+		And WELFARE_TYPE = #{welfareType}
+		and HS_RES_NO = #{hsResNo}
+	</select>
+
+	<!-- 查询客户福利资格 -->
+	<select id="findWelfareQualify" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_WELFARE W, T_WS_ACCUMULATIVE_POINT P
+		where  W.CUST_ID = P.CUST_ID
+		AND W.ISVALID = 1
+		and W.HS_RES_NO = #{hsResNo}
+	</select>
+	
+	<!-- 查询历史福利资格信息-->
+	<select id="queryHisWelfareQualify" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_WELFARE W, T_WS_ACCUMULATIVE_POINT P
+		where  W.CUST_ID = P.CUST_ID
+		and W.HS_RES_NO = #{hsResNo}
+		<include refid="Ordery_By" />
+	</select>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="hsResNo != null and hsResNo != '' ">
+			And W.HS_RES_NO  like '${hsResNo}%'
+		</if>
+	</sql>
+
+	<!-- 分页查询 统计查询总记录 -->
+	<select id="totalSize" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from T_WS_WELFARE   W, T_WS_ACCUMULATIVE_POINT P
+		where W.CUST_ID = P.CUST_ID
+		ANd W.ISVALID = 1
+		And W.WELFARE_TYPE = #{welfareType}
+		<include refid="Where_Condition" />
+	</select>
+	
+	
+
+	<!-- 分页查询福利资格 -->
+	<select id="pageWelfareQualify" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_WELFARE W, T_WS_ACCUMULATIVE_POINT P
+		where W.CUST_ID = P.CUST_ID
+		AND W.ISVALID = 1
+		And W.WELFARE_TYPE = #{welfareType}
+		<include refid="Where_Condition" />
+		<include refid="Ordery_By" />
+		<include refid="PaginationSuffix" />
+	</select>
+	
+	<!-- 分页排序 -->
+	<sql id="Ordery_By">
+		ORDER BY W.EFFECT_DATE DESC
+	</sql>
+	
+
+	<!-- 查询失效日期 -->
+	<select id="queryfailureDate" resultType="java.lang.String" parameterType="java.lang.String">
+		select distinct to_char(failure_date,'yyyy-mm-dd') failure_date  
+		 from t_ws_failure where failure_id = #{id} order by  failure_date
+	</select>
+	
+	<!-- 统计客户是否有申请中的福利申请单 -->
+	<select id="countApplyingOrder" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from t_ws_apply_welfare t where t.hs_res_no = #{hsResNo}
+		 and t.approval_status = 0 
+	</select>
+
+	<!-- 批量插入福利资格 -->
+	<insert id="batchInsertWelfareQualification" parameterType="java.util.List">
+		INSERT /*+APPEND*/ INTO t_ws_welfare (
+		WELFARE_ID,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		WELFARE_TYPE,
+		EFFECT_DATE,
+		FAILURE_DATE
+		)
+		<foreach collection="list" item="item" index="index" separator="union all">
+			(SELECT
+			#{item.welfareId,jdbcType=VARCHAR},
+			#{item.custId,jdbcType=VARCHAR},
+			#{item.hsResNo,jdbcType=VARCHAR},
+			#{item.custName,jdbcType=VARCHAR},
+			#{item.welfareType,jdbcType=VARCHAR},
+			sysdate,
+			add_months(sysdate,12)
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+
+	<!-- 处理累计消费积分 -->
+	<select id="handConsumePoint" statementType="CALLABLE" parameterType="java.util.Map">  
+		<![CDATA[  
+   	 		{
+   	 		  call PRO_HAND_CONSUME_POINT ( 
+   	 		  #{thresholdPoint,mode=IN,jdbcType=INTEGER},
+              #{durInvalidDays,mode=IN,jdbcType=INTEGER},
+              #{maxPayAmount,mode=IN,jdbcType=INTEGER},
+              #{executeDate,mode=IN,jdbcType=DATE}
+              )
+             }  
+		]]>
+	</select>
+
+	<!-- 处理累计投资积分 -->
+	<select id="handInvestPoint" statementType="CALLABLE" parameterType="java.util.Map">  
+		<![CDATA[  
+   	 		{
+   	 		  call PRO_HAND_INVEST_POINT ( 
+   	 		  #{thresholdPoint,mode=IN,jdbcType=INTEGER},
+   	 		  #{executeDate,mode=IN,jdbcType=DATE}
+              )
+             }  
+		]]>
+	</select>
+	
+	<!-- 处理已到期的福利资格数据 -->
+	<select id="handExpierdWelfare" statementType="CALLABLE" parameterType="java.util.Map">  
+		<![CDATA[  
+   	 		{
+   	 		  call PRO_HAND_EXPIERD_WELFARE ( 
+   	 		  #{thresholdPoint,mode=IN,jdbcType=INTEGER},
+              #{maxPayAmount,mode=IN,jdbcType=INTEGER},
+              #{executeDate,mode=IN,jdbcType=DATE}
+              )
+             }  
+		]]>
+	</select>
+
+	<!-- 更新福利资格信息-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.WelfareQualification">
+		update T_WS_WELFARE
+		<set>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="hsResNo != null">
+				HS_RES_NO = #{hsResNo,jdbcType=CHAR},
+			</if>
+			<if test="custName != null">
+				CUST_NAME = #{custName,jdbcType=VARCHAR},
+			</if>
+			<if test="subsidyTotalAmount != null">
+				SUBSIDY_TOTAL_AMOUNT = #{subsidyTotalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="grantAmount != null">
+				GRANT_AMOUNT = #{grantAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="subsidyBalance != null">
+				SUBSIDY_BALANCE = #{subsidyBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="welfareType != null">
+				WELFARE_TYPE = #{welfareType,jdbcType=DECIMAL},
+			</if>
+			<if test="isvalid != null">
+				ISVALID = #{isvalid,jdbcType=DECIMAL},
+			</if>
+			<if test="effectDate != null">
+				EFFECT_DATE = #{effectDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="failureDate != null">
+				FAILURE_DATE = #{failureDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="failureReason != null">
+				FAILURE_REASON = #{failureReason,jdbcType=DECIMAL},
+			</if>
+			<if test="durInvalidDays != null">
+				DUR_INVALID_DAYS = #{durInvalidDays,jdbcType=DECIMAL},
+			</if>
+			<if test="allFailureDate != null">
+				ALL_FAILURE_DATE = #{allFailureDate,jdbcType=VARCHAR},
+			</if>
+			<if test="lastInvalidDate != null">
+				LAST_INVALID_DATE = #{lastInvalidDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where WELFARE_ID = #{welfareId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+
+</mapper>

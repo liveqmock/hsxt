@@ -1,0 +1,86 @@
+<% if(obj.status==null){ %>
+<div class="acct-ct">
+	<h1 class="acct-tips">
+		<span class="tcr_blue fb">温馨提示：</span>此业务办理需要提交证明材料。
+	</h1>
+	<p class="acct-line"></p>
+	<ul class="uw207 bc acct-list mb20 clearfix">
+		<li class="jf_bg4">
+			<h1 class="mtit">当前税率</h1> <span class="minfo" id="sTaxRate"></span>
+		</li>
+	</ul>
+</div>
+<div class="cssform_320"></div>
+<div id="" class="mt20" align="center">
+	<!-- <a id="btn_sltz_edit" class="btn_bg submit">申请调整税率</a> -->
+</div>
+
+<% } else if(obj.status==0 || obj.status==1){ %>
+
+<!--提交系统审批后，显示温馨提示-->
+<div id="reminder_1">
+	<div class="page_tips bc mt40">
+		<h1 class="f16 fb tc">温馨提示</h1>
+		<p class="f16 fb tc" id="ytjResult">贵企业已提交税率调整申请，请等待审批！</p>
+	</div>
+</div>
+<!--end-->
+<% } else if(obj.status==3 || obj.status==4){ %>
+
+<!--审批驳回-->
+<div id="sltzsq_web" class="bc view_info info_500">
+	<div class="acct-ct mb20">
+		<h1 class="acct-tips">
+			<span class="tcr_blue fb">温馨提示：</span><span id="bhResult">很抱歉，贵企业的税率调整申请未能通过审批。</span>
+		</h1>
+	</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"
+		class="fixtable">
+		<%for(var i=0;i<obj.taxrateChangeHises.length;i++){%>
+		<%if(obj.taxrateChangeHises[i].bizStatus==obj.status){%>
+		<tr>
+			<td class="view_item" width="30%">审批意见</td>
+			<td class="view_text" width="70%" id="appOpinion"><%=obj.taxrateChangeHises[i].optRemark%></td>
+		</tr>
+		<tr>
+			<td class="view_item">审核时间</td>
+			<td class="view_text" id="appTime"><%=obj.taxrateChangeHises[i].optDate%></td>
+		</tr>
+		<%break;%> <%}%> <%}%> 
+	</table>
+	<div id="" class="mt20" align="center">
+		<!-- <a id="btn_sltz_edit" class="btn_bg submit">申请调整税率</a> -->
+	</div>
+</div>
+<!--end-->
+<%}else if(obj.status==2){%>
+<!--审批通过-->
+<div id="sltzsq_web" class="bc view_info info_500">
+	<div class="acct-ct mb20">
+		<h1 class="acct-tips">
+			<span class="tcr_blue fb">温馨提示：</span><span id="tgResult">贵企业提交的税率调整申请已通过审批。</span>
+		</h1>
+	</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"
+		class="fixtable">
+		<tr>
+			<td class="view_item" width="30%">原税率</td>
+			<td class="view_text" width="70%" id="orgTax"><%=(parseFloat(obj.currTaxrate)*100).toFixed(2)%>%</td>
+		</tr>
+		<tr>
+			<td class="view_item">调整后税率</td>
+			<td class="view_text" id="newTax"><%=(parseFloat(obj.applyTaxrate)*100).toFixed(2)%>%</td>
+		</tr>
+		<tr>
+			<td class="view_item">调整后税率生效时间</td>
+			<td class="view_text" id="newTaxTime"><%=obj.enableDate%>
+				00:00:00</td>
+		</tr>
+	</table>
+	<div id="" class="mt20" align="center">
+		<!-- <a id="btn_sltz_edit" class="btn_bg submit">申请调整税率</a> -->
+	</div>
+</div>
+<%}%>
+<!--end-->
+

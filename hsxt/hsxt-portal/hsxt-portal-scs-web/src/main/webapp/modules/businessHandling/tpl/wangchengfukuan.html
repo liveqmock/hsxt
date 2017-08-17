@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<title>互生系统平台 - 业务办理 - 工具管理 - 申购工具 - 完成付款</title>
+	<script data-main="../main" src="../../../library/require/require.min.js" type="text/javascript" defer async ></script>
+	<link href="../../../resources/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="../../../resources/css/jquery.jscrollpane.css" type="text/css" rel="stylesheet" media="all" />
+	<link href="../../../resources/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="../../../resources/css/skin.css" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/css/kuangrb.css" rel="stylesheet" type="text/css" />
+<link href="../../../resources/css/qisc.css" rel="stylesheet" type="text/css" />
+<link href="../../../resources/css/qinsl.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="wrap">
+		
+        	<!-- 页头开始 -->
+			<div id="header" class="clearfix">
+            	
+            </div>
+            <!-- 页头结束 -->
+            
+            <!-- 页面主体开始 -->
+			<div id="main" class="clearfix">
+            
+            	<!-- 左边导航栏开始-->
+				<div id="sideBar" class="fl">
+                	
+                </div>
+                <!-- 左边导航栏结束-->
+                
+                <!-- 右边服务模块开始-->
+    			<div id="service" class="fr">
+                	
+                </div>
+                <!-- 右边服务模块结束-->
+                
+                <!-- 中间主体内容开始 -->
+   			  <div class="content">
+                	
+                    <!-- 中间菜单开始 -->
+                    <div id="nav">
+                    	
+                    </div>
+                    <!-- 中间菜单结束 -->
+                    
+                    <!-- 操作台开始 -->
+        			<div class="operationsArea">
+        				<div class="operationsInner">
+                        	<!--<div class="nav_category"><span class="fb"></span></div>-->
+                            <!-- 操作台切换标签开始 -->
+                            <div class="pr">
+                                <div class="tabNav"></div>
+                                <ul class="tabList clearfix">
+                                    <li><a class="active">完成付款</a></li>
+                                </ul>
+                            </div>
+                            <!-- 操作台切换标签结束 -->
+							
+							<!-- id值：contentWidth_4：宽度为700px用此id -->
+                            <div id="contentWidth_4">
+							
+								
+								
+								
+								<!-- 资料查看开始 -->
+								<div class="view_info mt20 info_500">
+								
+									<!-- 现金账户列表开始 -->
+									<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+										<tr>
+											<td class="view_item" width="30%">现金账户余额</td>
+											<td class="view_text" width="70%">12122,11.11 元</td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">付款金额</td>
+											<td class="view_text" width="70%"><span class="red fb">2,000.00</span></td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">结算币种</td>
+											<td class="view_text" width="70%">人民币</td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">支付方式</td>
+											<td class="view_text pr" width="70%">现金账户支付</td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">交易密码</td>
+											<td class="view_text pr" width="70%"><input type="text" class="view_text_input input_gray" placeholder="输入8位交易密码"  />
+											<div class="redStar">*</div>
+											
+											</td>
+										</tr>
+									</table>
+									<!-- 现金账户列表结束 -->
+									
+									<!-- 网银支付列表开始 -->
+									<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" class="none">
+										<tr>
+											<td class="view_item" width="30%">付款金额</td>
+											<td class="view_text" width="70%"><span class="red fb">2000.00</span></td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">结算币种</td>
+											<td class="view_text" width="70%">人民币</td>
+										</tr>
+										<tr>
+											<td class="view_item" width="30%">支付方式</td>
+											<td class="view_text pr" width="70%">网银支付</td>
+										</tr>
+									</table>
+									<!-- 网银支付列表结束 -->
+									
+									<div class="clearfix mt40" align="center"><a href="#" class="payment_dlg btn_bg submit">确&#12288;认</a></div>
+								</div>
+								<!-- 资料查看结束 -->
+							
+                            </div>
+                            
+                        
+                        </div>
+        			</div>
+                    <!-- 操作台结束 -->
+                    
+   			  </div> 
+                <!-- 中间主体内容结束 -->
+                
+			</div>
+            <!-- 页面主体结束 -->
+            
+            <!-- 页脚开始 -->
+			<div id="footer">
+            	
+            </div>
+            <!-- 页脚结束 -->
+		
+	</div>
+</body>
+<div class="jqp-dialog" title="">
+  <p class="autowidth"></p>
+</div>
+<div id="payment_dlg" class="none">
+<div class="payment_info bc">
+<!-- 付款成功 -->
+<i class="icon_tips success_icon"></i><span class="payment_info_text fl ml10 fb">付款成功</span>
+
+<!-- 付款失败 -->
+<div class="none">
+<i class="icon_tips fail_icon"></i><span class="payment_info_text fl ml10 fb">付款失败</span>
+</div>
+</div>
+<!-- 现金账户列表开始 -->
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">现金账户余额：</td>
+    <td>12122,11.11 元</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">付款金额：</td>
+    <td><span class="red fb">2,000.00</span></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td>人民币</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付方式：</td>
+    <td>现金账户支付</td>
+  </tr>
+</table>
+<!-- 现金账户列表结束 -->
+									
+<!-- 网银支付列表开始 -->
+<table class="detail-table none" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">付款金额</td>
+    <td><span class="red fb">2000.00</span></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种</td>
+    <td>人民币</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付方式</td>
+    <td>网银支付</td>
+  </tr>
+</table>
+<!-- 网银支付列表结束 -->
+</div>
+</html>

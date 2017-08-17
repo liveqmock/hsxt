@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.DeviceInfoMapper">
+
+		<!-- 批量插入设备信息 -->
+	<insert id="batchInsertDeviceInfo" parameterType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		INSERT INTO T_BS_TOOL_DEVICE_INFO(
+			DEVICE_CUST_ID,
+			DEVICE_SEQ_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			STORE_STATUS,
+			USE_STATUS,
+			WH_ID,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEBY) 
+		<foreach collection="devices" item="device" index="index" separator="union all">
+			(SELECT
+			#{device.deviceCustId},
+			#{device.deviceSeqNo},
+			#{device.categoryCode},
+			#{device.productId},
+			#{device.storeStatus},
+			0,
+			#{device.whId},
+			'Y',
+			SYSDATE,
+			#{device.createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 插入设备信息  -->
+	<insert id="insertDeviceInfo" parameterType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		INSERT INTO T_BS_TOOL_DEVICE_INFO(
+			DEVICE_CUST_ID,
+			DEVICE_SEQ_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			STORE_STATUS,
+			USE_STATUS,
+			WH_ID,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEBY) 
+			VALUES
+			(
+			#{deviceCustId},
+			#{deviceSeqNo},
+			#{categoryCode},
+			#{productId},
+			#{storeStatus},
+			0,
+			#{whId},
+			'Y',
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL
+			)
+	</insert>
+		
+	<!-- 修改设备使用状态 -->
+	<update id="updateDeviceUseStatusById">
+		UPDATE T_BS_TOOL_DEVICE_INFO 
+		<set>
+			USE_STATUS = #{useStatus},
+			<if test="storeStatus != null">
+				STORE_STATUS = #{storeStatus},
+			</if>
+			UPDATED_DATE = SYSDATE,
+			UPDATEBY = #{operNo,jdbcType=VARCHAR} 
+		</set>
+			
+		WHERE DEVICE_CUST_ID = #{deviceCustId}
+	</update>
+	
+	<!-- 插入设备关联配置单 -->
+	<insert id="insertDeviceConfig" parameterType="com.gy.hsxt.bs.tool.bean.DeviceConfig">
+		INSERT INTO T_BS_TOOL_DEVICE_CONFIG(
+			DEVICE_CUST_ID,
+			CONFIG_NO,
+			TERMINAL_NO,
+			IS_USE
+		) VALUES (
+			#{deviceCustId},
+			#{confNo},
+			#{terminalNo},
+			#{isUse}
+		)
+	</insert>
+	
+	<!-- 批量插入设备关联配置单 -->
+	<insert id="batchInsertDeviceConfig" parameterType="com.gy.hsxt.bs.tool.bean.DeviceConfig">
+		INSERT INTO T_BS_TOOL_DEVICE_CONFIG(
+			DEVICE_CUST_ID,
+			CONFIG_NO,
+			TERMINAL_NO,
+			IS_USE
+		)
+		<foreach collection="deviceConfs" item="deviceConf" index="index" separator="union all">
+			(SELECT
+				#{deviceConf.deviceCustId},
+				#{deviceConf.confNo},
+				#{deviceConf.terminalNo},
+				#{deviceConf.isUse}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 修改设备关联已使用 -->
+	<update id="updateDeviceConfigIsUse">
+		UPDATE T_BS_TOOL_DEVICE_CONFIG SET
+			IS_USE = 1
+		WHERE CONFIG_NO = #{confNo}
+		  AND TERMINAL_NO = #{terminalNo}	
+	</update>
+	
+	<!-- 根据序列号删除配置关联关系 -->
+	<delete id="deleteDeviceConfigByNo" parameterType="string">
+		DELETE FROM T_BS_TOOL_DEVICE_CONFIG TDC
+		 WHERE TDC.IS_USE = 0
+		   AND TDC.DEVICE_CUST_ID =
+		       (SELECT TDI.DEVICE_CUST_ID FROM T_BS_TOOL_DEVICE_INFO TDI WHERE TDI.DEVICE_SEQ_NO = #{deviceSeqNo})
+	</delete>
+	
+	<!-- 查询设备关联详情 -->
+	<select id="selectDeviceRelevanceDetail" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolRelationDetail">
+	   SELECT 
+	      DC.TERMINAL_NO AS terminalNo,
+	      DI.DEVICE_SEQ_NO AS deviceSeqNo,
+	      ED.ENTER_BATCH_NO AS batchNo,
+	      DI.DEVICE_CUST_ID AS deviceCustId,
+	      S.SUPPLIER_NAME AS supplierName,
+	      S.LINKMAN AS linkMan,
+	      S.MOBILE AS mobile,
+	      W.WH_NAME AS whName
+	      FROM T_BS_TOOL_DEVICE_INFO   DI,
+	           T_BS_TOOL_DEVICE_CONFIG DC,
+	           T_BS_ENTER_DETAIL       ED,
+	           T_BS_ENTER              E,
+	           T_BS_SUPPLIER           S,
+	           T_BS_WAREHOUSE          W
+	     WHERE DI.DEVICE_CUST_ID = DC.DEVICE_CUST_ID
+	       AND DI.DEVICE_CUST_ID = ED.DEVICE_CUST_ID
+	       AND ED.ENTER_BATCH_NO = E.ENTER_BATCH_NO
+	       AND E.SUPPLIER_ID = S.SUPPLIER_ID
+	       AND DI.WH_ID = W.WH_ID
+	       AND DC.CONFIG_NO = #{confNo}
+	       AND DC.IS_USE = 1
+	</select>
+
+	<!-- 查询设备详情 -->
+	<select id="selectDeviceDetail" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolRelationDetail">
+		SELECT
+			DI.DEVICE_SEQ_NO AS deviceSeqNo,
+			ED.ENTER_BATCH_NO AS batchNo,
+			DI.DEVICE_CUST_ID AS deviceCustId,
+			S.SUPPLIER_NAME AS supplierName,
+			S.LINKMAN AS linkMan,
+			S.MOBILE AS mobile,
+			W.WH_NAME AS whName
+		FROM T_BS_TOOL_DEVICE_INFO   DI,
+			T_BS_ENTER_DETAIL       ED,
+			T_BS_ENTER              E,
+			T_BS_SUPPLIER           S,
+			T_BS_WAREHOUSE          W
+		WHERE 1 = 1
+			AND DI.DEVICE_CUST_ID = ED.DEVICE_CUST_ID
+			AND ED.ENTER_BATCH_NO = E.ENTER_BATCH_NO
+			AND E.SUPPLIER_ID = S.SUPPLIER_ID
+			AND DI.WH_ID = W.WH_ID
+			AND DI.DEVICE_SEQ_NO = #{deviceSeqNo}
+	</select>
+	
+	<!-- 根据配置单查询设备关联 -->
+	<select id="selectDeviceConfigByNo" parameterType="string" resultType="com.gy.hsxt.bs.tool.bean.DeviceConfig">
+		SELECT 
+	      DC.DEVICE_CUST_ID AS deviceCustId,
+	      DC.CONFIG_NO AS confNo
+	      FROM T_BS_TOOL_DEVICE_CONFIG DC
+	     WHERE DC.CONFIG_NO = #{confNo}
+	</select>
+	
+	<!-- 根据序列号查询设备信息 -->
+	<select id="selectDeviceInfoBySeqNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		SELECT 
+			DEVICE_CUST_ID AS deviceCustId,
+			DEVICE_SEQ_NO AS deviceSeqNo,
+			CATEGORY_CODE AS categoryCode,
+			PRODUCT_ID AS productId,
+			STORE_STATUS AS storeStatus,
+			USE_STATUS AS useStatus,
+			WH_ID AS whId,
+			CREATED_DATE AS createdDate
+		FROM T_BS_TOOL_DEVICE_INFO 
+		WHERE DEVICE_SEQ_NO = #{deviceSeqNo}
+	</select>
+
+	<!-- 根据设备序列号和配置单号查询设备信息-->
+	<select id="selectDeviceInfoByNoAndConfNo" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM T_BS_TOOL_DEVICE_INFO
+		WHERE DEVICE_SEQ_NO = #{deviceSeqNo}
+		  AND WH_ID = (SELECT TC.WH_ID FROM T_BS_TOOL_CONFIG TC WHERE TC.CONFIG_NO = #{confNo})
+	</select>
+	
+	<!-- 根据客户号和配置单号查询设备关联-->
+	<select id="selectDeviceConfigByCustIdAndNo" resultType="com.gy.hsxt.bs.tool.bean.DeviceConfig">
+		SELECT 
+			DEVICE_CUST_ID AS deviceCustId,
+			CONFIG_NO AS confNo,
+			TERMINAL_NO AS terminalNo,
+			IS_USE AS isUse
+		FROM T_BS_TOOL_DEVICE_CONFIG 
+		WHERE DEVICE_CUST_ID = #{deviceCustId}
+		<if test=" confNo != null and confNo != ''">
+		  AND CONFIG_NO = #{confNo}
+		</if>
+	</select>
+	
+	<!-- 根据配置单号和终端编号查询设备关联 -->
+	<select id="selectDeviceConfigByCongNoAndNo" resultType="com.gy.hsxt.bs.tool.bean.DeviceConfig">
+		SELECT 
+			DEVICE_CUST_ID AS deviceCustId,
+			CONFIG_NO AS confNo,
+			TERMINAL_NO AS terminalNo,
+			IS_USE AS isUse
+		FROM T_BS_TOOL_DEVICE_CONFIG 
+		WHERE CONFIG_NO = #{confNo}
+		  AND TERMINAL_NO = #{terminalNo}
+	</select>
+	
+	<!-- 根据客户号查询工具类别的最大终端编号 -->
+	<select id="selectMaxTerminalNo" resultType="string">
+		SELECT MAX(DC.TERMINAL_NO)
+        FROM T_BS_TOOL_DEVICE_CONFIG DC
+        WHERE DC.CONFIG_NO IN
+            (SELECT TC.CONFIG_NO
+             FROM T_BS_TOOL_CONFIG TC
+             WHERE TC.CUST_ID = #{entCustId}
+             	AND TC.CATEGORY_CODE IN 
+             	<foreach item="item" index="index" collection="categoryCodes" 
+                        open="(" separator="," close=")">
+                       #{item}
+               </foreach>
+               )
+	</select>
+	
+	<!-- 批量修改设备出库 -->
+	<update id="batchUpdateDeviceOutStock">
+		UPDATE T_BS_TOOL_DEVICE_INFO SET
+				STORE_STATUS = 2,
+				UPDATED_DATE = SYSDATE,
+				UPDATEBY = #{operNo,jdbcType=VARCHAR} 
+			WHERE DEVICE_CUST_ID IN
+		<foreach collection="deviceCustIds" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 根据批次号和序列号查询设备信息 -->
+	<select id="selectDeviceInfoByNo" resultType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		SELECT 
+			D.DEVICE_CUST_ID AS deviceCustId,
+			D.DEVICE_SEQ_NO AS deviceSeqNo,
+			D.CATEGORY_CODE AS categoryCode,
+			D.PRODUCT_ID AS productId,
+			D.STORE_STATUS AS storeStatus,
+			D.USE_STATUS AS useStatus,
+			D.WH_ID AS whId,
+			D.CREATED_DATE AS createdDate,
+			E.ENTER_BATCH_NO AS batchNo
+		FROM T_BS_TOOL_DEVICE_INFO D,T_BS_ENTER_DETAIL E
+		WHERE D.DEVICE_CUST_ID = E.DEVICE_CUST_ID
+		  AND D.DEVICE_SEQ_NO = #{deviceSeqNo} 
+		  AND E.ENTER_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 查询配置单配置单的终端编号 -->
+	<select id="selectConfigTerminalNo" resultType="string" parameterType="string">
+		SELECT 
+			DC.TERMINAL_NO
+		  FROM T_BS_TOOL_DEVICE_CONFIG DC
+		 WHERE DC.CONFIG_NO = #{confNo}
+		    ORDER BY DC.TERMINAL_NO
+	</select>
+	
+	<!-- 批量修改设备使用状态 -->
+	<update id="batchUpdateDeviceStatus" parameterType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		BEGIN
+		<foreach collection="devices" item="device" separator=";">
+			UPDATE T_BS_TOOL_DEVICE_INFO SET
+				USE_STATUS = #{device.useStatus},
+				UPDATED_DATE = SYSDATE,
+				UPDATEBY = #{device.updatedBy,jdbcType=VARCHAR} 	
+			WHERE DEVICE_CUST_ID = #{device.deviceCustId}
+		</foreach>
+		;END;
+	</update>
+	
+	<!-- 根据序列号查询设备入库数量 -->
+	<select id="countDeviceInfoBySeqNo" resultType="string">
+		SELECT 
+			DEVICE_SEQ_NO 
+		FROM T_BS_TOOL_DEVICE_INFO
+		WHERE DEVICE_SEQ_NO IN 
+		  <foreach collection="seqNos" index="index" item="seqNo" open="("
+			separator="," close=")">
+				#{seqNo}
+		  </foreach>
+	</select>
+	
+	<!-- 查询售后换货配置设备关联 -->
+	<select id="selectDeviceConfigByAfterBarter" resultType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		SELECT 
+			TDI.DEVICE_CUST_ID AS deviceCustId,
+		    TDI.DEVICE_SEQ_NO AS deviceSeqNo,
+		    TDI.CATEGORY_CODE AS categoryCode,
+		    TDI.PRODUCT_ID AS productId,
+		    TDI.WH_ID AS whId
+		  FROM T_BS_TOOL_DEVICE_CONFIG TDC, T_BS_TOOL_DEVICE_INFO TDI
+		 WHERE TDC.DEVICE_CUST_ID = TDI.DEVICE_CUST_ID
+		   AND TDC.CONFIG_NO = #{confNo}
+		   AND TDC.CONFIG_NO IN
+		       (SELECT TC.CONFIG_NO
+		          FROM T_BS_TOOL_CONFIG TC
+		         WHERE TC.TOOL_STATUS = 5
+		           AND TC.CONFIG_NO IN (SELECT ASL.CONFIG_NO
+		                                  FROM T_BS_AFTER_SERVICE_LIST ASL
+		                                 WHERE DISPOSE_TYPE = 3
+		                                   AND ASL.IS_CONFIG = 1))
+	</select>
+	
+	<!-- 查询企业设备信息 -->
+	<select id="selectEntDeviceInfo" resultType="com.gy.hsxt.bs.bean.tool.resultbean.EntDeviceInfo">
+		   SELECT 
+		   		TC.HS_RES_NO AS entResNo, 
+				TDC.TERMINAL_NO AS terminalNo, 
+				T.USE_STATUS AS useStatus
+			  FROM (SELECT TDI.DEVICE_CUST_ID, TDI.USE_STATUS
+			          FROM T_BS_TOOL_DEVICE_INFO TDI
+			         WHERE TDI.DEVICE_SEQ_NO = #{seqNo}) T
+			  LEFT JOIN T_BS_TOOL_DEVICE_CONFIG TDC
+			    ON T.DEVICE_CUST_ID = TDC.DEVICE_CUST_ID
+			  LEFT JOIN T_BS_TOOL_CONFIG TC
+			    ON TDC.CONFIG_NO = TC.CONFIG_NO
+	</select>
+	
+	<!-- 分页查询企业设备信息 -->
+	<select id="selectEntDeviceInfoListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.EntDeviceInfo">
+			SELECT 
+			   TC.HS_RES_NO AS entResNo,
+			   TC.CUST_ID AS entCustId,
+		       O.CUST_NAME AS entCustName,
+		       O.ORDER_NO AS orderNo,
+		       TDI.DEVICE_SEQ_NO AS deviceSeqNo,
+		       TDI.CATEGORY_CODE AS categoryCode,
+		       TDC.TERMINAL_NO AS terminalNo
+		  FROM T_BS_TOOL_DEVICE_INFO   TDI,
+		       T_BS_TOOL_DEVICE_CONFIG TDC,
+		       T_BS_TOOL_CONFIG        TC,
+		       T_BS_ORDER              O
+		 WHERE TDI.DEVICE_CUST_ID = TDC.DEVICE_CUST_ID
+		   AND TDC.CONFIG_NO = TC.CONFIG_NO
+		   AND TC.ORDER_NO = O.ORDER_NO
+		   AND TDI.USE_STATUS = 1
+		   AND TC.TOOL_STATUS IN (6,7)
+		   <if test="seqNo != null and seqNo != ''">
+		   		AND TDI.DEVICE_SEQ_NO = #{seqNo}
+		   </if>
+		   <if test="entResNo != null and entResNo != ''">
+		   		AND TC.HS_RES_NO = #{entResNo}
+		   </if>
+	</select>
+
+	<!-- 验证设备类型和配送单设备类似是否一致 -->
+	<select id="vaildDeviceTypeIsSame" resultType="com.gy.hsxt.bs.bean.tool.DeviceInfo">
+		SELECT
+			TDI.DEVICE_CUST_ID AS deviceCustId,
+			TDI.DEVICE_SEQ_NO AS deviceSeqNo,
+			TDI.CATEGORY_CODE AS categoryCode,
+			TDI.PRODUCT_ID AS productId,
+			TDI.STORE_STATUS AS storeStatus,
+			TDI.USE_STATUS AS useStatus,
+			TDI.WH_ID AS whId,
+			TDI.CREATED_DATE AS createdDate
+		  FROM T_BS_TOOL_DEVICE_INFO TDI
+		 WHERE TDI.DEVICE_SEQ_NO IN
+			<foreach collection="seqNos" index="index" item="seqNo" open="("
+					 separator="," close=")">
+				#{seqNo}
+			</foreach>
+		   AND TDI.CATEGORY_CODE =
+			   (SELECT TC.CATEGORY_CODE
+				  FROM T_BS_TOOL_CONFIG TC
+				 WHERE TC.CONFIG_NO = #{confNo})
+	</select>
+
+	<!-- 批量验证设备使用状态-->
+	<select id="batchVaildDeviceStatus" resultType="string">
+		SELECT
+				COUNT(*)||','||SUM(T.NOT_USE)
+		  FROM(SELECT DECODE(TDI.USE_STATUS,0,1,0) NOT_USE
+		  		FROM T_BS_TOOL_DEVICE_INFO TDI
+			WHERE TDI.DEVICE_SEQ_NO IN
+			<foreach collection="seqNos" index="index" item="seqNo" open="("
+					 separator="," close=")">
+				#{seqNo}
+			</foreach>
+		) T
+	</select>
+	
+</mapper>

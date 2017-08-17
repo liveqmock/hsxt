@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.es.distribution.mapper.PointAllocMapper">
+    <select id="queryPointSum" resultType="int">
+		SELECT COUNT(1) C FROM T_PS_NDETAIL TN WHERE TN.TRANS_STATUS = 4 
+		AND  TO_CHAR(TN.UPDATED_DATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE-1,'YYYY-MM-DD')
+	</select>
+    <select id="queryPoint" resultType="PointDetail" parameterType="PointPage">
+		SELECT * FROM (
+				SELECT 
+				TN.TRANS_NO "transNo", 
+				TN.TRANS_TYPE "transType", 
+				TN.ENT_RES_NO "entResNo",
+				TN.POINT_RATE "pointRate",
+				TN.CURRENCY_RATE "currencyRate",
+				TN.PER_RES_NO "perResNo",
+				TN.TRANS_AMOUNT "transAmount", 
+				TN.PER_POINT "perPoint", 
+				TN.ENT_POINT "entPoint", 
+				TN.ENT_CUST_ID "entCustId", 
+				TN.PER_CUST_ID "perCustId", 
+				TN.BATCH_NO "batchNo",
+				TN.SOURCE_BATCH_NO "sourceBatchNo", 
+				TN.SOURCE_TRANS_DT "sourceTransDate", 
+				ROWNUM RN
+		FROM T_PS_NDETAIL TN  
+		WHERE TRANS_STATUS = 4
+		AND  TO_CHAR(TN.UPDATED_DATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE-1,'YYYY-MM-DD'))
+		WHERE RN &gt; #{startsRow} AND RN &lt;= #{endRow}
+	</select>
+
+    <!-- 积分日终批量分配(企业/公司) -->
+    <insert id="insertDailyBatAlloc" parameterType="list">
+        INSERT /*+APPEND*/ INTO T_PS_PIONT_ALLOC (
+        ALLOC_NO,
+        CUST_ID,
+        CUST_TYPE,
+        HS_RES_NO,
+        PER_RES_NO,
+        ACC_TYPE,
+        ADD_AMOUNT,
+        TRANS_TYPE,
+        REL_TRANS_NO,
+        BATCH_NO,
+        SOURCE_TRANS_DT)
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.allocNo,jdbcType=VARCHAR} AS ALLOC_NO,
+            #{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+            #{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+            #{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+            #{item.perResNo,jdbcType=VARCHAR} AS PER_RES_NO,
+            #{item.accType,jdbcType=VARCHAR} AS ACC_TYPE,
+            #{item.addAmount} AS ADD_AMOUNT,
+            #{item.transType,jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.relTransNo,jdbcType=VARCHAR} AS REL_TRANS_NO,
+            TO_CHAR(SYSDATE-1,'YYYYMMDD') AS BATCH_NO,
+            #{item.sourceTransDate,jdbcType=TIMESTAMP} AS SOURCE_TRANS_DT
+            FROM DUAL)
+        </foreach>
+    </insert>
+    <!-- 电商交易分录 -->
+    <!-- 实时分配退货、撤单、冲正(企业/公司) -->
+    <insert id="insertAlloc" parameterType="list">
+        INSERT  INTO T_PS_EC_ENTRY (
+        ENTRY_NO,
+        REL_ENTRY_NO,
+        CUST_ID,
+        CUST_TYPE,
+        HS_RES_NO,
+        PER_RES_NO,
+        CHANNEL_TYPE,
+        EQUIPMENT_TYPE,
+        ACC_TYPE,
+        ADD_AMOUNT,
+        SUB_AMOUNT,
+        WRITE_BACK,
+        TRANS_TYPE,
+        REL_TRANS_NO,
+        BATCH_NO,
+        SOURCE_BATCH_NO,
+        SOURCE_TRANS_NO,
+        SOURCE_TRANS_DT,
+        IS_DEDUCTION
+        )
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.entryNo,jdbcType=VARCHAR} AS ENTRY_NO,
+            #{item.relEntryNo,jdbcType=VARCHAR} AS REL_ENTRY_NO,
+            #{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+            #{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+            #{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+            #{item.perResNo,jdbcType=VARCHAR} AS PER_RES_NO,
+            #{item.channelType,jdbcType=INTEGER} AS CHANNEL_TYPE,
+            #{item.equipmentType,jdbcType=INTEGER} AS EQUIPMENT_TYPE,
+            #{item.accType,jdbcType=VARCHAR} AS ACC_TYPE,
+            #{item.addAmount,jdbcType=NUMERIC} AS ADD_AMOUNT,
+            #{item.subAmount,jdbcType=NUMERIC} AS SUB_AMOUNT,
+            #{item.writeBack,jdbcType=VARCHAR} AS WRITE_BACK,
+            #{item.transType,jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.relTransNo,jdbcType=VARCHAR} AS REL_TRANS_NO,
+            #{item.batchNo,jdbcType=VARCHAR} AS BATCH_NO,
+            #{item.sourceBatchNo,jdbcType=VARCHAR} AS SOURCE_BATCH_NO,
+            #{item.sourceTransNo,jdbcType=VARCHAR} AS SOURCE_TRANS_NO,
+            #{item.sourceTransDate,jdbcType=TIMESTAMP} AS SOURCE_TRANS_DT,
+            #{item.isDeduction,jdbcType=INTEGER} AS IS_DEDUCTION
+            FROM DUAL)
+        </foreach>
+    </insert>
+
+    <!-- 实时积分分配 -->
+    <insert id="insertPointAllotDaily" parameterType="list" >
+        INSERT /*+APPEND*/ INTO T_PS_PIONT_ALLOT (
+        ALLOT_NO,
+        PER_HS_NO,
+        TRANS_TYPE,
+        WRITE_BACK,
+        REL_TRANS_NO,
+        SOURCE_TRANS_DATE,
+        ISACTIVE,
+        CREATED_DATE,
+        CREATED_BY,
+        UPDATED_DATE,
+        UPDATED_BY,
+        BATCH_NO,
+        SOURCE_TRANS_NO,
+        ISSETTLE,
+        TRUSTEE_ENT_HS_NO,
+        SERVICE_ENT_HS_NO,
+        MANAGE_ENT_HS_NO,
+        PAAS_ENT_HS_NO,
+        TRUSTEE_ADD_POINT,
+        SERVICE_ADD_POINT,
+        MANAGE_ADD_POINT,
+        PAAS_ADD_POINT,
+        TRUSTEE_SUB_POINT,
+        SERVICE_SUB_POINT,
+        MANAGE_SUB_POINT,
+        PAAS_SUB_POINT,
+        SURPLUS_SUB_POINT,
+        SURPLUS_ADD_POINT,
+        REMARK
+        )
+        <foreach collection="list" item="item" index="index" separator="union all" >
+            (SELECT
+            #{item.allotNo, jdbcType=VARCHAR} AS ALLOT_NO,
+            #{item.perHsNo, jdbcType=VARCHAR} AS PER_HS_NO,
+            #{item.transType, jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.writeBack, jdbcType=VARCHAR} AS WRITE_BACK,
+            #{item.relTransNo, jdbcType=VARCHAR} AS REL_TRANS_NO,
+            #{item.sourceTransDate, jdbcType=TIMESTAMP} AS SOURCE_TRANS_DATE,
+            #{item.isActive, jdbcType=VARCHAR} AS ISACTIVE,
+            SYSTIMESTAMP,
+            #{item.createdBy, jdbcType=VARCHAR} AS CREATED_BY,
+            SYSTIMESTAMP,
+            #{item.updatedBy, jdbcType=VARCHAR} AS UPDATED_BY,
+            #{item.batchNo, jdbcType=VARCHAR} AS BATCH_NO,
+            #{item.sourceTransNo, jdbcType=VARCHAR} AS SOURCE_TRANS_NO,
+            #{item.isSettle, jdbcType=INTEGER} AS ISSETTLE,
+            #{item.trusteeEntHsNo, jdbcType=VARCHAR} AS TRUSTEE_ENT_HS_NO,
+            #{item.serviceEntHsNo, jdbcType=VARCHAR} AS SERVICE_ENT_HS_NO,
+            #{item.manageEntHsNo, jdbcType=VARCHAR} AS MANAGE_ENT_HS_NO,
+            #{item.paasEntHsNo, jdbcType=VARCHAR} AS PAAS_ENT_HS_NO,
+            #{item.trusteeAddPoint, jdbcType=NUMERIC} AS TRUSTEE_ADD_POINT,
+            #{item.serviceAddPoint, jdbcType=NUMERIC} AS SERVICE_ADD_POINT,
+            #{item.manageAddPoint, jdbcType=NUMERIC} AS MANAGE_ADD_POINT,
+            #{item.paasAddPoint, jdbcType=NUMERIC} AS PAAS_ADD_POINT,
+            #{item.trusteeSubPoint, jdbcType=NUMERIC} AS TRUSTEE_SUB_POINT,
+            #{item.serviceSubPoint, jdbcType=NUMERIC} AS SERVICE_SUB_POINT,
+            #{item.manageSubPoint, jdbcType=NUMERIC} AS MANAGE_SUB_POINT,
+            #{item.paasSubPoint, jdbcType=NUMERIC} AS PAAS_SUB_POINT,
+            #{item.surplusSubPoint, jdbcType=NUMERIC} AS SURPLUS_SUB_POINT,
+            #{item.surplusAddPoint, jdbcType=NUMERIC} AS SURPLUS_ADD_POINT,
+            #{item.remark, jdbcType=VARCHAR} AS REMARK
+            FROM DUAL)
+        </foreach>
+    </insert>
+    
+    	<!-- 查询原已分配积分 -->
+	<select id="getPointAllot" parameterType="map" resultType="PointAllot">
+		   SELECT
+				PER_HS_NO "perHsNo", 
+				WRITE_BACK "writeBack",
+				REL_TRANS_NO "relTransNo", 
+				SOURCE_TRANS_DATE "sourceTransDate", 
+				ISACTIVE "isActive", 
+				CREATED_BY "createdBy", 
+				UPDATED_BY "updatedBy", 
+				SOURCE_TRANS_NO "sourceTransNo", 
+				TRUSTEE_ENT_HS_NO "trusteeEntHsNo", 
+				SERVICE_ENT_HS_NO "serviceEntHsNo", 
+				MANAGE_ENT_HS_NO "manageEntHsNo", 
+				PAAS_ENT_HS_NO "paasEntHsNo", 
+				TRUSTEE_ADD_POINT "trusteeAddPoint", 
+				SERVICE_ADD_POINT "serviceAddPoint", 
+				MANAGE_ADD_POINT "manageAddPoint", 
+				PAAS_ADD_POINT "paasAddPoint", 
+				TRUSTEE_SUB_POINT "trusteeSubPoint", 
+				SERVICE_SUB_POINT "serviceSubPoint", 
+				MANAGE_SUB_POINT "manageSubPoint", 
+				PAAS_SUB_POINT "paasSubPoint", 
+				SURPLUS_SUB_POINT "surplusSubPoint", 
+				SURPLUS_ADD_POINT "surplusAddPoint"
+        	FROM T_PS_PIONT_ALLOT 
+        	WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+    <!-- 线上交易分录信息入库 改造后-->
+    <insert id="insertEntry" parameterType="EntryAllot">
+        INSERT /*+APPEND*/ INTO T_PS_ONLINE_ENTRY (
+        ENTRY_NO,
+        WRITE_BACK,
+        TRANS_TYPE,
+        REL_TRANS_NO,
+        BATCH_NO,
+        SOURCE_TRANS_NO,
+        REL_ENTRY_NO,
+        ENT_HS_NO,
+        PER_HS_NO,
+        ENT_CUST_ID,
+        PER_CUST_ID,
+        ENT_ADD_AMOUNT,
+        ENT_SUB_AMOUNT,
+        PER_ADD_AMOUNT,
+        PER_SUB_AMOUNT,
+        ENT_ADD_POINT_AMOUNT,
+        ENT_SUB_POINT_AMOUNT,
+        PER_ADD_POINT_AMOUNT,
+        PER_SUB_POINT_AMOUNT,
+        SETTLE_AMOUNT,
+        SOURCE_TRANS_DATE,
+        REMARK,
+        ISACTIVE,
+        CREATED_DATE,
+        CREATED_BY,
+        UPDATED_DATE,
+        UPDATED_BY,
+        ENT_SUB_SERVICE_FEE,
+        ENT_ADD_SERVICE_FEE
+        )
+        VALUES(
+        #{entryNo, jdbcType=VARCHAR},
+        #{writeBack, jdbcType=VARCHAR},
+        #{transType, jdbcType=VARCHAR},
+        #{relTransNo, jdbcType=VARCHAR},
+        #{batchNo, jdbcType=VARCHAR},
+        #{sourceTransNo, jdbcType=VARCHAR},
+        #{relEntryNo, jdbcType=VARCHAR},
+        #{entHsNo, jdbcType=VARCHAR},
+        #{perHsNo, jdbcType=VARCHAR},
+        #{entCustId, jdbcType=VARCHAR},
+        #{perCustId, jdbcType=VARCHAR},
+        #{entAddAmount, jdbcType=NUMERIC},
+        #{entSubAmount, jdbcType=NUMERIC},
+        #{perAddAmount, jdbcType=NUMERIC},
+        #{perSubAmount, jdbcType=NUMERIC},
+        #{entAddPointAmount, jdbcType=NUMERIC},
+        #{entSubPointAmount, jdbcType=NUMERIC},
+        #{perAddPointAmount, jdbcType=NUMERIC},
+        #{perSubPointAmount, jdbcType=NUMERIC},
+        #{settleAmount, jdbcType=NUMERIC},
+        #{sourceTransDate, jdbcType=TIMESTAMP},
+        #{remark, jdbcType=VARCHAR},
+        #{isActive, jdbcType=VARCHAR},
+        SYSTIMESTAMP,
+        #{createdBy, jdbcType=VARCHAR},
+        SYSTIMESTAMP,
+        #{updatedBy, jdbcType=VARCHAR},
+        #{entSubServiceFee, jdbcType=NUMERIC},
+        #{entAddServiceFee, jdbcType=NUMERIC}
+        )
+    </insert>
+
+
+	<!-- 线上交易分录信息入库 改造后-->
+    <insert id="insertEntrys" parameterType="list">
+        INSERT /*+APPEND*/ INTO T_PS_ONLINE_ENTRY (
+        ENTRY_NO,
+        WRITE_BACK,
+        TRANS_TYPE,
+        REL_TRANS_NO,
+        BATCH_NO,
+        SOURCE_TRANS_NO,
+        REL_ENTRY_NO,
+        ENT_HS_NO,
+        PER_HS_NO,
+        ENT_CUST_ID,
+        PER_CUST_ID,
+        ENT_ADD_AMOUNT,
+        ENT_SUB_AMOUNT,
+        PER_ADD_AMOUNT,
+        PER_SUB_AMOUNT,
+        ENT_ADD_POINT_AMOUNT,
+        ENT_SUB_POINT_AMOUNT,
+        PER_ADD_POINT_AMOUNT,
+        PER_SUB_POINT_AMOUNT,
+        SETTLE_AMOUNT,
+        SOURCE_TRANS_DATE,
+        REMARK,
+        ISACTIVE,
+        CREATED_DATE,
+        CREATED_BY,
+        UPDATED_DATE,
+        UPDATED_BY,
+        ENT_SUB_SERVICE_FEE,
+        ENT_ADD_SERVICE_FEE
+        )
+        <foreach collection="list" item="item" index="index" separator="union all" >
+        (SELECT
+	        #{item.entryNo, jdbcType=VARCHAR},
+	        #{item.writeBack, jdbcType=VARCHAR},
+	        #{item.transType, jdbcType=VARCHAR},
+	        #{item.relTransNo, jdbcType=VARCHAR},
+	        #{item.batchNo, jdbcType=VARCHAR},
+	        #{item.sourceTransNo, jdbcType=VARCHAR},
+	        #{item.relEntryNo, jdbcType=VARCHAR},
+	        #{item.entHsNo, jdbcType=VARCHAR},
+	        #{item.perHsNo, jdbcType=VARCHAR},
+	        #{item.entCustId, jdbcType=VARCHAR},
+	        #{item.perCustId, jdbcType=VARCHAR},
+	        #{item.entAddAmount, jdbcType=NUMERIC},
+	        #{item.entSubAmount, jdbcType=NUMERIC},
+	        #{item.perAddAmount, jdbcType=NUMERIC},
+	        #{item.perSubAmount, jdbcType=NUMERIC},
+	        #{item.entAddPointAmount, jdbcType=NUMERIC},
+	        #{item.entSubPointAmount, jdbcType=NUMERIC},
+	        #{item.perAddPointAmount, jdbcType=NUMERIC},
+	        #{item.perSubPointAmount, jdbcType=NUMERIC},
+	        #{item.settleAmount, jdbcType=NUMERIC},
+	        #{item.sourceTransDate, jdbcType=TIMESTAMP},
+	        #{item.remark, jdbcType=VARCHAR},
+	        #{item.isActive, jdbcType=VARCHAR},
+	        SYSTIMESTAMP,
+	        #{item.createdBy, jdbcType=VARCHAR},
+	        SYSTIMESTAMP,
+	        #{item.updatedBy, jdbcType=VARCHAR},
+	        #{item.entSubServiceFee, jdbcType=NUMERIC},
+            #{item.entAddServiceFee, jdbcType=NUMERIC}
+	    FROM DUAL
+        )
+        </foreach>
+    </insert>
+
+
+    <!-- 线上交易分录信息结算修改-->
+    <update id="updateEntryDetail" parameterType="EntryAllot">
+        UPDATE T_PS_ONLINE_ENTRY
+        SET ENT_ADD_AMOUNT= #{entAddAmount, jdbcType=NUMERIC},
+        PER_ADD_POINT_AMOUNT= #{perAddPointAmount, jdbcType=NUMERIC},
+        SETTLE_AMOUNT= #{settleAmount, jdbcType=NUMERIC},
+        ENT_SUB_SERVICE_FEE = #{entSubServiceFee, jdbcType=NUMERIC},
+        TRANS_TYPE=#{transType, jdbcType=NUMERIC}
+        WHERE SOURCE_TRANS_NO = #{sourceTransNo, jdbcType=VARCHAR}
+        AND REL_TRANS_NO=#{relTransNo, jdbcType=VARCHAR}
+    </update>
+    
+    <!-- 批量线上交易分录信息结算修改-->
+    <update id="updateEntryDetails" parameterType="list">
+    	<foreach collection="list" item="item" index="index" open="begin"
+                 close=";end;" separator=";">
+	        UPDATE T_PS_ONLINE_ENTRY
+	        SET ENT_ADD_AMOUNT= #{item.entAddAmount, jdbcType=NUMERIC},
+	        PER_ADD_POINT_AMOUNT= #{item.perAddPointAmount, jdbcType=NUMERIC},
+	        SETTLE_AMOUNT= #{item.settleAmount, jdbcType=NUMERIC},
+	        ENT_SUB_SERVICE_FEE = #{item.entSubServiceFee, jdbcType=NUMERIC},
+	        BATCH_NO = #{item.batchNo, jdbcType=VARCHAR},
+	        TRANS_TYPE=#{item.transType, jdbcType=NUMERIC}
+	        WHERE SOURCE_TRANS_NO = #{item.sourceTransNo, jdbcType=VARCHAR}
+	        AND REL_TRANS_NO=#{item.relTransNo, jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <!-- 线上交易分录信息结算修改-->
+    <update id="updateEntryByEntryNo" parameterType="EntryAllot">
+        UPDATE T_PS_ONLINE_ENTRY
+        SET ENT_SUB_AMOUNT= #{entSubAmount, jdbcType=NUMERIC},
+        PER_ADD_AMOUNT= #{perAddAmount, jdbcType=NUMERIC},
+        ENT_ADD_SERVICE_FEE = #{entAddServiceFee, jdbcType=NUMERIC},
+        BATCH_NO = #{batchNo, jdbcType=VARCHAR},
+        SETTLE_AMOUNT=#{settleAmount, jdbcType=NUMERIC}
+        WHERE  ENTRY_NO=#{entryNo, jdbcType=VARCHAR}
+    </update>
+
+
+
+    <!-- 电商结算数据(用于对账) -->
+    <insert id="ecSettleDataTemp" parameterType="java.util.List">
+        INSERT /*+APPEND*/ INTO T_PS_EC_CHECK_TEMP (
+        TRANS_TYPE,
+        ENT_RES_NO,
+        PER_RES_NO,
+        SOURCE_TRANS_NO,
+        SOURCE_TRANS_AMOUNT,
+        ENT_POINT,
+        ENT_CUST_ID,
+        PER_CUST_ID,
+        CREATED_DATE)
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.transType,jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.entResNo,jdbcType=VARCHAR} AS ENT_RES_NO,
+            #{item.perResNo,jdbcType=VARCHAR} AS PER_RES_NO,
+            #{item.sourceTransNo,jdbcType=VARCHAR} AS SOURCE_TRANS_NO,
+            #{item.sourceTransAmount,jdbcType=NUMERIC} AS SOURCE_TRANS_AMOUNT,
+            #{item.entPoint,jdbcType=NUMERIC} AS ENT_POINT,
+            #{item.entCustId,jdbcType=VARCHAR} AS ENT_CUST_ID,
+            #{item.perCustId,jdbcType=VARCHAR} AS PER_CUST_ID,
+            SYSTIMESTAMP
+            FROM DUAL)
+        </foreach>
+    </insert>
+
+    <!-- 对账获取失败的单 -->
+    <select id="getFailData" resultType="PointDetail">
+		SELECT 
+			T.TRANS_TYPE "transType", 
+			T.ENT_RES_NO "entResNo", 
+			T.SOURCE_TRANS_NO "sourceTransNo", 
+			T.SOURCE_TRANS_AMOUNT "sourceTransAmount", 
+			T.ENT_POINT "entPoint", 
+			T.PER_CUST_ID "perCustId"
+		 FROM T_PS_EC_CHECK_TEMP T
+		 MINUS 
+		 SELECT
+		 	N.TRANS_TYPE "transType", 
+			N.ENT_RES_NO "entResNo", 
+			N.SOURCE_TRANS_NO "sourceTransNo", 
+			N.TRANS_AMOUNT "sourceTransAmount", 
+			N.ENT_POINT "entPoint", 
+			N.PER_CUST_ID "perCustId"
+		 FROM T_PS_NDETAIL N
+	</select>
+
+
+    <!-- 修改日终分配表订单流水号 -->
+    <!-- 计算日终汇总总数 -->
+
+    <select id="queryCollectCount" resultType="int">
+		select count(1) from(SELECT 
+	      SUM(ADD_AMOUNT) "addAmount",
+	      COUNT(CUST_ID) "addCount",
+	      CUST_ID "custId",
+	      HS_RES_NO "hsResNo",
+	      ACC_TYPE "accType",
+	      TRANS_TYPE "transType",
+	      BATCH_NO "batchNo"
+	    FROM T_PS_PIONT_ALLOC
+	    GROUP BY CUST_ID,HS_RES_NO,ACC_TYPE,TRANS_TYPE,BATCH_NO) T_PS_PIONT_ALLOC
+	</select>
+    <!-- 分组计算日终汇总 -->
+    <select id="queryCollect" resultType="Alloc">
+	    SELECT SUM(ADD_AMOUNT) "addAmount",
+	           COUNT(1) "addCount",
+	           t.CUST_ID "custId",
+	           t.CUST_TYPE "custType",
+	           t.HS_RES_NO "hsResNo",
+	           t.ACC_TYPE "accType",
+	           t.BATCH_NO "batchNo"
+	    FROM T_PS_PIONT_ALLOC t 
+	    WHERE t.BATCH_NO = TO_CHAR((SYSDATE-1),'YYYYMMDD') 
+	    GROUP BY t.CUST_ID, t.CUST_TYPE,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO
+	</select>
+    <!--  日终批量插入汇总 -->
+    <insert id="insertCollect" parameterType="java.util.List">
+        INSERT /*+APPEND*/ INTO T_PS_PIONT_ALLOC_SUM (
+        SUM_NO,
+        CUST_ID,
+        CUST_TYPE,
+        HS_RES_NO,
+        BATCH_NO,
+        ACC_TYPE,
+        ADD_AMOUNT,
+        ADD_COUNT,
+        REL_ALLOC_NO,
+        CREATED_DATE,
+        UPDATED_DATE)
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.sumNo,jdbcType=VARCHAR} as SUM_NO,
+            #{item.custId,jdbcType=VARCHAR} as CUST_ID,
+            #{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+            #{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+            #{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+            #{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+            #{item.addAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+            #{item.addCount,jdbcType=INTEGER} as ADD_COUNT,
+            #{item.relAllocNo,jdbcType=VARCHAR} as REL_ALLOC_NO,
+            SYSTIMESTAMP,SYSTIMESTAMP
+            FROM DUAL)
+        </foreach>
+    </insert>
+    <!-- 更新分配表中订单号 -->
+    <update id="updateRelTaxSumNo" parameterType="map">
+		UPDATE T_PS_PIONT_ALLOC 
+		SET REL_TAX_SUM_NO=#{relTaxSumNo} 
+		WHERE CUST_ID = #{custId} 
+		AND ACC_TYPE=#{accType}
+	</update>
+    <!--  日终批量插入城市税收 -->
+    <insert id="insertTax" parameterType="java.util.List">
+        INSERT /*+APPEND*/ INTO T_PS_PIONT_ALLOC_TAX (
+        TAX_NO,
+        CUST_ID,
+        CUST_TYPE,
+        BATCH_NO,
+        HS_RES_NO,
+        ACC_TYPE,
+        TAX_AMOUNT,
+        REL_ALLOC_NO,
+        CREATED_DATE,
+        UPDATED_DATE)
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.taxNo,jdbcType=VARCHAR} as TAX_NO,
+            #{item.custId,jdbcType=VARCHAR} as CUST_ID,
+            #{item.custType,jdbcType=VARCHAR} as CUST_TYPE,
+            #{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+            #{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+            #{item.taxAccType,jdbcType=VARCHAR} as ACC_TYPE,
+            #{item.taxAmount,jdbcType=NUMERIC} as TAX_AMOUNT,
+            #{item.relAllocNo,jdbcType=VARCHAR} as REL_ALLOC_NO,
+            SYSTIMESTAMP,
+            SYSTIMESTAMP
+            FROM DUAL)
+        </foreach>
+    </insert>
+    <!-- 日终分组合计企业销售额 -->
+    <select id="queryEntry" resultType="Alloc">
+	    SELECT  SUM(t.ADD_AMOUNT) "addAmount",
+           	    SUM(t.SUB_AMOUNT) "subAmount",
+             	t.CUST_ID "custId",
+             	t.HS_RES_NO "hsResNo",
+             	t.ACC_TYPE "accType",
+             	t.BATCH_NO "batchNo"
+      	FROM T_PS_ENTRY t 
+      	WHERE t.ACC_TYPE = '20111'
+      	AND  t.BATCH_NO = TO_CHAR((SYSDATE),'YYYYMMDD') 
+	  	GROUP BY t.CUST_ID,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO
+	</select>
+    <!--  日终批量插入商业服务费-->
+    <insert id="insertCsc" parameterType="java.util.List">
+        INSERT /*+APPEND*/ INTO T_PS_HSB_ALLOC_CSC (
+        CSC_NO,
+        CUST_ID,
+        CUST_TYPE,
+        BATCH_NO,
+        HS_RES_NO,
+        ACC_TYPE,
+        CSC_AMOUNT,
+        CREATED_DATE,
+        UPDATED_DATE
+        )
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.cscNo,jdbcType=VARCHAR} as CSC_NO,
+            #{item.custId,jdbcType=VARCHAR} as CUST_ID,
+            #{item.custType,jdbcType=VARCHAR} as CUST_TYPE,
+            #{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+            #{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+            #{item.taxAccType,jdbcType=VARCHAR} as ACC_TYPE,
+            #{item.cscAmount,jdbcType=NUMERIC} as CSC_AMOUNT,
+            SYSTIMESTAMP,
+            SYSTIMESTAMP
+            FROM DUAL)
+        </foreach>
+    </insert>
+    <!-- 查询当月每天的商业服务费 -->
+    <select id="queryMonthCsc" resultType="Alloc">
+		SELECT 
+	        t.CSC_NO "cscNo",
+	        t.CUST_ID "custId",
+	        t.CUST_TYPE "custType",
+	        t.HS_RES_NO "hsResNo",
+	        t.CSC_AMOUNT "taxAmount",
+	        t.ACC_TYPE "accType", 
+	        t.BATCH_NO "batchNo"
+       FROM T_PS_HSB_ALLOC_CSC t   
+	   WHERE t.CREATED_DATE &gt;= TRUNC(SYSDATE, 'MM')   
+	   AND t.CREATED_DATE &lt;= LAST_DAY(SYSDATE)
+	</select>
+
+    <!-- 日终退税 -->
+    <select id="queryDailyBackTax" resultType="PointDetail">
+        SELECT
+        TPSB.ENT_CUST_ID "entCustId",
+        TPSB.ENT_RES_NO "entResNo",
+        SUM(TPSB.ENT_POINT)  "entPoint",
+        TPSB.BATCH_NO "batchNo"
+         FROM T_PS_CDETAIL TPSB
+        WHERE TO_CHAR(TPSB.UPDATED_DATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE-1,'YYYY-MM-DD')
+        GROUP BY  TPSB.ENT_CUST_ID,TPSB.ENT_RES_NO,TPSB.BATCH_NO
+	</select>
+	<!-- 查询冲正单 -->
+    <select id="queryCorrect" resultType="PointDetail" parameterType="PointPage">
+		    SELECT
+		    RETURN_NO,
+		    TRANS_NO,
+		    TRANS_TYPE,
+		    ENT_RES_NO,
+		    PER_RES_NO ,
+		    EQUIPMENT_NO,
+		    CHANNEL_TYPE,
+		    EQUIPMENT_TYPE,
+		    SOURCE_TRANS_NO,
+		    BATCH_NO,
+		    SOURCE_TRANS_DT,
+		    TRANS_AMOUNT,
+		    PER_POINT,
+		    ENT_POINT,
+		    STATUS,
+		    TRANS_STATUS,
+		    INITIATE,
+		    RETURN_REASON,
+		    ISACTIVE,
+		    CREATED_DATE,
+		    CREATED_BY,
+		    UPDATED_DATE,
+		    UPDATED_BY,
+		    SOURCE_BATCH_NO,
+		    TERM_RUN_CODE
+		    FROM T_PS_RDETAIL
+    </select>
+    
+    
+    
+    
+</mapper>

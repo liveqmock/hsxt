@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.WelfareApplyRecordMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.WelfareApplyInfo">
+		<id column="APPLY_WELFARE_NO" property="applyWelfareNo" jdbcType="VARCHAR" />
+		<result column="HS_RES_NO" property="hsResNo" jdbcType="CHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="FAVOREE_CUST_ID" property="favoreeCustId" jdbcType="VARCHAR" />
+		<result column="DEATH_RES_NO" property="deathResNo" jdbcType="CHAR" />
+		<result column="WELFARE_TYPE" property="welfareType" jdbcType="DECIMAL" />
+		<result column="DIE_PEOPLE_NAME" property="diePeopleName" jdbcType="VARCHAR" />
+		<result column="PROPOSER_NAME" property="proposerName" jdbcType="VARCHAR" />
+		<result column="PROPOSER_PHONE" property="proposerPhone" jdbcType="VARCHAR" />
+		<result column="PROPOSER_PAPERS_NO" property="proposerPapersNo" jdbcType="VARCHAR" />
+		<result column="HEALTH_CARD_NO" property="healthCardNo" jdbcType="VARCHAR" />
+		<result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="HOSPITAL" property="hospital" jdbcType="VARCHAR" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+		<result column="HEALTH_PAY_AMOUNT" property="healthPayAmount" jdbcType="DECIMAL" />
+		<result column="PERSONAL_PAY_AMOUNT" property="personalPayAmount" jdbcType="DECIMAL" />
+		<result column="HS_PAY_AMOUNT" property="hsPayAmount" jdbcType="DECIMAL" />
+		<result column="APPROVAL_STATUS" property="approvalStatus" jdbcType="DECIMAL" />
+		<result column="EXPLAIN" property="explain" jdbcType="VARCHAR" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+		<result column="HSC_POSITIVE_PATH_ID" property="hscPositivePathId" jdbcType="VARCHAR" />
+		<result column="HSC_REVERSE_PATH_ID" property="hscReversePathId" jdbcType="VARCHAR" />
+		<result column="CER_POSITIVE_PATH_ID" property="cerPositivePathId" jdbcType="VARCHAR" />
+		<result column="CER_REVERSE_PATH_ID" property="cerReversePathId" jdbcType="VARCHAR" />
+		<result column="SSC_PATH_ID" property="sscPathId" jdbcType="VARCHAR" />
+		<result column="OFR_PATH_ID" property="ofrPathId" jdbcType="VARCHAR" />
+		<result column="CDL_PATH_ID" property="cdlPathId" jdbcType="VARCHAR" />
+		<result column="OMR_PATH_ID" property="omrPathId" jdbcType="VARCHAR" />
+		<result column="IMR_PATH_ID" property="imrPathId" jdbcType="VARCHAR" />
+		<result column="DDC_PATH_ID" property="ddcPathId" jdbcType="VARCHAR" />
+		<result column="AIP_PATH_ID" property="aipPathId" jdbcType="VARCHAR" />
+		<result column="MEDICAL_PROVE_PATH_ID" property="medicalProvePathId" jdbcType="VARCHAR" />
+		<result column="DEATH_PROVE_PATH_ID" property="deathProvePathId" jdbcType="VARCHAR" />
+		<result column="AGENT_ACCREDIT_PATH_ID" property="agentAccreditPathId" jdbcType="VARCHAR" />
+		<result column="IFP_PATH_ID" property="ifpPathId" jdbcType="VARCHAR" />
+		<result column="HRC_PATH_ID" property="hrcPathId" jdbcType="VARCHAR" />
+		<result column="OTHER_PROVE_PATH_ID" property="otherProvePathId" jdbcType="VARCHAR" />
+		<result column="MEDICAL_ACCEPT_PATH_ID" property="medicalAcceptPathId" jdbcType="VARCHAR" />
+		<result column="COST_COUNT_PATH_ID" property="costCountPathId" jdbcType="VARCHAR" />
+		<result column="DIE_PEOPLE_CER_PATH_ID" property="diePeopleCerPathId" jdbcType="VARCHAR" />
+		<result column="WELFARE_ID" property="welfareId" jdbcType="VARCHAR" />
+		
+	</resultMap>
+
+	<!--查询的列 -->
+	<sql id="Base_Column_List">
+	   APPLY_WELFARE_NO,
+       HS_RES_NO,
+       CUST_ID,
+       FAVOREE_CUST_ID,
+       DEATH_RES_NO,
+       WELFARE_TYPE,
+       DIE_PEOPLE_NAME,
+       PROPOSER_NAME,
+       PROPOSER_PHONE,
+       PROPOSER_PAPERS_NO,
+       HEALTH_CARD_NO,
+       START_DATE,
+       END_DATE,
+       CITY,
+       HOSPITAL,
+       APPLY_DATE,
+       HEALTH_PAY_AMOUNT,
+       PERSONAL_PAY_AMOUNT,
+       HS_PAY_AMOUNT,
+       APPROVAL_STATUS,
+       EXPLAIN,
+       ISACTIVE,
+       CREATED_DATE,
+       CREATED_BY,
+       UPDATED_DATE,
+       UPDATED_BY,
+       HSC_POSITIVE_PATH_ID,
+       HSC_REVERSE_PATH_ID,
+       CER_POSITIVE_PATH_ID,
+       CER_REVERSE_PATH_ID,
+       SSC_PATH_ID,
+       OFR_PATH_ID,
+       CDL_PATH_ID,
+       OMR_PATH_ID,
+       IMR_PATH_ID,
+       DDC_PATH_ID,
+       AIP_PATH_ID,
+       MEDICAL_PROVE_PATH_ID,
+       DEATH_PROVE_PATH_ID,
+       AGENT_ACCREDIT_PATH_ID,
+       IFP_PATH_ID,
+       HRC_PATH_ID,
+       OTHER_PROVE_PATH_ID,
+       MEDICAL_ACCEPT_PATH_ID,
+       COST_COUNT_PATH_ID,
+       DIE_PEOPLE_CER_PATH_ID,
+       WELFARE_ID
+	</sql>
+
+	<!-- 查询申请记录通过主键ID -->
+	<select id="countApplyingOrder" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from T_WS_APPLY_WELFARE
+		where 
+		APPROVAL_STATUS = 0
+		and APPROVAL_STATUS = 0
+		and welfare_type = #{welfareType} 
+		<if test="welfareType != 2">
+			AND	 HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+		</if>
+		<if test="welfareType == 2">
+			AND	 DEATH_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<!-- 查询申请记录通过主键ID -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_APPLY_WELFARE
+		where APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询身故人互生号查询申请记录 -->
+	<select id="queryApplyRecordByDeathPersonResNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+			<include refid="Base_Column_List" />
+ 	 	from t_ws_apply_welfare 
+ 		 where welfare_type = 2
+  	 	 and death_res_no =  #{deathResNo,jdbcType=VARCHAR}
+		 order by updated_date desc
+	</select>
+	
+	<!--  查询申请记录通过互生号和申请类型-->
+	<select id="queryApplyRecord" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+			<include refid="Base_Column_List" />
+ 	 	from t_ws_apply_welfare 
+ 		 where WELFARE_TYPE = #{welfareType}
+  	 	 and HS_RES_NO =   #{hsResNo}
+		 order by updated_date desc
+	</select>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="condition.welfareType != null">
+			And WELFARE_TYPE = #{condition.welfareType}
+		</if>
+		<if test="condition.approvalStatus != null">
+			And APPROVAL_STATUS = #{condition.approvalStatus}
+		</if>
+		<if test="condition.startTime != null and condition.startTime != '' ">
+			<![CDATA[   And APPLY_DATE >= to_date(#{condition.startTime},'yyyy-mm-dd')  ]]>
+		</if>
+		<if test="condition.endTime != null and condition.endTime != '' ">
+			<![CDATA[   And APPLY_DATE <= to_date(#{condition.endTime},'yyyy-mm-dd') + 1 ]]>
+		</if>
+	</sql>
+	
+	<!--分页排序-->
+	<sql id="Order_By">
+	   ORDER BY APPLY_DATE  DESC
+	</sql>
+	
+
+	<!-- 分页查询申请记录 -->
+	<select id="pageWelfareApply" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		APPLY_WELFARE_NO,
+		WELFARE_TYPE,
+		APPLY_DATE,
+		HS_PAY_AMOUNT,
+		APPROVAL_STATUS
+		from T_WS_APPLY_WELFARE
+		where CUST_ID = #{condition.custId}
+		<include refid="Where_Condition" />
+		<include refid="Order_By" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!-- 分页查询 统计查询记录总数 -->
+	<select id="countWelfareApply" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from T_WS_APPLY_WELFARE
+		where CUST_ID = #{condition.custId}
+		<include refid="Where_Condition" />
+	</select>
+
+	<!--插入申请记录 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.WelfareApplyInfo">
+		insert into T_WS_APPLY_WELFARE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO,
+			</if>
+			<if test="hsResNo != null">
+				HS_RES_NO,
+			</if>
+			<if test="custId != null">
+				CUST_ID,
+			</if>
+			<if test="favoreeCustId != null">
+				FAVOREE_CUST_ID,
+			</if>
+			<if test="deathResNo != null">
+				DEATH_RES_NO,
+			</if>
+			<if test="welfareType != null">
+				WELFARE_TYPE,
+			</if>
+			<if test="diePeopleName != null">
+				DIE_PEOPLE_NAME,
+			</if>
+			<if test="proposerName != null">
+				PROPOSER_NAME,
+			</if>
+			<if test="proposerPhone != null">
+				PROPOSER_PHONE,
+			</if>
+			<if test="proposerPapersNo != null">
+				PROPOSER_PAPERS_NO,
+			</if>
+			<if test="healthCardNo != null">
+				HEALTH_CARD_NO,
+			</if>
+			<if test="startDate != null">
+				START_DATE,
+			</if>
+			<if test="endDate != null">
+				END_DATE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="hospital != null">
+				HOSPITAL,
+			</if>
+			<if test="applyDate != null">
+				APPLY_DATE,
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT,
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT,
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT,
+			</if>
+			<if test="approvalStatus != null">
+				APPROVAL_STATUS,
+			</if>
+			<if test="explain != null">
+				EXPLAIN,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE,
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY,
+			</if>
+			<if test="hscPositivePathId != null">
+				HSC_POSITIVE_PATH_ID,
+			</if>
+			<if test="hscReversePathId != null">
+				HSC_REVERSE_PATH_ID,
+			</if>
+			<if test="cerPositivePathId != null">
+				CER_POSITIVE_PATH_ID,
+			</if>
+			<if test="cerReversePathId != null">
+				CER_REVERSE_PATH_ID,
+			</if>
+			<if test="sscPathId != null">
+				SSC_PATH_ID,
+			</if>
+			<if test="ofrPathId != null">
+				OFR_PATH_ID,
+			</if>
+			<if test="cdlPathId != null">
+				CDL_PATH_ID,
+			</if>
+			<if test="omrPathId != null">
+				OMR_PATH_ID,
+			</if>
+			<if test="imrPathId != null">
+				IMR_PATH_ID,
+			</if>
+			<if test="ddcPathId != null">
+				DDC_PATH_ID,
+			</if>
+			<if test="aipPathId != null">
+				AIP_PATH_ID,
+			</if>
+			<if test="medicalProvePathId != null">
+				MEDICAL_PROVE_PATH_ID,
+			</if>
+			<if test="deathProvePathId != null">
+				DEATH_PROVE_PATH_ID,
+			</if>
+			<if test="agentAccreditPathId != null">
+				AGENT_ACCREDIT_PATH_ID,
+			</if>
+			<if test="ifpPathId != null">
+				IFP_PATH_ID,
+			</if>
+			<if test="hrcPathId != null">
+				HRC_PATH_ID,
+			</if>
+			<if test="otherProvePathId != null">
+				OTHER_PROVE_PATH_ID,
+			</if>
+			<if test="medicalAcceptPathId != null">
+				MEDICAL_ACCEPT_PATH_ID,
+			</if>
+			<if test="costCountPathId != null">
+				COST_COUNT_PATH_ID,
+			</if>
+			<if test="diePeopleCerPathId != null">
+				DIE_PEOPLE_CER_PATH_ID,
+			</if>
+			<if test="welfareId != null">
+				WELFARE_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="applyWelfareNo != null">
+				#{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="hsResNo != null">
+				#{hsResNo,jdbcType=CHAR},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="favoreeCustId != null">
+				#{favoreeCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deathResNo != null">
+				#{deathResNo,jdbcType=CHAR},
+			</if>
+			<if test="welfareType != null">
+				#{welfareType,jdbcType=DECIMAL},
+			</if>
+			<if test="diePeopleName != null">
+				#{diePeopleName,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerName != null">
+				#{proposerName,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerPhone != null">
+				#{proposerPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerPapersNo != null">
+				#{proposerPapersNo,jdbcType=VARCHAR},
+			</if>
+			<if test="healthCardNo != null">
+				#{healthCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="hospital != null">
+				#{hospital,jdbcType=VARCHAR},
+			</if>
+			<if test="applyDate != null">
+				#{applyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="healthPayAmount != null">
+				#{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				#{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				#{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStatus != null">
+				#{approvalStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="explain != null">
+				#{explain,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				#{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="hscPositivePathId != null">
+				#{hscPositivePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="hscReversePathId != null">
+				#{hscReversePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cerPositivePathId != null">
+				#{cerPositivePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cerReversePathId != null">
+				#{cerReversePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="sscPathId != null">
+				#{sscPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ofrPathId != null">
+				#{ofrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cdlPathId != null">
+				#{cdlPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="omrPathId != null">
+				#{omrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="imrPathId != null">
+				#{imrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ddcPathId != null">
+				#{ddcPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="aipPathId != null">
+				#{aipPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalProvePathId != null">
+				#{medicalProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="deathProvePathId != null">
+				#{deathProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="agentAccreditPathId != null">
+				#{agentAccreditPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ifpPathId != null">
+				#{ifpPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="hrcPathId != null">
+				#{hrcPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="otherProvePathId != null">
+				#{otherProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalAcceptPathId != null">
+				#{medicalAcceptPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="costCountPathId != null">
+				#{costCountPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="diePeopleCerPathId != null">
+				#{diePeopleCerPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="welfareId != null">
+				#{welfareId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 更新申请记录 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.WelfareApplyInfo">
+		update T_WS_APPLY_WELFARE
+		<set>
+			<if test="hsResNo != null">
+				HS_RES_NO = #{hsResNo,jdbcType=CHAR},
+			</if>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="favoreeCustId != null">
+				FAVOREE_CUST_ID = #{favoreeCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="deathResNo != null">
+				DEATH_RES_NO = #{deathResNo,jdbcType=CHAR},
+			</if>
+			<if test="welfareType != null">
+				WELFARE_TYPE = #{welfareType,jdbcType=DECIMAL},
+			</if>
+			<if test="diePeopleName != null">
+				DIE_PEOPLE_NAME = #{diePeopleName,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerName != null">
+				PROPOSER_NAME = #{proposerName,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerPhone != null">
+				PROPOSER_PHONE = #{proposerPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="proposerPapersNo != null">
+				PROPOSER_PAPERS_NO = #{proposerPapersNo,jdbcType=VARCHAR},
+			</if>
+			<if test="healthCardNo != null">
+				HEALTH_CARD_NO = #{healthCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				START_DATE = #{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+				END_DATE = #{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="hospital != null">
+				HOSPITAL = #{hospital,jdbcType=VARCHAR},
+			</if>
+			<if test="applyDate != null">
+				APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT = #{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT = #{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT = #{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStatus != null">
+				APPROVAL_STATUS = #{approvalStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="explain != null">
+				EXPLAIN = #{explain,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="hscPositivePathId != null">
+				HSC_POSITIVE_PATH_ID = #{hscPositivePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="hscReversePathId != null">
+				HSC_REVERSE_PATH_ID = #{hscReversePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cerPositivePathId != null">
+				CER_POSITIVE_PATH_ID = #{cerPositivePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cerReversePathId != null">
+				CER_REVERSE_PATH_ID = #{cerReversePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="sscPathId != null">
+				SSC_PATH_ID = #{sscPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ofrPathId != null">
+				OFR_PATH_ID = #{ofrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="cdlPathId != null">
+				CDL_PATH_ID = #{cdlPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="omrPathId != null">
+				OMR_PATH_ID = #{omrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="imrPathId != null">
+				IMR_PATH_ID = #{imrPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ddcPathId != null">
+				DDC_PATH_ID = #{ddcPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="aipPathId != null">
+				AIP_PATH_ID = #{aipPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalProvePathId != null">
+				MEDICAL_PROVE_PATH_ID = #{medicalProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="deathProvePathId != null">
+				DEATH_PROVE_PATH_ID = #{deathProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="agentAccreditPathId != null">
+				AGENT_ACCREDIT_PATH_ID = #{agentAccreditPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="ifpPathId != null">
+				IFP_PATH_ID = #{ifpPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="hrcPathId != null">
+				HRC_PATH_ID = #{hrcPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="otherProvePathId != null">
+				OTHER_PROVE_PATH_ID = #{otherProvePathId,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalAcceptPathId != null">
+				MEDICAL_ACCEPT_PATH_ID = #{medicalAcceptPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="costCountPathId != null">
+				COST_COUNT_PATH_ID = #{costCountPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="diePeopleCerPathId != null">
+				DIE_PEOPLE_CER_PATH_ID = #{diePeopleCerPathId,jdbcType=VARCHAR},
+			</if>
+			<if test="welfareId != null">
+				WELFARE_ID = #{welfareId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+
+</mapper>

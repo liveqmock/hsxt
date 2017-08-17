@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcBsgpPayMapper" >
+  
+  <delete id="deleteTableData" >    
+    truncate table ${_parameter}   
+  </delete>
+
+  <!-- keys:TABLE,COLUMNS,DATA_LIST 
+  -->
+  <insert id="insertFileDataToDb" parameterType="java.util.Map" >
+  	<if test="TABLE == 'T_TC_BSGP_PAY_BS_TMP'">
+    insert into T_TC_BSGP_PAY_BS_TMP (BS_ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select 
+        #{item.BS_ORDER_NO},#{item.BS_TRANS_AMOUNT},
+        to_date(#{item.BS_TRANS_DATE},'yyyy-mm-dd hh24:mi:ss'),
+        #{item.BS_TRANS_STATUS}
+		from dual
+      </foreach>
+     ) A
+    </if>
+  	<if test="TABLE == 'T_TC_BSGP_PAY_GP_TMP'">
+    insert into T_TC_BSGP_PAY_GP_TMP (GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select #{item.GP_SEQ_ID}, #{item.GP_ORDER_NO},
+        #{item.GP_TRANS_TYPE},#{item.GP_TRANS_AMOUNT},#{item.GP_TRANS_STATUS},
+        to_date(#{item.GP_TRANS_DATE},'yyyy-mm-dd hh24:mi:ss')		
+		from dual
+      </foreach>
+     ) A
+     </if>
+  </insert>
+  <!-- 把支付清单汇总求和 -->
+  <insert id="insertDestSum" >    
+    insert into t_tc_bsgp_pay_gp_sum_tmp
+  (gp_order_no,   gp_trans_amount, gp_trans_status)
+	select 
+   gp_order_no,sum(gp_trans_amount), gp_trans_status
+	from T_TC_BSGP_PAY_GP_TMP
+	group by gp_order_no, gp_trans_status
+  </insert>
+  
+  <!-- 删除无用的账单，只要有一条成功(100 支付成功)，该账单视为成功，失败状态的账单应该删除 -->
+  <delete id="deleteDestSum" >    
+    delete  t_tc_bsgp_pay_gp_sum_tmp a
+  	where gp_trans_status !=100
+  	and gp_order_no in (select  gp_order_no from T_TC_BSGP_PAY_GP_TMP b where  b.gp_trans_status=100)
+  </delete>
+  
+  
+  <!-- 对账要素：业务订单号|订单货币金额|支付状态
+  CHECK_KEY_COLUMNS= new String[] { "ORDER_NO", "TRANS_AMOUNT","TRANS_STATUS"}; 
+  -->
+  <insert id="insertDoubtByMore" >    
+    insert into T_TC_BSGP_PAY_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS)
+	select seq_T_TC_BSGP_PAY_DOUBT.nextval,#{TC_DATE,jdbcType=CHAR},0,
+	BS_ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS
+	from T_TC_BSGP_PAY_BS_TMP a
+    where not exists (select 1 from t_tc_bsgp_pay_gp_sum_tmp b 
+    where b.gp_order_no=a.BS_ORDER_NO
+    and   b.gp_trans_status=a.BS_TRANS_STATUS
+    and   b.gp_trans_amount=a.BS_TRANS_AMOUNT
+    	)
+  </insert>
+  <!-- 更新双边成功（100），但金额不一致的对账不均衡数据 
+  -->
+  <update id="updateDoubtByLack" >
+    <![CDATA[ 
+	update T_TC_BSGP_PAY_DOUBT a
+	set (imbalance_result,
+	GP_SEQ_ID,ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE) =( 
+	select 2,
+	GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE
+	from t_tc_bsgp_pay_gp_sum_tmp b where 
+		b.GP_ORDER_NO=a.ORDER_NO and b.gp_trans_status=a.BS_TRANS_STATUS and b.gp_trans_amount!=a.BS_TRANS_AMOUNT  and rownum=1
+	)
+	where  a.imbalance_result=0
+	and a.GP_SEQ_ID is null
+	and a.BS_TRANS_STATUS=100
+	and exists (select 1
+	from t_tc_bsgp_pay_gp_sum_tmp c where 
+		c.GP_ORDER_NO=a.ORDER_NO and c.gp_trans_status=a.BS_TRANS_STATUS and c.gp_trans_amount!=a.BS_TRANS_AMOUNT 
+	)
+	]]>
+  </update>
+  <!-- 更新BS成功（100），GP失败的不均衡数据 
+  -->
+  <update id="updateDoubtByLackFalse" >
+    <![CDATA[ 
+	update T_TC_BSGP_PAY_DOUBT a
+	set (imbalance_result,
+	GP_SEQ_ID,ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE) =( 
+	select 2,
+	GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE
+	from t_tc_bsgp_pay_gp_sum_tmp b where 
+		b.GP_ORDER_NO=a.ORDER_NO and b.gp_trans_status!=a.BS_TRANS_STATUS   and rownum=1
+	)
+	where  a.imbalance_result=0
+	and a.GP_SEQ_ID is null
+	and a.BS_TRANS_STATUS=100
+	and exists (select 1
+	from t_tc_bsgp_pay_gp_sum_tmp c where 
+		c.GP_ORDER_NO=a.ORDER_NO and c.gp_trans_status!=a.BS_TRANS_STATUS 
+	)
+	]]>
+  </update>
+  <!-- 更新BS失败，GP成功（100）的不均衡数据 
+  -->
+  <update id="updateDoubtByLackSucc" >
+    <![CDATA[ 
+	update T_TC_BSGP_PAY_DOUBT a
+	set (imbalance_result,
+	GP_SEQ_ID,ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE) =( 
+	select 2,
+	GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE
+	from t_tc_bsgp_pay_gp_sum_tmp b where 
+		b.GP_ORDER_NO=a.ORDER_NO and b.gp_trans_status=100   and rownum=1
+	)
+	where  a.imbalance_result=0
+	and a.GP_SEQ_ID is null
+	and a.BS_TRANS_STATUS!=100
+	and exists (select 1
+	from t_tc_bsgp_pay_gp_sum_tmp c where 
+		c.GP_ORDER_NO=a.ORDER_NO and c.gp_trans_status=100
+	)
+	]]>
+  </update>
+  <!-- 删除BS失败，GP失败的不均衡数据 
+  -->
+  <delete id="deleteDoubtByLackFalse" >
+    <![CDATA[ 
+	delete T_TC_BSGP_PAY_DOUBT a  
+	  where  a.imbalance_result=0
+	  and a.GP_SEQ_ID is null
+	  and a.BS_TRANS_STATUS!=100
+	  and ORDER_NO in (select GP_ORDER_NO
+	  from t_tc_bsgp_pay_gp_sum_tmp c where  c.gp_trans_status!=100
+	  )
+	]]>
+  </delete>
+  <insert id="insertDoubtByLack" >    
+    insert into T_TC_BSGP_PAY_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	ORDER_NO,GP_TRANS_AMOUNT,GP_TRANS_STATUS)
+	select seq_T_TC_BSGP_PAY_DOUBT.nextval,#{TC_DATE,jdbcType=CHAR},1,
+	GP_ORDER_NO,GP_TRANS_AMOUNT,GP_TRANS_STATUS
+	from t_tc_bsgp_pay_gp_sum_tmp  b
+    where not exists (select 1 from T_TC_BSGP_PAY_BS_TMP a 
+    where a.BS_ORDER_NO=b.gp_order_no
+    	)
+  </insert>
+  
+  <insert id="insertImbalanceByDoubt" > 
+  	<![CDATA[
+  	insert into T_TC_BSGP_PAY_imbalance
+	  (imbalance_id, acc_date, order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, bs_trans_amount, bs_trans_status, bs_trans_date, imbalance_result)
+	select doubt_id, acc_date, order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, bs_trans_amount, bs_trans_status, bs_trans_date, imbalance_result 
+	from T_TC_BSGP_PAY_DOUBT
+	
+  	]]>
+  </insert>
+  <!-- 保存对账异常的GP流水单 -->
+  <insert id="insertLackBill" > 
+  	<![CDATA[
+  	insert into t_tc_bsgp_pay_gp_bill
+    (gp_order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date)
+    select 
+     gp_order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date 
+    from t_tc_bsgp_pay_gp_tmp
+    where gp_order_no in (select order_no from T_TC_BSGP_PAY_DOUBT where imbalance_result >0)
+  	]]>
+  </insert>
+  <delete id="deleteDoubtAfterMoveToImbalance" >
+    truncate table T_TC_BSGP_PAY_DOUBT 
+  </delete>
+  <!-- 对账存储过程 -->
+  <select id="tcProcedure" statementType="CALLABLE" parameterType="java.util.Map">  
+	<![CDATA[  
+   	 	{
+   	 		call PRO_TC_BSGP ( 
+   	 			#{TC_DATE,mode=IN,jdbcType=VARCHAR}
+            )
+        }  
+	]]>
+  </select>
+ 
+</mapper>

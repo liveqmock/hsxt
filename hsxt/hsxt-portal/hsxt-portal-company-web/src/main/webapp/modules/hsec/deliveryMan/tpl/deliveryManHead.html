@@ -1,0 +1,68 @@
+<div class="operationsInner"> 
+  <!-- 操作台切换标签开始 -->
+  <div class="pr">
+    <div class="tabNav"></div>
+    <ul class="tabList clearfix">
+      <!--<li><span class="active"></span></li>
+                                    <li><a href="#"></a></li>-->
+      <li><span class="tabLast fb">送货员</span></li>
+    </ul>
+  </div>
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div class="searchbox p20">
+  	<div class="search-toolbar">        	    
+        <ul class="cssform clearfix">
+        <li class="last">
+                <div class="cont-int">
+                    <button type="button" class="btn-search ml10 batch_del" >批量删除</button>                   
+                </div>
+            </li>
+            <li class="last">
+                <div class="cont-int">
+                    <button type="button" class="btn-search ml10 dlg2">添加</button>
+                </div>
+            </li>
+        
+        <li style="margin-left:228px">
+                <div class="cont-int">
+                   <label class="title-int">送货员名称:</label><input type="text" name="textfield" id="name" value="" class="input-txt" style="width:148px">                   
+                </div>
+            </li>
+                 <li class="last">
+                <div class="cont-int">
+                  <label class="title-int">&nbsp;&nbsp;&nbsp;&nbsp;营业点:</label><input type="text" name="textfield" id="shopName" value="" class="input-txt" style="width:148px">                   
+                </div>
+            </li>
+            <li class="last">
+                <div class="cont-int">
+                    <button type="button" class="btn-search ml10" id="queryMan">查询</button>                   
+                </div>
+            </li>
+        	
+            
+         </ul>
+    </div>
+    <div id="typeHide">
+	    <div class="search-cont" id="manTable" style="min-height: 352px;">
+	      
+	    </div>
+    </div>
+  </div>
+  <!--内容添加结束--> 
+</div>
+<!--弹出框内容及脚本开始-->
+
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>
+<div id="dlg11" class="none">
+  <p class="table-del">请先选择记录？</p>
+</div>
+<div id="dlg2" class="none">
+</div>
+<div id="dlg4" class="none">
+</div>
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>

@@ -1,0 +1,52 @@
+<div class="billstyle p10">
+<form id="gd_form" name="gd_form">
+	<h1 class="billnl fb">添加股东</h1>
+	<ul class="cssform clearfix mt10">
+		<li>
+			<label>股东名称/姓名：</label>
+			<input type="text"  name="shName" id="shName" placeholder="输入股东名称/姓名" class="h28_middle w115 input-txt" />
+			<input type="hidden" name="filingShId" id="filingShId">
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">股东性质：</label>
+			<input id='shType' name="shType" readonly="readonly" placeholder="选择股东性质" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">证件类型：</label>
+			<input id="idType" name="idType" readonly="readonly" placeholder="选择证件类型" />
+		</li>
+		<li>
+		<label>证件号码：</label>
+		<input type="text" id="idNo" name="idNo" placeholder="输入证件号码" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+		<label>联系人手机：</label>
+		<input type="text" id="phone" name="phone" placeholder="输入联系人手机" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="saveBtn" type="button" class="btn-search">添加</button>
+		</li>
+	</ul>
+</form>
+</div>
+<div class="green_bg fb pl5 white h30_middle">股东信息列表</div>
+<table id="tableDetail2" class="bsgrid">
+	 <tr>
+	    <th w_index="xh" w_render="operate">序号</th>
+	    <th w_index="shName">股东名称/姓名</th>
+	    <th w_index="shType" w_render="operate">股东性质</th>
+	    <th w_index="idType" w_render="operate">证件类型</th>
+	    <th w_index="idNo">证件号码</th>
+	    <th w_index="phone">联系电话</th>
+	    <th w_render="operate">操作</th>
+	  </tr>
+  </table>
+<div class="w200 bc mt20 clearfix">
+	<!--<a class="btn_bg submit fl" id="tj_btn">保&#12288;存</a>-->
+	<a class="btn_bg submit fr" id="cancel_btn">取&#12288;消</a>
+</div>
+
+
+<div id="gdxx_dialog" class="none" title="企业基本信息修改确认">
+	<p class="autowidth"></p>
+</div>

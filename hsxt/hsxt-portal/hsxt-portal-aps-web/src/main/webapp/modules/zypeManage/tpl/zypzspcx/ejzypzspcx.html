@@ -1,0 +1,28 @@
+<div id="ejzypzspcxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">省/州/直辖市：</label>
+				<input id="area" readonly="readonly" placeholder="选择" optionvalue=""  />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">配置类型：</label>
+				<input id="type" readonly="readonly" placeholder="选择配置类型" optionvalue="" />
+			</li>
+			<li>
+				<button id="btnQuery" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate">省/州/直辖市</th>
+		<th w_render="operate">配置类型</th>
+		<th w_index="applyNum">申请配额数</th>
+		<th w_index="apprNum">批复配额数</th>
+		<th w_index="reqTime">申请时间</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

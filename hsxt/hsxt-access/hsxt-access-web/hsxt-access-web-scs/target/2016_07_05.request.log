@@ -1,0 +1,13 @@
+192.168.41.16 -  -  [05/七月/2016:10:31:49 +0000] "POST /hsxt-access-web-scs/commController/get_token HTTP/1.1" 200 118 
+192.168.41.16 -  -  [05/七月/2016:10:32:10 +0000] "POST /hsxt-access-web-scs/commController/operatorLogin HTTP/1.1" 200 106 
+192.168.41.16 -  -  [05/七月/2016:10:32:14 +0000] "POST /hsxt-access-web-scs/commController/operatorLogin HTTP/1.1" 200 2557 
+192.168.41.16 -  -  [05/七月/2016:10:32:15 +0000] "POST /hsxt-access-web-scs/commController/findPerontIdByPermission HTTP/1.1" 200 3403 
+192.168.41.16 -  -  [05/七月/2016:10:32:15 +0000] "POST /hsxt-access-web-scs/operator/get_operator_login_detail HTTP/1.1" 200 292 
+192.168.41.16 -  -  [05/七月/2016:10:32:15 +0000] "POST /hsxt-access-web-scs/pwdSet/get_is_safe_set HTTP/1.1" 200 138 
+192.168.41.16 -  -  [05/七月/2016:10:32:15 +0000] "POST /hsxt-access-web-scs/commController/findPermissionByCustidList HTTP/1.1" 200 58111 
+192.168.41.16 -  -  [05/七月/2016:10:32:16 +0000] "POST /hsxt-access-web-scs/companyInfoController/findEntAllInfo HTTP/1.1" 200 2087 
+192.168.41.16 -  -  [05/七月/2016:10:32:18 +0000] "POST /hsxt-access-web-scs/commController/findPerontIdByPermission HTTP/1.1" 200 2035 
+192.168.41.16 -  -  [05/七月/2016:10:32:19 +0000] "POST /hsxt-access-web-scs/companyInfoController/findEntAllInfo HTTP/1.1" 200 2087 
+192.168.41.16 -  -  [05/七月/2016:10:32:19 +0000] "POST /hsxt-access-web-scs/commController/findSystemInfo HTTP/1.1" 200 983 
+192.168.41.16 -  -  [05/七月/2016:10:32:19 +0000] "POST /hsxt-access-web-scs/commController/getRegionByCode HTTP/1.1" 200 117 
+192.168.41.16 -  -  [05/七月/2016:10:32:21 +0000] "POST /hsxt-access-web-scs/commController/findPerontIdByPermission HTTP/1.1" 200 1094 

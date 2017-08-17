@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.uc.common.mapper.SysBoSettingMapper">
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.SysBoSetting">
+    <id column="CUST_ID" jdbcType="VARCHAR" property="custId" />
+    <id column="SETTING_NAME" jdbcType="VARCHAR" property="settingName" />
+    <result column="SETTING_VALUE" jdbcType="VARCHAR" property="settingValue" />
+    <result column="SETTING_REMARK" jdbcType="VARCHAR" property="settingRemark" />
+    <result column="ISACTIVE" jdbcType="CHAR" property="isactive" />
+    <result column="CREATE_DATE"  property="createDate"  jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+    <result column="CREATEDBY" jdbcType="VARCHAR" property="createdby" />
+    <result column="UPDATE_DATE"  property="updateDate"  jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+    <result column="UPDATEDBY" jdbcType="VARCHAR" property="updatedby" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CUST_ID, 
+    SETTING_NAME, 
+    SETTING_VALUE, 
+    SETTING_REMARK, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY
+  </sql>
+  <select id="selectByCustId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_BO_SETTING
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+     
+  </select>
+  <delete id="deleteByCustId" parameterType="java.lang.String">
+    delete from T_SYS_BO_SETTING
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.SysBoSetting">
+    insert into T_SYS_BO_SETTING
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        CUST_ID,
+        SETTING_NAME,
+      <if test="settingValue != null">
+        SETTING_VALUE,
+      </if>
+      <if test="settingRemark != null">
+        SETTING_REMARK,
+      </if>
+      <if test="isactive != null">
+        ISACTIVE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null">
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null">
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        #{custId,jdbcType=VARCHAR},
+        #{settingName,jdbcType=VARCHAR},
+      <if test="settingValue != null">
+        #{settingValue,jdbcType=VARCHAR},
+      </if>
+      <if test="settingRemark != null">
+        #{settingRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null">
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null">
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.SysBoSetting">
+    update T_SYS_BO_SETTING
+    <set>
+      <if test="settingValue != null">
+        SETTING_VALUE = #{settingValue,jdbcType=VARCHAR},
+      </if>
+      <if test="settingRemark != null">
+        SETTING_REMARK = #{settingRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null">
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null">
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null">
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+      and SETTING_NAME = #{settingName,jdbcType=VARCHAR}
+  </update>
+</mapper>

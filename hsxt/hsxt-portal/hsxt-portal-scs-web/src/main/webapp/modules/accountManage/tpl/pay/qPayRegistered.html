@@ -1,0 +1,67 @@
+<div class="mt20 openQuickPay-box">
+	<div class="clearfix">
+		<div class="fl">
+			<ul class="fl clearfix pay-ul">
+				<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+				<li class="ml15 mt5 fb f14">银行卡</li>
+				<li class="ml15 mt5"><a id="back_myBankCard_2">&lt; 返回我的银行卡</a></li>
+			</ul>
+		</div>
+		<div class="fr f16" id="zfje_2_div">
+			支付金额：<span id="pay_money_2" class="pay-text-red fb"></span>
+		</div>
+	</div>
+	
+	<div class="ml30 mr30 mt20">
+		<div class="pay-oqp-tab-title">
+			<h1 class="hover">快捷支付</h1>
+		</div>
+		
+		<div class="mt20 ml15">
+			
+			<form id="registeredForm" autocomplete="off">
+		
+			<ul>
+				<li>
+					<span class="pay-form-left pay-form-li-h45 f14">付款银行</span>
+					<span class="pay-form-middle pay-form-li-h45">
+						<div class="tc infobox2 pt10 pb10"><i class="bank-logo" id="bankLogo"></i></div>
+					</span>
+					<span class="pay-form-right pay-form-li-h45"><a class="f13" id="select_other_bank">选择其它银行</a></span>
+				</li>
+				<li class="mt15">
+					<span class="pay-form-left f14">卡种</span>
+					<span class="pay-form-middle" id="cardType"></span>
+				</li>
+				<li class="mt15">
+					<span class="pay-form-left f14">银行卡号</span>
+					<span class="pay-form-middle">
+						<input type="texy" name="pay_yhkh" id="pay_yhkh" class="pay-pwd-input" placeholder="输入银行卡号"/>
+					</span>
+					<span class="pay-form-require">*</span>
+				</li>
+<!-- 				<li class="mt30"> -->
+<!-- 					<span class="pay-form-left"></span> -->
+<!-- 					<span class="pay-form-middle clearfix" style="width:260px;"> -->
+<!-- 						<i class="fl icon_tips tips_i_s mt5"></i><span class="fl ml5">开通快捷支付，下次可凭支付密码快速付款。</span> -->
+<!-- 					</span> -->
+<!-- 				</li> -->
+				<li class="pay-mt50">
+					<span class="pay-form-left"></span>
+					<span class="pay-form-middle clearfix">
+						<a id="agreeToPay_btn" class="pay-btn">开通并付款</a>
+					</span>
+				</li>
+				<li class="mt30">
+					<span class="pay-form-left"></span>
+					<span class="pay-form-middle clearfix" style="display: none">
+						<input type="checkbox" id='selectQuick' name='selectQuick' checked="checked" class="input_checkbox"/><a id="kjzffwxy_btn">《快捷支付服务协议》</a>
+					</span>
+				</li>
+			</ul>
+		</form>
+			
+		</div>
+	</div>		
+</div>
+<div id="kjzffwxy_dlg" class="none ovh"></div>

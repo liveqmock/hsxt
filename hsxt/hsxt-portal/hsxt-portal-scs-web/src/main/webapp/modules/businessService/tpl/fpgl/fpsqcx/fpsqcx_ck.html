@@ -1,0 +1,72 @@
+
+<div class="clearfix">
+	<table width="100%" style="background-color: #e8f4e6;">
+		<tbody>
+			<tr>
+				<td width="114" class="p5 tr">发票抬头：</td>
+				<td width="399" class="p5"><span><%=obj.invoiceTitle%></span></td>
+				<td width="123" class="p5 tr">纳税人识别号：</td>
+				<td width="244" class="p5"><span><%=obj.taxpayerNo%></span></td>
+			</tr>
+			<tr>
+				<td class="p5 tr">地址，电话：</td>
+				<td class="p5"><span><%=obj.address%></span><span class="pl20"><%=obj.telephone%></span></td>
+				<td class="p5 tr">开票内容：</td>
+				<td class="p5"><span><%=obj.openContent%></span></td>
+			</tr>
+			<tr>
+				<td class="p5 tr">开户行及账号：</td>
+				<td class="p5"><span><%=obj.bankBranchName%></span><span
+					class="pl20"><%=obj.bankNo%></span></td>
+				<td class="p5 tr">发票金额：</td>
+				<td class="p5"><span><%=obj.allAmount%></span></td>
+			</tr>
+			<tr>
+				<td class="p5 tr">发票类型：</td>
+				<td class="p5"><%=obj.invoiceTypeName%></td>
+			</tr>
+		</tbody>
+	</table>
+	<table id="fpsqcx_xq_table" style="min-width: 774px; width: 774px">
+		<thead>
+			<tr>
+				<th w_num="line" w_align="left" width="10%">序号</th>
+				<th w_index="invoiceCode" w_align="left">发票代码</th>
+				<th w_index="invoiceNo" w_align="left">发票号码</th>
+				<th w_render="operate" w_align="left">发票金额</th>
+			</tr>
+		</thead>
+	</table>
+	<table class="mt10" style="background-color: #e8f4e6; width: 774px">
+		<tr>
+			<td class="p10 w115">配送方式：</td>
+			<td class="p10"><span><%=obj.postWayName%></span></td>
+			<td class="p10 w80"><span id="fpsq_cygs">承运公司：</span></td>
+			<td class="p10"><span><%=obj.expressName%></span></td>
+			<td class="p10">运单号码：</td>
+			<td class="p10"><span><%=obj.trackingNo%></span></td>
+		</tr>
+		<%if(status == 4){%>
+		<tr>
+			<td class="p10 w115">签收方式：</td>
+			<td class="p10" colspan="3" align="left">
+				<span><%=obj.receiveWay%></span>
+			</td>
+		</tr>
+		<%}else if(status == 1){%>
+		<tr>
+			<td class="p10 w115">驳回原因：</td>
+			<td class="p10" colspan="3" align="left">
+				<span><%=obj.refuseRemark%></span>
+			</td>
+		</tr>
+		<%}else if(status == 5){%>
+		<tr>
+			<td class="p10 w115">拒签原因：</td>
+			<td class="p10" colspan="3" align="left">
+				<span><%=obj.refuseRemark%></span>
+			</td>
+		</tr>
+		<%}%>
+	</table>
+</div>

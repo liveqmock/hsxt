@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.AccountDetailMapper">
+
+	<resultMap id="accountDetailResult" type="com.gy.hsxt.bs.bean.order.AccountDetail">
+		<id column="ACCOUNT_NO" property="accountNo" />
+		<result column="BIZ_NO" property="bizNo" />
+		<result column="TRANS_TYPE" property="transType" />
+		<result column="CUST_ID" property="custId" />
+		<result column="HS_RES_NO" property="hsResNo" />
+		<result column="CUST_NAME" property="custName" />
+		<result column="CUST_TYPE" property="custType" />
+		<result column="ACC_TYPE" property="accType" />
+		<result column="ADD_AMOUNT" property="addAmount" />
+		<result column="DEC_AMOUNT" property="decAmount" />
+		<result column="CURRENCY_CODE" property="currencyCode" />
+		<result column="FISCAL_DATE" property="fiscalDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler" />
+		<result column="REMARK" property="remark" />
+		<result column="STATUS" property="status" />
+		<result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler" />
+		<result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler" />
+		<result column="ACCOUNT_TRANS_NO" property="accountTransNo" />
+	</resultMap>
+	<!-- 插入内部转帐记录 -->
+	<insert id="insertAccountDetail">
+		INSERT INTO T_BS_ACCOUNT_DETAIL
+		(
+		ACCOUNT_NO,
+		BIZ_NO,
+		TRANS_TYPE,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		ACC_TYPE,
+		ADD_AMOUNT,
+		DEC_AMOUNT,
+		CURRENCY_CODE,
+		FISCAL_DATE,
+		REMARK,
+		STATUS,
+		CREATED_DATE,
+		UPDATED_DATE,
+		ACCOUNT_TRANS_NO
+		)
+		VALUES
+		(
+		#{accountNo},
+		#{bizNo},
+		#{transType},
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{accType},
+		#{addAmount},
+		#{decAmount},
+		#{currencyCode},
+		sysdate,
+		#{remark},
+		#{status},
+		sysdate,
+		NULL,
+		#{accountTransNo}
+		)
+	</insert>
+
+    <!-- 批量插入内部转帐记录 -->
+	<insert id="bathcInsertAccountDetail" parameterType="com.gy.hsxt.bs.bean.order.AccountDetail">
+		INSERT INTO T_BS_ACCOUNT_DETAIL
+		(
+		ACCOUNT_NO,
+		BIZ_NO,
+		TRANS_TYPE,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		ACC_TYPE,
+		ADD_AMOUNT,
+		DEC_AMOUNT,
+		CURRENCY_CODE,
+		FISCAL_DATE,
+		REMARK,
+		STATUS,
+		CREATED_DATE,
+		UPDATED_DATE,
+		ACCOUNT_TRANS_NO
+		)
+		<foreach collection="details" item="detail" separator="union all">
+			(SELECT
+			#{detail.accountNo},
+			#{detail.bizNo},
+			#{detail.transType},
+			#{detail.custId},
+			#{detail.hsResNo},
+			#{detail.custName},
+			#{detail.custType},
+			#{detail.accType},
+			#{detail.addAmount},
+			#{detail.decAmount},
+			#{detail.currencyCode},
+			#{detail.fiscalDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+			#{detail.remark},
+			#{detail.status},
+			sysdate,
+			NULL,
+			#{detail.accountTransNo}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 读取 所有未记帐的记录 按业务编号分组去重 -->
+	<select id="selectBizNosByQuery" resultType="string" parameterType="com.gy.hsxt.bs.order.bean.AccountDetailQuery">
+		SELECT DISTINCT t.BIZ_NO
+		FROM T_BS_ACCOUNT_DETAIL t
+		WHERE 1=1
+		<if test="status != null ">
+			AND t.STATUS = #{status}
+		</if>
+		<if test="startBizNo != null and startBizNo != ''">
+			AND t.BIZ_NO &gt;= #{startBizNo}
+		</if>
+		<if test="endBizNo != null and endBizNo != ''">
+			AND t.BIZ_NO &lt;= #{endBizNo}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND t.FISCAL_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND t.FISCAL_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+		</if>
+		order by t.BIZ_NO
+	</select>
+
+	<!-- 读取 start end所有未记帐的记录 通过业务编号取范围 -->
+	<select id="selectBeanListByQuery" resultMap="accountDetailResult" parameterType="com.gy.hsxt.bs.order.bean.AccountDetailQuery">
+		SELECT t.*
+		FROM
+			T_BS_ACCOUNT_DETAIL t
+		WHERE 1=1
+			<if test="status != null ">
+				AND t.STATUS = #{status}
+			</if>
+		<if test="startBizNo != null and startBizNo != ''">
+			AND t.BIZ_NO &gt;= #{startBizNo}
+		</if>
+		<if test="endBizNo != null and endBizNo != ''">
+			AND t.BIZ_NO &lt;= #{endBizNo}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND t.FISCAL_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND t.FISCAL_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+		</if>
+		order by t.BIZ_NO
+	</select>
+
+	<!-- 读取投资分红未记帐的记录 -->
+	<select id="findInvestAccountDetail"  resultMap="accountDetailResult">
+		SELECT t.*
+		FROM T_BS_ACCOUNT_DETAIL t
+		WHERE
+			t.STATUS = 0
+			AND t.TRANS_TYPE = #{transType}
+	</select>
+
+	<!-- 更新记帐分解记录状态 -->
+	<update id="updateBizNoStatus">
+		UPDATE T_BS_ACCOUNT_DETAIL t
+		set t.status = 1
+		where
+			t.biz_no = #{bizNo}
+	</update>
+
+	<!-- 查询要生成记帐文件的总记录 -->
+	<select id="findCountByTransType" resultType="int">
+		select count(0)
+		from T_BS_ACCOUNT_DETAIL where STATUS = 1
+		AND
+		TRANS_TYPE in
+		<foreach collection="transCode" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+		and CREATED_DATE &gt; trunc(sysdate,
+		'yyyy') - 1
+	</select>
+
+	<!-- 查询要生成记帐文件的记录 -->
+	<select id="findPointDvidendByRownum" resultMap="accountDetailResult">
+		select *
+		from (SELECT ROWNUM RN,
+		t.*
+		FROM
+		T_BS_ACCOUNT_DETAIL t
+		WHERE t.TRANS_TYPE IN
+		<foreach collection="transCode" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+		</foreach>)
+		WHERE RN &gt;= #{beginRN,jdbcType=INTEGER}
+		AND RN &lt;= #{endRN,jdbcType=INTEGER}
+		ORDER BY CREATED_DATE
+	</select>
+
+</mapper>

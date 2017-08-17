@@ -1,0 +1,38 @@
+ 
+								<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+									<tbody><tr>
+										<td class="tab_trbg" colspan="4"><span class="ml10">被申报企业信息</span></td>
+									</tr>
+                                    <tr>
+										<td class="view_item" width="20%">申报企业名称</td>
+										<td class="view_text" width="80%" colspan="3"><%=obj.toEntName%></td>
+									</tr>
+									<tr>
+										<td class="view_item" width="20%">申报企业所在地</td>
+										<td class="view_text" width="30%"><%=obj.toEntAddress%></td>
+										<td class="view_item" width="20%">尚可用配额</td>
+										<td class="view_text" width="30%"><%=obj.availableQuota%></td>
+									</tr>
+									<tr>
+										<td class="view_item" width="20%">拟用企业互生号</td>
+										<td class="view_text" width="30%"><%=obj.toEntResNo%></td>
+										<td class="view_item" width="20%" id="tgText">启用资源类型</td>
+										<td class="view_text" width="30%" id="toBuyResRange"></td>
+									</tr>
+                                    <tr>
+										<td class="tab_trbg" colspan="4"><span class="ml10">报送企业信息</span></td>
+									</tr>
+                                    <tr>
+										<td class="view_item" width="20%">报送企业名称</td>
+										<td class="view_text" width="30%"><%=obj.frEntCustName%></td>
+										<td class="view_item" width="20%">报送企业互生号</td>
+										<td class="view_text" width="30%"><%=obj.frEntResNo%></td>
+									</tr>
+                                    <tr>
+										<td class="view_item" width="20%">申报操作员</td>
+										<td class="view_text" width="30%" id="applyOperator"></td>
+										<td class="view_item" width="20%">报送时间</td>
+										<td class="view_text" width="30%"><%=obj.applyDate%></td>
+									</tr>
+								</tbody></table>
+ 

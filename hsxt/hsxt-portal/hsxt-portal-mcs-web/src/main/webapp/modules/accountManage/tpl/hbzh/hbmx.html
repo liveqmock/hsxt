@@ -1,0 +1,37 @@
+<form id="msc_search_form">
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li><label class="title-int">快捷日期：</label> <input id='quickDate'
+			placeholder="-请选择-" optionValue="" readonly="readonly" /></li>
+		<li class="ml20 mr20"><label class="title-int">日期：</label>
+			<div class="cont-int">
+				<input type="text" name="search_startDate" id="search_startDate" value=""
+					class="input-txt w100"><span class="separator-pd">-</span><input
+					type="text" name="search_endDate" id="search_endDate" value=""
+					class="input-txt w100">
+			</div></li>
+		<li class="mr20"><label class="title-int">业务类别：</label> <input
+			id='optTerm' placeholder="-请选择-" optionValue="" readonly="readonly" /></li>
+		<li>
+			<div class="cont-int">
+				<button id="btnQuery" type="button" class="btn-search ml10">查询</button>
+			</div>
+		</li>
+	</ul>
+</div>
+</form>
+<div class="search-cont">
+	<table id="tableDetail" class="bsgrid">
+		<tr>
+			<th w_index="transDate" w_render="operate">交易时间</th>
+			<th w_render="operate">交易类型</th>
+			<th w_render="operate">业务类别</th>
+			<th w_render="operate">发生金额</th>
+			<th w_render="operate">交易后账户余额</th>
+		</tr>
+
+	</table>
+</div>
+<div id="hbzh_hbmx_dialog" class="none">
+	<p></p>
+</div>

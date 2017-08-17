@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">   
+  
+	<!-- 关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>
+
+	<!-- 平台路由规则 -->
+    <dubbo:reference id="gcsRouteRuleService"  interface="com.gy.hsxt.gpf.gcs.api.IGCSRouteRuleService"  timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+    <!--文件同步系统-->
+    <dubbo:reference id="fssNotifyService"  interface="com.gy.hsxt.gpf.fss.api.IfssNotifyService"  timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+</beans>

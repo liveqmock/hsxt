@@ -1,0 +1,70 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">企业互生号</td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+            <td class="view_item" width="18%">售后编号</td>
+            <td class="view_text" width="32%"><%=obj.afterOrderNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item">生成时间</td>
+            <td class="view_text"><%=obj.reqTime%></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text"><span id="reqOperator" ><%=obj.reqOperator%></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">问题描述</td>
+            <td class="view_text" colspan="3"><span id="reqRemark" ><%=obj.reqRemark%></span></td>
+        </tr>
+		<!--
+        <tr>
+            <td class="view_item">收件地址</td>
+            <td class="view_text" colspan="3"><span id="fullAddr"><%=obj.fullAddr%></span></td>
+        </tr>
+		-->
+        <tr>
+        	<td colspan="4" valign="top">
+            	<div class="p10">
+                	<div class="view_title">工具列表</div>
+                    
+					<div class="td_hauto">
+					<table id="searchTable_1">
+						<tr>
+							<th w_num="line" width="5%;">序号</th>
+							<th w_index="deviceSeqNo">工具序列号</th>
+							<th w_index="categoryCode" w_render="operate">工具类别</th>
+							<th w_index="disposeType" w_render="operate">处理结果</th>
+							<th w_index="disposeAmount" w_render="operate">维修补款金额</th>
+						</tr>
+					</table>
+					</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">处理说明</td>
+            <td class="view_input" colspan="3"><textarea id="apprRemark" maxlength="300" class="fl ml5 h50 w98pc rsn pt5 pb5" placeholder="输入处理说明,字数不超过300个字"></textarea></td>
+        </tr>
+       
+    </table><div><ul>
+	
+		<li class="register_row clearfix pr">
+			<label class="fl w115 h30_middle">选择验证方式</label>
+			<input id="verificationMode_qy" readonly="readonly" placeholder="选择验证方式" />
+		 	<span class="required-left330">*</span>
+		</li>
+		<li id="verificationMode_prompt_qy" class="none red h30_middle">
+			当前版本暂时不支持这种验证方式
+		</li>
+		<li class="register_row clearfix pr none" id="fhy_userName_qy">
+			<label class="fl w115 h30_middle">复核员用户名</label>
+			 <input type="text" id="optUserId" class="fl w185 h30_middle ml5" placeholder="输入复核员用户名">
+		 	<span class="required-left330">*</span>
+		</li>
+		<li class="register_row clearfix pr none" id="fhy_password_qy">
+			<label class="fl w115 h30_middle">复核员登录密码</label>
+			 <input type="password" id="pwd" class="fl w185 h30_middle ml5" placeholder="输入复核员登录密码">
+			 <span class="required-left330">*</span>
+		</li>
+	</ul></div>
+</div>

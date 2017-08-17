@@ -1,0 +1,54 @@
+<div>
+	<div class="fb mb10" id="addressTitle">新增收货地址</div>
+	<ul>
+		<form id="manageForm">
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">所在地区<span class="pay-text-red">*</span></label>
+				<span class="fl"><input id="province_slt_manage" name="province_slt_manage" readonly="readonly" placeholder="选择省" /></span>
+				<span class="fl ml10"><input id="city_slt_manage" name="city_slt_manage" readonly="readonly" placeholder="选择市" /></span>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">详细地址<span class="pay-text-red">*</span></label>
+				<textarea placeholder="输入详细地址" name="fullAddress_manage"  id="fullAddress_manage" class="pay-textarea-input"></textarea>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">邮政编码</label>
+				<input type="text" name="postCodeManage" id="postCodeManage" value="" class="fl qpay-text-input" placeholder="输入邮政编码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">收货人姓名<span class="pay-text-red">*</span></label>
+				<input type="text" name="consigneeName_manage" id="consigneeName_manage" value="" maxlength="20" class="fl qpay-text-input" placeholder="输入收货人姓名" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">手机号码<span class="pay-text-red">*</span></label>
+				<input type="text" name="telephoneManage" id="telephoneManage" value="" class="fl qpay-text-input" placeholder="输入手机号码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">电话号码</label>
+				<input type="text" name="mobileManage" id="mobileManage" value="" class="fl qpay-text-input" placeholder="输入电话号码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label"></label>
+				<input type="checkbox" name="isDefaultMange" id="isDefaultMange" value="" class="fl" checked="false" />
+				<span class="fl ml5">设置为默认收货地址</span>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label"></label>
+				<a class="fl address-btn-bg save-address-btn" id="saveAddress_btn_manage">保&#12288;存</a>
+			</li>
+			<input id="addressId" name ="addressId" type="hidden"/>
+		</form>
+	</ul>
+	<div class="fb mt20 mb10">已保存了<span id="hadSaveAddress"></span>条地址，还能新增<span id="addressAvailable"></span>条地址</div>
+	<table id="addressTable">
+		<tr>
+			<th w_index="receiver" w_align="left">收货人</th>
+			<th w_index="countryNo" w_align="left" w_render="operate">所在地区</th>
+			<th w_index="address" w_length=25  w_align="left">详细地址</th>
+			<th w_index="postCode" w_align="left">邮编</th>
+			<th w_index="mobile" w_align="left" w_render="operate">电话/手机</th>
+			<th w_render="operate">操作</th>
+			<th w_render="operate">默认地址</th>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,63 @@
+<div class="view_info mt10">
+	<form id="hskzz_kk_dialog">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">订单信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">订单号</td>
+            <td class="view_text" width="32%"><%=obj.orderNo%></td>
+            <td class="view_item" width="18%">系统资源号</td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业名称</td>
+            <td class="view_text"><%=obj.custName%></td>
+            <td class="view_item">联系人</td>
+            <td class="view_text"><%=obj.linkman%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">联系电话</td>
+            <td class="view_text"><%=obj.phone%></td>
+            <td class="view_item">卡样上传状态</td>
+            <td class="view_text">
+            	<%if(obj.islock){ %>
+            		<input type="hidden" id="lockstatus" value="2"/>
+             		<span class="red mr10" id="lockspan">锁定状态</span><button id="lockBtn" type="button" class="btn-search">解锁</button>
+            	<%}else{ %>
+            		<input type="hidden" id="lockstatus" value="1"/>
+             		<span class="red mr10" id="lockspan">解锁状态</span><button id="lockBtn" type="button" class="btn-search">锁定</button>
+             	<%} %>
+            </td>
+        </tr> 
+        <tr>
+            <td class="" colspan="4">
+            	<div class="p10">
+                	<div>
+                      <ul class="cssform clearfix">
+                              <li>
+                                  <label>源文件名称：</label>
+                                  <input type="text" id="cardStyleName" name="cardStyleName" class="h28_middle w140 input-txt" placeholder="输入源文件名称" />
+                                  <input type="hidden" id="cardStyleResource" name="cardStyleResource"/>
+                              </li>
+                              <li class="pr">
+                                  <button id="uploadResourceBtn"  type="button" class="input-file btn_bg upload_btn">上传<input id="uploadResource" name="uploadResource" type="file"></button>
+                              </li>
+                      </ul>
+                    </div>
+                    <div class="mt10" style="height:90px;"><img src="xxx.png" width="120" height="90" class="none" /></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+<div class="view_title mt10">上传历史</div>
+<table id="searchTable_ls">
+  <tr>
+    <th w_index="cardStyleName">源文件名</th>
+    <th w_index="reqTime">上传时间</th>
+    <th w_index="reqOperator">上传操作员</th>
+    <th w_render="operate">操作</th>
+  </tr>
+</table>

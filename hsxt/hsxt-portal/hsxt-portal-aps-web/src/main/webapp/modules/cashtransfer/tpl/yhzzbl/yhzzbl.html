@@ -1,0 +1,50 @@
+<div class="search-toolbar">
+	<form id="search_form" name="search_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>时间范围：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+			<li>
+				<label>单位名称：</label>
+				<input type="text" name="textfield" id="entName" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<label>互生号/手机号：</label>
+				<input type="text" name="textfield" id="hsResNo" placeholder="输入互生号/手机号" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">单位类别：</label>
+				<input id="companyState" readonly="readonly" placeholder="选择单位类别" optionvalue="" />
+			</li>
+			<li>
+				<button id="qry_yhzzbl_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	 </form>
+</div>
+<table id="searchTable" class="bsgrid">
+  <tr>
+	<th w_check="true" width="3%;"></th>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="transNo" w_tip="true" w_length='20'>交易流水号</th>
+	<th w_index="hsResNo" w_tip="true">互生号/手机号</th>
+	<th w_index="custName" w_tip="true" w_length='30'>申请单位</th>
+	<th w_index="amount" w_render="operate">申请转账金额</th>
+	<th w_index="reqTime" w_tip="true">申请转账日期</th>
+	<th w_index="transStatus" w_render="operate">状态</th>
+	<th w_index="reqRemark" w_tip="true">备注</th>
+  </tr>
+</table>
+				
+<div class="w200 bc clearfix mt20">
+	<a class="btn_bg submit fl" id="tjzz_btn">提交转账</a>
+	<a class="btn_bg submit fr" id="cd_btn">撤单</a>
+</div>
+
+<div id="tjzz_content" class="none">
+</div>
+<div id="cd_content" class="none">
+</div>

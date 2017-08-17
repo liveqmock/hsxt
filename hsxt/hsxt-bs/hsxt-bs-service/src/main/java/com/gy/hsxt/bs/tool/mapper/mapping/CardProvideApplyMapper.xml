@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.CardProvideApplyMapper">
+
+    <!-- 插入互生卡发放申请 -->
+    <insert id="insertCardProvideApply" parameterType="com.gy.hsxt.bs.bean.tool.CardProvideApply">
+        INSERT INTO
+        T_BS_CARD_PROVIDE_APPLY(
+          APPLY_ID,
+          APP_ORDER_NO,
+          CARD_COUNT,
+          CARD_PRICE,
+          TOTAL_AMOUNT,
+          RECEIVER,
+          MOBILE,
+          RECEIVER_ADDR,
+          APPLY_DATE)
+        VALUES (
+          #{applyId},
+          #{appOrderNo},
+          #{cardCount},
+          #{cardPrice},
+          #{totalAmount},
+          #{receiver},
+          #{mobile},
+          #{receiverAddr},
+          SYSDATE)
+    </insert>
+
+    <!-- 分页查询互生卡发放申请 -->
+    <select id="selectCardProvideApplyListPage" resultType="com.gy.hsxt.bs.bean.tool.CardProvideApply">
+        SELECT
+          APPLY_ID AS applyId,
+          APP_ORDER_NO AS appOrderNo,
+          CARD_COUNT AS cardCount,
+          CARD_PRICE AS cardPrice,
+          TOTAL_AMOUNT AS totalAmount,
+          RECEIVER AS receiver,
+          MOBILE AS mobile,
+          RECEIVER_ADDR AS receiverAddr,
+          APPLY_DATE AS applyDate
+        FROM T_BS_CARD_PROVIDE_APPLY
+        WHERE 1 = 1
+        <if test="receiver != null and receiver !='' ">
+            AND RECEIVER LIKE '%'||#{receiver}||'%'
+        </if>
+        <if test="mobile != null and mobile !='' ">
+            AND MOBILE LIKE #{mobile}||'%'
+        </if>
+    </select>
+
+</mapper>

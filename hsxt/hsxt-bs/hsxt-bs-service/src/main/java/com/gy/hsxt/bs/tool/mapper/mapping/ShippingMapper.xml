@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ShippingMapper">
+	
+	<!-- 插入发货单 -->
+	<insert id="insertShipping" parameterType="com.gy.hsxt.bs.bean.tool.Shipping">
+		INSERT INTO 
+		T_BS_SHIPPING(
+			SHIPPING_ID,
+			SHIPPING_TYPE,
+			HS_RES_NO,
+			CUST_ID,
+			CUST_NAME,
+			CUST_TYPE,
+			RECEIVER,
+			RECEIVER_ADDRESS,
+			POST_CODE,
+			MOBILE,
+			SM_NAME,
+			TRACKING_NO,
+			SHIPPING_FEE,
+			DELIVERY_STATUS,
+			CONSIGNOR,
+			DELIVERY_TIME,
+			DELIVERY_EXPLANATION,
+			SIGN_PEOPLE,
+			SIGN_TIME,
+			SIGN_EXPLANATION) 
+		VALUES (
+			#{shippingId},
+			#{shippingType},
+			#{hsResNo},
+			#{custId},
+			#{custName},
+			#{custType},
+			#{receiver},
+			#{receiverAddr},
+			#{postCode},
+			#{mobile},
+			#{smName,jdbcType=VARCHAR},
+			#{trackingNo,jdbcType=VARCHAR},
+			#{shippingFee},
+			1,
+			#{consignor,jdbcType=VARCHAR},
+			SYSDATE,
+			#{deliveryDesc,jdbcType=VARCHAR},
+			NULL,
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 根据id修改发货单 -->
+	<update id="updateShippingById" parameterType="com.gy.hsxt.bs.bean.tool.Shipping">
+		UPDATE T_BS_SHIPPING 
+		<set>
+			<if test="deliveryStatus != null">
+				DELIVERY_STATUS = #{deliveryStatus},
+			</if> 
+			<if test="signPeople != null and signPeople != ''">
+				SIGN_PEOPLE = #{signPeople},
+			</if> 
+			<if test="signTime != null">
+				SIGN_TIME = SYSDATE,
+			</if> 
+			<if test="signDesc != null and signDesc != ''">
+				SIGN_EXPLANATION = #{signDesc}
+			</if> 
+		</set> 
+		WHERE SHIPPING_ID = #{shippingId}
+	</update>
+	
+	<!-- 分页查询发货单(打印发货单) -->
+	<select id="selectShippingListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolShippingPage">
+		SELECT 
+			SHIPPING_ID AS shippingId,
+			SHIPPING_TYPE AS shippingType,
+			HS_RES_NO AS entResNo,
+			CUST_ID AS entCustId,
+			CUST_NAME AS custName,
+			DELIVERY_STATUS AS deliveryStatus,
+			CONSIGNOR AS consignor,
+			DELIVERY_TIME AS deliveryTime
+		FROM T_BS_SHIPPING S
+		WHERE S.SHIPPING_TYPE IN (1,2)
+		<!-- 设置不限制查询，所有用户都可以查询 by likui 2016-05-18 -->
+		<!--<if test="operNo != null and operNo != ''">-->
+		  	<!--AND S.CONSIGNOR = #{operNo}	-->
+		<!--</if>	-->
+		<if test="startDate != null and startDate != ''">
+			AND S.DELIVERY_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND S.DELIVERY_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="hsCustName != null and hsCustName != '' ">
+			AND S.CUST_NAME LIKE #{hsCustName}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND S.HS_RES_NO = #{hsResNo}
+		</if>
+		<if test="type != null and type !='' ">
+			AND S.SHIPPING_TYPE = ${type}
+		</if>	
+		ORDER BY S.DELIVERY_TIME DESC		
+	</select>
+	
+	<!-- 根据id查询发货单 -->
+	<select id="selectShippingById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.Shipping">
+		SELECT 
+			SHIPPING_ID AS shippingId,SHIPPING_TYPE AS shippingType,HS_RES_NO AS hsResNo,CUST_ID AS custId,CUST_NAME AS custName,CUST_TYPE AS custType,
+			RECEIVER AS receiver,RECEIVER_ADDRESS AS receiverAddr,POST_CODE AS postCode,MOBILE AS mobile,SM_NAME AS smName,
+			TRACKING_NO AS trackingNo,SHIPPING_FEE AS shippingFee,DELIVERY_STATUS AS deliveryStatus,
+			CONSIGNOR AS consignor,DELIVERY_TIME AS deliveryTime,DELIVERY_EXPLANATION AS deliveryDesc,
+			SIGN_PEOPLE AS signPeople,SIGN_TIME AS signTime,SIGN_EXPLANATION AS signDesc 
+		FROM T_BS_SHIPPING 
+		WHERE SHIPPING_ID = #{shippingId}
+	</select>
+	
+	<!-- 查询可以自动签收的发货单 -->
+	<select id="selectShippingAutoSign" parameterType="string" resultType="string">
+		SELECT 
+			S.SHIPPING_ID 
+		FROM  T_BS_SHIPPING S 
+		WHERE S.DELIVERY_STATUS = 1 
+		  AND S.DELIVERY_TIME &lt;= to_date(#{signDate},'yyyy-mm-dd,hh24:mi:ss')
+	</select>
+	
+	<!-- 批量签收发货单 -->
+	<update id="batchSignShipping">
+		UPDATE T_BS_SHIPPING  SEt
+			DELIVERY_STATUS = 2,
+			SIGN_TIME = SYSDATE,
+			SIGN_PEOPLE = 'SYSTEM',
+			SIGN_EXPLANATION = '系统自动签收'
+		WHERE SHIPPING_ID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 分页查询售后发货单 -->
+	<select id="selectAfterShippingListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolShippingPage">
+		SELECT 
+			SHIPPING_ID AS shippingId,
+			HS_RES_NO AS entResNo,
+			CUST_ID AS entCustId,
+			CUST_NAME AS custName,
+			DELIVERY_STATUS AS deliveryStatus,
+			RECEIVER AS receiver,
+			MOBILE AS mobile,
+			CONSIGNOR AS consignor,			
+			DELIVERY_TIME AS deliveryTime
+		FROM T_BS_SHIPPING S
+		WHERE S.SHIPPING_TYPE = 3
+		<!-- 设置不限制查询，所有用户都可以查询 by likui 2016-05-18 -->
+		<!--<if test="operNo != null and operNo != ''">-->
+		  <!--AND S.CONSIGNOR = #{operNo}	-->
+		<!--</if>-->
+		<if test="hsCustName != null and hsCustName != '' ">
+			AND S.CUST_NAME LIKE '%'||#{hsCustName}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND S.HS_RES_NO LIKE #{hsResNo}||'%'
+		</if>
+		ORDER BY S.DELIVERY_TIME DESC
+	</select>
+	
+</mapper>

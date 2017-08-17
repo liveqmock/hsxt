@@ -1,0 +1,133 @@
+<div class="view_info mt10">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">企业基本信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">企业名称</td>
+            <td class="view_text" width="32%"><%=obj.entCustName%></td>
+            <td class="view_item" width="18%">所在地区</td>
+            <td class="view_text" width="32%" id="region"></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业地址</td>
+            <td class="view_text"><%=obj.entAddress%></td>
+            <td class="view_item">营业执照号</td>
+            <td class="view_text"><%=obj.licenseNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业法人代表</td>
+            <td class="view_text"><%=obj.legalName%></td>
+            <td class="view_item">联系人姓名</td>
+            <td class="view_text"><%=obj.linkman%></td>
+        </tr>
+        <tr>
+            <td class="view_item">联系人手机</td>
+            <td class="view_text"><%=obj.phone%></td>
+            <td class="view_item">企业类型</td>
+            <td class="view_text"><%=obj.entType%></td>
+        </tr>
+        <tr>
+            <td class="view_item">经营范围</td>
+            <td class="view_text"><%=obj.dealArea%></td>
+            <td class="view_item">报备说明</td>
+            <td class="view_text"><%=obj.reqReason%></td>
+        </tr>
+		<tr>
+			<td class="view_item">备注</td>
+            <td class="view_text" id="remark"></td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+		</tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">股东信息</span></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+            	<div class="p10">
+                    <div class="scrlh h100">
+                    	<table id="tableDetail1" class="bsgrid">
+							 <tr>
+							    <th w_index="applyId" w_render="operate">序号</th>
+							    <th w_index="shName">股东名称/姓名</th>
+							    <th w_index="shType" w_render="operate">股东性质</th>
+							    <th w_index="idType" w_render="operate">证件类型</th>
+							    <th w_index="idNo">证件号码</th>
+							    <th w_index="phone">联系电话</th>
+							  </tr>
+						 </table>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">附件信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">营业执照</td>
+            <td class="view_text"><a href="#" id="picFileId-3" class="blue">查看</a></td>
+            <td class="view_item">银行资金证明</td>
+            <td class="view_text"><a href="#" id="picFileId-4" class="blue">查看</a></td>
+        </tr>
+        <tr>
+            <td class="view_item">合作股东证明</td>
+            <td class="view_text"><a href="#" id="picFileId-5" class="blue">查看</a></td>
+        </tr>
+		<tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">报备企业信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业互生号</td>
+            <td class="view_text"><%=obj.opResNo%></td>
+            <td class="view_item">企业名称</td>
+            <td class="view_text" id="entName"></td>
+        </tr>
+        <tr>
+            <td class="view_item">联系人姓名</td>
+            <td class="view_text" id="contactPerson"></td>
+            <td class="view_item">联系人手机</td>
+            <td class="view_text" id="contactPhone"></td>
+        </tr>
+        <tr>
+            <td class="view_item">报备操作员</td>
+            <td class="view_text" id="createdBy"></td>
+            <td class="view_item">报备日期</td>
+            <td class="view_text"><%=obj.createdDate%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审核信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">审核说明</td>
+            <td class="view_input" colspan="3"><textarea id="apprRemark" name="apprRemark" class="rsn h100 w98pc ml5" placeholder="输入审核说明,字数不超过300个字" maxlength="300"></textarea></td>
+        </tr>
+        <tr>
+            <td class="view_item">审核结果</td>
+            <td class="view_input" colspan="3">
+            	<div id="choose-1" style="width: 100%; display: none;">
+	            	<input type="radio" name="status-1" id="a-1-1" value="2" class="ml5" checked="checked"><label for="a-1-1" class="ml5 mr10">预约面谈</label>
+	            	<input type="radio" name="status-1" id="a-1-2" value="3" disabled="disabled" class=""><label for="a-1-2" class="ml5 mr10">预约培训</label>
+	            	<input type="radio" name="status-1" id="a-1-3" value="4" disabled="disabled" class=""><label for="a-1-3" class="ml5 mr10">通知打款</label>
+	            	<input type="radio" name="status-1" id="a-1-4" value="5" disabled="disabled" class=""><label for="a-1-4" class="ml5 mr10">报备通过</label>
+	            	<input type="radio" name="status-1" id="a-1-5" value="6" class=""><label for="a-1-5" class="ml5 mr10">报备驳回</label>
+            	</div>
+            	<div id="choose-2" style="width: 100%; display: none;">
+            		<input type="radio" name="status-2" id="a-2-1" value="3" class="ml5" checked="checked"><label for="a-2-1" class="ml5 mr10">预约培训</label>
+            		<input type="radio" name="status-2" id="a-2-2" value="4" disabled="disabled" class=""><label for="a-2-2" class="ml5 mr10">通知打款</label>
+            		<input type="radio" name="status-2" id="a-2-3" value="5" disabled="disabled" class=""><label for="a-2-3" class="ml5 mr10">报备通过</label>
+            		<input type="radio" name="status-2" id="a-2-4" value="6" class=""><label for="a-2-4" class="ml5 mr10">报备驳回</label>
+            	</div>
+            	<div id="choose-3" style="width: 100%; display: none;">
+            		<input type="radio" name="status-3" id="a-3-1" value="4" class="ml5" checked="checked"><label for="a-3-1" class="ml5 mr10">通知打款</label>
+            		<input type="radio" name="status-3" id="a-3-2" value="5" disabled="disabled" class=""><label for="a-3-2" class="ml5 mr10">报备通过</label>
+            		<input type="radio" name="status-3" id="a-3-3" value="6" class=""><label for="a-3-3" class="ml5 mr10">报备驳回</label>
+            	</div>
+            	<div id="choose-4" style="width: 100%; display: none;">
+            		<input type="radio" name="status-4" id="a-4-1" value="5" class="ml5" checked="checked"><label for="a-4-1" class="ml5 mr10">报备通过</label>
+            		<input type="radio" name="status-4" id="a-4-2" value="6" class=""><label for="a-4-2" class="ml5 mr10">报备驳回</label>
+            	</div>
+            </td>
+        </tr>
+    </table>
+</div> 

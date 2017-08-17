@@ -1,0 +1,121 @@
+﻿<!--补办积分卡，支持现金账户、网银付款，可以查询补卡流程进度，使用现金账户付款时需交易密码验证。-->
+<div class="p20 none" data-id="6" id="hsCardReapply_apply_div">
+	<!-- 资料修改开始 -->
+	<div class="register_info mt40 info_500">
+		<form id="hsCardReapply_form">
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">互生卡号</label>
+					<input type="text" id="hsCardReapply_cardNo" value="" disabled="disabled"/>
+					<input type="hidden" id="hsCardReapply_custId" value=""/>
+					<input type="hidden" id="hsCardReapply_custName" value=""/>
+					</li>
+					<li class="register_row info_320 clearfix">
+					<label for="name">补办原因</label>
+					<input type="text" id="hsCardReapply_reason" name="hsCardReapply_reason" class="input_gray" value="" maxlength="300" placeholder="请输入补办原因"/>
+					<div class="hint"></div>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">支付金额</label>
+					<input type="text" id="hsCardReapply_money" name="hsCardReapply_money" disabled="disabled" value="20.00" />
+					<div class="hint"></div>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">结算币种</label>
+					<input type="text" id="" name="" disabled="disabled" value="互生币" />
+					<div class="hint"></div>
+					</li>
+					<!--<li class="register_row info_320 clearfix">
+					<label for="name">收件信息</label>
+					<select id="hsCardReapply_address" name="hsCardReapply_address"></select>
+					<div class="hint"><a href="javascript:;" id="receiptInformation" style="color:blue;">添加收件信息</a></div>
+					</li>
+					<li class="register_row info_320 clearfix">
+					<div class="ml20">
+						<p><b class="f16"><span Id="reapply_card_name"></span></b><span id="reapply_card_homePhone"></span></p>
+						<p><span style="color: #999;">地址：</span><span id="reapply_card_homeAddress"></span><br/>邮编：(<span id="reapply_card_homeAddrPostcode"></span>)<a class="ml10" style="color:blue;">修改</a><a class="ml5">删除</a></p>
+					</div>
+					</li>-->
+				</ul>
+			</div>
+			<div class="tc two_button mt20">
+				<a id="hsCardReapply_submitBtn" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="hskbb2">提交订单</a>
+			</div>
+		</fieldset>
+		</form>
+	</div>
+	<!-- 资料修改结束 -->
+</div>
+
+<div class="page_tips_subwrap pt100 pb100 none" id="noRealNameReg">
+	<div class="page_tips bc tc">
+		<h1 class="f16 fb">温馨提示</h1>
+		<p class="f14 fb">请完成实名注册后再进行互生卡补办申请。</p>
+	</div>
+</div>
+
+
+<div class="jqp-dialog" style="display: none;">
+	<div class="title">现金转账提交</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">现金转账提交成功！</span></div></td></tr>
+			<tr><td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn">确定</a></td></tr>
+		</table>
+	</div>
+</div>
+
+<!--<div id="addReceiptInformation" class="none">
+	<div class="border-gray mt30 pt5 pl20 pr20 pb20">
+		<form action="" id="addReceiptInformationForm">
+			<table class="w">
+			<tbody>
+				<tr height="40px">
+					<td>收货人：</td>
+					<td>
+						<input class="h26" type="text" id="receiverName" name="receiverName" placeholder="请输入收货人" maxlength="20">
+						<span class="red">*</span>
+					</td>
+					<td>手机：</td>
+					<td>
+						<input class="h26" type="text" id="phone" name="phone" placeholder="收货人手机" maxlength="11">
+						<span class="red">*</span>
+					</td>
+					<td>固定电话：</td>
+					<td><input class="h26" type="text" id="fixedTelephone" name="fixedTelephone" placeholder="收货人电话"></td>
+				</tr>
+				<tr height="40px">
+					<td>所在地区：</td>
+					<td colspan="5">
+					<select class="h30 w100" id="province" name="province" style="padding:4px 0;">
+					<option value="">请选择</option>
+					</select>
+					<select class="h30 w100" id="city" name="city" style="padding:4px 0;">
+					<option value="">请选择</option>
+					</select>
+					<select class="h30 w100" id="area" name="area" style="padding:4px 0;display:none;">
+					<option value="">请选择</option>
+					</select>
+					</td>
+				</tr>
+				<tr height="40px">
+					<td>详细地址：</td>
+					<td colspan="5">
+						<input class="h26 w650" type="text" id="userAddress" name="userAddress" maxlength="200" placeholder="收货人详细地址">
+						<span class="red">*</span>
+					</td>
+				</tr>
+				<tr height="40px">
+					<td>邮编：</td>
+					<td colspan="5">
+						<input class="h26 " type="text" id="postcode" name="postcode" placeholder="收货人邮编">
+						<span class="red">*</span>	
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</form>
+	</div>
+</div>-->

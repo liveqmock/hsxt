@@ -1,0 +1,68 @@
+<div id="fsxxTpl">
+	<div class="info_800 bc">
+		<form id="msgForm">
+			<ul>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">消息标题</label>
+					<input type="text" class="fl w660 h30_middle ml5" id="msgTitle" name="msgTitle" placeholder="输入消息标题,最长不超过20个汉字" maxlength="40" />
+					<span class="required-left810">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">消息类型</label>
+					<div class="fl w660 h30_middle ml5">
+						<input type="radio" id="msgType_1" name="msgType" class="ml10 input_radio" value="12" checked="checked"> 公开信
+						<input type="radio" id="msgType_2" name="msgType" class="ml20 input_radio" value="20"> 私信
+					</div>
+					<span class="required-left810">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">重要级别</label>
+					<div class="fl w660 h30_middle ml5">
+						<input type="radio" id="IptLevel_1" name="msgLevel" class="ml10 input_radio" value="1" checked="checked"> 一般
+						<input type="radio" id="IptLevel_2" name="msgLevel" class="ml20 input_radio" value="2"> 重要
+					</div>
+					<span class="required-left810">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">接收单位</label>
+					<input type="hidden" id="receiveEntValue" name="receiveEntValue" value=""/>
+					<input type="text" class="fl w660 h30_middle ml5" maxlength="150" id="receiveCompany" name="receiveCompany" placeholder="输入或者选择，可以为多个接收者，接收者之间用逗号隔开" readonly="readonly" />
+					<span class="required-left810">*</span>
+					<i class="icon-add pa left820 top5" title="选择接收单位" id="addmsg"></i>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">消息摘要</label>
+					<input type="text" class="fl w660 h30_middle ml5" id="messageDigest" name="messageDigest" placeholder="输入消息摘要,最长不超过100个字" maxlength="100" />
+					<span class="required-left810">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h70_middle">图片</label>
+					<!-- <span id="imgApplyImg" class="sample_img fl mt5 ml5"  style="overflow: hidden; width: 80px; height: 60px;">
+						<i id="business_apply" class="certificateSample_img certificateSample_01"></i>
+						<img id="business_apply" src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						<img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						<input type="hidden" id="images" name="images" value=""/>
+					</span> -->
+					<span id="business_apply" class="sample_img fl " style="overflow: hidden; width: 80px; height: 60px;">
+						<img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						<input type="hidden" id="images" name="images" value=""/>
+					</span>
+					
+					<a class="input-file btn_bg upload_btn ml10 mt20">上传<input  id="fileApply" name="fileApply" type="file"></a><!--a  class="btn_bg viewSample_btn">模板下载</a-->
+				</li>
+			</ul>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="mt5">
+				<tr>
+					<td align="right" class="w115 table_item border_left_CCC border_top_CCC border_bottom_CCC">消息内容</td>
+					<td align="left"><textarea id="msgContent" name="msgContent"></textarea></td>
+				</tr>
+			</table>
+			<div class="mt10 w300 clearfix bc">
+				<a class="btn_bg submit fl" id="btn_send">发&#12288;送</a>
+				<a class="btn_bg submit fl ml15" id="btn_save">保&#12288;存</a>
+				<a class="btn_bg submit fl ml15" id="fsxx_yl_btn">预&#12288;览</a>
+			</div>
+		</form>
+	</div>
+</div>        			
+<div id="fsxx_ylTpl" class="none"></div>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IOperatorMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="operatorResult" type="com.gy.hsxt.gpf.um.bean.Operator">
+        <id property="operatorId" column="OPERATOR_ID"/>
+        <result property="loginUser" column="LOGIN_USER"/>
+        <result property="loginPwd" column="LOGIN_PWD"/>
+        <result property="name" column="NAME"/>
+        <result property="duty" column="DUTY"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="createdDate" column="CREATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
+        <result property="updatedDate" column="UPDATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.Operator">
+        INSERT INTO T_UM_OPERATOR (
+            OPERATOR_ID,
+            LOGIN_USER,
+            LOGIN_PWD,
+            NAME,
+            DUTY,
+            DESCRIPTION,
+            CREATED_BY,
+            DEL_FLAG,
+            CREATED_DATE
+        ) VALUES (
+            #{operatorId},
+            #{loginUser},
+            #{loginPwd},
+            #{name},
+            #{duty},
+            #{description},
+            #{createdBy},
+            #{delFlag},
+            #{createdDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        )
+    </insert>
+
+    <!-- 查询符合条件的总记录数 -->
+    <select id="selectCountForPage" parameterType="com.gy.hsxt.gpf.um.bean.OperatorQuery" resultType="int">
+        SELECT count(*) FROM T_UM_OPERATOR t where 1=1
+        <if test="loginUser != null and loginUser != ''">
+            AND t.LOGIN_USER LIKE concat('%', #{loginUser},'%')
+        </if>
+        <if test="name != null and name != '' ">
+            AND t.NAME LIKE concat('%', #{name},'%')
+        </if>
+    </select>
+
+    <!-- 分页查询符合条件的记录 -->
+    <select id="selectBeanListForPage" resultMap="operatorResult">
+        SELECT t.* FROM T_UM_OPERATOR t where 1=1
+        <if test="operatorQuery.loginUser != null and operatorQuery.loginUser != ''">
+            AND t.LOGIN_USER LIKE concat('%', #{operatorQuery.loginUser},'%')
+        </if>
+        <if test="operatorQuery.name != null and operatorQuery.name != '' ">
+            AND t.NAME LIKE concat('%', #{operatorQuery.name},'%')
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+        LIMIT #{gridPage.startNo},#{gridPage.pageSize}
+    </select>
+
+    <!-- 根据唯一条件查询操作员 -->
+    <select id="selectBeanByQuery" parameterType="com.gy.hsxt.gpf.um.bean.OperatorQuery" resultMap="operatorResult">
+        SELECT t.*
+        FROM T_UM_OPERATOR t
+        WHERE t.LOGIN_USER = #{loginUser}
+    </select>
+
+    <update id="updateBean" parameterType="com.gy.hsxt.gpf.um.bean.Operator">
+        UPDATE T_UM_OPERATOR t
+        SET t.UPDATED_BY = #{updatedBy},
+        <if test="loginUser != null and loginUser != ''">
+            t.LOGIN_USER = #{loginUser},
+        </if>
+        <if test="name != null and name != ''">
+            t.NAME = #{name},
+        </if>
+        <if test="duty != null and duty != ''">
+            t.DUTY = #{duty},
+        </if>
+        <if test="loginPwd != null and loginPwd != ''">
+            t.LOGIN_PWD = #{loginPwd},
+        </if>
+        <if test="description != null and description != ''">
+            t.DESCRIPTION = #{description},
+        </if>
+        t.UPDATED_DATE = #{updatedDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        WHERE t.OPERATOR_ID = #{operatorId}
+    </update>
+    <!-- 修改登录密码 -->
+    <update id="updateLoginPassword" parameterType="com.gy.hsxt.gpf.um.bean.Operator">
+        UPDATE T_UM_OPERATOR t
+        SET t.LOGIN_PWD = #{loginPwd},
+        t.UPDATED_BY = #{updatedBy},
+        t.UPDATED_DATE = #{updatedDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        WHERE t.OPERATOR_ID = #{operatorId}
+    </update>
+
+    <delete id="deleteBeanById" parameterType="string">
+        DELETE FROM T_UM_OPERATOR
+        WHERE OPERATOR_ID = #{id}
+    </delete>
+
+    <select id="selectBeanById" parameterType="string" resultMap="operatorResult">
+        SELECT t.* FROM T_UM_OPERATOR t WHERE t.OPERATOR_ID = #{id}
+    </select>
+</mapper>

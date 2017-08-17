@@ -1,0 +1,102 @@
+<form id="trueNameAut_form">
+<div class="ml20 mt20 mr20 none" id="trueNameAut_mod_div">
+	<div class="prompt clearfix" style="width:450px;"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为.jpg、.jpeg、.bmp、.png！</div>
+	<div class="certificateBox mt20">
+		<ul class="certificateSample clearfix">
+			<li>
+			<span class="f13" id="lrcfmyBlogImage_span">证件正面<span class="red ml5">*</span></span>
+			<div class="mb10 sampleBox">
+				<i id="lrcfuploadImage_i" class="certificateSample_img certificateSample_01">
+				<img id="lrcfuploadImage" src="/resources/images/space22.png" onerror="this.style.display='none'" class="lrcfpimg showImage3" width="107" height="64" />
+				</i>
+			</div>
+			<div class="sample_btn">
+				<a id="verification_sendfile_href_1" href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="lrcfmyBlogImage" name="lrcfmyBlogImage" style="width: 48px;height: 26px;"/></a>
+				<a id="verification_demo_href_1"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+			</div>
+			<input type="hidden" id="lrcFacePath" name="lrcFacePath" value=""/>
+			</li>
+			<li id="trueNameAut2_oppositeImg">
+				<span class="f13" id="lrcbmyBlogImage_span">证件反面<span class="red ml5">*</span></span>
+				<div class="mb10 sampleBox">
+					<i id="lrcbuploadImage_i" class="certificateSample_img certificateSample_02">
+					<img id="lrcbuploadImage" src="/resources/images/space.png" onerror="this.style.display='none'" class="lrcfpimg showImage3" width="107" height="64"/>
+					</i>
+				</div>
+				<div class="sample_btn">
+					<a id="verification_sendfile_href_2" href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="lrcbmyBlogImage" name="lrcbmyBlogImage" style="width: 48px;height: 26px;"/></a>
+					<a id="verification_demo_href_2"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+				</div>
+				<input type="hidden" id="lrcBackPath" name="lrcBackPath" value=""/>
+			</li>
+			<li>
+				<span class="f13" id="lrccmyBlogImage_span">手持证件大头照<span class="red ml5">*</span></span>
+				<div class="mb10 sampleBox">
+					<i id="lrccuploadImage_i" class="certificateSample_img certificateSample_01">
+					<img id="lrccuploadImage" src="/resources/images/space.png" onerror="this.style.display='none'" class="lrcfpimg showImage3" width="107" height="64"/>
+					</i>
+				</div>
+				<div class="sample_btn">
+					<a id="verification_sendfile_href_3" href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="lrccmyBlogImage" name="lrccmyBlogImage" style="width: 48px;height: 26px;"/></a>
+					<a id="verification_demo_href_3"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+				</div>
+				<input type="hidden" id="lrcCackPath" name="lrcCackPath" value=""/>
+			</li>
+		</ul>
+	</div>
+	<div id=register_step_two class="changeOfBusiness clearfix">
+		<div class="cob_right fl">
+		<div class="register_info">
+			<fieldset>
+				<ul class="ml10">
+					<li id="verification_checkcode_li" class="register_row info_320 clearfix">
+						<label for="name">验证码</label>
+						<div style="background-color:white;height:30px;">
+							<input type="hidden" id="mobile" name="mobile" value=""/>
+							<input type="text" id="checkcode" name="checkcode" class="input_gray" value="" maxlength="4" onkeydown='if(event.keyCode==13){return false;}'/>
+							<span class="required-box">*</span>
+						</div>
+						<div class="hint" style="width:200px;">
+							<span class="fl verificationCode"><img id="validateCode" width="77" height="30"/></span> <a id="img-code" href="javascript:;" class="ml10 blue">看不清，换一张</a>
+						</div>
+					</li>
+					<li id="verification_status0_li" class="register_row info_320 clearfix none">
+						<label for="name">状态</label>
+						<span class="fl ml10" style="height:30px;line-height:30px;vertical-align:middle;">待审批</span>
+					</li>
+					<li id="verification_status1_li" class="register_row info_320 clearfix none">
+						<label for="name">状态</label>
+						<span class="fl ml10" style="height:30px;line-height:30px;vertical-align:middle;">审批中</span>
+					</li>
+					<li id="verification_bohui1_li" class="register_row info_320 clearfix none">
+						<label for="name">状态</label>
+						<span class="fl ml10" style="height:30px;line-height:30px;vertical-align: middle;">审批驳回</span>
+					</li>
+					<li id="verification_bohui2_li" class="register_row_2 clearfix none">
+						<label for="name">审批意见</label>
+						<div id="verification_shenpi_reason" style="height:40px;width:658px;vertical-align:middle;margin-left:121px;padding:10px; overflow-y:auto;line-height:20px;"></div>
+					</li>
+				</ul>
+				<div class="tc two_button h40 mt20">
+					<a id="trueNameAut2_lastBtn" class="hs_btn mr10 myhs_ajax_btn fl tc" data-id="smrz" style="width:60px;">上一步</a>
+					<a id="trueNameAut2_submitBtn" href="javascript:;" class="hs_btn Thick_btn fl tc" style="width:60px;">提&#12288;交</a>
+					<a href="javascript:;" class="hs_btn myhs_ajax_btn none fl tc" id="again_shiming" style="width:100px;">重新实名认证</a>
+				</div>
+			</fieldset>
+		</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<div id="showImageDiv3" class="none">
+	<img alt="证件图片" src="" id="showImage3" width="800" height="600">
+</div>
+
+<!--弹出框内容-->
+<div class="page_tips_subwrap pt100 pb100 none" id="verification_success_div">
+	<div class="page_tips bc tc">
+		<h1 class="f16 fb">温馨提示</h1>
+		<p class="f14 fb">您已通过实名认证！</p>
+	</div>
+</div>

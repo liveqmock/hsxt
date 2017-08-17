@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.device.mapper.DeviceMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.device.bean.Device">
+		<id column="DEVICE_CUST_ID" property="deviceCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="DEVICE_SEQ" property="deviceSeq" jdbcType="VARCHAR" />
+		<result column="MACHINE_NO" property="machineNo" jdbcType="VARCHAR" />
+		<result column="DEVICE_STATUS" property="deviceStatus" jdbcType="DECIMAL" />
+		<result column="DEVICE_TYPE" property="deviceType" jdbcType="DECIMAL" />
+		<result column="POINT_RATE" property="pointRate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 显示的列 -->
+	<sql id="Base_Column_List">
+		DEVICE_CUST_ID, 
+		ENT_RES_NO, 
+		ENT_CUST_ID, 
+		DEVICE_SEQ,
+		MACHINE_NO,
+		DEVICE_TYPE,
+		DEVICE_STATUS,
+		POINT_RATE
+	</sql>
+
+	<!-- 分页查询条件 -->
+	<sql id="Page_Condition">
+		<if test="deviceNo != null">
+			AND (DEVICE_SEQ = #{deviceNo,jdbcType=VARCHAR}  or MACHINE_NO=#{deviceNo,jdbcType=VARCHAR})
+		</if>
+		<if test="deviceType != null">
+			AND DEVICE_TYPE = #{deviceType,jdbcType=DECIMAL}
+		</if>
+	</sql>
+
+	<!--查询数量 -->
+	<select id="countDevice" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from V_ENT_DEVICE
+		where ENT_RES_NO =#{entResNo,jdbcType=VARCHAR}
+			  AND ISACTIVE = 'Y'
+		<include refid="Page_Condition" />
+	</select>
+
+	<!--查询列表 -->
+	<select id="listDevice" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from (
+		select t.*,ROWNUM rn from (
+		select
+		<include refid="Base_Column_List" />
+		from V_ENT_DEVICE t
+		where ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+			 AND ISACTIVE = 'Y'
+		<include refid="Page_Condition" />
+
+		) t
+		)
+		where rn &lt; #{end} and
+		rn &gt; #{start}
+
+	</select>
+
+	<!--查询设备通过设备终端编号 -->
+	<select id="findDeviceByDeviceNo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from V_ENT_DEVICE
+		where ENT_RES_NO =#{entResNo,jdbcType=VARCHAR}
+			AND DEVICE_TYPE = #{deviceType,jdbcType=DECIMAL}
+			AND (DEVICE_SEQ = #{deviceNo,jdbcType=VARCHAR} or MACHINE_NO=#{deviceNo,jdbcType=VARCHAR})
+	</select>
+
+
+</mapper>

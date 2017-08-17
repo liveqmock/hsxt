@@ -1,0 +1,68 @@
+<div class="busibox p20 scrlh">
+                            <div class="acct-ct mb20">
+                            	<h1 class="acct-tips lh150 bc" style="width:620px;text-align:left;"><span class="tcr_blue fb">温馨提示：</span><br>
+1、可最多添加5张银行卡信息，可设其中一个银行卡为默认银行账号；<br>2、填写的银行卡开户名称须与真实姓名一致，银行卡结算币种与结算币种一致，开户银行、开户地区须填写正确；<br>3、当提交的信息不符合第2条时，将影响货币转银行业务正常办理。</h1>
+                            </div>
+                            <div class="bc info_320">
+								<div class="cssform_320">
+									<form id="qyyhzhxx_form" name="qyyhzhxx_form">
+  						 
+											<ul class="cssform clearfix">
+												<li class="col2 pr">
+                                					<label class="title-txt">账户名称</label>
+                                					<div class="cont-int">
+                                						<input id="accountName" name="accountName" class="inpt w176" type="text" value="" readonly="readonly">
+                                					</div>
+													<div class="hint"><!--提示--></div>
+                            					</li>
+												<li class="col2 pr">
+													<label class="title-txt">结算币种</label>
+													<div class="cont-int">
+														<input id="currencyName" class="inpt w176" type="text" readonly="readonly">
+													</div>
+												</li>
+												<li class="col2 pr">
+                                					<label class="title-txt">开户银行</label>
+                                					<div class="cont-chk combobox_style">
+														 <select id="bankCode" name="bankCode"></select>
+													</div>
+													<div class="hint red">*</div>
+													<div class="hint"><!--提示--></div>
+                            					</li>
+												<li class="col2 pr">
+                                					<label class="title-txt">开户地区</label>
+                                					<div class="cont-chk tbox2 clearfix">
+                                						<input id="countryCode" type="hidden"/>
+												 		<input id="provinceNo" name="provinceNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+											 			<input id="cityNo" name="cityNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+													</div>
+													<div class="hint red">*</div>
+													<div class="hint"><!--提示--></div>
+                            					</li>
+												<li class="col2 pr">
+													<label for="name" class="title-txt">银行账号</label>
+													<div class="cont-int">
+													<input type="text"  id="accountNo" name="accountNo" class="inpt w176" placeholder="输入银行账号" >
+													</div>
+													<div class="hint red">*</div>
+													<div class="hint"><!--提示--></div>
+												</li>
+												<li class="col2 pr">
+													<label for="name" class="title-txt">确认账号</label>
+													<div class="cont-int">
+													<input type="text" id="accountNoCom" name="accountNoCom" class="inpt w176" placeholder="确认银行账号" ></div>
+													<div class="hint red">*</div>
+													<div class="hint"><!--提示--></div>
+													</li>
+													<li class="col2 pr">
+													<label for="name" class="title-txt">默认银行账号</label>
+													<div class="cont-int text_middle tc setdiy190">
+														<input type="radio" id="isdefault_1" name="isdefault" class="radio_input ml10" value="0" checked="checked"> 否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<input type="radio" id="isdefault_0" name="isdefault" class="radio_input ml10" value="1"> 是</div><div class="hint"><!--提示--></div>
+													</li>
+											</ul>
+											<div class="two_button mt20" align="center"><a  class="btn_bg submit fr"  id="btn_back" >取　消</a><a  class="btn_bg submit fl" id="submitBt_addAccount">提　交</a></div>
+									</form>
+								</div>
+                            </div>
+                            </div>

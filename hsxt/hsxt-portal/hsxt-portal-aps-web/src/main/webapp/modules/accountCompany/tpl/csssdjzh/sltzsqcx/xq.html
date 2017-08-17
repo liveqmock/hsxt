@@ -1,0 +1,96 @@
+﻿<div class="view_info mt10 mb10">
+<%if (obj.result == '待审核'){%>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请流水号</td>
+            <td class="view_text" colspan="3"><%=obj.serialNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">原税率</td>
+            <td class="view_text" width="32%"><%=obj.rate%></td>
+            <td class="view_item" width="18%">申请调整税率</td>
+            <td class="view_text" width="32%"><%=obj.newRate%></td>
+        </tr>
+		<tr>
+            <td class="view_item">企业纳税人类型</td>
+            <td class="view_text" colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请说明</td>
+            <td class="view_text" colspan="3"><%=obj.text%></td>
+        </tr>
+        <tr>
+            <td class="view_item">证明材料</td>
+            <td class="view_text" colspan="3">
+            	<%$.each(obj.material, function(k, v){%>
+                	<a href="<%=v.url%>" class="ml10 blue"><%=v.name%></a>
+				<%})%>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.date%></td>
+            <td class="view_item">申请操作员员</td>
+            <td class="view_text"><%=obj.operator%>（<%=obj.operatorName%>）</td>
+        </tr> 
+    </table>
+<%} else if (obj.result == '审核通过' || obj.result == '审核驳回'){%>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请流水号</td>
+            <td class="view_text" colspan="3"><%=obj.serialNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">原税率</td>
+            <td class="view_text" width="32%"><%=obj.rate%></td>
+            <td class="view_item" width="18%">申请调整税率</td>
+            <td class="view_text" width="32%"><%=obj.newRate%></td>
+        </tr>
+		<tr>
+            <td class="view_item">企业纳税人类型</td>
+            <td class="view_text" colspan="3"></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请说明</td>
+            <td class="view_text" colspan="3"><%=obj.text%></td>
+        </tr>
+        <tr>
+            <td class="view_item">证明材料</td>
+            <td class="view_text" colspan="3">
+            	<%$.each(obj.material, function(k, v){%>
+                	<a href="<%=v.url%>" class="ml10 blue"><%=v.name%></a>
+				<%})%>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.date%></td>
+            <td class="view_item">申请操作员员</td>
+            <td class="view_text"><%=obj.operator%>（<%=obj.operatorName%>）</td>
+        </tr> 
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审核信息</span></td>
+        </tr>
+         <tr>
+            <td class="view_item">审核结果</td>
+            <td class="view_text"><span class="red"><%=obj.result%></span></td>
+            <td class="view_item">新税率生效日期</td>
+            <td class="view_text"><%=obj.newRateDate%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">审核说明</td>
+            <td class="view_text" colspan="3"><%=obj.detail%></td>
+        </tr>
+        <tr>
+            <td class="view_item">审核时间</td>
+            <td class="view_text" colspan="3"><%=obj.auditDate%></td>
+        </tr>
+    </table>
+<%}%>
+</div>

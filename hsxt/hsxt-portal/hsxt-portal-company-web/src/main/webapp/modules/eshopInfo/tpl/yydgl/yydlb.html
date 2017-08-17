@@ -1,0 +1,48 @@
+﻿<div class="search-toolbar">
+<form id="yydlb_form" name="shy_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix">
+        <label class="fl h30_middle">营业点名称：</label>
+        <input type="text" class="h28_middle input-txt w100" placeholder="输入营业点名称"/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">营业点类型：</label>
+        <input type="text" id="yydlb_yydlx" name="yydlb_yydlx" readonly="readonly" placeholder="请选择" optionValue=""/>
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">商圈：</label>
+        <input type="text" class="h28_middle input-txt w100" placeholder="输入商圈"/>
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">区域：</label>
+        <input type="text" class="h28_middle input-txt w100" placeholder="输入区域"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_cx" class="btn-search mr30" type="button">查询</button>
+        </div>
+      </li>
+      <li class="fr">
+        <div class="cont-int">
+          <button id="btn_yydlb_del" class="btn-search ml30 mr10" type="button">批量删除</button><button id="btn_yydlb_add" class="btn-search" type="button">添加</button>
+        </div>
+      </li>
+    </ul>
+</form>
+</div>
+<div class="search-cont">
+  <table id="yydlb_table">
+    <thead>
+        <tr>
+          <th w_check="true" w_index="id" width="3%"></th>
+          <th w_index="yydmc" w_align="center">营业点名称</th>
+          <th w_index="yydlx" w_align="left">营业点类型</th>
+          <th w_render="operate" w_align="left">营业点地址</th>
+          <th w_index="sq" w_align="left">商圈</th>
+          <th w_index="zt" w_align="left">状态</th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+    </thead>
+  </table>
+</div>
+<div id="shy_shy-dialog" class="none"><p></p></div>

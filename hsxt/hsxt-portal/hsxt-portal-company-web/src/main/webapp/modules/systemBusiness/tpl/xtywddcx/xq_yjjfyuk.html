@@ -1,0 +1,58 @@
+﻿<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+  <tr>
+    <td width="30%" align="right" class="gray">订单号：</td>
+    <td width="70%"><%=orderNo%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单时间：</td>
+    <td><%=orderTime%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单类型：</td>
+    <td><%=comm.lang("systemBusiness").systemOrderType[orderType]%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单金额：</td>
+    <td><%=comm.formatMoneyNumber(orderOriginalAmount)%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">实付金额：</td>
+    <td><%=payChannel==200?comm.formatMoneyNumber(orderHsbAmount):comm.formatMoneyNumber(orderCashAmount)%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td><%=comm.lang("common").currencyCN[currencyCode]%></td>
+  </tr>
+<%if (payChannel != 200 ) {%>     
+  <tr>
+    <td align="right" class="gray">货币转换比率：</td>
+    <td><%=exchangeRate %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">折合货币金额：</td>
+    <td><%=comm.formatMoneyNumber(orderCashAmount) %></td>
+  </tr>
+ <%}%> 
+  <tr>
+    <td align="right" class="gray">支付方式：</td>
+    <td><%=comm.lang("systemBusiness").toolManage_payChannel[payChannel] %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付状态：</td>
+    <td><%=comm.lang("systemBusiness").payStatus[payStatus] %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单操作员：</td>
+    <td>(<%=obj.orderOperator%>)</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td><%=comm.lang("systemBusiness").toolManage_orderChannel[orderChannel]%></td>
+  </tr>
+    <td align="right" valign="top" class="gray">备注：</td>
+    <td><%=orderRemark %></td>
+  </tr>
+</table>

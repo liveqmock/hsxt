@@ -1,0 +1,43 @@
+﻿<div class="baseinfo_right_content p30" data-id="3" id="mobileBind_new_div">
+	<div class="register_info  info_500">
+		<form id="mobileBind_form">
+			<input type="hidden" id="myBindmobile" name="myBindmobile" value=""/>
+			<input type="hidden" id="mobile_randomToken" name="mobile_randomToken" value=""/>
+			<fieldset>
+				<div class="clearfix">
+					<ul class="fl">
+						<!--<li class="register_row info_320 clearfix bg_EFEFEF">
+						<label for="name">互生卡号</label><input type="text" id="mobileBind_resNo" value="" disabled="disabled"/>
+						</li>-->
+						<li class="register_row info_320 clearfix">
+						<label for="name">手机号码</label><input type="text" id="mobileBind_teleNo" name="mobileBind_teleNo" class="input_gray" value=""  style="width:135px;" maxlength="11" placeholder="请输入手机号码"/>
+						<div class="hint"><a id="mobileBind_checkBtn" href="javascript:;" class="getsnscode" style="margin-top:2px;">获取短信验证码</a></div>
+						</li>
+						<li class="register_row info_320 clearfix">
+						<label for="name">短信验证码</label><input type="text" id="mobileBind_checkCode" name="mobileBind_checkCode" class="input_gray" value="" maxlength="6" placeholder="请输入短信验证码"/>
+						<div class="hint"></div>
+						</li>
+					</ul>
+				</div>
+				<div class="tc two_button mt20"><a id="mobileBind_submitBtn" href="javascript:;" class="hs_btn Thick_btn">立即绑定</a></div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+    
+<!--弹出框内容-->
+<div class="jqp-dialog" style="display:none;">
+	<div class="title">手机绑定</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td height="50"><div class="clearfix"> <i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">手机绑定成功！</span> </div></td>
+			</tr>
+			<tr>
+				<td height="50"><a class="hs_btn ml50 kxxbd_sjbd_btn" data-id="kxxbd_sjbd2">确定</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div id="yzfs_dlg" class="none"></div>

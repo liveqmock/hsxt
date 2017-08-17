@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.LanguageMapper">
+	<!--是否已存在相同-->
+	<select id="existLanguage" resultType="string" >
+		SELECT
+			1
+		FROM
+			T_LCS_LANGUAGE
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_LANGUAGE (
+			LANGUAGE_CODE,
+			LANGUAGE_NAME,
+			LANGUAGE_NAME_CN,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	       	(#{item.languageCode},
+            #{item.localName},
+            #{item.chineseName},
+            #{item.delFlag},
+            #{item.version})
+	    </foreach>  
+    </insert>
+    
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_LANGUAGE
+			<set>
+			  LANGUAGE_NAME = #{item.localName},
+	          LANGUAGE_NAME_CN = #{item.chineseName},
+	          DEL_FLAG = #{item.delFlag},
+			  VERSION = #{item.version}
+			</set>
+		 WHERE  
+		      LANGUAGE_CODE = #{item.languageCode}
+        </foreach>
+    </update>  
+    
+    <select id = "queryLanguageAll" resultType="com.gy.hsxt.lcs.bean.Language">
+    	SELECT
+			LANGUAGE_CODE AS languageCode,
+			LANGUAGE_NAME AS localName,
+			LANGUAGE_NAME_CN AS chineseName,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_LCS_LANGUAGE
+		WHERE
+			DEL_FLAG = FALSE
+    </select>
+</mapper>

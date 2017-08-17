@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 资源费包含工具 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.resfee.mapper.ResFeeToolMapper">
+
+    <resultMap id="resFeeToolResult" type="com.gy.hsxt.bs.bean.resfee.ResFeeTool">
+        <id column="RES_FEE_ID" property="resFeeId"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="QUANTITY" property="quantity"/>
+    </resultMap>
+
+    <!-- 创建 资源费包含工具 -->
+    <insert id="createResFeeTool" parameterType="com.gy.hsxt.bs.bean.resfee.ResFeeTool">
+        INSERT INTO T_BS_RES_FEE_TOOL (
+            RES_FEE_ID,
+            PRODUCT_ID,
+            QUANTITY
+        ) VALUES (
+            #{resFeeId},
+            #{productId},
+            #{quantity}
+        )
+    </insert>
+
+    <!-- 查询 某一个资源费包含工具 -->
+    <select id="queryResFeeToolList" resultMap="resFeeToolResult">
+        SELECT t.*
+        FROM
+            T_BS_RES_FEE_TOOL t
+        WHERE
+            t.RES_FEE_ID = #{resFeeId}
+    </select>
+</mapper>

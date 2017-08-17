@@ -1,0 +1,61 @@
+<form id="confirm_dialog_form" name="confirm_dialog_form">
+<div class="view_info">
+<input type="hidden" id="purchasePrice" value=""/>
+<input type="hidden" id="marketPrice" value=""/>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">工具类别</td>
+            <td class="view_text" width="32%"><%=obj.categoryName%></td>
+            <td class="view_item" width="18%">工具名称</td>
+            <td class="view_text" width="32%"><%=obj.productName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">供应商</td>
+            <td class="view_text"><%=obj.supplierName%></td>
+            <td class="view_item">仓库</td>
+            <td class="view_text"><%=obj.whName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">批次号</td>
+            <td class="view_text"><%=obj.enterBatchNo%></td>
+            <td class="view_item">入库数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+        </tr>
+        <tr>
+            <td class="view_item">进货价</td>
+            <td class="view_text"><%=obj.purchasePrice_hidden%></td>
+            <td class="view_item">市场价</td>
+            <td class="view_text"><%=obj.marketPrice_hidden%></td>
+        </tr>
+        <tr>
+            <td class="view_item">入库员</td>
+            <td class="view_text" colspan="3"><%=obj.operNo%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml5">复核信息</span></td>
+        </tr>
+        <tr>
+			<td class="view_item" width="20%">选择验证方式</td>
+			<td colspan="3" class="pr">
+				<input id="verificationMode" readonly="readonly" />
+				<span class="ml10 red none" id="verificationMode_prompt">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+		 <tr id="fhy_userName">
+			<td class="view_item" width="20%">复核员用户名</td>
+			<td colspan="3" class="pr">
+				<input type="text" id="doubleUserName" name="doubleUserName" class="ml5 h30_middle w115" placeholder="输入复核员用户名" />
+				<span class="required-right-10">*</span>
+			</td>
+		 </tr>
+		 <tr id="fhy_password">
+			<td class="view_item" width="20%">复核员登录密码</td>
+			<td colspan="3" class="pr">
+				<input type="password" id="doublePassword" name="doublePassword" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+    </table>
+</div>
+</form>

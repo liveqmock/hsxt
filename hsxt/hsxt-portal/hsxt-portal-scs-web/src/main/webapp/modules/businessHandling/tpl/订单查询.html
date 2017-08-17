@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<title>互生系统平台 - 业务办理 - 服务公司 - 订单查询</title>
+	<script data-main="../main" src="../../../library/require/require.min.js" type="text/javascript" defer async ></script>
+	<link href="../../../resources/css/base.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../../resources/css/jquery-ui.min.css">
+    <link href="../../../resources/css/jquery.selectbox.css" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/css/skin.css" rel="stylesheet" type="text/css" />
+	<link href="../../../resources/css/kuangrb.css" rel="stylesheet" type="text/css" />
+    <link href="../../../resources/css/qinsl.css" rel="stylesheet" type="text/css" />
+    <link href="../../../resources/css/zxm.css" rel="stylesheet" type="text/css" />
+<link href="../../../resources/css/qisc.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="wrap">
+		
+        	<!-- 页头开始 -->
+			<div id="header" class="clearfix">
+            	
+            </div>
+            <!-- 页头结束 -->
+            
+            <!-- 页面主体开始 -->
+			<div id="main" class="clearfix">
+            
+            	<!-- 左边导航栏开始-->
+				<div id="sideBar" class="fl">
+                	
+                </div>
+                <!-- 左边导航栏结束-->
+                
+                <!-- 右边服务模块开始-->
+    			<div id="service" class="fr">
+                	
+                </div>
+                <!-- 右边服务模块结束-->
+                
+                <!-- 中间主体内容开始 -->
+   			  <div class="content">
+                	
+                    <!-- 中间菜单开始 -->
+                    <div id="nav">
+                    	
+                    </div>
+                    <!-- 中间菜单结束 -->
+                    
+                    <!-- 操作台开始 -->
+        			<div class="operationsArea">
+        				<div class="operationsInner">
+							<!-- 操作台切换标签开始 -->
+                            <div class="pr">
+                            	<div class="tabNav"></div>
+                                <ul class="tabList clearfix">
+                                    <li><span class="active">缴纳流水</span></li>
+                                </ul>
+                            </div>
+                            <!-- 操作台切换标签结束 -->
+							<!-- id值：
+									contentWidth_2：如果显示 "修改资料" 则用此id;
+							-->
+                            <div id="contentWidth_2">
+								<div class="searchbox p20"><!--实际内容显示框架开始-->
+                                	<!--查询列表页不需要此DIV--<div class="scrlh">-->
+                                    	<div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">快捷日期：</label>
+                                <div class="cont-chk setdiy100"><select id="quickDate">
+                                          <option>--请选择--</option>
+                                          <option>今天</option>
+                                          <option>本周</option>
+                                          <option>本月</option>  
+                                      </select></div>
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">日期：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="textfield" id="" value="2014-10-01" class="input-txt w100" /><span class="separator-pd">-</span><input type="text" name="textfield" id="" value="2014-10-31" class="input-txt w100" />
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">订单状态：</label>
+                                <div class="cont-chk setdiy100"><select id="orderState">
+                                          <option>--请选择--</option>
+                                          <option>全部</option>
+                                          <option>未付款</option>
+                                          <option>已付款</option>  
+                                      </select></div>
+                            </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="search-cont">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+  <tr>
+    <th class="nobd">订单号</th>
+    <th>订单时间</th>
+    <th>订单类型</th>
+    <th>订单金额</th>
+    <th>支付方式</th>
+    <th>订单状态</th>
+    <th>操作</th>
+  </tr>
+  <tr>
+    <td class="nobd">abc1234567890</td>
+    <td>2013-12-27 09:42:45</td>
+    <td>缴纳系统使用年费</td>
+    <td>1,000.00</td>
+    <td>互生币支付</td>
+    <td>已付款</td>
+    <td align="center"><a href="#" class="order1" title="">查看</a></td>
+  </tr>
+  <tr class="table-tr-c">
+    <td class="nobd">abc1234567890</td>
+    <td>2013-12-27 09:42:45</td>
+    <td>缴纳系统使用年费</td>
+    <td>1,000.00</td>
+    <td>网银支付</td>
+    <td>已付款</td>
+    <td align="center"><a href="#" class="order4" title="">查看</a></td>
+  </tr>
+</table>
+<div class="mt10 h30 clearfix">
+<div class="table-page"><span class="page-nact">首页</span><span class="page-nact">上一页</span><a href="#" class="page-act">下一页</a><a href="#" class="page-act">末页</a><span class="page-go">跳到</span><input type="text" class="page-txt" /><span class="page-go">页/10页</span></div>
+</div>
+
+                    </div>
+                                
+                                        <!--</div>查询列表页不需要此DIV-->
+                                        <!--操作页面按钮所在位置-->
+                                    </div><!--实际内容显示框架结束-->
+                                </div>
+                            </div>
+        			</div>
+                    <!-- 操作台结束 -->
+                    
+   			  </div> 
+                <!-- 中间主体内容结束 -->
+                
+			</div>
+            <!-- 页面主体结束 -->
+            
+            <!-- 页脚开始 -->
+			<div id="footer">
+            	
+            </div>
+            <!-- 页脚结束 -->
+		
+	</div>
+</body>
+<!--弹出框内容及脚本开始-->
+<div class="jqp-dialog" title="">
+  <p class="autowidth"></p>
+</div>
+<div id="order1" class="none">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单号：</td>
+    <td>abc01234567890123</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单时间：</td>
+    <td>2014-11-12 12:11:54</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单类型：</td>
+    <td>缴纳系统使用年费</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单金额：</td>
+    <td>1,000.00</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">缴纳年费区间：</td>
+    <td>2015-12-10 ~ 2016-12-09</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">实付金额：</td>
+    <td>1,000.00</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td>人民币</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付方式：</td>
+    <td>互生币支付</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单状态：</td>
+    <td>已付款</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单操作员：</td>
+    <td>0001（张三）</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="gray">备注：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray"></td>
+    <td></td>
+  </tr>
+</table>
+</div>
+<div id="order4" class="none">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单号：</td>
+    <td>abc01234567890123</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单时间：</td>
+    <td>2014-11-12 12:11:54</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单类型：</td>
+    <td>缴纳系统使用年费</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单金额：</td>
+    <td>1,000.00</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">缴纳年费区间：</td>
+    <td>2015-12-10 ~ 2016-12-09</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">实付金额：</td>
+    <td>1,000.00</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td>人民币</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">货币转换比率：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">折合货币金额：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付方式：</td>
+    <td>网银支付</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单状态：</td>
+    <td>已付款</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单操作员：</td>
+    <td>0001（张三）</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="gray">备注：</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray"></td>
+    <td></td>
+  </tr>
+</table>
+</div>
+<!--弹出框内容及脚本结束-->
+</html>

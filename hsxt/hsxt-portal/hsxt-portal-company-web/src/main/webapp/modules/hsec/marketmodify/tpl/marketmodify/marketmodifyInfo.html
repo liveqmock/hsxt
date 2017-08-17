@@ -1,0 +1,134 @@
+      <% 
+         var shop = obj.data.vShop 
+         var httpUrl=obj.data.httpUrl
+         var picLimit = obj.data.picLimit
+         
+         var isOpen = obj.data.isOpen
+         
+         var pic = 'resources/img/store_noimg.gif';
+         if(shop.logo){
+         	pic = httpUrl + shop.logo;
+         }
+         
+      %>
+      
+                   <!--内容添加开始-->
+                 
+                 <div class="p20">
+                   <div class=" w600 mr_jzdq" style="width: 620px">
+                   
+                            	<form id="formModify">
+                            	<input type="hidden" name="id" value="<%=shop.strId%>"/>
+                            	<input type="hidden" id="status" name="status" value="<%=shop.status%>"/>
+                            	<input type="hidden" id="logoSource" name="logoSource" value="<%=shop.logoSource%>"/>
+  									<fieldset>
+									<ul>
+									  <li class="sj_row clearfix"><label for=shopResourceNo style="text-align:right; padding-right:10px;">企业互生号</label><a href="#" id="virtualShopPage"><%=shop.shopResourceNo%></a>
+                                      <li class="sj_row clearfix"><label for="" style="text-align:right; padding-right:10px;">地区</label>
+                                      <input type="text" id=""  name="" readonly="readonly" value="<%=shop.province==shop.city?shop.country+shop.city:shop.country+shop.province+shop.city%>" class="sj_input bg_grey1" />
+                                      <input type="hidden" id=""  name="country"  value="<%=shop.country%>" />
+                                      <input type="hidden" id=""  name="province"  value="<%=shop.province%>" />
+                                      <input type="hidden" id=""  name="city"  value="<%=shop.city%>" />
+                                      </li>
+            							<li class="sj_row clearfix"><label for="name" style="text-align:right; padding-right:10px;">企业名称</label>
+            							<input type="text" readOnly="readOnly" name="name" value="<%=shop.name %>" class="sj_input bg_grey1" />
+           								</li>
+                                            
+                                           
+                                           
+											<li class="sj_row sj_row_h clearfix" style="height:70px;width: 822px">
+											<label for="name" style="text-align:right; padding-right:10px;">商城图标<span class="tcr_red"> *</span></label>
+											<span class="sj_up_img">
+											
+											<img src="<%=pic%>" width="68" height="68" class="imgLicense" isBool=<%=shop.logo!=null?"1":"0"%>>
+											
+											
+											<input type="hidden" name="logo" id="logo" value="<%=httpUrl+shop.logo%>"/>
+      										<b style="position:relative; ">
+      										<input type="file" name="itemPhotoAdd" class="inputFile" id="itemPhotoAdd">
+      										<input type="button" class="loadpic" value="上传图片">
+      										</b>
+      										
+											</span>
+											<span style="color: red;display:inline-block;width:380px;float: right;" id="shopImg"></span>
+                                    		</li>
+                                    		
+                                    		
+						              <li class="sj_row clearfix pr" style="height:84px;width:720px" id="img-li">
+						            	<label for="name" style="text-align:right; padding-right:10px;">商城图片<span class="tcr_red"> *</span></label>
+										<div class="fl pa imgBox_style clearfix" maxImg="<%=picLimit%>" id="imgBox">
+											<div class="fl imgMask_style" id="imgMask">
+												<ul class="imgList clearfix" id="imgListUl">
+													<li class="noImgLi">
+														<span class="pr addImgBox_style">
+															<input type="file" name="shopImgAdd" id="shopImgAdd"/>
+															<img src="resources/img/add_img_bt.gif" width="80" height="70">
+														</span>
+													</li>
+													
+														<%if(shop.pics != null && shop.pics != ""){%>
+																	<%$.each(eval(shop.pics),function(k,v){%>
+																	<li class="pr">
+																	<img src="<%=httpUrl+v['800X800']%>" width="80" height="70" class="bigImg"/>
+																	<i class="tips_close pa delImg" title="删除图片" imgObjIndex='<%=JSON.stringify(v)%>'></i>
+																	</li>
+														<%})%>
+														<%}%>
+													
+												</ul>
+											</div>
+											<div id="moreBt" class="fr moreBt_style mt5 mr5 f13"><img src="resources/img/arrow-right.png" width="15" height="70"></div>	
+										</div>
+										<span style="color: red;display:inline-block;width:262px;padding-left:312px" id="shopImgList">用于手机用户查看商城!</span>	
+									</li>   		
+                                            
+                                            
+                                           <li class="sj_row  clearfix"><label for="contector" style="text-align:right; padding-right:10px;">商城联系人<span class="tcr_red"> *</span></label>
+                                      <input type="text" name="contector" id="contector" value="<%=shop.contector%>" class="sj_input" /></li>
+                                      <li class="sj_row clearfix" style="white-space:nowrap;"><label for="name" style="text-align:right; padding-right:10px;">联系电话<span class="tcr_red"> *</span></label>
+                                      <input type="text" name="contectWay" id="contectWay" value="<%=shop.contectWay%>" class="sj_input" /></li>
+									  <li class="sj_row sj_txt_h clearfix" style="display:none;">
+									    <label for="name" style="text-align:right; padding-right:10px;">经营范围</label>
+									    <textarea name="scope" id="scope" class="input_gray tcr_grey sj_txt"><%=shop.scope%></textarea></li>
+                                      <li class="sj_row sj_txt_h clearfix">
+                                        <label for="name" style="text-align:right; padding-right:10px;">商城描述<span class="tcr_red"> *</span></label>
+                                        <textarea name="remark" id="remark" class="input_gray tcr_grey  sj_txt"><%=shop.remark%></textarea></li>
+                                        <li class="sj_row clearfix" style="color: black;">
+                                        <label for="remark"
+								style="text-align: right; padding-right: 10px;"><span
+								class="tcr_red"></span></label>
+										我已阅读并同意<a href="javascript:;" id="lookxieyi"><<互生企业自主经营平台经营须知>></a>
+										</li>
+										
+									  <li class="mr_jzdq">
+									  <div class="w200 clearfix" style="margin-left:170px;">
+									  	<a href="#" id="fixInfo" class="btn_bg submit fl">保&nbsp;存</a>
+									  
+										  <!-- 添加判断条件，停止积分，企业重新参与积分活动 允许开启商城  add by zhucy 2016-05-09-->
+										  <% if(shop.status=="4"){%>
+										  	<a href="#" id="startUpVshop" class="btn_bg submit fr">申请启用</a>
+										  <%}else if(shop.status == '7' && isOpen == '1'){%>
+										    <a href="#" id="startUpVshop" class="btn_bg submit fr">申请启用</a>
+										  <%}%>
+										  
+										  <%if(shop.status=="2") {%>
+										  	<a href="#" id="stopVshop" class="btn_bg submit fr">申请暂停</a>
+										  <%}%>
+									  </div>
+									  
+									  </li>
+									  
+									  
+                                      </ul>
+  									</fieldset>
+								</form>
+                       
+                 </div>
+            <!--内容添加结束-->
+                        </div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>
+     
+                   
+             

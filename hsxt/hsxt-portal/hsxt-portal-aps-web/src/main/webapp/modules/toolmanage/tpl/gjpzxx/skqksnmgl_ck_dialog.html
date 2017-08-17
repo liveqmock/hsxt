@@ -1,0 +1,49 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">刷卡器分类</td>
+            <td class="view_text" width="32%"><%=obj.mcrTypeText%></td>
+            <td class="view_item" width="18%">批次号</td>
+            <td class="view_text" width="32%"><%=obj.batchNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">刷卡器数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+            <td class="view_item">状态</td>
+            <td class="view_text"><%=obj.storeStatusText%></td>
+        </tr>
+        <tr>
+            <td class="view_item">生成日期</td>
+            <td class="view_text"><%=obj.createdDate%></td>
+            <td class="view_item">生成操作员</td>
+            <td class="view_text"><%=obj.createdBy%></td>
+        </tr>
+        <tr>
+            <td colspan="4" class="p10">
+			<% if(obj.mcrType == 1){ %>
+				<div class="view_title">KSN序号列表</div>
+				<div class="td_hauto">
+					<table id="searchTable_ck1">
+					  <tr>
+						<th w_index="deviceSeqNo">序列号</th>
+						<th w_index="ksnCode">KSN码</th>
+					  </tr>
+					</table>
+				</div>
+			<% }else if(obj.mcrType == 2) {%>
+				<div class="view_title">消费刷卡器列表</div>
+				<div class="td_hauto">
+					<table id="searchTable_ck2">
+						<tr>
+							<th w_index="deviceSeqNo">序列号</th>
+							<th w_index="ksnCodeY">KSN码1</th>
+							<th w_index="ksnCodeE">KSN码2</th>
+							<th w_index="ksnCodeS">KSN码3</th>
+						</tr>
+					</table>
+				</div>
+			<% } %>
+            </td>
+        </tr>
+    </table>
+</div>

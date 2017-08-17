@@ -1,0 +1,41 @@
+﻿<div class="div-myhs-menu-pannel">
+	<div id="nav_title" class="div-myhs-title">
+		<span class="cl-blue">我的互生</span>
+		<div class="f12 tc lh150">预留信息：</div>
+		<div class="wdhs_ylxx_txt" id="nav_reserver_info"></div>
+	</div>
+	<ul id="hs_nav_list" class="div-myhs-menu">
+	<% 
+		if(obj  ==true || obj  =="true"  ){ 
+	%>
+			<li id="nav_pointAccount" class=""><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon1.png"/></span> <span class="span-myhs-menu-title">积分账户</span></li>
+			<li id="nav_hsbAccount"><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon2.png"/></span> <span class="span-myhs-menu-title">互生币账户</span></li>
+			<li id="nav_cashAccount"><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon3.png"/></span> <span class="span-myhs-menu-title">货币账户</span></li>
+			<li id="nav_investAccount"><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon4.png"/></span> <span class="span-myhs-menu-title">投资账户</span></li>
+	<% 
+		}else{
+	%>
+			<li id="nav_hsbAccount"><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon2.png"/></span> <span class="span-myhs-menu-title">互生币账户</span></li>
+			<li id="nav_cashAccount"><span class="span-myhs-menu-icon"><img src="resources/images/myhs-menu-icon3.png"/></span> <span class="span-myhs-menu-title">货币账户</span></li>
+	<% 
+		}
+	%>
+	</ul>
+	<a class="fr shop_ec" id="shopEc" href="javascript:void(0);">购物平台</a>
+</div>
+
+<div id="nav_alert_div_1" class="all_thickdiv none"></div>
+<div id="nav_alert_div_2" class="all_thickbox none">
+	<div class="thicktitle"><a class="thickclose" id="thickclose"></a><span class="title_txt">title</span></div>
+	<div class="zhgl_jfzx_box">content</div>
+	<div></div>
+</div>
+<div id="nav_alert_div_3" class="thickdiv none"></div>
+<div class="notice_box none" id="nav_alert_div_4" style="width:580px;margin-left:-330px;height:150px;">
+	<a class="close_btn i_ico" id="NoticeCloseBtn"></a>
+	<div class="notice_tite">温馨提示</div>
+	<div class="notice_content mt20">
+		<!--p style="padding-left:0;" id="navTrueNameBindP">您尚未进行实名绑定，为保障您在平台的权益，请尽快完善！<a href="javascript:;" id="a_smbd">点我进行实名绑定</a>。</p-->
+		<p style="padding-left:0;" id="promptContent"></p>
+	</div>
+</div>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.batch.mapper.AccountEntryBatchMapper"><!-- map的类 -->
+	
+	<!-- 通过会计时间找相关的分录记账信息记录-->
+	<select id="seachAccountEntryByFiscalDate" resultType="AccountEntry" parameterType="map">
+		SELECT ROWNUM, T.*
+      FROM (SELECT ENTRY_NO   entryNo,
+      			   CUST_ID    custID,
+      			   ACC_TYPE	  accType,
+                   ADD_AMOUNT addAmount,
+                   SUB_AMOUNT subAmount,
+                   TRANS_SYS  transSys,
+                   SYSENTRY_NO sysEntryNo,
+                   TRANS_TYPE transType,
+                   TRANS_NO   transNo,
+                   SOURCE_TRANS_NO sourceTransNo,
+                   FISCAL_DATE fiscalDate
+              FROM T_AC_ACCOUNT_ENTRY
+             WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+               AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+               AND WRITE_BACK = 0
+               AND TRANS_SYS IN
+               <foreach item="item" index="index" collection="transSyses" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+               ORDER BY SYSENTRY_NO) T
+     WHERE ROWNUM &gt;= #{baginRN,jdbcType=INTEGER}
+       AND ROWNUM &lt;= #{endRN,jdbcType=INTEGER}
+	</select>
+ 	
+ 	<select id="seachAccountEntryCount" resultType="int"  parameterType="map">
+ 		SELECT COUNT(SYSENTRY_NO)
+ 		  FROM T_AC_ACCOUNT_ENTRY
+ 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+               AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+               AND WRITE_BACK = 0
+               AND TRANS_SYS IN
+               <foreach item="item" index="index" collection="transSyses" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+ 	</select>
+ 	
+ 	<!-- 通过会计时间区间找相关的(托管企业,成员企业名单,持卡人)分录记账信息数量 -->
+ 	<select id="seachAccEntryCountByFisDate" resultType="int"  parameterType="map">
+ 		
+ 		SELECT COUNT(CUST_ID)
+		  FROM (SELECT DISTINCT CUST_ID
+		 		  FROM T_AC_ACCOUNT_ENTRY
+		 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND TRANS_SYS = 'PS'
+				   AND CUST_TYPE IN(2,3)
+				   AND ACC_TYPE = '20110'
+				   AND TRANS_TYPE NOT IN (${transType})
+				UNION ALL
+		        SELECT DISTINCT CUST_ID
+		          FROM T_AC_ACCOUNT_ENTRY
+		         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+		           AND ACC_TYPE = '10110'
+		           AND TRANS_SYS = 'PS'
+		           AND CUST_TYPE = 1)
+ 	</select>
+ 	
+ 	<!-- 通过会计时间找相关的(托管企业,成员企业名单,持卡人)分录记账信息记录-->
+	<select id="seachAccEntryListPageByFisDate" resultType="AccountEntry" parameterType="map">
+		SELECT DISTINCT CUST_ID custID,
+						CUST_TYPE custType
+		 		  FROM T_AC_ACCOUNT_ENTRY
+		 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND TRANS_SYS = 'PS'
+				   AND CUST_TYPE IN(2,3)
+				   AND ACC_TYPE = '20110'
+				   AND TRANS_TYPE NOT IN (${transType})
+				UNION ALL
+		        SELECT DISTINCT CUST_ID custID,
+		        				CUST_TYPE custType
+		          FROM T_AC_ACCOUNT_ENTRY
+		         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+		           AND ACC_TYPE = '10110'
+		           AND TRANS_SYS = 'PS'
+		           AND CUST_TYPE = 1
+	</select>
+	
+	<!-- 通过交易类型和时间段查找相关的分录记账信息数量 -->
+    <select id="seachAccEntryCountByTransType" resultType="int"  parameterType="map">
+        SELECT COUNT(DISTINCT CUST_ID)
+          FROM T_AC_ACCOUNT_ENTRY
+         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+           AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+           AND ACC_TYPE = '20110'
+           AND TRANS_SYS = 'PS'
+           AND TRANS_TYPE NOT IN (${transType})
+           AND CUST_TYPE IN(2,3)
+    </select>
+    
+	<!-- 通过交易类型和月时间段查找相关的分录记账信息-->
+    <select id="seachAccEntryListPageByTransType" resultType="AccountEntry" parameterType="map">
+        SELECT CUST_ID custID,
+               HS_RES_NO hsResNo,
+               sum(nvl(SUB_AMOUNT,0) - nvl(ADD_AMOUNT,0)) amount
+          FROM T_AC_ACCOUNT_ENTRY 
+         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+           AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+           AND ACC_TYPE = '20110'
+           AND TRANS_SYS = 'PS'
+           AND TRANS_TYPE NOT IN (${transType})
+		   AND CUST_TYPE IN(2,3)
+           GROUP BY CUST_ID,HS_RES_NO
+    </select>
+</mapper>

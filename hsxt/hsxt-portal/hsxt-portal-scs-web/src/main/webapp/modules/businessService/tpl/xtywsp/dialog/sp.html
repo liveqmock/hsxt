@@ -1,0 +1,110 @@
+<div class="view_info mt10">
+	<form id="applyForm">
+		<table width="100%" border="1" cellpadding="0" cellspacing="0"
+			bordercolor="#CCCCCC">
+			<tbody>
+				<tr>
+					<td colspan="4" class="tab_trbg"><span class="ml10">成员企业资格注销申请信息</span></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">企业互生号</td>
+					<td class="view_text" width="30%"><%=obj.MEMBER_QUIT.entResNo%></td>
+					<td class="view_item" width="20%">企业名称</td>
+					<td class="view_text" width="30%"><%=obj.MEMBER_QUIT.entCustName%></td>
+				</tr>
+				<tr>
+					<td class="view_item">企业地址</td>
+					<td class="view_text" colspan="3"><%=obj.MEMBER_QUIT.entAddress%></td>
+				</tr>
+				<tr>
+					<td class="view_item">联系人姓名</td>
+					<td class="view_text"><%=obj.MEMBER_QUIT.linkman %></td>
+					<td class="view_item">联系人手机</td>
+					<td class="view_text"><%=obj.MEMBER_QUIT.linkmanMobile %></td>
+				</tr>
+				<tr>
+					<td class="view_item">申请时间</td>
+					<td class="view_text"><%=obj.MEMBER_QUIT.createdDate %></td>
+					<td class="view_item">办理业务</td>
+					<td class="view_text"><span class="red">成员企业资格注销</span></td>
+				</tr>
+				<tr>
+					<td class="view_item">申请原因</td>
+					<td class="view_text" colspan="3"><%=obj.MEMBER_QUIT.applyReason%></td>
+				</tr>
+				<%if(obj.MEMBER_QUIT.applyType == 1){ %>
+				<tr>
+					<td class="view_item">办理操作员</td>
+					<td class="view_text"><%=obj.MEMBER_QUIT.createdBy %></td>
+					<td class="view_item">业务办理申请书</td>
+					<td class="view_text"><a id="ywblsqs" class="blue">查看</a></td>
+				</tr>
+				<%} %>
+				<%if(obj.MEMBER_QUIT.applyType == 2){ %>
+				<tr>
+					<td class="view_item">办理操作员</td>
+					<td class="view_text"><%=obj.MEMBER_QUIT.createdBy %></td>
+					<td class="view_item">其他文件</td>
+					<td class="view_text">
+					<%if(comm.isNotEmpty(obj.MEMBER_QUIT.otherFile)){ %>
+					<a id="qtwjck"  class="blue">查看</a>
+					<%}%>
+					</td>
+				</tr>
+				<tr>
+					<td class="view_item">企业实地考察报告</td>
+					<td class="view_text">
+						<%if(comm.isNotEmpty(obj.MEMBER_QUIT.reportFile)){ %>
+							<a id="qysdkcbg"  class="blue">查看</a>
+						<%} %>
+					</td>
+                    <td class="view_item">企业双方声明文件</td>
+					<td class="view_text">
+						<%if(comm.isNotEmpty(obj.MEMBER_QUIT.statementFile)){ %>
+							<a id="qysfsmwj"  class="blue">查看</a>
+						<%} %>
+					</td>
+				</tr>
+				<%} %>
+				<tr>
+					<td colspan="4" class="tab_trbg"><span class="ml10">审批信息</span></td>
+				</tr>
+				<tr>
+					<td class="view_item">审批意见</td>
+					<td class="view_text" colspan="3" style="height: 80px;"><textarea id="apprRemark" rows="4"
+							maxlength=300 class="wseltbox txta h100"
+							placeholder="输入审批意见,字数不超过300个字"></textarea></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<%if(obj.MEMBER_QUIT.applyType == 1){ %>
+		<ul id="xtywsp_otherfile" class="certificateSample  clearfix">
+			<li><span class="f13">企业实地考察报告上传</span>
+				<div class="mt10 mb10 sampleBox">
+					<i id="thum-1" class="certificateSample_noImg"></i>
+				</div>
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn" style="margin-left:55px">上传<input
+						type="file" id="reportFile" name="reportFile"></a>
+					<!-- <a id="case-fileId-1" href="#" class="btn_bg viewSample_btn">模板下载</a> -->
+				</div> <br>
+				<div class="must red tc mt10"></div></li>
+			<li><span class="f13">企业双方声明文件上传</span>
+				<div class="mt10 mb10 sampleBox">
+					<i id="thum-2" class="certificateSample_noImg"></i>
+				</div>
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn" style="margin-left:55px">上传<input
+						type="file" id="statementFile" name="statementFile"></a> 
+					<!-- <a id="case-fileId-2" href="#" class="btn_bg viewSample_btn">模板下载</a> -->
+				</div> <br>
+				<div class="must red tc  mt10"></div></li>
+		</ul>
+		<%} %>
+
+		<input id="hidReportFile" type="hidden"> 
+		<input id="hidStatementFile" type="hidden">
+		
+	</form>
+</div>

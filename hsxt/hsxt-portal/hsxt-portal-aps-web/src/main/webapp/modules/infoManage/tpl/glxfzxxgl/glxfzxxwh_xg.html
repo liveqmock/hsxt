@@ -1,0 +1,232 @@
+﻿<div id="glxfzxxwh_xgTpl">
+	<div class="bc info_800">
+		<form id="glxfzxxwh_xg_form">
+			<div class="fb">互生卡信息</div>
+			<ul class="info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">互生卡号</label>
+					<input type="text" value="<%=obj.baseInfo.perResNo%>" class="fl w185 h30_middle ml5" readonly="readonly" />
+				</li>
+			</ul>
+			<div class="mt20 fb">基本信息</div>
+			<div class="clearfix">
+				<!-- 身份证 -->
+				<% if(obj.authInfo.cerType == '1'){%>
+				<ul class="fl info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">姓名</label>
+						<input type="text" id="userName" name="userName" value="<%=obj.authInfo.userName%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入姓名" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">国籍</label>
+						<!-- <div data-tag="div-input-select" style="width:299px;display:inline-block;">
+						<select class="selectList-input" id="nationality"  name="nationality" style="width:295px;height:24px;font-size:12px;line-height:30px;border:0px solid rgb(102, 204, 102);margin-bottom:3px;" ></select>
+						<span data-tag="span-icon-select" tabindex="0" hidefocus="true" class="selectList-span" style="margin-top: -27.5px;"></span>
+						</div> -->
+						<span class="fl ml5 pr">
+							<select class="selectList-input" id="nationality"  name="nationality" style="width:185px;height:24px;font-size:12px;line-height:30px;border:0px solid rgb(102, 204, 102);margin-bottom:3px;"></select>
+						</span>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">性别</label>
+						<div class="fl h30_middle">
+							<input type="radio" name="sex" id="sex_man" value="1" class="ml20" <% if(obj.authInfo.sex == '1'){ %>checked="checked"<% } %> > 男
+							<input type="radio" name="sex" id="sex_women" value="0" class="ml20" <% if(obj.authInfo.sex == '0'){ %>checked="checked"<% } %> > 女
+						</div>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">户籍地址</label>
+						<input type="text" id="birthAddress" name="birthAddress" value="<%=obj.authInfo.birthAddress%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入户籍地址" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">职业</label>
+						<input type="text" id="job" name="job" value="<%=obj.authInfo.job%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入户籍地址" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件类型</label>
+						<input type="hidden" id="certype" name="certype" value="<%=obj.authInfo.cerType%>"/>
+						<span class="fl ml5 pr">
+							<input id="document_type" disabled="disabled" />
+						</span>												
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件号码</label>
+						<input type="text" id="cerNo" name="cerNo" value="<%=obj.authInfo.cerNo%>"  class="fl w185 h30_middle ml5 isChange" placeholder="输入证件号码" />
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">证件有效期</label>
+						<!-- <input type="text" id="timeRange_start" class="fl w90 h30_middle ml5 isChange" placeholder="输入开始日期"  />
+						<span class="fl pt5 f14">-</span> -->
+						<input type="text" id="validDate" name="validDate" class="fl w90 h30_middle ml5 isChange" placeholder="输入结束日期" />
+						<div class="pa left330 w115 clearfix">
+							<input type="checkbox" class="fl mt8" value="长期" id="long-term"/><label for="long-term" class="fl ml5 h30_middle label_noStyle">长期</label>
+						</div>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">发证机关</label>
+						<input type="text" id="issuingOrg" name="issuingOrg" value="<%=obj.authInfo.issuingOrg%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入发证机关" />
+					</li>
+				</ul>
+				<!-- 护照 -->
+				<%}else if(obj.authInfo.cerType == '2'){%>
+					<ul class="fl info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">姓名</label>
+						<input type="text" id="userName" name="userName" value="<%=obj.authInfo.userName%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入姓名" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">国籍</label>
+						<!-- <span class="fl ml5 pr">
+							<input id="nationality" readonly="readonly" />
+						</span> -->
+						<span class="fl ml5 pr">
+							<select class="selectList-input" id="nationality"  name="nationality" style="width:185px;height:24px;font-size:12px;line-height:30px;border:0px solid rgb(102, 204, 102);margin-bottom:3px;"></select>
+						</span>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">性别</label>
+						<div class="fl h30_middle">
+							<input type="radio" name="sex" id="sex_man" value="0" class="ml20" <% if(obj.authInfo.sex == '0'){ %>checked="checked"<% } %> > 女
+							<input type="radio" name="sex" id="sex_women" value="1" class="ml20" <% if(obj.authInfo.sex == '1'){ %>checked="checked"<% } %> > 男
+						</div>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">出生地点</label>
+						<input type="text" id="birthPlace" name="birthPlace" value="<%=obj.authInfo.birthPlace%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入出生地点" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">签发地点</label>
+						<input type="text" id="issuePlace" name="issuePlace" value="<%=obj.authInfo.issuePlace%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入签发地点" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件类型</label>
+						<input type="hidden" id="certype" name="certype" value="<%=obj.authInfo.cerType%>"/>
+						<span class="fl ml5 pr">
+							<input id="document_type" disabled="disabled" />
+						</span>												
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件号码</label>
+						<input type="text" id="cerNo" name="cerNo" value="<%=obj.authInfo.cerNo%>"  class="fl w185 h30_middle ml5 isChange" placeholder="输入证件号码" />
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">证件有效期</label>
+						<!-- <input type="text" id="timeRange_start" class="fl w90 h30_middle ml5 isChange" placeholder="输入开始日期" readonly="readonly" />
+						<span class="fl pt5 f14">-</span> -->
+						<input type="text" id="validDate" name="validDate" class="fl w90 h30_middle ml5 isChange" placeholder="输入结束日期" />
+						<div class="pa left330 w115 clearfix">
+							<input type="checkbox" class="fl mt8" id="long-term" value="长期" /><label for="long-term" class="fl ml5 h30_middle label_noStyle">长期</label>
+						</div>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">签发机关</label>
+						<input type="text" id="issuingOrg" name="issuingOrg" value="<%=obj.authInfo.issuingOrg%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入发证机关" />
+					</li>
+				</ul>
+				<%}else if(obj.authInfo.cerType == '3'){%>
+				<ul class="fl info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">企业名称</label>
+						<input type="text" id="entName" name="entName" value="<%=obj.authInfo.entName%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业名称" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">企业类型</label>
+						<input type="text" id="entType" name="entType" value="<%=obj.authInfo.entType%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业类型" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">注册地址</label>
+						<input type="text" id="entRegAddr" name="entRegAddr" value="<%=obj.authInfo.entRegAddr%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入注册地址" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件类型</label>
+						<input type="hidden" id="certype" name="certype" value="<%=obj.authInfo.cerType%>"/>
+						<span class="fl ml5 pr">
+							<input id="document_type"  disabled="disabled"/>
+						</span>												
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">证件号码</label>
+						<input type="text" id="cerNo" name="cerNo" value="<%=obj.authInfo.cerNo%>"  class="fl w185 h30_middle ml5 isChange" placeholder="输入证件号码" />
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">成立日期</label>
+						<input type="text" id="entBuildDate" name="entBuildDate" value="<%=obj.authInfo.entBuildDate%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入成立日期" readonly="readonly" />
+					</li>
+				</ul>
+				<%}%>
+			</div>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">认证附言</label>
+					<textarea class="fl ml5 h50 w660 rsn pt5 pb5 isChange" id="authRemark" name="authRemark"  placeholder="输入认证附言"><%=obj.authInfo.authRemark%></textarea>
+				</li>
+				<li class="register_row clearfix" id="file1_li">
+					<label class="fl w115 h60_middle" id="file1_label">证件正面</label>
+					<input type="hidden" id="cerPica_o" value="<%=obj.authInfo.cerPica%>"></input>
+					<span id="yl_1" class="fl ml5 mt5 sample_img">
+						<img id="img1" src="resources/img/noImg.gif" width="81" height="52">
+					</span>
+					<div class="fl pr mt15 ml10">
+						<a class="btn_bg upload_btn">上传<input type="file" name="file1" id="file1" class="file_btn pa"></a>
+						<a id="sl_1" class="btn_bg viewSample_btn ml10">查看示例图</a>
+					</div>
+				</li>
+				
+				<li class="register_row clearfix" id="file2_li">
+					<label class="fl w115 h60_middle" id="file2_label">证件反面</label>
+					<input type="hidden" id="cerPicb_o" value="<%=obj.authInfo.cerPicb%>"></input>
+					<span id="yl_2" class="fl ml5 mt5 sample_img">
+						<img id="img2" src="resources/img/noImg.gif" width="81" height="52">
+					</span>
+					<div class="fl pr mt15 ml10">
+						<a class="btn_bg upload_btn">上传<input type="file" name="file2" id="file2" class="file_btn pa"></a>
+						<a id="sl_2" class="btn_bg viewSample_btn ml10">查看示例图</a>
+					</div>
+				</li>
+				<li class="register_row clearfix" id="file3_li">
+					<label class="fl w115 h60_middle" id="file3_label">手持证件大头照</label>
+					<input type="hidden" id="cerPich_o" value="<%=obj.authInfo.cerPich%>"></input>
+					<span id="yl_3" class="fl ml5 mt5 sample_img">
+						<img id="img3" src="resources/img/noImg.gif" width="81" height="52">
+					</span>
+					<div class="fl pr mt15 ml10">
+						<a class="btn_bg upload_btn">上传<input type="file" name="file3" id="file3" class="file_btn pa"></a>
+						<a id="sl_3" class="btn_bg viewSample_btn ml10">查看示例图</a>
+					</div>
+				</li>
+			</ul>
+			<div class="mt20 fb">联系信息</div>
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">手机号码</label>
+					<input type="text" id="mobile" name="mobile" value="<%=obj.baseInfo.mobile%>"  class="fl w185 h30_middle ml5 isBaseChange"  />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">邮箱</label>
+						<input type="text" id="email" name="email" value="<%=obj.baseInfo.email%>" readonly="readonly" class="fl w185 h30_middle ml5 isBaseChange"  />
+					</li>
+				</ul>
+			</div>
+			<input type="hidden" id="cerPica_n"><!-- 法人代表证件正面文件ID -->
+			<input type="hidden" id="cerPicb_n"><!-- 法人代表证件反面文件ID -->
+			<input type="hidden" id="cerPich_n"><!-- 手持证件大头照ID -->		
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="glxfzxxgl_xg_btn">提&#12288;交</a>
+				<a class="btn_bg submit fr" id="glxfzxxgl_xg_cancel">取&#12288;消</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="dialogBox" class="none" style="height:300px">
+	
+</div>

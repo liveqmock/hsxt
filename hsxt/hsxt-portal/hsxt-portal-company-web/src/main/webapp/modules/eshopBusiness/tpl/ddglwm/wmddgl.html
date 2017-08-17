@@ -1,0 +1,43 @@
+﻿<div class="search-toolbar">
+  <form id="wmddgl_form" name="wmddgl_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix">
+        <label class="fl h30_middle">订单编号：</label>
+		<input type="text" class="h28_middle input-txt w100" placeholder="输入订单编号"/>
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">消费者昵称/互生卡号/手机号：</label>
+		<input type="text" class="h28_middle input-txt w190" placeholder="输入消费者昵称/互生卡号/手机号"/>
+      </li>
+      <li>
+        <label>日期范围：</label>
+        <input type="text" name="wmddgl_beginDate" id="wmddgl_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="wmddgl_endDate" id="wmddgl_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix pr">
+		<input type="text" id="wmddgl_yyd" readonly="readonly" placeholder="营业点"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_cx" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="wmddgl_table">
+  	<thead>
+        <tr>
+          <th w_index="ddbh" w_align="left">订单编号</th>
+          <th w_index="sjhm" w_align="left">手机号码</th>
+          <th w_index="khxm" w_align="left">客户姓名</th>
+          <th w_index="fkxx" w_align="left" valign="middle">付款信息<div class="ineblk ml5 infobox2 pr pr1"><input type="text" id="wmddgl_fkxx" readonly="readonly" optionValue=""/></div></th>
+          <th w_index="zt" w_align="left" valign="middle">状态<div class="ineblk ml5 infobox2 pr pr1"><input type="text" id="wmddgl_zt" readonly="readonly" optionValue=""/></div></th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+<div class="none" id="wmddgl-dialog"><p></p></div>

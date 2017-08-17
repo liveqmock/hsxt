@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.ReportsPointDeductionMapper"><!-- map的类 -->
+
+<resultMap type="com.gy.hsxt.rp.bean.ReportsPointDeduction" id="reportsPointDeduction">
+        <!--  账务分录实体类 -->
+        <id column="POINT_DEDUCTION_ID" property="pointDeductionId" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="CHANNEL_TYPE" property="channelType" jdbcType="INTEGER" />
+        <result column="EQUIPMENT_NO" property="equipmentNo" jdbcType="VARCHAR" />
+        <result column="OPER_NO" property="operNo" jdbcType="VARCHAR" />
+        <result column="NDET_POINT" property="ndetPoint" jdbcType="VARCHAR" />
+        <result column="CDET_POINT" property="cdetPoint" jdbcType="VARCHAR" />
+        <result column="STATISTICS_DATE" property="statisticsDate" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+       <!--  <result column="" property="businessType" jdbcType="INTEGER" />
+        <result column="" property="accName" jdbcType="VARCHAR" /> -->
+    </resultMap>
+
+	<!-- 消费积分扣除统计查询 -->
+	<select id="searchReportsPointDeductionListPage"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+	<![CDATA[ 
+		SELECT CUST_ID,
+	       STATISTICS_DATE,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	 GROUP BY CUST_ID, STATISTICS_DATE
+	 ORDER BY STATISTICS_DATE DESC
+	 ]]>
+	</select>
+	
+	<!-- 消费积分扣除统计汇总查询 -->
+	<select id="searchReportsPointDeductionSum"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+	<![CDATA[ 
+		SELECT CUST_ID,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	 GROUP BY CUST_ID
+	 ]]>
+	</select>
+
+	<!-- 消费积分扣除终端统计查询 -->
+	<select id="searchReportsPointDeductionByChannelListPage"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+		SELECT CUST_ID,
+	       STATISTICS_DATE,
+	       CHANNEL_TYPE,
+	       EQUIPMENT_NO,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE  
+	 <![CDATA[
+	       STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	 ]]>
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	   <if test="channelType != null and channelType != '' ">
+			AND CHANNEL_TYPE = #{channelType,jdbcType=INTEGER}
+	   </if>
+	   <if test="equipmentNo != null and equipmentNo != '' ">
+			AND EQUIPMENT_NO = #{equipmentNo,jdbcType=INTEGER}
+	   </if>
+	 GROUP BY CUST_ID, STATISTICS_DATE, CHANNEL_TYPE, EQUIPMENT_NO
+	 ORDER BY STATISTICS_DATE DESC, CHANNEL_TYPE, EQUIPMENT_NO
+	</select>
+	
+	<!-- 消费积分扣除终端统计汇总查询 -->
+	<select id="searchReportsPointDeductionByChannelSum"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+		SELECT CUST_ID,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE  
+	 <![CDATA[
+	       STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	 ]]>
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	   <if test="channelType != null and channelType != '' ">
+			AND CHANNEL_TYPE = #{channelType,jdbcType=INTEGER}
+	   </if>
+	   <if test="equipmentNo != null and equipmentNo != '' ">
+			AND EQUIPMENT_NO = #{equipmentNo,jdbcType=INTEGER}
+	   </if>
+	 GROUP BY CUST_ID
+	</select>
+
+	<!-- 消费积分扣除操作员统计查询 -->
+	<select id="searchReportsPointDeductionByOperListPage"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+		SELECT CUST_ID,
+	       STATISTICS_DATE,
+	       EQUIPMENT_NO,
+	       OPER_NO,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE CHANNEL_TYPE != 2
+	   AND OPER_NO is not null 
+	 <![CDATA[
+	   AND STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	 ]]>
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	   <if test="equipmentNo != null and equipmentNo != '' ">
+			AND EQUIPMENT_NO = #{equipmentNo,jdbcType=INTEGER}
+	   </if>
+	   <if test="operNo != null and operNo != '' ">
+			AND OPER_NO = #{operNo,jdbcType=VARCHAR}
+	   </if>
+	 GROUP BY CUST_ID, STATISTICS_DATE, EQUIPMENT_NO, OPER_NO
+	 ORDER BY STATISTICS_DATE DESC, EQUIPMENT_NO, OPER_NO
+	</select>
+
+	<!-- 消费积分扣除操作员统计汇总查询 -->
+	<select id="searchReportsPointDeductionByOperSum"  resultMap="reportsPointDeduction" parameterType="ReportsPointDeduction">
+		SELECT CUST_ID,
+	       SUM(NDET_POINT) NDET_POINT,
+	       SUM(CDET_POINT) CDET_POINT,
+	       SUM(NDET_POINT) - SUM(CDET_POINT)
+	  FROM t_rp_point_deduction
+	 WHERE CHANNEL_TYPE != 2
+	    AND OPER_NO is not null 
+	 <![CDATA[
+	   AND STATISTICS_DATE >= #{beginDate,jdbcType=VARCHAR}
+	   AND STATISTICS_DATE <= #{endDate,jdbcType=VARCHAR}
+	 ]]>
+	   AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	   <if test="equipmentNo != null and equipmentNo != '' ">
+			AND EQUIPMENT_NO = #{equipmentNo,jdbcType=INTEGER}
+	   </if>
+	   <if test="operNo != null and operNo != '' ">
+			AND OPER_NO = #{operNo,jdbcType=VARCHAR}
+	   </if>
+	 GROUP BY CUST_ID
+	</select>
+
+	<!-- 生成消费积分扣除每日统计数据 -->
+	<select id="generatePointDeduction" statementType="CALLABLE" parameterType="map">
+		{call PKG_RP_POINT_DEDUCTION.p_rp_point_deduction_add(#{beginDate,mode=IN,jdbcType=TIMESTAMP},#{endDate,mode=IN,jdbcType=TIMESTAMP},#{poReturnvalue,mode=OUT,jdbcType=INTEGER})}
+	</select>
+
+</mapper>

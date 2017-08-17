@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.CountryMapper">
+	<!-- 获取某个条记录 -->
+	<select id="getCountry" parameterType="string"
+		resultType="com.gy.hsxt.lcs.bean.Country">
+		SELECT
+			COUNTRY_NO AS countryNo,
+			COUNTRY_CODE AS countryCode,
+			COUNTRY_NAME_CN AS countryNameCn,
+			COUNTRY_NAME AS countryName,
+			PHONE_PREFIX AS phonePrefix,
+			POST_CODE AS postCode,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_LCS_COUNTRY
+		WHERE
+			COUNTRY_NO = #{countryNo}
+	</select>
+	<!-- 查询国家列表 findContryAll -->
+	<select id="findContryAll" resultType="com.gy.hsxt.lcs.bean.Country">
+		SELECT
+			COUNTRY_NO AS countryNo,
+			COUNTRY_CODE AS countryCode,
+			COUNTRY_NAME_CN AS countryNameCn,
+			COUNTRY_NAME AS countryName,
+			PHONE_PREFIX AS phonePrefix,
+			POST_CODE AS postCode,
+			VERSION AS version
+		FROM
+			T_LCS_COUNTRY
+		WHERE
+			DEL_FLAG = 0
+		ORDER BY
+			COUNTRY_NO
+	</select>
+	<!--是否已存在相同 -->
+	<select id="existCountry" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_LCS_COUNTRY
+			WHERE
+				COUNTRY_NO = #{countryNo}
+		]]>
+	</select>
+	<!-- 批量插入数据 -->
+	<insert id="batchInsert" parameterType="com.gy.hsxt.lcs.bean.Country">
+		INSERT INTO T_LCS_COUNTRY (
+			COUNTRY_NO,
+			COUNTRY_CODE,
+			COUNTRY_NAME_CN,
+			COUNTRY_NAME,
+			PHONE_PREFIX,
+			POST_CODE,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.countryNo},
+			#{item.countryCode},
+			#{item.countryNameCn},
+			#{item.countryName},
+			#{item.phonePrefix},
+			#{item.postCode},
+			#{item.delFlag},
+			#{item.version})
+		</foreach>
+	</insert>
+	<!-- 批量更新数据 -->
+	<update id="batchUpdate" parameterType="com.gy.hsxt.lcs.bean.Country">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE T_LCS_COUNTRY
+			<set>
+				COUNTRY_CODE = #{item.countryCode},
+				COUNTRY_NAME_CN = #{item.countryNameCn},
+				COUNTRY_NAME = #{item.countryName},
+				PHONE_PREFIX = #{item.phonePrefix},
+				POST_CODE = #{item.postCode},
+				DEL_FLAG = #{item.delFlag},
+				VERSION = #{item.version}
+			</set>
+			WHERE
+				COUNTRY_NO = #{item.countryNo}
+		</foreach>
+	</update>
+	
+	<select id="findCountryForDelta" parameterType="long" 
+		resultType="com.gy.hsxt.lcs.bean.Country">
+		SELECT
+			COUNTRY_NO AS countryNo,
+			COUNTRY_CODE AS countryCode,
+			COUNTRY_NAME_CN AS countryNameCn,
+			COUNTRY_NAME AS countryName,
+			PHONE_PREFIX AS phonePrefix,
+			POST_CODE AS postCode,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_LCS_COUNTRY
+		WHERE
+			VERSION > #{version}
+		ORDER BY version
+	</select>
+</mapper>

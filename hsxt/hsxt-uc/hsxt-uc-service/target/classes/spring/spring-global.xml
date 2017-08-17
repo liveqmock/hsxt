@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+		<!-- disconf.properties存放路径 -->
+		<constructor-arg name="disconfFile"
+			value="file:${user.dir}/conf/hsxt-uc/disconf.properties" />
+
+		<!-- 本地配置文件[只有本地存在, 远程没有上传] -->
+		<property name="locations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-uc/hsxt-uc.properties</value>
+				<value>file:${user.dir}/conf/hsxt-uc/hsi-lc.properties</value>
+				<value>file:${user.dir}/conf/hsxt-uc/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsxt-uc/jdbc.properties</value>
+				<value>file:${user.dir}/conf/redis.properties</value>
+			</list>
+		</property>
+
+		<!-- 远程配置文件[远程存在, 将会同步到本地] <property name="remoteLocations"> <list> <value>file:${user.dir}/conf/hsi-xx/redis.properties</value> 
+			</list> </property> -->
+	</bean>
+
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.baidu,com.gy.hsxt.uc.*" />
+
+	<!-- jdbc -->
+	<import resource="classpath:spring/spring-datasource.xml" />
+	<!-- dubbo -->
+	<import resource="classpath:spring/spring-dubbo-base.xml" />
+	<import resource="classpath:spring/spring-dubbo-consumer.xml" />
+	<import resource="classpath:spring/spring-dubbo-provider.xml" />
+
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" /><!--注入redis缓存工具类 -->
+		<property name="baseDataService" ref="baseDataService" /><!--注入LCS 
+			dubbo服务 -->
+	</bean>
+
+</beans>

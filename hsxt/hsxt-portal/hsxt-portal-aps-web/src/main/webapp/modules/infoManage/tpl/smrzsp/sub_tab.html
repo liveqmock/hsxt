@@ -1,0 +1,22 @@
+<div class="infobox">
+		<div class="pr">
+		<div class="tabNav_s"></div>
+		<ul class="tabList_s clearfix">
+			<li id="ywblxx"><a class="active">业务办理信息</a></li>
+			<li id="blztxx"><a>办理状态信息</a></li>
+		</ul>
+		<% if(obj.num == 'xfzspcx'||obj.num == 'qyspcx'){ %> 
+			
+		<%} else { %>
+			<% if(obj.status == '0'){ %>
+			<div class="submit_top"><a class="btn_bg viewSample_btn" id="shtj_btn">审核提交</a></div>
+			<% }else if(obj.status == '1'){ %>
+			<div class="submit_top"><a class="btn_bg viewSample_btn" id="fhtj_btn">复核提交</a></div>
+			<%}%>
+		<%}%>
+		
+	</div>
+	<div class="infobox_sro" id="infobox"></div>
+</div>
+
+<div id="dialogBox" class="none"></div>

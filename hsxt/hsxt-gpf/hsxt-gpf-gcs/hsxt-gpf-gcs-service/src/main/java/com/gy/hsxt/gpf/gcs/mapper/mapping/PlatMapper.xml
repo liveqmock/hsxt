@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.PlatMapper">
+
+	<resultMap type="com.gy.hsxt.gpf.gcs.bean.Plat" id="platMap">
+		<id column="PLAT_NO" property="platNo"/>
+		<result column="CURRENCY_NO" property="currencyNo"/>
+		<result column="PLAT_NAME_CN" property="platNameCn"/>
+		<result column="LANGUAGE_CODE" property="languageCode"/>
+		<result column="COUNTRY_NO" property="countryNo"/>
+		<result column="PLAT_ENTRY_IP" property="platEntryIP"/>
+		<result column="PLAT_ENTRY_PORT" property="platEntryPort"/>
+		<result column="TIME_OFFSET" property="timeOffset"/>
+		<result column="TECH_SUPPORT_ADDRESS" property="techSupportAddress"/>
+		<result column="TECH_SUPPORT_PHONE" property="techSupportPhone"/>
+		<result column="TECH_SUPPORT_CONTACT" property="techSupportContact"/>
+		<result column="TECH_SUPPORT_CORPNAME" property="techSupportCorpName"/>
+		<result column="CONTRACT_VERIFY_ADDR" property="contractVerifyAddr"/>
+		<result column="OFFICIAL_WEB_BACK" property="officialWebBack"/>
+		<result column="ULS_WEB_BACK" property="ulsWebBack"/>
+		<result column="PLAT_WEBSITE" property="platWebSite"/>
+		<result column="MANAGE_WEBSITE" property="manageWebSite"/>
+		<result column="SERVICE_WEBSITE" property="serviceWebSite"/>
+		<result column="COMPANY_WEBSITE" property="companyWebSite"/>
+		<result column="PERSON_WEBSITE" property="personWebSite"/>
+		<result column="WEBPAY_JUMPURL" property="webPayJumpUrl"/>
+		<result column="DEL_FLAG" property="delFlag"/>
+		<result column="VERSION" property="version"/>
+	</resultMap>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.gpf.gcs.bean.Plat">
+		INSERT INTO T_GCS_PLAT (
+			PLAT_NO,
+			CURRENCY_NO,
+			PLAT_NAME_CN,
+			LANGUAGE_CODE,
+			COUNTRY_NO,
+			PLAT_ENTRY_IP,
+			PLAT_ENTRY_PORT,
+			TIME_OFFSET,
+			TECH_SUPPORT_ADDRESS,
+			TECH_SUPPORT_PHONE,
+			TECH_SUPPORT_CONTACT,
+			TECH_SUPPORT_CORPNAME,
+			CONTRACT_VERIFY_ADDR,
+			OFFICIAL_WEB_BACK,
+			ULS_WEB_BACK,
+			PLAT_WEBSITE,
+			MANAGE_WEBSITE,
+			SERVICE_WEBSITE,
+			COMPANY_WEBSITE,
+			PERSON_WEBSITE,
+			WEBPAY_JUMPURL, 
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+			(
+				#{platNo},
+				#{currencyNo},
+				#{platNameCn},
+				#{languageCode},
+				#{countryNo},
+				#{platEntryIP},
+				#{platEntryPort},
+				#{timeOffset},
+				#{techSupportAddress},
+				#{techSupportPhone},
+				#{techSupportContact},
+				#{techSupportCorpName},
+				#{contractVerifyAddr},
+				#{officialWebBack},
+				#{ulsWebBack},
+				#{platWebSite},
+				#{manageWebSite},
+				#{serviceWebSite},
+				#{companyWebSite},
+				#{personWebSite},
+				#{webPayJumpUrl}, 
+				#{delFlag},
+				#{version}
+			)
+	</insert>
+	<!-- 获取某个条记录 -->
+	<select id="getPlat" parameterType="string" resultMap="platMap">
+		SELECT
+			*
+		FROM
+			T_GCS_PLAT
+		WHERE
+			PLAT_NO = #{platNo}
+	</select>
+	<!-- 根据国家代码获取平台信息 -->
+	<select id="getPlatByCountryNo" parameterType="string" resultMap="platMap">
+		SELECT
+			*
+		FROM
+			T_GCS_PLAT
+		WHERE
+			COUNTRY_NO = #{countryNo}
+	</select>
+	<!-- 获取列表 -->
+	<select id="getPlatListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Plat" resultMap="platMap">
+		SELECT
+			*
+		FROM
+			T_GCS_PLAT
+		WHERE
+			DEL_FLAG = 0
+		<if test="platNo != null and platNo != '' "> 
+				<![CDATA[  AND PLAT_NO=#{platNo}  ]]>
+		</if>
+		<if test="currencyNo != null and currencyNo != '' "> 
+				<![CDATA[  AND CURRENCY_NO=#{currencyNo}  ]]>
+		</if>
+		<if test="platNameCn != null and platNameCn != '' "> 
+				<![CDATA[  AND PLAT_NAME_CN like CONCAT('%',#{platNameCn},'%') escape '/'  ]]>
+		</if>
+		  order by PLAT_NO
+	</select>
+	<!-- 获取下拉菜单列表 -->
+	<select id="findAllPlat" resultMap="platMap">
+	SELECT
+		* 
+	FROM
+		T_GCS_PLAT
+	WHERE
+		DEL_FLAG = FALSE
+	ORDER BY
+		PLAT_NO
+	</select>
+	<!-- 更新一条记录 -->
+	<update id="update" parameterType="com.gy.hsxt.gpf.gcs.bean.Plat">
+		 update T_GCS_PLAT
+			<set>
+				CURRENCY_NO=#{currencyNo},
+				PLAT_NAME_CN=#{platNameCn},
+				LANGUAGE_CODE=#{languageCode},
+				COUNTRY_NO=#{countryNo},
+				PLAT_ENTRY_IP=#{platEntryIP},
+				PLAT_ENTRY_PORT=#{platEntryPort},
+				TIME_OFFSET=#{timeOffset},
+				TECH_SUPPORT_ADDRESS = #{techSupportAddress},
+				TECH_SUPPORT_PHONE = #{techSupportPhone},
+				TECH_SUPPORT_CONTACT = #{techSupportContact},
+				TECH_SUPPORT_CORPNAME = #{techSupportCorpName},
+				CONTRACT_VERIFY_ADDR = #{contractVerifyAddr},
+				OFFICIAL_WEB_BACK = #{officialWebBack},
+				ULS_WEB_BACK = #{ulsWebBack},
+				PLAT_WEBSITE = #{platWebSite},
+				MANAGE_WEBSITE = #{manageWebSite},
+				SERVICE_WEBSITE = #{serviceWebSite},
+				COMPANY_WEBSITE = #{companyWebSite},
+				PERSON_WEBSITE = #{personWebSite},
+				WEBPAY_JUMPURL = #{webPayJumpUrl}, 
+				VERSION=#{version}
+			</set>
+		 where PLAT_NO=#{platNo}
+	</update>
+	<!-- 删除一条记录 -->
+	<update id="delete" parameterType="com.gy.hsxt.gpf.gcs.bean.Plat">
+		 update T_GCS_PLAT
+			<set>
+				DEL_FLAG=#{delFlag},
+				VERSION=#{version}
+			</set>
+		  where PLAT_NO=#{platNo}
+	</update>
+	<!--是否已存在相同代码 -->
+	<select id="existPlat" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_GCS_PLAT
+			WHERE
+				PLAT_NO = #{platNo}
+		]]>
+	</select>
+	<!--是否已存在相同IP -->
+	<select id="existPlatIP" resultType="string">
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_PLAT
+		WHERE
+			PLAT_ENTRY_IP = #{platEntryIP}
+		]]>
+	</select>
+	<!-- 读取大于某个版本号的数据 -->
+	<select id="queryPlatSyncData" resultMap="platMap">
+		SELECT
+			* 
+		FROM
+			T_GCS_PLAT
+		WHERE
+			VERSION > #{version}
+		ORDER BY
+			PLAT_NO
+	</select>
+</mapper>

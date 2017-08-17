@@ -1,0 +1,45 @@
+<div class="info_700 bc none" style="width:700px;" id="confirmCardStyleDiv">
+	<form action="" id="confirmForm">
+		<ul class="cssform2 mt20 clearfix">
+			<li class="clearfix">
+				<label class="title-txt w115" style="height:190px;line-height:60px; vertical-align:middle;">设计稿</label>
+				<div class="fl p20">
+					<img id="microPicShow" width="381" height="118" class="none"><br/><br/>
+					<input class="mr5 input_checkbox" type=checkbox id="checkboxConfirm" name="checkboxConfirm">确认设计稿
+				</div>
+			</li>
+		</ul>
+		<ul class="cssform2 mt20 clearfix">
+			<li class="clearfix">
+				<label class="title-txt w115" style="height:60px;line-height:60px; vertical-align:middle;">备注说明</label>
+				<textarea class="fl ml5 h50 w300 rsn pt5 pb5" id="remark" name="remark" placeholder="输入备注说明,300个字内" style="width:565px"></textarea>
+			</li>
+		</ul>
+		<div class="sample_btn mt10 clearfix"><span >附件：</span>
+			<a id="markAccessoryShow" class="mr10" >附件</a>
+		</div>
+
+		<div class="mt20">
+			<div class="mt20 clearfix w200 bc">
+				<a href="javascript:;" id="confirmBtn" class="btn_bg submit fl">确　定</a>
+	        	<a href="javascript:;" id="confirmBackBtn" class="btn_bg submit fr">返　回</a>
+	        	<input type="hidden" id='orderNo' value="<%= orderNo%>"/>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="notUploadCardStyle" class="none">
+	<div class="mt20">&nbsp;</div>
+	<div class="bc mt50">
+		<div class="page_tips bc">
+			<h1 class="f16 fb tc">温馨提示</h1>
+			<p class="f14 fb tc">平台尚未上传设计稿!</p>
+		</div>
+	</div>
+	<div class="mt20">
+		<div class="mt20 clearfix w200 bc">
+			<a href="javascript:;" id="noConfirmBackBtn" class="btn_bg submit fr" style="margin-right:50px">返　回</a>
+		</div>
+	</div>
+</div>

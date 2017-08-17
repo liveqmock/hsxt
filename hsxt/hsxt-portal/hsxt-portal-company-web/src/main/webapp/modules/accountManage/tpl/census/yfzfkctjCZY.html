@@ -1,0 +1,40 @@
+<div class="search-toolbar">
+  <form id="scpoint_dsCZY_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80"  />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80"  />
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">操作员编号：</label>
+		<div class="fl combobox_style1 w140"><input id="scpoint_dsCZY_code" value="" placeholder="请输入操作员编号" /></div>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_dsCZY_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont" id="detailTpl">
+  <table id="scpoint_dsCZY_result_table" class="bsgrid">
+  	<thead>
+        <tr>
+            <th colspan="2" style="text-align:right;">合计：</th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+        </tr>
+        <tr>
+          <th w_index="statisticsDate" w_align="left">统计日期</th>
+          <th w_index="operNo" w_align="left">操作员编号</th>
+          <th w_render="operate" w_align="left">消费积分扣除数</th>
+          <th w_render="operate" w_align="left">消费积分撤单数</th>
+          <th w_render="operate" w_align="left">实际扣除数</th>
+        </tr>
+	</thead>
+  </table>
+</div>

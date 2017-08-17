@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.bm.mapper.BmlmDetailMapper">
+
+    <!-- 再增值积分实体映射 -->
+    <resultMap id="bmlmDetailResult" type="com.gy.hsxt.bs.bean.bm.BmlmDetail">
+        <id column="BMLM_ID" property="bmlmId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="CALC_START_TIME" property="calcStartTime"/>
+        <result column="CALC_END_TIME" property="calcEndTime"/>
+        <result column="POINT_REF" property="pointREF"/>
+        <result column="BASE_VAL" property="baseVal"/>
+        <result column="PERCENT" property="percent" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="BMLM_POINT" property="bmlmPoint"/>
+        <result column="TOTAL_ROW" property="totalRow"/>
+        <result column="TAX_RATE" property="taxRate"/>
+        <result column="TAX" property="tax"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gy.hsxt.bs.bean.bm.BmlmDetail">
+        INSERT INTO T_BS_BMLM_DETAIL  (
+            BMLM_ID,
+            RES_NO,
+            CUST_ID,
+            CALC_START_TIME,
+            CALC_END_TIME,
+            POINT_REF,
+            BASE_VAL,
+            PERCENT,
+            BMLM_POINT,
+            TOTAL_ROW,
+            TAX_RATE,
+            TAX,
+            REMARK,
+            CREATED_DATE
+        ) VALUES (
+            #{bmlmId},
+            #{resNo},
+            #{custId},
+            #{calcStartTime},
+            #{calcEndTime},
+            #{pointREF},
+            #{baseVal},
+            #{percent},
+            #{bmlmPoint},
+            #{totalRow},
+            #{taxRate},
+            #{tax},
+            #{remark},
+            systimestamp
+        )
+    </insert>
+
+    <select id="selectOneById" parameterType="java.lang.String" resultMap="bmlmDetailResult">
+        SELECT *
+        FROM T_BS_BMLM_DETAIL
+        WHERE BMLM_ID = #{bmlmId}
+    </select>
+
+    <!-- 查询本平台各个企业申报的数量-->
+    <select id="selectBmlmSum" parameterType="java.util.Map" resultType="com.gy.hsxt.bs.bm.bean.BmlmSum">
+        SELECT
+            t.SPREAD_ENT_CUST_ID    custId,
+            count(t.TO_ENT_CUST_ID) sum
+        FROM T_BS_DECLARE_ENT t
+        WHERE t.OPEN_ACC_FLAG = 1
+              AND t.OPEN_ACC_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+              AND t.OPEN_ACC_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        GROUP BY t.SPREAD_ENT_CUST_ID
+    </select>
+
+    <select id="selectBmlmListPage" parameterType="com.gy.hsxt.bs.bean.bm.BmlmQuery" resultMap="bmlmDetailResult">
+        SELECT t.*
+        FROM T_BS_BMLM_DETAIL t
+        WHERE t.CUST_ID = #{custId}
+            <if test="startDate != null and startDate != ''">
+                AND t.CREATED_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+            </if>
+        <if test="endDate !=null and endDate != ''">
+            AND t.CREATED_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+    </select>
+</mapper>

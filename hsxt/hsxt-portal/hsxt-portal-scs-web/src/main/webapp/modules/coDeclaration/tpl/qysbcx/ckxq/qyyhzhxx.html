@@ -1,0 +1,112 @@
+ 
+<div id="qyyhzhxx_1" class="view_info info_500">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tbody><tr>
+			<td class="view_item" width="30%">账户名称</td>
+			<td class="view_text" width="70%"><%=obj.accountName%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">结算币种</td>
+			<td class="view_text" width="70%"><span class="red"><%=obj.currencyName%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">开户银行</td>
+			<td class="view_text" width="70%" id="bankCodeText"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">开户地区</td>
+			<td class="view_text" width="70%" id="placeName"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">银行账号</td>
+			<td class="view_text" width="70%" id="accountNoText"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">默认银行账号</td>
+			<td class="view_text" width="70%" id="isdefaultText"></td>
+		</tr>
+	</tbody></table>
+</div>
+
+
+
+ 
+<div id="qyyhzhxx_2" class="bc info_320 none">
+	<div class="cssform_320">
+		<form>
+		 
+				<ul class="cssform clearfix">
+					<li class="col2 pr">
+    					<label class="title-txt">账户名称</label>
+    					<div class="cont-int">
+						<input type="text" id="name" class="inpt w176" value="深圳市归一科技有限公司" readonly="readonly"></div>
+						<div class="hint"><!--提示--></div>
+					</li>
+					<li class="col2 pr">
+						<label class="title-txt">结算币种</label>
+						<div class="cont-int"><input class="inpt w176" type="text" value="人民币" readonly="readonly"></div>
+						<div class="hint"><!--提示--></div>
+					</li>
+					<li class="col2 pr">
+    					<label class="title-txt">开户银行</label>
+    					<div class="cont-chk tbox2 wseltbox combobox_style">
+							<select id="brandSelect" name="" style="display: none;">
+								<option></option>
+								<option>中国银行</option>
+								<option>建设银行</option>
+							</select><span class="custom-combobox"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input title="" class="custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left ui-autocomplete-input" autocomplete="off"><a tabindex="-1" title="显示所有选项" class="ui-button ui-widget ui-state-default ui-button-icon-only custom-combobox-toggle ui-corner-right" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"></span><span class="ui-button-text"></span></a></span>
+						</div>
+						<div class="hint"><!--提示--></div>
+					</li>
+					<li class="col2 pr">
+    					<label class="title-txt">开户地区</label>
+    					<div class="cont-chk tbox2 clearfix">
+							<div class="two_column_select fl">
+							 
+								
+															<input id='sel_khdq' placeholder="--请选择--"
+options="[{name:'广东省',value:'1'},{name:'江西省',value:'2'},{name:'湖北省',value:'3'}]" optionValue=""  readonly="readonly"  />
+														 
+							</div>
+							<div class="two_column_select fr">
+								 <input id='sel_khcs' placeholder="--请选择--"
+options="[{name:'深圳市',value:'1'},{name:'东莞市',value:'2'},{name:'广州市',value:'3'}]" optionValue=""  readonly="readonly"  />
+															
+								
+								
+								
+							</div>
+						</div>
+						<div class="hint"><!--提示--></div>
+					</li>
+					<li class="col2 pr">
+						<label for="name" class="title-txt">银行账号</label>
+						<div class="cont-int">
+						<input type="text" id="name" class="inpt w176 input_gray" placeholder="输入银行账号"  ></div>
+						<div class="hint"><!--提示--></div>
+					</li>
+					<li class="col2 pr">
+						<label for="name" class="title-txt">确认账号</label>
+						<div class="cont-int">
+						<input type="text" id="name" class="inpt w176 input_gray" placeholder="确认银行账号"  ></div>
+						<div class="hint"><!--提示--></div>
+						</li>
+						<li class="col2 pr">
+							<label for="name" class="title-txt">默认银行账号</label>
+						<div class="cont-int text_middle tc setdiy190">
+						<input type="radio" id="name" class="radio_input ml10" value="0" checked="checked"> 否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="name" class="radio_input ml10" value="0"> 是</div><div class="hint"><!--提示--></div>
+						</li>
+				</ul>
+	 
+		</form>
+	</div>
+</div>
+
+
+<div id="qyyhzhxx_dialog" class="none" title="企业银行账户信息修改确认">
+	<p class="autowidth">
+
+	</p>
+</div>
+ 
+	 

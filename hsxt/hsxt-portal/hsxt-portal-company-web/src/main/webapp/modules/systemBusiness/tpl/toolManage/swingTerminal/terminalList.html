@@ -1,0 +1,36 @@
+<div class="search-toolbar">
+  <form id="gjsgcx_form" name="gjsgcx_form">
+	<ul class="cssform clearfix">
+	  <li class="clearfix pr">
+		<label class="fl h30_middle pr10">工具类型</label><input type="text" id="deviceType" readonly="readonly" placeholder="请选择"/>
+	  </li>
+	  <li class="clearfix pr">
+		<label class="fl h30_middle">终端编号：</label><input type="text" id="terminalNo" class="h28_middle input-txt w100" placeholder="请输入终端编号" maxlength="15"/>
+	  </li>	  	
+	  <li>
+		<div class="cont-int">
+		  <button id="terminal_searchBtn" class="btn-search" type="button">查询</button>
+		</div>
+	  </li>
+	</ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="terminal_table" class="bsgrid">
+  	<thead>
+        <tr>
+          <th w_num="line" w_align="left">设备序号</th>
+          <th w_index="deviceType" w_render="operate" w_align="left">工具类型</th>
+          <th w_index="deviceNO" w_render="operate" w_align="left">终端编号</th>
+          <th w_index="status" w_render="operate" w_align="left">状态</th>
+          <th w_render="operate" w_align="left">详情</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+
+<!--弹出框内容及脚本开始 -->
+<div id="devicePointRatio-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

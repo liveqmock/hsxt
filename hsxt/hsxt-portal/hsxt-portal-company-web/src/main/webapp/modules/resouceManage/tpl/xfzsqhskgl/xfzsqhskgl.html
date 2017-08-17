@@ -1,0 +1,45 @@
+<div class="search-toolbar">
+  <form id="scpoint_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>日期：</label>
+        <input type="text" name="scpoint_beginDate" id="scpoint_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="scpoint_endDate" id="scpoint_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">所在地区：</label>
+		<div class="fl mr10 pr"><input id="scpoint_area_1" readonly="readonly" placeholder="请选择"/></div>
+		<div class="fl pr"><input id="scpoint_area_2" readonly="readonly" placeholder="请选择"/></div>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+      <li class="fr">
+        <div class="cont-int">
+          <button id="scpoint_settingBtn" class="btn-search" type="button">发卡申请设置</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table">
+  	<thead>
+        <tr>
+            <th w_index="date">申请日期</th>
+            <th w_index="name">申请人姓名</th>
+            <th w_index="area">所在地区</th>
+            <th w_index="mobile">申请人手机号码</th>
+            <th w_index="address">收件地址</th>
+            <th w_index="status">状态</th>
+            <th w_render="operate">操作</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+<div id="xfzsqhskgl-dialog" class="none">
+  <p></p>
+</div>

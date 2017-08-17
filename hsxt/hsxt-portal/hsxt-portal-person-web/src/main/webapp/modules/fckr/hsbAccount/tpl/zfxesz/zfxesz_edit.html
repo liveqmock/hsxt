@@ -1,0 +1,50 @@
+<div id="zfxesz_editTpl" class="busibox p20 none">
+	<div class="cssform_400 pt20">
+		<form id="zfxesz_editForm" name="zfxesz_editForm">
+			<ul class="cssform2 clearfix">				
+				<li class="clearfix pr" id="dbhsbzfxe_li">
+					<label class="title-txt" style="width:140px;">单笔互生币支付限额</label>
+					<input id="txtSingleQuota" name="txtSingleQuota" class="fl w185 h30_middle ml5" type="text" value="" maxlength="11" placeholder="输入单笔互生币支付限额" maxlength="20" />
+					<div class="hint clearfix">
+						<span id="dbhsbzfxe_btn_edit" class="fl mt4"><i class="zfxesz-btn"></i></span>
+						<a class="cl-blue ml10 dbxe_btn fl">说明</a>
+					</div>
+					<div class="none prompt_div dbxe_prompt" style="left:470px;">
+						<ul>
+							<li>启用：表示每次使用互生币支付时，单笔支付金额不得超过此限额；</li>
+							<li>停用：表示每次使用互生币支付时，单笔支付金额金额不限。</li>
+						</ul>
+					</div>
+				</li>
+				<li class="clearfix pr" id="mrhsbzfxe_li">
+					<label class="title-txt" style="width:140px;">每日互生币支付限额</label>
+					<input id="txtDayQuota" name="txtDayQuota" class="fl w185 h30_middle ml5" type="text" value="" maxlength="11" placeholder="输入每日互生币支付限额"  maxlength="20" />
+					<div class="hint clearfix">
+						<span id="mrhsbzfxe_btn_edit" class="fl mt4"><i class="zfxesz-btn"></i></span>
+						<a class="cl-blue ml10 mrxe_btn fl">说明</a>
+					</div>
+					<div class="none prompt_div mrxe_prompt" style="left:470px;">
+						<ul>
+							<li>启用：表示每次使用互生币支付时，当日(00：00 - 24：00)累计支付金额不得超过此限额；</li>
+							<li>停用：表示每次使用互生币支付时，当日(00：00 - 24：00)累计支付金额不限。</li>
+						</ul>
+					</div>
+				</li>
+				<li class="clearfix">
+					<label class="title-txt" style="width:140px;">交易密码</label><input id="txtDealPwd" name="txtDealPwd" class="fl w185 h30_middle ml5" type="password" value="" placeholder="输入交易密码"  autocomplete="off"  maxlength="8" /><div class="hint"></div>
+				</li>
+				<li class="clearfix pr">
+					<label class="title-txt" style="width:140px;">验证码</label>
+					<input id="txtValidateCode" name="txtValidateCode" name="code" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入动态验证码" />
+					<div class="hint" style="width:200px;left:405px;">
+					<span class="fl mr5"><img src="" width="77" id="imgValidateCode" height="30"></span>
+					<a id="aValidateCodeRefresh" class="ml10 blue">看不清，换一张</a></div>
+				</li>
+			</ul>
+			<div class="mt20 w200 clearfix bc">
+				<a id="zfxesz_tj_btn" class="hs_btn myhs_ajax_btn fl">提&#12288;交</a>
+				<a id="zfxesz_qx_btn" class="hs_btn myhs_ajax_btn fr">取&#12288;消</a>
+			</div>
+		</form>
+	</div>
+</div>

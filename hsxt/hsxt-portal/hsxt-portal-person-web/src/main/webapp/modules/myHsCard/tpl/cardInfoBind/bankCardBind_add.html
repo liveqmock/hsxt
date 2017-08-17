@@ -1,0 +1,68 @@
+<form id="bankInfo_add_form">
+<input type="hidden" name="countryCodeHid" id="countryCodeHid" value="">
+<!--银行卡绑定-->
+<div class="item_box none" id="bankInfo_add">
+	<div class="register_info mt40 info_900">
+		<h1 class="acct-tips">
+			<p class="tcr_blue fb ml200 tl">温馨提示：</p>
+			<p class="tl lh30 ml200 pb30">
+			1、可最多添加<span id="add_maxBindNum"></span>张银行卡信息，可设其中一个银行卡为默认银行账号；<br/>
+			2、填写的银行卡开户名称须与真实姓名一致，银行卡结算币种与结算币种一致，开户银行、开户地区须填写正确；<br/>
+			3、当提交的信息不符合第2条时，将影响货币转银行业务正常办理。
+			</p>
+		</h1>
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name" rel="labAccountName">真实姓名</label>
+					<input type="text" id="companyName_bank_add" name="companyName_bank_add" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">结算币种</label>
+					<input type="text" id="currencyName_bank_add" name="currencyName_bank_add" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix">
+					<label for="name">开户银行</label>
+					<div class="combobox_style_2 fl ml5"><select id="bankNo_bank_add" name="bankNo_bank_add" style="width:190px"></select></div><div class="hint red">*</div>
+					</li>
+					<li class="register_row info_320 clearfix">
+					<label for="name">默认银行卡号</label>
+					<span class="fl mr20"><input type="radio" id="default_bank_add_false" name="default_bank_add" value="0" style="width: 16px;" checked="checked"/> 否</span><span class="fl"><input type="radio" id="default_bank_add_true" name="default_bank_add" style="width:16px;" value="1"/> 是</span><div class="hint"></div>
+					</li>
+				</ul>
+				<ul class="fr">
+					<li class="register_row info_320 clearfix"><label for="name">开户地区</label>
+					<select style="width: 90px;" id="bankArea_bank_add" name="bankArea_bank_add"></select> <select style="width:90px;" name="bankArea2_bank_add" id="bankArea2_bank_add"></select>
+					<div class="hint red">*</div>	
+					</li>
+					<li class="register_row info_320 clearfix"><label for="name">银行卡号</label>
+					<input type="text" id="bankAcccount_bank_add" name="bankAcccount_bank_add" class="input_gray" value="" maxlength="30" placeholder="请输入5-30位银行卡号"/><div class="hint red">*</div>
+					</li>
+					<li class="register_row info_320 clearfix"><label for="name">确认卡号</label>
+					<input type="text" id="bankAcccount_bank_add_sure" name="bankAcccount_bank_add_sure" class="input_gray" value="" maxlength="30" placeholder="请输入5-30位银行卡号"/><div class="hint red">*</div>
+					</li>
+				</ul>
+			</div>
+			<div class="tc two_button mt20">
+				<a id="return_bank_add" href="javascript:;" class="hs_btn Thick_btn">返回</a> <a id="submit_bank_add" href="javascript:;" class="hs_btn Thick_btn">立即绑定</a>
+			</div>
+		</fieldset>
+	</div>
+</div>
+</form>
+
+<!--弹出框内容-->
+<div class="jqp-dialog" style="display: none;">
+	<div class="title">银行绑定</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			<td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">银行绑定成功！</span></div></td>
+			</tr>
+			<tr>
+			<td height="50"><a href="javascript:;" class="hs_btn ml50 myhs_ajax_btn" id="kxxbd_yhkbd_btn2" data-id="kxxbd_yhkbd2" onClick="Kxxbd_ajax(this)">确定</a></td>
+			</tr>
+		</table>
+	</div>
+</div>

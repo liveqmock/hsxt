@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.es.distribution.mapper.RetreatAllocMapper"> 
+	<!-- 查询已分配的分录信息 -->
+	<select id="queryAllocEntry" parameterType="java.lang.String" resultType="Alloc">
+		SELECT
+			ENTRY_NO "entryNo", 
+			CUST_ID "custId", 
+			HS_RES_NO "hsResNo",
+			ACC_TYPE "accType", 
+			ADD_AMOUNT "addAmount", 
+			SUB_AMOUNT "subAmount", 
+			WRITE_BACK "writeBack", 
+			TRANS_TYPE "transType",
+			REL_TRANS_NO "relTransNo", 
+			ISACTIVE "isActive", 
+			BATCH_NO "batchNo", 
+			PER_RES_NO "perResNo", 
+			SOURCE_BATCH_NO "sourceBatchNo", 
+			CUST_TYPE "custType", 
+			CHANNEL_TYPE "channelType", 
+			SOURCE_TRANS_NO "sourceTransNo",
+			EQUIPMENT_TYPE "equipmentType",
+			SOURCE_TRANS_DT "sourceTransDate"
+		FROM T_PS_EC_ENTRY
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+	<!-- 查询已分配的积分信息 -->
+	<select id="queryAllocPoint" parameterType="java.lang.String" resultType="Alloc">
+		SELECT
+			ALLOC_NO "allocNo", 
+			CUST_ID "custId", 
+			HS_RES_NO "hsResNo", 
+			PER_RES_NO "perResNo", 
+			ACC_TYPE "accType", 
+			ADD_AMOUNT "addAmount", 
+			TRANS_TYPE "transType", 
+			REL_TRANS_NO "relTransNo", 
+			ISACTIVE "isActive", 
+			BATCH_NO "batchNo",
+			CUST_TYPE "custType", 
+			SOURCE_TRANS_NO "sourceTransNo"
+		FROM T_PS_PIONT_ALLOC
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- 根据原单查询流水号-->
+	<select id="queryOnlineOldTransNo" parameterType="String" resultType="EntryAllot">
+		SELECT TON.ENTRY_NO "ENTRYNO",
+		TON.REL_TRANS_NO "relTransNo",
+		TON.REL_ENTRY_NO "relEntryNo",
+		TON.PER_CUST_ID "perCustId",
+		TON.ENT_CUST_ID "entCustId"
+		FROM T_PS_ONLINE_ENTRY TON
+		WHERE TON.ENTRY_NO!=TON.REL_ENTRY_NO
+		START WITH  TON.REL_TRANS_NO=#{OLDTRANSNO}
+		CONNECT BY NOCYCLE PRIOR TON.ENTRY_NO=TON.REL_ENTRY_NO
+	</select>
+
+
+
+	<!-- 查询新已分配的分录信息 -->
+	<select id="queryOnlineEntryNo" parameterType="java.lang.String" resultType="EntryAllot">
+		SELECT
+		TON.ENTRY_NO "ENTRYNO",
+		TON.REL_TRANS_NO "relTransNo",
+		TON.REL_ENTRY_NO "relEntryNo",
+		TON.PER_CUST_ID "perCustId",
+		TON.ENT_CUST_ID "entCustId"
+		FROM T_PS_ONLINE_ENTRY TON
+		WHERE TON.REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询新已分配的分录信息 -->
+	<select id="queryOnlineEntry" parameterType="java.lang.String" resultType="EntryAllot">
+		SELECT
+		TOE.ENTRY_NO "entryNo",
+		TOE.TRANS_TYPE "transType",
+		TOE.REL_TRANS_NO "relTransNo",
+		TOE.BATCH_NO "batchNo",
+		TOE.SOURCE_TRANS_NO "sourceTransNo",
+		TOE.REL_ENTRY_NO "relEntryNo",
+		TOE.ISSETTLE "isSettle",
+		TOE.ENT_HS_NO "entHsNo",
+		TOE.PER_HS_NO "perHsNo",
+		TOE.ENT_CUST_ID "entCustId",
+		TOE.PER_CUST_ID "perCustId",
+		TOE.ENT_ADD_AMOUNT "entAddAmount",
+		TOE.ENT_SUB_AMOUNT "entSubAmount",
+		TOE.PER_ADD_AMOUNT "perAddAmount",
+		TOE.PER_SUB_AMOUNT "perSubAmount",
+		TOE.ENT_ADD_POINT_AMOUNT "entAddPointAmount",
+		TOE.ENT_SUB_POINT_AMOUNT "entSubPointAmount",
+		TOE.PER_ADD_POINT_AMOUNT "perAddPointAmount",
+		TOE.PER_SUB_POINT_AMOUNT "perSubPointAmount",
+		TOE.SETTLE_AMOUNT "settleAmount",
+		TOE.SOURCE_TRANS_DATE "sourceTransDate",
+		TPN.TRANS_STATUS "transStatus",
+		TPN.ISSETTLE "isOldSettle",
+		TPN.PER_POINT "perPoint",
+		TPN.ENT_POINT "entPoint",
+		TPN.TRANS_AMOUNT "transAmount",
+		TPN.SOURCE_CURRENCY_CODE "sourceCurrencyCode",
+		TPN.CHANNEL_TYPE "channelType",
+		TPN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+		TPN.CURRENCY_RATE "currencyRate",
+		TPN.ENT_NAME "entName",
+		TPN.MALL_NAME "mallName",
+		TPN.IS_DEDUCTION "isDeduction"
+		FROM T_PS_ONLINE_ENTRY TOE JOIN T_PS_NDETAIL TPN ON TOE.REL_TRANS_NO=TPN.TRANS_NO
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+</mapper>
+

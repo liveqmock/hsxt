@@ -1,0 +1,25 @@
+﻿<form id="szzk_form" name="szzk_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="40%">订单金额：</td>
+      <td id="szzk_ddje"><%=obj.ddje%></td>
+    </tr>
+    <tr>
+      <td align="right">已预付商家定金：</td>
+      <td><%=obj.yyfsjdj%></td>
+    </tr>
+    <tr>
+      <td align="right">折扣率（70-100）%：</td>
+      <td><input type="text" id="szzk_zkl" name="szzk_zkl" value="<%=obj.zkl%>" class="w200 p5 infobox2" placeholder="输入折扣率"></td>
+    </tr>
+    <tr>
+      <td align="right">折后金额：</td>
+      <td><input type="text" id="szzk_zhje" name="szzk_zhje" value="<%=obj.zhje%>" class="w200 p5 infobox2"></td>
+    </tr>
+	<tr>
+      <td align="right">应付金额：</td>
+      <td id="szzk_yfje"><%=obj.yfk%></td>
+    </tr>
+</table>
+</form>

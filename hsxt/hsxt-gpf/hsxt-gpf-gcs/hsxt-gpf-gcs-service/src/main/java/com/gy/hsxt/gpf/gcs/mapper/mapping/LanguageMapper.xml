@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.LanguageMapper">
+	<!--插入-->
+	<insert id="addLanguage" parameterType="com.gy.hsxt.gpf.gcs.bean.Language" >
+		<![CDATA[
+			INSERT INTO T_GCS_LANGUAGE (
+				LANGUAGE_CODE,
+				LANGUAGE_NAME,
+				LANGUAGE_NAME_CN,
+				DEL_FLAG,
+				VERSION
+			)
+			VALUES
+				(
+					#{languageCode,jdbcType=VARCHAR},
+					#{localName,jdbcType=VARCHAR},
+					#{chineseName,jdbcType=VARCHAR},
+					#{delFlag,jdbcType=TINYINT},
+					#{version,jdbcType=BIGINT}
+				);
+		 ]]>
+	</insert>
+	<!--逻辑删除-->
+	<update id="deleteLanguage" parameterType="com.gy.hsxt.gpf.gcs.bean.Language">
+		UPDATE T_GCS_LANGUAGE
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updateLanguage" parameterType="com.gy.hsxt.gpf.gcs.bean.Language">
+		UPDATE T_GCS_LANGUAGE
+			<set>
+	          LANGUAGE_NAME = #{localName,jdbcType=VARCHAR},
+	          LANGUAGE_NAME_CN = #{chineseName,jdbcType=VARCHAR},
+	          DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+	   WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existLanguage" resultType="string" >
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_LANGUAGE
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryLanguageListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Language" resultType="com.gy.hsxt.gpf.gcs.bean.Language">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			LANGUAGE_NAME localName,
+			LANGUAGE_NAME_CN chineseName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_LANGUAGE
+		WHERE
+			TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if>
+			<if test="languageCode != null and languageCode != '' "> 
+				AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+			</if>
+			<if test="localName != null and localName != '' "> 
+				<![CDATA[  AND LANGUAGE_NAME like  CONCAT('%',#{localName},'%')   escape '/' ]]>
+			</if>   
+			<if test="chineseName != null and chineseName != '' "> 
+				<![CDATA[  AND LANGUAGE_NAME_CN like  CONCAT('%',#{chineseName},'%')    escape '/' ]]>
+			</if>
+			  ORDER BY LANGUAGE_CODE
+	</select>
+	
+	<select id="queryLanguageWithPK"  resultType="com.gy.hsxt.gpf.gcs.bean.Language" >
+		SELECT
+			LANGUAGE_CODE languageCode,
+			LANGUAGE_NAME localName,
+			LANGUAGE_NAME_CN chineseName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_LANGUAGE
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="language4DropDownList" resultType="com.gy.hsxt.gpf.gcs.bean.Language" >
+		SELECT
+			LANGUAGE_CODE languageCode,
+			LANGUAGE_NAME localName,
+			LANGUAGE_NAME_CN chineseName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_LANGUAGE
+		WHERE
+			DEL_FLAG = FALSE
+		ORDER BY
+			LANGUAGE_CODE
+	</select>
+	
+	<select id="queryLanguage4SyncData" resultType="com.gy.hsxt.gpf.gcs.bean.Language" >
+		SELECT
+			LANGUAGE_CODE languageCode,
+			LANGUAGE_NAME localName,
+			LANGUAGE_NAME_CN chineseName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_LANGUAGE
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT} 
+		ORDER BY
+			LANGUAGE_CODE
+	</select>
+</mapper>

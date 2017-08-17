@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+
+	<!--发布服务 -->
+	<!--消费积分，积分撤单，积分退货，积分冲正 -->
+	<dubbo:service ref="pointService" interface="com.gy.hsxt.es.api.IEsPointService"
+		timeout="${dubbo.service.timeout10000}" actives="${dubbo.service.actives}"
+		group="es" version="1.0.0"  retries="0"/>
+
+
+	<!-- 全局配置参数 -->
+	<dubbo:reference id="baseDataService" 	interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"
+					 retries="${dubbo.reference.retires}"  	connections="${dubbo.reference.connections}"
+					 check="false" version="1.0.0"/>
+</beans>

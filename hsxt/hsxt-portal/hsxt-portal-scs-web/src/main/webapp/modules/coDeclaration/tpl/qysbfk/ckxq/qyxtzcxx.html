@@ -1,0 +1,76 @@
+ 
+<div id="qyxtzcxx_1" class="view_info info_500">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+		<tbody><tr>
+			<td class="view_item" width="30%">拟用企业互生号</td>
+			<td class="view_text" width="70%"><%=obj.toEntResNo%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">企业名称</td>
+			<td class="view_text" width="70%"><%=obj.toEntCustName%></td>
+		</tr>
+		<!--
+		<tr>
+			<td class="view_item" width="30%">企业英文名称</td>
+			<td class="view_text" width="70%"><%=obj.toEntEnName%></td>
+		</tr>-->
+		<tr>
+			<td class="view_item" width="30%">所属地区</td>
+			<td class="view_text" width="70%" id="placeName-1"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">结算币种</td>
+			<td class="view_text" width="70%"><span class="red" id="currencyText-1"></span></td>
+		</tr>
+	</tbody></table>
+</div>
+
+
+
+<div id="qyxtzcxx_2"class="none">
+		<div class="bc info_320">
+		<div class="cssform_320">
+			<form id="qyxtzcxx_fwgs_form" name="qyxtzcxx_fwgs_form">
+					<ul class="cssform clearfix">
+						<li class="col2 pr">
+							<label class="title-txt">拟用企业互生号</label>
+							<div class="cont-int"><input class="inpt" type="text" value="<%=obj.toEntResNo%>" readonly="readonly"></div>
+							<div class="hint"><!--提示--></div>
+						</li>
+                        <li class="col2 pr">
+							<label class="title-txt">企业名称</label>
+							<div class="cont-int"><input type="text" id="toEntCustName" name="toEntCustName" class="inpt input_gray isChange" value="<%=obj.toEntCustName%>" placeholder="输入企业名称" maxlength="64"></div>
+							<div class="hint red">*</div>
+						</li>
+						<!--
+                        <li class="col2 pr">
+							<label class="title-txt">企业英文名称</label>
+							<div class="cont-int"><input type="text" id="toEntEnName" name="toEntEnName" class="inpt input_gray isChange" value="<%=obj.toEntEnName%>" placeholder="输入企业英文名称"></div>
+							<div class="hint"></div>
+						</li>
+						-->
+						<li class="col2 pr">
+							<label for="name" class="title-txt">所属地区</label>
+							<div class="cont-int">
+							<input class="inpt" type="text" id="placeName-2" value="广东省深圳市" readonly="readonly"></div>
+							<div class="hint"><!--提示--></div>
+						</li>
+						<li class="col2 pr">
+							<label for="name" class="title-txt">结算币种</label>
+							<div class="cont-int">
+							<input class="inpt red" type="text" id="currencyText-2" value="人民币" readonly="readonly"></div>
+							<div class="hint"><!--提示--></div>
+							</li>
+					</ul>
+			</form>
+		</div>
+    </div>
+	</div>
+
+<div id="qyxtzcxx_dialog" class="none" title="系统注册信息修改确认">
+	<p class="autowidth">
+
+	</p>
+</div>
+	
+	

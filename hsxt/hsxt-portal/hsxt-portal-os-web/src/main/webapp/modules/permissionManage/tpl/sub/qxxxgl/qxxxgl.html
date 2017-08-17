@@ -1,0 +1,43 @@
+<div id="qxxxglTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>平台编码：</label>
+				<input type="text" id="qxxxgl_tb_ptbm" name="qxxxgl_tb_ptbm" class="queryList-toolbar-text" placeholder="输入平台编码" />
+			</li>
+			<li>
+				<label>子系统编码：</label>
+				<input type="text" id="qxxxgl_tb_zxtbm" name="qxxxgl_tb_zxtbm" class="queryList-toolbar-text" placeholder="输入子系统编码" />
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">权限类型：</label>
+				<input id="qxxxgl_tb_qxlx" name="qxxxgl_tb_qxlx" placeholder="选择权限类型" readonly="readonly"/>
+			</li>
+			<li>
+				<label>父权限ID：</label>
+				<input type="text" id="qxxxgl_tb_fqxid" name="qxxxgl_tb_fqxid" class="queryList-toolbar-text" placeholder="输入父权限ID" />
+			</li>
+			<li>
+				<button id="qxxxgl_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="qxxxgl_tb_addBtn" type="button" class="queryList-toolbar-btn">新 增</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="queryList_qxxxgl">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="permId" w_align="left">权限ID</th>
+			<th w_index="permName" w_align="left">权限名称</th>
+			<th w_index="platformCode" w_align="left">平台</th>
+			<th w_index="subSystemCode" w_align="left">子系统</th>
+			<th w_index="layout" w_align="left">菜单区域</th>
+			<th w_index="permType" w_render="operate" w_align="left">权限类型</th>
+			<th w_index="parentId" w_align="left">上级权限</th>
+			<th w_render="operate" w_align="left" width="8%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="qxxxgl_dlg" class="none ovh"></div>

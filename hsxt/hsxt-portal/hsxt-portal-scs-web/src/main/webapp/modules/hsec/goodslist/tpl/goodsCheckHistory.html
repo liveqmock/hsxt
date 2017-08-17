@@ -1,0 +1,38 @@
+<%
+var itemCheckList =obj.data.resultList;
+%>
+<table class="bsgrid">
+<thead>
+  <tr>
+	<th>提交审核时间</th>
+    <th>审核时间</th>
+    <th>审核人</th>
+    <th>审核结果</th>
+    <th>审核说明</th>
+  </tr>
+</thead>
+<tbody>
+	<%
+	try{ if(itemCheckList.length > 0 ){
+	$.each(itemCheckList,function(key,item){
+	%>
+  <tr class="<%=key%2!=0?'table-tr-c':''%>">
+    <td><%=item.petitionDatetime%></td>
+    <td><%=item.checkDatetime%></td>
+    <td><%=item.checker%></td>
+    <td>
+    <%if(item.checkResult==1){%>
+    	通过
+    <%}else{%>
+    	不通过
+    <%}%>
+    </td>
+    <td><%=item.remark%></td>
+  </tr>
+  <%}) }else{ %>
+  	<tr>
+   		<td align="center" colspan="5"><span style="color:blue">没有找到符合条件的数据</span></td>
+   	</tr>
+  <% } }catch(e){}%>
+</tbody>
+</table>

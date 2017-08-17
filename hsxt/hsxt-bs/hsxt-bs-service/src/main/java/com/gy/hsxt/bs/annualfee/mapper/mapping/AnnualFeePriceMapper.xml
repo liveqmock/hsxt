@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 年费价格方案 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.annualfee.mapper.AnnualFeePriceMapper">
+
+    <!-- 年费价格方案结果映射 -->
+    <resultMap id="annualFeePriceResult" type="com.gy.hsxt.bs.bean.annualfee.AnnualFeePrice">
+        <id column="PRICE_ID" property="priceId"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="PROGRAM_NAME" property="programName"/>
+        <result column="PRICE" property="price"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="STATUS" property="status"/>
+        <result column="BEGIN_TIME" property="beginTime"/>
+        <result column="END_TIME" property="endTime"/>
+        <result column="REQ_OPERATOR" property="reqOperator"/>
+        <result column="REQ_TIME" property="reqTime"/>
+        <result column="REQ_REMARK" property="reqRemark"/>
+        <result column="APPR_OPERATOR" property="apprOperator"/>
+        <result column="APPR_TIME" property="apprTime"/>
+        <result column="APPR_REMARK" property="apprRemark"/>
+    </resultMap>
+
+    <!-- 创建 年费价格方案 -->
+    <insert id="insertAnnualFeePrice" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeePrice">
+        INSERT INTO T_BS_ANNUAL_FEE_PRICE (
+            PRICE_ID,
+            CUST_TYPE,
+            PROGRAM_NAME,
+            PRICE,
+            DESCRIPTION,
+            STATUS,
+            REQ_OPERATOR,
+            REQ_TIME,
+            REQ_REMARK
+        ) VALUES (
+            #{priceId},
+            #{custType},
+            #{programName},
+            #{price},
+            #{description},
+            0,
+            #{reqOperator},
+            systimestamp,
+            #{reqRemark}
+        )
+    </insert>
+
+    <!-- 查询 年费价格方案列表 -->
+    <select id="selectAnnualFeePriceList" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeePriceQuery" resultMap="annualFeePriceResult">
+        SELECT * FROM T_BS_ANNUAL_FEE_PRICE WHERE 1 = 1
+        <if test="custType != null and custType != '' ">
+            AND CUST_TYPE= #{custType}
+        </if>
+        <if test="status != null and status != '' ">
+            AND STATUS= #{status}
+        </if>
+        ORDER BY PRICE_ID DESC
+    </select>
+
+    <!-- 获取 某一条年费价格方案 -->
+    <select id="selectById" resultMap="annualFeePriceResult">
+        SELECT *
+        FROM T_BS_ANNUAL_FEE_PRICE
+        WHERE PRICE_ID = #{priceId}
+    </select>
+
+    <!-- 禁用 已启用的年费价格方案 -->
+    <update id="disableAnnualFeePrice" parameterType="java.lang.Integer">
+        UPDATE
+            T_BS_ANNUAL_FEE_PRICE
+        SET
+            STATUS   = 3,
+            END_TIME = systimestamp
+        WHERE
+            STATUS = 1
+            AND CUST_TYPE = #{custType}
+    </update>
+
+    <!-- 审批 年费价格方案 -->
+    <update id="apprAnnualFeePrice" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeePrice">
+        UPDATE
+            T_BS_ANNUAL_FEE_PRICE
+        SET
+            STATUS        = #{status},
+            BEGIN_TIME    = systimestamp,
+            APPR_OPERATOR = #{apprOperator},
+            APPR_TIME     = systimestamp,
+            APPR_REMARK   = #{apprRemark}
+        WHERE
+            PRICE_ID = #{priceId}
+    </update>
+
+    <!-- 获取 某一个企业类型已启用的年费价格方案 -->
+    <select id="selectPriceForEnabled" resultType="string">
+        SELECT PRICE
+        FROM
+            T_BS_ANNUAL_FEE_PRICE
+        WHERE
+            STATUS = 1
+            AND
+            CUST_TYPE = #{custType}
+    </select>
+
+    <!-- 获取 某一个企业类型待审批的年费价格方案 -->
+    <select id="selectPriceIdForPending" resultType="string">
+        SELECT PRICE_ID
+        FROM
+            T_BS_ANNUAL_FEE_PRICE
+        WHERE
+            STATUS = 0
+            AND
+            CUST_TYPE = #{custType}
+    </select>
+</mapper>
+

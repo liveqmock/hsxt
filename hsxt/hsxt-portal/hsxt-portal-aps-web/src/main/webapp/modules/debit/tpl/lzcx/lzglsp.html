@@ -1,0 +1,36 @@
+	<div id="lzglsp_div">
+		<div class="mt10 mb5 fb">临账关联审批</div>
+		<% $.each(obj,function(i,itme){ 
+		itme.statusName="审批通过";
+		if(itme.status==2){
+		  itme.statusName="审批驳回";
+		}
+		%>
+		<div class="mt10 mb5 fb"><%=i+1%></div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">审批结果</td>
+				<td class="view_text" width="30%"><span id="gl_spjg_txt"><%=itme.statusName%></span></td>
+				<td class="view_item" width="20%">审批操作员</td>
+				<td class="view_text" width="30%"><span id="gl_spczy_txt"><%=itme.apprOperatorName%></span></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批时间</td>
+				<td class="view_text"><span id="gl_spsj_txt"><%=itme.apprTime%></span></td>
+				<td class="view_item">订单号</td>
+				<td class="view_text"><span id="gl_spsj_txt"><%=itme.orderNo%></span></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批意见</td>
+				<td class="view_text"><span id="gl_spyj_txt"><%=itme.apprRemark%></span></td>
+				<td class="view_item">申请关联金额</td>
+				<td class="view_text"><span id="gl_spsj_txt"><%=itme.cashAmount%></span></td>
+			</tr>   
+		</table>
+		<%});%>  
+	</div>
+	<div class="mt10" align="center">
+		<a class="btn_bg submit" id="lzglsp_back">返&#12288;回</a>
+	</div>
+</div>
+

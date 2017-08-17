@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.SubsysMapper">
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+	INSERT INTO T_GCS_SUBSYS (
+		SUBSYS_CODE,
+		SYS_NAME,
+		SYS_DESC,
+		DEL_FLAG,
+		VERSION
+	)
+	VALUES
+		(
+			#{subsysCode},#{sysName},#{sysDesc},#{delFlag},#{version})
+	</insert>
+	<!-- 获取某个条记录 -->
+	<select id="getSubsys" parameterType="com.gy.hsxt.gpf.gcs.bean.Subsys"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		SELECT
+			SUBSYS_CODE AS subsysCode,
+			SYS_NAME AS sysName,
+			SYS_DESC AS sysDesc,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_GCS_SUBSYS
+		WHERE
+			SUBSYS_CODE = #{subsysCode}
+	</select>
+	<!-- 获取列表 -->
+	<select id="getSubsysListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Subsys"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		SELECT
+			SUBSYS_CODE AS subsysCode,
+			SYS_NAME AS sysName,
+			SYS_DESC AS sysDesc,
+			VERSION AS version
+		FROM
+			T_GCS_SUBSYS
+		WHERE
+			DEL_FLAG = 0
+		<if test="subsysCode != null and subsysCode != '' "> 
+				<![CDATA[  AND SUBSYS_CODE=#{subsysCode}  ]]>
+		</if>
+		<if test="sysName != null and sysName != '' "> 
+				<![CDATA[  AND SYS_DESC like CONCAT('%',#{sysName},'%') escape '/'  ]]>
+		</if>
+		  order by SUBSYS_CODE
+	</select>
+	<!-- 获取列表 -->
+	<select id="getSubsysDropdownmenu" resultType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		SELECT
+			SUBSYS_CODE AS subsysCode,
+			SYS_NAME AS sysName
+		FROM
+			T_GCS_SUBSYS
+		WHERE
+			DEL_FLAG = 0
+		ORDER BY
+			SUBSYS_CODE
+	</select>
+	<!-- 更新一条记录 -->
+	<update id="update" parameterType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		update T_GCS_SUBSYS
+			<set>
+				SUBSYS_CODE=#{subsysCode},
+				SYS_NAME=#{sysName},
+				SYS_DESC=#{sysDesc},
+				VERSION=#{version}
+			</set>
+		where SUBSYS_CODE=#{subsysCode}
+	</update>
+	<!-- 删除一条记录 -->
+	<update id="delete" parameterType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		update T_GCS_SUBSYS
+			<set>
+				DEL_FLAG=#{delFlag},
+				VERSION=#{version}
+			</set>
+		where SUBSYS_CODE=#{subsysCode}
+	</update>
+	<!--是否已存在相同代码 -->
+	<select id="existSubsys" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_GCS_SUBSYS
+			WHERE
+				SUBSYS_CODE = #{subsysCode}
+		]]>
+	</select>
+	<!-- 读取大于某个版本号的数据 -->
+	<select id="querySubsysSyncData" resultType="com.gy.hsxt.gpf.gcs.bean.Subsys">
+		SELECT
+			SUBSYS_CODE AS subsysCode,
+			SYS_NAME AS sysName,
+			SYS_DESC AS sysDesc,
+			VERSION AS version,
+			DEL_FLAG AS delFlag
+		FROM
+			T_GCS_SUBSYS
+		WHERE
+			VERSION > #{version}
+		ORDER BY
+			SUBSYS_CODE
+	</select>
+</mapper>

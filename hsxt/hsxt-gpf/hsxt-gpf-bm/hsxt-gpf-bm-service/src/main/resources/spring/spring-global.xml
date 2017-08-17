@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 因为spring的context是父子容器，所以会产生冲突，Controller会先进行扫描装配， 而此时的Service还没有进行事务的增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力） 
+		最后才是applicationContext.xml中的扫描配置进行事务处理 -->
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <value>file:${user.dir}/conf/hsxt-gpf-bm/hbase.properties</value>
+                <value>file:${user.dir}/conf/hsxt-gpf-bm/dubbo.properties</value>
+                <value>file:${user.dir}/conf/hsxt-gpf-bm/hsxt-gpf-bm.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!--<context:property-placeholder location="classpath*:conf/dubbo.properties" ignore-unresolvable="true"/>-->
+
+    <import resource="classpath:spring/spring-datasource.xml" />
+
+	 <context:component-scan base-package="com.gy.hsxt.gpf.bm.*" >
+         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+     </context:component-scan>
+    <!-- Process annotations on registered beans like @Autowired... -->
+    <context:annotation-config/>
+
+
+    <import resource="classpath:spring/spring-dubbo-consumer.xml" />
+    <import resource="classpath:spring/spring-dubbo-provider.xml" />
+
+    <!-- 加入定时任务 -->
+    <import resource="classpath:spring/spring-quartz.xml" />
+    <import resource="classpath:spring/spring-servlet.xml" />
+</beans>
+ 

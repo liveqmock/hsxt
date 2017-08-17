@@ -1,0 +1,55 @@
+<div id="yjsz_xgTpl" class="info_800 bc">
+	<form>
+		<div class="clearfix">
+			<ul class="info_360 fl">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">规则名称</label>
+					<input class="fl w220 h30_middle ml5" type="text" placeholder="输入规则名称" value="<%=obj.th_1%>" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">生效时间</label>
+					<input id="timeRange_start_xg" class="fl ml5 h30_middle w220" readonly="readonly" placeholder="选择生效时间" value="<%=obj.th_6%>" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">预警值</label>
+					<input class="fl w220 h30_middle ml5" type="text" placeholder="输入预警值" value="<%=obj.th_2%>" />
+				</li>
+			</ul>
+			<ul class="info_360 fr">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">发送方式</label>
+					<div class="fl w220 h30_middle ml5">
+						<input type="checkbox" class="ml10 mr5" />发送短信
+						<input type="checkbox" class="ml10 mr5" />推送消息
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">截止时间</label>
+					<input id="timeRange_end_xg" class="fl ml5 h30_middle w220" readonly="readonly" placeholder="选择截止时间" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">模版选择</label>
+					<span class="fl ml5"><input id="mbxz_xg" readonly="readonly" placeholder="选择模版" /></span>
+				</li>
+			</ul>
+		</div>
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">发送内容</label>
+				<textarea class="fl ml5 h50 w660 rsn pt5 pb5" placeholder="输入发送内容" ><%=obj.th_4%></textarea>
+			</li>
+		</ul>
+		<ul class="info_360">
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">其他操作</label>
+				<div class="fl w220 h30_middle ml5">
+					<input type="checkbox" class="ml10 mr5" />定时发送
+				</div>
+			</li>
+		</ul>
+		<div class="w200 bc clearfix mt20">
+			<a class="btn_bg submit fl" id="qd_xg_btn">确&#12288;定</a>
+			<a class="btn_bg submit fr" id="xg_cancel">取&#12288;消</a>
+		</div>
+	</form>
+</div>

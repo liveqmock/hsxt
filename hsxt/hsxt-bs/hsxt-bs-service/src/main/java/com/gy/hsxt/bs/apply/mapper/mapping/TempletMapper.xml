@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.TempletMapper">
+
+	<resultMap id="templetResult" type="com.gy.hsxt.bs.bean.apply.Templet">
+		<id column="TEMPLET_ID" property="templetId"/>
+		<result column="TEMPLET_TYPE" property="templetType"/>
+		<result column="CUST_TYPE" property="custType"/>
+		<result column="RES_TYPE" property="resType"/>
+		<result column="TEMPLET_NAME" property="templetName"/>
+		<result column="TEMPLET_CONTENT" property="templetContent"/>
+		<result column="STATUS" property="status"/>
+		<result column="TEMP_PIC_ID" property="tempPicId"/>
+		<result column="TEMP_FILE_ID" property="tempFileId"/>
+		<result column="APPR_STATUS" property="apprStatus"/>
+		<result column="ISACTIVE" property="isActive"/>
+		<result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+		<result column="CREATEDBY" property="createdBy"/>
+		<result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+		<result column="UPDATEDBY" property="updatedBy"/>
+		<result column="UPDATED_NAME" property="updatedName"/>
+		<result column="CREATED_NAME" property="createdName"/>
+
+	</resultMap>
+
+	<!-- 创建模板 -->
+	<insert id="createTemplet" parameterType="com.gy.hsxt.bs.bean.apply.Templet">
+		INSERT INTO T_BS_TEMPLET (
+			TEMPLET_ID,
+			TEMPLET_TYPE,
+			CUST_TYPE,
+			RES_TYPE,
+			TEMPLET_NAME,
+			TEMPLET_CONTENT,
+			STATUS,
+			TEMP_PIC_ID,
+			TEMP_FILE_ID,
+			APPR_STATUS,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEDBY
+		)VALUES (
+			#{templetId},
+			#{templetType},
+			#{custType},
+			#{resType},
+			#{templetName},
+			#{templetContent},
+			#{status},
+			#{tempPicId},
+			#{tempFileId},
+			#{apprStatus},
+			'Y',
+			sysdate,
+			#{createdBy},
+			sysdate,
+			#{createdBy}
+		)
+	</insert>
+	
+	<!-- 更新模板 -->
+	<update id="updateTemplet" parameterType="com.gy.hsxt.bs.bean.apply.Templet">
+		UPDATE T_BS_TEMPLET SET
+		UPDATEDBY = #{updatedBy},
+		<if test="templetType != null">
+			TEMPLET_TYPE = #{templetType},
+		</if>
+		<if test="custType != null">
+			CUST_TYPE = #{custType},
+		</if>
+		<if test="resType != null ">
+			RES_TYPE = #{resType},
+		</if>
+		<if test="templetName != null and templetName !='' ">
+			TEMPLET_NAME = #{templetName},
+		</if>
+		<if test="templetContent != null and templetContent != ''">
+			TEMPLET_CONTENT = #{templetContent},
+		</if>
+		<if test="tempFileId != null and tempFileId != ''">
+			TEMP_FILE_ID = #{tempFileId},
+		</if>
+		<if test="tempPicId != null and tempPicId != ''">
+			TEMP_PIC_ID = #{tempPicId},
+		</if>
+		<if test="updatedName != null and updatedName !='' ">
+			UPDATED_NAME = #{updatedName},
+		</if>
+		UPDATED_DATE = sysdate
+		WHERE TEMPLET_ID = #{templetId}
+	</update>
+	
+	<!-- 更新模板状态 -->
+	<update id="updateTplStatus" parameterType="com.gy.hsxt.bs.bean.apply.Templet">
+		UPDATE T_BS_TEMPLET SET
+		APPR_STATUS = #{apprStatus},
+		<if test="status != null">
+			STATUS = #{status},
+		</if>
+		UPDATEDBY = #{updatedBy},
+		<if test="updatedName != null and updatedName !='' ">
+			UPDATED_NAME = #{updatedName},
+		</if>
+		UPDATED_DATE = SYSDATE
+		WHERE TEMPLET_ID = #{templetId}
+	</update>
+	
+	<!-- 通过ID查询模板 -->
+	<select id="queryTempletById" resultMap="templetResult">
+		SELECT t.*
+	    FROM T_BS_TEMPLET t
+	    WHERE t.TEMPLET_ID = #{templetId}
+	</select>
+	
+	<!-- 分页查询模板 -->
+	<select id="queryTempletListPage" parameterType="com.gy.hsxt.bs.bean.apply.TempletQuery" resultMap="templetResult">
+		SELECT *
+		FROM T_BS_TEMPLET
+		WHERE 1=1
+		<choose>
+			<when test="templetType != null">
+				AND TEMPLET_TYPE = #{templetType}
+			</when>
+			<otherwise>
+				AND TEMPLET_TYPE &gt; 1
+			</otherwise>
+		</choose>
+		<if test="templetName != null and templetName != '' ">
+			AND TEMPLET_NAME like '%'||#{templetName}||'%'
+		</if>
+		<if test="custType != null">
+			AND CUST_TYPE = #{custType}
+		</if>
+		<if test="apprStatus != null">
+			<choose>
+				<when test="apprStatus &lt; 2">
+					AND APPR_STATUS = #{apprStatus}
+				</when>
+				<otherwise>
+					AND APPR_STATUS &gt;= 2
+				</otherwise>
+			</choose>
+		</if>
+		ORDER BY CREATED_DATE DESC
+	</select>
+	
+		<!-- 分页查询待复核的模板 -->
+	<select id="queryTempletTaskListPage" parameterType="com.gy.hsxt.bs.bean.apply.TempletQuery" resultMap="templetResult">
+		SELECT t.*
+		FROM T_BS_TEMPLET t
+		JOIN T_BS_TASK ta ON t.TEMPLET_ID = ta.BIZ_NO
+		WHERE t.APPR_STATUS IN (2,3)
+		AND ta.EXE_CUST_ID = #{optCustId}
+		AND ta.STATUS = #{taskStatus}
+		AND ta.BIZ_TYPE = #{taskType}
+		<choose>
+			<when test="templetType != null">
+				AND TEMPLET_TYPE = #{templetType}
+			</when>
+			<otherwise>
+				AND TEMPLET_TYPE &gt; 1
+			</otherwise>
+		</choose>
+		<if test="templetName != null and templetName != '' ">
+			AND t.TEMPLET_NAME like '%'||#{templetName}||'%'
+		</if>
+		<if test="custType != null">
+			AND t.CUST_TYPE = #{custType}
+		</if>
+		ORDER BY t.CREATED_DATE DESC
+	</select>
+	
+	<!-- 查询当前模板 -->
+	<select id="queryCurrentTplByQuery" resultType="com.gy.hsxt.bs.bean.apply.TempletQuery" resultMap="templetResult">
+		SELECT *
+		FROM T_BS_TEMPLET
+		WHERE TEMPLET_TYPE = #{templetType}
+			  AND CUST_TYPE = #{custType}
+			  <if test="resType != null">
+			  	AND RES_TYPE = #{resType}
+			  </if>
+		      AND STATUS = 0
+	</select>
+	
+</mapper>

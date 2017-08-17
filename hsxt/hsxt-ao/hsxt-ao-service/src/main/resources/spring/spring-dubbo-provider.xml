@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="hsxt-ao-provider" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+	<!-- <dubbo:monitor protocol="registry" /> -->
+
+	<!-- 银行转帐服务 -->
+	<dubbo:service interface="com.gy.hsxt.ao.api.IAOBankTransferService"
+		ref="bankTransferService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 兑换互生币服务 -->
+	<dubbo:service interface="com.gy.hsxt.ao.api.IAOExchangeHsbService"
+		ref="exchangeHsbService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 支付服务 -->
+	<dubbo:service interface="com.gy.hsxt.ao.api.IAOPaymentService"
+		ref="paymentService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 货币转换服务 -->
+	<dubbo:service interface="com.gy.hsxt.ao.api.IAOCurrencyConvertService"
+		ref="currencyConvertService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 终端批结算 -->
+	<dubbo:service interface="com.gy.hsxt.ao.api.IAOBatchCheckResultService"
+		ref="batchCheckResultService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 支付系统通知服务 -->
+	<dubbo:service interface="com.gy.hsxt.gp.api.IGPNotifyService"
+		group="${system.id}" ref="dubboInvokService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 日终生成记账对账文件 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="batchAccountingFileService" group="HSXT_AO_ACCOUNTING_FILE"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+		
+	<!-- 记帐分解数据老化160604开会去掉交由DBA处理
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="batchAccountingDataService" group="HSXT_AO_ACCOUNTING_DATA"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+	 -->
+	 
+	<!-- 日终生成网银支付对账文件 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="batchBuyHsbFileGenerateService" group="HSXT_AO_HSB_FILE" actives="${dubbo.service.actives}"
+		version="1.0.0" />
+		
+	<!-- 终端设备批结算数据老化 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="batchCheckResultDataService" group="HSXT_AO_CHECK_RESULT_DATA"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+
+	<!-- 自动批量提交转账160604开会去掉
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="batchAutoCommitService" group="HSXT_AO_BATCH_TRANS_COMMIT"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+	 -->
+	 
+	<!-- 自动更新过期且未支付的兑换互生币订单状态为已过期 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="updateBuyHsbExpireTimeService" group="HSXT_AO_UPDATE_EXPIRE_BUY_HSB"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+</beans>

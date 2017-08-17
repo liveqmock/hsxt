@@ -1,0 +1,26 @@
+<div class="ddlb_contentc">           
+    <form>
+  	<!-- <fieldset> -->
+                     
+	<ul>                              
+    <li class="ddlb_row clearfix">
+    <label for="name" style="text-align:right; padding-right:10px;">送货员：</label>
+    <select id="deliverManSel" class="ddlb_selectc">
+    <option value="">请选择</option>
+    <% $.each(obj.data,function(key,el){%>
+    <option value="<%=el.id%>" phone="<%=el.phone%>"><%=el.name%></option>
+    <%})%>
+    </select>
+    </li>
+    <li class="ddlb_row clearfix">
+    <label for="name" style="text-align:right; padding-right:10px;">联系方式</label>
+    <input type="text" id="deliverContact" placeholder="请输联系方式"  value="" class="sj_input bg_grey1"/>
+    </li>
+    <li class="ddlb_row clearfix">
+     <label for="name" style="text-align:right; padding-right:10px;">送货备注：</label>
+	<textarea type="text" id="deliverNode" placeholder="请输入送货备注"  class="input_gray tcr_grey  sj_txt"></textarea>
+	</li>
+	</ul>
+  <!--   </fieldset> -->
+	</form>
+ </div>

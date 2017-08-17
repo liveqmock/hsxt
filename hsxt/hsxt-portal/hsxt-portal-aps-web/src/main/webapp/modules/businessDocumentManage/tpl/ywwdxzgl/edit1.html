@@ -1,0 +1,25 @@
+<div class="info_400 bc" style="overflow:hidden;">
+<form id="edit_form" name="edit_form">
+    <ul>
+        <li class="register_row clearfix">
+            <label class="fl w130 h30_middle">常用业务文档名称</label>
+            <input id="docName" name="docName" value="<%=obj.docName%>" type="text" class="fl w300 h30_middle ml5" placeholder="输入常用业务文档名称">
+        </li>
+        <li class="register_row clearfix pr">
+            <label class="fl w130 h30_middle">唯一标识</label>            
+            <input id="docCode" name="docCode" placeholder="输入唯一标识，不超过20字" readonly="readonly">  
+        </li>
+        <li class="register_row clearfix">
+            <label class="fl w130 h60_middle">常用业务文档说明</label>
+            <textarea id="remark" name="remark" type="text" placeholder="输入说明内容,字数不超过300个字" class="fl ml5 h50 w300 rsn pt5 pb5" maxlength="300"><%=obj.remark%></textarea>
+        </li>
+        <li class="register_row clearfix">
+            <label class="fl w130 h30_middle"  style="height:60px;">办理业务申请书上传(word格式文档)</label>
+            <a class="doc-upload fl">上传<input id="fileId" name="fileId" type="file" class="files"></a>
+             <label class="h30_middle" id="showFileName" style="height:60px;overflow:auto;"></label>
+        </li>
+    </ul>
+<input id="docId" value="<%=obj.docId%>" name="docId" type="hidden">
+<input id="hidden-fileId" value="<%=obj.fileId%>" name="hidden-fileId" type="hidden">
+</form>
+</div>

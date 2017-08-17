@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.points.mapper.PointMapper">
+
+    <resultMap type="com.gy.hsxt.ps.points.bean.PointDetail" id="OldOrderMap">
+        <!-- 退货,撤单,冲正公共查询原订单信息的实体类 -->
+        <id column="TRANS_NO" property="transNo" jdbcType="VARCHAR"/>
+        <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR"/>
+        <result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR"/>
+        <result column="TRANS_TYPE" property="transType" jdbcType="VARCHAR"/>
+        <result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR"/>
+        <result column="PER_RES_NO" property="perResNo" jdbcType="VARCHAR"/>
+        <result column="CHANNEL_TYPE" property="channelType" jdbcType="INTEGER"/>
+        <result column="EQUIPMENT_TYPE" property="equipmentType" jdbcType="INTEGER"/>
+        <result column="EQUIPMENT_NO" property="equipmentNo" jdbcType="VARCHAR"/>
+        <result column="SOURCE_TRANS_NO" property="sourceTransNo" jdbcType="VARCHAR"/>
+        <result column="SOURCE_CURRENCY_CODE" property="sourceCurrencyCode" jdbcType="VARCHAR"/>
+        <result column="SOURCE_TRANS_AMOUNT" property="sourceTransAmount" jdbcType="NUMERIC"/>
+        <result column="SOURCE_BATCH_NO" property="sourceBatchNo" jdbcType="VARCHAR"/>
+        <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR"/>
+        <result column="SOURCE_TRANS_DT" property="sourceTransDate" jdbcType="TIMESTAMP"/>
+        <result column="CURRENCY_RATE" property="currencyRate" jdbcType="NUMERIC"/>
+        <result column="TRANS_AMOUNT" property="transAmount" jdbcType="NUMERIC"/>
+        <result column="POINT_RATE" property="pointRate" jdbcType="NUMERIC"/>
+        <result column="PER_POINT" property="perPoint" jdbcType="NUMERIC"/>
+        <result column="ENT_POINT" property="entPoint" jdbcType="NUMERIC"/>
+        <result column="ISSETTLE" property="isSettle" jdbcType="INTEGER"/>
+        <result column="TERM_RUN_CODE" property="termRunCode" jdbcType="VARCHAR"/>
+        <result column="TERM_TYPE_CODE" property="termTypeCode" jdbcType="VARCHAR"/>
+        <result column="TERM_TRADE_CODE" property="termTradeCode" jdbcType="VARCHAR"/>
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP"/>
+        <result column="TRANS_STATUS" property="transStatus" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="INTEGER"/>
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR"/>
+		<result column="MALL_NAME" property="mallName" jdbcType="VARCHAR"/>
+		<result column="TARGET_TRANS_AMOUNT" property="targetTransAmount" jdbcType="NUMERIC"/>
+		<result column="PAY_STATUS" property="payStatus" jdbcType="INTEGER"/>
+	</resultMap>
+    <!-- 消费积分明细 -->
+    <insert id="point" parameterType="PointDetail">
+		INSERT INTO T_PS_NDETAIL(
+		TRANS_NO,
+		TRANS_TYPE, 
+		ENT_RES_NO,
+		PER_RES_NO, 
+		EQUIPMENT_NO,
+		CHANNEL_TYPE, 
+		EQUIPMENT_TYPE,
+		SOURCE_TRANS_NO, 
+		SOURCE_BATCH_NO,
+		BATCH_NO, 
+		SOURCE_TRANS_DT,
+		SOURCE_CURRENCY_CODE,
+		SOURCE_TRANS_AMOUNT,
+		CURRENCY_RATE,
+		TRANS_AMOUNT, 
+		POINT_RATE,
+		PER_POINT, 
+		ENT_POINT,
+		STATUS,
+		TRANS_STATUS,
+		IS_ONLINE_REGISTER,
+		ISSETTLE, 
+		ENT_CUST_ID,
+		PER_CUST_ID, 
+		OPER_NO,
+		ISACTIVE,
+		CREATED_DATE,
+		CREATED_BY, 
+		UPDATED_DATE,
+		UPDATED_BY, 
+		TERM_RUN_CODE,
+		TERM_TYPE_CODE,
+		TERM_TRADE_CODE,
+		IS_DEDUCTION,
+		ENT_NAME,
+		MALL_NAME,
+		REMARK,
+		TARGET_TRANS_AMOUNT,
+		SOURCE_POS_DATE,
+		PAY_STATUS,
+		ORDER_AMOUNT,
+		DEDUCTION_VOUCHER
+		)
+		VALUES(
+		#{transNo,jdbcType=VARCHAR},
+		#{transType,jdbcType=VARCHAR},
+		#{entResNo,jdbcType=VARCHAR},
+		#{perResNo,jdbcType=VARCHAR},
+		#{equipmentNo,jdbcType=VARCHAR},
+		#{channelType,jdbcType=INTEGER},
+		#{equipmentType,jdbcType=INTEGER},
+		#{sourceTransNo,jdbcType=VARCHAR},
+		#{sourceBatchNo,jdbcType=VARCHAR},
+		#{batchNo,jdbcType=VARCHAR},
+		#{sourceTransDate,jdbcType=TIMESTAMP},
+		#{sourceCurrencyCode,jdbcType=VARCHAR},
+		#{sourceTransAmount,jdbcType=NUMERIC},
+		#{currencyRate,jdbcType=NUMERIC},
+		#{transAmount,jdbcType=NUMERIC},
+		#{pointRate,jdbcType=NUMERIC},
+		#{perPoint,jdbcType=NUMERIC},
+		#{entPoint,jdbcType=NUMERIC},
+		#{status,jdbcType=INTEGER},
+		#{transStatus,jdbcType=INTEGER},
+		#{isOnlineRegister,jdbcType=INTEGER},
+		#{isSettle,jdbcType=INTEGER},
+		#{entCustId,jdbcType=VARCHAR},
+		#{perCustId,jdbcType=VARCHAR},
+		#{operNo,jdbcType=VARCHAR},
+		#{isActive,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{createdBy,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{updatedBy,jdbcType=VARCHAR},
+		#{termRunCode,jdbcType=VARCHAR},
+		#{termTypeCode,jdbcType=VARCHAR},
+		#{termTradeCode,jdbcType=VARCHAR},
+		#{isDeduction,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR},
+		#{mallName,jdbcType=VARCHAR},
+		#{remark,jdbcType=TIMESTAMP},
+		#{targetTransAmount,jdbcType=NUMERIC},
+		#{sourcePosDate,jdbcType=TIMESTAMP},
+		#{payStatus,jdbcType=INTEGER},
+		#{orderAmount,jdbcType=NUMERIC},
+		#{deductionVoucher,jdbcType=INTEGER}
+		)
+	</insert>
+    <!-- 消费积分退货明细 -->
+    <insert id="backPoint" parameterType="BackDetail">
+		INSERT INTO T_PS_BDETAIL(
+		TRANS_NO, 
+		TRANS_TYPE,
+		ENT_RES_NO, 
+		PER_RES_NO,
+		EQUIPMENT_NO,
+		CHANNEL_TYPE,
+		EQUIPMENT_TYPE, 
+		SOURCE_TRANS_NO,
+		SOURCE_BATCH_NO,
+		BATCH_NO,
+		SOURCE_TRANS_DT, 
+		SOURCE_CURRENCY_CODE,
+		SOURCE_TRANS_AMOUNT,
+		CURRENCY_RATE,
+		POINT_RATE, 
+		OLD_TRANS_AMOUNT,
+		OLD_PER_POINT,
+		OLD_ENT_POINT,
+		TRANS_AMOUNT, 
+		PER_POINT,
+		ENT_POINT, 
+		OLD_TRANS_NO,
+		TRANS_STATUS, 
+		STATUS, 
+		ISSETTLE,
+		ENT_CUST_ID, 
+		PER_CUST_ID,
+		OPER_NO,
+		ISACTIVE,
+		CREATED_DATE, 
+		CREATED_BY,
+		UPDATED_DATE, 
+		UPDATED_BY,
+		TERM_RUN_CODE,
+		TERM_TYPE_CODE,
+		TERM_TRADE_CODE,
+		ENT_NAME,
+		MALL_NAME,
+		REMARK
+		)
+		VALUES(
+		#{transNo,jdbcType=VARCHAR},
+		#{transType,jdbcType=VARCHAR},
+		#{entResNo,jdbcType=VARCHAR},
+		#{perResNo,jdbcType=VARCHAR},
+		#{equipmentNo,jdbcType=VARCHAR},
+		#{channelType,jdbcType=INTEGER},
+		#{equipmentType,jdbcType=INTEGER},
+		#{sourceTransNo,jdbcType=VARCHAR},
+		#{sourceBatchNo,jdbcType=VARCHAR},
+		#{batchNo,jdbcType=VARCHAR},
+		#{sourceTransDate,jdbcType=TIMESTAMP},
+		#{sourceCurrencyCode,jdbcType=VARCHAR},
+		#{sourceTransAmount,jdbcType=NUMERIC},
+		#{currencyRate,jdbcType=NUMERIC},
+		#{pointRate,jdbcType=NUMERIC},
+		#{oldTransAmount,jdbcType=NUMERIC},
+		#{oldPerPoint,jdbcType=NUMERIC},
+		#{oldEntPoint,jdbcType=NUMERIC},
+		#{transAmount,jdbcType=NUMERIC},
+		#{perPoint,jdbcType=NUMERIC},
+		#{entPoint,jdbcType=NUMERIC},
+		#{oldTransNo,jdbcType=VARCHAR},
+		#{transStatus,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{isSettle,jdbcType=INTEGER},
+		#{entCustId,jdbcType=VARCHAR},
+		#{perCustId,jdbcType=VARCHAR},
+		#{operNo,jdbcType=VARCHAR},
+		#{isActive,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{createdBy,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{updatedBy,jdbcType=VARCHAR},
+		#{termRunCode,jdbcType=VARCHAR},
+		#{termTypeCode,jdbcType=VARCHAR},
+		#{termTradeCode,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR},
+		#{mallName,jdbcType=VARCHAR},
+		#{remark,jdbcType=TIMESTAMP}
+		)
+	</insert>
+    <!-- 消费积分撤单明细 -->
+    <insert id="cancelPoint" parameterType="CancellationDetail">
+		INSERT INTO T_PS_CDETAIL(
+		TRANS_NO, 
+		TRANS_TYPE,
+		ENT_RES_NO, 
+		PER_RES_NO,
+		EQUIPMENT_NO,
+		CHANNEL_TYPE,
+		EQUIPMENT_TYPE,
+		SOURCE_TRANS_NO,
+		SOURCE_BATCH_NO, 
+		BATCH_NO,
+		SOURCE_TRANS_DT, 
+		SOURCE_CURRENCY_CODE,
+		SOURCE_TRANS_AMOUNT,
+		CURRENCY_RATE,
+		TRANS_AMOUNT, 
+		POINT_RATE,
+		PER_POINT, 
+		ENT_POINT,
+		OLD_TRANS_NO, 
+		TRANS_STATUS,
+		STATUS, 
+		ISSETTLE,
+		ENT_CUST_ID, 
+		PER_CUST_ID,
+		OPER_NO, 
+		ISACTIVE,
+		CREATED_DATE, 
+		CREATED_BY,
+		UPDATED_DATE, 
+		UPDATED_BY,
+		TERM_RUN_CODE,
+		TERM_TYPE_CODE,
+		TERM_TRADE_CODE,
+		ENT_NAME,
+		MALL_NAME,
+		REMARK
+		)
+		VALUES(
+		#{transNo,jdbcType=VARCHAR},
+		#{transType,jdbcType=VARCHAR},
+		#{entResNo,jdbcType=VARCHAR},
+		#{perResNo,jdbcType=VARCHAR},
+		#{equipmentNo,jdbcType=VARCHAR},
+		#{channelType,jdbcType=INTEGER},
+		#{equipmentType,jdbcType=INTEGER},
+		#{sourceTransNo,jdbcType=VARCHAR},
+		#{sourceBatchNo,jdbcType=VARCHAR},
+		#{batchNo,jdbcType=VARCHAR},
+		#{sourceTransDate,jdbcType=TIMESTAMP},
+		#{sourceCurrencyCode,jdbcType=VARCHAR},
+		#{sourceTransAmount,jdbcType=NUMERIC},
+		#{currencyRate,jdbcType=NUMERIC},
+		#{transAmount,jdbcType=NUMERIC},
+		#{pointRate,jdbcType=NUMERIC},
+		#{perPoint,jdbcType=NUMERIC},
+		#{entPoint,jdbcType=NUMERIC},
+		#{oldTransNo,jdbcType=VARCHAR},
+		#{transStatus,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{isSettle,jdbcType=INTEGER},
+		#{entCustId,jdbcType=VARCHAR},
+		#{perCustId,jdbcType=VARCHAR},
+		#{operNo,jdbcType=VARCHAR},
+		#{isActive,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{createdBy,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{updatedBy,jdbcType=VARCHAR},
+		#{termRunCode,jdbcType=VARCHAR},
+		#{termTypeCode,jdbcType=VARCHAR},
+		#{termTradeCode,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR},
+		#{mallName,jdbcType=VARCHAR},
+		#{remark,jdbcType=TIMESTAMP}
+		)
+	</insert>
+    <!-- 消费积分冲正明细 -->
+    <insert id="returnPoint" parameterType="CorrectDetail">
+		INSERT INTO
+		T_PS_RDETAIL(
+		RETURN_NO, 
+		TRANS_NO,
+		TRANS_TYPE, 
+		ENT_RES_NO,
+		PER_RES_NO, 
+		EQUIPMENT_NO,
+		CHANNEL_TYPE, 
+		EQUIPMENT_TYPE,
+		SOURCE_TRANS_NO, 
+		SOURCE_BATCH_NO,
+		BATCH_NO, 
+		SOURCE_TRANS_DT,
+		TRANS_AMOUNT, 
+		PER_POINT,
+		ENT_POINT, 
+		STATUS,
+		TRANS_STATUS, 
+		INITIATE,
+		RETURN_REASON, 
+		ISACTIVE,
+		CREATED_DATE,
+		CREATED_BY,
+		UPDATED_DATE, 
+		UPDATED_BY,
+		TERM_RUN_CODE,
+		ENT_NAME,
+		MALL_NAME,
+		REMARK
+		)
+		VALUES(
+		#{returnNo,jdbcType=VARCHAR},
+		#{transNo,jdbcType=VARCHAR},
+		#{transType,jdbcType=VARCHAR},
+		#{entResNo,jdbcType=VARCHAR},
+		#{perResNo,jdbcType=VARCHAR},
+		#{equipmentNo,jdbcType=VARCHAR},
+		#{channelType,jdbcType=INTEGER},
+		#{equipmentType,jdbcType=INTEGER},
+		#{sourceTransNo,jdbcType=VARCHAR},
+		#{sourceBatchNo,jdbcType=VARCHAR},
+		#{batchNo,jdbcType=VARCHAR},
+		#{sourceTransDate,jdbcType=TIMESTAMP},
+		#{transAmount,jdbcType=NUMERIC},
+		#{perPoint,jdbcType=NUMERIC},
+		#{entPoint,jdbcType=NUMERIC},
+		#{status,jdbcType=INTEGER},
+		#{transStatus,jdbcType=INTEGER},
+		#{initiate,jdbcType=VARCHAR},
+		#{returnReason,jdbcType=VARCHAR},
+		#{isActive,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{createdBy,jdbcType=VARCHAR},
+		SYSTIMESTAMP,
+		#{updatedBy,jdbcType=VARCHAR},
+		#{termRunCode,jdbcType=VARCHAR},
+		#{entName,jdbcType=VARCHAR},
+		#{mallName,jdbcType=VARCHAR},
+		#{remark,jdbcType=TIMESTAMP}
+		)
+	</insert>
+    <!-- 退货,撤单调用原订单消费积分信息 -->
+    <select id="queryOldOrder" resultMap="OldOrderMap">
+		SELECT BATCH_NO,
+		ENT_CUST_ID,
+		PER_CUST_ID,
+		TRANS_NO,
+		TRANS_TYPE,
+		ENT_RES_NO,
+		PER_RES_NO,
+		EQUIPMENT_TYPE,
+		CHANNEL_TYPE,
+		SOURCE_TRANS_NO,
+		SOURCE_CURRENCY_CODE,
+		SOURCE_TRANS_AMOUNT,
+		SOURCE_TRANS_DT,
+		CURRENCY_RATE,
+		TRANS_AMOUNT,
+		POINT_RATE,
+		PER_POINT,
+		ENT_POINT,
+		ISSETTLE,
+		CREATED_DATE,
+		UPDATED_DATE,
+		STATUS,
+		TRANS_STATUS,
+		ENT_NAME,
+  		MALL_NAME,
+  		TARGET_TRANS_AMOUNT
+		FROM T_PS_NDETAIL
+		WHERE
+		SOURCE_TRANS_NO=#{sourceTransNo,jdbcType=VARCHAR} AND
+		ENT_RES_NO=#{entResNo,jdbcType=VARCHAR}
+		AND PER_RES_NO=#{perResNo,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询原单,通过交易流水号查询原交易单信息 -->
+	<select id="queryPoint" resultMap="OldOrderMap">
+		SELECT BATCH_NO,
+		ENT_CUST_ID,
+		PER_CUST_ID,
+		TRANS_NO,
+		TRANS_TYPE,
+		ENT_RES_NO,
+		PER_RES_NO,
+		EQUIPMENT_TYPE,
+		CHANNEL_TYPE,
+		SOURCE_TRANS_NO,
+		SOURCE_CURRENCY_CODE,
+		SOURCE_TRANS_AMOUNT,
+		SOURCE_TRANS_DT,
+		CURRENCY_RATE,
+		TRANS_AMOUNT,
+		POINT_RATE,
+		PER_POINT,
+		ENT_POINT,
+		ISSETTLE,
+		CREATED_DATE,
+		UPDATED_DATE,
+		STATUS,
+		TRANS_STATUS,
+		ENT_NAME,
+  		MALL_NAME,
+  		TARGET_TRANS_AMOUNT,
+  		PAY_STATUS
+		FROM T_PS_NDETAIL
+		WHERE
+		TRANS_NO=#{transNo,jdbcType=VARCHAR}
+	</select>
+	
+    <!-- 查询需要冲正的原订单流水号
+    <select id="querySerial" parameterType="String" resultType="String">
+		SELECT OLD_TRANS_NO FROM ${tableName} WHERE TRANS_NO=#{transNo}
+	</select>
+	 -->
+    <!-- 查询预留单(电商) -->
+    <select id="queryReserveOrder" resultMap="OldOrderMap">
+        SELECT
+        ENT_CUST_ID,
+        PER_CUST_ID,
+        TRANS_NO,
+        TRANS_TYPE,
+        ENT_RES_NO,
+        PER_RES_NO,
+        CHANNEL_TYPE,
+        EQUIPMENT_TYPE,
+        SOURCE_TRANS_NO,
+        SOURCE_CURRENCY_CODE,
+        SOURCE_TRANS_AMOUNT,
+        SOURCE_TRANS_DT,
+        SOURCE_BATCH_NO,
+        CURRENCY_RATE,
+        TRANS_AMOUNT,
+        TRANS_STATUS,
+        POINT_RATE,
+        PER_POINT,
+        ENT_POINT,
+        ISSETTLE,
+        CREATED_DATE,
+        UPDATED_DATE
+        FROM
+        T_PS_NDETAIL
+        WHERE TRANS_STATUS=${status,jdbcType=INTEGER}
+        <if test='point.sourceTransNo != null and point.sourceTransNo != ""'>
+            AND
+            SOURCE_TRANS_NO=#{point.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='point.entCustId != null and point.entCustId != ""'>
+            AND ENT_CUST_ID=#{point.entCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='point.entResNo != null and point.entResNo != ""'>
+            AND ENT_RES_NO=#{point.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='point.channelType != null'>
+            AND CHANNEL_TYPE=#{point.channelType,jdbcType=INTEGER}
+        </if>
+        <if test='point.equipmentType != null'>
+            AND EQUIPMENT_TYPE=#{point.equipmentType,jdbcType=INTEGER}
+        </if>
+        <if test='point.sourceBatchNo != null and point.sourceBatchNo != ""'>
+            AND
+            SOURCE_BATCH_NO=#{point.sourceBatchNo,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!-- 查询预留单(电商批结算) -->
+    <select id="batchQueryReserveOrder" resultMap="OldOrderMap">
+		SELECT
+		T.ENT_CUST_ID, 
+		T.PER_CUST_ID,
+		T.TRANS_NO, 
+		T.TRANS_TYPE,
+		T.ENT_RES_NO, 
+		T.PER_RES_NO,
+		T.CHANNEL_TYPE, 
+		T.EQUIPMENT_TYPE,
+		T.SOURCE_TRANS_NO,
+		T.SOURCE_CURRENCY_CODE,
+		T.SOURCE_TRANS_AMOUNT, 
+		T.SOURCE_TRANS_DT,
+		T.BATCH_NO, 
+		T.SOURCE_BATCH_NO,
+		T.CURRENCY_RATE, 
+		T.TRANS_AMOUNT,
+		T.POINT_RATE, 
+		T.PER_POINT,
+		T.ENT_POINT, 
+		T.ISSETTLE,
+		T.TRANS_STATUS, 
+		T.CREATED_DATE,
+		T.UPDATED_DATE
+		FROM T_PS_NDETAIL T
+		WHERE EXISTS(
+		SELECT 1
+		FROM T_PS_EC_CHECK_TEMP N
+		WHERE N.TRANS_TYPE=T.TRANS_TYPE
+		AND N.ENT_RES_NO=T.ENT_RES_NO
+		AND N.SOURCE_TRANS_NO=T.SOURCE_TRANS_NO
+		AND N.SOURCE_TRANS_AMOUNT=T.TRANS_AMOUNT
+		AND N.ENT_POINT=T.ENT_POINT
+		AND N.PER_CUST_ID=T.PER_CUST_ID
+		)
+	</select>
+    <!-- 电商批量结单(修改原订单状态) -->
+    <update id="batchUpdateReserveOrder" parameterType="map">
+		UPDATE T_PS_NDETAIL T 
+		SET T.TRANS_STATUS=4
+		WHERE EXISTS(
+		SELECT 1 FROM
+		T_PS_EC_CHECK_TEMP N
+		WHERE N.TRANS_TYPE=T.TRANS_TYPE
+		AND N.ENT_RES_NO=T.ENT_RES_NO
+		AND N.SOURCE_TRANS_NO=T.SOURCE_TRANS_NO
+		AND N.SOURCE_TRANS_AMOUNT=T.TRANS_AMOUNT
+		AND N.ENT_POINT=T.ENT_POINT
+		AND N.PER_CUST_ID=T.PER_CUST_ID
+		)
+	</update>
+    <!-- 冲正查询原单 -->
+    <select id="queryOldOrderAll" parameterType="map" resultMap="OldOrderMap">
+        SELECT
+        TRANS_NO,
+        TRANS_TYPE,
+        ENT_RES_NO,
+        PER_RES_NO,
+        EQUIPMENT_NO,
+        CHANNEL_TYPE,
+        EQUIPMENT_TYPE,
+        SOURCE_TRANS_NO,
+        BATCH_NO,
+        SOURCE_TRANS_DT,
+        SOURCE_CURRENCY_CODE,
+        SOURCE_TRANS_AMOUNT,
+        CURRENCY_RATE,
+        TRANS_AMOUNT,
+        POINT_RATE,
+        PER_POINT,
+        ENT_POINT,
+        STATUS,
+        TRANS_STATUS,
+        ISSETTLE,
+        ENT_CUST_ID,
+        PER_CUST_ID,
+        OPER_NO,
+        ISACTIVE,
+        CREATED_DATE,
+        CREATED_BY,
+        UPDATED_DATE,
+        UPDATED_BY,
+        SOURCE_BATCH_NO,
+        TERM_RUN_CODE
+        FROM ${tableName}
+        WHERE 1=1
+       <!--<if test='correct.sourceTransNo != null and correct.sourceTransNo != ""'>
+            AND SOURCE_TRANS_NO=#{correct.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        -->
+        <if test='correct.entResNo != null and correct.entResNo != ""'>
+            AND ENT_RES_NO=#{correct.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='correct.termRunCode != null and correct.termRunCode != ""'>
+            AND TERM_RUN_CODE=#{correct.termRunCode,jdbcType=VARCHAR}
+        </if>
+        <if test='correct.equipmentNo != null and correct.equipmentNo != ""'>
+            AND EQUIPMENT_NO=#{correct.equipmentNo,jdbcType=VARCHAR}
+        </if>
+        <if test='correct.sourceBatchNo != null and correct.sourceBatchNo != ""'>
+            AND SOURCE_BATCH_NO=#{correct.sourceBatchNo,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!-- 更新积分表原交易金额(部分退货) -->
+    <update id="updatePoint" parameterType="PointDetail">
+		UPDATE T_PS_NDETAIL t
+		SET
+		t.TRANS_AMOUNT=#{transAmount,jdbcType=NUMERIC},
+		t.TRANS_STATUS=#{status,jdbcType=INTEGER}
+		WHERE t.TRANS_NO=#{transNo,jdbcType=VARCHAR}
+	</update>
+    <!-- 更新原订单状态包括预留单 -->
+    <update id="updateStatus" parameterType="map">
+		UPDATE ${tableName} SET
+		TRANS_STATUS=${transStatus}
+		WHERE TRANS_NO=#{transNo,jdbcType=VARCHAR}
+	</update>
+    <!-- 更新消费积分表中订单状态 -->
+    <update id="updatePointStatus" parameterType="map">
+		UPDATE T_PS_NDETAIL
+		SET TRANS_STATUS=${status}
+		WHERE TRANS_NO=(select OLD_TRANS_NO from
+		${tableName} where
+		TRANS_NO=#{transNo})
+	</update>
+	<!-- 更新消费积分表支付状态 -->
+    <update id="updatePointPayStatus" parameterType="PointDetail">
+    	<![CDATA[
+		UPDATE T_PS_NDETAIL t
+		SET
+		t.PAY_STATUS=#{payStatus,jdbcType=INTEGER},
+		t.TRANS_TYPE=#{transType,jdbcType=VARCHAR},
+		t.SOURCE_TRANS_NO=#{sourceTransNo,jdbcType=VARCHAR}
+		WHERE t.TRANS_NO=#{transNo,jdbcType=VARCHAR}
+		AND t.PAY_STATUS <> 1
+		]]>
+	</update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+	<!-- 消费服务 -->
+	<dubbo:reference id="accountEntryService"
+		interface="com.gy.hsxt.ac.api.IAccountEntryService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+		
+	<!-- 业务参数系统 -->	
+	<dubbo:reference id="businessParamSearchService"
+		interface="com.gy.hsxt.bp.api.IBusinessParamSearchService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+
+	<!-- 用户中心系统 -->
+	<dubbo:reference id="uCAsEntService"
+					 interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" retries="${dubbo.reference.retires}"
+					 connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+</beans>

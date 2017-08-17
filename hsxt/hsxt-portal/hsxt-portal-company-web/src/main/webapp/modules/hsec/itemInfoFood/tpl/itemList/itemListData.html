@@ -1,0 +1,157 @@
+<%
+
+  var param = obj.data.QueryResult.result;
+  if(param.length > 0){
+  var objParam = obj.data.QueryResult;
+  var responseState = obj.responseState;
+  var typeState = obj.typeState;
+  var _virtualShopId = "";
+%>  
+<div>  
+	<table width="100%" id="tableList" border="0"  cellspacing="0" cellpadding="0" class="search-table" style="word-break:break-all;word-wrap:break-word;">
+	      <thead>
+	      <tr>
+          <th width="32%" class="nobd">菜品信息</th>
+          <th width="15%" >口味</th> 
+          <th width="15%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">&nbsp;价格</th>
+          <th width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">&nbsp;积分</th>
+          <th width="8%">创建时间</th>
+          <th width="10%">
+          	状态
+          </th>
+          <th>操作</th>
+        </tr>
+        </thead>
+         <%if(0 != param.length && null != param && "" != param){%>
+	    <% $.each(param,function(key,el){ 
+	    	var picUrl="";
+	    	_virtualShopId = el.virtualShopId;	   
+    	%>
+        <tr class="<%=key%2==1?'table-tr-c':''%>" itemId="<%=el.id%>">
+          <td>
+          
+          	<div class="clearfix">
+          		<div class="std_checkbox pr5">
+	              <input name="itemDataCheckBox" style="margin-top:34px;" type="checkbox" status="<%=el.status%>" value="<%=el.id%>"/>
+	            </div>
+	            <div class="std_jbxximg"><img src="<%=el.webShowPic%>" width="80" height="80"></div>
+	            <div class="fl tl">
+	              <ul class="w200">
+	                <li class="lh24" style="white-space:nowrap;">编码：<%=el.code%></li>
+	                <li class="lh24">名称：<%=el.name%></a></li>
+	                <li class="lh24">分类：<%=el.categoryName%></li>           
+	              </ul>
+	            </div>
+            </div>
+           </td>
+           <td>
+       	    <%
+       		var taste = null;
+       		try{
+       		taste = eval("("+el.taste+")")
+       		}catch(e){}
+       		%> 
+       		<%
+       		try{
+       			$.each(taste,function(k1,v1){%>
+       			<%=v1.value%>
+       		<%
+       		})
+       		}catch(e){}
+       		%>
+          </td>
+          <%
+          	var price = el.priceRegion;
+          	if(price == ""){
+          		price = el.price;
+          	}else{
+          		price = price.replace(",", " ~ ");
+          	}
+          	var pv = el.pvRegion;
+          	if(pv == ""){
+          		pv = el.pv;
+          	}else{
+          		pv = pv.replace(",", " ~ ");
+          	}
+          %>
+          
+   		<%if(el.standard != null && el.standard != ""){%>
+          <%
+          	var foodSku = eval(el.standard);
+          %>
+          	<td><span class="fb red"><%$.each(foodSku,function(k,v){%>
+          		<p style="padding-left: 30%" class="fl red"><%=v.pVName%>[<%=comm.formatMoneyNumber(v.price)%>]</p>
+          	<%})%></span></td>
+          	<td><span class="fb blue"><%$.each(foodSku,function(k,v){%>
+          		<p style="padding-left: 30%" class="fl red"><%=v.pVName%>[<%=comm.formatMoneyNumber(v.auction)%>]</p>
+          	<%})%></span></td>
+          <%}else{%>
+          	<td><span class="fb red"><%=comm.formatMoneyNumber(price)%></span></td>
+          	<td><span class="fb blue"><%=comm.formatMoneyNumber(pv)%></span></td>
+          <%}%>
+   
+   
+          <td>
+       		<%=el.createTime%> 
+          </td>
+		  <td>       
+         	<% if(el.status=='0'){ %>
+         	未上架
+         	<%} else if(el.status=='3') {%>
+	   		 已上架
+	   		<%}%>
+          </td>
+          <td>
+	          <%if(responseState != 600){ 
+	          %>
+	          <!-- <div class="caozuo lh24"><a class="updateItem" data-id="<%=el.id%>" data-vid="<%=el.virtualShopId %>">编辑</a></div>
+		      <div value="<%=el.id%>" status="<%=el.status%>" class="caozuo lh24 delsingleItem"><a>删除</a></div> -->
+		      <a class="updateItem" data-id="<%=el.id%>" data-vid="<%=el.virtualShopId %>">编辑</a>
+		       |	<a class="delsingleItem" data-id="<%=el.id%>">删除</a>
+		      <% if(el.status=='0' || el.status=='2'){%>
+		       |	<a class="putaway" data-id="<%=el.id%>" data-vid="<%=el.virtualShopId %>">上架</a>
+		      <%}%>
+		      <% if(el.status=='3'){%>
+		       |	<a class="soldout" data-id="<%=el.id%>" data-vid="<%=el.virtualShopId %>">下架</a>
+		      <%}%>
+		    <%}%>
+	    	</td>
+        </tr>
+	 <% })%>
+     <%}%>
+      </table>
+      </div>
+      
+      <div class="splb_sc" style="padding-top: 7px">
+      <%if(responseState != 600){%> 
+        <div style="float:left">
+        	全选
+      </div>
+      <div class="std_checkboxqx">
+        <input name="" type="checkbox" value="" id="all"/>
+      </div>
+    	<div id="batchDeletData" class="splb_sclb"><a href="javascript:;">批量删除</a></div>
+		<!-- <div id="batchPublish" class="splb_sclb"><a href="javascript:;">批量发布</a></div> -->
+		<div id="batchPutOn" class="splb_sclb" data-vid="<%=_virtualShopId %>"><a href="javascript:;">批量上架</a></div>
+		<div id="batchPutOff" class="splb_sclb" data-vid="<%=_virtualShopId %>"><a href="javascript:;">批量下架</a></div>
+		
+  <%}%>    
+      <div class="clearfix">
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((objParam.currentPageIndex-1)<1?'':objParam.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((objParam.currentPageIndex+1)>objParam.totalPage?'':objParam.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=objParam.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=objParam.currentPageIndex%>" totalPage="<%=objParam.totalPage%>"/><span class="page-go">页/<%=objParam.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=objParam.recoredCount%>条</a>
+			</div>
+         </div>
+         
+    </div> 
+     <%}else{%>
+     <div align="center">没有找到符合条件的数据</div>
+      <%}%>
+     
+      
+   

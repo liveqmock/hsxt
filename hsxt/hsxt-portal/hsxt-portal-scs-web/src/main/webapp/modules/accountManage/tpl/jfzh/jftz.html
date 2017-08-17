@@ -1,0 +1,55 @@
+<form id="pi_appform" autocomplete="off" name="pi_appform" action="" method="post" onsubmit="return false;">
+		<input name="pointAccUsable" id="pointAccUsable" type="hidden"/>
+		<input name="pi_minPointInvest" id="pi_minPointInvest" type="hidden"/>
+		<input name="pi_randomToken" id="pi_randomToken" type="hidden"/>
+<div id="div_jftz_tj">
+		<div class="acct-ct mb20">
+        	<h1 class="acct-tips"><span class="tcr_blue fb">投资说明：</span>1、积分投资金额为<span id="pi_integrationInvIntMult" name="pi_integrationInvIntMult"></span>的整数倍；2、平台承诺保本投资，投资回报按每年实际收益计算；3、积分投资一经确认，永不撤销。</h1>
+        </div>
+         <div class="cssform_320">
+    <ul class="cssform clearfix">
+        <li class="col2 pr bg_ef">
+            <label class="title-txt">可用积分数</label>
+            <div class="cont-chk tbox"><span class="red f16 fb pl5 ml10" id="pi_pointAccUsable"></span></div>
+        </li>
+        <li class="col2 pr">
+            <label class="title-txt">申请投资积分数</label>
+            <div class="cont-int"><input class="inpt w176 input_gray" type="text" name="pi_pointInvestNum" id="pi_pointInvestNum"  placeholder="输入申请投资积分数"  maxlength="10"><div class="hint red">*</div></div>
+        </li>
+        <li class="col2 pr bg_ef">
+            <label class="title-txt">转入账户</label>
+            <div class="cont-chk tbox"><span class="ml10">投资账户</span></div>
+        </li>
+     </ul>
+     
+     
+    </div>
+     <div class="mt20" align="center"><a id="jftz_tj"  class="btn_bg submit">提　交</a></div>   
+ </div>
+ </form>
+ <form id="pi_qr_appform" name="pi_qr_appform" action="" method="post" onsubmit="return false;"> 
+ <!-- 确认页面 -->
+ <div id="div_jftz_qr" class="none">
+ 		<div class="busibox p20">
+         			<div class="view_info mt40 info_500">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+							<tbody><tr>
+								<td class="view_item" width="20%" >申请投资积分数</td>
+								<td class="view_text" width="30%" id="qr_pi_pointInvestNum"></td>
+							</tr>
+                            <tr>
+								<td class="view_item" id="qr_pi_account">转入账户</td>
+								<td class="view_text">投资账户</td>
+							</tr>
+							<tr>
+								<td class="view_item">交易密码</td>
+								<td class="view_input">
+								<input class="input_gray" type="password" name="qr_pi_dealPwd" id="qr_pi_dealPwd" maxlength="8" placeholder="输入8位交易密码" style="width:394px;">
+								 </td>
+							</tr>
+						</tbody></table>
+						<div class="two_button clearfix mt20" align="center"><a id="jftz_xg" class="btn_bg submit mr10 fl">修　改</a><a id="jftz_qr" href="javascript:;" class="jftzqr btn_bg submit fr">确　认</a></div>
+		   </div>
+         </div>
+ </div>
+ </form>

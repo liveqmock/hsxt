@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgBankcardBindingTmpMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.pg.mapper.vo.TPgBankcardBindingTmp">
+		<id column="BANK_CARD_NO" property="bankCardNo" jdbcType="VARCHAR" />
+		<result column="BANK_CARD_TYPE" property="bankCardType" jdbcType="INTEGER" />
+		<result column="BANK_ID" property="bankId" jdbcType="VARCHAR" />
+		<result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+		<result column="BINDING_NO" property="bindingNo" jdbcType="VARCHAR" />
+		<result column="TRANS_LIMIT" property="transLimit" jdbcType="DECIMAL" />
+		<result column="SUM_LIMIT" property="sumLimit" jdbcType="DECIMAL" />
+		<result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" />
+		<result column="BINDING_STATUS" property="bindingStatus" jdbcType="INTEGER" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		BANK_CARD_NO, BANK_CARD_TYPE, BANK_ID, BANK_NAME, BINDING_NO, TRANS_LIMIT,
+		SUM_LIMIT,
+		EXPIRE_DATE, BINDING_STATUS, CREATED_DATE, UPDATED_DATE
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_BANKCARD_BINDING_TMP
+		where BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByBindingStatus" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_BANKCARD_BINDING_TMP
+		where BINDING_STATUS = #{bindingStatus,jdbcType=INTEGER}
+		and <![CDATA[ CREATED_DATE <= #{dateBefore,jdbcType=VARCHAR} ]]>
+		LIMIT #{fromIndex,jdbcType=INTEGER}, #{limitCount,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from T_PG_BANKCARD_BINDING_TMP
+		where BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgBankcardBindingTmp">
+		insert into T_PG_BANKCARD_BINDING_TMP (BANK_CARD_NO, BANK_CARD_TYPE,
+		BANK_ID,
+		BANK_NAME, BINDING_NO, TRANS_LIMIT,
+		SUM_LIMIT, EXPIRE_DATE, BINDING_STATUS, CREATED_DATE,
+		UPDATED_DATE)
+		values (#{bankCardNo,jdbcType=VARCHAR}, #{bankCardType,jdbcType=INTEGER},
+		#{bankId,jdbcType=VARCHAR},
+		#{bankName,jdbcType=VARCHAR}, #{bindingNo,jdbcType=VARCHAR}, #{transLimit,jdbcType=DECIMAL},
+		#{sumLimit,jdbcType=DECIMAL}, #{expireDate,jdbcType=TIMESTAMP}, #{bindingStatus,jdbcType=INTEGER},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.pg.mapper.vo.TPgBankcardBindingTmp">
+		update T_PG_BANKCARD_BINDING_TMP
+		<set>
+			<if test="bankCardType != null">
+				BANK_CARD_TYPE = #{bankCardType,jdbcType=INTEGER},
+			</if>
+			<if test="bankId != null">
+				BANK_ID = #{bankId,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				BANK_NAME = #{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bindingNo != null">
+				BINDING_NO = #{bindingNo,jdbcType=VARCHAR},
+			</if>
+			<if test="transLimit != null">
+				TRANS_LIMIT = #{transLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="sumLimit != null">
+				SUM_LIMIT = #{sumLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="expireDate != null">
+				EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bindingStatus != null">
+				BINDING_STATUS = #{bindingStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.pg.mapper.vo.TPgBankcardBindingTmp">
+		update T_PG_BANKCARD_BINDING_TMP
+		set BANK_CARD_TYPE = #{bankCardType,jdbcType=INTEGER},
+		BANK_ID = #{bankId,jdbcType=VARCHAR},
+		BANK_NAME = #{bankName,jdbcType=VARCHAR},
+		BINDING_NO = #{bindingNo,jdbcType=VARCHAR},
+		TRANS_LIMIT = #{transLimit,jdbcType=DECIMAL},
+		SUM_LIMIT = #{sumLimit,jdbcType=DECIMAL},
+		EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+		BINDING_STATUS = #{bindingStatus,jdbcType=TIMESTAMP},
+		CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+		UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+		where BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR}
+	</update>
+</mapper>

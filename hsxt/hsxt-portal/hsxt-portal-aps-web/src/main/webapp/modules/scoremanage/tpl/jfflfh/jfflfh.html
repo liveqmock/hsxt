@@ -1,0 +1,46 @@
+<div id="jfflspTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+		<ul class="cssform clearfix">
+		<li>
+			<label>时间范围：</label>
+			<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w100"    />
+			<span class="separator-pd">-</span>
+			<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w100"    />
+		</li>
+		<li>
+			<label>互生卡号：</label>
+			<input type="text" name="proposerResNo" id="proposerResNo" maxlength="11" placeholder="输入互生卡号" class="h28_middle input-txt w100" />
+		</li>
+		<li>
+			<label>申请人：</label>
+			<input type="text" name="proposerName" id="proposerName" placeholder="输入申请人" class="h28_middle input-txt w100" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">申请福利类别：</label>
+			<input name="welfareType" id="welfareType" readonly="readonly" placeholder="选择申请福利类别" />
+		</li>
+		<li>
+			<button id="qry_jfflsp_btn" type="button" class="btn-search">查询</button>
+		</li>
+		 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_index="applyWelfareNo" w_tip="true" width="10%">申请单号</th>
+		<th w_index="applyDate" w_tip="true" width="9%">申请日期</th>
+		<th w_index="proposerResNo" w_tip="true" width="10%">申请人互生卡号</th>
+		<th w_index="proposerName"  w_tip="true" width="5%">申请人</th>
+		<th w_index="proposerPhone" w_tip="true" width="8%" >手机号码</th>
+		<th w_render="operate" w_tip="true"  width="12%">申请福利类别</th>
+		<th w_index="welfareId" w_tip="true" width="10%">关联保障单号</th>
+		<th w_render="operate" w_index="subsidyBalance" w_tip="true" width="7%">保障单余额</th>
+		<th w_index="approvalStatus" w_render="operate" width="6%">状态</th>
+		<th w_index="statusDate" w_tip="true" width="9%">状态日期</th>
+		<th w_render="operate" width="6%" >操作</th>
+		<th w_render="operate" width="10%">工单操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_fh_sq" class="none"></div>

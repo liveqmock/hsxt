@@ -1,0 +1,181 @@
+<!-- 新建组 -->
+<div id="rcap_xzgzz" class="none">
+	<div class="info_600 bc">
+		<form id="fm_rcap_xzgzz">
+			<table class="mt20">
+				<tr>
+					<td class="pl20">值班组名称：</td>
+					<td class="pl10"><input id="rcap_zzzmc" name="rcap_zzzmc" maxlength="15"
+						class="input-txt w150 h28" placeholder="输入工作组名称" /><span
+						class="red pl10">*</span></td>
+					<td class="pl30" align="right">值班组类型：</td>
+					<td class="pl10">
+						<div>
+							<input type="radio" name="RgroupType" class="ml10" value="1"
+								checked="checked" /> 客户组值班 <input type="radio"
+								name="RgroupType" class="ml10" value="2" /> 业务组值班
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="pt20" colspan="4">工号：<input id="txtJobNumber_add"
+						class="input-txt w150 h28" placeholder="输入工号"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<table width="600" class="mt5">
+							<tr>
+								<!-- 	<td class="bg_grey h30 pl5 fb" width="166">员工列表</td>
+								<td class="w100 "></td>
+								<td class="bg_grey h30 pl5 fb" width="166">值班员</td>
+								<td class="bg_grey h30 pl5 fb">值班主任</td> -->
+
+								<td class="bg_grey h30 pl5 fb" width="110">工号</td>
+								<td class="bg_grey h30 pl5 fb" width="130">员工列表</td>
+								<td width="80"></td>
+								<td class="bg_grey h30 pl5 fb" width="110">值班员</td>
+								<td class="bg_grey h30 pl5 fb" width="130">值班主任</td>
+							</tr>
+							<tr>
+								<td valign="top" colspan="2">
+									<ul id="rcap_yglb" class="rcap_select">
+
+									</ul>
+								</td>
+
+								<td valign="middle" align="center"><a id="rcap_rightArrow"
+									class="arrow-right"></a> <br> <br> <br> <a
+									id="rcap_leftArrow" class="arrow-left"></a></td>
+								<td>
+									<ul id="rcap_zby" class="rcap_select" style="width: 253px;">
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<!-- 编辑组 -->
+<div id="rcap_bjgzz" class="none">
+	<div class="info_600 bc">
+		<form id="fm_rcap_bjgzz_update">
+			<table class="mt20">
+				<tr>
+					<td class="pl20">值班组名称：</td>
+					<td class="pl10"><input id="rcap_bjzmc" name="rcap_bjzmc" maxlength="15"
+						class="input-txt w150 h28" placeholder="输入工作组名称" /><span
+						class="red pl10">*</span></td>
+					<td class="pl30" align="right">值班组类型：</td>
+					<td class="pl10">
+						<div>
+							<input type="radio" name="updateRgroupType" class="ml10"
+								value="1" checked="checked" /> 客户组值班 <input type="radio"
+								name="updateRgroupType" class="ml10" value="2" /> 业务组值班
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="pt20" colspan="4">工号：<input
+						id="txtJobNumber_update" class="input-txt w150 h28"
+						placeholder="输入工号"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<table width="600" class="mt5">
+							<tr>
+								<!-- 	<td class="bg_grey h30 pl5 fb" width="166">员工列表</td>
+								<td class="w100 "></td>
+								<td class="bg_grey h30 pl5 fb" width="166">值班员</td>
+								<td class="bg_grey h30 pl5 fb">值班主任</td> -->
+
+								<td class="bg_grey h30 pl5 fb" width="110">工号</td>
+								<td class="bg_grey h30 pl5 fb" width="130">员工列表</td>
+								<td width="80"></td>
+								<td class="bg_grey h30 pl5 fb" width="110">值班员</td>
+								<td class="bg_grey h30 pl5 fb" width="130">值班主任</td>
+
+							</tr>
+							<tr>
+								<td valign="top" colspan="2">
+									<ul id="rcap_yglb2" class="rcap_select">
+									</ul>
+								</td>
+								<td valign="middle" align="center"><a id="rcap_rightArrow2"
+									class="arrow-right"></a> <br> <br> <br> <a
+									id="rcap_leftArrow2" class="arrow-left"></a></td>
+								<td>
+									<ul id="rcap_zby2" class="rcap_select" style="width: 253px;">
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+
+<!--值班员信息-->
+<div id="rcap_zbyxx" class="none">
+	<div class="info_600 bc">
+		<form id="fm_rcap_bjzby">
+			<table width="600" class="mt20">
+				<tr>
+					<td class="p5">姓名：</td>
+					<td><span id="rcap_clerkName"></span></td>
+					<td></td>
+					<td>工号：</td>
+					<td><span id="sWorkNo"></span> <input id="hidOptCustId"
+						type="hidden"></td>
+				</tr>
+				<tr>
+					<td class="p5">所属值班组：</td>
+					<td><span id="rcap_groupName"></span></td>
+					<td></td>
+					<td>值班组类型：</td>
+					<td><span id="rcap_groupType"></span></td>
+				</tr>
+				<tr>
+					<td class="p5">当天值班状态：</td>
+					<td><span id="sOnDuty" class="red"></span></td>
+					<td></td>
+					<td>调休天数：</td>
+					<td><span id="sOffNum" class="red"></span></td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="pl5 h30  fb bg_grey">业务节点清单</td>
+					<td class=" h30 pl5 fb bg_grey"></td>
+					<td class="w120 "></td>
+					<td class="pl5 h30  fb bg_grey">已授权业务节点</td>
+					<td class=" h30 pl5 fb bg_grey"></td>
+				</tr>
+				<tr>
+					<td colspan="2" valign="top"><select id="selBizAuth"
+						multiple="true" class="rcap_select" style="width: 239px;">
+					</select></td>
+
+					<td valign="middle" align="center"><a
+						id="rcap_bjzby_rightArrow" class="arrow-right"></a> <br> <br>
+						<br> <a id="rcap_bjzby_leftArrow" class="arrow-left"></a></td>
+					<td colspan="2"><select id="selExitsBizAuth" multiple="true"
+						class="rcap_select" style="width: 239px;">
+					</select></td>
+
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

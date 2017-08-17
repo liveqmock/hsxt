@@ -1,0 +1,37 @@
+<div id="skzhxxglTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">					
+			<li>
+				<label>收款账户名称：</label>
+				<input type="text" name="receiveAccountName" id="receiveAccountName" value="" placeholder="输入收款账户名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">收款开户银行：</label>	
+				<div class="fl ml5 combobox_style brandSelect" id="bankSelect">
+					<select id="bankId" name="bankId"></select>			
+				</div>
+			</li>
+			<li>
+				<label>收款账号：</label>
+				<input type="text" name="receiveAccountNo" id="receiveAccountNo" value="" placeholder="输入收款账号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="queryskzh" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="tjskzh_btn" type="button" class="btn-search">添加收款账户</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="receiveAccountName" w_tip="true" w_length='30'>收款账户</th>
+		<th w_index="bankName" w_tip="true" w_length='20'>收款开户银行</th>
+		<th w_index="receiveAccountNo" w_tip="true" w_length='20'>收款账号</th>
+		<th w_index="isActive" w_render="operate">状态</th>
+		<th w_index="forbidTime">禁用日期</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>

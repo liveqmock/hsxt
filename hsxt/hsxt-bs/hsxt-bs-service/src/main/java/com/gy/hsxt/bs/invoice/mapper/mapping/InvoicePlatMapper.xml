@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.invoice.mapper.InvoicePlatMapper">
+
+    <resultMap id="invoicePlatResult" type="com.gy.hsxt.bs.bean.invoice.InvoicePlat">
+        <id column="INVOICE_ID" property="invoiceId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="STATUS" property="status"/>
+        <result column="REFUSE_REMARK" property="refuseRemark"/>
+        <result column="BIZ_TYPE" property="bizType"/>
+        <result column="INVOICE_TITLE" property="invoiceTitle"/>
+        <result column="INVOICE_TYPE" property="invoiceType"/>
+        <result column="ALL_AMOUNT" property="allAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="BANK_BRANCH_NAME" property="bankBranchName"/>
+        <result column="BANK_NO" property="bankNo"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="TELEPHONE" property="telephone"/>
+        <result column="TAXPAYER_NO" property="taxpayerNo"/>
+        <result column="APPLY_TIME" property="applyTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPLY_OPERATOR" property="applyOperator"/>
+        <result column="OPEN_CONTENT" property="openContent"/>
+        <result column="OPEN_TIME" property="openTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="OPEN_OPERATOR" property="openOperator"/>
+        <result column="EXPRESS_NAME" property="expressName"/>
+        <result column="TRACKING_NO" property="trackingNo"/>
+        <result column="POST_WAY" property="postWay"/>
+        <result column="RECEIVE_WAY" property="receiveWay"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 创建平台发票 -->
+    <insert id="insertInvoicePlat" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePlat">
+        INSERT INTO T_BS_INVOICE_PLAT (
+            INVOICE_ID,
+            CUST_ID,
+            RES_NO,
+            CUST_NAME,
+            STATUS,
+            BIZ_TYPE,
+            INVOICE_TITLE,
+            INVOICE_TYPE,
+            ALL_AMOUNT,
+            BANK_BRANCH_NAME,
+            BANK_NO,
+            ADDRESS,
+            TELEPHONE,
+            TAXPAYER_NO,
+            APPLY_TIME,
+            APPLY_OPERATOR,
+            OPEN_TIME,
+            OPEN_OPERATOR,
+            EXPRESS_NAME,
+            TRACKING_NO,
+            POST_WAY,
+            OPEN_CONTENT
+        ) VALUES (
+            #{invoiceId},
+            #{custId},
+            #{resNo},
+            #{custName},
+            #{status},
+            #{bizType},
+            #{invoiceTitle},
+            #{invoiceType},
+            #{allAmount},
+            #{bankBranchName},
+            #{bankNo},
+            #{address},
+            #{telephone},
+            #{taxpayerNo},
+            #{applyTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{applyOperator},
+            #{openTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{openOperator},
+            #{expressName},
+            #{trackingNo},
+            #{postWay},
+            #{openContent}
+        )
+    </insert>
+    <!-- 分页查询平台发票数据列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceQuery" resultMap="invoicePlatResult">
+        SELECT t.* FROM T_BS_INVOICE_PLAT t WHERE 1=1
+        <if test="custId != null and custId !='' ">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="resNo != null and resNo !='' ">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custName != null and custName !='' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <choose>
+            <!-- 查询审批状态 -->
+            <when test="queryType == 1 and status == null ">
+                AND t.STATUS &lt; 2
+            </when>
+            <!-- 查询配送状态 -->
+            <when test="queryType == 2 and status == null ">
+                AND t.STATUS &gt;= 2
+            </when>
+            <when test="status != null">
+                AND t.STATUS = #{status}
+            </when>
+        </choose>
+        <if test="bizType != null and bizType !='' ">
+            AND t.BIZ_TYPE = #{bizType}
+        </if>
+        <choose>
+            <when test="platQuery == true">
+                <if test="startDate != null and startDate !='' ">
+                    AND t.OPEN_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+                </if>
+                <if test="endDate != null and endDate !='' ">
+                    AND t.OPEN_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+                </if>
+            </when>
+            <otherwise>
+                <if test="startDate != null and startDate !='' ">
+                    AND t.APPLY_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+                </if>
+                <if test="endDate != null and endDate !='' ">
+                    AND t.APPLY_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+                </if>
+            </otherwise>
+        </choose>
+        ORDER BY t.INVOICE_ID DESC
+    </select>
+
+    <!-- 根据条件查询发票列表 -->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceQuery" resultMap="invoicePlatResult">
+        SELECT t.*
+        FROM T_BS_INVOICE_PLAT t
+        WHERE 1=1
+        <if test="custId != null and custId !='' ">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="resNo != null and resNo !='' ">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custName != null and custName !='' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <choose>
+            <!-- 查询审批状态 -->
+            <when test="queryType == 1 and status == null ">
+                AND t.STATUS &lt; 2
+            </when>
+            <!-- 查询配送状态 -->
+            <when test="queryType == 2 and status == null ">
+                AND t.STATUS &gt;= 2
+            </when>
+            <when test="status != null">
+                AND t.STATUS = #{status}
+            </when>
+        </choose>
+        <if test="bizType != null and bizType !='' ">
+            AND t.BIZ_TYPE = #{bizType}
+        </if>
+        <if test="startDate != null and startDate !='' ">
+            AND t.OPEN_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate !='' ">
+            AND t.OPEN_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+    </select>
+
+    <!-- 根据ID查询实体 -->
+    <select id="selectBeanById" resultMap="invoicePlatResult" parameterType="string">
+        SELECT t.*
+        FROM T_BS_INVOICE_PLAT t
+        WHERE t.INVOICE_ID = #{invoiceId}
+    </select>
+    <!-- 更新平台发票 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePlat">
+        UPDATE T_BS_INVOICE_PLAT t
+        SET t.UPDATED_DATE = systimestamp
+        , t.UPDATEDBY = #{updatedBy}
+        <if test="status != null">
+            ,t.STATUS = #{status}
+        </if>
+        <if test="refuseRemark !=null and refuseRemark != '' ">
+            ,t.REFUSE_REMARK = #{refuseRemark}
+        </if>
+        <if test="openOperator != null and openOperator !=''">
+            ,t.OPEN_OPERATOR = #{openOperator}
+            ,t.OPEN_TIME = systimestamp
+        </if>
+        <if test="expressName !=null and expressName != ''">
+            ,t.EXPRESS_NAME = #{expressName}
+        </if>
+        <if test="trackingNo !=null and trackingNo != ''">
+            ,t.TRACKING_NO = #{trackingNo}
+        </if>
+        <if test="postWay != null">
+            ,t.POST_WAY = #{postWay}
+        </if>
+        <if test="receiveWay != null">
+            ,t.RECEIVE_WAY = #{receiveWay}
+        </if>
+        WHERE t.INVOICE_ID = #{invoiceId}
+    </update>
+</mapper>

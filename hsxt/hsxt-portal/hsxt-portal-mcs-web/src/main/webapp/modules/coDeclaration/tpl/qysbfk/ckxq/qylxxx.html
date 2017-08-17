@@ -1,0 +1,95 @@
+
+<div id="qylxxx_1"  class="view_info info_800">
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+	<tbody><tr>
+		<td class="view_item" width="20%">联系人姓名</td>
+		<td class="view_text" width="30%"><%=obj.linkman%></td>
+		<td class="view_item" width="20%">联系人手机</td>
+		<td class="view_text" width="30%"><%=obj.mobile%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">联系地址</td>
+		<td class="view_text" width="30%"><%=obj.address%></td>
+		<td class="view_item" width="20%">邮政编码</td>
+		<td class="view_text" width="30%"><%=obj.zipCode%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">企业安全邮箱</td>
+		<td class="view_text" width="30%"><%=obj.email%></td>
+		<td class="view_item" width="20%"></td>
+		<td class="view_text" width="30%"></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+		<td colspan="3" class="view_text pt5 pb5">
+		<a ><img id="img" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+		</td>
+	</tr>
+	
+	<%if('true'==obj.venBefFlag){%>
+	<tr>
+		<td class="view_item" width="20%" height="60">创业帮扶协议书</td>
+		<td colspan="3" class="view_text pt5 pb5"><a ><img id="helpxys2" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a></td>
+	</tr>
+	<%}%>
+	
+</tbody></table>
+</div>
+
+<div id="qylxxx_2" class="register_info info_800 none">
+<form id="qylxxx_form" name="qylxxx_form">
+	<div class="clearfix">
+		<ul class="fl">
+			<li class="register_row info_320 clearfix"><label for="name">联系人姓名</label><input type="text" id="linkman" name="linkman" value="<%=obj.linkman%>" class="input_gray isChange" placeholder="输入联系人姓名"  ><div class="hint f14 red">*</div><div class="hint"><!--提示--></div></li>
+			<li class="register_row info_320 clearfix"><label for="name">联系地址</label><input type="text" id="address" name="address" value="<%=obj.address%>" class="input_gray isChange" placeholder="输入联系地址"  ><div class="hint f14 red"></div><div class="hint"><!--提示--></div></li>
+			<li class="register_row info_320 clearfix"><label for="name">企业安全邮箱</label><input type="text" id="email" name="email" value="<%=obj.email%>" class="input_gray isChange" placeholder="输入企业安全邮箱"   style="width:135px;"><div class="hint f14 red"></div><!--<a href="#" class="dlgEmail btn_bg submit_btn" style="margin-top:2px;">验证</a>--><div class="hint"><!--提示--></div></li>
+		</ul>
+		<ul class="fr">
+			<li class="register_row info_320 clearfix"><label for="name">联系人手机</label><input type="text" id="mobile" name="mobile" value="<%=obj.mobile%>" class="input_gray isChange" placeholder="输入联系人手机"   style="width:135px;"><div class="hint f14 red">*</div><!--<a href="#" class="dlgMobile btn_bg submit_btn" style="margin-top:2px;">验证</a>--><div class="hint"><!--提示--></div></li>
+			<li class="register_row info_320 clearfix"><label for="name">邮政编码</label><input type="text" id="zipCode" name="zipCode" value="<%=obj.zipCode%>" class="input_gray isChange" placeholder="输入邮政编码"  ><div class="hint f14 red"></div><div class="hint"><!--提示--></div></li>
+		</ul>
+	</div>
+	
+	<ul>
+			<li class="register_row  clearfix mt5 h60_middle pr">
+				<label for="name" class="fl w115 h60_middle" style="line-height:60px;height:60px;">联系人授权委托书</label>
+				<span id="bimg" class="spanfl sample_img">
+					<img id="img-2" src="resources/img/noImg.gif" width="81" height="52">
+				</span>
+				<div class="sample_btn fl mt15 ml10">
+					<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate" name="certificate"></a>
+					<a id="certificateFileId" href="#" class="btn_bg viewSample_btn fl ml20">模板下载</a>
+					<span class="required-right-15" style="top:25px;">*</span>
+       			</div>
+			</li>
+			
+			<%if('true'==obj.venBefFlag){%>
+			<li class="register_row  clearfix mt5 h60_middle pr">
+				<label for="name" class="fl w115 h60_middle" style="line-height:60px;height:60px;">创业帮扶协议</label>
+				<span id="helpxys" class="spanfl sample_img">
+					<img id="helpxys-2" src="resources/img/noImg.gif" width="81" height="52">
+				</span>
+				<div class="sample_btn fl mt15 ml10">
+					<input type="hidden" id="hlepFile" name="hlepFile" value="<%=obj.protocolAptitude==null?'':obj.protocolAptitude.fileId%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="hlepFileBtn" name="hlepFileBtn"></a>
+					<a id="hlepFileId" href="#" class="btn_bg viewSample_btn fl  ml20">模板下载</a>
+					<span class="required-right-15" style="top:25px;">*</span>
+       			</div>
+			</li>
+			<%}%>
+			
+	</ul>
+	
+</form>
+</div>
+ 
+<div id="qylxxx_dialog" class="none" title="企业联系信息修改确认"><p class="autowidth"></p></div>
+
+
+
+
+		 
+
+
+		 

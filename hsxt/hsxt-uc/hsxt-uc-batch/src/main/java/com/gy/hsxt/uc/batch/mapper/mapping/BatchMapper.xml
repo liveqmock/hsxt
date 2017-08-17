@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.batch.mapper.BatchMapper" >
+               
+  <update id="updateCustPvDate" parameterType="java.util.Map" >
+    <![CDATA[ 
+	update T_CUST_CARDHOLDER 
+	  set UPDATE_DATE=SYSDATE,LAST_POINT_DATE = to_date(#{pvDate},'yyyymmdd'),
+	  HS_CARD_ACTIVE_STATUS=1,
+	  BASE_STATUS=
+	  CASE WHEN BASE_STATUS<=3 THEN 2
+	       ELSE BASE_STATUS
+	  END
+	  where PER_CUST_ID in 
+	]]>
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item}
+        </foreach>
+	
+  </update>
+  
+  <!-- 更新沉默用户状态， 基本状态 
+  1：不活跃、初始状态，1年内无消费积分行为
+  2：活跃、1年内有消费积分行为
+  3：休眠、连续3年以上无积分(首次从开卡日期算起)
+  4：沉淀    连续3年以上未激活且无登录(首次从开卡日期算起)
+  	中期为了提高扫描效率，可考虑积分时间LAST_POINT_DATE字段加上索引
+  -->
+  <update id="updateCustStatus"  >
+    <![CDATA[ 
+	update T_CUST_CARDHOLDER 
+	set UPDATE_DATE=SYSDATE,
+	BASE_STATUS =
+	CASE WHEN (months_between(sysdate,CREATE_DATE)>${silentMonths} and LAST_LOGIN_DATE is null and LAST_POINT_DATE is null)  THEN 4
+	     WHEN months_between(sysdate,nvl(LAST_POINT_DATE,CREATE_DATE))>${silentMonths} THEN 3
+	     WHEN months_between(sysdate,LAST_POINT_DATE)<=${sleepMonths} THEN 2
+	     ELSE 1
+	END
+	where  BASE_STATUS <=3
+	and BASE_STATUS !=
+	CASE WHEN (months_between(sysdate,CREATE_DATE)>${silentMonths} and LAST_LOGIN_DATE is null and LAST_POINT_DATE is null)  THEN 4
+	     WHEN months_between(sysdate,nvl(LAST_POINT_DATE,CREATE_DATE))>${silentMonths} THEN 3
+	     WHEN months_between(sysdate,LAST_POINT_DATE)<=${sleepMonths} THEN 2
+	     ELSE 1
+	END
+	
+	]]>
+  </update>
+  
+  <update id="updateEntPvDate" parameterType="java.util.Map"  >
+    <![CDATA[  
+	update T_ENT_STATUS 
+	    set UPDATE_DATE=SYSDATE,LAST_POINT_DATE = to_date(#{pvDate},'yyyymmdd'),
+	    BASE_STATUS=
+	    CASE WHEN BASE_STATUS<=3 THEN 1
+	         ELSE BASE_STATUS
+	    END
+	    where ENT_CUST_ID in 
+	]]>
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item}
+        </foreach>
+	  
+  </update>  
+  
+  <!-- 更新沉默企业状态，  基本状态
+  	1：正常(NORMAL)  成员企业、托管企业用
+	2：预警(WARNING) 成员企业、托管企业用 1月未送积分
+	3：休眠(DORMANT) 成员企业用  1年未送积分
+	4：长眠（申请注销）成员企业 2年未送积分
+	5：已注销 成员企业
+	6：申请停止积分活动中  托管企业用
+	7：停止积分活动	托管企业用
+	
+	中期为了提高扫描效率，可考虑积分时间LAST_POINT_DATE字段加上索引
+  -->
+  <update id="updateEntStatus"  >
+	<![CDATA[ 
+	update T_ENT_STATUS 
+	set UPDATE_DATE=SYSDATE,
+	BASE_STATUS =
+	CASE WHEN months_between(sysdate,LAST_POINT_DATE)>${silentMonths} and CUST_TYPE=2 and BASE_STATUS<4  THEN 4
+	     WHEN months_between(sysdate,LAST_POINT_DATE)>${sleepMonths} and CUST_TYPE=2 and BASE_STATUS<3 THEN 3
+	     WHEN months_between(sysdate,LAST_POINT_DATE)>${warnMonths} and BASE_STATUS=1 THEN 2
+	     WHEN months_between(sysdate,LAST_POINT_DATE)<${warnMonths} and BASE_STATUS<=4  THEN 1
+	     ELSE BASE_STATUS
+	END
+	where BASE_STATUS <=4
+	and CUST_TYPE in (2,3)
+	and BASE_STATUS !=	
+	CASE WHEN months_between(sysdate,LAST_POINT_DATE)>${silentMonths} and CUST_TYPE=2 and BASE_STATUS<4  THEN 4
+	     WHEN months_between(sysdate,LAST_POINT_DATE)>${sleepMonths} and CUST_TYPE=2 and BASE_STATUS<3 THEN 3
+	     WHEN months_between(sysdate,LAST_POINT_DATE)>${warnMonths} and BASE_STATUS=1 THEN 2
+	     WHEN months_between(sysdate,LAST_POINT_DATE)<${warnMonths} and BASE_STATUS<=4  THEN 1
+	     ELSE BASE_STATUS
+	END
+	
+	]]>
+  </update>
+  
+  <!-- 更新企业年费欠费状态，  IS_OWE_FEE 是否欠年费 1:是  0：否
+  -->
+  <update id="updateEntIsOweFee"  >
+	<![CDATA[ 
+	update T_ENT_STATUS
+	set UPDATE_DATE=SYSDATE,IS_OWE_FEE = 1
+	where EXPIRE_DATE < sysdate
+	and IS_OWE_FEE = 0
+	
+	]]>
+  </update>
+  
+  <!-- 更新企业税率
+  -->
+  <update id="updateEntTaxRate"  >
+	<![CDATA[ 
+	update (select a.TAX_RATE, b.ENT_TAX_RATE
+          from T_ENT_EXTEND a
+          left join T_ENT_TAXRATE b
+            on a.ent_cust_id = b.ent_cust_id        
+         where a.ISACTIVE = 'Y'              
+           and a.ent_cust_id in
+               (select ent_cust_id
+                  from T_ENT_TAXRATE b                
+                 where b.ISACTIVE = 'Y'
+                   and ACTIVE_DATE < sysdate
+                   and ACTIVE_DATE > sysdate - 1)) t
+   	set TAX_RATE = ENT_TAX_RATE
+	
+	]]>
+  </update>
+  
+  <!-- 更新企业税率
+  -->
+  <select id="selectUpdateEntTaxRate" resultType="java.util.HashMap" >
+	<![CDATA[ 
+	select ENT_CUST_ID,ENT_TAX_RATE,ENT_RES_NO
+                  from T_ENT_TAXRATE b                
+                 where b.ISACTIVE = 'Y'
+                   and ACTIVE_DATE < sysdate
+                   and ACTIVE_DATE > sysdate - 1
+	
+	]]>
+  </select>
+  
+  <update id="updateEntAnnualFee"  parameterType="java.util.List">      
+       <foreach collection="list" item="item" index="index" open="begin" close="end;" separator=";">
+            update T_ENT_STATUS
+			set UPDATE_DATE=SYSDATE,IS_OWE_FEE = #{item.isOweFee},
+			 EXPIRE_DATE=#{item.expireDate}
+			where  ENT_CUST_ID = #{item.entCustId}
+       </foreach>
+          
+  </update>
+  
+</mapper>

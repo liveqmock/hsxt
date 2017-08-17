@@ -1,0 +1,82 @@
+ 
+	<div class="bc  info_800"> 
+			<div class="clearfix">
+				<form id="fpsq_xzfpform">
+				<table class="w800" style="background-color:#e8f4e6;">
+					<tbody>
+						<tr>
+							<td width="114" class="p5 tr">发票抬头：</td>
+							<td width="399" class="p5"><span><%=obj.entCustName%></span></td>
+							<td width="123" class="p5 tr">纳税人识别号：</td>
+							<td width="244" class="p5"><span><%=obj.taxNo%></span></td>
+						</tr>
+						<tr>
+							<td class="p5 tr">地址，电话：</td>
+							<td class="p5"><span><%=obj.entRegAddr%></span><span class="pl20"><%=obj.officeTel%></span></td>
+							<td class="p5 tr">开票内容：</td>
+							<td class="p5"><span><%=obj.openContent%></span></td>
+						</tr>
+						<tr>
+							<td class="p5 tr">开户行及账号：</td>
+							<td class="p5"><span><%=obj.bankBranchName%></span><span class="pl20"><%=obj.bankNo%></span></td>
+							<td class="p5 tr">发票金额：</td>
+							<td class="p5"><span><%=obj.allAmount%></span></td>
+						</tr>
+						<tr>
+							<td class="p5 tr">发票类型：</td>
+							<td class="p5"><input id="fpsq_invoiceType" type="text" name="invoiceType"  readonly="readonly" /></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="search-toolbar">
+					<ul class="cssform clearfix">
+							<li class="ml20">
+								<label>发票代码：</label>
+								<input type="text" id="invoiceCode" name="invoiceCode" placeholder="输入发票代码" class="h28_middle w115 input-txt" />
+							</li>
+							<li class="ml20">
+								<label>发票号码：</label>
+								<input type="text" id="invoiceNo" name="invoiceNo" placeholder="输入发票号码" class="h28_middle w115 input-txt" />
+							</li>
+							<li class="ml20">
+								<label>金额：</label>
+								<input type="text" id="invoiceAmount" name="invoiceAmount" placeholder="输入发票金额" class="h28_middle w115 input-txt" />
+							</li>
+					      <li class="ml20">
+					        <div class="cont-int">
+					          <button id="fpsq_xzfp" class="btn-search" type="button">新增发票</button>
+					        </div>
+					      </li>
+					    </ul>
+					</div>
+				 <table id="fpsq_table" width="100%" border="1" cellspacing="0" cellpadding="0" class="search-table bsgrid ">
+				  	<thead>
+				        <tr>
+				          <th w_num="line" width="9%;" >序号</th>
+				          <th w_index="invoiceCode" w_align="left">发票代码</th>
+				          <th w_index="invoiceNo" w_align="left">发票号码</th>
+				          <th w_index="invoiceAmount" w_align="left">发票金额</th>
+				          <th w_render="operate"  >操作</th>
+				       
+				        </tr>
+					</thead>
+				  </table>
+					
+					 			 <input type="hidden" name="invoiceTitle" value="<%=obj.entCustName%>"/>
+					 			<input type="hidden" name="taxpayerNo" value="<%=obj.taxNo%>"/>
+					 			<input type="hidden" name="address" value="<%=obj.entRegAddr%>"/>
+					 			<input type="hidden" name="telephone" value="<%=obj.officeTel%>"/>
+					 			<input type="hidden" name="bankBranchName" value="<%=obj.bankBranchName%>"/>
+					 			<input type="hidden" name="bankNo" value="<%=obj.bankNo%>"/>
+					 			<input type="hidden" name="openContent" value="<%=obj.openContent%>"/>
+					 	        <input type="hidden" name="status" value="2"/>
+					 			
+				<div class="w200 bc mt20 clearfix">
+					<a class="btn_bg submit fl" id="qykfp_qr">确&#12288;认</a><a class="btn_bg submit fr" id="qykfp_qx">取&#12288;消</a>
+				</div>
+				 </form>
+			</div>
+			  
+		
+	</div>
+ 

@@ -1,0 +1,121 @@
+      <%var param = obj.data.QueryResult.result;
+        var objParam = obj.data.QueryResult;
+        var itemVistiUrl =obj.data.itemVisitUrl;
+        var responseState = obj.responseState;
+        var typeState = obj.typeState;
+      %>
+     <div>
+	<table width="100%" id="tableList" border="0"  cellspacing="0" cellpadding="0" class="search-table" style="word-break:break-all;word-wrap:break-word;">
+	      <thead>
+	      <tr>
+          <th width="15%" class="nobd">商品名称</th>
+          <th width="10%">品牌</th>
+          <th width="15%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">&nbsp;价格</th>
+          <th width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">&nbsp;积分</th>
+          <th width="10%">上架时间</th>
+          <th width="15%">已关联营业点</th>
+          <th width="10%">
+          	<select id="selItemStatus">
+			     <option selected="selected" value="">状态</option>
+			     <option value="0"  <%=typeState=="0"?'selected':''%>>待发布</option>
+			     <option value="1" <%=typeState=="1"?'selected':''%>>审核中</option>
+			     <option value="3" <%=typeState=="3"?'selected':''%>>已上架</option>
+			     <option value="-1" <%=typeState=="-1"?'selected':''%>>审核失败</option>
+			     <option value="-2" <%=typeState=="-2"?'selected':''%>>已下架</option>
+     		</select>
+     	  </th>
+          <th>操作</th>
+        </tr>
+        </thead>
+         <%if(0 != param.length && null != param && "" != param){%>
+	    <% $.each(param,function(key,el){    %>
+	    <% 
+	    var picUrl;
+	    try{
+        	var obj =JSON.parse(el.picList[0].webPicUrl)
+         	picUrl=el.picList[0].picUrl+obj["68x68"]
+        }catch(e){
+         	picUrl = "";
+        }
+    	%>
+        <tr  <%=key%2==1?"class='table-tr-c'":""%> itemId="<%=el.strId%>">
+          <td height="136"><div class="std_checkbox">
+              <input name="itemDataCheckBox" type="checkbox" status="<%=el.status%>" value="<%=el.strId%>" />
+            </div>
+            <div class="pr"  >
+            <img class="std_jbxximg" src="<%=picUrl%>"/>
+            </div>
+            <div class="std_jbxx">
+              <ul>
+                <li class="lh24" style="white-space:nowrap;">编号：<%=el.strId%></li>
+                <li class="lh24"><a href="<%=itemVistiUrl+el.itemPreviewUrl%>" target="_blank" ><%=el.name%></a></li>
+                <li class="lh24"><%=el.categoryName%></li>
+                <li class="lh24"><%=el.code!=null && el.code!=''?'货号：'+el.code:''%></li>
+              </ul>
+            </div>
+          </td>
+          <td><%=el.brandName%></td>
+          <td><span class="fb red"><%=comm.formatMoneyNumber(el.lowPrice)%></span><br/><span class="fb" style="font-size: 16px">~</span><br/><span class="fb red"><%=comm.formatMoneyNumber(el.highPrice)%></span></td>
+          <td><span class="fb blue"><%=comm.formatMoneyNumber(el.lowAuction)%></span><br/><span class="fb" style="font-size: 16px">~</span><br/><span class="fb blue"><%=comm.formatMoneyNumber(el.highAuction)%></span></td>
+          <td>
+          <%if(el.putonTime != null && el.putonTime != ""){%>
+          	<%=el.putonTime.split(" ")[0]%><br/><%=el.putonTime.split(" ")[1]%>
+          <%}%>
+          </td>
+          <td>
+          <%$.each(el.lstRelShopName,function(k,v){%>
+          	<input  class="datable_input" style="width: 220px;height:22px;" type="text" readonly="readonly" title="<%=v%>" value="<%=v%>">
+          <%})%>
+          </td>
+          <td>
+          <div style="min-width:100px"><%=el.statusName%></div>
+	      <span><textarea class="pllb_textarea statusInfo" style="display: none;width: 110px" readonly="readonly"></textarea></span>
+          </td>
+          <td>
+          <%if(responseState != 600){%>
+          <div class="caozuo lh24"><a href="javascript:;" class="updateItem" itemId="<%=el.strId%>">编辑</a></div>
+          <div  value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 delsingleItem"><a href="javascript:;">删除</a></div>
+          <%if(el.status!='-5'){%>
+	    <% if(el.status=='0'||el.status=='-1'){%>
+	    <div  value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 publishItem"><a href="javascript:;">发布</a></div>
+	    <%} else if(el.status=='1') {%>
+	    <div  value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 cancleItem"><a href="javascript:;">取消审核</a></div>
+<!-- 	    <div  value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 putOnItem"><a href="javascript:;">上架</a></div> -->
+	    <%} else if(el.status=='3'){%>
+	    <div value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 putOffItem"><a href="javascript:;">缺货</a></div>
+	    <%} else {%>
+	    <div value="<%=el.strId%>" status="<%=el.status%>" class="caozuo lh24 putOnItem"><a href="javascript:;">上架</a></div>
+	     <%}%>
+	     <%}%>
+	    <%}%>
+    </td>
+        </tr>
+	 <% })%>
+     <%}%> 
+      </table></div>
+      <div class="splb_sc" style="padding-top: 7px">
+      <%if(responseState != 600){%> 
+        <div style="float:left">
+        	全选
+      </div>
+      <div class="std_checkboxqx">
+        <input name="" type="checkbox" value="" id="all"/>
+      </div>
+    	<div id="batchDeletData" class="splb_sclb"><a href="javascript:;">批量删除</a></div>
+		<div id="batchPublish" class="splb_sclb"><a href="javascript:;">批量发布</a></div>
+		<div id="batchPutOn" class="splb_sclb"><a href="javascript:;">批量上架</a></div>
+		<div id="batchPutOff" class="splb_sclb"><a href="javascript:;">批量下架</a></div>
+  <%}%>    
+      <div class="clearfix">
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((objParam.currentPageIndex-1)<1?'':objParam.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((objParam.currentPageIndex+1)>objParam.totalPage?'':objParam.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=objParam.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=objParam.currentPageIndex%>" totalPage="<%=objParam.totalPage%>"/><span class="page-go">页/<%=objParam.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=objParam.recoredCount%>条</a>
+			</div>
+         </div>
+    </div>   
+   

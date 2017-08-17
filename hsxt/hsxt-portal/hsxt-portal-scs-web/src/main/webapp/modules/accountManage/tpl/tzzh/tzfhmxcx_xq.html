@@ -1,0 +1,57 @@
+<div class="search-cont">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+  <thead><tr class="table-tr-count">
+    <td class="nobd" colspan="6">
+    	<ul class="cssform clearfix">
+        	<li class="col4">
+            	<label class="title-txt w150">累计投资积分数：</label>
+                <div class="cont-txt"><%=obj.dividendInvestTotal%></div> 
+            </li>
+            <li class="col4">
+            	<label class="title-txt w150">投资分红周期：</label>
+                <div class="cont-txt"><%=obj.dividendYear%>-01-01 ~ <%=obj.dividendYear%>-12-31</div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w150">本年度分红互生币总数量：</label>
+                <div class="cont-txt"><%=obj.dividendsHsb%></div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w150">本年度分红回报率：</label>
+                <div class="cont-txt"><%=obj.dividendsRate * 100 %>%</div> 
+            </li>
+        </ul>
+    </td>
+  </tr>
+ 
+</thead>
+
+	        
+</table>
+<table  id="tableDetail" >
+	 	<tr>
+		    <th rowspan="2" class="nobd">积分投资日期</th>
+		    <th rowspan="2">投资积分数</th>
+		    <th rowspan="2">可参与分红时间（天）</th>
+		    <th colspan="3" class="wbd-bt">本次分红互生币数量</th>
+		  </tr>
+		  <tr>
+		    <th>流通币</th>
+		    <th>慈善救助基金</th>
+		    <th>合计</th>
+		  </tr>   
+		  <tr class="none">
+			<th w_render="operate" w_index="investDate" style="width: 185px">积分投资日期</th>
+	        <th w_index="investAmount" w_render="operate" style="width: 162px">投资积分数</th>
+	        <th w_index="dividendDays" style="width: 291px">可参与分红时间（天）</th>
+	        <th w_index="normalDividend" w_render="operate"style="width: 112px">流通币</th> 
+	        <th w_index="directionalDividend" w_render="operate" style="width: 189px">慈善救助基金</th> 
+	        <th w_index="totalDividend" w_render="operate" style="width: 89px">合计</th> 
+	 		</tr>
+</table>
+	
+ 
+
+
+
+</div>

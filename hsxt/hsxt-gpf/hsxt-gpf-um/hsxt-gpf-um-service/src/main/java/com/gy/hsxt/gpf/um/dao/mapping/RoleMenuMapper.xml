@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IRoleMenuMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="roleMenuResult" type="com.gy.hsxt.gpf.um.bean.RoleMenu">
+        <id property="roleId" column="ROLE_ID"/>
+        <id property="menuNo" column="MENU_NO"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.RoleMenu">
+        INSERT INTO T_UM_ROLE_MENU (
+            ROLE_ID,
+            MENU_NO
+        ) VALUES (
+            #{roleId},
+            #{menuNo}
+        )
+    </insert>
+
+    <!--  批量数据插入 -->
+    <insert id="batchInsertForRole" parameterType="com.gy.hsxt.gpf.um.bean.RoleMenu">
+        INSERT INTO T_UM_ROLE_MENU (
+        ROLE_ID,
+        MENU_NO
+        ) VALUES
+        <foreach collection="addMenuNos" item="menuNo" separator=",">
+            (
+            #{roleId},
+            #{menuNo}
+            )
+        </foreach>
+    </insert>
+
+    <!--  批量数据删除 -->
+    <delete id="batchDeleteForRole" parameterType="com.gy.hsxt.gpf.um.bean.RoleMenu">
+        DELETE FROM T_UM_ROLE_MENU WHERE ROLE_ID = #{roleId} AND MENU_NO IN (
+        <foreach collection="delMenuNos" item="menuNo" separator=",">
+            #{menuNo}
+        </foreach>
+        )
+    </delete>
+    <!--  批量数据删除 -->
+    <delete id="batchDeleteByRoleId" parameterType="com.gy.hsxt.gpf.um.bean.RoleMenu">
+        DELETE FROM T_UM_ROLE_MENU WHERE ROLE_ID = #{roleId}
+    </delete>
+
+    <!-- 根据查询实体查询角色菜单关系列表 -->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.gpf.um.bean.RoleMenuQuery" resultMap="roleMenuResult">
+        SELECT t.*
+        FROM T_UM_ROLE_MENU t
+        WHERE 1 = 1
+        <if test="menuNo != null and menuNo != ''">
+            AND t.MENU_NO = #{menuNo}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND t.ROLE_ID = #{roleId}
+        </if>
+    </select>
+
+</mapper>

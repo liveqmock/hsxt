@@ -1,0 +1,45 @@
+<div class="search-toolbar">
+  <form id="scpoint_dsPOS_form">
+    <ul class="cssform clearfix">
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80"  />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80"  />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">终端类型：</label>
+		<input type="text" id="scpoint_dsPOS_subject" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">终端编号：</label>
+		<input id="scpoint_dsPOS_equipmentNo" value="" placeholder="请输入终端编号" />
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_dsPOS_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont" id="detailTpl">
+  <table id="scpoint_dsPOS_result_table" class="bsgrid">
+  	<thead>
+        <tr>
+            <th colspan="3" style="text-align:right;">合计：</th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+            <th><span class="red">0.00(折合互生币：0.00)</span></th>
+        </tr>
+        <tr>
+          <th w_index="statisticsDate" w_align="left">统计日期</th>
+          <th w_render="operate" w_align="left">终端类型</th>
+          <th w_index="equipmentNo" w_align="left">终端编号</th>
+          <th w_index="ndetPoint" w_align="left">消费积分扣除数</th>
+          <th w_index="cdetPoint" w_align="left">消费积分撤单数</th>
+          <th w_render="operate" w_align="left">实际扣除数</th>
+        </tr>
+	</thead>
+  </table>
+</div>

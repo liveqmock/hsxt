@@ -1,0 +1,55 @@
+﻿<form id="ppgl_tj_xg_form" name="ppgl_tj_xg_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<input type="hidden" name="lm" value="<%=obj.lm%>"/>
+<input type="hidden" name="lmid" value="<%=obj.lmid%>"/>
+<div class="w800">
+    <div class="fl w400">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr5" width="100" style="padding-top:0;"><span class="mr5 red">*</span>中文名称</td>
+          <td style="padding-top:0;"><input type="text" id="ppgl_ppzwmc" name="ppgl_ppzwmc" value="<%=obj.ppzwmc%>" class="w250 h30_middle pl5 infobox2" placeholder="输入中文名称"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr5"><span class="mr5 red">*</span>英文名称</td>
+          <td><input type="text" id="ppgl_ppywmc" name="ppgl_ppywmc" value="<%=obj.ppywmc%>" class="w250 h30_middle pl5 infobox2" placeholder="输入英文名称"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">logo</td>
+          <td><span class="ml5 fl"><img src="<%=obj.zp || 'resources/img/store_noimg.gif'%>"></span><a class="input-file btn_bg upload_btn ml10 mr10 mt15">上传<input type="file" id="ppgl_sczp"/></a></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">链接URL</td>
+          <td><input type="text" id="ppgl_ljurl" name="ppgl_ljurl" value="<%=obj.ljurl%>" class="w250 h30_middle pl5 infobox2" placeholder="输入链接URL"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">品牌故事</td>
+          <td><div class="w250"><textarea class="infobox2 attxta w h60" id="ppgl_ppgs" name="ppgl_ppgs" placeholder="输入备注"><%= obj.ppgs%></textarea></div></td>
+        </tr>
+    </table>
+    </div>
+    <div class="fl w400">
+    	<div class="green_bg white h30_middle pl10 fb">类目</div>
+        <div class="w400 scrlh" style="height:240px;" id="lm_lists">
+         <%$.each(obj.lmlist, function(k, v) {%>
+            <div class="sppp_lms">
+                <div class="sppp_item" data-value="<%=v.id%>"><%=v.name%></div>
+        		<%$.each(v.data, function(k1, v1) {%>
+                <div class="sppp_sub">
+                    <div class="clearfix">
+                        <div class="sppp_line"><img src="resources/img/shope_04.gif" width="18" height="24"/></div>
+                        <div class="sppp_txt" data-value="<%=v1.id%>"><%=v1.name%></div>
+                    </div>
+                    <%$.each(v1.data, function(k2, v2) {%>
+                    <div class="sppp_sub clearfix">
+                        <div class="sppp_line"><img src="resources/img/shope_04.gif" width="18" height="24"/></div>
+                        <div class="sppp_txt" data-value="<%=v2.id%>"><%=v2.name%></div>
+                    </div>
+                    <%})%>
+                </div>
+         		<%})%>
+            </div>
+         <%})%>
+        </div>
+    </div>
+</div>
+</form>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://code.alibabatech.com/schema/dubbo
+					    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/aop
+            			http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/mvc
+					    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<!-- 使Spring支持自动检测组件，如注解的Controller -->
+	<context:component-scan base-package="com.gy.hsxt"/>
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 引入配置文件 -->
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+		<!-- disconf.properties 存放路径 -->
+		<constructor-arg name="disconfFile" value="file:${user.dir}/conf/hsxt-ao/disconf.properties" />
+		<!-- 本地配置文件[只有本地存在, 远程没有上传] -->
+		<property name="locations">
+			<list>
+			</list>
+		</property>
+		<!-- 远程配置文件[远程存在, 将会同步到本地] -->
+		<property name="remoteLocations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-ao/hsxt-ao.properties</value>
+				<value>file:${user.dir}/conf/hsxt-ao/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsxt-ao/jdbc.properties</value>
+                <value>file:${user.dir}/conf/hsxt-ao/redis.properties</value>
+                <value>file:${user.dir}/conf/hsxt-ao/hsi-lc.properties</value>
+                <value>file:${user.dir}/conf/hsxt-ao/log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="aoConfig" class="com.gy.hsxt.ao.disconf.AoConfig" scope="singleton">
+	    <property name="appNode" value="${system.instance.no}" />
+	    <property name="sysName" value="${system.id}"/>
+	    <property name="merchantNo" value="${trans.out.merchant.no}"/>
+	    <property name="urgentFlag" value="${trans.out.urgent.flag}"/>
+	    <property name="dataTransfer" value="${datatransfer.lastmonth}"/>
+	    <property name="sumRow" value="${sumRow.num}"/>
+	    <property name="savePath" value="${file.savePath}"/>
+	    <!-- 批量提交转账数量 -->
+	    <property name="transCashBatchNum" value="${trans.batch.max}"/>
+	    <!-- 批量自动提现时间 -->
+	    <property name="batchAutoTransCommitTime" value="${batch.auto.trans.time}"/>
+	</bean>
+	<!-- 集成综合前置 -->
+	<bean id="ufRegionPacketService" class="com.gy.hsxt.uf.UFRegionPacketSupport">
+        <constructor-arg ref="regionPacketDataService"/>
+    </bean>
+	
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" />
+		<property name="baseDataService" ref="baseDataService" />
+	</bean>
+
+	<import resource="classpath:spring/spring-datasource.xml"/>
+	<import resource="classpath:spring/spring-dubbo-provider.xml"/>
+	<import resource="classpath:spring/spring-dubbo-consumer.xml"/>
+	<import resource="classpath:spring/hsxt-redis-spring.xml" />
+	<import resource="classpath:spring/spring-thread.xml"/>
+
+</beans>

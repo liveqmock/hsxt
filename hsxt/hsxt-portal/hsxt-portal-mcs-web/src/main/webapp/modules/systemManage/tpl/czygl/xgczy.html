@@ -1,0 +1,106 @@
+<div class="register_info info_800 bc mt20">
+	<form id="xgczyForm">
+	<div class="clearfix">
+		<ul class="fl">
+			<li class="register_row info_320 clearfix pr">
+				<label class="title-txt">登录用户名</label>
+				<div class="cont-int"><input class="inpt" type="text" id="userName" name="userName" value="<%=obj.userName%>" placeholder="输入用户名" ><div class="must">*</div></div>
+			</li>
+			<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">登录密码</label>
+					<!--<input type="text" class="fl w185 h30_middle ml5" placeholder="输入用户登录密码" />-->
+                   <span class="fl h30_middle ml10"><a id="czxmm_btn">重置新密码</a></span>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">姓名</label>
+				<div class="cont-int"><input class="inpt" type="text" id="realName" name="realName" maxlength="20" value="<%=obj.realName%>" placeholder="输入用户姓名"  ><div class="must">*</div></div>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">职务</label>
+				<div class="cont-int"><input class="inpt" type="text" id="operDuty" name="operDuty" maxlength="10" value="<%=obj.operDuty%>" placeholder="输入用户职务"  ></div>
+			</li>
+		 </ul>
+		 <ul class="fr">
+			 <li class="register_row info_320 clearfix">
+				<label class="title-txt">手机号码</label>
+				<div class="cont-int"><input class="inpt" type="text" id="mobile" name="mobile" value="<%=obj.mobile%>" placeholder="输入手机号码"  ></div>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">状态</label>
+
+				
+				<%if(obj.accountStatus == 0){%>
+					<div class="cont-int ml5 mt10" style="line-height:8px;">
+						<input name="activity" type="radio" class="mr5 radio_input" value="0" checked="checked">
+					</div>
+					<label style="width:30px; border:none">启用</label>
+					<div class="cont-int ml5 mt10" style="line-height:8px;">
+						<input name="activity" type="radio" class="ml10 mr5 radio_input" value="1">
+					</div>
+					<label style="width:30px; border:none">停用</label>
+					
+					
+				<%}else{%>
+					<div class="cont-int ml5 mt10" style="line-height:8px;">
+						<input name="activity" type="radio" class="mr5 radio_input" value="0">
+					</div>
+					<label style="width:30px; border:none">启用</label>
+					<div class="cont-int ml5 mt10" style="line-height:8px;">
+						<input name="activity" type="radio" class="ml10 mr5 radio_input" value="1" checked="checked">
+					</div>
+					<label style="width:30px; border:none">停用</label>
+					
+					
+				
+				<%}%>
+			</li>
+			<li class="register_row info_320 clearfix" style="height: 62px; border: 1px solid #CCC;">
+				<label class="title-txt" style=" background-color: #e8f4e6; height: 62px; line-height: 60px;">用户组</label>
+				<input type="hidden" value="<%=obj.groupIds%>" id="groupId"/>
+				<div class="cont-int" style="width: 196px;">
+				<textarea id="groupName" name="groupName" readonly="readonly" rows="2" class="inpt-tas" style="width: 188px;"><%=obj.groupNames%></textarea>
+				</div>
+				<i id="btn_xgyhz" class="icon-add sltusergrounp" style="left:330px;" title="选择用户组"></i><div class="hint" style="left:360px;">多选，非必选</div>
+			</li>
+		 </ul>
+	</div>
+	<ul class="mt5">
+		<li class="register_row_2 clearfix">
+			<label class="title-txt">描述</label>
+			<div class="cont-int" style="width:199px;"><textarea id="remark" name="remark" rows="2" maxlength="100" class="inpt-tas" placeholder="输入描述,最长不超过100个字"><%=obj.remark%></textarea></div><div class="hintas"><!--提示--></div>
+		</li>
+	</ul>
+	</form>
+</div>   
+<div class="two_button clearfix mt20" align="center">
+	<a id="xgczy_qx" class="btn_bg submit mr10 fl">取　消</a>
+	<a id="czygl_xgczy_qr"  class="dlg34 btn_bg submit fr">确　认</a>
+</div>
+
+<div id="czdlmm_dlg" class="none ovh"></div>
+
+<div id="xgczy_dialog" class="none" title="选项用户组">
+
+	<div id="receivingUnit_1" class="search-cont">
+		<table id="groupTable">
+	        <tr>
+				<th w_check="true" w_index="groupId" width="5%"></th>
+		        <th  w_render="operate">用户组名称</th>
+		        <th w_index="groupDesc">用户组描述</th>
+	        </tr>
+		</table>
+	</div> 
+	
+</div>   
+
+
+<div id="xzczy_cg_dialog" class="none" title="操作员修改成功，是否进行角色设置？">
+	<p class="autowidth">
+		<table id="roleTable">
+		 	<th w_check="true" w_index="roleId" width="5%"></th>
+	        <th  w_render="operate">角色名称</th>
+	        <th w_index="roleDesc">角色描述</th>
+		</table>
+	</p>
+</div>
+

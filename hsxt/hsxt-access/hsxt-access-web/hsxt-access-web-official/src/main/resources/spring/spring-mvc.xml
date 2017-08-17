@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans		
+ 						  http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+						  http://www.springframework.org/schema/context	
+						  http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						  http://www.springframework.org/schema/mvc 		
+						  http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+						  http://www.springframework.org/schema/aop 		
+						  http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+						  http://www.springframework.org/schema/util		
+						  http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+      
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->  
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+	
+	<context:component-scan base-package="com.gy.hsxt"/>
+	
+	<!-- 引入日志系统配置 -->
+    <bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>file:${user.dir}/conf/hsxt-access-web-official/hsi-lc.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-official/dubbo.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-official/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+	<!-- jsp解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	
+	<!-- spring json -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	   <property name="messageConverters">
+		   <list>
+			   <ref bean="jsonConverter" />
+		   </list>
+	   </property>
+	</bean>
+
+	<bean id="jsonConverter"  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	   <property name="supportedMediaTypes" value="application/json" />
+	   <!-- 为null字段时不显示 -->
+       <!-- <property name="serializationInclusion">
+           <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+       </property>  -->
+	</bean>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"  
+        p:ignoreDefaultModelOnRedirect="true" >  
+            <property name="messageConverters">  
+                <list>  
+                    <ref bean="jsonConverter" />
+                </list>  
+            </property>  
+      </bean> 
+      
+    <!-- 基础数据客户端 服务依赖redis以及LCS的dubbo接口-->
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" />
+		<property name="baseDataService" ref="baseDataService" />
+	</bean>
+
+	 <import resource="classpath:spring/spring-dubbo-consumer.xml"/>
+<!-- 	 <import resource="classpath:spring/spring-redis-client.xml"/> -->
+	 <import resource="classpath:spring/hsxt-redis-spring.xml" />	
+</beans>
+ 

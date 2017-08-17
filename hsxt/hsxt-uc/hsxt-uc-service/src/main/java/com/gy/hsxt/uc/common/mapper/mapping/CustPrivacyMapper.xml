@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.CustPrivacyMapper">
+<!-- 隐私信息 -->
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.CustPrivacy">
+		<id column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+		<result column="ADD_FRIENDS" property="addFriends" jdbcType="VARCHAR" />
+		<result column="SEARCH_ME" property="searchMe" jdbcType="VARCHAR" />
+		<result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+		<result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+		<result column="EXT3" property="ext3" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+	
+<!-- 查询的列-->
+	<sql id="Base_Column_List">
+		PER_CUST_ID,
+		ADD_FRIENDS,
+		SEARCH_ME,
+		EXT1,
+		EXT2,
+		EXT3,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY
+	</sql>
+
+	<!-- 通过客户号查询隐私信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_CUST_PRIVACY
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 通过客户号删除隐私信息-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		T_CUST_PRIVACY
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 插入隐私信息（有值插入 ）-->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.CustPrivacy">
+		insert into T_CUST_PRIVACY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				PER_CUST_ID,
+			<if test="addFriends != null">
+				ADD_FRIENDS,
+			</if>
+			<if test="searchMe != null">
+				SEARCH_ME,
+			</if>
+			<if test="ext1 != null">
+				EXT1,
+			</if>
+			<if test="ext2 != null">
+				EXT2,
+			</if>
+			<if test="ext3 != null">
+				EXT3,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+				#{perCustId,jdbcType=VARCHAR},
+			<if test="addFriends != null">
+				#{addFriends,jdbcType=VARCHAR},
+			</if>
+			<if test="searchMe != null">
+				#{searchMe,jdbcType=VARCHAR},
+			</if>
+			<if test="ext1 != null">
+				#{ext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ext2 != null">
+				#{ext2,jdbcType=VARCHAR},
+			</if>
+			<if test="ext3 != null">
+				#{ext3,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+<!-- 更新隐私信息（有值更新）-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.CustPrivacy">
+		update T_CUST_PRIVACY
+		<set>
+			<if test="addFriends != null">
+				ADD_FRIENDS = #{addFriends,jdbcType=VARCHAR},
+			</if>
+			<if test="searchMe != null">
+				SEARCH_ME = #{searchMe,jdbcType=VARCHAR},
+			</if>
+			<if test="ext1 != null">
+				EXT1 = #{ext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ext2 != null">
+				EXT2 = #{ext1,jdbcType=VARCHAR},
+			</if>
+			<if test="ext3 != null">
+				EXT3 = #{ext1,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</update>
+</mapper>

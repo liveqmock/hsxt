@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+	<!-- 定时任务的配置 start -->
+	<!--开启这个配置，spring才能识别@Scheduled注解 -->
+	<task:annotation-driven scheduler="qbScheduler" mode="proxy" />
+	<task:scheduler id="qbScheduler" pool-size="10" />
+	<!-- 定时任务的配置 end -->
+
+	<!-- 通知支付单状态Spring线程池 -->
+	<bean id="notifyOrderStateExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="50" />
+		<property name="maxPoolSize" value="1000" />
+	</bean>
+	
+	<!-- 重试任务线程池 -->
+	<bean id="retryExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="20" />
+		<property name="maxPoolSize" value="500" />
+	</bean>
+			
+	<!-- 定时任务：清理过期无效的数据 -->
+	<task:scheduled-tasks>
+		<!-- 清理重试的记录： 每隔5天的6点扫描一次 cron="0 0 6 1/5 * ?" -->
+		<task:scheduled ref="cleanExpiredDatasService"
+			method="cleanExpiredDatas" cron="0 0 6 1/5 * ?" />
+	</task:scheduled-tasks>
+</beans>
+ 

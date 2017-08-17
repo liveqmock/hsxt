@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.ContractMapper">
+	
+	<!-- 查询合同列表 -->
+	<select id="queryContractListPage" resultType="com.gy.hsxt.bs.bean.apply.ContractBaseInfo">
+		SELECT CONTRACT_NO   AS contractNo,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       CUST_TYPE     AS custType,
+		       LINKMAN       AS linkman,
+		       MOBILE        AS mobile,
+		       to_char(REG_DATE, 'yyyy-MM-dd HH24:mi:ss') AS regDate,
+		       STATUS        AS sealStatus,
+		       PRINT_COUNT   AS printCount,
+		       SEND_COUNT    AS sendCount,
+				IS_SEND AS isSend,
+		       (SELECT MAX(OPERATED_DATE) FROM T_BS_DOC_SEND_RECORD  WHERE UNIQUE_NO = T1.CONTRACT_NO)  AS sendDate
+		FROM T_BS_CONTRACT t1
+	    WHERE 1=1
+	    	<if test="manResNoPre != null and manResNoPre != '' ">
+	    		AND ENT_RES_NO LIKE #{manResNoPre}||'%'
+	    		AND CUST_TYPE = 4
+	    	</if>
+	    	<if test="serResNoPre != null and serResNoPre != '' ">
+	    		AND ENT_RES_NO LIKE #{serResNoPre}||'%'
+	    		AND CUST_TYPE IN (2,3)
+	    	</if>
+	    	<if test="resNo != null and resNo != '' ">
+	    		AND ENT_RES_NO LIKE '%'||#{resNo}||'%'
+	    	</if>
+	    	<if test="entName != null and entName != '' ">
+	    		AND ENT_CUST_NAME LIKE '%'||#{entName}||'%'
+	    	</if>
+	    	<if test="linkman != null and linkman != '' ">
+	    		AND LINKMAN LIKE '%'||#{linkman}||'%'
+	    	</if>
+	    	<if test="status != null">
+	    		AND STATUS = #{status}
+	    	</if>
+	    	<if test="sendStatus != null">
+	    		AND IS_SEND = #{sendStatus}
+	    	</if>
+	    	<if test="inStatus != null and inStatus != ''">
+	    		AND STATUS IN ${inStatus}
+	    	</if>
+	     ORDER BY REG_DATE DESC
+	</select>
+	
+	<!-- 查询合同基本信息 -->
+	<select id="queryContractBaseInfoById" resultType="com.gy.hsxt.bs.bean.apply.ContractBaseInfo">
+		SELECT CONTRACT_NO   AS contractNo,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       CUST_TYPE     AS custType,
+		       LINKMAN       AS linkman,
+		       MOBILE        AS mobile,
+		       to_char(REG_DATE,'yyyy-MM-dd HH24:mi:ss') AS regDate,
+		       STATUS        AS sealStatus,
+		       PRINT_COUNT   AS printCount,
+		       SEND_COUNT    AS sendCount
+		FROM T_BS_CONTRACT
+	    WHERE CONTRACT_NO = #{contractNo}
+	</select>
+	
+	<!-- 查询合同内容 -->
+	<select id="queryContractContent" resultType="com.gy.hsxt.bs.apply.bean.ContractContentInfo">
+		SELECT T1.APPLY_ID        AS applyId,
+		       T1.CUST_TYPE       AS custType,
+		       T1.STATUS          AS sealStatus,
+		       T1.VAR_CONTENT     AS varContent,
+		       T2.TEMPLET_CONTENT AS templetContent
+		FROM T_BS_CONTRACT T1,
+		     T_BS_TEMPLET T2
+		WHERE T1.TEMPLET_ID = T2.TEMPLET_ID
+		      AND t1.CONTRACT_NO = #{contractNo}
+	</select>
+	
+	<!-- 更新打印次数 -->
+	<update id="updatePrintCount">
+		UPDATE T_BS_CONTRACT
+			<set>
+				PRINT_COUNT = DECODE(PRINT_COUNT,NULL,0,PRINT_COUNT) + 1,
+				PRINT_DATE = SYSDATE
+			</set>
+		WHERE CONTRACT_NO = #{contractNo}
+	</update>
+	
+	<!-- 更新盖章状态    -->
+	<update id="updateSealStatus">
+		UPDATE T_BS_CONTRACT SET
+				STATUS = #{status}
+			<if test="varContent != null and varContent !=''">
+				,VAR_CONTENT = #{varContent}
+			</if>
+		WHERE CONTRACT_NO = #{contractNo}
+	</update>
+	
+	<!-- 更新发放状态  -->
+	<update id="updateSendStatus">
+		UPDATE T_BS_CONTRACT SET
+				IS_SEND = 1,
+				SEND_COUNT = DECODE(SEND_COUNT,NULL,0,SEND_COUNT) + 1
+		WHERE CONTRACT_NO = #{contractNo}
+	</update>
+	
+	<!-- 创建发放历史 -->
+	<insert id="createSendHis" parameterType="com.gy.hsxt.bs.bean.apply.ContractSendHis">
+		INSERT INTO T_BS_DOC_SEND_RECORD
+			  (BIZ_NO,
+			   UNIQUE_NO,
+			   ORIGINAL_IS_REC,
+			   REC_REMARK,
+			   SEND_REMARK,
+			   OPERATOR,
+			   OPERATED_DATE) 
+		VALUES 
+		      (#{bizNo},
+		       #{uniqueNo},
+		       #{originalIsRec},
+		       #{recRemark},
+		       #{sendRemark},
+		       #{operator},
+		       SYSDATE)
+	</insert>
+	
+	<!-- 查询发放历史 -->
+	<select id="querySendHisListPage" resultType="com.gy.hsxt.bs.bean.apply.ContractSendHis">
+		SELECT
+			BIZ_NO                                          AS bizNo,
+			UNIQUE_NO                                       AS uniqueNo,
+			ORIGINAL_IS_REC                                 AS originalIsRec,
+			REC_REMARK                                      AS recRemark,
+			SEND_REMARK                                     AS sendRemark,
+			OPERATOR                                        AS operator,
+			to_char(OPERATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS operatedDate
+		FROM T_BS_DOC_SEND_RECORD
+		WHERE UNIQUE_NO in (SELECT t.CONTRACT_NO
+							FROM T_BS_CONTRACT t
+							WHERE t.ENT_CUST_ID = (SELECT tt.ENT_CUST_ID
+												   FROM T_BS_CONTRACT tt
+												   WHERE tt.CONTRACT_NO = #{contractNo}))
+		ORDER BY OPERATED_DATE DESC
+	</select>
+	
+	<!-- 创建合同 -->
+	<insert id="createContract" parameterType="com.gy.hsxt.bs.bean.apply.Contract">
+		INSERT INTO T_BS_CONTRACT
+		     (CONTRACT_NO,
+		      ENT_RES_NO,
+		      ENT_CUST_ID,
+		      ENT_CUST_NAME,
+		      CUST_TYPE,
+		      LINKMAN,
+		      MOBILE,
+		      REG_DATE,
+		      APPLY_ID,
+		      TEMPLET_ID,
+		      VAR_CONTENT,
+		      STATUS,
+			 IS_SEND)
+	    VALUES 
+	         (#{contractNo},
+	          #{entResNo},
+	          #{entCustId},
+	          #{entCustName},
+	          #{custType},
+	          #{linkman},
+	          #{mobile},
+	          to_date(#{regDate},'yyyy-MM-dd HH24:mi:ss'),
+	          #{applyId},
+	          #{templetId},
+	          #{varContent},
+	          #{status},
+			  0)
+	</insert>
+	
+	<!-- 通过ID查询合同 -->
+	<select id="queryContractById" resultType="com.gy.hsxt.bs.bean.apply.Contract">
+		SELECT CONTRACT_NO   AS contractNo,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_ID   AS entCustId,
+		       ENT_CUST_NAME AS entCustName,
+		       CUST_TYPE     AS custType,
+		       LINKMAN       AS linkman,
+		       MOBILE        AS mobile,
+		       APPLY_ID      AS applyId,
+		       TEMPLET_ID    AS templetId,
+		       VAR_CONTENT   AS varContent,
+		       STATUS        AS status,
+		       PRINT_COUNT   AS printCount,
+		       IS_SEND       AS isSend,
+		       SEND_COUNT    AS sendCount,
+		       to_char(REG_DATE,'yyyy-MM-dd HH24:mi:ss') AS regDate,
+		       to_char(PRINT_DATE,'yyyy-MM-dd HH24:mi:ss') AS printDate
+		  FROM T_BS_CONTRACT
+		 WHERE CONTRACT_NO = #{contractNo}
+	</select>
+	
+	<!-- 查询合同主要信息 -->
+	<select id="queryContractMainInfo" resultType="com.gy.hsxt.bs.bean.apply.ContractMainInfo">
+		SELECT CONTRACT_NO   AS contractNo,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       CUST_TYPE     AS custType,
+		       STATUS        AS status
+		FROM T_BS_CONTRACT
+		WHERE CONTRACT_NO = #{contractNo}
+		      AND ENT_RES_NO = #{entResNo}
+	</select>
+
+	<select id="queryEffectContractByCustId" resultType="com.gy.hsxt.bs.bean.apply.Contract">
+		SELECT CONTRACT_NO   AS contractNo,
+			   ENT_RES_NO    AS entResNo,
+			   ENT_CUST_NAME AS entCustName,
+			   CUST_TYPE     AS custType,
+			   STATUS        AS status,
+			LINKMAN as linkman,
+			MOBILE as mobile,
+			APPLY_ID AS  applyId,
+			TEMPLET_ID AS templetId,
+			ENT_CUST_ID AS entCustId
+		FROM T_BS_CONTRACT
+		WHERE STATUS &lt;&gt; 2
+			  AND ENT_CUST_ID = #{entCustId}
+	</select>
+
+	<update id="updateContractForChangeInfo" parameterType="com.gy.hsxt.bs.bean.apply.Contract">
+		UPDATE T_BS_CONTRACT t SET
+			t.STATUS = #{status}
+		<if test="entCustName != null and entCustName != ''">
+			,t.ENT_CUST_NAME = #{entCustName}
+		</if>
+		<if test="linkman != null and linkman != ''">
+			,t.LINKMAN = #{linkman}
+		</if>
+		<if test="mobile != null and mobile != ''">
+			,t.MOBILE = #{mobile}
+		</if>
+		<if test="varContent != null and varContent != ''">
+			,t.VAR_CONTENT = #{varContent}
+		</if>
+		WHERE t.CONTRACT_NO = #{contractNo}
+			<if test="status != null and status==3">
+				AND t.STATUS = 1
+			</if>
+	</update>
+</mapper>

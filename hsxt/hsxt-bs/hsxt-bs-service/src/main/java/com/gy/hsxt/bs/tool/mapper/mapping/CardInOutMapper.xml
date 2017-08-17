@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.CardInOutMapper">
+	
+	<!-- 插入互生卡出入库 -->
+	<insert id="insertCardInOut" parameterType="com.gy.hsxt.bs.bean.tool.CardInOut">
+		INSERT INTO 
+		T_BS_CARD_INOUT(
+			INOUT_ID,
+			INOUT_FLAG,
+			BATCH_NO,
+			PRODUCT_ID,
+			PRODUCT_NAME,
+			INOUT_AMOUNT,
+			WH_ID,
+			RELATED_ORDER_NO,
+			REMARK,
+			OPER_NO,
+			SUPPLIER_ID,
+			INOUT_DATE
+		) VALUES (
+			#{inOutId},
+			4,
+			#{batchNo},
+			#{productId},
+			#{productName},
+			#{inOutAmount},
+			#{whId},
+			#{relatedOrderNo},
+			#{remark,jdbcType=VARCHAR},
+			#{operNo},
+			null,
+			SYSDATE
+			)
+	</insert>
+	
+	<!-- 修改互生卡出入库 -->
+	<update id="updateCardInOut" parameterType="com.gy.hsxt.bs.bean.tool.CardInOut">
+		UPDATE T_BS_CARD_INOUT
+		<set>
+			INOUT_DATE = SYSDATE,
+			<if test="inOutFalg != null">
+				INOUT_FLAG = #{inOutFalg},
+			</if>
+			<if test="remark != null and remark != ''">
+				REMARK = #{remark},
+			</if>
+			<if test="operNo != null and operNo != ''">
+				OPER_NO = #{operNo},
+			</if>
+			<if test="supplierId != null and supplierId != ''">
+				SUPPLIER_ID = #{supplierId},
+			</if>
+		</set>
+		WHERE RELATED_ORDER_NO = #{relatedOrderNo}
+	</update>
+	
+	<!-- 批量修改互生卡出库 -->
+	<update id="batchUpdateCardInOut" parameterType="com.gy.hsxt.bs.bean.tool.CardInOut">
+	BEGIN
+		<foreach collection="inOuts" item="inOut" separator=";">
+			UPDATE T_BS_CARD_INOUT SET
+				INOUT_FLAG = 2,
+				INOUT_DATE = SYSDATE,
+				REMARK = '互生卡出库',
+				OPER_NO = #{inOut.operNo}
+			WHERE RELATED_ORDER_NO = #{inOut.relatedOrderNo}
+		</foreach>
+	;END;
+	</update>
+	
+	<!-- 根据订单号查询互生卡出入库流水 -->
+	<select id="selectCardInOutByNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.CardInOut">
+		SELECT 
+			INOUT_ID AS inoutId,
+			INOUT_FLAG AS inoutFlag,
+			BATCH_NO AS batchNo,
+			PRODUCT_ID AS productId,
+			PRODUCT_NAME AS productName,
+			INOUT_AMOUNT AS inoutAmount,
+			WH_ID AS whId,
+			RELATED_ORDER_NO AS relatedOrderNo,
+			REMARK AS remark,
+			OPER_NO AS operNo,
+			SUPPLIER_ID AS supplierId,
+			INOUT_DATE AS inoutDate 
+		FROM T_BS_CARD_INOUT 
+		WHERE RELATED_ORDER_NO = #{relatedOrderNo}	
+	</select>
+</mapper>

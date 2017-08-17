@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+	<!-- 消费服务 -->
+	<dubbo:reference id="accountEntryService"
+		interface="com.gy.hsxt.ac.api.IAccountEntryService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+		
+	<!-- 业务参数系统 -->	
+	<dubbo:reference id="businessParamSearchService"
+		interface="com.gy.hsxt.bp.api.IBusinessParamSearchService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+		
+	<!-- 用户中心系统 -->	
+	<dubbo:reference id="ucAsDeviceSignInService"
+		interface="com.gy.hsxt.uc.as.api.common.IUCAsDeviceSignInService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+
+	<!-- 用户中心系统 -->
+	<dubbo:reference id="uCAsEntService"
+					 interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" retries="${dubbo.reference.retires}"
+					 connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+
+	<dubbo:reference id="dsBatchCallback"
+					 interface="com.gy.hsi.ds.api.IDSBatchServiceListener" retries="${dubbo.reference.retires}"
+					 timeout="${dubbo.service.timeout15000}" async="true" sent="false"
+					 version="1.0.0" />
+	
+	<!-- 支付系统 -->
+	<dubbo:reference id="gpPaymentService"
+		interface="com.gy.hsxt.gp.api.IGPPaymentService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+	
+	<!-- 对外API -->
+	<dubbo:reference id="tmsSettlementService"
+					 interface="com.gy.hsec.external.api.TmsSettlementService" retries="${dubbo.reference.retires}"
+					 connections="${dubbo.reference.connections}" check="false" version="3.0.0" />
+	<!-- 抵扣券API -->
+	<dubbo:reference id="userService"
+					 interface="com.gy.hsec.external.api.UserService" retries="${dubbo.reference.retires}"
+					 connections="${dubbo.reference.connections}" check="false" version="3.0.0" />
+
+</beans>

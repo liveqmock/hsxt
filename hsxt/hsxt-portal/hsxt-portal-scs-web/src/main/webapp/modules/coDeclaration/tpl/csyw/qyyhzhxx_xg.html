@@ -1,0 +1,102 @@
+﻿<div class="none" id="qyyhzhxx_xgTpl">
+	<div class="bc info_600">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">账户名称</label>
+					<input class="fl w465 h30_middle ml5" type="text" value="xxx" readonly="readonly" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">结算币种</label>
+					<input class="fl w465 h30_middle ml5" type="text" value="人民币" readonly="readonly" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收支类别</label>
+					<input class="fl w465 h30_middle ml5" type="text" value="收款" readonly="readonly" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">开户银行</label>
+					<div class="fl ml5 combobox_style brandSelect">
+						<select id="brandSelect">
+							<option value="">请选择开户银行</option>
+							<option value="1">中国银行</option>
+							<option value="2">工商银行</option>
+							<option value="3">建设银行</option>
+							<option value="4">农业银行</option>
+							<option value="5">平安银行</option>
+						</select>
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">开户地区</label>
+					<div class="fl clearfix">
+						<div class="fl w230 ml5 pr">
+							<input id="province_slt" readonly="readonly" />
+						</div>
+						<div class="fr w230 ml10 pr">
+							<input id="city_slt" readonly="readonly" />
+						</div>
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">银行账号</label>
+					<input type="text" class="fl w465 h30_middle ml5" placeholder="输入银行账号" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">确认账号</label>
+					<input type="text" class="fl w465 h30_middle ml5" placeholder="确认银行账号" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">默认银行账号</label>
+					<div class="fl h30_middle">
+						<input type="radio" name="bankDefault" value="0" class="ml20" checked="checked" /> 否
+						<input type="radio" name="bankDefault" value="1" class="ml20" /> 是
+					</div>
+				</li>
+			</ul>
+			<div class="w200 bc mt20 clearfix">
+				<a class="btn_bg submit fl" id="qyyhzhxx_xg_btn">提&#12288;交</a>
+				<a class="btn_bg submit fr" id="back_qyyhzhxx">取&#12288;消</a>
+			</div>
+		</form>
+	</div>
+</div>
+						
+<div id="qyyhzhxx_xg_content" class="none">
+	<div class="view_info mt10">					
+		<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+			<tr>
+				<td width="20%" align="center" class="table_title">信息</td>
+				<td width="40%" align="center" class="table_title">修改前内容</td>
+				<td width="40%" align="center" class="table_title">修改后内容</td>
+			</tr>
+			<tr>
+				<td class="view_item">企业名称</td>
+				<td class="view_text">深圳市互生科技有限公司</td>
+				<td class="view_text">深圳市互生科技有限公司1</td>
+			</tr>
+			<tr>
+				<td class="view_item">开户银行</td>
+				<td class="view_text">交通银行</td>
+				<td class="view_text">招商银行</td>
+			</tr>
+			<tr>
+				<td class="view_item">银行账号</td>
+				<td class="view_text">0000 **** **** 0000</td>
+				<td class="view_text">0000 **** **** 0001</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">备注</td>
+				<td colspan="2"><textarea id="name" class="rsn h100 w98pc ml5" placeholder="输入备注,字数不超过300个字"></textarea></td>
+			 </tr>
+			 <tr>
+				<td class="view_item" width="20%">复核员用户名</td>
+				<td colspan="2"><input type="text" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+			 </tr>
+			 <tr>
+				<td class="view_item" width="20%">复核员登录密码</td>
+				<td colspan="2"><input type="password" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /></td>
+			</tr>
+		</table>
+	</div>
+</div>

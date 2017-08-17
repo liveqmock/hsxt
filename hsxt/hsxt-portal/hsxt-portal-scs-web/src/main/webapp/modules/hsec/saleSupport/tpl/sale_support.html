@@ -1,0 +1,93 @@
+
+          <!--内容添加开始-->
+          <div id="ssBody" >
+            <div id="ssTabs" class="tabs">
+            <ul>
+            	<li tag="tabApplyed">申请未处理</li>
+                <li tag="tabProcessing">处理中</li>
+                <li tag="tabRefunding">退款中</li>
+                <li tag="tabFinished">已完成</li>
+                <li tag="tabAll">全部</li>
+            </ul>
+                        
+            </div>
+            <div class="search-toolbar">
+             	<ul class="cssform clearfix">
+                     <li class="mr20">
+                         <label class="title-int">订单编号：</label>
+                         <div class="cont-int">
+                         	<input type="text" name="textfield" id="orderNoQueryParamInPage" value="" class="input-txt" maxlength="17"/>
+                         </div> 
+                     </li>
+                     <li class="mr20">
+                         <label class="title-int">售后单号：</label>
+                         <div class="cont-int">
+                         	<input type="text" name="textfield" id="refIdQueryParamInPage" value="" class="input-txt" maxlength="17"/>
+                         </div> 
+                     </li>
+                   
+                     <li class="mr20">
+                         <label class="title-int" style="width:175px">买家昵称/互生卡号/手机号码：</label>
+                         <div class="cont-int">
+                         	<input type="text" name="textfield" id="userNickNameQueryParamInPage" value="" class="input-txt" maxlength="11"/>
+                         </div> 
+                     </li>
+					<% if(obj.showTypeSelect == 'tabAll'){ %>
+	                     <li>
+	                          <label class="title-int ">状态：</label>
+	                          <input id="statusQueryParamInPage" placeholder="请选择" readonly="readonly" optionvalue="" />    
+	                       </li>
+	                  <% } %> 
+                     <li class="last">
+                         <div class="cont-int">
+                         	<button id="ssQuery" type="button" class="btn-search ml10" val="0">查询</button>
+                         </div>
+                     </li>
+                  </ul>
+            </div>
+            <div class="shopebox">
+              <table id="refund_table">
+                <tr>             
+                  <th w_index="orderNo" w_algin="center" width="8%">订单编号</th>
+                  <th w_index="refId" w_algin="center" width="8%">售后单号</th>
+                  <th w_index="userNickName" w_algin="center" width="15%">买家昵称/互生卡号/手机号码</th>
+                  <th w_index="saleSupportType" w_algin="center" width="9%">申请类型</th>
+                  <th w_index="saleSupportReason" w_algin="center" width="13%">申请理由</th>
+                  <th w_render="operate" w_algin="center" width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">退款金额</th><!--  w_index="refundAmount" -->
+                  <th w_render="operate" w_algin="center" width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">退积分</th><!--  w_index="refundPv" -->
+                  <th w_index="saleSupportDate" w_algin="center" width="10%">申请时间</th>
+                  <th w_index="status" w_algin="center" width="*">状态</th>
+                  <% if(obj.showTypeSelect=="tabAll"){%>
+                  <th w_render="operate" w_algin="center" width="10%">操作</th>
+                  <%}%>
+                </tr>
+              </table>
+            </div>
+     </div>
+<!--内容添加结束--> 
+<!--弹出框内容及脚本开始-->
+<div id="porpDiv" style="display:none;">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	    <td align="right">处理类型：</td>
+		<td>
+			<div class="cont-chk">
+				<select id="txtProcessType" style="width:200px">
+					<option value="">-请选择-</option>
+				</select>
+			</div>
+		</td>
+  </tr>
+  <tr>
+    <td align="right">处理说明：</td>
+    <td><textarea id="content" placeholder="请输入"></textarea></td>
+  </tr>
+</table>
+</div>
+<div id="porpDivMsg" style="display:none;">
+</div>
+<!--弹出框内容及脚本结束-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+

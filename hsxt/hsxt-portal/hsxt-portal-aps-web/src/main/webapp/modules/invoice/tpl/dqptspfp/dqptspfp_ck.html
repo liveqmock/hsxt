@@ -1,0 +1,55 @@
+<div class="mb5 fb">发票抬头信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">发票抬头</td>
+		<td class="view_text_2" width="30%"><%=obj.custName%></td>
+		<td class="view_item" width="20%">纳税人识别号</td>
+		<td class="view_text_2" width="30%"><%=obj.taxpayerNo%></td>
+	</tr>
+	<tr>
+		<td class="view_item">地址、电话</td>
+		<td class="view_text_2" colspan="3"><%=obj.address%> <%=obj.telephone%></td>
+	</tr>
+	<tr>
+		<td class="view_item">开户行及账号</td>
+		<td class="view_text_2" colspan="3"><%=obj.bankBranchName%><%=obj.bankNo%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">发票类型</td>
+		<td class="view_text_2" width="30%"><%=obj.invoiceTypeName%></td>
+		<td class="view_item" width="20%">发票金额</td>
+		<td class="view_text_2" width="30%"><%=comm.formatMoneyNumber(obj.allAmount)%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">开票内容</td>
+		<td class="view_text_2" width="30%"><%=obj.openContent%></td>
+		<td class="view_item" width="20%"></td>
+		<td class="view_text_2" width="30%"></td>
+	</tr>
+</table>
+
+<% if(obj.status == 1){%>
+<div class="mb5 fb mt20">审批信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">审批结果：</td>
+		<td class="view_text_2" width="30%">审批驳回</td>
+		<td class="view_item" width="20%">审批操作员：</td>
+		<td class="view_text_2" width="30%" id="tdUpdateBy"></td>
+	</tr>
+    <tr>
+		<td class="view_item" width="">审批时间：</td>
+		<td class="view_text_2" width=""><%=obj.updatedDate%></td>
+		<td class="view_item" width=""></td>
+		<td class="view_text_2" width=""></td>
+	</tr>
+	<tr>
+		<td class="view_item">审批意见</td>
+		<td class="view_text_2" colspan="3"><%=obj.refuseRemark%></td>
+	</tr>
+</table>
+<%}%>
+
+<div class="mt10" align="center">
+	<a class="btn_bg submit" id="ck_back_dqptspfp">返&#12288;回</a>
+</div>

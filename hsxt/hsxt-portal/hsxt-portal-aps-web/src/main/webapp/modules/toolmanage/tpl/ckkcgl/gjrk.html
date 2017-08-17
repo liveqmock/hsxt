@@ -1,0 +1,68 @@
+﻿<div id="gjrkTpl" class="info_800 bc">
+	<form id="gjrk_form" name="gjrk_form">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">工具类别</label>
+					<span class="fl ml5 pr">
+						<input id="categoryCode" name="categoryCode" readonly="readonly" placeholder="选择工具类别" />
+					</span>
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">供应商</label>
+					<span class="fl ml5 pr">
+						<input id="supplierId" name="supplierId" readonly="readonly" placeholder="选择供应商"/>
+					</span>
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">批次号</label>
+					<input type="text" id="enterBatchNo" name="enterBatchNo"    class="fl w185 h30_middle ml5" placeholder="输入批次号" />
+				<!-- 	<span id="enterBatchNoSpan" class="required-left330 none">*</span> -->
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">进货价</label>
+					<input type="text" id="purchasePrice" name="purchasePrice" class="fl w185 h30_middle ml5" placeholder="输入进货价" />
+				</li>
+				<li class="register_row clearfix pr none" id="deviceSeqNoSpan">
+					<label class="fl w115 h30_middle">选择机器码文件</label>
+					<span class="fl ml5">
+						<!-- <button type="button" class="mt3 input-file btn-search ml5">选择机器码文件<input id="deviceSeqNo" name="deviceSeqNo" type="file"/></button>  -->
+						 <a href="javascript:void(0);" class="mt3 input-file btn-search ml5" style="height:24px;line-height:23px">选择机器码文件<input type="file" id="deviceSeqNo" name="deviceSeqNo" /></a> 
+						<a href="resources/template/POSCodeTemp.xls" class="mt3 input-file btn-search ml5" style="height:24px;line-height:23px" >下载模板</a>
+					</span>
+					<span class="required-left330">*</span>
+				</li>	
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">工具名称</label>
+					<span class="fl ml5 pr">
+						<input id="productId" name="productId" readonly="readonly" placeholder="选择工具名称" />
+					</span>
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">仓库</label>
+					<span class="fl ml5 pr">
+						<input id="whId" name="whId" readonly="readonly" placeholder="选择仓库"/>
+					</span>
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">入库数量</label>
+					<input type="text" id="quantity" name="quantity" class="fl w185 h30_middle ml5" placeholder="输入入库数量" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">市场价</label>
+					<input type="text" id="marketPrice" name="marketPrice" class="fl w185 h30_middle ml5" placeholder="输入市场价" />
+				</li>
+			</ul>
+		</div>
+		<div class="mt20" align="center">
+			<a class="btn_bg submit" id="rktj_btn">入库提交</a>
+		</div>
+	</form>
+</div>
+<div id="dialogBox" class="none"></div>

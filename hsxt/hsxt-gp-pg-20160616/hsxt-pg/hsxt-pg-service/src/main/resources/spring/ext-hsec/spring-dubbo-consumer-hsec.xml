@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+    
+    <!-- 互商注册中心：reg-hsec -->
+	<dubbo:registry id="reg-hsec" address="${dubbo.registry.address.hsec}"
+		default="false" />
+    
+	<!-- [互商]支付结果通知接口, 不得随意改动, 否则后果自负!!!! -->
+	<dubbo:reference id="pgNotifyService_HSEC"
+		interface="com.gy.hsxt.pg.api.IPGNotifyService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		group="HSEC_GP" version="3.0.0" registry="reg-hsec" /> <!-- 注意:互商那边的version都是3.0.0 -->
+</beans>

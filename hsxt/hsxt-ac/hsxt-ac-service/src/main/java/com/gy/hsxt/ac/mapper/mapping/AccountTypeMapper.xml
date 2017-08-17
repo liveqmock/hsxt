@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.mapper.AccountTypeMapper">
+<!-- @author 作者 : weixz -->
+
+    <resultMap type="com.gy.hsxt.ac.bean.AccountType" id="accountType">
+    <!-- 账户类型对象 -->
+        <id column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <result column="ACC_NAME" property="accName" jdbcType="VARCHAR" />
+        <result column="CURRENCY_CODE" property="currencyCode" jdbcType="VARCHAR" />
+        <result column="ACC_TYPE_DESCRIPTION" property="accTypeDescription" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+    </resultMap>
+
+<!-- 多个新增账户类型 -->
+<insert id="addAccTypes" parameterType="list">
+		INSERT /*+ append */ INTO T_AC_ACCOUNT_TYPE( 
+		       ACC_TYPE, 
+		       ACC_NAME, 
+		       CURRENCY_CODE, 
+		       ACC_TYPE_DESCRIPTION, 
+		       CREATED_DATE, 
+		       UPDATED_DATE 
+		    ) 
+			SELECT ACC_TYPE, 
+			       ACC_NAME, 
+			       CURRENCY_CODE, 
+			       ACC_TYPE_DESCRIPTION, 
+			       CREATED_DATE, 
+			       UPDATED_DATE FROM (
+	  		<foreach collection="list" item="item" index="index" separator="union all" > 
+			      (SELECT #{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+			              #{item.accName,jdbcType=VARCHAR} as ACC_NAME,
+			              #{item.currencyCode,jdbcType=VARCHAR} as CURRENCY_CODE,
+			              #{item.accTypeDescription,jdbcType=VARCHAR} as ACC_TYPE_DESCRIPTION,
+			              systimestamp as CREATED_DATE,
+			              systimestamp as UPDATED_DATE FROM DUAL)
+			</foreach>
+			)
+</insert>
+<!-- 单个新增账户类型 -->
+<insert id="addAccType" parameterType="AccountType">
+		INSERT /*+ append */ INTO T_AC_ACCOUNT_TYPE( 
+		       ACC_TYPE, 
+		       ACC_NAME, 
+		       CURRENCY_CODE, 
+		       ACC_TYPE_DESCRIPTION, 
+		       CREATED_DATE, 
+		       UPDATED_DATE) 
+			VALUES
+			(  #{accType,jdbcType=VARCHAR},
+			   #{accName,jdbcType=VARCHAR},
+			   #{currencyCode,jdbcType=VARCHAR},
+			   #{accTypeDescription,jdbcType=VARCHAR},
+			   systimestamp,
+			   systimestamp)
+</insert>
+<!-- 单个账户类型查询 -->
+<select id="searchAccountType" resultMap="accountType" parameterType="String">
+		SELECT ACC_TYPE, 
+		       ACC_NAME, 
+		       CURRENCY_CODE,
+		       ACC_TYPE_DESCRIPTION, 
+		       CREATED_DATE, 
+		       UPDATED_DATE  
+		  FROM T_AC_ACCOUNT_TYPE  
+		 WHERE ACC_TYPE = #{accType,jdbcType=VARCHAR}
+</select>
+<!-- 集合账户类型查询 -->
+<select id="searchAccountTypeListPage" resultMap="accountType" parameterType="AccountType">
+		SELECT ACC_TYPE, 
+		       ACC_NAME, 
+		       CURRENCY_CODE,
+		       ACC_TYPE_DESCRIPTION, 
+		       CREATED_DATE, 
+		       UPDATED_DATE 
+		  FROM T_AC_ACCOUNT_TYPE 
+		 WHERE 1=1 
+			<if test="accType != null and accType != ''">
+				AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+			</if>
+			<if test="accName != null and accName != ''">
+				AND ACC_NAME = #{accName,jdbcType=VARCHAR}
+			</if>
+			<if test="currencyCode != null and currencyCode != ''">
+				AND CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR}
+			</if>
+			<if test="accTypeDescription != null and accTypeDescription != ''">
+				AND ACC_TYPE_DESCRIPTION = #{accTypeDescription,jdbcType=VARCHAR}
+			</if>
+			<if test="beginDateTim != null and beginDateTim != ''">
+			<![CDATA[ AND CREATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}]]> 
+			</if>
+			<if test="endDateTim != null and endDateTim != ''">
+			<![CDATA[ AND CREATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}]]>
+			</if>
+</select>
+
+<!-- 单个账户类型修改 -->
+<update id="updateAccType" parameterType="AccountType">
+        UPDATE T_AC_ACCOUNT_TYPE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accName != null and accName != '' ">
+                 ACC_NAME = #{accName,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyCode != null and currencyCode != '' ">
+                 CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="accTypeDescription != null and accTypeDescription != '' ">
+                 ACC_TYPE_DESCRIPTION = #{accTypeDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDate != null and createdDate != '' ">
+                 CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE ACC_TYPE = #{accType,jdbcType=VARCHAR}
+</update>
+
+<!-- 多个账户类型修改 -->
+<update id="updateAccTypes" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		UPDATE T_AC_ACCOUNT_TYPE
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="item.accName != null and item.accName != '' ">
+				 ACC_NAME = #{item.accName,jdbcType=VARCHAR},
+			</if>
+			<if test="item.currencyCode != null and item.currencyCode != '' ">
+				 CURRENCY_CODE = #{item.currencyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="item.accTypeDescription != null and item.accTypeDescription != '' ">
+				 ACC_TYPE_DESCRIPTION = #{item.accTypeDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="item.createdDate != null and item.createdDate != '' ">
+				 CREATED_DATE = #{item.createdDate,jdbcType = TIMESTAMP},
+			</if>
+				 UPDATED_DATE = systimestamp
+		</trim>
+		 WHERE ACC_TYPE = #{item.accType,jdbcType=VARCHAR} ;
+	</foreach>
+</update>
+<!-- 单个账户类型删除 -->
+<delete id="deleteAccountType" parameterType="String">
+        delete from T_AC_ACCOUNT_TYPE where ACC_TYPE = #{accType,jdbcType=VARCHAR}
+</delete>
+<!-- 批量账户类型删除 -->
+<delete id="deleteAccountTypes" parameterType="list">
+		delete from T_AC_ACCOUNT_TYPE where ACC_TYPE in 
+		<foreach  item="item" collection="list" open="(" separator="," close=")">
+			 #{item.accType,jdbcType=VARCHAR}
+		</foreach>
+</delete>
+<!-- 账户状态变更记录获取 -->
+<select id="searchAccStatusChangeListPage" resultType="AccountStatusChange" parameterType="AccountStatusChange">
+		SELECT CUST_ID custID, 
+		       ACC_TYPE accType, 
+		       HS_RES_NO hsResNo,
+		       ACC_STATUS_OLD accStatusOld, 
+		       ACC_STATUS_NEW accStatusNew,
+		       REMARKS remarks,
+		       UPDATEDBY updatedby, 
+		       UPDATED_DATE updatedDate
+		  FROM T_AC_ACCOUNT_STATUS_CHANGE
+		 WHERE 1=1 
+		       <if test="custID !=null and custID != ''">
+		       	  AND CUST_ID = #{custID,jdbcType=INTEGER}
+		       </if> 
+		       <if test="accType !=null and accType != ''">
+		       	  AND trim(ACC_TYPE) = #{accType,jdbcType=VARCHAR}
+		       </if>
+		       <if test="hsResNo !=null and hsResNo != ''">
+                  AND trim(HS_RES_NO) = #{hsResNo,jdbcType=VARCHAR}
+               </if>
+               <if test="accStatusOld !=null and accStatusOld != ''">
+                  AND ACC_STATUS_OLD = #{accStatusOld,jdbcType=INTEGER}
+               </if>
+               <if test="accStatusNew !=null and accStatusNew != ''">
+                  AND ACC_STATUS_NEW = #{accStatusNew,jdbcType=INTEGER}
+               </if>
+               <if test="updatedby !=null and updatedby != ''">
+                  AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+               </if>
+               <if test="beginDateTim != null and beginDateTim != ''">
+	               <![CDATA[ AND UPDATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}]]> 
+	           </if>
+	           <if test="endDateTim != null and endDateTim != ''">
+	               <![CDATA[ AND UPDATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}]]>
+	           </if>
+</select>
+</mapper>

@@ -1,0 +1,33 @@
+﻿<div class="busibox p20">
+	<h1 id="N_note" class="acct-tips">
+		<p class="tcr_blue fb ml200 tl">温馨提示：</p>
+		<p class="tl lh30 ml200 pb30">
+			1、可用积分数 = 积分账户余数 - <span id="securityPointNumber"></span>（保底积分数）。</br>
+			2、今日积分数 = 今日消费积分数 - 今日撤单积分数。
+		</p>
+	</h1>
+	
+	<div class="acct-ct h200">
+		<ul class="acctno-box w472 bc pt50">
+			<li class="clearfix"> <i class="acctno-icon icon-jfzh"></i>
+			<div class="acctno-dd tc">
+				<h1 class="f16 fb gray">积分账户余数</h1>
+				<span class="f24 red fari" id="pointAcct"></span>
+			</div>
+			<div class="acctno-detail">
+				<table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:26px;">
+					<tr>
+						<td align="left" height="20">可用积分数</td>
+						<td align="right" height="20"><span id="usablePointNum"></span></td>
+					</tr>
+					<tr>
+						<td align="left">今日积分数</td>
+						<td align="right"><span id="todaysNewPoint"></span></td>
+					</tr>
+				</table>
+			</div>
+			</li>
+		</ul>
+	</div>
+	<div class="tc mt20"><a href="javascript:;" id="pointFlush" class="hs_btn myhs_ajax_btn">刷&#12288;新</a></div>
+</div>

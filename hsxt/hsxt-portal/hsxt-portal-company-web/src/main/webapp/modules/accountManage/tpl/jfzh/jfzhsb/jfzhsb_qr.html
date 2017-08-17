@@ -1,0 +1,38 @@
+<form id="qr_pth_appform" autocomplete="off" name="qr_pth_appform" method="post" onsubmit="return false;">
+<input type="hidden" id="qr_pth_randomToken" name="qr_pth_randomToken">
+<input type="hidden" id="qr_pth_toHSBPointNum_hidden" name="qr_pth_toHSBPointNum_hidden" />
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+  <tbody>
+    <tr>
+      <td class="view_item" width="20%">转出积分数</td>
+      <td class="view_text" width="30%"><span id="qr_pth_toHSBPointNum"></span></td>
+    </tr>
+    <tr>
+      <td class="view_item">转入账户</td>
+      <td class="view_text">互生币账户</td>
+    </tr>
+    <tr>
+      <td class="view_item">结算币种</td>
+      <td class="view_text">互生币</td>
+    </tr>
+	<!-- 
+    <tr>
+      <td class="view_item">货币转换比率</td>
+      <td class="view_text"><span id="qr_pth_rate"></span></td>
+    </tr>
+	-->
+    <tr>
+      <td class="view_item">转入互生币数量</td>
+      <td class="view_text"><span id="qr_pth_realMoneyNum"></span></td>
+    </tr>
+    <tr>
+      <td class="view_item">交易密码</td>
+      <td class="view_input"><input class="jy_password" type="password" id="qr_pth_dealPwd" name="qr_pth_dealPwd" maxlength="8" placeholder="输入8位交易密码"/></td>
+    </tr>
+  </tbody>
+</table>
+<div class="w200 bc clearfix mt20">
+	<a id="pth_return" class="btn_bg submit fl">修&#12288;改</a>
+	<a id="pth_appComit" class="btn_bg submit fr">确&#12288;认</a>
+</div>
+</form>

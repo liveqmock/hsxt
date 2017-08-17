@@ -1,0 +1,145 @@
+<!-- 自提订单详情 -->
+<%
+var param = obj.data.QueryResult
+var orderStatusArray = obj.data.orderStatusArray
+%>
+  <div class="order-state-box">
+      	<ul class="clearfix">
+      	<% $.each(orderStatusArray,function(key,obj){ %>			
+			<li style="width:<%if(orderStatusArray.length == 3 && key==1){%>30<%}else{%><%=100/orderStatusArray.length%><%}%>%">
+            	<div class="stat-bg  
+            			<% if(key==0){%>w50p fr<%}%>
+            			<% if(key==orderStatusArray.length-1){%>w50p<%}%>">
+            	<i class="<% if(obj.onThisStep==true){   %>active<%}%> 
+            			<% if(key==0){%>
+            			<%}else if(key!=orderStatusArray.length-1){%>bc 
+            			<%}else{%>fr<%}%>">	
+            	</i></div>
+            </li>  
+		<%})%>       	
+        </ul>
+        <ul class="clearfix mt5">       
+         <% $.each(orderStatusArray,function(key,obj){ %>	
+			<li style="width:<%if(orderStatusArray.length == 3 && key==1){%>30<%}else{%><%=100/orderStatusArray.length%><%}%>%">			
+				<div style="width:58%;float:right;">
+                <p class="fb"><%=obj.name%></p>
+                <p><%=obj.time%></p>
+                <p><%=obj.alertMsg%></p>
+                </div>     	
+            </li>
+		<%})%>  
+        </ul>
+      </div>
+      <div class="clearfix mt10">
+      	<div class="fl w50p">
+        	<div class="order-info-box mr5">
+            	<fieldset>
+                	<legend>基本信息</legend>
+                    <div class="m10">
+                     <table cellpadding="0" cellspacing="0" border="0" width="100%" >
+                        	<tr class="title-h1">
+                                <th colspan="4">
+                                    <div class="clearfix">
+                                        <span class="fl w50p fb f14"><%=param.shopName%></span>
+                                        <span class="fl w50p fn tr">订单号：<%=param.orderId%></span>
+                                    </div>
+                                </th>
+                            </tr>
+                             <tr>
+	                            <td align="right" width="30%">订单来源：</td>
+	                             <td width="70%">
+                                	<% if(param.channelType=='1'){%>
+								 		WEB
+							   			<%}else if(param.channelType=='2'){%>
+							   		  	移动APP
+							   			<%}else if(param.channelType=='3'){%>
+							   			企业平板
+							   		<%}%>	  
+								</td>
+							 </tr>
+                            <tr>
+                            	<td align="right" width="30%">互生卡号/手机号码：</td>
+                                <td width="70%"><%=param.buyerAccountNo%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">电话号码：</td>
+                                <td><%=param.receiverContact%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">预计自提时间：</td>
+                                <td><%=param.planTime%></td>
+                            </tr>                        
+                            <tr>
+                            	<td align="right">备注：</td>
+                                <td class="huanhang"><%=param.userNote%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">是否开发票：</td>
+                                <td>
+                                	<% if(param.isInvoice=='1'){%>
+								 		开具
+							   		<%}else{%>
+							   		  不开具
+							   		<%}%>	                   
+                            </tr>
+                            <tr>
+                            	<td align="right">支付方式：</td>
+                                <td>
+								<% if(param.payType=='1'){%>
+						 		现金
+						   		<%} else if(param.payType=='3') {%>
+						   		互生币
+						   		<%} else if(param.payType=='4') {%>
+						   		  网银支付
+						   		<%}%>	                                
+                                </td>
+                            </tr>                          
+                        </table>    
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="fr w50p">
+        	<div class="order-info-box ml5">
+            	<fieldset>
+                	<legend>菜品信息</legend>
+                    <div class="m10">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="table-food-list">
+                        	<tr class="title-h1">
+                                <th>菜品名称</th>
+                                <th>规格</th>
+                                <th>份数</th>
+                                <th><img src="resources/img/price.png" width="20" style="vertical-align:middle;">单价</th>
+                                <th><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+                            </tr>
+                             <% $.each(param.orderDetailList,function(key,el){ %>
+                            <tr>
+                            	<td width="50%" class="huanhang"><%=el.itemName%> </td>
+                              <%
+				           	 	var str = "";
+				           	 	try{
+				           	 		var standard = eval("("+el.standard+")");
+				           	 		if(standard.pName != "unfefined" && standard.pName != null && standard.pName != "" && standard.pVName != "unfefined" && standard.pVName != null && standard.pVName != ""){
+				           	 			str = standard.pName + "：" + standard.pVName;
+				           	 		}
+				           	 	}catch(e){}
+				           	 %>
+				           	 	<td width="18%"><%=str%></td>
+                                <td width="12%"><%=el.quantity%></td>
+                                <td width="12%"><span class="red"><%=comm.formatMoneyNumber(el.price)%></span></td>
+                                <td width="12%"><span class="blue"><%=comm.formatMoneyNumber(el.point)%></span></td>
+                            </tr>
+                             <% }) %>
+                            <tr class="">
+                            	<td class="fb">总计：</td>
+                                <td class="fb" colspan="4"><img src="resources/img/price.png" width="20" style="vertical-align:middle;"><span class="red"><%=comm.formatMoneyNumber(param.amountTotal)%></span>&nbsp;&nbsp;&nbsp;<img src="resources/img/pv.png" width="25" style="vertical-align:middle;"><span class="blue"><%=comm.formatMoneyNumber(param.pointsTotal)%></span></td>
+                            </tr>    
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+      </div>
+      <div class="tass tc mt20">
+          <a href="javascript:void(0)" class="btn_bg submit mr10 btn-xq">确&nbsp;&nbsp;定</a>
+	  </div>

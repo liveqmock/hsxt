@@ -1,0 +1,41 @@
+﻿<div class="busibox p20" id="cashTransfer">
+	<div class="acct-ct">
+		<h1 id="N_note" class="acct-tips">
+			<p class="tcr_blue fb ml200 tl">温馨提示：</p>
+			<p class="tl lh30 ml200 pb10">
+			1、货币账户可转出，转出金额为不小于<span id="hb_ac_minCashNum"></span>的整数！<br>
+			2、转账手续费从货币账户余额中扣除，请保证余额充足，以确保能顺利进行转账。
+			</p>
+		</h1>
+		<p class="acct-line"></p>
+	</div>
+	<form id="ac_appform" autocomplete="off" name="ac_appform" action="" method="post" onsubmit="return false;"> 
+		<input type="hidden" id="ac_minCashNum" value=""/>
+		<input type="hidden" id="ac_randomToken" value=""/>
+		<input type="hidden" id="cashAccTotal" value=""/>
+		<div class="cssform_500 pt20">
+			<ul class="cssform clearfix">
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">货币账户余额</label>
+				<div class="cont-int"><span class="red f16 fb lh35 pl5"id="ac_cashAccTotal"></span><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr">
+				<label class="title-txt">转出金额</label>
+				<div class="cont-int">
+				<input class="inpt w176 input_gray" type="text" name="ac_appTransferMoneyNum" id="ac_appTransferMoneyNum" placeholder="输入货币金额"/>
+				<div class="hint"></div>
+				</div>
+				</li>
+				<li class="col2 pr">
+				<label class="title-txt">转入银行账户</label>
+				<div class="cont-chk tbox2 wseltbox"><select id="ac_bankCardList" style="width:270px;"></select></div><div class="hint"></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">当地结算货币</label>
+				<div class="cont-chk tbox2 wseltbox"><span class="lh30 pl5">人民币</span></div><div class="hint"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="tc mt20"><a id="acQrBtn" class="hs_btn myhs_ajax_btn" data-id="zhgl_xjzh_xjzz2">提&#12288;交</a></div>
+	</form>
+</div>

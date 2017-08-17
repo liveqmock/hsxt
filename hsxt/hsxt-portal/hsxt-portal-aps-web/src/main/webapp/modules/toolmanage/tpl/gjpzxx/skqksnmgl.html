@@ -1,0 +1,39 @@
+﻿<div id="skqksnmglTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="search_storeStatus" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">刷卡器分类：</label>
+				<input id="search_mcrType" readonly="readonly" placeholder="选择刷卡器分类" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<!--  <li>
+				<button id="scksnxlh_btn" type="button" class="btn-search">生成积分刷卡器KSN序列号</button>
+			</li>  -->
+			<li>
+				<button id="scksnxlh_btn2" type="button" class="btn-search">上传消费刷卡器KSN序列号</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="mcrType" w_render="operate">刷卡器分类</th>
+		<th w_index="batchNo" w_tip=true>批次号</th>
+		<th w_index="quantity">刷卡器数量</th>
+		<th w_index="storeStatus" w_render="operate">状态</th>
+		<th w_index="createdDate">生成日期</th>
+		<th w_index="createdBy">生成操作员</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_sc" class="none"></div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_dc" class="none"></div>
+<div id="dialogBox_fh" class="none"></div>
+<div id="dialogBox_dcjl" class="none"></div>

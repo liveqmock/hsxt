@@ -1,0 +1,28 @@
+<%
+	var picname = "";
+	var _virtualShopId = "";
+	if(obj.pics != null && obj.pics != ""){
+	  		var picObj = eval(obj.pics);//转换对象
+	  		try{
+		  		$.each(picObj[0].web,function(y,o){
+		  			if(o.size=="110*110"){
+		  				picname = o.name;
+		  			}
+		  		});
+	  		}catch(e){}
+  		}
+  	_virtualShopId = obj.virtualShopId;
+%>
+<div class="clearfix">
+	<div class="std_checkbox">
+    <input name="itemDataCheckBox" style="margin-top:34px;" type="checkbox" status="<%=obj.status%>" value="<%=obj.id%>"/>
+  </div>
+  <div class="std_jbxximg"><img width="80" height="80" data-src="<%=picname%>" class="imgsrc"></div>
+  <div class="fl tl">
+    <ul class="w200">
+      <li class="lh24" style="white-space:nowrap;">编号：<%=obj.id%></li>
+      <li class="lh24 div_spill" style="white-space:nowrap;" title="<%=obj.name%>">菜名：<%=obj.name%></li>
+      <li class="lh24" style="white-space:nowrap;">分类：<%=obj.categoryName%></li>           
+    </ul>
+  </div>
+ </div>

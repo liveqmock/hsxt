@@ -1,0 +1,46 @@
+﻿<div class="infobox2 h ovh clearfix" id="spfl_spfl_content1">
+	<div class="fl p10" style="width:25%;">
+    	<ul id="tree_spfl" class="ztree" style="height:400px;overflow:auto;"></ul>
+    </div>
+    <div class="fr border_left_CCC h scrlh" style="width:72%;">
+    	 <div class="search-toolbar">
+          <form id="spfl_form" name="spfl_form">
+            <ul class="cssform clearfix">
+              <li class="clearfix">
+                <label class="fl h30_middle">商品名称：</label>
+                <input type="text" id="goodsName" class="h28_middle input-txt w80" placeholder="输入商品名称"/>
+              </li>
+              <li class="clearfix pr">
+                <label class="h30_middle fl">商品类目：</label>
+                <input type="hidden" id="goodsTypeId"/>
+                <input type="text" id="goodsTypeName" class="h28_middle input-txt w80" placeholder="输入商品类目"/>
+              </li>
+              <li>
+                <div class="cont-int">
+                  <button id="btn_cx" class="btn-search" type="button">查询</button>
+                </div>
+              </li>
+              <li class="fr">
+                <div class="cont-int">
+                  <button id="spfl_btn_add" class="btn-search" type="button">添加关联商品</button>
+                </div>
+              </li>
+            </ul>
+          </form>
+        </div>
+        <div class="search-cont">
+          <table id="spfl_table">
+              <thead>
+                <tr>
+                  <th w_render="renderImg" w_align="left" width="40%">商品名称</th>
+                  <th w_index="pp" w_align="left" width="25%">品牌</th>
+                  <th w_index="lm" w_align="left" width="25%">商品所属类目</th>
+                  <th w_render="operate" w_align="left" width="10%">操作</th>
+                </tr>
+              </thead>
+          </table>
+        </div>
+    </div>
+</div>
+<div id="spfl_spfl_content2" class="none"></div>
+<div id="spfl_spfl-dialog" class="none"><p></p></div>

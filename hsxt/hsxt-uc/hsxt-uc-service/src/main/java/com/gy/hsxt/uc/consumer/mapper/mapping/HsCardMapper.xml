@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.consumer.mapper.HsCardMapper" >
+<!-- 互生卡信息 resultMap -->
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.consumer.bean.HsCard" >
+    <id column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="PER_RES_NO" property="perResNo" jdbcType="CHAR" />
+    <result column="CRYPTOGRAM" property="cryptogram" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="ACTIVE_DATE" property="activeDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="LOSS_REASON" property="lossReason" jdbcType="VARCHAR" />
+    <result column="CARD_STATUS" property="cardStatus" jdbcType="DECIMAL" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="LOSS_DATE" property="lossDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+  </resultMap>
+  
+<!-- 查询列 -->
+  <sql id="Base_Column_List" >
+    PER_CUST_ID,
+    PER_RES_NO, 
+    CRYPTOGRAM, 
+    VERSION, 
+    ACTIVE_DATE, 
+    LOSS_REASON, 
+    CARD_STATUS, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY, 
+    LOSS_DATE
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CUST_HSRESNO_INFO
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </select>
+
+<!-- 根据互生号查询客户号 -->
+   <select id="selectByResNo" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+   		PER_CUST_ID
+    from T_CUST_HSRESNO_INFO
+    where PER_RES_NO = #{perResNo,jdbcType=VARCHAR} and ISACTIVE = #{isactive,jdbcType=CHAR}
+  </select>
+
+<!-- 根据互生号查询记录数 -->
+   <select id="selectCountsByResNo" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select 
+   		COUNT(*)
+    from T_CUST_HSRESNO_INFO
+    where PER_RES_NO = #{perResNo,jdbcType=VARCHAR} and ISACTIVE = #{isactive,jdbcType=CHAR}
+  </select>
+  
+  <!-- 插入互生卡信息-->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.consumer.bean.HsCard" >
+    insert into T_CUST_HSRESNO_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        PER_CUST_ID,
+      </if>
+      <if test="perResNo != null" >
+        PER_RES_NO,
+      </if>
+      <if test="cryptogram != null" >
+        CRYPTOGRAM,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="activeDate != null" >
+        ACTIVE_DATE,
+      </if>
+      <if test="lossReason != null" >
+        LOSS_REASON,
+      </if>
+      <if test="cardStatus != null" >
+        CARD_STATUS,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="lossDate != null" >
+        LOSS_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="perResNo != null" >
+        #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="cryptogram != null" >
+        #{cryptogram,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="activeDate != null" >
+        #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lossReason != null" >
+        #{lossReason,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStatus != null" >
+        #{cardStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="lossDate != null" >
+        #{lossDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+ 
+ <!-- 更新互生卡信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.consumer.bean.HsCard" >
+    update T_CUST_HSRESNO_INFO
+    <set >
+      <if test="perResNo != null" >
+        PER_RES_NO = #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="cryptogram != null" >
+        CRYPTOGRAM = #{cryptogram,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="activeDate != null" >
+        ACTIVE_DATE = #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lossReason != null"  >
+        LOSS_REASON = #{lossReason,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStatus != null" >
+        CARD_STATUS = #{cardStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="lossDate != null" >
+        LOSS_DATE = #{lossDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </update>
+ 
+  <!-- 批量插入互生卡信息-->
+	<insert id="batchInsertSelective" parameterType="java.util.List">
+	    INSERT INTO T_CUST_HSRESNO_INFO (PER_CUST_ID, PER_RES_NO,CRYPTOGRAM, CREATEDBY) 
+  		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT 
+			#{item.perCustId,jdbcType=VARCHAR} AS PER_CUST_ID,
+			#{item.perResNo,jdbcType=VARCHAR} AS PER_RES_NO,
+			#{item.cryptogram,jdbcType=VARCHAR} AS PER_RES_NO,
+			#{item.createdby,jdbcType=VARCHAR} AS CREATEDBY
+		FROM DUAL)
+		</foreach>
+	</insert>
+	
+ <!-- 批量删除互生卡信息（逻辑删除）-->
+		<update id="batchDeleteByPrimaryKey"  parameterType="java.util.Map">
+                UPDATE T_CUST_HSRESNO_INFO 
+                <set>
+                ISACTIVE = #{isactive,jdbcType=CHAR},
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+                UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+                </set>
+                where PER_CUST_ID IN
+                 <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                  '${item}'
+                 </foreach>
+    </update>
+ 
+</mapper>

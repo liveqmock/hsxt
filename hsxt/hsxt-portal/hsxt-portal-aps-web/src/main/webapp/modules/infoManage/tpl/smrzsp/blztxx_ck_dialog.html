@@ -1,0 +1,70 @@
+<% if(obj.num == 'xfz' || obj.num == "xfzspcx"){ %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="70%" valign="top">
+			<table width="100%" id="personTab" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td width="20%" align="center" class="table_title">信息</td>
+					<td width="40%" align="center" class="table_title">修改前内容</td>
+					<td width="40%" align="center" class="table_title">修改后内容</td>
+					
+				</tr>
+				<tr>
+					<td class="view_item" width="14%">备注</td>
+					<td class="view_text" colspan="2"><%=obj.optRemark%></td>
+				</tr>
+				
+			</table>
+		</td>
+		<td width="30%" valign="top" class="table_text" style="border-bottom:1px solid #CCC;border-right:1px solid #CCC;">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable" style="border-left:0 none;">
+				<tr>
+					<td align="center" class="table_title" style="border-left:0 none;border-right:0 none;">关联附件</td>
+				</tr>
+				<tr>
+					<td valign="top"  align="center" class="lh180" style="border-left:0 none;border-right:0 none;border-bottom:0 none;">
+						<a class="blue" id="cerpica" target="_blank">证件正面</a><br />
+						<a class="blue" id="cerpicb" target="_blank">证件反面</a><br />
+						<a class="blue" id="cerpich" target="_blank">手持证件照</a>
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<% }else{ %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="70%" valign="top">
+			<table width="100%" id="entTab" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td width="20%" align="center" class="table_title">信息</td>
+					<td width="40%" align="center" class="table_title">修改前内容</td>
+					<td width="40%" align="center" class="table_title">修改后内容</td>
+					
+				</tr>
+				
+				<tr>
+					<td class="view_item" width="14%">备注</td>
+					<td class="view_text" colspan="2"><%=obj.optRemark%></td>
+				</tr>
+							
+			</table>
+		</td>
+		<td width="30%" valign="top" class="table_text" style="border-bottom:1px solid #CCC;border-right:1px solid #CCC;">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable" style="border-left:0 none;">
+				<tr>
+					<td align="center" class="table_title" style="border-left:0 none;border-right:0 none;">关联附件</td>
+				</tr>
+				<tr>
+					<td valign="top"  align="center" class="lh180" style="border-left:0 none;border-right:0 none;border-bottom:0 none;">					
+						<a class="blue" id="dialog_licensePic" target="_blank">营业执照</a><br />
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<% } %>

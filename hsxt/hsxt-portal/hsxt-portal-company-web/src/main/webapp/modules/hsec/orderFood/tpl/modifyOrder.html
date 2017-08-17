@@ -1,0 +1,269 @@
+<!-- 修改订单 -->
+<%
+var param = obj.data.QueryResult
+var orderStatusArray = obj.data.orderStatusArray
+var paramSendOrderCount=obj.data.paramSendOrderCount
+%>
+ <%if(null==orderStatusArray){%>       
+
+ <%}else{  %>
+  <div class="order-state-box">
+      	<ul class="clearfix">
+      	<% $.each(orderStatusArray,function(key,obj){ %>			
+			<li style="width:<%=100/orderStatusArray.length%>%">
+            	<div class="stat-bg  
+            			<% if(key==0){%>w50p fr<%}%>
+            			<% if(key==orderStatusArray.length-1){%>w50p<%}%>">
+            	<i class="<% if(obj.onThisStep==true){   %>active<%}%> 
+            			<% if(key==0){%>
+            			<%}else if(key!=orderStatusArray.length-1){%>bc 
+            			<%}else{%>fr<%}%>">	
+            	</i></div>
+            </li>  
+		<%})%>       	
+        </ul>
+        <ul class="clearfix mt5">       
+         <% $.each(orderStatusArray,function(key,obj){ %>	
+			<li style="width:<%=100/orderStatusArray.length%>%">			
+				<div style="width:58%;float:right;">
+                <p class="fb"><%=obj.name%></p>
+                <p><%=obj.time%></p>
+                <p><%=obj.alertMsg%></p>
+                </div>     	
+            </li>
+		<%})%>  
+        </ul>
+      </div>
+    <%}%>
+    
+ <%if(null==param){%>       
+
+ <%}else{  %>        	 
+      <div class="clearfix mt10">
+      	<div class="fl w50p">
+        		<div class="order-info-box mr5">
+            	<fieldset>
+                	<legend>基本信息</legend>
+                    <div class="m10">                       
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr class="title-h1">
+                                <th colspan="2"><span class="ml20 fb f14"><%=param.shopName%></span></th>
+                                <th colspan="2" class="tr"><span class="mr20 fn">订单号：<%=param.orderId%></span></th>
+                            </tr>
+                            <tr>
+                            	<td align="right" width="30%">互生卡号/手机号码：</td>
+                                <td width="25%"><%=param.buyerAccountNo%></td>
+                                <td align="right" width="20%">电话号码：</td>
+                                <td width="25%"><%=param.receiverContact%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">预约时间：</td>
+                                <td><%=param.planTime%></td>
+                            	<td align="right">就餐人数：</td>
+                                <td><% if(comm.isEmpty(param.tableNumber)){%>
+ 										<%=param.personCount%>
+							   		<%}else{%>
+							   			 <%=param.tableNumber%>
+							   		<%}%>人</td>
+                            </tr>
+                            <tr>
+                            	<td align="right">预计人均消费：</td>
+                                <td><%=param.costPrePerson%></td>
+                            	<td align="right">桌台号：</td>
+                                <td><%=param.tableNo%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">备注：</td>
+                                <td colspan="3" class="huanhang"><%=param.userNote%></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">是否开发票：</td>
+                                <td><% if(param.isInvoice=='1'){%>
+								 		开具
+							   		<%}else{%>
+							   		  不开具
+							   		<%}%></td>
+                            	<td align="right">支付方式：</td>
+                                <td><% if(param.payType=='1'){%>
+						 		现金
+						   		<%} else if(param.payType=='3') {%>
+						   		互生币
+						   		<%} else if(param.payType=='4') {%>
+						   		  网银支付
+						   		<%}else{%>
+						   		   其它
+						   		<%}%></td>
+                            </tr>                           
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="order-info-box mt10 mr5">
+            	<fieldset>
+                	<legend>结单信息</legend>             	             
+                    <div class="m10">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        	<tr>
+                            	<td align="right" width="30%">菜单合计金额：</td>
+                                <td width="70%"><span class="red"><%=comm.formatMoneyNumber(param.amountTotal)%></span></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">其它服务项目：</td>
+                                <td>服务内容：<input type="text" name="amountOtherMsg" value="<%=param.amountOtherMsg%>" class="order-ipt w50" maxlength="6"/><span class="ml10">金额：</span><input type="text" name="amountOther" value="<%=param.amountOther%>" class="order-ipt w50" /></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">消费结算金额：</td>
+                                <td  class="totalMoneyConsume"><span class="red"><%=comm.formatMoneyNumber(param.amountTotal+param.amountOther)%></span></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">折扣方式：</td>
+                                <td>
+                                	<!-- 
+	                                <label>
+	                                	<input name="discount" type="checkbox" value="" />
+	                                	<input type="radio"  name="discount" class="mr5" value="0" checked/>不折扣
+	                                </label>
+	                                <label class="ml10"><input type="radio" name="discount" value="1" class="mr5" />互生消费抵扣券</label>
+	                                <label class="ml10"><input type="radio" name="discount" class="mr5" value="2"/>店内折扣</label>
+                                	 -->
+                                	
+                                	
+                                	<label  class="<%if(param.isCardCustomer=='0'){%>none<%}%>" >
+	                                	<input name="discount" style="width: 12px;height: 12px;" type="checkbox" value="1" />互生消费抵扣券
+	                                </label>
+	                                
+	                                <label>
+	                                	<input name="discount" style="width: 12px;height: 12px;" type="checkbox" value="2" />店内折扣
+	                                </label>
+                                </td>
+                            </tr>
+                            <tr class="discountType discountType1 none">
+                            	<td align="right">折扣券：</td>
+                                <td>                               	                        	
+                                	<input name='amountCoupon' value="" type="text" class="order-ipt w50" />
+                                	<span class="ml5">张，面值：10元</span>
+                                	<input class="cy-ipt" name='couponInfo' type="hidden" value="10">                               
+                                </td>                    
+                            </tr>
+                            <tr class="discountType discountType2 none">
+                            	<td align="right">折扣率(50% - 100%)：</td>
+                                <td><input type="text"  name='discountRate' value="" class="order-ipt w50" /><span class="ml5">%</span></td>
+                            </tr>
+                            <tr class="discountType discountType2 none">
+                            	<td align="right">折后金额：</td>
+                                <td><span id="zehouPrice" class="red"></span><input type="hidden" value="" name='discountRateMoney' class="order-ipt w100" /></td>
+                            </tr>
+                            <tr>
+                            	<td align="right">已收定金：</td>
+                                <td ><span class="red"><%=comm.formatMoneyNumber(param.moneyEarnest)%></span></td>
+                            </tr>
+                            
+                            <tr>
+                            	<td align="right"></td>
+                                <td><label><input type="radio" name="checkOutType" value='1' class="mr5" checked='checked'/>定金支付</label>
+                                <label class="ml20"><input type="radio" value='2' name="checkOutType" class="mr5"/>
+                                	<%if(param.isCardCustomer=='1'){%>
+                                	 		退还定金
+                                	 	<%}else{%>
+                                	 		退还定金
+                                	 	<%}%>
+                                </label>
+                                </td>
+                            </tr>
+                            <tr class="thdj checkOutType none">
+                            	<td align="right">退还定金：</td>
+                                <td class="reBackMoneyEarnest"><span class="red"><%=comm.formatMoneyNumber((param.moneyEarnest != null?param.moneyEarnest:0).toFixed(2))%></span></td>
+                            </tr>
+                            <tr>
+                            	<td align="right" class="blue f14">应收金额：</td>
+                            	<td class="red f14 actualPayText"><span class="red"><%=comm.formatMoneyNumber(param.amountTotal+param.amountOther-param.moneyEarnest)%></span></td>
+                                <td class="red f14 actualPay none"><span class="red"><%=(param.amountTotal-param.moneyEarnest != null ?param.amountTotal-param.moneyEarnest:0).toFixed(2)%></span></td>
+                            </tr>
+                             <input type='hidden' name='amountTotal' value='<%=param.amountTotal%>'/>
+		            		<input type='hidden' name='moneyEarnest' value='<%=param.moneyEarnest%>'/>
+		            		<!-- 打单次数 -->	            		
+		            		<input type='hidden' name='sendOrderCount' value='<%=param.sendOrderCount%>'/>
+                            <tr class="bdr-top">
+                            	<td colspan="2">
+                                	<div class="tass tc mt10"  orderStatus="<%=param.orderStatus%>">
+                                		<!-- 判断最大的打单5次数改变按钮颜色 -->
+                                        <a href="javascript:void(0)" class="btn_bg submit mr10 orderSendToUser" style="<%if(param.sendOrderCount==paramSendOrderCount){%>background-position:0 -35px;color:#444444;<%}%>">打预结单</a>
+                                        <!-- 当预付定金后【现金结账】按键不显示 modifly by zhanghh 20160418 -->
+                                        <%if(param.moneyEarnest !=null && param.moneyEarnest > 0){%>
+                                        <%}else{%><%}%>
+                                        <a href="javascript:void(0)" class="btn_bg submit confirmPayInOrder" title="请先打预结单再结账">结账</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>   
+                </fieldset>
+            </div>
+        </div>
+        <div class="fr w50p">
+        	<div class="order-info-box ml5">
+            	<fieldset>
+                	<legend>菜品信息</legend>
+                    <div class="m10">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="table-food-list">
+                        	<tr class="title-h1">
+                                <th width="25%">菜品名称</th>
+                                <th width="22%">份数</th>
+                                <th width="16%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">单价</th>
+                                <th width="17%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+                                <th width="12%">状态</th>
+                                <th width="8%">操作</th>
+                            </tr>
+                             <% $.each(param.orderDetailList,function(key,el){ %>
+                             <% if(el.status=='0'||el.status=='1'){%>                            
+                            <tr>
+                            	<td><%=el.itemName%> </td>
+                                <td orderDetailId="<%=el.id%>" price="<%=el.price%>" point="<%=el.point%>" orderDetailId="<%=el.id%>"  orderDetailStatu="<%=el.status%>"> 
+                                		<input type="button" class="no-sub" />
+	                                    <input type="text" name="quantity" class="number-show"  beforeQuantity="<%=el.quantity%>" value="<%=el.quantity%>" />
+	                                    <input type="button" class="add_sub" />
+                                    </td>
+                                <td><span class="red"><%=comm.formatMoneyNumber(el.price)%></span></td>
+                                <td><span class="blue"><%=comm.formatMoneyNumber(el.point)%></span></td>
+                                <td>
+                                   	<% if(el.status=='0'){%>
+							 		未删除
+							   		<%} else if(el.status=='1'){%>
+							   		<font color='red'>已删除</font>
+							   		<%} else if(el.status=='2'){%>
+							   		  <font color='red'>永久删除</font>
+							   		<%}%>	
+				   				</td>
+				   				 <td>
+				   				    <% if(el.status=='0'){%>     			   				
+				   				 	<a href="#" orderDetailId="<%=el.id%>" class="deleteOrderDetail">删除</a>
+				   				 	<%}%>	
+				   				 </td>
+                            </tr>
+                            <%}%>
+                            <%})%>
+                                                       
+                            <tr class="bdr-top">
+                            	<td colspan="2" class="fb">总计：</td>
+                                <td class="fb orderDetailAmountTotal"><span class="red"><%=comm.formatMoneyNumber(param.amountTotal)%></span></td>
+                                <td class="fb orderDetailPointsTotal"><span class="blue"><%=comm.formatMoneyNumber(param.pointsTotal)%></span></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr class="bdr-top">
+                            	<td colspan="6">
+                                	<div class="tass tc mt10">                           	   
+                                        <a href="javascript:void(0)" shopId="<%=param.shopId%>"  class="btn_bg submit diancai" style="<%if(param.sendOrderCount==paramSendOrderCount){%>background-position:0 -35px;color:#444444;<%}%>">加&nbsp;&nbsp;菜</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+      </div>
+      <div class="tass tc mt20">
+          <a href="javascript:void(0)" class="btn_bg submit mr10 editClose">关&nbsp;&nbsp;闭</a>
+	  </div>
+<%}%>	

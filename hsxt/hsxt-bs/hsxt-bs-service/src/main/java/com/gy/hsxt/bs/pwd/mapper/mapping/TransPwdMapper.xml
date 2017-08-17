@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 重置交易密码 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.pwd.mapper.TransPwdMapper">
+
+    <resultMap id="transPwdResult" type="com.gy.hsxt.bs.bean.pwd.ResetTransPwd">
+        <result column="APPLY_ID" property="applyId"/>
+        <result column="ENT_RES_NO" property="entResNo"/>
+        <result column="ENT_CUST_ID" property="entCustId"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="ENT_CUST_NAME" property="entCustName"/>
+        <result column="LINKMAN" property="linkman"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="APPLY_PATH" property="applyPath"/>
+        <result column="APPLY_DATE" property="applyDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPLY_REASON" property="applyReason"/>
+        <result column="STATUS" property="status"/>
+        <result column="VALIDATE_CODE" property="validateCode"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdby"/>
+        <result column="ISACTIVE" property="isactive"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedby"/>
+        <result column="APPR_REMARK" property="apprRemark"/>
+    </resultMap>
+
+    <!-- 创建 重置交易密码申请 -->
+    <insert id="createResetTranPwdApply" parameterType="com.gy.hsxt.bs.bean.pwd.ResetTransPwd">
+        INSERT INTO T_BS_RESET_TRANPWDAPPLY (
+            APPLY_ID,
+            ENT_RES_NO,
+            ENT_CUST_ID,
+            CUST_TYPE,
+            ENT_CUST_NAME,
+            LINKMAN,
+            MOBILE,
+            APPLY_PATH,
+            APPLY_DATE,
+            APPLY_REASON,
+            STATUS,
+            ISACTIVE,
+            CREATED_DATE,
+            CREATEDBY,
+            UPDATED_DATE,
+            UPDATEDBY
+        ) VALUES (
+            #{applyId},
+            #{entResNo},
+            #{entCustId},
+            #{custType},
+            #{entCustName},
+            #{linkman},
+            #{mobile},
+            #{applyPath},
+            systimestamp,
+            #{applyReason},
+            0,
+            'Y',
+            systimestamp,
+            #{createdby},
+            systimestamp,
+            #{createdby}
+        )
+    </insert>
+
+    <!-- 分页查询 重置交易密码申请记录 -->
+    <select id="queryResetTranPwdApplyListPage" parameterType="com.gy.hsxt.bs.bean.pwd.TransPwdQuery"  resultMap="transPwdResult">
+        SELECT
+        t.*
+        FROM
+        T_BS_RESET_TRANPWDAPPLY t
+        WHERE t.ISACTIVE = 'Y'
+        <if test="entResNo != null and entResNo != '' ">
+            AND t.ENT_RES_NO like '%'||#{entResNo}||'%'
+        </if>
+        <if test="entCustName != null and entCustName != '' ">
+            AND t.ENT_CUST_NAME like '%'||#{entCustName}||'%'
+        </if>
+        ORDER BY t.UPDATED_DATE DESC
+    </select>
+
+    <!--分页查询重置交易密码待审核列表-->
+    <select id="selectTaskListPage" parameterType="com.gy.hsxt.bs.bean.pwd.TransPwdQuery" resultMap="transPwdResult">
+        SELECT
+        t.*
+        FROM
+        T_BS_RESET_TRANPWDAPPLY t
+        JOIN T_BS_TASK k ON k.BIZ_NO=t.APPLY_ID
+        WHERE t.ISACTIVE = 'Y' AND t.STATUS=#{status}
+        AND k.STATUS = #{taskStatus} AND k.BIZ_TYPE =#{taskType}
+        AND k.EXE_CUST_ID = #{optCustId}
+        <if test="entResNo != null and entResNo != '' ">
+            AND t.ENT_RES_NO like '%'||#{entResNo}||'%'
+        </if>
+        <if test="entCustName != null and entCustName != '' ">
+            AND t.ENT_CUST_NAME like '%'||#{entCustName}||'%'
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+
+    <!-- 获取 某一条重置交易密码申请记录 -->
+    <select id="getResetTranPwdApplyBean" resultMap="transPwdResult">
+        SELECT t.*
+        FROM
+            T_BS_RESET_TRANPWDAPPLY t
+        WHERE
+            t.APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 根据企业客户号查询最新的申请记录 -->
+    <select id="selectLastApplyBeanByCustId" resultMap="transPwdResult">
+        SELECT t.*
+        FROM
+        T_BS_RESET_TRANPWDAPPLY t
+        WHERE
+        t.APPLY_ID = (
+            SELECT max(APPLY_ID) FROM T_BS_RESET_TRANPWDAPPLY WHERE ENT_CUST_ID = #{entCustId}
+        )
+    </select>
+
+    <!-- 审批 重置交易密码 -->
+    <update id="apprResetTranPwdApply" parameterType="com.gy.hsxt.bs.bean.pwd.ResetTransPwd">
+        UPDATE
+            T_BS_RESET_TRANPWDAPPLY
+        SET
+            STATUS       = #{status},
+            <if test="apprRemark != null and apprRemark !=''">
+                APPR_REMARK = #{apprRemark},
+            </if>
+            UPDATED_DATE = systimestamp,
+            UPDATEDBY    = #{updatedby}
+        WHERE
+            APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 判断某个企业是否存在待审的申请 -->
+    <select id="getApplyPendingId" resultType="string">
+        SELECT APPLY_ID
+        FROM
+            T_BS_RESET_TRANPWDAPPLY
+        WHERE
+            STATUS = 0
+            AND
+            ENT_CUST_ID = #{entCustId}
+    </select>
+
+</mapper>

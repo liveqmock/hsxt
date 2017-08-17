@@ -1,0 +1,55 @@
+﻿<div id="hskzzTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>订单日期：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>互生号：</label>
+					<input type="text" name="textfield" id="hsResNo" placeholder="输入互生号" maxlength="11" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>单位名称：</label>
+					<input type="text" name="textfield" id="hsCustName" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">订单类型：</label>
+					<input id="orderType" readonly="readonly" placeholder="选择订单类型" optionvalue=""/>
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">制作状态：</label>
+					<input id="state" readonly="readonly" placeholder="选择制作状态" optionvalue=""/>
+				</li>
+				<li>
+					<button id="hskzzQueryBtn" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>			
+	<table id="searchTable" class="bsgrid">
+		<tr>
+			<th w_index="orderNo" w_tip="true">订单号</th>
+			<th w_index="orderDate" w_tip="true">订单日期</th>
+			<th w_index="custName" w_tip="true">单位名称</th>
+			<th w_index="entResNo">互生号</th>
+			<th w_render="operate" >申购类型</th>
+			<th w_index="orderType" w_render="operate"  width="140px">订单类型</th>
+			<th w_index="quantity">订单数量</th>
+			<th w_index="markStatus" w_render="operate">制作状态</th>
+			<th w_render="operate" width="23%">操作</th>
+		</tr>
+	</table>
+</div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_kk" class="none"></div>
+<div id="dialogBox_zzdzc" class="none"></div>
+<div id="dialogBox_zzdzc_fh" class="none"></div>
+<div id="dialogBox_hskrk" class="none"></div>
+<div id="dialogBox_dcmm" class="none"></div>
+<div id="dialogBox_ckzzd" class="none"></div>
+<div id="dialogBox_kysc" class="none"></div>
+<div id="dialogBox_kysc_fh" class="none"></div>

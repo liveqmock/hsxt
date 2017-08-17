@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+
+	<!--发布服务 -->
+	
+	<!--同步工单信息服务 -->
+	<dubbo:service interface="com.gy.hsxt.tm.api.ITMSyncTaskService"
+                ref="taskService"  group="WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+	<!--批处理累积积分服务 -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="welfareBatchService"
+		group="HSXT_WS_WELFARE" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+	
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="welfareNoticeService"
+		group="HSXT_WS_NOTICE" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+    
+	<!--积分福利申请服务 -->
+	<dubbo:service interface="com.gy.hsxt.ws.api.IWsApplyService"
+                ref="welfareApplyService"  group="HSXT_WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+	<!--积分福利审批服务 -->
+	<dubbo:service interface="com.gy.hsxt.ws.api.IWsApprovalService"
+                ref="welfareApprovalService"  group="HSXT_WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+    
+	<!--积分福利发放服务 -->
+	<dubbo:service interface="com.gy.hsxt.ws.api.IWsGrantService"
+                ref="welfareGrantService"  group="HSXT_WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+	<!--积分福利理赔核算服务 -->
+	<dubbo:service interface="com.gy.hsxt.ws.api.IWsClaimsAccountingService"
+                ref="claisAccountingService"  group="HSXT_WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+    <!--积分福利福利资格服务 -->
+	<dubbo:service interface="com.gy.hsxt.ws.api.IWsWelfareService"
+                ref="welfareService"  group="HSXT_WS"  timeout="${dubbo.service.timeout15000}"  actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+        
+</beans>

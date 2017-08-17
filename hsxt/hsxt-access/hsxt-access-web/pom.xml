@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.gy.hsxt</groupId>
+    <artifactId>hsxt-access</artifactId>
+    <version>3.1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>hsxt-access-web</artifactId>
+  <packaging>pom</packaging>
+
+  	<modules>
+		<module>hsxt-access-web-common</module>
+		<module>hsxt-access-web-official</module>
+		<module>hsxt-access-web-person</module>
+		<module>hsxt-access-web-scs</module>
+		<module>hsxt-access-web-mcs</module>
+		<module>hsxt-access-web-aps</module>
+		<module>hsxt-access-web-company</module>
+		<module>hsxt-access-web-os</module>	
+	</modules>
+   <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.gy.hsxt</groupId>
+            <artifactId>hsxt-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+      <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.2</version>
+        </dependency>
+        
+    </dependencies>
+</dependencyManagement>
+</project>

@@ -1,0 +1,98 @@
+<div id="fhTpl">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+				<tr>
+					<td class="view_item" width="20%">企业互生号</td>
+					<td class="view_text_2" width="30%"><%=obj.entResNo%></td>
+					<td class="view_item" width="20%">企业名称</td>
+					<td class="view_text_2" width="30%"><%=obj.entCustName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">企业地址</td>
+					<td class="view_text_2" width="30%"><%=obj.address%></td>
+					<td class="view_item" width="20%">联系人姓名</td>
+					<td class="view_text_2" width="30%"><%=obj.linkman%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">联系人手机</td>
+					<td class="view_text_2" width="30%"><%=obj.mobile%></td>
+					<td class="view_item" width="20%">企业类别</td>
+					<td class="view_text_2" width="30%"><%=obj.custTypeName%></td>
+				</tr>
+			</table>
+		  <% if(obj.applyType == '2' && obj.lastApplyOptCustName!=null ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">关闭系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyOptCustName%></</td>
+					<td class="view_item" width="20%">申请关闭日期</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">关闭系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.lastApplyRemark%></td>
+				</tr>
+			</table>
+		<% } else if(obj.applyType == '1' && obj.lastApplyOptCustName!=null ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">开启系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyOptCustName%></</td>
+					<td class="view_item" width="20%">申请开启日期</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">开启系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.lastApplyRemark%></td>
+				</tr>
+			</table>
+			  <% } if(obj.applyType == '2' ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">申请开启系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.applyOptCustName%></td>
+					<td class="view_item" width="20%">申请开启系统日期</td>
+					<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">开启系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.applyRemark%></td>
+				</tr>
+			</table>
+			
+		<% } else if(obj.applyType == '1' ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">申请关闭系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.applyOptCustName%></td>
+					<td class="view_item" width="20%">申请关系统日期</td>
+					<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">关闭系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.applyRemark%></td>
+				</tr>
+			</table>
+			<% } %>
+			<div class="info_600 bc mt10">
+				<form id="kgxtfh_form">
+					<ul>
+						<li class="register_row clearfix">
+							<label class="fl w115 h60_middle">复核意见</label>
+							<textarea name="apprRemark" maxlength="300" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入复核意见，最长不超过300个字"></textarea>
+						</li>
+						<li class="register_row clearfix">
+							<label class="fl w115 h30_middle">复核结果</label>
+							<div class="fl ml5 h30_middle">
+								<input type="radio" name="isPass" value="true" class="ml10" /> 通过
+								<input type="radio" name="isPass" value="false" class="ml10" /> 驳回
+								<input type="hidden" name="applyId" value="<%=obj.applyId%>" class="ml10" />
+							</div>
+						</li>
+					</ul>
+					<div class="w200 bc clearfix mt20">
+						<a class="btn_bg submit fl" id="kgxtfh_submit">确定</a>
+						<a class="btn_bg submit fr" id="cancel_kgxtfh">取&#12288;消</a>
+					</div>
+				</form>
+			</div>
+	</div>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.BuyHsbMapper">
+	<!-- 返回结果映射 -->
+	<resultMap type="com.gy.hsxt.ao.bean.BuyHsb" id="baseColumnMap">
+		<id column="TRANS_NO" property="transNo" />
+		<result column="CUST_ID" property="custId" />
+		<result column="HS_RES_NO" property="hsResNo" />
+		<result column="CUST_NAME" property="custName" />
+		<result column="CUST_TYPE" property="custType" />
+		<result column="BUY_HSB_AMT" property="buyHsbAmt" />
+		<result column="EX_RATE" property="exRate" />
+		<result column="CASH_AMT" property="cashAmt"
+			typeHandler="com.gy.hsxt.ao.common.handler.AmountToStringTypeHandler" />
+		<result column="REQ_TIME" property="reqTime" />
+		<result column="EXPIRE_TIME" property="expireTime" />
+		<result column="OPT_CUST_ID" property="optCustId" />
+		<result column="OPT_CUST_NAME" property="optCustName" />
+		<result column="CHANNEL" property="channel" />
+		<result column="TERM_NO" property="termNo" />
+		<result column="BATCH_NO" property="batchNo" />
+		<result column="ORIGIN_NO" property="originNo" />
+		<result column="TERM_RUNCODE" property="termRuncode" />
+		<result column="PAY_MODEL" property="payModel" />
+		<result column="TRANS_RESULT" property="transResult" />
+		<result column="PAY_STATUS" property="payStatus" />
+		<result column="REMARK" property="remark" />
+		<result column="ORIGIN_NO" property="originNo" />
+		<result column="TERMRUN_CODE" property="termrunCode" />
+		<result column="BANK_TRANS_NO" property="bankTransNo" />
+	</resultMap>
+
+	<!-- 兑换互生币查询互生币金额resultMap -->
+	<resultMap type="java.util.HashMap" id="buyHsbResultMap">
+		<result column="batch_no" property="hsbcount" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="buy_hsb_amt" property="hsbamount" javaType="java.lang.Double"
+			jdbcType="DOUBLE" />
+	</resultMap>
+
+	<!-- 插入兑换互生币记录 -->
+	<insert id="insertBuyHsb" parameterType="com.gy.hsxt.ao.bean.BuyHsb">
+		INSERT INTO
+		T_AO_BUY_HSB
+		(
+		TRANS_NO,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		BUY_HSB_AMT,
+		EX_RATE,
+		CASH_AMT,
+		REQ_TIME,
+		EXPIRE_TIME,
+		OPT_CUST_ID,
+		OPT_CUST_NAME,
+		CHANNEL,
+		TERM_NO,
+		BATCH_NO,
+		ORIGIN_NO,
+		TERM_RUNCODE,
+		PAY_MODEL,
+		TRANS_RESULT,
+		PAY_STATUS,
+		REMARK,
+		UPDATE_TIME
+		)
+		VALUES
+		(
+		#{transNo},
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{buyHsbAmt},
+		#{exRate},
+		#{cashAmt},
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss'),
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss')+1,
+		#{optCustId},
+		#{optCustName},
+		#{channel},
+		#{termNo},
+		#{batchNo},
+		#{originNo},
+		#{termRuncode},
+		#{payModel},
+		#{transResult},
+		#{payStatus},
+		#{remark},
+		to_date(#{updateTime},'yyyy-mm-dd hh24:mi:ss')
+		)
+	</insert>
+
+	<!-- 更新交易结果 -->
+	<update id="updateTransResult">
+		UPDATE T_AO_BUY_HSB
+		Set
+		TRANS_RESULT = #{transResult},
+		REMARK = #{remark},
+		UPDATE_TIME = sysdate
+		WHERE
+		TRANS_NO = #{transNo}
+	</update>
+	
+	<!-- 更新状态 -->
+	<update id="updateBuyHsbStatus">
+		UPDATE T_AO_BUY_HSB
+		<set>
+			<if test="payModel!=null">
+				PAY_MODEL = #{payModel},
+			</if>
+			<if test="transResult!=null">
+				TRANS_RESULT = #{transResult},
+			</if>
+			<if test="payStatus!=null">
+				PAY_STATUS = #{payStatus},
+			</if>
+			<if test="bankTransNo!=null and bankTransNo!=''">
+				BANK_TRANS_NO = #{bankTransNo},
+			</if>
+			<if test="remark!=''">
+				REMARK = #{remark},
+			</if>
+			UPDATE_TIME = sysdate
+		</set>
+		WHERE
+		TRANS_RESULT != 1
+		and PAY_STATUS != 100
+		and TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 更新支付状态 -->
+	<update id="updatePayStatus">
+		UPDATE T_AO_BUY_HSB
+		<set>
+			<if test="remark!=null and remark!=''">
+				REMARK = #{remark},
+			</if>
+			PAY_STATUS = #{payStatus},
+			UPDATE_TIME = sysdate
+		</set>
+		WHERE
+		TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 更新支付方式 -->
+	<update id="updatePayModel">
+		UPDATE T_AO_BUY_HSB
+		set
+		PAY_MODEL = #{payModel}
+		WHERE
+		TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 查询兑换互生币详情 -->
+	<select id="findBuyHsbInfo" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM T_AO_BUY_HSB
+		WHERE
+		TRANS_NO = #{transNo}
+	</select>
+
+	<!-- POS查询兑换互生币详情 -->
+	<select id="findPosBuyHsbInfo" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM
+		T_AO_BUY_HSB
+		WHERE
+		HS_RES_NO = #{hsResNo}
+		and
+		ORIGIN_NO = #{originNo}
+	</select>
+
+	<!-- 查询兑换互生币详情 ：根据终端凭证号 -->
+	<select id="findInfoByTermRuncode" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM
+		T_AO_BUY_HSB
+		WHERE
+		HS_RES_NO = #{hsResNo}
+		and
+		TERM_NO = #{termNo}
+		and
+		BATCH_NO = #{batchNo}
+		and
+		TERM_RUNCODE = #{termRuncode}
+	</select>
+	
+	<!-- 查询兑换互生币根据客户号与POS流水号-->
+	<select id="findInfoByCustIdOriginNo" resultType="int">
+		SELECT
+		count(*)
+		FROM
+		T_AO_BUY_HSB
+		WHERE
+		cust_id = #{custId}
+		and
+		origin_no = #{originNo}
+	</select>
+
+	<!-- 根据批次编号、终端渠道、终端编号统计查询兑换互生币业务成功的总金额、总笔数 -->
+	<select id="findBuyHsbInfoByBatchNo" resultMap="buyHsbResultMap">
+		select
+			count(t.batch_no) as hsbcount, 
+			sum(t.buy_hsb_amt) as hsbamount
+		from
+			T_AO_BUY_HSB T
+		where 
+			t.cust_id=#{entCustId}
+		and t.channel = #{channel}
+		and t.term_no = #{termNo}
+		and t.batch_no = #{batchNo}
+		and t.TRANS_RESULT != 2
+	</select>
+
+	<!-- 查询未支付且未过期的兑换互生币信息 -->
+	<select id="findUnPayBuyHsb" resultMap="baseColumnMap">
+		select
+		*
+		from
+		t_ao_buy_hsb a
+		where
+		a.trans_no=#{transNo}
+		and pay_status != 100
+		and	a.trans_result != 1
+	</select>
+
+	<!-- 查询网银兑换互生币的所有记录 -->
+	<select id="findNetPayBuyHsb" resultMap="baseColumnMap">
+		SELECT
+			*
+		FROM
+			T_AO_BUY_HSB
+		WHERE
+			PAY_MODEL IN (100, 101, 102)
+		<![CDATA[
+		AND REQ_TIME >= #{startDate}
+		AND REQ_TIME < #{endDate}
+		]]>
+		ORDER BY
+			TRANS_NO
+	</select>
+	
+	<!-- 查询过期且未支付的记录 -->
+	<select id="updateExpireAndNoPayList">
+		update t_ao_buy_hsb t set t.trans_result = 4 where t.trans_result = 0 and sysdate > t.expire_time 
+	</select>
+</mapper>

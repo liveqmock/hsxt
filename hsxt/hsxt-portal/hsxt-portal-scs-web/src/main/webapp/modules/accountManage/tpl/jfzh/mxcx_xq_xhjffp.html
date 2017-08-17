@@ -1,0 +1,45 @@
+<div class="search-cont">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+  <tbody><tr class="table-tr-count">
+    <td class="nobd" colspan="7">
+    	<ul class="cssform clearfix">
+        	<li class="col4">
+            	<label class="title-txt w120">汇总时间：</label>
+                <div class="cont-txt"><%=obj.batchNo %></div> 
+            </li>
+            <li class="col4">
+            	<label class="title-txt w120">消费积分数：</label>
+                <div class="cont-txt"><%=obj.sum %><span class="ml10"><%=obj.count %>笔</span></div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w120">交易类型：</label>
+                <div class="cont-txt">消费积分分配</div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w120">撤单积分数：</label>
+                <div class="cont-txt"><%=obj.backSum %><span class="ml10"><%=obj.backCount %>笔</span></div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w120">汇总时间范围：</label>
+                <div class="cont-txt"><%=obj.batchNo%> 00:00:00 - <%=obj.batchNo%> 23:59:59</div> 
+            </li>
+            <li class="col4 mt5">
+            	<label class="title-txt w120">获分配积分数：</label>
+                <div class="cont-txt"><%=obj.collect %><span class="ml10"><%=obj.collectCount %>笔</span><span class="ml10">扣除税金：<%=obj.taxes %></span></div> 
+            </li>
+        </ul>
+    </td>
+  </tr> 
+</tbody></table>
+<table id="xfjffp_xq_table" width="100%" border="1" cellspacing="0" cellpadding="0" class="search-table">   
+		    <tr>     
+		          <th w_index="transNo" w_align="left">交易流水号</th>
+			      <th w_index="perResNo" w_align="left">互生卡号</th>
+			      <th w_index="sourceTransDate" w_align="left">交易时间</th>
+			      <th w_render="operate" w_align="left">交易类型</th>
+			      <th w_render="operate" w_align="left">获分配积分数</th>
+		    </tr>            
+		</table> 
+</div>
+<div class="mt20 tc"><a id="mxcx_xq_back" href="javascript:;" class="btn_bg submit">返&#12288;回</a></div> 
+          

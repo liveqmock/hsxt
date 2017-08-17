@@ -1,0 +1,45 @@
+<div id="dqptspfpTpl">
+	<div class="search-toolbar">
+	<form id="platsp_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_resNo" placeholder="输入企业互生号" maxlength="11" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="search_companyName" placeholder="输入企业名称" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clefrfix">
+				<label class="fl h30_middle">业务类别：</label>
+				<input id="search_bizType" name="search_bizType" readonly="readonly" placeholder="选择业务类别" />
+			</li>
+			<li>
+			<label class="fl h30_middle">状态：</label>
+				<input id="search_status" name="search_status" readonly="readonly" placeholder="选择配送状态"/>
+			    <input id="search_queryType" name="search_queryType" type="hidden" value="1" />
+				<button id="platsp_query" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate">企业互生号</th>
+		<th w_index="custName" w_tip=true>企业名称</th>
+		<th w_index="th_3" w_render="operate">企业类别</th>
+		<th w_index="th_4" w_render="operate">业务类别</th>
+		<th w_index="allAmount" w_render="operate">申请发票金额</th>
+		<th w_index="applyTime" w_tip="true">申请日期</th>
+		<th w_index="th_7" w_render="operate">状态</th>
+		<th w_render="operate" width="18%">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dqptspfp_ckTpl" class="none"></div>
+<div id="dqptspfp_kpTpl" class="none"></div>
+<div id="ckqyxxTpl" class="none"></div>
+
+<!-- 2016-05-04 新增 -->
+<div id="dqptspfp_cksqd" class="none ovh"></div>
+<div id="dqptspfp_spbh" class="none"></div>

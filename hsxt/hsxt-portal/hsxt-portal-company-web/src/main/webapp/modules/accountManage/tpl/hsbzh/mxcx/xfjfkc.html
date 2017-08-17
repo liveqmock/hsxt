@@ -1,0 +1,65 @@
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="50%" align="right" class="gray"></td>
+		<td width="50%"></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">交易流水号：</td>
+		<td><%=obj.sourceTransNo%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">交易时间：</td>
+		<td><%=obj.sourceTransDate%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">交易类型：</td>
+		<td><%=obj.transTypeName%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">业务类别：</td>
+		<td>支出</td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">受理方式：</td>
+		<td><%=obj.channel%></td>
+	</tr>
+	<tr align="right">
+		<td colspan="2"><div class="cutline"></div></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">终端编号：</td>
+		<td><%=obj.equipmentNo%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">操作员编号：</td>
+		<td><%=obj.operNo%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">互生卡号：</td>
+		<td><%=obj.perResNo%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">消费金额：</td>
+		<td><%=comm.formatMoneyNumber(obj.targetTransAmount) %></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">积分比例：</td>
+		<td><%=obj.pointRate%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">积分金额：</td>
+		<td><%=obj.entPoint%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">扣除互生币数：</td>
+		<td><%=obj.entPoint%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">备注：</td>
+		<td><%=obj.remark%></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray"></td>
+		<td></td>
+	</tr>
+</table>

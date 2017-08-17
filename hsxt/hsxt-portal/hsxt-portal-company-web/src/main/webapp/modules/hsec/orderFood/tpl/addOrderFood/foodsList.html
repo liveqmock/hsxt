@@ -1,0 +1,96 @@
+<%
+var param = obj.data.itemCustomCategory;
+%>
+<%if(null==param||param.size==0){%>
+   
+<%}else{$.each(param,function(key,category){ %>
+ 	<h1 class="mt10"><label><%=category.itemCustomCategoryName%></label></h1>
+ 	   <% if(null!=category.itemInfoFoodList){%>
+ 	    <ul class="floatlist clearfix pt20list">
+ 	   <% $.each(category.itemInfoFoodList,function(key2,itemInfo){%>             	 
+  	   <li class="w33p">
+         	<div class="pr addcp bc p5 brd-box">
+                 <i class="cp_get none" style="right:0;" title="添加菜品"></i>
+                 <h2 class="mt5 f14"><%=itemInfo.name%></h2>                
+                  <!-- 判断多规格 standard -->
+                  <%  
+                  if(!comm.isEmpty(itemInfo.standard)){
+                   	 	var standardList= eval('('+itemInfo.standard+')');
+	                  	if(standardList != null&& standardList.length != 0){
+	                  		var minIndex=0,minPrice=100000,minPv=0,standardHtml='',priceHtml='';	            		                              
+		    				$.each(standardList,function(index,value){ 
+		    					if(parseFloat(value.price) < parseFloat(minPrice)){
+		    						minPrice=value.price;
+		    						minPv=value.auction;
+		    						minIndex=index;
+		    						var activeClass="";
+		    						var spanStyle="";
+		    						if(index==0)
+		    							activeClass="class='active'"; 
+		    						else  
+		    							spanStyle="style='display:none'";
+		    						standardHtml+="<input type='button' standardIndex='"+index+"' value='"+value.pName+value.pVName+"' "+activeClass+">";		    						
+		    						priceHtml+="<span standardIndex='"+index+"' class='ico-hsb-18 f14 standardPriceAndPv' "+spanStyle+">"+value.price+"</span>&nbsp;&nbsp;<span standardIndex='"+index+"' class='ico-pv-13 f14 standardPriceAndPv' "+spanStyle+">"+value.auction+"</span>";
+		    					}
+		   					});
+	   					}%>
+	   					<div class="mt10 clearfix" >
+		   					<p class="fl">
+		                         <span class="ico-hsb-18 f14 mr5"><%=comm.formatMoneyNumber(minPrice)%>起</span>
+		                         <span class="ico-pv-13 f14"><%=comm.formatMoneyNumber(minPv)%>起</span>
+		                    </p>	   					
+		   					<div class="fr">
+	                           <input type="button" class="no-sub del1" style="display:none;" />
+	                           <span class="f14 food-cout" style="display:none;">1</span>
+	                           <input type="button" class="add_sub addMultiStandard" />
+	                           <div class="pa dggsect none">
+	                           	<div class="tr"><input type="button" class="close_dggsect" /></div>
+	                               <div class="p10 dggsect-ct" itemFoodId="<%=itemInfo.id%>">
+	                                <div class="clearfix">
+	                                    <label class="fl lh24">规格：</label>
+	                                    <span class="fl btn-guige w140">
+	                                        <%=standardHtml%>
+	                                    </span>
+	                                </div>
+	                                <div class="mt10 clearfix">
+	                                    <label class="fl lh18">单价：</label>
+	                                    <span class="fl">
+	                                    	<%=priceHtml%>
+	                                    </span>
+	                                </div>
+	                                <div class="mt10 clearfix">
+	                                    <label class="fl lh16">数量：</label>
+	                                    <span class="fl">
+	                                    	<input type="button" class="no-sub del2" />
+	                                        <span class="f14 food-cout">1</span>
+	                                        <input type="button" class="add_sub add2" />
+	                                    </span>
+	                                </div>
+	                                <div class="mt20 tc">
+	                                    <input type="button" value="添加"  class="sub-guige sbmt_dggsect">
+	                                </div>
+	                           	</div>
+	                           </div>
+	                         </div>
+                       </div>         
+    			    <%}else{%>
+					<div class="mt10 clearfix">
+	                     <p class="fl">
+	                         <span class="ico-hsb-18 f14 mr5"><%=comm.formatMoneyNumber(itemInfo.price)%></span>
+	                         <span class="ico-pv-13 f14"><%=comm.formatMoneyNumber(itemInfo.pv)%></span>
+	                     </p>
+	                     <div class="fr">
+	                         <input type="button" class="no-sub" />
+	                         <span class="f14 selectQuantity" itemFoodId="<%=itemInfo.id%>" standardIndex="-1" >0</span>
+	                         <input type="button" class="add_sub" />
+	                     </div>
+                 	</div>
+    			  <%}%>
+             </div>
+         </li>
+ 	   <%})%>           	   
+ 	  </ul>
+ 	 <%}%> 
+   <%})%> 
+ <%}%>  
+<!--结束-->

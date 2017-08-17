@@ -1,0 +1,41 @@
+<!--弹出框内容及脚本开始-->
+<% var reslut = obj.data%>
+<div class="view_info mt10">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+        <tr>
+            <td class="view_item" width="18%">抵扣券名称</td>
+            <td class="view_text" width="32%"><%=obj.couponName%></td>
+            <td class="view_item" width="18%">面值</td>
+            <td class="view_text" width="32%"><span class="red"><%=obj.faceAmount%></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">数量</td>
+            <td class="view_text"><%=obj.releaseNumber%></td>
+            <td class="view_item">有效期</td>
+            <td class="view_text"><%=obj.releaseTime%></td>
+        </tr> 
+        <tr>
+  <td colspan="4" valign="top">
+    <div class="p10">
+	<div class="view_title" style="padding:10px;font-size:12px;background-color:#e8f4e6;">抵扣券使用规则列表</div>
+    <div class="search-cont scrlh h100">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table fixtd">
+  <tr>
+    <th class="nobd">规则内容</th>
+  </tr>
+  <tr>
+<% if(reslut == null ||reslut == ''){ %>
+<tr><td>无数据</td></tr>
+<% }else{ $.each(reslut,function(index,el){  %>
+<tr <%=index%2==1?"class='table-tr-c'":""%>>
+  <td class="nobd"><!-- <%=el.couponName%> -->订单消费每满<span class="red couponSetUseAmont" ><%=el.useAmount%></span>使用<span class="red"><%=el.useNumber%></span>张</td>	   
+</tr>
+<%}) }%>
+</table>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<!--弹出框内容及脚本结束-->

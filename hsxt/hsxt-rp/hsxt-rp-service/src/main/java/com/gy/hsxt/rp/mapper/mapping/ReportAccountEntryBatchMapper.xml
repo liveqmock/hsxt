@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.ReportAccountEntryBatchMapper"><!-- map的类 -->
+	
+	<!-- 通过会计时间找相关的分录记账信息记录-->
+	<select id="seachAccountEntryByFiscalDate" resultType="ReportsAccountEntry" parameterType="map">
+		<!-- SELECT ROWNUM, T.*
+      FROM (SELECT CUST_ID    custID,
+                   SUM(ADD_AMOUNT) addAmount,
+                   SUM(SUB_AMOUNT) subAmount,
+                   TRANS_SYS  transSys,
+                   SYSENTRY_NO sysEntryNo,
+                   TRANS_TYPE transType,
+                   TRANS_NO   transNo,
+                   SOURCE_TRANS_NO sourceTransNo,
+                   FISCAL_DATE fiscalDate
+              FROM T_AC_ACCOUNT_ENTRY
+             WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+               AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+               AND WRITE_BACK = 0
+               AND TRANS_SYS IN
+               <foreach item="item" index="index" collection="transSyses" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach>
+               GROUP BY CUST_ID,
+               		 TRANS_SYS,
+               		 SYSENTRY_NO,
+               		 TRANS_TYPE,
+               		 TRANS_NO,
+               		 SOURCE_TRANS_NO,
+               		 FISCAL_DATE
+               ORDER BY SYSENTRY_NO) T
+     WHERE ROWNUM &gt;= #{baginRN,jdbcType=INTEGER}
+       AND ROWNUM &lt;= #{endRN,jdbcType=INTEGER} -->
+	</select>
+ 	
+ 	<select id="seachAccountEntryCount" resultType="int"  parameterType="map">
+ 		<!-- SELECT COUNT(DISTINCT SYSENTRY_NO)
+ 		  FROM T_AC_ACCOUNT_ENTRY
+ 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+               AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+               AND WRITE_BACK = 0
+               AND TRANS_SYS IN
+               <foreach item="item" index="index" collection="transSyses" open="(" separator="," close=")">  
+ 					#{item}  
+			   </foreach> -->
+ 	</select>
+ 	
+ 	<!-- 通过会计时间区间找相关的(托管企业,成员企业名单,持卡人)分录记账信息数量 -->
+ 	<select id="seachAccEntryCountByFisDate" resultType="int"  parameterType="map">
+ 		
+ 		SELECT COUNT(CUST_ID)
+		  FROM (SELECT DISTINCT A.ENT_CUST_ID CUST_ID
+		 		  FROM DBPS01.T_PS_OFFLINE_ENTRY A
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+				 UNION ALL
+			    SELECT DISTINCT B.ENT_CUST_ID CUST_ID
+		 		  FROM DBPS01.T_PS_ONLINE_ENTRY B
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+				 UNION ALL
+			    SELECT DISTINCT C.CUST_ID CUST_ID
+		          FROM DBAC01.T_AC_ACCOUNT_ENTRY C
+		         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+		           AND ACC_TYPE = '10110'
+		           AND TRANS_SYS = 'PS'
+		           AND CUST_TYPE = 1)
+ 	</select>
+ 	
+ 	<!-- 通过会计时间找相关的(托管企业,成员企业名单,持卡人)分录记账信息记录-->
+	<select id="seachAccEntryListPageByFisDate" resultType="ReportsAccountEntry" parameterType="map">
+				SELECT DISTINCT A.ENT_CUST_ID custID,
+						(select  T.CUST_TYPE from DBUC01.T_ENT_EXTEND T WHERE T.ENT_CUST_ID = A.ENT_CUST_ID) custType
+		 		  FROM DBPS01.T_PS_OFFLINE_ENTRY A
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+				UNION ALL
+				SELECT DISTINCT B.ENT_CUST_ID custID,
+						(select  K.CUST_TYPE from DBUC01.T_ENT_EXTEND K WHERE K.ENT_CUST_ID = B.ENT_CUST_ID) custType
+		 		  FROM DBPS01.T_PS_ONLINE_ENTRY B
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+				UNION ALL
+		        SELECT DISTINCT C.CUST_ID custID,
+		        				C.CUST_TYPE custType
+		          FROM DBAC01.T_AC_ACCOUNT_ENTRY C
+		         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+		           AND ACC_TYPE = '10110'
+		           AND TRANS_SYS = 'PS'
+		           AND CUST_TYPE = 1
+	</select>
+	
+	<!-- 通过交易类型和时间段查找相关的分录记账信息数量 -->
+    <select id="seachAccEntryCountByTransType" resultType="int"  parameterType="map">
+          <!--  SELECT COUNT(DISTINCT CUST_ID)
+		  FROM (SELECT DISTINCT A.ENT_CUST_ID CUST_ID
+		 		  FROM DBPS01.T_PS_OFFLINE_ENTRY A
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+				 UNION ALL
+			    SELECT DISTINCT B.ENT_CUST_ID CUST_ID
+		 		  FROM DBPS01.T_PS_ONLINE_ENTRY B
+		 		 WHERE SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				   AND SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				   AND ENT_SUB_POINT_AMOUNT > 0
+				   AND TRANS_TYPE NOT IN (${transType})
+			) -->
+		SELECT COUNT(1) FROM (
+		              SELECT COUNT(1)  FROM (
+		                             SELECT NDETAIL.ENT_CUST_ID custID,
+                                            NDETAIL.Ent_Res_No  hsResNo,
+                                            NDETAIL.ENT_POINT   NDET_POINT,
+                                            0                   CDET_POINT
+                                       FROM DBPS01.T_PS_NDETAIL NDETAIL
+                                      WHERE NDETAIL.TRANS_STATUS IN (0, 1, 2, 4, 6, 8)
+                                        AND NDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+                                        AND NDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+                                  UNION ALL
+                                     SELECT BDETAIL.ENT_CUST_ID custID,
+                                            NDETAIL.Ent_Res_No  hsResNo,
+                                            0                   NDET_POINT,
+                                            BDETAIL.ENT_POINT   CDET_POINT
+                                       FROM DBPS01.T_PS_BDETAIL BDETAIL, DBPS01.T_PS_NDETAIL NDETAIL
+                                      WHERE BDETAIL.TRANS_STATUS = 0
+                                        AND BDETAIL.OLD_TRANS_NO = NDETAIL.TRANS_NO
+                                        AND NDETAIL.TRANS_STATUS IN (2, 6)
+                                        AND BDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+                                        AND BDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+                                  UNION ALL
+                                     SELECT CDETAIL.ENT_CUST_ID custID,
+                                            NDETAIL.Ent_Res_No  hsResNo,
+                                            0                   NDET_POINT,
+                                            CDETAIL.ENT_POINT   CDET_POINT
+                                       FROM DBPS01.T_PS_CDETAIL CDETAIL, DBPS01.T_PS_NDETAIL NDETAIL
+                                      WHERE CDETAIL.TRANS_STATUS = 0
+                                        AND CDETAIL.OLD_TRANS_NO = NDETAIL.TRANS_NO
+                                        AND NDETAIL.TRANS_STATUS = 1
+                                        AND CDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+                                        AND CDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd'))
+                                     HAVING SUM(nvl(NDET_POINT, 0) - nvl(CDET_POINT, 0)) > 0
+ 	                               GROUP BY custID, hsResNo)
+			
+    </select>
+    
+	<!-- 通过交易类型和月时间段查找相关的分录记账信息-->
+    <select id="seachAccEntryListPageByTransType" resultType="ReportsAccountEntry" parameterType="map">
+    <!-- SELECT C.custID custID,C.hsResNo hsResNo,SUM(C.AMOUNT) amount FROM (
+	        SELECT A.ENT_CUST_ID custID,
+	               A.ENT_HS_NO hsResNo,
+	               sum(nvl(A.ENT_SUB_POINT_AMOUNT,0) - nvl(A.ENT_ADD_POINT_AMOUNT,0)) amount
+	          FROM DBPS01.T_PS_OFFLINE_ENTRY A 
+	         WHERE A.SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+	           AND A.SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+	           AND A.TRANS_TYPE NOT IN (${transType})
+	      GROUP BY A.ENT_CUST_ID,A.ENT_HS_NO
+	       UNION ALL
+	        SELECT B.ENT_CUST_ID custID,
+	               B.ENT_HS_NO hsResNo,
+	               sum(nvl(B.ENT_SUB_POINT_AMOUNT,0) - nvl(B.ENT_ADD_POINT_AMOUNT,0)) amount
+	          FROM DBPS01.T_PS_ONLINE_ENTRY B 
+	         WHERE B.SOURCE_TRANS_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+	           AND B.SOURCE_TRANS_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+	           AND B.TRANS_TYPE NOT IN (${transType})
+	      GROUP BY B.ENT_CUST_ID,B.ENT_HS_NO
+      ) C GROUP BY C.custID,C.hsResNo -->
+      
+      SELECT custID, hsResNo, SUM(nvl(NDET_POINT, 0) - nvl(CDET_POINT, 0)) amount  FROM (SELECT NDETAIL.ENT_CUST_ID custID,
+               NDETAIL.Ent_Res_No  hsResNo,
+               NDETAIL.ENT_POINT   NDET_POINT,
+               0                   CDET_POINT
+          FROM DBPS01.T_PS_NDETAIL NDETAIL
+         WHERE NDETAIL.TRANS_STATUS IN (0, 1, 2, 4, 6, 8)
+           AND NDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+           AND NDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+        UNION ALL
+        SELECT BDETAIL.ENT_CUST_ID custID,
+               NDETAIL.Ent_Res_No  hsResNo,
+               0                   NDET_POINT,
+               BDETAIL.ENT_POINT   CDET_POINT
+          FROM DBPS01.T_PS_BDETAIL BDETAIL, DBPS01.T_PS_NDETAIL NDETAIL
+         WHERE BDETAIL.TRANS_STATUS = 0
+           AND BDETAIL.OLD_TRANS_NO = NDETAIL.TRANS_NO
+           AND NDETAIL.TRANS_STATUS IN (2, 6)
+           AND BDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+           AND BDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+        UNION ALL
+        SELECT CDETAIL.ENT_CUST_ID custID,
+               NDETAIL.Ent_Res_No  hsResNo,
+               0                   NDET_POINT,
+               CDETAIL.ENT_POINT   CDET_POINT
+          FROM DBPS01.T_PS_CDETAIL CDETAIL, DBPS01.T_PS_NDETAIL NDETAIL
+         WHERE CDETAIL.TRANS_STATUS = 0
+           AND CDETAIL.OLD_TRANS_NO = NDETAIL.TRANS_NO
+           AND NDETAIL.TRANS_STATUS = 1
+           AND CDETAIL.Batch_No &gt;= TO_CHAR(#{beginDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd')
+           AND CDETAIL.Batch_No &lt;= TO_CHAR(#{endDate,jdbcType=TIMESTAMP}, 'yyyy-mm-dd'))
+        HAVING SUM(nvl(NDET_POINT, 0) - nvl(CDET_POINT, 0)) > 0
+ 	  GROUP BY custID, hsResNo
+      ORDER by custID, hsResNo
+      
+    </select>
+</mapper>

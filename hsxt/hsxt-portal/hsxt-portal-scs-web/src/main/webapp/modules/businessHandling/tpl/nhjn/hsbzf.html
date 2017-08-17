@@ -1,0 +1,46 @@
+<div class="scrlh mt30">
+<form id="hsb_form" name="jnxtsynf_hsb_form" action="" method="post">
+	<div class="view_info info_500">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0"
+			class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">互生币可用数量</td>
+				<td class="view_text" width="30%"><%=obj.availablePointNum %></td>
+			</tr>
+			<tr>
+				<td class="view_item">系统使用年费</td>
+				<td class="view_text"><%=obj.useFee %></td>
+			</tr>
+			<tr>
+				<td class="view_item">缴纳年费金额</td>
+				<td class="view_text"><span id="payFee"><%=obj.payFee %></span></td>
+			</tr>
+			<tr>
+				<td class="view_item">缴纳年费区间</td>
+				<td class="view_text"><span id="payTime"><%=obj.payTime
+						%></span></td>
+			</tr>
+			<tr>
+				<td class="view_item">付款后年费有效期</td>
+				<td class="view_text"><%=obj.payTime.split("~")[1] %></td>
+			</tr>
+			<tr>
+				<td class="view_item">结算币种</td>
+				<td class="view_text">互生币</td>
+			</tr>
+			<tr>
+				<td class="view_item">交易密码</td>
+				<td class="view_input pr"><input type="password"
+					name="transPass" id="transPass" maxlength="8"
+					placeholder="输入8位交易密码" /></td>
+			</tr>
+			</tbody>
+		</table>
+
+	</div>
+</form>
+</div>
+<div class="two_button h30 clearfix mt20" align="center">
+	<a id="btn_xg" class="btn_bg submit mr10 fl">修 改</a><a id="btn_jnxtsynf_qr"
+		class="jnxtsynfqr btn_bg submit fr">确 认</a>
+</div>

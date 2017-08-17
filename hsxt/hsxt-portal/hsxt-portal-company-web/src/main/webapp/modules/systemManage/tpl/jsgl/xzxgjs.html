@@ -1,0 +1,29 @@
+<div class="bc mt20 info_320">
+<form id="xzxgjs_form" name="xzxgjs_form" action="" method="post">
+	<input type="hidden" id="roleId" value="<%=obj.roleId%>"/>
+	<input type="hidden" id="updateFlag" value="<%=obj.updateFlag%>"/>
+	<input type="hidden" id="roleType" value="<%=obj.roleType%>"/>
+    <ul class="cssform2 clearfix">
+        <li class="clearfix pr">
+            <label class="title-txt w115">角色名称</label><input class="fl w185 h30_middle ml5" maxlength="20" id="roleName" type="text" value="<%=obj.roleName || ''%>" placeholder="输入角色名称"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115" style="height:60px;line-height:60px;vertical-align:middle;">角色描述</label>
+        <div class="cont-chk"><textarea placeholder="输入角色描述不超过100个字" id="roleDesc" maxlength="100" style="height:50px;padding:5px; resize:none;width:185px;"><%=obj.roleDesc%></textarea></div><div class="hint red">*</div>
+        </li>
+    </ul>
+    <div class="mt20 tc">
+        <a href="javascript:;" id="btn_xzxgjs_cx" class="btn_bg submit mr30">取&#12288;消</a><a href="javascript:;" id="btn_xzxgjs_tj" class="btn_bg submit">提&#12288;交</a>
+    </div>
+</form>
+</div>
+
+<!-- <div id="jsgl_dialog" class="none" title="角色创建成功，是否进行菜单授权？" >
+  <p></p>
+</div>
+ -->
+<div id="jsgl_cdsq_dialog" class="none" title="角色创建成功，是否进行菜单授权？" >  
+  <div >
+	 <ul id="xzczy_jsfp"  class="ztree"></ul> 
+  </div> 
+</div>

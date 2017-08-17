@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.MedicalDetailInfoMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.MedicalDetailInfo">
+		<id column="MEDICAL_ID" property="medicalId" jdbcType="VARCHAR" />
+		<result column="APPLY_WELFARE_NO" property="applyWelfareNo" jdbcType="VARCHAR" />
+		<result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+		<result column="STANDARD" property="standard" jdbcType="VARCHAR" />
+		<result column="QUANTITY" property="quantity" jdbcType="DECIMAL" />
+		<result column="UNIT" property="unit" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+		<result column="PROPORTION" property="proportion" jdbcType="DECIMAL" />
+		<result column="HEALTH_PAY_AMOUNT" property="healthPayAmount" jdbcType="DECIMAL" />
+		<result column="PERSONAL_PAY_AMOUNT" property="personalPayAmount" jdbcType="DECIMAL" />
+		<result column="HS_PAY_AMOUNT" property="hsPayAmount" jdbcType="DECIMAL" />
+		<result column="EXPLAIN" property="explain" jdbcType="VARCHAR" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+		<result column="ACCOUNTING_ID" property="accountingId" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   MEDICAL_ID,
+       APPLY_WELFARE_NO,
+       CATEGORY,
+       ITEM_NAME,
+       STANDARD,
+       QUANTITY,
+       UNIT,
+       PRICE,
+       AMOUNT,
+       PROPORTION,
+       HEALTH_PAY_AMOUNT,
+       PERSONAL_PAY_AMOUNT,
+       HS_PAY_AMOUNT,
+       EXPLAIN,
+       ISACTIVE,
+       CREATED_DATE,
+       CREATED_BY,
+       UPDATED_DATE,
+       UPDATED_BY,
+       ACCOUNTING_ID
+	</sql>
+
+	<!-- 查询医疗明细通过 核算单编号 -->
+	<select id="listMedicalDetailByAccountingId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_MEDICAL_DETAIL
+		where ACCOUNTING_ID = #{accountingId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 删除医疗明细 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from T_WS_MEDICAL_DETAIL
+		where ACCOUNTING_ID = #{accountingId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 批量插入医疗明细 -->
+	<insert id="batchInsertMedicalDetailInfo" parameterType="java.util.List">
+		INSERT /*+APPEND*/ INTO T_WS_MEDICAL_DETAIL (
+		MEDICAL_ID,
+		APPLY_WELFARE_NO,
+		CATEGORY,
+		ITEM_NAME,
+		STANDARD,
+		QUANTITY,
+		UNIT,
+		PRICE,
+		AMOUNT,
+		PROPORTION,
+		HEALTH_PAY_AMOUNT,
+		PERSONAL_PAY_AMOUNT,
+		HS_PAY_AMOUNT,
+		EXPLAIN,
+		ISACTIVE,
+		CREATED_DATE,
+		CREATED_BY,
+		UPDATED_DATE,
+		UPDATED_BY,
+		ACCOUNTING_ID
+		)
+		<foreach collection="list" item="item" index="index" separator="union all">
+			(SELECT
+			#{item.medicalId,jdbcType=VARCHAR},
+			#{item.applyWelfareNo,jdbcType=VARCHAR},
+			#{item.category,jdbcType=VARCHAR},
+			#{item.itemName,jdbcType=VARCHAR},
+			#{item.standard,jdbcType=VARCHAR},
+			#{item.quantity,jdbcType=DECIMAL},
+			#{item.unit,jdbcType=DECIMAL},
+			#{item.price,jdbcType=DECIMAL},
+			#{item.amount,jdbcType=DECIMAL},
+			#{item.proportion,jdbcType=DECIMAL},
+			#{item.healthPayAmount,jdbcType=DECIMAL},
+			#{item.personalPayAmount,jdbcType=DECIMAL},
+			#{item.hsPayAmount,jdbcType=DECIMAL},
+			#{item.explain,jdbcType=VARCHAR},
+			#{item.isactive,jdbcType=CHAR},
+			#{item.createdDate,jdbcType=TIMESTAMP},
+			#{item.createdBy,jdbcType=VARCHAR},
+			#{item.updatedDate,jdbcType=TIMESTAMP},
+			#{item.updatedBy,jdbcType=VARCHAR},
+			#{item.accountingId,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 修改医疗明细记录 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.MedicalDetailInfo">
+		update T_WS_MEDICAL_DETAIL
+		<set>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="category != null">
+				CATEGORY = #{category,jdbcType=VARCHAR},
+			</if>
+			<if test="itemName != null">
+				ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+			</if>
+			<if test="standard != null">
+				STANDARD = #{standard,jdbcType=VARCHAR},
+			</if>
+			<if test="quantity != null">
+				QUANTITY = #{quantity,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="proportion != null">
+				PROPORTION = #{proportion,jdbcType=DECIMAL},
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT = #{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT = #{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT = #{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="explain != null">
+				EXPLAIN = #{explain,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="accountingId != null">
+				ACCOUNTING_ID = #{accountingId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where MEDICAL_ID = #{medicalId,jdbcType=VARCHAR}
+	</update>
+
+
+</mapper>

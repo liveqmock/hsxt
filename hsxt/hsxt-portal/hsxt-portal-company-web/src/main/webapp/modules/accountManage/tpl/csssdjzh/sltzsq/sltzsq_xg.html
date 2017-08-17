@@ -1,0 +1,56 @@
+﻿<form action="" id="sltzsq_xg_appForm" autocomplete="off" name="sltzsq_xg_appForm"
+	method="post">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"
+		class="fixtable">
+		<tr>
+			<td class="view_item" width="30%">当前税率</td>
+			<td class="view_text" width="70%"><span class="ml5"
+				id="sCurrentTaxRate"></span></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="30%">企业纳税人类型</td>
+			<td class="view_text pr" width="70%"><input id='txtTaxpayerType'
+				name="txtTaxpayerType" readonly="readonly" placeholder="选择企业纳税人类型" />
+				<div class="must red" style="top:8px;right: -20px;">*</div></td>
+		</tr>
+		<tr>
+			<td class="view_item">申请调整税率</td>
+			<td class="view_input pr"><input type="text"
+				id="txtApplyTaxrate" name="txtApplyTaxrate"
+				class="fl  h30_middle ml5" style="width:313px;" value=""
+				placeholder="输入调整税率(0.01%~99.99%)"><span class="fl h30_middle ml5">%</span>
+				<div class="must red" style="top:8px;right: -20px;">*</div></td>
+		</tr>
+		<tr>
+			<td class="view_item">申请说明</td>
+			<td class="view_input pr"><textarea id="txtApplyReason"
+					name="txtApplyReason" rows="2" class="attxta  h100"
+					style="width: 330px;" placeholder="输入申请说明,字数不超过300个字"></textarea>
+				<div class="must red" style="top:40px;right: -20px;">*</div></td>
+		</tr>
+		<tr>
+			<td class="view_item">证明材料</td>
+			<td class="view_input pt5 pb5 pr" width="70%">
+				<div class="clearfix pr">
+					<div class="fl" id="imgApplyImg">
+						<img class="ml5" style="vertical-align: middle;"
+							src="resources/img/noImg.gif" width="81" height="52"
+							title="点击查看图片">
+					</div>
+					<div class="fl ml10" style="margin-top: 15px;">
+						<a class="input-file btn_bg upload_btn">上传<input
+							id="fileApplyImg" name="fileApplyImg" type="file"></a>
+							<a id="aDownLoad" href="resources/doc/taxRateTemp.docx"
+							class="btn_bg viewSample_btn ml5">模板下载</a>
+					</div>
+					
+				</div>
+				<div class="must red" style="top:20px;right: -20px;">*</div>
+			</td>
+		</tr>
+	</table>
+	<div class="clearfix mt20 w200 bc">
+		<a href="javascript:;" id="sltzsq_return" class="btn_bg submit fl">取消申请</a>
+		<a href="javascript:;" id="sltzsq_appSubmit" class="btn_bg submit fr">提交申请</a>
+	</div>
+</form>

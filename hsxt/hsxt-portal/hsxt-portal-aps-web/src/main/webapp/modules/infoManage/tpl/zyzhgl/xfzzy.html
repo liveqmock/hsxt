@@ -1,0 +1,46 @@
+<div id="xfzzyTpl">
+	<div class="search-toolbar">
+	<form id="search_form" name="search_form">
+		<ul class="cssform clearfix">
+			<li>
+				<label>互生卡号：</label>
+				<input type="text" id="search_entResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入互生卡号" />
+			</li>
+			<li>
+				<label>姓名：</label>
+				<input type="text" id="search_realName" class="h28_middle w115 input-txt" placeholder="输入姓名" />
+			</li>
+			<li>
+				<label>消费者状态：</label>
+				<input id="search_realnameStatus" type="text" name="search_realnameStatus" class="h28_middle w80 input-txt" placeholder="--消费者状态--"  readonly="readonly"/>
+			</li>
+			<li>
+				<label>日期：</label>
+				<input id="search_startDate" type="text" name="search_startDate" class="h28_middle w80 input-txt" placeholder="选择开始日期" />--
+				<input id="search_endDate" type="text" name="search_endDate" class="h28_middle w80 input-txt" placeholder="选择结束日期" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<!--<li>
+				<button id="" type="button" class="btn-search">导出</button>
+			</li>-->
+		 </ul>
+		 </form>
+	</div>
+	<table id="tableDetail" class="bsgrid">
+	  <tr>
+		<th w_index="hsResNo" w_render="operate">互生卡号</th>
+		<th w_index="perName" w_tip=true>联系人姓名</th>
+		<th w_render="operate" w_tip=true>国籍</th>
+		<th w_index="mobile">手机号码</th>
+		<th w_index="residentAddr" w_tip=true>户籍地址</th>
+		<th w_render="operate">消费者状态</th>
+		<th w_index="realnameAuthDate" style="width:125px;" w_tip=true>消费者状态完成时间</th>
+		<th w_index="cardStatus" w_render="operate">互生卡状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="sz_dlg" class="none ovh"></div>
+<div id="sz_qr_dlg" class="none"></div>

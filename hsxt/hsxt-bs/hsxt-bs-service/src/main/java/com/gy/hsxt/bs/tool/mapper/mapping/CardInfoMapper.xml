@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.CardInfoMapper">
+	
+	<!-- 批量插入互生卡的信息 -->
+	<insert id="batchInsertCardInfo" parameterType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		INSERT INTO 
+		T_BS_CARD_INFO(
+			CARD_ID,
+			CONFIG_NO,
+			PER_RES_NO,
+			DARK_CODE,
+			INITIAL_PASSWORD) 
+		<foreach collection="cardInfos" item="cardInfo" separator="union all">
+			(
+			SELECT
+			#{cardInfo.cardId},
+			#{cardInfo.confNo},
+			#{cardInfo.perResNo},
+			#{cardInfo.darkCode},
+			#{cardInfo.initPwd,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<insert id="insertCardInfo" parameterType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		INSERT INTO 
+		T_BS_CARD_INFO(
+			CARD_ID,
+			CONFIG_NO,
+			PER_RES_NO,
+			DARK_CODE,
+			INITIAL_PASSWORD
+		) VALUES(
+			#{cardId},
+			#{confNo},
+			#{perResNo},
+			#{darkCode},
+			#{initPwd,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 调用存储过程批量开卡 -->
+	<select  id="callBatchOpenCard" parameterType="com.gy.hsxt.bs.tool.bean.BatchOpenCard" statementType="CALLABLE">
+		<![CDATA[ 
+		{call P_BS_BATCH_OPEN_CARD(
+			#{settleCode,jdbcType=VARCHAR,mode=IN},
+			#{entResNo,jdbcType=VARCHAR,mode=IN},
+			#{openCount,jdbcType=INTEGER,mode=IN},
+			#{confNo,jdbcType=VARCHAR,mode=IN},
+			#{result,jdbcType=VARCHAR, mode=OUT}
+		)}
+		]]>
+	</select >
+	
+	<!-- 根据卡号查询卡信息 -->
+	<select id="selectCardInfoById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		SELECT 
+		
+			CARD_ID AS cardId,
+			CONFIG_NO AS confNo,
+			PER_RES_NO AS perResNo,
+			DARK_CODE AS darkCode,
+			INITIAL_PASSWORD AS initPwd
+			FROM T_BS_CARD_INFO 
+		WHERE CONFIG_NO = #{cardId}
+	</select>
+	
+	<!-- 查询托管企业下已经生成的最大个人互生号 -->
+	<select id="selectMaxPreResNo" parameterType="string" resultType="string">
+		SELECT 
+			MAX(PER_RES_NO) perResNo 
+		FROM T_BS_CARD_INFO 
+		WHERE PER_RES_NO LIKE #{entResNo}||'%'	
+	</select>
+	
+	<!-- 导出暗码 -->
+	<select id="selectCardInfoRarkCode" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		SELECT 
+			PER_RES_NO AS perResNo,
+			DARK_CODE AS darkCode
+			FROM T_BS_CARD_INFO 
+		WHERE CONFIG_NO = #{confNo}
+		ORDER BY PER_RES_NO
+	</select>
+	
+	<!-- 导出初始化密码 -->
+	<select id="selectCardInfoInitPwd" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		SELECT 
+			PER_RES_NO AS perResNo,
+			INITIAL_PASSWORD AS initPwd
+			FROM T_BS_CARD_INFO 
+		WHERE CONFIG_NO = #{confNo}
+		ORDER BY PER_RES_NO
+	</select>
+	
+	<!-- 查询配置单的卡数据 -->
+	<select id="selectCardInfoByConfNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.CardInfo">
+		SELECT 
+			CARD_ID AS cardId,
+			PER_RES_NO AS perResNo,
+			DARK_CODE AS darkCode,
+			INITIAL_PASSWORD AS initPwd
+		FROM T_BS_CARD_INFO	
+		WHERE CONFIG_NO = #{confNo}
+		ORDER BY PER_RES_NO
+	</select>
+	
+	<!-- 查询配置单的最大和最小消费者互生号 -->
+	<select id="selectConfMaxAndMinPreResNo" resultType="string">
+		SELECT 
+			MIN(T.PER_RES_NO)||','||MAX(T.PER_RES_NO) 
+		FROM T_BS_CARD_INFO T WHERE T.CONFIG_NO = #{confNo}
+	</select>
+	
+	<!-- 插入重做互生卡信息 -->
+	<insert id="insertMakingCardInfo" parameterType="com.gy.hsxt.bs.tool.bean.MakingCardInfo">
+		INSERT INTO 
+		T_BS_MAKING_CARD_INFO(
+			CONFIG_NO,
+			PER_RES_NO,
+			REMAKE_TYPE
+		) VALUES(
+			#{confNo},
+			#{perResNo},
+			#{remarkType})
+	</insert>
+	
+	<!-- 批量插入重做互生卡信息 -->
+	<insert id="batchInsertMakingCardInfo" parameterType="com.gy.hsxt.bs.tool.bean.MakingCardInfo">
+		INSERT INTO 
+		T_BS_MAKING_CARD_INFO(
+			CONFIG_NO,
+			PER_RES_NO,
+			REMAKE_TYPE
+		) 
+		<foreach collection="makings" item="making" separator="union all">
+			(SELECT
+			#{making.confNo},
+			#{making.perResNo},
+			#{making.remarkType}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 根据配置单号查询重做卡信息 -->
+	<select id="selectMakingCardInfoByNo" parameterType="string" resultType="com.gy.hsxt.bs.tool.bean.MakingCardInfo">
+		SELECT
+			CONFIG_NO AS confNo,
+			PER_RES_NO AS perResNo,
+			REMAKE_TYPE AS remarkType	 
+		FROM T_BS_MAKING_CARD_INFO
+		WHERE CONFIG_NO = #{confNo}
+		ORDER BY PER_RES_NO
+	</select>
+	
+	<!-- 查询同步到UC卡信息 -->
+	<select id="selectCardInfoByUcSync" parameterType="string" resultType="com.gy.hsxt.uc.bs.bean.consumer.BsHsCard">		
+		SELECT 
+			PER_RES_NO AS perResNo,
+			DARK_CODE AS cryptogram,
+			INITIAL_PASSWORD AS loginPwd
+		FROM T_BS_CARD_INFO 	
+		WHERE CONFIG_NO = #{confNo}
+		ORDER BY PER_RES_NO
+	</select>
+		
+</mapper>

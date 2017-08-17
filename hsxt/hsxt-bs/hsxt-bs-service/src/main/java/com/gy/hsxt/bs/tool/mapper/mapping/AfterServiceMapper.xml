@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.AfterServiceMapper">
+	
+	<!-- 插入售后服务单 -->
+	<insert id="insertAfterService" parameterType="com.gy.hsxt.bs.bean.tool.AfterService">
+		INSERT INTO 
+		T_BS_AFTER_SERVICE(
+			AFTER_ORDER_NO,
+			ENT_CUST_ID,
+			ENT_RES_NO,
+			ENT_CUST_NAME,
+			CUST_TYPE,
+			DISPOSE_AMOUNT,
+			DELIVER_ID,
+			STATUS,
+			REQ_TIME,
+			REQ_OPERATOR,
+			REQ_REMARK,
+			APPR_TIME,
+			APPR_OPERATOR,
+			APPR_REMARK
+		) VALUES (
+			#{afterOrderNo},
+			#{entCustId},
+			#{entResNo},
+			#{entCustName},
+			#{custType},
+			#{disposeAmount},
+			#{deliverId},
+			0,
+			SYSDATE,
+			#{reqOperator},
+			#{reqRemark,jdbcType=VARCHAR},
+			NULL,
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 批量插入售后服务单 -->
+	<insert id="batchInsertAfterService" parameterType="com.gy.hsxt.bs.bean.tool.AfterService">
+		INSERT INTO 
+		T_BS_AFTER_SERVICE(
+			AFTER_ORDER_NO,
+			ENT_CUST_ID,
+			ENT_RES_NO,
+			ENT_CUST_NAME,
+			CUST_TYPE,
+			DISPOSE_AMOUNT,
+			DELIVER_ID,
+			STATUS,
+			REQ_TIME,
+			REQ_OPERATOR,
+			REQ_REMARK,
+			APPR_TIME,
+			APPR_OPERATOR,
+			APPR_REMARK) 
+		<foreach collection="afters" item="after" separator="union all">
+			(SELECT
+			#{after.afterOrderNo},
+			#{after.entCustId},
+			#{after.entResNo},
+			#{after.entCustName},
+			#{after.custType},
+			#{after.disposeAmount},
+			#{after.deliverId},
+			0,
+			SYSDATE,
+			'system',
+			'批量到售后服务',
+			NULL,
+			NULL,
+			NULL
+			FROM DUAL)
+		</foreach> 
+	</insert>
+	
+	<!-- 插入售后服务清单 -->
+	<insert id="insertAfterServiceDetail" parameterType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		INSERT INTO 
+		T_BS_AFTER_SERVICE_LIST(
+			AFTER_ORDER_NO,
+			DEVICE_SEQ_NO,
+			TERMINAL_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			CONFIG_NO,
+			DISPOSE_TYPE,
+			NEW_DEVICE_SEQ_NO,
+			DISPOSE_AMOUNT,
+			DISPOSE_STATUS,
+			IS_CONFIG,
+			REMARK
+		) VALUES (
+			#{afterOrderNo},
+			#{deviceSeqNo},
+			#{terminalNo},
+			#{categoryCode,jdbcType=VARCHAR},
+			#{productId,jdbcType=VARCHAR},
+			#{confNo,jdbcType=VARCHAR},
+			#{disposeType},
+			#{newDeviceSeqNo,jdbcType=VARCHAR},
+			#{disposeAmount},
+			<if test="disposeType != null">
+				#{disposeType},
+			</if>
+			<if test="disposeType == null">
+				0,
+			</if>
+			0,
+			#{remark,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 批量插入售后服务清单 -->
+	<insert id="batchInsertAfterServiceDetail" parameterType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		INSERT INTO 
+		T_BS_AFTER_SERVICE_LIST(
+			AFTER_ORDER_NO,
+			DEVICE_SEQ_NO,
+			TERMINAL_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			CONFIG_NO,
+			DISPOSE_TYPE,
+			NEW_DEVICE_SEQ_NO,
+			DISPOSE_AMOUNT,
+			DISPOSE_STATUS,
+			IS_CONFIG,
+			REMARK) 
+		<foreach collection="details" item="detail" separator="union all">
+			(SELECT
+			#{detail.afterOrderNo},
+			#{detail.deviceSeqNo},
+			#{detail.terminalNo},
+			#{detail.categoryCode,jdbcType=VARCHAR},
+			#{detail.productId,jdbcType=VARCHAR},
+			#{detail.confNo,jdbcType=VARCHAR},
+			#{detail.disposeType},
+			#{detail.newDeviceSeqNo,jdbcType=VARCHAR},
+			#{detail.disposeAmount},
+			<if test="detail.disposeType != null">
+				#{detail.disposeType},
+			</if>
+			<if test="detail.disposeType == null">
+				0,
+			</if>
+			0,
+			#{detail.remark,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach> 
+	</insert>
+	
+	<!-- 查询售后服务单字段 -->
+	<sql id="selectAfterServiceSql">
+		AFTER_ORDER_NO AS afterOrderNo,
+		ENT_CUST_ID AS entCustId,
+		ENT_RES_NO AS entResNo,
+		ENT_CUST_NAME AS entCustName,
+		CUST_TYPE AS custType,
+		DISPOSE_AMOUNT AS disposeAmount,
+		DELIVER_ID AS deliverId,
+		STATUS AS status,
+		REQ_TIME AS reqTime,
+		REQ_OPERATOR AS reqOperator,
+		REQ_REMARK AS reqRemark,
+		APPR_TIME AS apprTime,
+		APPR_OPERATOR AS apprOperator,
+		APPR_REMARK AS apprRemark
+	</sql>
+	
+	<!-- 分页查询售后服务单 -->
+	<select id="selectAfterServiceByListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.AfterService">
+		SELECT
+			TT.AFTER_ORDER_NO AS afterOrderNo,
+			TT.ENT_CUST_ID AS entCustId,
+			TT.ENT_RES_NO AS entResNo,
+			TT.ENT_CUST_NAME AS entCustName,
+			TT.DISPOSE_AMOUNT AS disposeAmount,
+			TT.STATUS AS status,
+			TT.REQ_TIME AS reqTime,
+			TT.APPR_TIME AS apprTime,
+			TT.PAY_STATUS AS payStatus
+		FROM 
+			(SELECT A.*,O.PAY_STATUS
+				FROM T_BS_AFTER_SERVICE A LEFT JOIN T_BS_ORDER O ON A.AFTER_ORDER_NO = O.BIZ_NO) TT
+		<choose>
+	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when>
+	    </choose> 
+		WHERE 1 = 1 
+		<if test="exeCustId != null and exeCustId != '' ">
+			AND TT.AFTER_ORDER_NO = T.BIZ_NO
+			AND T.STATUS = 2
+			AND T.EXE_CUST_ID = #{exeCustId}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND TT.REQ_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND TT.REQ_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="hsCustName != null and hsCustName != '' ">
+			AND TT.ENT_CUST_NAME LIKE #{hsCustName}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND TT.ENT_RES_NO = #{hsResNo}
+		</if>
+		<if test="status != null">
+			AND TT.STATUS = #{status}
+		</if>
+		ORDER BY TT.REQ_TIME DESC
+	</select>
+	
+	<!-- 根据id查询售后服务单 -->
+	<select id="selectAfterServiceByNo" resultType="com.gy.hsxt.bs.bean.tool.AfterService">
+		SELECT
+			<include refid="selectAfterServiceSql"/>
+		FROM T_BS_AFTER_SERVICE
+		WHERE AFTER_ORDER_NO = #{afterOrderNo}
+	</select>
+	
+	<!-- 修改售后服务单 -->
+	<update id="updateAfterService" parameterType="com.gy.hsxt.bs.bean.tool.AfterService">
+		UPDATE T_BS_AFTER_SERVICE SET
+			DISPOSE_AMOUNT = #{disposeAmount},
+			STATUS = #{status},
+			APPR_TIME = SYSDATE,
+			APPR_OPERATOR = #{apprOperator},
+			APPR_REMARK = #{apprRemark}
+		WHERE AFTER_ORDER_NO = #{afterOrderNo}
+	</update>
+	
+	<!-- 批量修改售后服务清单 -->
+	<update id="batchUpdateAfterServiceDetail" parameterType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		BEGIN
+		<foreach collection="details" item="detail" separator=";">
+			UPDATE T_BS_AFTER_SERVICE_LIST SET
+				<if test=" detail.newDeviceSeqNo != null and detail.newDeviceSeqNo != '' ">
+					NEW_DEVICE_SEQ_NO = #{detail.newDeviceSeqNo},
+				</if>
+				<if test=" detail.isConfig != null and detail.isConfig == true ">
+					IS_CONFIG = 1,
+				</if>
+				CONFIG_NO = #{detail.confNo},
+				DISPOSE_TYPE = #{detail.disposeType},
+				DISPOSE_AMOUNT = #{detail.disposeAmount},
+				DISPOSE_STATUS = 1,
+				REMARK = #{detail.remark,jdbcType=VARCHAR}
+			WHERE AFTER_ORDER_NO = #{detail.afterOrderNo} AND DEVICE_SEQ_NO = #{detail.deviceSeqNo}
+		</foreach>
+	;END;
+	</update>
+	
+	<!-- 修改售后服务清单配置完成 -->
+	<update id="updateAfterServiceDetailConfig">
+		UPDATE T_BS_AFTER_SERVICE_LIST SET
+			NEW_DEVICE_SEQ_NO = #{newDeviceSeqNo},
+			IS_CONFIG = 1
+		WHERE AFTER_ORDER_NO = #{afterOrderNo} AND DEVICE_SEQ_NO = #{deviceSeqNo}
+	</update>
+	
+	<!-- 查询售后服务清单sql -->
+	<sql id="selectAfterServiceDetailSql">
+		AST.AFTER_ORDER_NO AS afterOrderNo,
+		AST.DEVICE_SEQ_NO AS deviceSeqNo,
+		AST.TERMINAL_NO AS terminalNo,
+		AST.CATEGORY_CODE AS categoryCode,
+		AST.PRODUCT_ID AS productId,
+		P.PRODUCT_NAME AS productName,
+		AST.CONFIG_NO AS confNo,
+		AST.DISPOSE_TYPE AS disposeType,
+		AST.NEW_DEVICE_SEQ_NO AS newDeviceSeqNo,
+		AST.DISPOSE_AMOUNT AS disposeAmount,
+		AST.DISPOSE_STATUS AS disposeStatus,
+		AST.IS_CONFIG AS isConfig,
+		AST.REMARK AS remark
+	</sql>
+	
+	<!-- 根据售后服务编号查询清单 -->
+	<select id="selectAfterServiceDetailByNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		SELECT
+			<include refid="selectAfterServiceDetailSql"/>
+		FROM T_BS_AFTER_SERVICE_LIST AST
+		LEFT JOIN T_BS_TOOL_PRODUCT P ON AST.PRODUCT_ID = P.PRODUCT_ID
+		WHERE 1 = 1
+		  AND AST.AFTER_ORDER_NO = #{afterOrderNo}
+	</select>
+	
+	<!-- 根据配置单查询售后服务清单 -->
+	<select id="selectAfterServiceDetailByConfNo" resultType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		SELECT
+			<include refid="selectAfterServiceDetailSql"/>
+		FROM T_BS_AFTER_SERVICE_LIST AST,T_BS_TOOL_PRODUCT P
+		WHERE AST.PRODUCT_ID = P.PRODUCT_ID
+		  AND AST.CONFIG_NO IN
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!-- 根据发货单编号查询售后清单 -->
+	<select id="selectAfterServiceDetailByShippingId" resultType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		SELECT 
+			<include refid="selectAfterServiceDetailSql"/>
+		  FROM T_BS_AFTER_SERVICE_LIST AST, T_BS_TOOL_PRODUCT P
+		 WHERE AST.PRODUCT_ID = P.PRODUCT_ID
+		   AND AST.CONFIG_NO IN 
+		   	   (SELECT TC.CONFIG_NO
+		        FROM T_BS_TOOL_CONFIG TC
+		        WHERE TC.SHIPPING_ID = #{shippingId})
+	</select>
+	
+	<!-- 根据客户、售后订单、配置单查询售后清单 -->
+	<select id="selectAfterServiceDetailByNoIdNo" resultType="com.gy.hsxt.bs.bean.tool.AfterServiceDetail">
+		SELECT 
+			<include refid="selectAfterServiceDetailSql"/>	
+	  	FROM T_BS_AFTER_SERVICE_LIST AST
+	  	LEFT JOIN T_BS_AFTER_SERVICE A
+	    	ON AST.AFTER_ORDER_NO = A.AFTER_ORDER_NO
+	  	LEFT JOIN T_BS_TOOL_PRODUCT P
+	    	ON AST.PRODUCT_ID = P.PRODUCT_ID
+	 	WHERE AST.CONFIG_NO = #{confNo}
+	   	  AND AST.AFTER_ORDER_NO = #{afterOrderNo}
+	   	  AND A.ENT_CUST_ID = #{entCustId}
+	   	  AND AST.IS_CONFIG = #{isConfig}
+	</select>
+	
+	<!-- 根据序列号查询售后清单 -->
+	<select id="selectAfterDetailBySeqNo" resultType="string">
+		SELECT 
+			ASL.DEVICE_SEQ_NO
+		  FROM T_BS_AFTER_SERVICE_LIST ASL
+		  LEFT JOIN T_BS_TOOL_CONFIG TC
+		    ON ASL.CONFIG_NO = TC.CONFIG_NO
+		 WHERE ASL.DEVICE_SEQ_NO ${seqNos}
+		   AND (TC.TOOL_STATUS NOT IN (6, 7) OR TC.TOOL_STATUS IS NULL)
+	</select>
+	
+</mapper>

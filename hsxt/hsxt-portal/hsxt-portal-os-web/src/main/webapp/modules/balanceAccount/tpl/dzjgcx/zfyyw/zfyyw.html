@@ -1,0 +1,35 @@
+<div id="zfyywTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>对账日期：</label>
+				<input type="text" name="zfyyw_beginDate" id="zfyyw_beginDate" placeholder="开始日期" class="queryList-toolbar-text" readonly="readonly">
+        <span class="separator-pd">-</span>
+        <input type="text" name="zfyyw_endDate" id="zfyyw_endDate" placeholder="截止日期" class="queryList-toolbar-text" readonly="readonly">
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">对账结果：</label>
+				<input id="zfyyw_tb_dzjg" name="zfyyw_tb_dzxt" placeholder="选择对账结果" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="zfyyw_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="zfyyw_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="tcDate" w_align="left">对账日期</th>
+			<th w_index="gpTranNum" w_align="left">支付交易笔数</th>
+			<th w_index="bsTranNum" w_align="left">业务交易笔数</th>
+			<th w_index="flatNum" w_align="left">账平笔数</th>
+			<th w_index="bsHaveNum" w_align="left">支付无业务有笔数</th>
+            <th w_index="bsHaveAmount" w_align="left">支付无业务有金额</th>
+            <th w_index="gpHaveNum" w_align="left">支付有业务无笔数</th>
+            <th w_index="gpHaveAmount" w_align="left">支付有业务无金额</th>
+            <th w_render="operate"  w_index="tcResult" w_align="left">对账结果</th>
+		</tr>
+	</table>
+</div>
+
+<div id="zfyyw_dlg" class="none ovh"></div>

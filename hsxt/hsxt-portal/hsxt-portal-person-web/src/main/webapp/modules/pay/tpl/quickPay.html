@@ -1,0 +1,62 @@
+<div id="quickPayTpl">
+	<!--<div id="pay_selected" class="pay-selected-box clearfix"></div>-->
+	
+	<div id="pay_selected" class="pay-selected-box clearfix">
+		<ul class="fl clearfix pay-ul">
+			<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+			<li class="ml15 mt5 mr30 fb f14">银行卡</li>
+			<li class="ml20" style="width:410px;">
+				<div id="cardList" class="bank_card_select" style="width:400px;"></div>				
+			</li>
+			<li style="margin-top:8px;"><a id="openQuickPay_btn">添加新的银行卡</a></li>
+		 </ul>	
+		 <div class="fr f14 mt5">
+			支付金额：<span class="pay-text-red fb f16 red" id="quickPayAmount"></span> 元
+		</div>
+	</div> 
+	
+	<div id="pay_pwd_area" class="mt30 mb20">		
+		<input id="pi_randomToken" type="hidden"/>
+		<input id="buyHsbAmount" type="hidden"/>
+		<!--<div class="clearfix"><i class="fl icon_tips tips_yes_s"></i><span class="fl ml5">您在安全的环境中，请放心使用！</span></div>-->
+		<form id="pwdForm" onsubmit="return false;">
+			<ul>
+				<!-- 去掉快捷支付验证交易密码 by likui -->
+<!-- 				<li> -->
+<!-- 					<span class="pay-form-left f14">支付密码</span> -->
+<!-- 					<span class="pay-form-middle"> -->
+<!-- 						<input type="password" name="pay_pwd" id="pay_pwd" class="pay-pwd-input" maxlength="8" placeholder=""/> -->
+<!-- 						<p class="mt5 pay-hint-gray pay-form-hint">请输入8位数字支付密码(互生系统支付密码)</p> -->
+<!-- 					</span> -->
+<!-- 					<span class="pay-form-require">*</span> -->
+<!-- 					<span class="pay-form-right"><a class="f13" id="forgetPwd_qPay">忘记密码？</a></span> -->
+<!-- 				</li> -->
+				<li class="pay-mt100">
+					<span class="pay-form-left f14">短信验证码</span>
+					<span class="pay-form-middle">
+						<input type="password" name="pay_SMScode" id="pay_SMScode" class="pay-pwd-input" maxlength="6" placeholder="输入短信验证码"/>
+						<p class="mt5 pay-text-blue pay-form-hint">填写银行预留手机号码获取的短信验证码</p>
+					</span>
+					<span class="pay-form-require">*</span>
+					<span class="pay-form-right">
+						<a class="getsnscode f13" id="getCode_qPay">获取验证码？</a>
+						<a class="getsnscode ongsd f13" style="display: none;" id="getCode_countdown"></a>
+					</span>
+				</li>
+			</ul>
+			
+			<a id="comfirmPay_btn" class="pay-btn pay-mt50" >确认付款</a>
+		</form>
+	</div>
+
+	
+</div>
+
+<div id="openQuickPay_step1" class="none"></div>
+<div id="openQuickPay_step2" class="none"></div>
+
+
+
+<div class="otherPayment-btn mt30">
+选择其它支付方式<a class="ml10 mr10 pay-text-blue" id="aPay_btn"></a>|<a class="ml10 pay-text-blue" id="bPay_btn">网银支付</a>
+</div>

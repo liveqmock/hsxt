@@ -1,0 +1,51 @@
+<div class="info_800 bc clearfix">
+	<div class="fl msg-pv-left">
+		<ul class="msg-pv-tab">
+			<li>消息</li>
+		</ul>
+	</div>
+	<div class="fl msg-pv-right">
+		<h1 class="msg-pv-title-box"><span class="msg-pv-title-font">消息 - <%=obj.title%></span></h1>
+		<div class="clearfix">
+			<div class="fl msg-pv-content-left msg-pv-context_xg" style="width:610px;">
+				<h2 class="clearfix msg-pv-content-title-box">
+					<span class="fl msg-pv-context-title-font fb f14">【<%=obj.typeName%>】【<%=obj.title%>】</span>
+					<span class="fr"><%=obj.dateTime%></span>
+				</h2>
+				<ul class="msg-pv-context-list">
+					<li class="clearfix">
+						<label class="fl">标题：</label>
+						<span class="fl w600">【<%=obj.title%>】</span>
+					</li>
+					<li class="clearfix">
+						<label class="fl">重要级别：</label>
+						<span class="fl w600"><%=obj.levelName%></span>
+					</li>
+					<li class="clearfix">
+						<label class="fl">消息摘要：</label>
+						<span class="fl w600"><%=obj.summary%></span>
+					</li>
+					<li class="clearfix h90">
+						<label class="fl">图片：</label>
+						<span class="fl">
+							<div class="fl imgMask_style" >
+								<ul class="imgList clearfix" >
+			                        <li class="pr">
+			                            <img src="<%=obj.image%>" id="dialog_img" width="107" height="64">
+			                            <i class="tips_close pa delImg" title="删除图片" style="display: none;"></i>
+			                        </li>
+			                    </ul>
+                			</div>
+                		</span>
+					</li>
+                    <li class="clearfix">
+						<label class="fl">消息内容详情：</label>
+						<span class="fl w600"><%=obj.msg%></span>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<div class="mt20" align="center"><a class="btn_bg submit" id="yl_back_btn">返&#12288;回</a></div>

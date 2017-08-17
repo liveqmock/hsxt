@@ -1,0 +1,38 @@
+<div class="search-toolbar">
+  <form id="cash_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li class="clearfix pr">
+        <label class="fl h30_middle">快捷日期：</label>
+        <input type="text" id="quickDate" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">业务类别：</label>
+		<input type="text" id="scpoint_subject" readonly="readonly" />
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table" class="bsgrid">
+  	<thead>
+        <tr>
+          <th w_index="fiscalDate" w_render="operate" w_align="left">交易时间</th>
+          <th w_render="operate" w_align="left">交易类型</th>
+          <th w_render="operate" w_align="left">业务类别</th>
+          <th w_render="operate" w_align="right">发生金额</th>
+          <th w_render="operate" w_align="right">交易后账户余额</th>
+        </tr>
+	</thead>
+  </table>
+</div>

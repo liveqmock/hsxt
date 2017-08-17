@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.checker.mapper.DoubleCheckerMapper" >
+<!-- 双签用户信息 -->
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.checker.bean.DoubleChecker" >
+    <id column="OPER_CUST_ID" property="operCustId" jdbcType="VARCHAR" />
+    <result column="SUB_SYSTEM_CODE" property="subSystemCode" jdbcType="VARCHAR" />
+    <result column="PLATFORM_CODE" property="platformCode" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN" property="pwdLogin" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN_VER" property="pwdLoginVer" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN_SALT_VALUE" property="pwdLoginSaltValue" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="DUTY" property="duty" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+    <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ <!-- 查询列 -->
+  <sql id="Base_Column_List" >
+    OPER_CUST_ID, 
+    SUB_SYSTEM_CODE, 
+    PLATFORM_CODE, 
+    USER_NAME, 
+    PWD_LOGIN, 
+    PWD_LOGIN_VER, 
+    PWD_LOGIN_SALT_VALUE, 
+    PHONE, 
+    EMAIL, 
+    REAL_NAME, 
+    DUTY, 
+    STATUS, 
+    IS_ADMIN, 
+    LAST_LOGIN_DATE, 
+    LAST_LOGIN_IP, REMARK, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY
+  </sql>
+  
+  <!-- 查询双签用户信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_OPERATOR_PWD2
+    where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SYS_OPERATOR_PWD2
+    where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 保存双签用户信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.checker.bean.DoubleChecker" >
+    insert into T_SYS_OPERATOR_PWD2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operCustId != null" >
+        OPER_CUST_ID,
+      </if>
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE,
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="pwdLogin != null" >
+        PWD_LOGIN,
+      </if>
+      <if test="pwdLoginVer != null" >
+        PWD_LOGIN_VER,
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        PWD_LOGIN_SALT_VALUE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="duty != null" >
+        DUTY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN,
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE,
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operCustId != null" >
+        #{operCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="subSystemCode != null" >
+        #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLogin != null" >
+        #{pwdLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginVer != null" >
+        #{pwdLoginVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        #{pwdLoginSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--更新双签用户信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.checker.bean.DoubleChecker" >
+    update T_SYS_OPERATOR_PWD2
+    <set >
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLogin != null" >
+        PWD_LOGIN = #{pwdLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginVer != null" >
+        PWD_LOGIN_VER = #{pwdLoginVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        PWD_LOGIN_SALT_VALUE = #{pwdLoginSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        DUTY = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN = #{isAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 分页查询 统计查询记录总数 -->
+	<select id="countDoubleChecker" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		FROM T_SYS_OPERATOR_PWD2
+		WHERE 1 = 1
+		<include refid="Where_Condition" />
+	</select>
+  
+  <!-- 分页查询消费者记录 -->
+	<select id="ListDoubleCheckerInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		FROM T_SYS_OPERATOR_PWD2
+		WHERE 1 = 1
+		<include refid="Where_Condition" />
+		<include refid="PaginationSuffix" />
+	</select>
+	
+	
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+	
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="platformCode != null and  platformCode != '' ">
+			And PLATFORM_CODE = #{platformCode}
+		</if>
+		<if test="subSystemCode != null and  subSystemCode != '' ">
+			And SUB_SYSTEM_CODE = #{subSystemCode}
+		</if>
+	</sql>
+	
+</mapper>

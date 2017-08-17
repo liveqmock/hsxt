@@ -1,0 +1,49 @@
+<div class="table_info info_600 bc">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">		
+		<tr>
+			<td colspan="4" class="tab_trbg pl10">订单信息</td>
+		</tr>
+		<tr>
+			<td width="20%" class="view_item">企业互生号</td>
+			<td width="30%" class="view_text"><%=obj.hsResNo%></td>
+			<td width="20%" class="view_item">企业名称</td>
+			<td width="30%" class="view_text"><%=obj.custName%></td>
+		</tr>
+		<tr>
+			<td colspan="4" class="tab_trbg pl10">选择临帐信息</td>
+		</tr>
+		<tr>
+			<td class="view_item">拟用企业互生号</td>
+			<td class="view_text"><%=obj.hsResNo%></td>
+			<td class="view_item">拟使用企业名称</td>
+			<td class="view_text"><%=obj.custName%></td>
+	  	</tr>
+	</table>
+	<form id="lzglfh_qrfh_form" autocomplete="off"> 
+	<ul class="mt10">
+	     <li class="register_row clearfix">
+			<label class="fl w115 h60_middle">关联备注信息</label>
+			<textarea class="fl ml5 h50 w465 rsn pt5 pb5"  disabled ><%=obj.reqRemark%></textarea>
+		</li>
+		<li class="register_row clearfix">
+			<label class="fl w115 h60_middle">审批意见</label>
+			<textarea name="apprRemark" id="apprRemark" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="输入审批意见,不超过300个字"></textarea>
+		</li>
+		<li class="register_row clearfix">
+			<label class="fl w115 h30_middle">复核结果</label>
+			<div class="fl h30_middle">
+				<%if(obj.orderStatus==1){%>
+					<input type="radio" name="status" value="1" class="ml20" checked="checked"> 通过
+					<input type="radio" name="status" value="2" class="ml20"> 驳回
+				<%}else{%>
+					<input type="radio" name="status" value="2" class="ml20" checked="checked"> 驳回
+				<%}%>
+				<input type="hidden" name="orderNo" value="<%=obj.orderNo%>"/>
+				<input type="hidden" name="cashAmount" value="<%=obj.orderCashAmount%>"/>
+				<input type="hidden" name="linkAmount" value="<%=obj.linkAmount%>"/>
+				<input type="hidden" name="debitIds" value="<%=obj.debitIds%>"/>
+			</div>
+		</li>
+	</ul>
+	</form>
+</div>

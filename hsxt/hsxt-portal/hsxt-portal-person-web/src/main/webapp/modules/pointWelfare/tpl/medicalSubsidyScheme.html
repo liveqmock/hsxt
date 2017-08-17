@@ -1,0 +1,354 @@
+﻿<!--积分赠送互生医疗补贴计划-->
+<div class="p20 none" data-id="1" id="medicalsub_div">
+	<!--未达10000PV温馨提示-->
+	<h1 id="N_note" class="acct-tips none info_800 bc">
+		<p class="tcr_blue fb tl">温馨提示：</p>
+		<p class="tl lh30 pb20">
+			1、您未获得平台赠送的互生医疗补贴计划资格；<br />
+			2、互生卡实名注册成功起，累计投资积分总数达到10000分以上获得本医疗补贴（不含门诊医疗）；<br />
+			3、互生卡未实名注册期间产生的积分投资不作为本保障所参考的积分投资累计范畴； <br /> 
+			4、互生卡注册身份类型为企业的，不享受平台提供给消费者的相关积分福利；<br /> 
+			5、凡存在虚构交易恶意刷积分、利用慈善名义为持卡受益人募集积分等非正常积分行为，平台不予以补贴，同时还将追究所有参与方（持卡人和提供积分企业）的一切法律责任。
+		</p>
+	</h1>
+	
+	<h1 id="Y_note" class="acct-tips none info_800 bc">
+		<p class="tcr_blue fb tl">温馨提示：</p>
+		<p class="tl lh30 pb20">
+			1、您已获得平台赠送的互生医疗补贴计划资格；<br /> 
+			2、您累计投资积分总数达到<span id="total_invert_point">0</span>分，达到本医疗补贴申请条件（不含门诊医疗）；<br />
+			3、未参加医保的消费者申请医疗补贴计划时，医疗机构出具的医疗费用原始结算发票、费用清单、诊断证明及病历等相关治疗资料原件需寄回平台；<br />
+			4、凡存在虚构交易恶意刷积分、利用慈善名义为持卡受益人募集积分等非正常积分行为，平台不予以补贴，同时还将追究所有参与方（持卡人和提供积分企业）的一切法律责任。
+		</p>
+	</h1>
+	
+	<h1 id="Z_note" class="acct-tips none info_800 bc">
+		<span class="tcr_blue fb">温馨提示：</span>互生卡注册身份类型为企业的，不享受平台提供给消费者的相关积分福利。
+	</h1>
+	
+	<div class="register_info info_800">
+		<form id="medical_form">
+			<fieldset>
+				<div class="clearfix">
+					<ul class="fl" style="width:45%;">
+						<li class="register_row w400 clearfix pr"><label for="name">医保号码</label>
+							<input type="hidden" id="custId_hidden"/> <input type="text" id="healthCardNo" name="healthCardNo" class="input_gray" placeholder="请输入医保号码" maxlength="19" placeholder="输入选择、可以为多个接收者，接收者之间由分隔符分开" onpaste = "return false" ondragenter = "return false" />
+						</li>
+						<li class="register_row w400 clearfix pr"><label for="name">诊疗起始日期</label>
+							<input id="startDate"  name="startDate" readonly="readonly" type="text" class="jqp-datepicker">
+							<span class="required-box">*</span>
+						</li>
+						<li class="register_row w400 clearfix pr"><label for="name">诊疗终止日期</label>
+							<input id="endDate" name="endDate"  readonly="readonly" type="text" class="jqp-datepicker"/>
+							<span class="required-box">*</span>
+						</li>
+					</ul>
+					<ul class="fr" style="width:45%;">
+						<li class="register_row w400 clearfix pr"><label for="name">所在城市</label>
+							<input type="text" id="city" name="city" class="input_gray" placeholder="请输入所在城市" style="width:266px;" maxlength="20"/>
+							<span class="required-box">*</span>
+						</li>
+						<li class="register_row w400 clearfix pr"><label for="name">所在医院</label>
+							<input type="text" id="hospital" name="hospital" class="input_gray" placeholder="请输入所在医院" style="width:266px;"  maxlength="42"/>
+							<span class="required-box">*</span>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix">
+					<ul class="fl" style="width: 45%;">
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name">互生卡正面</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="hscPositiveImg" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="hscPositive" name="hscPositive"/></a>
+							<a class="btn_bg viewSample_btn" id="subSidyPlan_demo_href_1">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name">身份证正面</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="cerPositiveImg" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cerPositive" name="cerPositive"/></a>
+							<a class="btn_bg viewSample_btn" id="subSidyPlan_demo_href_3">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">消费者本人的<br/>社会保障卡复印件</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="sscImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ssc" name="ssc"/></a>
+							<span class="required-box-h60 none hscard_tip">*</span> 
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">费用明细清单<br/>复印件(一份)</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="cdlImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cdl" name="cdl"/></a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5">
+							<label for="name" style="line-height: 24px;">住院病历<br/>复印件(一份)</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="imrImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="imr" name="imr"/></a> 
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">医保中心的受理<br/>回执复印件</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="medicalAcceptImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="medicalAccept" name="medicalAccept"/></a>
+							<span class="required-box-h60 none hscard_tip">*</span> 
+						</li>
+					</ul>
+					<ul class="fr" style="width: 45%;">
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name">互生卡背面</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="hscReverseImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a class="input-file btn_bg upload_btn">上传<input type="file" id="hscReverse" name="hscReverse"/></a>
+							<a href="javascript:;" class="btn_bg viewSample_btn" id="subSidyPlan_demo_href_2">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name">身份证背面</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="cerReverseImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cerReverse" name="cerReverse"/></a>
+							<a class="btn_bg viewSample_btn" id="subSidyPlan_demo_href_4">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">原始收费收据<br/>复印件(一份)</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="ofrImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ofr" name="ofr"/></a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">门诊病历<br/> 复印件(一份)</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="omrImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="omr" name="omr"/></a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">疾病诊断证明书<br/>复印件(一份)</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="ddcImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ddc" name="ddc"/></a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height: 24px;">医疗费用报销<br/>计算表复印件</label>
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="costCountImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="costCount" name="costCount"/></a>
+							<span class="required-box-h60 none hscard_tip">*</span> 
+						</li>
+					</ul>
+				</div>
+				<div class="mt5 pr" style="height:60px;">
+					<ul class="clearfix pa" style="left:0; top:0;">
+					<li class="input_item_upload_1 clearfix" style="width:840px;">
+						<label for="name">其它附件上传</label> 
+						<span id="otherProveSpan1">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg1" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve1" name="otherProve1"/></a>
+						</span>
+						<span id="otherProveSpan2" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg2" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve2" name="otherProve2"/></a>
+						</span>
+						<span id="otherProveSpan3" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg3" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve3" name="otherProve3"/></a>
+						</span>
+						<span id="otherProveSpan4" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg4" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve4" name="otherProve4"/></a>
+						</span>
+						<span id="otherProveSpan5" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg5" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve5" name="otherProve5"/></a>
+						</span>
+					</li>
+				</ul>
+				</div>
+				<div class="tc two_button mt20 h40 none" id="medicalSubmitDiv">
+					<a id="medicalSubmit" href="javascript:;" class="hs_btn Thick_btn">立即申请</a>
+				</div>
+				<div class="myhs_bottom_sm">
+					<h2 class="cl-red">资料附件上传说明</h2>
+					<p>1、资料附件图片要求必须是清晰，仅支持jpg、jpeg、bmp、png格式图片且不能超过2M！</p>
+					<p>2、住院病历须加盖医疗机构公章；需到医院病案室复印：入院记录、医嘱单、手术记录、出院记录及相关检查报告单。</p>
+					<p>3、急诊住院须出具医院急诊证明，门诊治疗不属于互生医疗补贴计划。</p>
+					<h2 class="cl-red">互生医疗补贴计划说明</h2>
+					<p>消费者积分投资达到1万分以后，将享受平台给出的互生医疗补贴计划（不含门诊医疗）。互生医疗补贴计划是依托在原个人医保基础上对自费部分进行补贴的一种方式。平台将消费积分投资收益中提取一定比例的医疗基金，建立医疗基金池，对有需要的人群进行医疗补贴的方式来过渡。随着时间的推移和医疗基金池资金的不断增加，平台将全力配合国家的医疗体制改革，逐步实现全民的免费医疗计划。</p>
+					<p class="fb mt10">注：凡存在虚构交易恶意刷积分、利用慈善名义为持卡受益人募集积分等非正常积分行为，平台不予以补贴，同时还将追究所有参与方（持卡人和提供积分企业）的一切法律责任。</p>
+				</div>
+			</fieldset>
+			
+				<!-- 隐藏域，用于提交后台路径 -->
+	<input type="hidden" name="custId" id="custId"/>	<!-- id -->
+	<input type="hidden" name="hsResNo" id="hsResNo"/>	<!-- 互生号  -->
+	<input type="hidden" name="proposerName" id="proposerName"/><!--申请人姓名 -->
+	<input type="hidden" name="proposerPhone" id="proposerPhone"/>	<!--申请人电话 -->
+	<input type="hidden" name="proposerPapersNo" id="proposerPapersNo"/>	<!--申请人证件号码 -->
+	<input type="hidden" name="applyDate" id="applyDate"/>		<!--医保卡号 -->
+	<input type="hidden" name="explain" id="explain"/>		<!--说明 -->
+	<!-- <input type="hidden" name="healthCardNo" id="healthCardNo"/> -->		<!--医保卡号  -->
+	
+	
+	
+	
+	<input type="hidden" name="hscPositivePath" id="hscPositivePath"/>		<!-- 互生卡正面图片路径 -->
+	<input type="hidden" name="hscReversePath" id="hscReversePath"/>		<!-- 互生卡背面图片路径 径-->
+	<input type="hidden" name="cerPositivePath" id="cerPositivePath"/>		<!-- 身份证正面图片路径 -->
+	<input type="hidden" name="cerReversePath" id="cerReversePath"/>		<!-- 身份证背面图片路径 -->
+	<input type="hidden" name="omrPath" id="omrPath"/>		<!-- 门诊病历复印件图片路径-->
+	<input type="hidden" name="otherProvesPath" id="otherProve1Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve2Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve3Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve4Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve5Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="medicalAcceptPath" id="medicalAcceptPath"/>	<!-- 	医保中心的受理回执复印件图片路径-->
+	<input type="hidden" name="costCountPath" id="costCountPath"/>		<!-- 医疗费用报销计算表复印件 图片路径 -->
+	<input type="hidden" name="sscPath" id="sscPath"/>		<!-- 消费者本人的社会保障卡复印件-->
+	<input type="hidden" name="imrPath" id="imrPath"/>		<!-- 住院病历复印件 图片路径-->
+	<input type="hidden" name="ofrPath" id="ofrPath"/>		<!-- 原始收费收据复印件 图片路径)-->
+	<input type="hidden" name="ddcPath" id="ddcPath"/>		<!-- 诊断证明书复印件 图片路径-->
+	<input type="hidden" name="cdlPath" id="cdlPath"/>		<!-- 费用明细清单复印件图片路径 -->
+			
+			
+			
+			
+		</form>
+	</div>
+</div>
+
+
+<!--弹出框显示内容-->
+<div class="jqp-dialog" style="display:none;">
+	<div class="title">互生医疗补贴计划</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i> <span class="fl f14 ml10 pt9">互生医疗补贴申请成功！</span></div></td>
+			</tr>
+			<tr>
+				<td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn">确定</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+	<!--受理中-->
+	<div class="page_tips_subwrap pt100 pb100 none" id="medicalsub_applying">
+		<div class="page_tips bc tc">
+			<h1 class="f16 fb">温馨提示</h1>
+			<p class="f14 fb">目前您已提交互生互生医疗补贴计划申请处理中，在此期间，本业务暂无法受理！</p>
+		</div>
+	</div>
+
+	
+	<!--审批驳回-->
+	<div class="view_info mt40 info_500 none" id="approvalReject" style="height:200px;">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">审批结果</td>
+				<td class="view_text" width="30%" id="approvalResult"></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批意见</td>
+				<td class="view_text" id="approvalReason" ></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批日期</td>
+				<td class="view_text" id="approvalDate" ></td>
+			</tr>
+		</table>
+		<div class="mt20" align="center">
+		<a href="javascript:;" id="applyAgain_btn" class="hs_btn myhs_ajax_btn">重新申请互生医疗补贴</a>
+		</div>
+	</div>
+	<!--end-->
+	
+	<!--审批通过-->
+	<div class="page_tips_subwrap pt100 pb100 none" id="approvalPass">
+		<div class="page_tips bc tc">
+			<h1 class="f16 fb">温馨提示</h1>
+			<p class="f14 fb">您已通互生互生医疗补贴计划申请，请留意互生币账户医疗补贴金额的发放！</p>
+		</div>
+		<div align="center"  style="margin-top:20px;"><a href="javascript:;" id="back_btn" class="hs_btn myhs_ajax_btn">返 回</a></div>
+	</div>
+
+
+
+<div id="showImageDiv50" class="none"><img alt="证件图片" src="" id="showImage50" width="800" height="600"></div>

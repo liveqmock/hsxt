@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.UserMapper">
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.lcs.bean.SysUser">
+		INSERT INTO SYS_USER (USER_NAME, USER_PWD)
+		VALUES
+				(
+					#{userName},#{userPwd})
+	</insert>
+	<!-- 获取某个用户 -->
+	<select id="getUserName" parameterType="com.gy.hsxt.lcs.bean.SysUser"
+		resultType="com.gy.hsxt.lcs.bean.SysUser">
+		SELECT
+				USER_NAME AS userName,
+				USER_PWD AS userPwd
+		FROM
+				SYS_USER
+		WHERE
+				USER_NAME = #{userName} and USER_PWD=#{userPwd}
+	</select>
+	<!-- 获取列表 -->
+	<select id="getUserNameList"
+		resultType="com.gy.hsxt.lcs.bean.SysUser">
+		SELECT
+				USER_NAME AS userName,
+				USER_PWD AS userPwd
+		FROM
+				SYS_USER
+	</select>
+	<!-- 更新一条记录 -->
+	<update id="update" parameterType="com.gy.hsxt.lcs.bean.SysUser">
+		update SYS_USER 
+		<set>
+				USER_NAME=#{userName,jdbcType=VARCHAR},
+				USER_PWD=#{userPwd,jdbcType=VARCHAR}
+		</set>
+		 where 
+		         USER_NAME=#{userName,jdbcType=VARCHAR}
+	</update>
+	<!-- 删除一条记录 -->
+	<delete id="delete" parameterType="string">
+		DELETE
+		FROM
+				SYS_USER
+		WHERE
+				USER_NAME = #{userName}
+	</delete>
+
+</mapper>

@@ -1,0 +1,20 @@
+
+<%$.each(obj.orderList.orderList,function(k,v){%>
+<%if(obj.orderTimeId == v.orderTimeId){%>
+<div class="clearfix hd_order_content" style="display: block;"><div class="hd_hslt_ddxx clearfix">
+		<div class="fb tcr_lvse fl">【互商订单消息】<span><%=v.orderInfo.msg_subject%></span></div>
+		
+		<div class="mr10 tcr_grey fr"><%=obj.NowtimeNew(v.time)%></div>
+		</div>
+		<div class="hd_hslt_ddxxbox tcr_grey clearfix"><ul><li class="tcr_grey lh30">
+		<b class="unread">标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</b><%=v.orderInfo.msg_subject%></li>
+		<li class="tcr_grey lh30"><b class="unread">消息类型：</b>
+		<%=obj.orderType(obj.codeId)%>
+		</li>
+		<li class="tcr_grey lh30" style="word-break:break-all;word-wrap:break-word;"><b class="unread">消息内容：</b><%=v.orderInfo.msg_content%></li>
+		<%if(null != v.orderInfo.shop_name_addr && "" != v.orderInfo.shop_name_addr){%>
+		<li class="tcr_grey lh30" style="word-break:break-all;word-wrap:break-word;"><b class="unread">所属营业点：</b><%=v.orderInfo.shop_name_addr%></li>
+		<%}%>
+		</ul></div></div>
+<%return; }%>		
+<%})%>		

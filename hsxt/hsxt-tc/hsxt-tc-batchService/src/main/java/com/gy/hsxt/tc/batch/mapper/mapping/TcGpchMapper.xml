@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcGpchMapper" >
+  
+  <delete id="deleteTableData" >    
+    truncate table ${_parameter}   
+  </delete>
+
+  <!-- keys:TABLE,COLUMNS,DATA_LIST -->
+  <insert id="insertFileDataToDb" parameterType="java.util.Map" >
+  	<if test="TABLE == 'T_TC_GPCH_GP_TMP'">
+    insert into T_TC_GPCH_GP_TMP (GP_SEQ_ID,GP_TRAN_NUM,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select #{item.GP_SEQ_ID}, #{item.GP_TRAN_NUM},
+        #{item.GP_TRANS_TYPE},#{item.GP_TRANS_AMOUNT},#{item.GP_TRANS_STATUS},
+        to_date(#{item.GP_TRANS_DATE,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')		
+		from dual
+      </foreach>
+     ) A
+    </if>
+  	<if test="TABLE == 'T_TC_GPCH_CH_TMP'">
+    insert into T_TC_GPCH_CH_TMP (CH_SEQ_ID,CH_TRANS_DATE,CH_TRAN_NUM,CH_TRANS_TYPE,CH_TRANS_AMOUNT,CH_TRANS_STATUS,CH_MERCHANT_DATE)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select #{item.CH_SEQ_ID},to_date(#{item.CH_TRANS_DATE,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss'), #{item.CH_TRAN_NUM},
+        #{item.CH_TRANS_TYPE},#{item.CH_TRANS_AMOUNT},#{item.CH_TRANS_STATUS},
+        to_date(#{item.CH_MERCHANT_DATE,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')		
+		from dual
+      </foreach>
+     ) A
+     </if>
+  </insert>
+  <!-- CHECK_KEY_COLUMNS= new String[] { "GP_TRAN_NUM", "GP_TRANS_TYPE", "GP_TRANS_AMOUNT","GP_TRANS_STATUS"}; -->
+  <delete id="deleteDoubtByMore" >    
+    delete from t_tc_gpch_doubt
+    where TRAN_NUM =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+    and CH_TRANS_TYPE =#{GP_TRANS_TYPE,jdbcType=DECIMAL}
+    and CH_TRANS_AMOUNT =#{GP_TRANS_AMOUNT,jdbcType=DECIMAL}
+    and CH_TRANS_STATUS =#{GP_TRANS_STATUS,jdbcType=DECIMAL}
+  </delete>
+  <update id="updateDoubtByMore" >
+    <![CDATA[ 
+	update t_tc_gpch_doubt a
+	set (imbalance_result,
+	a.gp_seq_id,a.gp_trans_type,a.gp_trans_amount,a.gp_trans_status,a.gp_trans_date) =( 
+	select 2,
+	b.gp_seq_id,b.gp_trans_type,b.gp_trans_amount,b.gp_trans_status,b.gp_trans_date 
+	from t_tc_gpch_gp_tmp b where b.gp_tran_num=a.tran_num and rownum=1
+	)
+	where a.gp_seq_id is null
+	and a.tran_num =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+	and exists (select 1
+	from t_tc_gpch_gp_tmp b
+	where b.gp_tran_num=a.tran_num
+	)
+	]]>
+  </update>
+  <insert id="insertDoubtByMore" >    
+    insert into t_tc_gpch_doubt
+  	(doubt_id, acc_date,imbalance_result, tran_num, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date)
+	select seq_t_tc_gpch_doubt.nextval,#{TC_DATE,jdbcType=CHAR},0,GP_TRAN_NUM, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date 
+	from t_tc_gpch_gp_tmp
+    where GP_TRAN_NUM =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+    and GP_TRANS_TYPE =#{GP_TRANS_TYPE,jdbcType=DECIMAL}
+    and GP_TRANS_AMOUNT =#{GP_TRANS_AMOUNT,jdbcType=DECIMAL}
+    and GP_TRANS_STATUS =#{GP_TRANS_STATUS,jdbcType=DECIMAL}
+  </insert>
+  
+  <delete id="deleteDoubtByLack" >    
+    delete from t_tc_gpch_doubt
+    where tran_num =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+    and GP_TRANS_TYPE =#{GP_TRANS_TYPE,jdbcType=DECIMAL}
+    and GP_TRANS_AMOUNT =#{GP_TRANS_AMOUNT,jdbcType=DECIMAL}
+    and GP_TRANS_STATUS =#{GP_TRANS_STATUS,jdbcType=DECIMAL}
+  </delete>
+  <update id="updateDoubtByLack" >
+    <![CDATA[ 
+	update t_tc_gpch_doubt a
+	set (imbalance_result,
+	ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date) =( 
+	select 2,
+	ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date
+	from t_tc_gpch_ch_tmp b where b.CH_TRAN_NUM=a.tran_num and rownum=1
+	)
+	where a.ch_seq_id is null
+	and a.tran_num =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+	and exists (select 1
+	from t_tc_gpch_ch_tmp b
+	where b.CH_TRAN_NUM=a.tran_num
+	)
+	]]>
+  </update>
+  <insert id="insertDoubtByLack" >    
+    insert into t_tc_gpch_doubt
+	  (doubt_id, acc_date,  imbalance_result,tran_num,
+	  ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date)  
+	select seq_t_tc_gpch_doubt.nextval,#{TC_DATE,jdbcType=CHAR},1,CH_TRAN_NUM,
+	ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date
+	from t_tc_gpch_ch_tmp
+	where CH_TRAN_NUM =#{GP_TRAN_NUM,jdbcType=VARCHAR}
+    and CH_TRANS_TYPE =#{GP_TRANS_TYPE,jdbcType=DECIMAL}
+    and CH_TRANS_AMOUNT =#{GP_TRANS_AMOUNT,jdbcType=DECIMAL}
+    and CH_TRANS_STATUS =#{GP_TRANS_STATUS,jdbcType=DECIMAL}
+  </insert>
+  
+  <insert id="insertImbalanceByDoubt" > 
+  	<![CDATA[
+  	insert into t_tc_gpch_imbalance
+	  (imbalance_id, acc_date, tran_num, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date, imbalance_result)
+	select doubt_id, acc_date, tran_num, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, ch_seq_id, ch_trans_type, ch_trans_amount, ch_trans_status, ch_trans_date, ch_merchant_date, imbalance_result 
+	from t_tc_gpch_doubt
+	where acc_date<#{TC_DATE,jdbcType=CHAR}
+  	]]>
+  </insert>
+  <delete id="deleteDoubtAfterMoveToImbalance" >
+  	<![CDATA[  
+    delete from t_tc_gpch_doubt where acc_date<#{TC_DATE,jdbcType=CHAR}
+  	]]>
+  </delete>
+  
+  
+  <insert id="insertMoreOfGP" parameterType="java.util.Map" >
+	insert into t_tc_gpch_doubt(tran_num,gp_seq_id,gp_trans_type,gp_trans_amount,gp_trans_status,gp_trans_date)
+	select b.gp_tran_num,b.gp_seq_id,b.gp_trans_type,b.gp_trans_amount,b.gp_trans_status,b.gp_trans_date 
+	from t_tc_gpch_gp_tmp b left join (select distinct tran_num from t_tc_gpch_doubt) c on b.gp_tran_num=c.tran_num
+	where b.gp_tran_num in (
+	<foreach collection="GP_MORE_ID" item="item" index="index" open="" close="" separator=",">
+	#{item}
+	</foreach>
+	)
+	and c.tran_num is null
+  </insert>
+  <insert id="insertMoreOfCH" parameterType="java.util.Map" >
+	insert into t_tc_gpch_doubt(tran_num,ch_seq_id,ch_trans_type,ch_trans_amount,ch_trans_status,ch_trans_date,ch_merchant_date)
+	select b.ch_tran_num,b.ch_seq_id,b.ch_trans_type,b.ch_trans_amount,b.ch_trans_status,b.ch_trans_date,b.ch_merchant_date
+	from t_tc_gpch_ch_tmp b left join (select distinct tran_num from t_tc_gpch_doubt) c on b.ch_tran_num=c.tran_num
+	where b.ch_tran_num in (
+	<foreach collection="CH_MORE_ID" item="item" index="index" open="" close="" separator=",">
+	#{item}
+	</foreach>
+	)
+	and c.tran_num is null
+  </insert>
+</mapper>

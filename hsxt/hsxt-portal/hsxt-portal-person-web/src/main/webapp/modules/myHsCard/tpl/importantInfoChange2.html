@@ -1,0 +1,87 @@
+<!-- 上传附件开始 -->
+<form id="impInfoChange_form" name="impInfoChange_form">
+<div class="ml20 mt20 mr20 none" id="impInfoChange_mod_div">
+	<div class="prompt clearfix"><i class="icon i_icon"></i>只能上传低于2M的jpg、jpeg、bmp、png格式图片！</div>
+	<div class="certificateBox mt20">
+		<ul class="certificateSample clearfix">
+			<li><span class="f13">证件正面<span class="red ml5">*</span></span>
+			<div class="mb10 sampleBox"><i id="imp_lrcfuploadImage_i" class="certificateSample_img certificateSample_01"><img id="imp_lrcfuploadImage" src="/resources/images/space.png" onerror="this.style.display='none'" class="lrcfpimg showImage4" width="107" height="64"/></i></div>
+			<div class="sample_btn">
+				<a href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="imp_lrcfmyBlogImage" name="imp_lrcfmyBlogImage" style="width: 48px;height: 26px;"/></a>
+				<a id="impInfo_demo_href_1" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+			</div>
+			<input type="hidden" id="imp_lrcFacePath" name="imp_lrcFacePath" value=""/>
+			</li>
+			<li id="impInfoChange2_oppositeImg"><span class="f13">证件反面<span class="red ml5">*</span></span>
+			<div class="mb10 sampleBox"><i id="imp_lrcbuploadImage_i" class="certificateSample_img certificateSample_02"><img id="imp_lrcbuploadImage" src="/resources/images/space.png" onerror="this.style.display='none'" class="lrcfpimg showImage4" width="107" height="64" /></i></div>
+			<div class="sample_btn">
+				<a href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="imp_lrcbmyBlogImage" name="imp_lrcbmyBlogImage" style="width: 48px;height: 26px;"/></a>
+				<a id="impInfo_demo_href_2"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+			</div>
+			<input type="hidden" id="imp_lrcBackPath" name="imp_lrcBackPath" value="" />
+			</li>
+			<li><span class="f13">手持证件大头照<span class="red ml5">*</span></span>
+			<div class="mb10 sampleBox"><i id="imp_lrccuploadImage_i" class="certificateSample_img certificateSample_01"><img id="imp_lrccuploadImage" src="/resources/images/space.png" onerror="this.style.display='none'"  class="lrcfpimg showImage4" width="107" height="64" /></i></div>
+			<div class="sample_btn">
+				<a href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;">上传<input type="file" id="imp_lrccmyBlogImage" name="imp_lrccmyBlogImage" style="width: 48px;height: 26px;"/></a>
+				<a id="impInfo_demo_href_3"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+			</div>
+			<input type="hidden" id="imp_lrcCackPath" name="imp_lrcCackPath" value=""/>
+			</li>
+			<li id="hjbgzm_li" style="display:none;">
+				<span class="f13">户籍变更证明<span class="red ml5">*</span></span>
+				<div class="mb10 sampleBox"><i id="imp_lrcduploadImage_i" class="certificateSample_img certificateSample_01"><img id="imp_lrcduploadImage" src="/resources/images/space.png" onerror="this.style.display='none'" class="lrcfpimg showImage4" width="107" height="64" /></i></div>
+				<div class="sample_btn">
+					<a href="javascript:;" class="input-file btn_bg upload_btn" style="width: 48px;height: 26px;margin-left:55px;">上传<input type="file" id="imp_lrcdmyBlogImage" name="imp_lrcdmyBlogImage" style="width: 48px;height: 26px;"/></a>
+				    <!-- <a id="impInfo_demo_href_4" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> -->
+				</div>
+				<input type="hidden" id="imp_lrcProvePath" name="imp_lrcProvePath" value=""/>
+			</li>
+		</ul>
+	</div>
+	<div class="changeOfBusiness clearfix">
+		<div class="cob_right fl">
+			<div class="register_info">
+			<fieldset>
+				<ul class="ml10">
+					<li class="register_row_textarea clearfix pr" style="width:535px;">
+					<label for="name">申请变更原因</label><div style="background-color:white;height:60px;"><textarea id="impInfoChange_appReason" name="impInfoChange_appReason" style="width:390px;" class="input_gray" maxlength="200"></textarea></div><div id="hintmsg1" class="hint_2" style="left:540px;"></div>
+					<span class="required-box" style="top:17px;">*</span>
+					</li>
+					<li class="register_row info_320 clearfix pr">
+					
+					<label for="name">验证码</label>
+					<input type="hidden" id="mobile" name="mobile" value=""/>
+					<div class="fl" style="background-color:white;height:30px;">
+						<input type="text" id="imp_checkcode" name="imp_checkcode" class="input_gray" value="" maxlength="4"/>
+					</div>
+					<span class="required-box">*</span>
+					<div id="hintmsg" class="hint" style="width:200px;"> 
+						<span class="fl verificationCode"><img id="imp_validateCode" width="77" height="30"/></span>
+						<a id="imp_img-code" href="javascript:;" class="ml10 blue">看不清，换一张</a>
+					</div>
+					
+					</li>
+				</ul>
+				<div class="tc two_button h40 mt20"><a id="impInfoChange_lastBtn" href="javascript:;" class="hs_btn mr10 myhs_ajax_btn" data-id="zyxxbg">上一步</a><a id="impInfoChange_submitBtn" href="javascript:;" class="hs_btn Thick_btn" >提&#12288;交</a></div>
+			</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+<!-- 上传附件结束 -->
+
+<div id="showImageDiv4" class="none">
+	<img alt="证件图片" src="" id="showImage4" width="800" height="600">
+</div>
+
+<div id="afterSuccess" class="jqp-dialog" style="display:none;">
+	<div class="title">重要信息变更</div>
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i><span class="fl fb f14 ml10 pt9">重要信息变更提交成功！</span> </div><p class="pl50">提交重要信息变更后，在通过平台审核前，货币转银行账户功能将被禁止！</p></td></tr>
+			<tr><td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn Thick_btn">确定</a></td></tr>
+		</table>
+	</div>
+</div>

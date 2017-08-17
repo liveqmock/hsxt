@@ -1,0 +1,78 @@
+<div id="gsdjxxxg_tpl" class="none">
+	<!-- 资料修改开始 -->
+	<div class="register_info mt40 info_800">
+		<form id="gxdjxxxg_form">
+			<div class="clearfix" style="height: 185px;">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix">
+						<label for="name">企业名称</label>
+						<input type="text" id="companyName" value="<%=obj.entName%>" class="input_gray" placeholder="" readonly="readonly">
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="name">法人代表</label>
+						<input type="text" id="legalRepresentative" value="<%=obj.creName%>" class="input_gray" placeholder="" readonly="readonly">
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="name">企业类型</label>
+						<div>
+							<input id="companyType" name="entCustType" placeholder="请选择企业类型"/>
+						</div>
+						
+				   </li>
+					<li class="register_row info_320 clearfix">
+						<label for="name">组织机构代码证号</label>
+						<input type="text" id="organizationNo" value="<%=obj.orgCodeNo%>" class="input_gray"  placeholder="0001" readonly="readonly">
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="name">成立日期</label>
+						<input type="text" id="buildDate" name="buildDate" value="<%=obj.buildDate%>" readonly="readonly" />
+						<input type="hidden" id="creationDate_old" value="<%=obj.buildDate%>"/>
+						
+					</li>
+				</ul>
+				<ul class="fr pr" style="right: 60px;">
+					<li class="register_row info_320 clearfix">
+						<label for="name">企业地址</label>
+						<input type="text" id="address" value="<%=obj.contactAddr%>" class="input_gray" readonly="readonly">
+					</li>
+					<li class="register_row info_320 clearfix">
+						<label for="name">联系电话</label>
+						<input type="text" id="contactNo" name="contactPhone" value="<%=obj.contactPhone%>" class="input_gray" readonly="readonly" placeholder="输入联系电话">
+					</li>
+					<li class="register_row info_320 clearfix"><label for="name">营业执照号</label><input
+						type="text" id="busLicenceNo" value="<%=obj.busiLicenseNo%>" placeholder="" class="input_gray" readonly="readonly"></li>
+					<li class="register_row info_320 clearfix"><label for="name">纳税人识别号</label><input
+						type="text" id="taxplayerNo" value="<%=obj.taxNo%>" placeholder="0001" class="input_gray" readonly="readonly"></li>
+					<li class="register_row info_320 clearfix">
+					
+						<label for="name">营业期限</label>
+						
+						<input type="text" id="endDate" name="endDate" readonly="readonly" value="<%=obj.endDate%>"/>
+						<input type="hidden" id="expirationDate_old" />
+						
+						<div class="hint">
+							<input type="checkbox" id="longTime" style="height: 14px; width: 14px; margin: 8px 2px 0 0;"/>长期
+						</div>
+						
+					</li>
+
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li class="register_row_2 info_320 "><label for="name">经营范围</label>
+					<textarea id="businessArea" name="businessScope" ><%=obj.businessScope%></textarea>
+					<input id="businessArea_old" type = "hidden" value="<%=obj.businessScope%>"/>
+				</ul>
+			</div>
+			<div class="two_button mt20" align="center">
+				<a class="btn_bg submit fl" id="backBt_gongshang">取 消</a><a
+					class="btn_bg submit fr" id="submitBt_gongshang">提 交</a>
+			</div>
+
+		</form>
+	</div>
+
+	<!-- 资料修改结束 -->
+
+</div>

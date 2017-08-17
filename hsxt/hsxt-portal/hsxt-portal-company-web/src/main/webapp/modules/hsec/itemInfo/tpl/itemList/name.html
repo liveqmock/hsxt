@@ -1,0 +1,24 @@
+<%
+	var picUrl;
+    try{
+       	var obj =JSON.parse(picList[0].webPicUrl)
+        	picUrl=picList[0].picUrl+obj["68x68"]
+       }catch(e){
+        	picUrl = "";
+       }
+%>
+
+<div class="std_checkbox pr5">
+	<input name="itemDataCheckBox" style="margin-top:34px;" type="checkbox" status="<%=status%>" value="<%=strId%>" class="myDeviler"/>
+</div>
+<div class="pr">
+	<img class="std_jbxximg" src="<%=picUrl%>"/>
+</div>
+<div class="std_jbxx">
+  <ul>
+    <li class="lh24" style="white-space:nowrap;">编号：<%=strId%></li>
+    <li class="lh24"><a class="itemName" data-href="<%=itemPreviewUrl%>" target="_blank" ><%=name%></a></li>
+    <li class="lh24"><%=categoryName%></li>
+    <li class="lh24"><%=code!=null && code!=''?'货号：'+code:''%></li>
+  </ul>
+</div>

@@ -1,0 +1,54 @@
+<div id="jnxtsynf">
+    <div class="acct-ct mb20">
+		<table class="w">
+			<tr>
+				<td class="w200 tr pt10"><span class="tcr_blue fb">温馨提示：</span></td>
+				<td class="tl pt10">1、系统开启日的前两个月为下一年度系统使用年费的缴纳期！</td>
+			</tr>
+			<%if(obj.isOwe == 1){%>
+			<tr>
+				<td class="w200 tr pt10"></td>
+				<td class="tl pt10 "><span class="red">2、贵企业已欠年费<%=obj.payFee2%>，请及时缴纳，欠年费期间将暂停货币转银行和积分投资业务！</span></td>
+			</tr>
+			<%}%>
+			<tr>
+				<td colspan="2" class="pb10"></td>
+			</tr>
+		</table>
+       	
+       </div>
+   	   <div class="cssform_320">
+             <ul class="cssform clearfix" style="height:240px;">
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">互生币可用数量</label>
+                     <div class="cont-chk tbox "><span class="ml10 red"><%=obj.availablePointNum2 %></span></div>
+                 </li>
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">系统使用年费</label>
+                     <div class="cont-chk tbox "><span class="ml10"><%=obj.price2 %></span></div>
+                 </li>
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">需缴纳年费金额</label>
+                     <div class="cont-chk tbox "><span class="ml10" id="amountPayable"><%=obj.payFee2 %></span></div>
+                 </li>
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">目前年费有效期</label>
+                     <div class="cont-chk tbox "><span class="ml10"><%=obj.availableTime %></span></div>
+                 </li>
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">缴纳年费区间</label>
+                     <div class="cont-chk tbox "><span class="ml10"><%=obj.payTime %></span></div>
+                 </li>
+                 <li class="col2 pr bg_ef">
+                     <label class="title-txt">结算币种</label>
+                     <div class="cont-chk tbox "><span class="ml10 red">互生币</span></div>
+                 </li>
+              </ul>
+                         
+      </div><br>
+      <%if(obj.isInTime == "1"){%>
+      <div id="jnnf_hsbzf" class=" " align="center"><a id="nhjn_post" id="btn_jnxtsynf_tj" class="btn_bg submit">去付款</a></div>
+	  <%}%>
+</div>
+<div id="jnxtsynf_1" class="none"></div>
+<div id="jnxtsynf-dialog" class="none"><p></p></div>

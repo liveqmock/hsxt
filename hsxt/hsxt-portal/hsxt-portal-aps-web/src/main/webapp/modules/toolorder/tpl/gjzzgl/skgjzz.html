@@ -1,0 +1,47 @@
+﻿<div id="skgjzzTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>订单日期：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    /> 
+				</li>
+				<li>
+					<label>企业互生号：</label>
+					<input type="text" id="hsResNo" name="textfield" placeholder="输入互生号" maxlength="11" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>企业名称：</label>
+					<input type="text" id="hsCustName" name="textfield" placeholder="输入企业名称" class="h28_middle input-txt w115" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">工具类别：</label>
+					<input id="orderType" readonly="readonly" placeholder="选择工具类别" optionValue=""/>
+				</li>
+				<!-- <li class="clearfix">
+					<label class="fl h30_middle">制作状态：</label>
+					<input id="makeState" readonly="readonly" placeholder="选择制作状态" optionValue=""/>
+				</li> -->
+				<li>
+					<button id="skgjzzQueryBtn" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="orderNo" w_tip="true">订单号</th>
+		<th w_index="custName" w_tip="true">企业名称</th>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="orderType" w_render="operate">申购类型</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="quantity">数量</th>
+		<th w_render="operate">制作状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>
+<div id="orderDialogBox" class="none"></div>

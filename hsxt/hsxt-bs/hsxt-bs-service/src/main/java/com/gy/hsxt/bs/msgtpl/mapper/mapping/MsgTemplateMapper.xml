@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.msgtpl.mapper.MsgTemplateMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.bs.bean.msgtpl.MsgTemplate">
+		<id column="TEMP_ID" jdbcType="VARCHAR" property="tempId" />
+		<result column="TEMP_NAME" jdbcType="VARCHAR" property="tempName" />
+		<result column="TEMP_TYPE" jdbcType="DECIMAL" property="tempType" />
+		<result column="BIZ_TYPE" jdbcType="DECIMAL" property="bizType" />
+		<result column="CUST_TYPE" jdbcType="DECIMAL" property="custType" />
+		<result column="BUY_RES_TYPE" jdbcType="DECIMAL" property="buyResType" />
+		<result column="STATUS" jdbcType="DECIMAL" property="status" />
+		<result column="STATUS_TIME" jdbcType="TIMESTAMP" property="statusTime" />
+		<result column="LAST_APPLY_ID" jdbcType="VARCHAR" property="lastApplyId" />
+		<result column="TEMP_CONTENT" jdbcType="VARCHAR" property="tempContent" />
+		<result column="TEMP_FMT" jdbcType="VARCHAR" property="tempFmt" />
+		<result column="DEL_FLAG" jdbcType="DECIMAL" property="delFlag" />
+	</resultMap>
+
+	<!-- 插入消息模版 -->
+	<insert id="insertMsgTpl" parameterType="com.gy.hsxt.bs.bean.msgtpl.MsgTemplate">
+		INSERT INTO
+		T_BS_MSG_TEMPLATE
+		(
+		TEMP_ID,
+		TEMP_NAME,
+		TEMP_TYPE,
+		BIZ_TYPE,
+		CUST_TYPE,
+		BUY_RES_TYPE,
+		STATUS,
+		STATUS_TIME,
+		TEMP_CONTENT,
+		TEMP_FMT,
+		DEL_FLAG
+		)
+		VALUES
+		(
+		#{tempId},
+		#{tempName},
+		#{tempType},
+		#{bizType},
+		#{custType},
+		#{buyResType},
+		#{status},
+		sysdate,
+		#{tempContent},
+		#{tempFmt},
+		0
+		)
+	</insert>
+
+	<!-- 修改模版 -->
+	<update id="updateMsgTpl" parameterType="com.gy.hsxt.bs.bean.msgtpl.MsgTemplate">
+		UPDATE
+		T_BS_MSG_TEMPLATE
+		<set>
+			<if test="tempName!=null and tempName!=''">
+				TEMP_NAME = #{tempName},
+			</if>
+			<if test="tempType!=null">
+				TEMP_TYPE = #{tempType},
+			</if>
+			<if test="bizType!=null">
+				BIZ_TYPE = #{bizType},
+			</if>
+			<if test="custType!=null">
+				CUST_TYPE = #{custType},
+			</if>
+			<if test="buyResType!=null">
+				BUY_RES_TYPE = #{buyResType},
+			</if>
+			<if test="tempContent!=null and tempContent!=''">
+				TEMP_CONTENT = #{tempContent},
+			</if>
+			<if test="tempFmt!=null and tempFmt!=''">
+				TEMP_FMT = #{tempFmt},
+			</if>
+		</set>
+		WHERE
+		TEMP_ID = #{tempId}
+	</update>
+
+	<!-- 查询模版列表 -->
+	<select id="findMessageTplListPage" resultMap="BaseResultMap">
+		select * from T_BS_MSG_TEMPLATE 
+		<where>
+			and TEMP_TYPE = #{tplType}
+			<if test="tplName!=null and tplName!=''">
+				and TEMP_NAME like '%${tplName}%'
+			</if>
+			<if test="useCustType!=null">
+				and CUST_TYPE = #{useCustType}
+			</if>
+			<if test="status!=null">
+				<if test="status==1">
+					and STATUS in (5,6)
+				</if>
+				<if test="status!=1">
+					and STATUS = #{status}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新模版状态 -->
+	<update id="updateMsgTplStatus">
+		UPDATE
+		T_BS_MSG_TEMPLATE
+		SET
+		STATUS = #{status},
+		STATUS_TIME = sysdate
+		WHERE
+		TEMP_ID = #{tempId}
+	</update>
+
+	<!-- 更新模版审批编号 -->
+	<update id="updateAppyId">
+		UPDATE
+		T_BS_MSG_TEMPLATE
+		SET
+		LAST_APPLY_ID = #{lastApplyId}
+		WHERE
+		TEMP_ID = #{tempId}
+	</update>
+
+	<!-- 更新删除标识 -->
+	<update id="updateDelFlag">
+		UPDATE
+		T_BS_MSG_TEMPLATE
+		SET
+		DEL_FLAG = #{delFlag}
+		WHERE
+		TEMP_ID = #{tempId}
+	</update>
+
+	<!-- 查询模版类型所对应的适用客户类别是否已存在 -->
+	<select id="findTplTypeExist" resultType="int">
+		select count(0) from T_BS_MSG_TEMPLATE where
+		TEMP_TYPE = #{tempType} and BIZ_TYPE=#{bizType}
+	</select>
+
+	<!-- 查询模版类型与适用客户类别是否已存在于非当前模版编号 -->
+	<select id="findTplType" resultType="int">
+		select count(0) from T_BS_MSG_TEMPLATE where
+		TEMP_TYPE = #{tempType} and BIZ_TYPE=#{bizType} and TEMP_ID!=#{tempId}
+	</select>
+	
+	<!-- 查询模版详情 -->
+	<select id="findMessageTplInfo" resultMap="BaseResultMap">
+		select * from T_BS_MSG_TEMPLATE where TEMP_ID = #{tempId}
+	</select>
+	
+	<!-- 查询模版详情 -->
+	<select id="findEnabledMsgTplInfo" resultMap="BaseResultMap">
+		select * from T_BS_MSG_TEMPLATE mt 
+		where 
+		mt.TEMP_TYPE = #{tempType}
+		and mt.biz_type=#{bizType}
+		and mt.cust_type=#{custType}
+		<if test="buyResType!=null">
+		 and mt.buy_res_type=#{buyResType}
+		</if>
+		 and mt.status=2 
+	</select>
+	
+	<!-- 查询已启用的相同模版 -->
+	<select id="findEnabledTplNum" resultType="int">
+		select count(0) from T_BS_MSG_TEMPLATE mt 
+		where 
+		mt.biz_type=#{bizType}
+		and mt.cust_type=#{custType}
+		<if test="buyResType!=null">
+		 and mt.buy_res_type=#{buyResType}
+		</if>
+		 and mt.status=2 
+	</select>
+	
+	<!-- 查询重复的模版名称 -->
+	<select id="findSameTempName" resultType="int">
+		select count(0) from T_BS_MSG_TEMPLATE where TEMP_NAME = #{tempName}
+	</select>
+	
+	<!-- 查询非当前模版是否有重名 -->
+	<select id="findSameTempNameNotId" resultType="int">
+		select count(0) from T_BS_MSG_TEMPLATE where TEMP_NAME = #{tempName} and TEMP_ID != #{tempId}
+	</select>
+	
+	<!-- 查询已开启的模版 -->
+	<select id="findEnabledMsgTpl" resultMap="BaseResultMap">
+		select * from T_BS_MSG_TEMPLATE where status = 2
+	</select>
+</mapper>

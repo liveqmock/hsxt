@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessCustParamMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessCustParamItems" id="businessCustParamItems">
+     <!-- 客户业务对象-->
+        <id column="CUST_ITEMS_ID" property="custItemsId" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_KEY" property="sysItemsKey" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_NAME" property="sysItemsName" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_VALUE" property="sysItemsValue" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+<!-- @author 作者 : weixz -->
+
+<!-- 新增单个客户业务对象 -->
+<insert id="addCustParamItems" parameterType="BusinessCustParamItems">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_CUST_BUSINESS_PARAM
+		      ( 
+		        CUST_ITEMS_ID,
+		        CUST_ID,
+		        CUST_NAME,
+		        HS_RES_NO,
+				SYS_GROUP_CODE,
+				SYS_ITEMS_KEY,
+				SYS_ITEMS_NAME,
+				SYS_ITEMS_VALUE, 
+				ISACTIVE,
+				CREATEDBY,
+				CREATED_DATE) 
+		VALUES (
+			 	SEQ_BP_CUST_ITEMS_ID.NEXTVAL,
+				#{custId,jdbcType=VARCHAR},
+				#{custName,jdbcType=VARCHAR},
+				#{hsResNo,jdbcType=VARCHAR},
+				#{sysGroupCode,jdbcType=VARCHAR},
+				#{sysItemsKey,jdbcType=VARCHAR},
+				#{sysItemsName,jdbcType=VARCHAR},
+				#{sysItemsValue,jdbcType=VARCHAR},
+				#{isActive,jdbcType=VARCHAR},
+				#{createdby,jdbcType=VARCHAR},
+				systimestamp)
+</insert>
+
+<!-- 批量新增客户业务对象 -->
+<insert id="addCustParamItemsList" parameterType="BusinessCustParamItems">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_CUST_BUSINESS_PARAM
+		      ( 
+		        CUST_ITEMS_ID,
+		        CUST_ID,
+		        CUST_NAME,
+		        HS_RES_NO,
+				SYS_GROUP_CODE,
+				SYS_ITEMS_KEY,
+				SYS_ITEMS_NAME,
+				SYS_ITEMS_VALUE, 
+				ISACTIVE,
+				CREATEDBY,
+				CREATED_DATE) 
+		SELECT  SEQ_BP_CUST_ITEMS_ID.NEXTVAL CUST_ITEMS_ID,
+		        CUST_ID,
+		        CUST_NAME,
+		        HS_RES_NO,
+				SYS_GROUP_CODE,
+				SYS_ITEMS_KEY,
+				SYS_ITEMS_NAME,
+				SYS_ITEMS_VALUE, 
+				ISACTIVE,
+				CREATEDBY,
+				CREATED_DATE
+				FROM( 
+		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT 
+				#{item.custId,jdbcType=VARCHAR} CUST_ID,
+				#{item.custName,jdbcType=VARCHAR} CUST_NAME,
+				#{item.hsResNo,jdbcType=VARCHAR} HS_RES_NO,
+				#{item.sysGroupCode,jdbcType=VARCHAR} SYS_GROUP_CODE,
+				#{item.sysItemsKey,jdbcType=VARCHAR} SYS_ITEMS_KEY,
+				#{item.sysItemsName,jdbcType=VARCHAR} SYS_ITEMS_NAME,
+				#{item.sysItemsValue,jdbcType=VARCHAR} SYS_ITEMS_VALUE,
+				#{item.isActive,jdbcType=VARCHAR} ISACTIVE,
+				#{item.createdby,jdbcType=VARCHAR} CREATEDBY,
+				systimestamp CREATED_DATE  FROM DUAL)
+		</foreach>
+		)
+</insert>
+
+<!-- 单个客户业务对象修改 -->
+<update id="updateCustParamItems" parameterType="BusinessCustParamItems">
+        UPDATE T_BP_CUST_BUSINESS_PARAM
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sysGroupCode != null and sysGroupCode != '' ">
+                 SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null and custName != '' ">
+                 CUST_NAME = #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="hsResNo != null and hsResNo != '' ">
+                 HS_RES_NO = #{hsResNo,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsKey != null and sysItemsKey != '' ">
+                 SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsName != null and sysItemsName != '' ">
+                 SYS_ITEMS_NAME = #{sysItemsName,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsValue != null and sysItemsValue != '' ">
+                 SYS_ITEMS_VALUE = #{sysItemsValue,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedby != null and updatedby != '' ">
+                 UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE CUST_ITEMS_ID = #{custItemsId,jdbcType=VARCHAR}
+</update>
+
+<!-- 更新多个客户业务对象 -->
+<update id="updateCustParamItemsList" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE T_BP_CUST_BUSINESS_PARAM
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="item.custName != null and item.custName != '' ">
+	                 CUST_NAME = #{item.custName,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.hsResNo != null and item.hsResNo != '' ">
+	                 HS_RES_NO = #{item.hsResNo,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.sysItemsValue != null and item.sysItemsValue != '' ">
+	                 SYS_ITEMS_VALUE = #{item.sysItemsValue,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.isActive != null and item.isActive != '' ">
+	                 ISACTIVE = #{item.isActive,jdbcType=VARCHAR},
+	            </if>
+	            <if test="item.updatedby != null and item.updatedby != '' ">
+	                 UPDATEDBY = #{item.updatedby,jdbcType=VARCHAR},
+	            </if>
+	                 UPDATED_DATE = systimestamp
+        	</trim>
+         	WHERE CUST_ITEMS_ID = #{item.custItemsId,jdbcType=VARCHAR};
+	</foreach>
+</update>
+
+<!-- 单个客户业务对象删除 -->
+<delete id="deleteCustParamItems" parameterType="String">
+        delete from T_BP_CUST_BUSINESS_PARAM where CUST_ITEMS_ID = #{custItemsId,jdbcType=VARCHAR}
+</delete>
+
+
+<!-- 单个客户业务对象查询 -->
+<select id="getCustParamItemsById" resultMap="businessCustParamItems" parameterType="String">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                CUST_NAME,
+		        HS_RES_NO,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE  
+          FROM T_BP_CUST_BUSINESS_PARAM  
+         WHERE CUST_ITEMS_ID = #{custItemsId,jdbcType=VARCHAR}
+</select>
+
+<!-- 单个客户业务对象查询 -->
+<select id="getCustParamItemsByIdAndKey" resultMap="businessCustParamItems" parameterType="map">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                CUST_NAME,
+		        HS_RES_NO,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE  
+          FROM T_BP_CUST_BUSINESS_PARAM  
+         WHERE CUST_ID = #{custId,jdbcType=VARCHAR}
+           AND SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+</select>
+
+<!-- 多个客户业务对象查询 -->
+<select id="searchCustParamItemsListPage" resultMap="businessCustParamItems" parameterType="BusinessCustParamItems">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                CUST_NAME,
+		        HS_RES_NO,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE 
+          FROM  T_BP_CUST_BUSINESS_PARAM  
+         WHERE  1 = 1 
+         <if test="custItemsId != null and custItemsId != ''">
+                AND CUST_ITEMS_ID = #{custItemsId,jdbcType=VARCHAR}
+         </if>
+         <if test="custId != null and custId != '' ">
+                AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                AND HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="sysGroupCode != null and sysGroupCode != '' ">
+                AND SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsKey != null and sysItemsKey != '' ">
+                AND SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsName != null and sysItemsName != '' ">
+                AND SYS_ITEMS_NAME = #{sysItemsName,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsValue != null and sysItemsValue != '' ">
+                AND SYS_ITEMS_VALUE = #{sysItemsValue,jdbcType=VARCHAR}
+         </if>
+         <if test="isActive != null and isActive != '' ">
+                AND ISACTIVE = #{isActive,jdbcType=VARCHAR}
+         </if>
+         <if test="createdby != null and createdby != '' ">
+                AND CREATEDBY = #{createdby,jdbcType=VARCHAR}
+         </if>
+         <if test="updatedby != null and updatedby != '' ">
+                AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+         </if>
+</select>
+
+
+</mapper>

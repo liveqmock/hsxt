@@ -1,0 +1,80 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<%
+	var data = obj.data;
+%>
+        <tbody><tr>
+           <td width="202" align="right">规格</td>
+           <td colspan="2">
+           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="updmg editval">
+           <tbody id="prop_tbody">
+           <%var skuCount = 0;%>
+           <%
+           	　　$.each(data,function(key,d){
+           %>
+           <tr class="prop" data-id="<%=d.id%>" data-name="<%=d.name%>">
+			   <td width="70" height="34" align="right" ><%=d.name%>：</td>
+			   <td height="34">
+			   	<ul class="ed1 clearfix">
+			   	　　　<%
+			   		 skuCount = d.valueList.length;
+			   	     $.each(d.valueList,function(key1,vl){
+			   		%>
+			       	<li class="clearfix">
+			       		<span class="fl">
+				       		<input type="checkbox" id="cb11" value="<%=vl.id%>"/>
+				       		<label class="cp" for="cb11"><%=vl.value%></label>
+			       		</span>
+			       	</li>
+			       	<%});%>
+			           <!-- li class="edipt clearfix none">
+			           	<span class="fl"><input type="checkbox" checked="checked"><input type="text" style="width:50px;"></span>
+			           	<a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="eds"></i></a>
+			           </li-->
+			    </ul>
+			    </td>
+		    	<td width="30"><a class="fr editval-add <%=skuCount > 2?'none':''%>" title="新增"><i></i></a></td>
+			</tr>
+			<%});%>
+           </tbody>
+       	</table>
+        <table id="skuTable" width="100%" border="0" cellspacing="0" cellpadding="0" class="shangpinxinxi_table mt10">
+          <thead id="sku_thead">
+          	<tr class="tc bg_grey">
+			  <%
+				　$.each(data,function(key,d){
+			  %>
+			  <td height="34" class="bd_r" data-id="<%=d.id%>" data-name="<%=d.name%>"><%=d.name%></td>
+			  <%});%>
+			  <td height="34" class="bd_r">价格
+			    </td>
+			  <td class="bd_r">积分值
+			  </td>
+			  <td class="bd_r">积分百分比(%)
+			  </td>
+			  <td class="bd_r">扣除积分金额</td>
+			  <td>持卡人可得积分</td>
+			</tr>
+          </thead>
+          <tbody id="sku_tbody">
+          
+         
+          
+          </tbody>
+        </table>
+           </td>
+         </tr>
+         <tr>
+         	<td></td>
+         	<td colspan="2">
+         		<div class="clearfix">
+	              <div class="fl red" style="width:66px;">温馨提示：</div>
+	              <div class="fl" style="">
+	              	<ul><li class="red">1、价格必须在0~999999 之间，单位：互生币  1互生币=1人民币。</li>
+					<li class="red">2、积分比例设置在0.01% ~ 30% 之间，且不能小于0.05积分。</li>
+					</ul>
+	              </div>
+            	</div>
+         	</td>
+         </tr>
+      </tbody>
+</table>

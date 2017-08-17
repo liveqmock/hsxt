@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<!-- 使Spring支持自动检测组件，如注解的Controller -->
+    <context:component-scan base-package="com.gy.hsxt"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 引入配置文件 -->
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+		<!-- 远程配置文件[远程存在, 将会同步到本地] -->
+		<property name="remoteLocations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-lcs/redis.properties</value>
+                <value>file:${user.dir}/conf/hsxt-lcs/dubbo.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" />
+		<property name="baseDataService" ref="baseDataService" />
+	</bean>
+	
+    <import resource="classpath:spring/spring-dubbo-consumer.xml"/>
+    <import resource="classpath:spring/hsxt-redis-spring.xml" />
+</beans>
+ 

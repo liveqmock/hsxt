@@ -1,0 +1,94 @@
+<%
+var param = obj.data.itemCustomCategory;
+var orderInfos=obj.data.orderInfos;
+%>
+<!--加菜-->
+	 <div class="clearfix">
+     	<div   id="takeOrder_SelectFoods" style="width: 60%; display: inline-block;">
+        	<div class="p10 brd-box">
+                <div class="mb10">
+                   
+               <button id="" type="button" class="btn-search btn-active mr10">全部分类</button>
+               <%if(null==param||param.size==0){%>
+               
+               <%}else{$.each(param,function(key,category){ %> 
+                 	<button id="" itemCustomCategoryId="<%=category.itemCustomCategoryId%>" type="button" class="btn-search mr10"><%=category.itemCustomCategoryName%></button>
+                    <%})%> 
+               <%}%>                 
+                </div>
+                
+                <div class="bdr-top pt10"><input type="text" name="" placeholder="输入菜品名称/拼音码/菜品编码" id="" value="" class="input-txt w200 mr10"><input id="" type="button" class="btn-search mr10" value="搜索菜品" /></div>
+           </div>
+           <div class="foodlist1 pr" style="">
+             <%if(null==param||param.size==0){%>
+               
+             <%}else{$.each(param,function(key,category){ %>
+             	<h1 class="mt10"><label><%=category.itemCustomCategoryName%></label></h1>
+             	   <% if(null!=category.itemInfoFoodList){%>
+             	    <ul class="floatlist clearfix pt20list">
+             	   <% $.each(category.itemInfoFoodList,function(key2,itemInfo){%>             	 
+	             	   <li class="w33p">
+	                    	<div class="pr addcp bc w180 p5 brd-box">
+	                            <i class="cp_get none" style="right:0;" title="添加菜品"></i>
+	                            <h2 class="mt5 f14"><%=itemInfo.name%></h2>
+	                            <div class="mt10 clearfix">
+	                                <p class="fl">
+	                                    <span class="ico-hsb-18 f14 mr5"><%=comm.formatMoneyNumber(itemInfo.price)%></span>
+	                                    <span class="ico-pv-13 f14"><%=comm.formatMoneyNumber(itemInfo.pv)%></span>
+	                                </p>
+	                                <div class="fr">
+	                                    <input type="button" class="no-sub" />
+	                                    <span class="f14">0</span>
+	                                    <input type="button" class="add_sub" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </li>
+             	   <%})%>           	   
+             	  </ul>
+             	 <%}%> 
+               <%})%> 
+             <%}%>  
+            </div>
+        </div>
+        
+        
+        <div class="pr w380" id="takeOrder_orderInfos" style="display: inline-block;">
+        	<div class="order-info-box ">      	
+            	<fieldset>
+                	<legend>已选菜品</legend>
+                    <div class="m10" style="height: 360px;overflow-y: scroll;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="table-food-list">
+                        	<tr class="title-h1">
+                                <th>菜品名称</th>
+                                <th>份数</th>
+                                <th>单价</th>
+                            </tr>
+                            <% $.each(orderInfos.orderDetailList,function(key3,orderDetail){ %>
+                            <!-- 未删除的 -->
+                            <% if(orderDetail.status=='0'){%>
+                             <tr>
+                            	<td width="55%"><%=orderDetail.itemName%>  </td>
+                                <td width="30%">
+                                    <input type="button" class="no-sub" />
+                                    <input type="text" class="number-show" value="<%=el.quantity%>" />
+                                    <input type="button" class="add_sub" />                                  
+                                </td>
+                                <td width="15%"><%=comm.formatMoneyNumber(orderDetail.price)%></td>
+                            </tr>
+                            <%}%>
+                            <%})%>
+                            <tr class="bdr-top">
+                            	<td colspan="6">
+                                	<div class="tass tc mt10">
+                                        <a href="javascript:void(0)" class="btn_bg submit btn-jc">确&nbsp;&nbsp;认</a>
+                                    </div>
+                                </td>
+                            </tr>                             
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+     </div>
+<!--结束-->

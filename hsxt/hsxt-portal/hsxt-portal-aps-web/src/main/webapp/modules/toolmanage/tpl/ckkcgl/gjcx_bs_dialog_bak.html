@@ -1,0 +1,58 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+        	 <td class="view_item" width="18%">工具名称</td>
+            <td width="32%" class="view_text">xxx
+				<!--<span class="ml5 pr">
+					<input id="toolName" readonly="readonly" placeholder="选择工具名称" />
+				</span>-->
+			</td>
+            <td class="view_item" width="18%">工具类别</td>
+            <td width="32%" class="view_text">xxx
+				<!--<span class="ml5 pr">
+					<input id="toolCategory" readonly="readonly" placeholder="选择工具类别" />
+				</span>-->
+			</td>
+           
+        </tr>
+        <tr>
+			<td class="view_item">仓库名称</td>
+			<td class="view_text"><%=obj.ckmc%></td>
+            <td class="view_item">机器码/序列号</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" placeholder="输入机身码/序列号" value="<%=obj.th_3%> / <%=obj.th_2%>"/></td>
+            
+        </tr>
+        <tr>
+			<td class="view_item">批次号</td>
+            <td class="view_text"><%=obj.th_4%><!--<input type="text" class="ml5 w96pc h28_middle" value="<%=obj.th_4%>" readonly="readonly" />--></td>
+            <td class="view_item">报损操作员</td>
+            <td class="view_text">0000（张三）<!--<input type="text" class="ml5 w96pc h28_middle" value="0000（张三）" readonly="readonly" />--></td>
+        </tr>
+        <tr>
+            <td class="view_item">报损说明</td>
+            <td colspan="3"><textarea id="name" class="ml5 h50 w98pc rsn pt5 pb5" placeholder="输入报损说明,字数不超过300个字" maxlength="300"></textarea></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml5">复核信息</span></td>
+        </tr>
+        <tr>
+			<td class="view_item">选择验证方式</td>
+			<td colspan="3" class="pr">
+				<input id="verificationMode_bs" readonly="readonly" placeholder="选择验证方式" />
+				<span class="ml10 red none" id="verificationMode_prompt_bs">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+        <tr id="fhy_user_bs" class="none">
+            <td class="view_item">复核员</td>
+            <td>
+				<input type="text" class="ml5 h28_middle w96pc" placeholder="输入复核员用户名" />
+			</td>
+            <td class="view_item">复核员密码</td>
+            <td class="pr">
+				<input type="password" class="ml5 h28_middle w96pc" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+    </table>
+</div>

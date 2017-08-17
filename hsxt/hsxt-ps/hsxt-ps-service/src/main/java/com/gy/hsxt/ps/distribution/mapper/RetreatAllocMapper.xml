@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.distribution.mapper.RetreatAllocMapper">
+    <!-- 查询已分配的分录信息 -->
+    <select id="queryAllocEntry" parameterType="java.lang.String" resultType="Alloc">
+		SELECT
+			ENTRY_NO "entryNo", 
+			CUST_ID "custId", 
+			HS_RES_NO "hsResNo",
+			ACC_TYPE "accType", 
+			ADD_AMOUNT "addAmount", 
+			SUB_AMOUNT "subAmount", 
+			WRITE_BACK "writeBack", 
+			TRANS_TYPE "transType",
+			REL_TRANS_NO "relTransNo", 
+			ISACTIVE "isActive", 
+			BATCH_NO "batchNo", 
+			PER_RES_NO "perResNo", 
+			SOURCE_BATCH_NO "sourceBatchNo", 
+			CUST_TYPE "custType", 
+			CHANNEL_TYPE "channelType", 
+			SOURCE_TRANS_NO "sourceTransNo",
+			EQUIPMENT_TYPE "equipmentType",
+			SOURCE_TRANS_DT "sourceTransDate"
+		FROM T_PS_ENTRY
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询新已分配的分录信息 -->
+	<select id="queryOfflineEntry" parameterType="java.lang.String" resultType="EntryAllot">
+		SELECT
+			ENTRY_NO "entryNo",
+			TRANS_TYPE "transType",
+			REL_TRANS_NO "relTransNo",
+			BATCH_NO "batchNo",
+			SOURCE_TRANS_NO "sourceTransNo",
+			REL_ENTRY_NO "relEntryNo",
+			ISSETTLE "isSettle",
+			ENT_HS_NO "entHsNo",
+			PER_HS_NO "perHsNo",
+			ENT_CUST_ID "entCustId",
+			PER_CUST_ID "perCustId",
+			ENT_ADD_AMOUNT "entAddAmount",
+			ENT_SUB_AMOUNT "entSubAmount",
+			PER_ADD_AMOUNT "perAddAmount",
+			PER_SUB_AMOUNT "perSubAmount",
+			ENT_ADD_POINT_AMOUNT "entAddPointAmount",
+			ENT_SUB_POINT_AMOUNT "entSubPointAmount",
+			PER_ADD_POINT_AMOUNT "perAddPointAmount",
+			PER_SUB_POINT_AMOUNT "perSubPointAmount",
+			SETTLE_AMOUNT "settleAmount",
+			SOURCE_TRANS_DATE "sourceTransDate"
+		FROM T_PS_OFFLINE_ENTRY
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+
+
+	<!-- 查询新已分配的分录信息 -->
+	<select id="queryOfflineEntryeNo" parameterType="java.lang.String" resultType="EntryAllot">
+		SELECT
+		ENTRY_NO "entryNo"
+		FROM T_PS_OFFLINE_ENTRY
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- 查询新已分配的分录信息 -->
+	<select id="queryOfflineEntryList" parameterType="java.lang.String" resultType="EntryAllot">
+		SELECT
+		ENTRY_NO "entryNo",
+		TRANS_TYPE "transType",
+		REL_TRANS_NO "relTransNo",
+		BATCH_NO "batchNo",
+		SOURCE_TRANS_NO "sourceTransNo",
+		REL_ENTRY_NO "relEntryNo",
+		ISSETTLE "isSettle",
+		ENT_HS_NO "entHsNo",
+		PER_HS_NO "perHsNo",
+		ENT_CUST_ID "entCustId",
+		PER_CUST_ID "perCustId",
+		ENT_ADD_AMOUNT "entAddAmount",
+		ENT_SUB_AMOUNT "entSubAmount",
+		PER_ADD_AMOUNT "perAddAmount",
+		PER_SUB_AMOUNT "perSubAmount",
+		ENT_ADD_POINT_AMOUNT "entAddPointAmount",
+		ENT_SUB_POINT_AMOUNT "entSubPointAmount",
+		PER_ADD_POINT_AMOUNT "perAddPointAmount",
+		PER_SUB_POINT_AMOUNT "perSubPointAmount",
+		SETTLE_AMOUNT "settleAmount",
+		SOURCE_TRANS_DATE "sourceTransDate"
+		FROM T_PS_OFFLINE_ENTRY
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+
+    <!-- 查询已分配的积分信息 -->
+    <select id="queryAllocPoint" parameterType="java.lang.String" resultType="Alloc">
+		SELECT
+			ALLOC_NO "allocNo", 
+			CUST_ID "custId", 
+			HS_RES_NO "hsResNo", 
+			PER_RES_NO "perResNo", 
+			ACC_TYPE "accType", 
+			ADD_AMOUNT "addAmount", 
+			TRANS_TYPE "transType", 
+			REL_TRANS_NO "relTransNo", 
+			ISACTIVE "isActive", 
+			BATCH_NO "batchNo",
+			CUST_TYPE "custType", 
+			SOURCE_TRANS_NO "sourceTransNo"
+		FROM T_PS_PIONT_ALLOC
+		WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+
+</mapper>
+

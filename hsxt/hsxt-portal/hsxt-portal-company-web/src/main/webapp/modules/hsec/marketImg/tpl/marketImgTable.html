@@ -1,0 +1,47 @@
+   <%var param = obj%>
+    <div>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" id="table1" class="search-table">  
+      	<thead>
+	      	<tr>
+	      	  <th width="10%">序号</th>
+	    	  <th width="30%">展示图</th>
+	          <th width="30%">原图</th>
+	          <th width="10%">排序</th>
+	          <th>操作</th>
+	        </tr>
+      	</thead>
+      	<tbody>
+      		<%$.each(param.imgList.result,function(k,v){%>
+	      	<tr class="<%=k%2==0?'tc':'table-tr-c'%>" imgId="<%=v.id%>">
+	      	  <td><%=param.imgList.recordSize*(param.imgList.currentPageIndex-1)+(k+1)%></td>
+	    	  <td>
+	    	   <%if(v.pic != null){%>
+	    	   		<%var pic = eval('('+v.pic+')')%>
+	    	        <img class="imgShow" src="<%=param.httpUrl%><%=pic["800X800"]%>" width="200px" height="200px"/>
+	    	   <%}%>
+	    	  </td>
+	          <td><img class="imgShow" src="<%=param.httpUrl%><%=v.picSource%>" width="200px" height="200px"/></td>
+	          <td>
+	          <select class="sortUpdate" myNum = "<%=v.sort%>" >
+	          <option selected><%=v.sort%></option>
+	          <%for(var i = 1;i<=param.imgList.recoredCount;i++){%>
+	           <%if(v.sort != i){%><option><%=i%></option><%}%>
+	          <%}%>
+	          </select>
+	          </td>
+	          <td><a href="javascript:;" class="imgDelete">删除</a></td>
+	        </tr>
+	        <%})%>
+      	</tbody>
+      </table></div>
+            <div class=" clearfix">
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.imgList.currentPageIndex-1)<1?'':param.imgList.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((param.imgList.currentPageIndex+1)>param.imgList.totalPage?'':param.imgList.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=param.imgList.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.imgList.currentPageIndex%>" totalPage="<%=param.imgList.totalPage%>"/><span class="page-go">页/<%=param.imgList.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.imgList.recoredCount%>条</a>
+</div>
+                        </div>

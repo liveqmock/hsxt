@@ -1,0 +1,61 @@
+<div class="none" id="ddskjl_ckTpl">
+	<div class="fb mb5">订单信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">互生号/手机号</td>
+			<td class="view_text_2" width="30%"><%=obj.hsResNo%></td>
+			<td class="view_item" width="20%">单位名称</td>
+			<td class="view_text_2" width="30%"><%=obj.custName%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">订单流水号</td>
+			<td class="view_text_2" width="30%"><%=obj.orderNo%></td>
+			<td class="view_item" width="20%">收款日期</td>
+			<td class="view_text_2" width="30%"><%=obj.payTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">订单类型</td>
+			<td class="view_text_2" width="30%"><%= comm.lang("receivablesmanage").OrderType[obj.orderType]%></td>
+			<td class="view_item" width="20%">订单金额</td>
+			<td class="view_text_2" width="30%">
+				<%if(obj.payChannel==200){%>
+					<%=comm.formatMoneyNumber(obj.orderHsbAmount)%>
+				<%}else {%>
+					<%=comm.formatMoneyNumber(obj.orderCashAmount)%>
+				<%}%>
+			</td>
+		</tr>
+		
+		<%if(obj.payChannel==200){%> 
+		<tr>
+			<td class="view_item" width="20%">折合本币金额</td>
+			<td class="view_text_2" width="30%">
+				<%if(obj.payChannel==200){%>
+					<%=comm.formatMoneyNumber(obj.orderHsbAmount)%>
+				<%}%>
+			</td>
+			<td class="view_item" width="20%">货币转换比率</td>
+			<td class="view_text_2" width="30%"><%=parseFloat(obj.exchangeRate).toFixed(4)%></td>
+		</tr>
+		<%}%>
+		<tr>
+			<td class="view_item" width="20%">备注</td>
+			<td class="view_text_2" width="30%" colspan="3"><%=obj.orderRemark%></td>
+		</tr>
+		
+	</table>
+	<div class="view_title mt10">支付信息</div>
+	<table id="searchTable_2">
+	  <tr>
+		<th w_index="payChannel"  w_tip="true">支付方式</th>
+		<th w_index="bankName"  w_tip="true">支付银行名称</th>
+		<th w_index="payAmount">支付金额</th>
+		<th w_index="bankTransNo"  w_tip="true">银行流水号</th>
+		<th w_render="operate">支付日期</th>
+		<th w_index="payStatus">支付状态</th>
+		<!-- <th w_index="remark" w_tip="true">备注</th> -->
+	  
+	  </tr>
+	</table>
+	<div align="center" class="mt20"><a class="btn_bg submit" id="back_ddskjl">返&#12288;回</a></div>
+</div>

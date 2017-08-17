@@ -1,0 +1,85 @@
+<!-- 关联餐饮商品 -->
+<%
+var param = obj.data.result;
+var https = obj.data.httpUrl;
+var picname = "";
+%>
+  <div class="search-toolbar1">
+          <ul class="cssform clearfix">
+                <!-- <li>
+                  <div class="cont-int">
+                       <% try { 
+                  	  	if(param != null && param.length > 0){ 
+                  	   %>
+                  	   <button id="" type="button" class="btn-search mr10">全部分类</button>
+                  	   <% $.each(param,function(key,value){ %>
+                  	   <button id="<%=value.itemCustomCategoryId%>" type="button" class="btn-search mr10"><%=value.itemCustomCategoryName%></button>         			         			
+            		  <%}) } }catch(e){}%>                    
+                  </div>
+                </li> -->
+                
+                <!-- 菜单结构改造 modify by kuangrb 2016-05-18 -->
+				<% try { 
+					if(param != null && param.length > 0){ 
+				%>
+                <li>
+                	<button id="" type="button" class="btn-search mr10">全部分类</button>
+                </li>
+                <% $.each(param,function(key,value){ %>
+                <li>
+                	<button id="<%=value.itemCustomCategoryId%>" type="button" class="btn-search mr10"><%=value.itemCustomCategoryName%></button>         			         			            
+                </li>
+                <%}) 
+                	} 
+                }catch(e){}
+                %>   
+                <!-- end -->
+                
+                
+                
+                
+          </ul>
+    </div>		
+    <div style="zoom:1;">
+      <div class="foodlist1 pr">    
+         <% try { if(param != null && param.length > 0){ $.each(param,function(key,value){ %>
+            	<h1 class="mt10"><%=value.itemCustomCategoryName%>（<%=value.itemNum%>）<input title="设置菜品" type="button" class="szflcp add_cgcp" value=""></h1>
+                <div class="clearfix">
+                <ul class="floatlist clearfix pt20list">
+                <%$.each(value.itemInfoFoodList,function(k,v){
+		  		if(v.pics != null && v.pics != ""){
+			  		var picObj = eval(v.pics);//转换对象
+			  		try{
+			  		$.each(picObj[0].web,function(y,o){
+			  			if(o.size=="400*400"){
+			  				picname = o.name;
+			  			}
+			  		});
+			  		}catch(e){}
+		  		}
+         	   %>
+                	<li class="w20p">
+                    	<div class="pr delcp bc w120">
+                        <i class="cp_close none" title="删除菜品" itemId="<%=v.id%>"></i>
+                        <% if(v.ishaspv == 1){%>
+                   		<div class="fiximg"><img width="120" height="120" src="resources/img/item_df.png">  </div>
+                        <%}else {%>
+                   		<div class="fiximg"><img width="120" height="120" src="<%=https+picname%>"> </div>
+                        <% }%>  
+                        <h2 class="mt5 f12"><%=v.name%></h2>
+                        <div class="mt5">
+                        	<span class="f12 mr5 lh12 red"><img src="resources/img/price.png" width="16" style="vertical-align:middle;"><%=comm.formatMoneyNumber(v.price)%></span>
+                            <span class="f12 lh12 blue"><img src="resources/img/pv.png" width="22" style="vertical-align:middle;"><%=comm.formatMoneyNumber(v.pv)%></span>
+                        </div>
+                        </div>
+                    </li>
+                     <%})%>
+                </ul>
+                </div>
+               <%}) } else {} }catch(e){}%>            
+            </div>       
+        <p class="tass tc mt20">
+          <a href="javascript:void(0)" class="btn_bg submit confirm3 mr10">确&nbsp;&nbsp;定</a>
+          <a href="javascript:void(0)" class="btn_bg submit cancel3">取&nbsp;&nbsp;消</a>
+        </p>
+    </div>

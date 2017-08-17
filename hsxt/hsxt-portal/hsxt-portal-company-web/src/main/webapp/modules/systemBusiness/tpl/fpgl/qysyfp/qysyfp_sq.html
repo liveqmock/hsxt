@@ -1,0 +1,49 @@
+	<p class="autowidth tc">	
+	<form id="fpsq_applyInvoiceform">
+		<table class="mt5" align="center" style="background-color:#e8f4e6; width:780px;" >
+					<tr>
+						<td class="p5 tr" style="padding-bottom:10px;" width="13%">发票抬头：</td>
+						<td class="p5"><span ><%=obj.entName%></span></td>
+						<td class="p5 tr" width="13%">纳税人识别号：</td>
+						<td class="p5"><span><%=obj.taxNo%></span></td>
+					</tr>
+					<tr>
+						<td class="p5 tr" style="padding-bottom:10px;">地址，电话：</td>
+						<td class="p5"><span><%=obj.entRegAddr%></span><span class="pl20"><%=obj.officeTel%></span></td>
+						<td class="p5 tr">开票内容：</td>
+						<td class="p5"><span ><%=obj.openContent%></span>
+					</tr>
+					<tr>
+						<td class="p5 tr" style="padding-bottom:10px;">开户行及账号：</td>
+						<td class="p5"><span><%=obj.bankBranchName%></span><span class="pl20"><%=obj.bankNo%></span></td>
+						<td class="p5 tr">发票金额：</td>
+						<td class="p5"><span ><%=obj.allAmount%></span></td>
+					</tr>
+					<tr>
+						<td class="p5 tr">发票类型：</td>
+						<td class="p5" colspan="3"><input id="fpsq_invoiceType" type="text" name="invoiceType"  readonly="readonly" /></td>
+						<input type="hidden" name="invoiceTitle" value="<%=obj.entName%>"/>
+					 	<input type="hidden" name="taxpayerNo" value="<%=obj.taxNo%>"/>
+					 	<input type="hidden" name="address" value="<%=obj.entRegAddr%>"/>
+					 	<input type="hidden" name="telephone" value="<%=obj.officeTel%>"/>
+					 	<input type="hidden" name="bankBranchName" value="<%=obj.bankBranchName%>"/>
+					 	<input type="hidden" name="bankNo" value="<%=obj.bankNo%>"/>
+					 	<input type="hidden" name="openContent" value="<%=obj.openContent%>"/>
+					 	<input type="hidden" name="allAmount" value="<%=obj.allAmount%>"/>
+					 	<input type="hidden" name="status" value="0"/>
+						</td>
+					</tr>
+				</table>
+		</form>	
+	</p>
+
+
+
+
+
+
+
+
+
+
+

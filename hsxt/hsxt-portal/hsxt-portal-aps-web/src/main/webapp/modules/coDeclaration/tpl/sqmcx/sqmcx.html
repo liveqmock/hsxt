@@ -1,0 +1,32 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>企业互生号：</label>
+			<input type="text" name="textfield" id="search_entResNo" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>企业名称：</label>
+			<input type="text" name="textfield" id="search_entName" placeholder="输入申请企业名称" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>联系人姓名：</label>
+			<input type="text" name="textfield" id="search_linkman" placeholder="输入联系人姓名" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="queryBtn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="tableDetail" class="bsgrid">
+	<tr>
+		<th w_index="entResNo" w_tip="true">企业互生号</th>
+		<th w_index="entName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+		<th w_index="linkmanMobile" w_tip="true">联系人电话</th>
+		<th w_index="authCode" width="20%;" w_tip="true">授权码</th>
+		<th w_index="expireDate" w_tip="true">授权码有效期</th>
+		<th w_index="sendTimes" w_tip="true">发送次数</th>
+		<th w_index="sendLastTime" w_tip="true">最近发送时间</th>
+		<th w_render="operate">操作</th>
+	</tr>				
+</table>

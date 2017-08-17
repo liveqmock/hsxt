@@ -1,0 +1,64 @@
+<div class="info_600 bc mt40">
+
+	<div class="monitorBox clearfix">
+		<div class="fl mt_state_bt clearfix">
+			<a class="state_bt_green">签入</a>
+			<a class="state_bt_red">置忙</a>
+			<a class="state_bt_yellow">静音</a>
+			<a class="state_bt_blue">示闲</a>
+			<a class="state_bt_gray">签出</a>
+		</div>
+		<div class="fr">
+			<button id="addSeat_btn" type="button" class="btn-search" style="margin-top:6px;">增加坐席</button>
+		</div>
+	</div>
+	
+	<div class="mt20">
+		<ul class="seat_box clearfix ml10">
+			<li>801</li>
+			<li>813</li>
+			<li>808</li>
+			<li>809</li>
+			<li>810</li>
+			<li>811</li>
+			<li>817</li>
+			<li>818</li>
+			<li>806</li>
+			<li>803</li>
+			<li>802</li>
+			<li>812</li>
+			<li>819</li>
+			<li class="state_bt_green">820</li>
+		</ul>
+	</div>
+
+</div>
+
+<div id="addSeat_content" class="none">
+	<div class="info_320">
+		<form>
+			<ul>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">坐席号</label>
+					<input type="text" placeholder="输入坐席号" class="fl w185 h30_middle ml5" />
+					<div class="pa left330 red w115 h30_middle">*坐席号不能重复</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle red">物理通道号</label>
+					<input type="text" class="fl w185 h30_middle ml5" placeholder="输入物理通道号" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">坐席类型</label>
+					<div class="fl h30_middle">
+						<input type="radio" name="name" class="ml10" value="0" checked="checked" /> 变通坐席
+						<input type="radio" name="name" class="ml10" value="1"  /> VoIP类型
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">详细说明</label>
+					<textarea  class="fl ml5 h50 w185 rsn pt5 pb5" placeholder="输入详细说明"></textarea>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>

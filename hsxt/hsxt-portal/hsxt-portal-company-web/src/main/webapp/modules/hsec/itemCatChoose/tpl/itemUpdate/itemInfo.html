@@ -1,0 +1,365 @@
+<%
+	//初始化信息start
+	var data = obj.data;
+	var lstSalerShopCategory = data.ItemWebInfo.lstSalerShopCategory;
+	var lstSalerShops = data.ItemWebInfo.lstSalerShops;
+	var lstSalerStorage = data.ItemWebInfo.lstSalerStorage;
+	var canHotSellCount = data.ItemWebInfo.canHotSellCount;
+	var hasHotSellCount = data.ItemWebInfo.hasHotSellCount;
+	var shopCouponList = data.ItemWebInfo.shopCouponList;
+	//end
+	var param = data.ItemInfo;
+	var lstShopCat = data.lstShopCat;
+	var lstSalerShop = data.lstSalerShop;//实体店集合
+%>
+
+<form>
+  <!--内容添加开始-->
+  <div class="mallStore goods searchbox" id="itemMain"  itemId="<%=param.id%>" categoryId="<%=param.categoryId%>">
+    <div class="search-cont pt20">
+      <table id="tab1" class="detail" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+          <td width="235" align="right">商品名称<span class="red">*</span></td>
+          <td width="310"><input class="inpt remain" id="itemName" name="name" type="text" value="<%=param.name%>" maxlength="50"></td>
+          <td align="left" style="width:500px;">还能输入<span class="red"><%=(50-param.name.length)%></span>字</td>
+        </tr>
+		<tr>
+          <td align="right">卖点信息<span class="red">*</span></td>
+          <td><input class="inpt remain" name="sellPoint" id="sellPoint" type="text" value="<%=param.sellPoint%>" maxlength="100">
+          <!--<textarea name="sellPoint" class="valid" style="resize:none;">123</textarea>-->
+          </td>
+          <td align="left">还能输入<span class="red"><%=(100-param.sellPoint.length)%></span>字</td>
+        </tr>
+        <!--tr>
+          <td align="right"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">商品价格<span class="red">*</span></td>
+          <td><input class="inpt" type="text" value="" maxlength="9"></td>
+          <td align="left">价格必须在0~999999999 之间，单位：互生币</td>
+        </tr-->
+		<tr>
+		  <td align="right">货号</td>
+		  <td><input class="inpt valid remain" type="text" name="code" value="<%=param.code%>" id="code" maxlength="50"></td>
+		  <td align="left">还能输入<span class="red"><%=(50-param.code.length)%></span>字<!-- img class="ml10" src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="生产厂商对不同商品记的唯一编号"--></td>
+		</tr>
+        <!--tr>
+          <td align="right">条形码</td>
+          <td><input class="inpt" type="text" value=""></td>
+          <td align="left">还能输入<span class="red">30</span>字<img class="ml10" src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="商品条形码"></td>
+        </tr-->
+        <tr>
+          <td align="right">厂家名称</td>
+          <td><input class="inpt remain" name="factoryName" id="factoryName" type="text" value="<%=param.factoryName%>" maxlength="100"></td>
+          <td align="left">还能输入<span class="red"><%=(100-param.factoryName.length)%></span>字<!-- img class="ml10" src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="生产厂商名称"--></td>
+        </tr>
+        <tr>
+          <td align="right">商品图片<span class="red">*</span></td>
+          <td colspan="2">
+                <div id="pingbi">
+                	<div style="text-align: center;max-width:900px;width:<%=125+122*6%>px" class="bc">
+                  <ul style="width: 112px;float: left;" id="imgitemUpload">
+							<li data-index="0">
+								<span class="pr addImgBox_style" style="width: 112px;height: 112px">
+										<input type="file" name="itemPhoto" id="itemPhoto" style="width: 112px;height: 112px">
+										<img src="resources/img/add_img_bt.gif" width="112" height="112">
+								</span>
+                            </li>
+                            </ul>
+                	<div id="itemImgList" class="multimage-gallery">
+                    <ul><!-- webPicUrl 68x68 -->
+                    	<%try{ $.each(param.picList,function(key,value){%>
+                      	<%var imglist = eval('('+value.webPicUrl+')')%>
+							<li style="background: url(<%if(key==0){%>resources/img/store_main_img_1.gif<%}else{%>resources/img/store_noimg_1.gif<%}%>) 50% 0 repeat-y;" <%if(key==0){%>class="primaryItem"<%}%> >
+								<div style="display: none;" class="imgObject" imgid="<%=value.id%>"></div>
+                            	 <div class="preview">
+                            	 <img src="<%=value.picUrl%><%=imglist['68x68']%>" width="111px" height="110px"/>
+                            	 </div>
+								<div class="operate">
+                                <i class="toleft">左移</i>
+                                <i class="toright">右移</i>
+                                <i class="del">删除</i>
+                            	</div>
+                       		</li>
+                       		<%}) }catch(e){}%>
+                    	<%for(var i = param.picList.length;i<6;i++){%>
+							<li style="background: url(<%if(i==0){%>resources/img/store_main_img_1.gif<%}else{%>resources/img/store_noimg_1.gif<%}%>) 50% 0 repeat-y;" <%if(i==0){%>class="primaryItem"<%}%> >
+								<div style="display: none;" class="imgObject"></div>
+                            	 <div class="preview"></div>
+								<div class="operate">
+                                <i class="toleft">左移</i>
+                                <i class="toright">右移</i>
+                                <i class="del">删除</i>
+                            	</div>
+                       		</li>
+                       		<%}%>
+					</ul>
+                </div>
+                </div>
+                </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl" style="">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传6张图片。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">商品介绍</td>
+          <td><textarea class="remain" id="Msg_content_phone" style="height: 100px" name="itemSummary" type="text" value="" maxlength="150"><%=param.itemSummary%></textarea></td>
+          <td align="left">还能输入<span class="red"><%=150-param.itemSummary.length%></span>字<b>&nbsp;(手机用户专享)</b></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;" align="right">商品详情<span class="red">*</span></td>
+          <td colspan="2">
+          	<div class="clearfix mt10">
+          	<div id="xheditorShow">
+          		<textarea class="fl" id="xheditor" style="width:100%;height:170px !important;"></textarea>
+          	</div>	
+          	</div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl">
+              	<ul><li class="red">1、建议上传图片宽度800以内，上传图片支持格式jpg、png、jpeg。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">商城自定义分类</td>
+          <td colspan="2">
+          	<div class="pl10 shangcheng_spfl_box" id="itemSpfl">
+            	<ul class="shopDiyClass">
+            	<%
+            	try { $.each(lstSalerShopCategory,function(key,category){
+            		if(category.parentId==0){
+            	try{
+            	 var childrenList = "";
+            	 $.each(lstShopCat!=null?lstShopCat:'',function(keys,els){
+            	 	if(category.id == els.id){
+            	 		childrenList = els.childrenList;
+            	 		lstShopCat.remove(keys);
+            	 		return false;
+            	 	} }) }catch(e){}%>
+            		<li><%=category.name%>
+                    	<ul class="ml20">
+                    		<%
+			            		$.each(lstSalerShopCategory,function(key1,category1){
+			            		if(category1.parentId==category.id){
+				            	 var isCheck = 0;
+				            	 if(childrenList != null && childrenList != ""){
+					            	 $.each(childrenList,function(ckey,cv){
+					            	 	if(cv.id == category1.id){
+					            	 		isCheck = 1;
+					            	 		return false;
+					            	 	}
+					            	 })
+				            	 }%>
+                        	<li><input type="checkbox" value="<%=category1.id%>" <%if(isCheck == 1){%>checked="checked"<%}%> valueName="<%=category1.name%>"/><%=category1.name%></li>
+                        	<%}});%>
+                        </ul>
+                    </li>
+            	<%	
+            		}
+            		}) }catch(e){};
+            	%>
+                </ul>
+          </div></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right" class="fb cl_green">物流信息</td>
+          <td></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">运费</td>
+          <td>
+              <input class="inpt" type="radio" value="1" <%=param.isFreePostage==1?'checked':''%> name="isFreePostage" id="free" />
+              <label class="ml5 mr20 cp" for="free">免运费</label>
+              <input class="inpt" type="radio" value="0" <%=param.isFreePostage!=1?'checked':''%> name="isFreePostage" id="yfmb">
+              <label class="ml5 cp" for="yfmb">运费模板</label>
+          </td>
+          <td align="left"></td>
+        </tr>
+        <tr class="moban <%=param.isFreePostage==1?'none':''%>">
+          <td align="right"></td>
+          <td><select class="w300" id="yunfeiMb">
+              <option value="">运费模板选择</option>
+              <%
+                try {$.each(lstSalerStorage,function(key,storage){ %>
+              <option value="<%=storage.id%>" <%=param.postageId==storage.id?'selected':''%>><%=storage.name%></option>
+              <%}) }catch(e){};
+              %>
+            </select></td>
+          <td align="left"><button type="button" class="btn-search dlg2">新建运费模板</button>
+            <span class="red ml10">*</span></td>
+        </tr>
+        <tr>
+          <td align="right" class="fb cl_green">其他信息</td>
+          <td></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">热门商品</td>
+          <td colspan="2"><p>
+              <input class="inpt" type="radio" name="hotSell" <%if(hasHotSellCount >= canHotSellCount){%>disabled="disabled"<%}%> id="hot_yes" <%if(param.hotSell == 1){%>checked="checked"<%}%> value="1">
+              <label class="ml5 cp" for="hot_yes">是</label>
+              <input class="inpt ml20" type="radio" <%if(param.hotSell != 1){%>checked="checked"<%}%> name="hotSell" id="hot_no" value="0">
+              <label class="ml5 cp" for="hot_no">否</label>  （已发布<%=hasHotSellCount %>个热销商品,最多不超过<%=canHotSellCount %>个.）
+              </p>
+          </td>
+          <td align="left"></td>
+        </tr>
+        <!--  
+        <tr>
+          <td align="right">可开具发票</td>
+          <td><p>
+              <input class="inpt" type="radio" name="fapiao" id="fapiao_yes">
+              <label class="ml5 cp" for="fapiao_yes">是</label>
+              <input class="inpt ml20" type="radio" checked="checked"  name="fapiao" id="fapiao_no">
+              <label class="ml5 cp" for="fapiao_no">否</label>
+              </p></td>
+          <td align="left"></td>
+        </tr>
+        -->
+        <tr>
+          <td align="right">互生消费抵扣券</td>
+          <td>
+          	  <p>
+              <input id="dkq" class="inpt" value="1" type="radio" <%if(param.hasCoupon == 1){%>checked<%}%> name="dikou">
+              <label class="ml5 cp" for="dkq" >是</label>
+              <input id="ndkq" class="inpt ml20"  value="0" <%if(param.hasCoupon != 1){%>checked<%}%> type="radio" name="dikou" id="dikou_no">
+              <label class="ml5 cp" value="0" for="ndkq">否</label>
+              <!-- img class="ml10" src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="商品是否支持使用互生消费抵扣券"-->
+              </p>
+          </td>
+          <td align="left"></td>
+        </tr>
+        <tr class="dikouquan" <%if(param.hasCoupon != 1){%>style="display: none;"<%}%>>
+          <td align="right"></td>
+          <td colspan="2">
+          	<ul id="ul_dikouquan_list">  
+          	  <%
+          	    try { $.each(shopCouponList,function(key,coupon){ %>
+                   <li class="lh24">
+	                <input name="dkq" id="dkq1" class="mr5" type="radio" value="<%=coupon.id%>" <%if(param.couponPartitionId == coupon.id){%>checked<%}%>>
+	                <label couponName="<%=coupon.couponName%>"><%=coupon.couponName %></label>
+	                <label for="dkq1" class="ml20" couponMax="<%=coupon.useAmount%>" couponNum="<%=coupon.useNumber%>">每满<%=coupon.useAmount %>元使用<%=coupon.useNumber %>张</label>
+	                <span class="ml20"  couponValue="<%=coupon.faceValue%>">面值：<%=coupon.faceValue %></span>
+                </li> 
+          	  <%}) }catch(e){};
+          	  %>
+             </ul>
+          </td>
+        </tr>
+        <!-- 
+        <tr>
+          <td align="right">上架类型</td>
+          <td><p>
+              <input class="inpt" type="radio" name="shangjia" id="auto_put">
+              <label class="ml5 cp" for="auto_put">自动上架</label>
+              <input class="inpt ml20" type="radio" checked="checked" name="shangjia" id="jog_put">
+              <label class="ml5 cp" for="jog_put">手动上架</label>
+            </p></td>
+          <td align="left"></td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl">
+              	<ul><li class="red">自动上架：商品审核通过即商品自动上架。</li>
+				<li class="red">手动上架：商品审核通过需人工手动上架。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+         -->
+        <tr>
+          <td align="right">营业点<span class="red">*</span></td>
+          <td colspan="2">
+          	  <div style="width:502px;padding:2px 10px;background:#CCC;">
+          	  	<div class="mt5 clearfix">
+          	  		<a class="blue mr10" id="sectAll">全选/全不选</a>
+          	  		<span class="fr tr">已选择 <em class="red" id="checked_num"><%=lstSalerShop.length%></em> / <var id="salePointNo"><%=lstSalerShops.length%></var> 个营业点</span>
+          	  	</div>
+          	  </div>
+              <div class="storeSelect" style="width:500px;padding:5px 10px;">  
+              <ul>
+              	  <%
+              	   try{ $.each(lstSalerShops,function(key,shop){ %>
+              	    <li class="lh24">
+              	    	<%
+              	    		var checkBool = 0;
+              	    	try {$.each(lstSalerShop,function(kl,kv){
+              	    		if(shop.id == kv){
+              	    			checkBool = 1;
+              	    			lstSalerShop.remove(kl);
+              	    			return false;
+              	    		}
+              	    	}) }catch(e){}%>
+		              <input class="mr5 listShopIds" type="checkbox" <%if(checkBool == 1){%>checked<%}%> name="shopName" value="<%=shop.id%>"/>
+		              <label><%=shop.addAll%></label>
+		            </li>
+              	  <%}) }catch(e){};
+              	  %>	
+              </ul>
+              </div>
+              <div class="mt5"><span class="red">温馨提示：选择哪些营业点上架此商品</span></div>
+            </td>
+        </tr>
+      </table>
+      <div id="tab2" class="detail"  style="display: none;">
+           <table id="tab2_ipt" width="100%" border="0" cellspacing="0" cellpadding="0" <%if(param.status != '-5'){%>class="none"<%}%>>
+        <tr>
+          <td width="60" align="right">商品类目<a name="aaa"></a></td>
+          <td width="310" class="pr">
+          	<input class="inpt cp" style="width: 283px" type="text" value="" readonly="readonly" />
+          	<i class="goodsC_arrow cp" id="gArrow" title="点击选择商品类目"></i>
+            <div id="category_content">
+            </div>
+          </td>
+          <td align="left">&nbsp;</td>
+        </tr>
+       </table>
+       <div id="prop_div">
+       
+       </div>
+      </div>
+     
+      <p class="ta">
+        <a class="btn_bg submit mr10" id="next_item">下一步</a>
+        <a class="btn_bg submit mr10" id="prev_item" style="display: none !important">上一步</a>
+        <a class="btn_bg submit mr10" id="update_item" style="display: none !important">保&nbsp;&nbsp;存</a>
+        <!-- <a class="btn_bg submit mr10" id="release_item" style="display: none;">发&nbsp;&nbsp;布</a> -->
+      </p>
+    </div>
+  </div>
+  <!--内容添加结束-->
+  </form>
+<!--弹出框内容及脚本开始-->
+
+<div id="dlg1" class="none">
+  <p class="table-del">是否发布？</p>
+</div>
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg2" class="none">
+</div>
+<!--弹出框内容及脚本结束-->

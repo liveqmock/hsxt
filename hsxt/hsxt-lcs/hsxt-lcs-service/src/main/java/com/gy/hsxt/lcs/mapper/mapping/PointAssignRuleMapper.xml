@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.PointAssignRuleMapper">
+	<!--是否已存在相同-->
+	<select id="existAssignRule" resultType="string">
+		SELECT
+			1
+		FROM
+			T_LCS_POINT_ASSIGN_RULE
+		WHERE
+			TARGET_TYPE = #{targetType,jdbcType=CHAR}
+		AND ACT_TYPE = #{actType,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_POINT_ASSIGN_RULE (
+			TARGET_TYPE,
+			ACT_TYPE,
+			ASSIGN_RATE,
+			ASSIGN_METHOD,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	        (#{item.targetType},
+			#{item.actType},
+			#{item.assignRate},
+			#{item.assignMethod},
+			#{item.delFlag},
+			#{item.version})
+	    </foreach>  
+    </insert>
+		  
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_POINT_ASSIGN_RULE
+			<set>
+			  ASSIGN_RATE = #{item.assignRate},
+              ASSIGN_METHOD = #{item.assignMethod},
+	          DEL_FLAG = #{item.delFlag},
+			  VERSION = #{item.version}
+			</set>
+		 WHERE  
+		      TARGET_TYPE = #{item.targetType}
+		      AND ACT_TYPE = #{item.actType}
+        </foreach>
+    </update>  
+	    
+</mapper>

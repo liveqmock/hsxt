@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.ClaimsAccountingInfoMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.ClaimsAccountingInfo">
+		<id column="ACCOUNTING_ID" property="accountingId" jdbcType="VARCHAR" />
+		<result column="APPLY_WELFARE_NO" property="applyWelfareNo" jdbcType="VARCHAR" />
+		<result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+		<result column="HEALTH_PAY_AMOUNT" property="healthPayAmount" jdbcType="DECIMAL" />
+		<result column="PERSONAL_PAY_AMOUNT" property="personalPayAmount" jdbcType="DECIMAL" />
+		<result column="HS_PAY_AMOUNT" property="hsPayAmount" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_PERSON_NAME" property="accountPersonName" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_PERSON_CUST_ID" property="accountPersonCustId" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_DATE" property="accountDate" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+		<result column="HS_RES_NO" property="hsResNo" jdbcType="CHAR" />
+		<result column="PROPOSER_NAME" property="proposerName" jdbcType="VARCHAR" />
+		<result column="WELFARE_ID" property="welfareId" jdbcType="VARCHAR" />
+		<result column="START_TIME" property="billsStartDate" jdbcType="VARCHAR" />
+		<result column="END_TIME" property="billsEndDate" jdbcType="VARCHAR" />
+		<result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+		<result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+		
+<!-- 		<result column="CITY" property="billsArea" jdbcType="VARCHAR" /> -->
+
+		<result column="HOSPITAL" property="hospital" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   ACCOUNTING_ID,
+       APPLY_WELFARE_NO,
+       TASK_ID,
+       HEALTH_PAY_AMOUNT,
+       PERSONAL_PAY_AMOUNT,
+       HS_PAY_AMOUNT,
+       ACCOUNT_PERSON_NAME,
+       ACCOUNT_PERSON_CUST_ID,
+       ACCOUNT_DATE,
+       STATUS,
+       ISACTIVE,
+       CREATE_DATE,
+       CREATEDBY,
+       UPDATE_DATE,
+       START_TIME, 
+	   END_TIME,   
+	   COUNTRY_NO,
+	   PROVINCE_NO,
+	   CITY_NO,
+       UPDATEDBY
+	</sql>
+
+	<!-- 通过主键查询理赔核算单 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_CLAIMS_ACCOUNTING
+		where ACCOUNTING_ID = #{accountingId,jdbcType=VARCHAR}
+	</select>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="condition.applyWelfareNo != null and condition.applyWelfareNo != '' ">
+			And aply.APPLY_WELFARE_NO  like '${condition.applyWelfareNo}%' 
+		</if>
+		<if test="condition.proposerResNo != null and condition.proposerResNo != '' ">
+			And aply.HS_RES_NO   like '${condition.proposerResNo}%' 
+		</if>
+		<if test="condition.proposerName != null and condition.proposerName != '' ">
+			And aply.PROPOSER_NAME   like '${condition.proposerName}%' 
+		</if>
+		<if test="condition.accountPersonCustId != null and condition.accountPersonCustId != '' ">
+			And t.ACCOUNT_PERSON_CUST_ID = #{condition.accountPersonCustId}
+		</if>
+	</sql>
+	
+	<!--分页排序-->
+	<sql id="Order_By">
+	   ORDER BY T.UPDATE_DATE DESC
+	</sql>
+
+	<!-- 分页查询 统计总条数 -->
+	<select id="countClaimsAccounting" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		 from t_ws_Claims_accounting t, t_ws_apply_welfare aply
+		 where t.apply_welfare_no = aply.apply_welfare_no
+		 and aply.approval_status != 2
+		 and t.status in
+		 <foreach item="item" collection="status" separator="," open="(" close=")">
+			#{item}
+		 </foreach>
+		 <include refid="Where_Condition" />
+	</select>
+
+	<!-- 分页查询理赔核算单 -->
+	<select id="pageClaimsAccounting" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		t.accounting_id,
+       	t.apply_welfare_no,
+       	t.task_id,
+       	t.health_pay_amount,
+       	t.personal_pay_amount,
+       	t.hs_pay_amount,
+       	t.account_person_name,
+       	t.account_person_cust_id,
+       	t.account_date,
+       	t.status,
+       	t.isactive,
+       	aply.welfare_id,
+        to_char(t.start_time,'yyyy-mm-dd')start_time,
+        to_char(t.end_time,'yyyy-mm-dd')end_time,
+        t.country_no,
+	    t.province_no,
+	    t.city_no,
+         aply.hospital,
+		 aply.proposer_name,
+		 aply.hs_res_no
+		 from t_ws_claims_accounting t, t_ws_apply_welfare aply
+		 where t.apply_welfare_no = aply.apply_welfare_no
+		 and aply.approval_status != 2
+		and t.status in
+		<foreach item="item" collection="status" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+		<include refid="Where_Condition" />
+		<include refid="Order_By" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!-- 生成核算单 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.ClaimsAccountingInfo">
+		insert into T_WS_CLAIMS_ACCOUNTING
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accountingId != null">
+				ACCOUNTING_ID,
+			</if>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO,
+			</if>
+			<if test="taskId != null">
+				TASK_ID,
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT,
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT,
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT,
+			</if>
+			<if test="accountPersonName != null">
+				ACCOUNT_PERSON_NAME,
+			</if>
+			<if test="accountPersonCustId != null">
+				ACCOUNT_PERSON_CUST_ID,
+			</if>
+			<if test="accountDate != null">
+				ACCOUNT_DATE,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+			<if test="billsStartDate != null">
+				START_TIME,
+			</if>
+			<if test="billsEndDate != null">
+				END_TIME,
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO,
+			</if>
+			<if test="cityNo != null">
+				CITY_NO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accountingId != null">
+				#{accountingId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyWelfareNo != null">
+				#{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				#{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="healthPayAmount != null">
+				#{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				#{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				#{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPersonName != null">
+				#{accountPersonName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPersonCustId != null">
+				#{accountPersonCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountDate != null">
+				#{accountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="billsStartDate != null">
+				to_date(#{billsStartDate},'yyyy-mm-dd'),
+			</if>
+			<if test="billsEndDate != null">
+				to_date(#{billsEndDate},'yyyy-mm-dd'),
+			</if>
+			<if test="provinceNo != null">
+				#{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				#{cityNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--更新核算单信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.ClaimsAccountingInfo">
+		update T_WS_CLAIMS_ACCOUNTING
+		<set>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				TASK_ID = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT = #{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT = #{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT = #{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPersonName != null">
+				ACCOUNT_PERSON_NAME = #{accountPersonName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPersonCustId != null">
+				ACCOUNT_PERSON_CUST_ID = #{accountPersonCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountDate != null">
+				ACCOUNT_DATE = #{accountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="billsStartDate != null">
+				START_TIME = to_date(#{billsStartDate},'yyyy-mm-dd'),
+			</if>
+			<if test="billsEndDate != null">
+				END_TIME = to_date(#{billsEndDate},'yyyy-mm-dd'),
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ACCOUNTING_ID = #{accountingId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 更新理赔核算单 通过工单编号 -->
+	<update id="updateByTaskId" parameterType="com.gy.hsxt.ws.bean.ClaimsAccountingInfo">
+		update T_WS_CLAIMS_ACCOUNTING
+		<set>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				TASK_ID = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="healthPayAmount != null">
+				HEALTH_PAY_AMOUNT = #{healthPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="personalPayAmount != null">
+				PERSONAL_PAY_AMOUNT = #{personalPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT = #{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPersonName != null">
+				ACCOUNT_PERSON_NAME = #{accountPersonName,jdbcType=VARCHAR},
+			</if>
+			<if test="accountPersonCustId != null">
+				ACCOUNT_PERSON_CUST_ID = #{accountPersonCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="accountDate != null">
+				ACCOUNT_DATE = #{accountDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+			<if test="billsStartDate != null">
+				START_TIME = to_date(#{billsStartDate},'yyyy-mm-dd'),
+			</if>
+			<if test="billsEndDate != null">
+				END_TIME = to_date(#{billsEndDate},'yyyy-mm-dd'),
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where TASK_ID = #{taskId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+
+</mapper>

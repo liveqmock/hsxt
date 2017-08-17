@@ -1,0 +1,121 @@
+<!--内容添加开始-->
+
+            <div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                    	<li class="mr">
+                                <label class="title-int">企业互生号：</label>
+                                <div class="cont-int">
+                                	<input type="text" id="salerId" value="" class="input-txt w120" maxlength="11"/>
+                                </div> 
+                            </li>
+                            <li class="mr"><!-- last -->
+                                <label class="title-int ml10">品牌：</label>
+                                <div class="cont-int">
+                                	<input type="text" id="brandName"  value="" class="input-txt w120" autocomplete="off" />
+                                </div> 
+                            </li>
+                            <li class="mr">
+                                <label class="title-int  ml10">商品分类：</label>
+                                <div class="cont-int">
+                                	<input id="pCategory" placeholder="请选择" readonly="readonly" optionvalue="" /> 
+                                	<input id="sCategory" placeholder="请选择" readonly="readonly" optionvalue="" class="none"/> 
+                                	<!-- <input type="text" id="pCategory" readonly="readonly" value="" class="input-txt half"  autocomplete="off"/>
+                                    <div class="popupmenu" id="popupmenu03">
+                                        <ul>
+                                           
+                                        </ul>
+                                    </div>
+                                    <input type="text" id="sCategory" readonly="readonly" value="" class="input-txt half"  autocomplete="off"/>
+                                    <div class="popupmenu half" id="popupmenu04">
+                                        <ul>
+                                        </ul>
+                                    </div> -->
+                                </div> 
+                            </li>
+                            <li>
+                            	<label class="title-int ml10">状态：</label>
+                            	<input id="status" placeholder="请选择" readonly="readonly" optionvalue="" /> 
+                                <!-- <div class="cont-chk"><select class="select_radius" id="status" style="width:115px;height:30px; margin-right:0;">
+                                    </select>
+                                </div> -->
+                            </li>
+                            <li class="last">
+                                <div class="cont-int">
+                                	<button id="itemSearchBtn" type="button" class="btn-search ml20 w80" >查询</button>
+                                </div>
+                            </li>
+                            
+                         </ul>
+                    </div>
+                     <!-- 操作台切换标签开始 -->
+          <div class="pr">
+            <div class="tabNav">
+            <ul class="tabList clearfix" id="goodTablList">
+              	<li id="tab01"><a class="active" style="cursor: pointer;">待审核</a></li>
+                <li id="tab02" style="display:none"><a style="cursor: pointer;display:none;">待处理举报</a></li>
+                <li id="tab03"><a style="cursor: pointer;">审核不通过</a></li>
+                <li id="tab04"><a style="cursor: pointer;">正常上架商品</a></li>
+                <li id="tab05"><a style="cursor: pointer;">正常下架商品</a></li>
+            </ul>
+            </div>
+          </div>
+          <!-- 操作台切换标签结束 -->
+          
+		<!-- zhanghh  main  start   -->
+		<div class="">
+			<% if(type==1 || type==3){ %>
+              <div class="alone_row">
+	              <input class="btn-search ml10" type="button" id="tg" value="批量审核通过"/>
+	              <input class="btn-search ml10" type="button" id="btg" value="批量审核不通过"/>
+             </div>
+            <% } %>
+           <div class="shopebox">
+             <table id="goodlist">
+               <thead>
+	                <tr>
+	                  <th w_render="operate" w_align="center" width="5%"><input type="checkbox" id="selectAll" />全选</th>
+	                  <th w_render="operate" w_align="center" width="20%">商品信息</th>
+	                  <th w_render="operate" w_align="center" width="10%">企业互生号</th>
+	                  <th w_render="operate" w_align="center" width="15%">企业名称</th>
+	                  <th w_render="operate" w_align="center" width="5%">品牌</th>
+	                  <th w_render="operate" w_align="center" width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格</th>
+	                  <th w_render="operate" w_align="center" width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">积分</th>
+	                  <th w_render="operate" w_align="center" width="5%">状态</th>
+	                  <th w_render="operate" w_align="center" width="20%">操作</th>
+	                </tr>
+                </thead>
+             </table>
+		</div>
+    </div>
+<!--内容添加结束--> 
+<!--弹出框内容及脚本开始-->
+<div id="review" class="none">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right">审核说明：</td>
+    <td><textarea id="" placeholder="请输入"></textarea></td>
+  </tr>
+</table>
+</div>
+<!-- 商品下架 -->
+<div id="soldOut" class="none">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="right">下架原因：</td>
+    <td><textarea id="soldOut" placeholder="请输入"></textarea></td>
+  </tr>
+</table>
+</div>
+<!-- 查看审核记录开始 -->
+<div id="review_record" class="none">
+
+</div>
+<!-- 查看审核记录结束 -->
+
+<div class="tg" style="text-align:center;margin-top:10px;display: none;">确认通过!</div>
+<div class="btg" style="text-align:center;margin-top:10px;display: none;">确认不通过!</div>
+
+<div class="ts" style="text-align:center;margin-top:10px;display: none;">请选择商品!</div>
+<div id="msgDiv" class="none"></div>
+<!--弹出框内容及脚本结束-->
+

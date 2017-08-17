@@ -1,0 +1,66 @@
+<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+        <tbody><tr>
+            <td class="view_item" width="14%">联系人姓名</td>
+            <td class="view_text" width="38%"><%=obj.contactPerson%></td>
+            <td class="view_item" width="12%">联系人手机</td>
+            <td class="view_text" width="36%"><%=obj.contactPhone%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="14%">联系地址</td>
+            <td class="view_text" width="38%" style="padding: 4px"><%=obj.contactAddr%></td>
+            <td class="view_item" width="12%">邮政编码</td>
+            <td class="view_text" width="36%"><%=obj.postCode%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="14%">企业安全邮箱</td>
+            <td class="view_text" width="38%">
+				<div class="clearfix mr5" style="line-height: 24px">
+					<span class="fl"><%=obj.contactEmail%></span>
+					<input type="hidden" id="email" name="email" value="<%=obj.contactEmail%>" />
+					
+					<% if(obj.contactEmail!=null&&obj.contactEmail!='') { %>
+						<% if(obj.asEntStatusInfo.isAuthEmail !=1 && obj.contactEmail != null && obj.contactEmail != ''  ) { %>
+							<span>&nbsp;&nbsp;未验证</span> 
+							<a id="btn_lxxx_yz" class="dlgEmail btn_bg submit_btn" style="float:right">验证</a>
+						<% } %>
+						<% if(obj.asEntStatusInfo.isAuthEmail ==1) { %>
+							<span>&nbsp;&nbsp;已验证</span> 
+						<% } %>
+					<% } %>	
+					
+				</div>
+			</td>
+			<td class="view_item" width="12%"><!--企业网址--></td>
+            <td class="view_text" width="36%"><!--www.123.com--></td>
+        </tr>
+        <!--<tr>
+            <td class="view_item" width="20%">办公电话</td>
+            <td class="view_text" width="30%">12345678</td>
+            <td class="view_item" width="20%">传真号码</td>
+            <td class="view_text" width="30%">12345678</td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">联系人职务</td>
+            <td class="view_text" width="30%">职务</td>
+            <td class="view_item" width="20%">企业联系QQ</td>
+            <td class="view_text" width="30%">11111111</td>
+        </tr>-->
+        <tr>
+            <td class="view_item" width="20%" height="60">联系人授权委托书</td>
+            <td colspan="3" class="view_text pt5 pb5">
+            <a ><img id="img" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+            </td>
+            </tr>
+       
+    </tbody></table>
+    <div class="clearfix mt20" align="center"><a   class="btn_bg submit" id="ModifyBt_qiyelianxi">修　改</a></div>
+	
+	<div id="qyxx_lxxx_dialog" class="none">
+		<p class="autowidth">
+		<div class="tc lh200">
+			系统已发送验证邮件到<%=obj.contactEmail%>，<br>请及时登录邮箱完成绑定。
+		</div>
+		</p>
+	</div>    
+
+

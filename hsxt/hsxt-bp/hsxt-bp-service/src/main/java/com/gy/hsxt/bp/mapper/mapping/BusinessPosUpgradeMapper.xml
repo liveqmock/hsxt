@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessPosUpgradeMapper"><!-- map的类 -->
+	<!-- @author 作者 : weixz -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessPosUpgrade" id="businessPosUpgrade">
+     <!-- POS机升级信息实体-->
+        <id column="POS_ID" property="posId" jdbcType="VARCHAR" />
+        <result column="POS_DEVICE_TYPE" property="posDeviceType" jdbcType="VARCHAR" />
+        <result column="POS_MACHINE_NO" property="posMachineNo" jdbcType="VARCHAR" />
+        <result column="IS_UPGRADE" property="isUpgrade" jdbcType="VARCHAR" />
+        <result column="IS_FORCE_UPGRADE" property="isForceUpgrade" jdbcType="VARCHAR" />
+        <result column="POS_UPGRADE_VERNO" property="posUpgradeVerNo" jdbcType="VARCHAR" />
+        <result column="FILE_CRCCODE" property="fileCrcCode" jdbcType="VARCHAR" />
+        <result column="FILE_HTTPURL" property="fileHttpUrl" jdbcType="VARCHAR" />
+        <result column="FILE_BYTES" property="fileBytes" jdbcType="INTEGER" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+	<!-- 查询POS机升级信息状态为更新(Y)-->
+	<select id="searchPosUpgradeVerInfo" resultMap="businessPosUpgrade" parameterType="String">
+		SELECT POS_DEVICE_TYPE,
+		       IS_UPGRADE,
+               IS_FORCE_UPGRADE,
+               POS_UPGRADE_VERNO,
+               FILE_CRCCODE, 
+               FILE_HTTPURL,
+               FILE_BYTES
+          FROM T_BP_POS_UPGRADEINFO  
+         WHERE POS_DEVICE_TYPE = #{posDeviceType,jdbcType=VARCHAR}
+               <!-- POS_MACHINE_NO = #{posMachineNo,jdbcType=VARCHAR} -->
+           AND IS_UPGRADE = 'Y'
+	</select>
+	
+	<select id="searchPosUpgradeVerInfoList" resultMap="businessPosUpgrade" parameterType="String">
+		SELECT POS_ID,
+		       POS_DEVICE_TYPE,
+		       IS_UPGRADE,
+               IS_FORCE_UPGRADE,
+               POS_UPGRADE_VERNO,
+               FILE_CRCCODE, 
+               FILE_HTTPURL,
+               FILE_BYTES
+          FROM T_BP_POS_UPGRADEINFO  
+         WHERE POS_DEVICE_TYPE = #{posDeviceType,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="searchPosUpListPage" resultMap="businessPosUpgrade" parameterType="BusinessPosUpgrade">
+		SELECT POS_ID,
+		       POS_DEVICE_TYPE,
+		       IS_UPGRADE,
+               IS_FORCE_UPGRADE,
+               POS_UPGRADE_VERNO,
+               FILE_CRCCODE, 
+               FILE_HTTPURL,
+               FILE_BYTES,
+               CREATED_DATE 
+          FROM T_BP_POS_UPGRADEINFO
+         WHERE 1=1 
+         <if test="posDeviceType != null and posDeviceType != '' ">
+         		AND POS_DEVICE_TYPE = #{posDeviceType,jdbcType=VARCHAR}
+         </if>
+         <if test="isUpgrade != null and isUpgrade != '' ">
+         		AND IS_UPGRADE = #{isUpgrade,jdbcType=VARCHAR}
+         </if>
+         <if test="beginDate != null and beginDate != '' ">
+         		AND CREATED_DATE &gt;= TO_DATE(#{beginDate,jdbcType=VARCHAR},'YYYY-MM-DD HH24:MI:SS')
+         </if>
+         <if test="endDate != null and endDate != '' ">
+         		AND CREATED_DATE &lt;= TO_DATE(#{endDate,jdbcType=VARCHAR},'YYYY-MM-DD HH24:MI:SS')
+         </if>
+         ORDER BY POS_ID DESC
+	</select>
+	
+	<!-- 新增POS机升级信息 -->
+	<insert id="addPosUpgradeVerInfo" parameterType="BusinessPosUpgrade">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_POS_UPGRADEINFO
+		      ( 
+		        POS_ID,
+		        POS_DEVICE_TYPE,
+		        POS_MACHINE_NO,
+		        IS_UPGRADE,
+				IS_FORCE_UPGRADE, 
+				POS_UPGRADE_VERNO,
+				FILE_CRCCODE,
+				FILE_HTTPURL,
+				FILE_BYTES,
+				UPDATED_DATE,
+				CREATED_DATE) 
+		VALUES (
+			 	SEQ_BP_POS_UPGRADE_ID.NEXTVAL,
+				#{posDeviceType,jdbcType=VARCHAR},
+				#{posMachineNo,jdbcType=VARCHAR},
+				#{isUpgrade,jdbcType=VARCHAR},
+				#{isForceUpgrade,jdbcType=VARCHAR},
+				#{posUpgradeVerNo,jdbcType=VARCHAR},
+				#{fileCrcCode,jdbcType=VARCHAR},
+				#{fileHttpUrl,jdbcType=VARCHAR},
+				#{fileBytes,jdbcType=INTEGER},
+				systimestamp,
+		  		systimestamp)
+	</insert>
+	
+	<!-- 更新POS机升级信息为不更新状态(N) -->
+	<update id="updatePosUpForN" parameterType="String">
+        UPDATE T_BP_POS_UPGRADEINFO
+           SET IS_UPGRADE = 'N'
+         WHERE POS_ID = #{posId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 更新POS机升级信息为不更新状态(N) -->
+	<update id="updatePosUpInfoForN" parameterType="String">
+        UPDATE T_BP_POS_UPGRADEINFO
+           SET IS_UPGRADE = 'N'
+         WHERE IS_UPGRADE = 'Y' 
+           AND POS_DEVICE_TYPE = #{posDeviceType,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 更新POS机升级信息为更新状态(Y) -->
+	<update id="updatePosUpForY" parameterType="BusinessPosUpgrade">
+         UPDATE  T_BP_POS_UPGRADEINFO
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="isUpgrade != null and isUpgrade != '' ">
+					 IS_UPGRADE = #{isUpgrade,jdbcType=VARCHAR},
+				</if>
+				<if test="isForceUpgrade != null and isForceUpgrade != '' ">
+					 IS_FORCE_UPGRADE = #{isForceUpgrade,jdbcType=VARCHAR},
+				</if>
+					 UPDATED_DATE = systimestamp
+			</trim>
+			WHERE POS_ID = #{posId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 更新多个POS机升级信息为不更新状态(N) -->
+	<update id="updatePosUpList" parameterType="list">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE T_BP_POS_UPGRADEINFO
+	           SET IS_UPGRADE = 'N'
+         	WHERE POS_ID = #{item.posId,jdbcType=VARCHAR};
+		</foreach>
+	</update>
+	
+	
+</mapper>

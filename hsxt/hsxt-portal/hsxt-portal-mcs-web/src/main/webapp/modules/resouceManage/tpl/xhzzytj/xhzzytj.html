@@ -1,0 +1,57 @@
+<table width="100%" border="1" cellspacing="0" cellpadding="0"
+	class="tab-xfz mb20">
+	<tbody>
+		<tr>
+			<td rowspan="4" class="lh200 red"><h1 class="black">系统资源总数</h1>	988,911,099</td>
+			<td rowspan="4" class="lh200 red"><h2 id="hPlatName"></h2><%=comm.formatNumber(obj.systemResourceUsageNumber)%></td>
+			<td class="bg_grey">激活互生卡数</td>
+			<td class="bg_grey">活跃互生卡数</td>
+		</tr>
+		<tr>
+			<td><%=comm.formatNumber(obj.activationNumber)%></td>
+			<td><%=comm.formatNumber(obj.activeNumber)%></td>
+
+		</tr>
+		<tr class="bg_lvse">
+			<td>实名注册数</td>
+			<td>实名认证数</td>
+		</tr>
+		<tr>
+			<td><%=comm.formatNumber(obj.registrationAuthNumber)%></td>
+			<td><%=comm.formatNumber(obj.realnameAuthNumber)%></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li class="mr20"><label class="title-int">企业互生号：</label>
+			<div class="cont-int">
+				<input id="txtEntResNo" type="text" name="textfield" id="" placeholder="输入企业互生号"
+					class="input-txt w100">
+			</div></li>
+		<li class="mr20"><label class="title-int">公司名称：</label>
+			<div class="cont-int">
+				<input id="txtEntName" type="text" name="textfield" id="" placeholder="输入公司名称"
+					class="input-txt w100">
+			</div></li>
+		<li>
+			<div class="cont-int">
+				<button id="btnQuery" type="button" class="btn-search">查询</button>
+			</div>
+		</li>
+	</ul>
+</div>
+<div class="search-cont">
+	<table id="detailTable" class="bsgrid">
+		<tr>
+			<th w_index="hsResNo">企业互生号</th>
+			<th w_index="entCustName" w_tip="true" w_length='30'>公司名称</th>
+			<th w_index="registrationAuthNumber">实名注册数</th>
+			<th w_index="realnameAuthNumber">实名认证数</th>
+			<th w_index="activationNumber">激活互生卡数</th>
+			<th w_index="activeNumber">活跃互生卡数</th>
+		</tr>
+	</table>
+
+</div>

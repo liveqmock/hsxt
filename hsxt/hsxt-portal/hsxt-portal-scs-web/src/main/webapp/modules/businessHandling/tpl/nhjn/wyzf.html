@@ -1,0 +1,27 @@
+<div class="view_info info_500 mt30">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tbody>
+		<tr>
+			<td class="view_item" width="20%">缴纳年费金额</td>
+			<td class="view_text" width="30%"><%=obj.payFee %></td>
+		</tr>
+		<tr>
+			<td class="view_item">货币转换比率</td>
+			<td class="view_text"><%=obj.transRate %></td>
+		</tr>
+		<tr>
+			<td class="view_item">折合应付货币金额</td>
+			<td class="view_text"><span id="payFee"><%=obj.payFee * obj.transRate %></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">缴纳年费区间</td>
+			<td class="view_text"><span id="payTime"><%=obj.payTime %></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">当地结算货币</td>
+			<td class="view_text"><span id="localCurrency"><%=obj.localCurrency %></span></td>
+		</tr>
+	</tbody></table>
+	<div class="two_button mt20" align="center"><a  id="btn_xg" class="btn_bg submit mr10 fl">修　改</a><a id="btn_jnxtsynf_qr" class="btn_bg submit fr wyjnxtsynfqr">付　款</a></div>
+</div>
+          

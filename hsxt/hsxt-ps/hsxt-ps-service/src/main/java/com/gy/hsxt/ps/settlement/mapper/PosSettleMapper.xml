@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.settlement.mapper.PosSettleMapper">
+
+    <select id="querySettle" parameterType="BatSettle" resultType="BatchSettle">
+			SELECT * FROM (
+				SELECT
+				SUM(
+				CASE WHEN SUBSTR (T.TRANS_TYPE,3,1)!=3 THEN
+				T.TARGET_TRANS_AMOUNT
+				END)
+				"hsbSum",
+				 COUNT (CASE WHEN  SUBSTR (T.TRANS_TYPE,3,1)!=3 THEN 1
+                       ELSE NULL
+                       END)
+                "hsbCnt",
+				NVL(SUM(T.ENT_POINT),0) "detPoinsSum",
+				COUNT(T.TRANS_NO) "detPoinsCnt"
+			    FROM T_PS_NDETAIL T  WHERE
+			    T.EQUIPMENT_TYPE = #{equipmentType,jdbcType=NUMERIC}
+			    AND T.SOURCE_BATCH_NO = #{sourceBatchNo,jdbcType=VARCHAR}    
+			    AND T.EQUIPMENT_NO = #{equipmentNo,jdbcType=VARCHAR}
+			    AND T.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+			    AND T.TRANS_STATUS IN(0,1,2,6,8)
+		    ),
+		   (SELECT
+		    NVL(SUM(T.ENT_POINT),0) "detPcancelSum",
+		    COUNT(T.TRANS_NO) "detPcancelCnt"
+		    FROM T_PS_CDETAIL T WHERE
+		    T.EQUIPMENT_TYPE =#{equipmentType,jdbcType=NUMERIC}
+		    AND T.SOURCE_BATCH_NO = #{sourceBatchNo,jdbcType=VARCHAR}   
+		    AND T.EQUIPMENT_NO = #{equipmentNo,jdbcType=VARCHAR}
+		    AND T.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+		    AND T.TRANS_STATUS = 0
+		    AND SUBSTR(T.TRANS_TYPE,3,1)=1
+		    ),
+		    
+		    (SELECT NVL(SUM(T.ENT_POINT),0) "detPbackSum",
+		    COUNT(T.TRANS_NO) "detPbackCnt" 
+		    FROM T_PS_BDETAIL T  WHERE 
+		    T.EQUIPMENT_TYPE =#{equipmentType,jdbcType=NUMERIC}
+		    AND T.SOURCE_BATCH_NO = #{sourceBatchNo,jdbcType=VARCHAR}   
+		    AND T.EQUIPMENT_NO = #{equipmentNo,jdbcType=VARCHAR}
+		    AND T.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+		    AND T.TRANS_STATUS = 0
+		    AND SUBSTR(T.TRANS_TYPE,3,1)=1
+		    )
+	</select>
+
+    <insert id="insertSettle" parameterType="map">
+	 INSERT INTO T_PS_BAT_SETTLE (
+	 ID,
+	 ENT_RES_NO,
+	 EQUIPMENT_TYPE, 
+	 EQUIPMENT_NO, 
+	 SOURCE_BATCH_NO,
+	 POINT_CNT,
+	 POINT_SUM,
+	 POINT_CANCEL_CNT,
+	 POINT_CANCEL_SUM,
+	 POINT_BACK_CNT,
+	 POINT_BACK_SUM,
+	 DET_POINS_CNT,
+	 DET_POINS_SUM,
+	 DET_PCANCEL_CNT,
+	 DET_PCANCEL_SUM,
+	 DET_PBACK_CNT,
+	 DET_PBACK_SUM,
+	 SETTLE_RESULT,
+	 DET_HSB_CNT,
+	 DET_HSB_SUM
+	 )
+	 VALUES( 
+	 #{bs.id,jdbcType=VARCHAR},
+	 #{batSettle.entResNo,jdbcType=VARCHAR},
+	 #{batSettle.equipmentType,jdbcType=NUMERIC},
+	 #{batSettle.equipmentNo,jdbcType=VARCHAR},
+	 #{batSettle.sourceBatchNo,jdbcType=VARCHAR},
+	 #{batSettle.pointCnt,jdbcType=NUMERIC},
+	 #{batSettle.pointSum,jdbcType=NUMERIC},
+	 #{batSettle.pointCancelCnt,jdbcType=NUMERIC},
+	 #{batSettle.pointCancelSum,jdbcType=NUMERIC},
+	 #{batSettle.pointBackCnt,jdbcType=NUMERIC},
+	 #{batSettle.pointBackSum,jdbcType=NUMERIC},
+	 #{bs.detPoinsCnt,jdbcType=NUMERIC},
+	 #{bs.detPoinsSum,jdbcType=NUMERIC},
+	 #{bs.detPcancelCnt,jdbcType=NUMERIC},
+	 #{bs.detPcancelSum,jdbcType=NUMERIC},
+	 #{bs.detPbackCnt,jdbcType=NUMERIC},
+	 #{bs.detPbackSum,jdbcType=NUMERIC},
+	 #{bs.settleResult,jdbcType=NUMERIC},
+	 #{bs.hsbCnt,jdbcType=NUMERIC},
+	 #{bs.hsbSum,jdbcType=NUMERIC}
+	 )
+	</insert>
+
+    <select id="queryUpload" parameterType="map" resultType="BatchUpload">
+	 SELECT  T.TRANS_NO "transNo",
+			 T.ENT_RES_NO "entResNo",
+			 T.EQUIPMENT_TYPE "equipmentType",
+			 T.EQUIPMENT_NO "equipmentNo",
+		 	 T.SOURCE_TRANS_NO "sourceTransNo",
+		 	 T.BATCH_NO "batchNo",
+		 	 T.TRANS_AMOUNT "transAmount",
+		 	 T.PER_RES_NO perResNo,
+		 	 T.POINT_RATE "pointRate",
+		 	 T.ENT_POINT "entPoint",
+		 	 T.PER_POINT "perPoint"
+		FROM T_PS_NDETAIL T
+		WHERE
+		${inSQL}
+		AND T.ENT_RES_NO = ${entResNo}
+		AND T.TRANS_STATUS IN(0,6,8)
+		UNION ALL
+		SELECT  T.TRANS_NO "transNo",
+				T.ENT_RES_NO "entResNo",
+				T.EQUIPMENT_TYPE "equipmentType",
+				T.EQUIPMENT_NO "equipmentNo",
+			 	T.SOURCE_TRANS_NO "sourceTransNo",
+			 	T.BATCH_NO "batchNo",
+			 	T.TRANS_AMOUNT "transAmount",
+			 	T.PER_RES_NO perResNo,
+			 	T.POINT_RATE "pointRate",
+			 	T.ENT_POINT "entPoint",
+			 	T.PER_POINT "perPoint"
+		FROM T_PS_CDETAIL T
+		WHERE
+		${inSQL}
+		AND T.ENT_RES_NO = ${entResNo}
+		AND T.TRANS_STATUS = 0
+		UNION ALL
+		 SELECT  T.TRANS_NO "transNo",
+				 T.ENT_RES_NO "entResNo",
+				 T.EQUIPMENT_TYPE "equipmentType",
+				 T.EQUIPMENT_NO "equipmentNo",
+			 	 T.SOURCE_TRANS_NO "sourceTransNo",
+			 	 T.BATCH_NO "batchNo",
+			 	 T.TRANS_AMOUNT "transAmount",
+			 	 T.PER_RES_NO perResNo,
+			 	 T.POINT_RATE "pointRate",
+			 	 T.ENT_POINT "entPoint",
+			 	 T.PER_POINT "perPoint"
+		FROM T_PS_BDETAIL T
+		WHERE
+		${inSQL}
+		AND T.ENT_RES_NO = ${entResNo}
+		AND T.TRANS_STATUS = 0
+	</select>
+
+    <insert id="insertUpload" parameterType="list">
+        INSERT INTO T_PS_BAT_UPLOAD (
+	        TRANS_NO,
+	        ENT_RES_NO,
+	        EQUIPMENT_TYPE,
+	        EQUIPMENT_NO,
+	        SOURCE_TRANS_NO,
+	        BATCH_NO,
+	        TRANS_AMOUNT,
+	        PER_RES_NO,
+	        POINT_RATE,
+	        ENT_POINT,
+	        PER_POINT,
+	        SETTLE_RESULT
+        )
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT #{item.transNo,jdbcType=VARCHAR},
+		            #{item.entResNo,jdbcType=VARCHAR},
+		            #{item.equipmentType,jdbcType=NUMERIC},
+		            #{item.equipmentNo,jdbcType=VARCHAR},
+		            #{item.sourceTransNo,jdbcType=VARCHAR},
+		            #{item.batchNo,jdbcType=VARCHAR},
+		            #{item.transAmount,jdbcType=NUMERIC},
+		            #{item.perResNo,jdbcType=VARCHAR},
+		            #{item.pointRate,jdbcType=NUMERIC},
+		            #{item.entPoint,jdbcType=NUMERIC},
+		            #{item.perPoint,jdbcType=NUMERIC},
+		            #{item.settleResult,jdbcType=NUMERIC}
+             FROM DUAL
+            )
+        </foreach>
+    </insert>
+
+</mapper>

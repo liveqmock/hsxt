@@ -1,0 +1,25 @@
+<!--搜索框开始-->
+<span class="m5 addressBook_search_span clearfix">
+	<i class="serviceItem_icon icon_serviceItem_search"></i> 
+	<span class="fl search_combobox_style">
+		<select id="rightBar_qytxl_search" name="rightBar_qytxl_search">
+		</select>
+	</span> 
+</span> 
+<!--搜索框结束-->
+<div class="serviceItem" style="overflow-y:auto;overflow-x:hidden;height:384px;" id="qytxl_serviceItem">
+	<%for(var i=0; i<list.length; i++){%>
+	<h3 hidefocus='true'>
+		<ul class="clearfix">
+			<li><i class="service_icon service_icon_folder"></i></li>
+			<li class="f14 serviceItem_text"><%=list[i].groupName%><span id="count_<%=list[i].groupId%>" class="count" style="display:none;font-size:12px;"></span></li>
+			<li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+		</ul>
+	</h3>
+	<div class="tabDiv_h <%if(i!=0){%>none<%}%>">
+		<ul class="sImsg" id="qytxl_<%=list[i].groupId%>">
+			
+		</ul>
+	</div>
+	<%}%>
+</div>

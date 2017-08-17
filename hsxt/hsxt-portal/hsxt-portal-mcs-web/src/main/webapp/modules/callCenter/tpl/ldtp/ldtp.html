@@ -1,0 +1,93 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+	<tr>
+		<td class="view_item" width="12%">来电号码</td>
+		<td class="view_text" width="21%" id="latp_tel">6433</td>
+		<td class="view_item" width="12%">系统资源号</td>
+		<td class="view_text" width="21%"><input type="text" name="" id="ldtp_resno" value="" class="h28_middle w220 cannotEdit-bg pl5 pr5" placeholder='输入系统资源号' /></td>
+		<td class="view_item" width="12%">名称</td>
+		<td class="view_text" width="22%"><input type="text" name="" id="ldtp_username" value="" class="h28_middle w220 cannotEdit-bg pl5 pr5" placeholder='输入名称' /></td>
+	</tr>
+</table>
+
+<div class="border_top_CCC mt20">
+	<h2 class="mt20 f13 fb">基本信息</h2>
+	<ul class="mt10 clearfix ldtp-btn-ul">
+		<!--<li><a class="btn_bg submit" id="ldtp_smbd_btn">实名绑定</a></li>-->
+		<li><a class="btn_bg submit" id="ldtp_yxbd_btn">邮箱绑定</a></li>
+		<li><a class="btn_bg submit" id="ldtp_sjbd_btn">手机绑定</a></li>
+		<li><a class="btn_bg submit" id="ldtp_yhkbd_btn">银行卡绑定</a></li>
+		<li><a class="btn_bg submit" id="ldtp_smrz_btn">实名认证</a></li>
+		<li><a class="btn_bg submit" id="ldtp_ywblzt_btn">业务办理状态</a></li>
+		<li><a class="btn_bg submit" id="ldtp_xq_btn">详情</a></li>
+	</ul>
+</div>
+
+<div class="border_top_CCC mt20">
+	<h2 class="mt20 f13 fb">账户信息(消费者)</h2>
+	<ul class="mt10 clearfix ldtp-btn-ul">
+		<li><a class="btn_bg submit" id="ldtp_jfzh_btn">积分账户</a></li>
+		<li><a class="btn_bg submit" id="ldtp_hbzh_btn">货币账户</a></li>
+		<li><a class="btn_bg submit" id="ldtp_tzzh_btn">投资账户</a></li>
+		<li><a class="btn_bg submit" id="ldtp_hsbzh_btn">互生币账户</a></li>
+		<li><a class="btn_bg submit" id="ldtp_jfflcx_btn">积分福利查询</a></li>
+	</ul>
+</div>
+
+<div class="border_top_CCC mt20">
+	<h2 class="mt20 f13 fb">电话工单</h2>
+	<div class="view_title mt10">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">互生号：</label>
+				<input type="text" id="ldtp_hsh" name="ldtp_hsh" value="" class="h28_middle w115 input-txt" placeholder="输入互生号" />
+			</li>
+			<li>
+				<label>名称：</label>
+				<input type="text" id="ldtp_mc" name="ldtp_mc" value="" class="h28_middle w115 input-txt cannotEdit-bg" readonly />
+			</li>
+			<li>
+				<label>类型：</label>
+				<input type="text" id="ldtp_lx" name="ldtp_lx" value="" class="h28_middle w115 input-txt cannotEdit-bg" readonly />
+			</li>
+			<li class="clearfix">
+				<label class="fl mt5">优先级：</label>
+				<span class="fl ml5 mt5">
+					<input type="radio" name="ldtp_yxj" value="" class="mr5 input_radio" disabled="disabled" />高
+					<input type="radio" name="ldtp_yxj" value="" class="mr5 input_radio" disabled="disabled" />低
+				</span>
+
+			</li>
+		</ul>
+	</div>
+
+	<div class="clearfix mt10">
+		<div class="fl w900 infobox2 h160 p10">
+			输入通话内容记录；<br/>
+			基本信息与查询业务，办理后自动登录到这里；
+		</div>
+		<ul class="fl ml20 ldtp-btn2-ul">
+			<li><a class="btn_bg submit" id="ldtp_zgd_btn">转工单</a></li>
+			<li><a class="btn_bg submit" id="ldtp_ywc_btn">已完成</a></li>
+			<li><a class="btn_bg submit" id="ldtp_wx_btn">无 效</a></li>
+		</ul>
+	</div>
+
+	<div class="border_top_CCC mt20">
+		<div class="view_title mt10">
+			通话历史记录
+		</div>
+		<table id="thlsjlTable">
+			<tr>
+				<th w_index="Start_Time" w_align="left">通话日期</th>
+				<th w_index="UserName" w_align="left">用户</th>
+				<th w_index="File" w_align="left">来电内容</th>
+				<th w_index="ServiceType" w_align="left">业务类型</th>
+				<th w_index="Type" w_align="left">类型</th>
+				<th w_index="ServiceState" w_align="left">处理状态</th>
+				<th w_index="Priority" w_align="left">优先级</th>
+				<th w_index="Assess" w_align="left">客户评价</th>
+			</tr>
+		</table>
+	</div>
+
+</div>

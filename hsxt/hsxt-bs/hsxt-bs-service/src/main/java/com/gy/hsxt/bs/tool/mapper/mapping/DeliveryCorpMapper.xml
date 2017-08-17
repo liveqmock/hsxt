@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.DeliveryCorpMapper">
+	
+	<!-- 插入快递公司 -->
+	<insert id="insertDeliveryCorp" parameterType="com.gy.hsxt.bs.bean.tool.DeliveryCorp">
+		INSERT INTO 
+		T_BS_DELIVERY_CORP(
+			DC_ID,
+			CORP_NAME,
+			CORP_URL,
+			CORP_CODE,
+			LINKMAN,PHONE,
+			ADDRESS,
+			OFFICE_PHONE,
+			DESCRIPTION,
+			SORT,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEDBY) 
+		VALUES (
+			#{dcId},
+			#{corpName},
+			#{corpUrl},
+			#{corpCode},
+			#{linkMan},
+			#{phone},
+			#{addr},
+			#{officePhone},
+			#{description,jdbcType=VARCHAR},
+			#{sort},
+			'Y',
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 修改快递公司 -->
+	<update id="updateDeliveryCorp" parameterType="com.gy.hsxt.bs.bean.tool.DeliveryCorp">
+		UPDATE T_BS_DELIVERY_CORP 
+		<set>
+			UPDATED_DATE = SYSDATE,
+			<if test="corpName != null and corpName != '' ">
+				CORP_NAME = #{corpName},
+			</if>
+			<if test="corpUrl != null and corpUrl != '' ">
+				CORP_URL = #{corpUrl},
+			</if>
+			<if test="corpCode != null and corpCode != '' ">
+				CORP_CODE = #{corpCode},
+			</if>
+			<if test="linkMan != null and linkMan != '' ">
+				LINKMAN = #{linkMan},
+			</if>
+			<if test="phone != null and phone != '' ">
+				PHONE = #{phone},
+			</if>
+			<if test="addr != null and addr != '' ">
+				ADDRESS = #{addr},
+			</if>
+			<if test="officePhone != null and officePhone != '' ">
+				OFFICE_PHONE = #{officePhone},
+			</if>
+			<if test="sort != null ">
+				SORT = #{sort},
+			</if>
+			DESCRIPTION = #{description},
+	 		UPDATEDBY = #{updatedBy}
+		</set>
+		WHERE DC_ID = #{dcId}
+	</update>
+	
+	<!-- 删除快递公司 -->
+	<delete id="deleteDeliveryCorpById" parameterType="string">
+		 DELETE FROM T_BS_DELIVERY_CORP WHERE DC_ID = #{dcId}
+	</delete>
+	
+	<!-- 查询快递公司 -->
+	<select id="selectDeliveryCorpById"  parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.DeliveryCorp">
+		SELECT 
+			DC_ID AS dcId,CORP_NAME AS corpName,CORP_URL AS corpUrl,CORP_CODE AS corpCode,LINKMAN AS linkMan,
+			PHONE AS phone,ADDRESS AS addr,OFFICE_PHONE AS officePhone,DESCRIPTION AS description,
+			SORT AS sort,ISACTIVE AS isActive,CREATED_DATE AS createdDate,CREATEDBY AS createdBy,
+			UPDATED_DATE AS updatedDate,UPDATEDBY AS updatedBy 
+		FROM T_BS_DELIVERY_CORP 
+		WHERE DC_ID = #{dcId}
+	</select>
+	
+	<!-- 分页查询快递公司 -->
+	<select id="selectDeliveryCorpListPage" resultType="com.gy.hsxt.bs.bean.tool.DeliveryCorp">
+		SELECT 
+			DC_ID AS dcId,
+			CORP_NAME AS corpName,
+			LINKMAN AS linkMan,
+			PHONE AS phone,
+			SORT AS sort,
+			ADDRESS AS addr,
+			ISACTIVE AS isActive
+		FROM T_BS_DELIVERY_CORP 
+		WHERE 1=1
+		<if test="corpName != null and corpName != '' ">
+			AND CORP_NAME LIKE #{corpName}||'%'
+		</if>
+		ORDER BY SORT DESC
+	</select>
+	
+	<!-- 查询所有的快递公司 -->
+	<select id="selectDeliveryCorpAll" resultType="com.gy.hsxt.bs.bean.tool.DeliveryCorp">
+		SELECT 
+			DC_ID AS dcId,
+			CORP_NAME AS corpName,
+			CORP_URL AS corpUrl,
+			CORP_CODE AS corpCode,
+			LINKMAN AS linkMan,
+			PHONE AS phone,
+			ADDRESS AS addr,
+			OFFICE_PHONE AS officePhone,
+			SORT AS sort
+		FROM T_BS_DELIVERY_CORP 
+		WHERE ISACTIVE = 'Y'
+	</select>
+	
+</mapper>

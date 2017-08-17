@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.CertificateMapper">
+	
+	<!-- 查询证书列表 -->
+	<select id="queryCreListPage" parameterType="com.gy.hsxt.bs.apply.bean.CertificateParam" 
+			resultType="com.gy.hsxt.bs.bean.apply.CertificateBaseInfo">
+		SELECT CERTIFICATE_NO   AS certificateNo,
+		       ENT_RES_NO       AS entResNo,
+		       ENT_CUST_NAME    AS entCustName,
+		       LINKMAN          AS linkman,
+		       MOBILE           AS mobile,
+		       CERTIFICATE_TYPE AS certificateType,
+		       STATUS           AS sealStatus,
+		       DECODE(PRINT_COUNT, NULL, 0, 1) AS isPrint,
+		       IS_SEND          AS isSend,
+		       to_char(PRINT_DATE,'yyyy-MM-dd HH24:mi:ss') AS printDate
+		FROM T_BS_CERTIFICATE
+	    WHERE 1=1
+	    	<if test="certificateType != null">
+	    		AND CERTIFICATE_TYPE = #{certificateType}
+	    	</if>
+	    	<if test="entResNo != null and entResNo != '' ">
+	    		AND ENT_RES_NO LIKE #{entResNo}||'%'
+	    	</if>
+	    	<if test="certificateNo != null and certificateNo != '' ">
+	    		AND UPPER(CERTIFICATE_NO) LIKE  UPPER('%'||#{certificateNo}||'%')
+	    	</if>
+	    	<if test="entName != null and entName != '' ">
+	    		AND UPPER(ENT_CUST_NAME) LIKE UPPER('%'||#{entName}||'%')
+	    	</if>
+	    	<if test="printStatus != null">
+	    		<if test="printStatus == true">
+	    			AND PRINT_COUNT IS NOT NULL
+	    		</if>
+	    		<if test="printStatus == false">
+	    			AND PRINT_COUNT IS NULL
+	    		</if>
+	    	</if>
+	    	<if test="sendStatus != null">
+	    		AND IS_SEND = #{sendStatus}
+	    	</if>
+	    	<if test="sealStatus != null">
+	    		AND STATUS = #{sealStatus}
+	    	</if>
+	    	<if test="inStatus != null and inStatus != ''">
+	    		AND STATUS IN ${inStatus}
+	    	</if>
+	     ORDER BY REG_DATE DESC
+	</select>
+	
+	<!-- 通过ID查询证书 -->
+	<select id="queryCreById" resultType="com.gy.hsxt.bs.bean.apply.Certificate">
+		SELECT CERTIFICATE_NO   AS certificateNo,
+		       ENT_RES_NO       AS entResNo,
+		       ENT_CUST_ID      AS entCustId,
+		       ENT_CUST_NAME    AS entCustName,
+		       LINKMAN          AS linkman,
+		       MOBILE           AS mobile,
+		       APPLY_ID         AS applyId,
+		       to_char(REG_DATE, 'yyyy-MM-dd HH24:mi:ss') AS regDate,
+		       TEMPLET_ID       AS templetId,
+		       VAR_CONTENT      AS varContent,
+		       CERTIFICATE_TYPE AS certificateType,
+		       STATUS           AS status,
+		       SEAL_OPERATOR    AS sealOperator,
+		       to_char(SEAL_DATE, 'yyyy-MM-dd HH24:mi:ss') AS sealDate,
+		       PRINT_OPERATOR AS printOperator,
+		       PRINT_COUNT    AS printCount,
+		       to_char(PRINT_DATE, 'yyyy-MM-dd HH24:mi:ss') AS printDate,
+		       IS_SEND    AS isSend,
+		       SEND_COUNT AS sendCount
+		  FROM T_BS_CERTIFICATE
+	    WHERE CERTIFICATE_NO = #{certificateNo}
+	</select>
+
+	<select id="queryEffectCerByCustId" resultType="com.gy.hsxt.bs.bean.apply.Certificate">
+		SELECT CERTIFICATE_NO   AS certificateNo,
+		       ENT_RES_NO       AS entResNo,
+		       ENT_CUST_ID      AS entCustId,
+		       ENT_CUST_NAME    AS entCustName,
+		       LINKMAN          AS linkman,
+		       MOBILE           AS mobile,
+		       APPLY_ID         AS applyId,
+		       to_char(REG_DATE, 'yyyy-MM-dd HH24:mi:ss') AS regDate,
+		       TEMPLET_ID       AS templetId,
+		       VAR_CONTENT      AS varContent,
+		       CERTIFICATE_TYPE AS certificateType,
+		       STATUS           AS status,
+		       SEAL_OPERATOR    AS sealOperator,
+		       to_char(SEAL_DATE, 'yyyy-MM-dd HH24:mi:ss') AS sealDate,
+		       PRINT_OPERATOR AS printOperator,
+		       PRINT_COUNT    AS printCount,
+		       to_char(PRINT_DATE, 'yyyy-MM-dd HH24:mi:ss') AS printDate,
+		       IS_SEND    AS isSend,
+		       SEND_COUNT AS sendCount
+		  FROM T_BS_CERTIFICATE
+	    WHERE ENT_CUST_ID = #{entCustId} AND STATUS &lt;&gt; 2
+	</select>
+	
+	<!-- 查询证书内容 -->
+	<select id="queryCreContentById" resultType="com.gy.hsxt.bs.bean.apply.CertificateContent">
+		SELECT T1.APPLY_ID        AS applyId,
+		       T1.STATUS          AS sealStatus,
+		       T1.VAR_CONTENT     AS varContent,
+		       T1.CERTIFICATE_TYPE AS certificateType,
+		       T2.TEMP_PIC_ID 	AS tempPicId,
+		       T2.TEMP_FILE_ID 	AS tempFileId,
+			   T1.ENT_RES_NO AS entResNo
+		FROM T_BS_CERTIFICATE T1,
+		     T_BS_TEMPLET T2
+		WHERE T1.TEMPLET_ID = T2.TEMPLET_ID
+		      AND t1.CERTIFICATE_NO = #{certificateNo}
+	</select>
+	
+	<!-- 更新打印次数 -->
+	<update id="updatePrintCount">
+		UPDATE T_BS_CERTIFICATE
+			<set>
+				PRINT_COUNT = DECODE(PRINT_COUNT,NULL,0,PRINT_COUNT) + 1,
+				PRINT_OPERATOR = #{operator},
+				PRINT_DATE = SYSDATE
+			</set>
+		WHERE CERTIFICATE_NO = #{certificateNo}
+	</update>
+	
+	<!-- 更新盖章状态 -->
+	<update id="updateSealStatus">
+		UPDATE T_BS_CERTIFICATE
+			<set>
+				STATUS = #{status},
+				SEAL_OPERATOR = #{operator},
+				SEAL_DATE = SYSDATE
+			</set>
+		WHERE CERTIFICATE_NO = #{certificateNo}
+	</update>
+	
+	<!-- 更新发放状态   -->
+	<update id="updateSendStatus">
+		UPDATE T_BS_CERTIFICATE
+			<set>
+				IS_SEND = 1,
+				SEND_COUNT = DECODE(SEND_COUNT,NULL,0,SEND_COUNT) + 1
+			</set>
+		WHERE CERTIFICATE_NO = #{certificateNo}
+	</update>
+	
+	<!-- 创建发放历史 -->
+	<insert id="createSendHis" parameterType="com.gy.hsxt.bs.bean.apply.CertificateSendHis">
+		INSERT INTO T_BS_DOC_SEND_RECORD
+			  (BIZ_NO,
+			   UNIQUE_NO,
+			   ORIGINAL_IS_REC,
+			   REC_REMARK,
+			   SEND_REMARK,
+			   OPERATOR,
+			   OPERATED_DATE) 
+		VALUES 
+		      (#{bizNo},
+		       #{certificateNo},
+		       #{originalIsRec},
+		       #{recRemark},
+		       #{sendRemark},
+		       #{sendOperator},
+		       SYSDATE)
+	</insert>
+	
+	<!-- 查询证书发放历史 -->
+	<select id="querySendHisListPage" resultType="com.gy.hsxt.bs.bean.apply.CertificateSendHis">
+		SELECT T1.BIZ_NO          AS bizNo,
+		       T1.UNIQUE_NO       AS certificateNo,
+		       T2.STATUS          AS sealStatus,
+		       T2.SEAL_OPERATOR   AS sealOperator,
+		       to_char(T2.SEAL_DATE,'yyyy-MM-dd HH24:mi:ss')  AS sealDate,
+		       DECODE(T2.PRINT_COUNT, NULL, 0, 1)  AS isPrint,
+		       to_char(T2.PRINT_DATE,'yyyy-MM-dd HH24:mi:ss') AS printDate,
+		       T2.PRINT_OPERATOR  AS printOperator,
+		       T1.REC_REMARK      AS recRemark,
+		       T1.SEND_REMARK     AS sendRemark,
+		       T1.ORIGINAL_IS_REC AS originalIsRec,
+		       T1.OPERATOR        AS sendOperator
+		FROM T_BS_DOC_SEND_RECORD T1,
+		     T_BS_CERTIFICATE T2
+		WHERE T1.UNIQUE_NO = T2.CERTIFICATE_NO
+			 AND UPPER(T2.CERTIFICATE_NO) LIKE UPPER('%'||#{certificateNo}||'%')
+		ORDER BY T1.OPERATED_DATE DESC
+	</select>
+	
+	<!-- 通过ID查询证书基本信息 -->
+	<select id="queryCreBaseInfoById" parameterType="com.gy.hsxt.bs.apply.bean.CertificateParam" 
+			resultType="com.gy.hsxt.bs.bean.apply.CertificateBaseInfo">
+		SELECT CERTIFICATE_NO   AS certificateNo,
+		       ENT_RES_NO       AS entResNo,
+		       ENT_CUST_NAME    AS entCustName,
+		       LINKMAN          AS linkman,
+		       MOBILE           AS mobile,
+		       CERTIFICATE_TYPE AS certificateType,
+		       STATUS           AS sealStatus,
+		       IS_SEND          AS isSend,
+		       DECODE(PRINT_COUNT, NULL, 0, 1) AS isPrint
+        FROM T_BS_CERTIFICATE 
+	    WHERE CERTIFICATE_NO = #{certificateNo}
+	</select>
+	
+	<!-- 创建证书 -->
+	<insert id="createCertificate" parameterType="com.gy.hsxt.bs.bean.apply.Certificate">
+		INSERT INTO T_BS_CERTIFICATE
+			  (CERTIFICATE_NO,
+			   ENT_RES_NO,
+			   ENT_CUST_ID,
+			   ENT_CUST_NAME,
+			   LINKMAN,
+			   MOBILE,
+			   APPLY_ID,
+			   REG_DATE,
+			   TEMPLET_ID,
+			   VAR_CONTENT,
+			   CERTIFICATE_TYPE,
+			   STATUS,
+			   SEAL_OPERATOR,
+			   SEAL_DATE,
+			  IS_SEND)
+	    VALUES 
+	          (#{certificateNo},
+	           #{entResNo},
+	           #{entCustId},
+	           #{entCustName},
+	           #{linkman},
+	           #{mobile},
+	           #{applyId},
+	           to_date(#{regDate},'yyyy-MM-dd HH24:mi:ss'),
+	           #{templetId},
+	           #{varContent},
+	           #{certificateType},
+	           #{status},
+	           #{sealOperator},
+	           to_date(#{sealDate},'yyyy-MM-dd HH24:mi:ss'),
+			  0)
+	</insert>
+	
+	<!-- 查询证书主要信息 -->
+	<select id="queryCerMainInfo" resultType="com.gy.hsxt.bs.bean.apply.CertificateMainInfo">
+		SELECT CERTIFICATE_NO   AS certificateNo,
+		       ENT_RES_NO       AS entResNo,
+		       ENT_CUST_NAME    AS entCustName,
+		       STATUS           AS status
+        FROM T_BS_CERTIFICATE 
+	    WHERE CERTIFICATE_NO = #{certificateNo}	
+	    	  AND ENT_RES_NO = #{entResNo}
+	    	  AND CERTIFICATE_TYPE = #{cerType}
+	</select>
+
+	<update id="updateCerForChangeInfo" parameterType="com.gy.hsxt.bs.bean.apply.Certificate">
+		UPDATE T_BS_CERTIFICATE t SET
+		t.STATUS = #{status}
+		<if test="entCustName != null and entCustName != ''">
+			,t.ENT_CUST_NAME = #{entCustName}
+		</if>
+		<if test="linkman != null and linkman != ''">
+			,t.LINKMAN = #{linkman}
+		</if>
+		<if test="mobile != null and mobile != ''">
+			,t.MOBILE = #{mobile}
+		</if>
+		<if test="varContent != null and varContent != ''">
+			,t.VAR_CONTENT = #{varContent}
+		</if>
+		WHERE t.CERTIFICATE_NO = #{certificateNo}
+		<if test="status != null and status==3">
+			AND t.STATUS = 1
+		</if>
+	</update>
+
+	<update id="setLostEfficacyForThird" parameterType="string">
+		UPDATE T_BS_CERTIFICATE t SET t.STATUS = 2 WHERE t.ENT_RES_NO=#{entResNo}
+	</update>
+</mapper>

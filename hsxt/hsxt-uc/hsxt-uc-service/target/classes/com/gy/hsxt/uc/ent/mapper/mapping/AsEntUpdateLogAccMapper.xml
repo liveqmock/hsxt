@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.AsEntUpdateLogAccMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogAcc" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="ACC_ID" property="accId" jdbcType="DECIMAL" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_ACC_NAME" property="bankAccName" jdbcType="VARCHAR" />
+    <result column="BANK_ACC_NO" property="bankAccNo" jdbcType="VARCHAR" />
+    <result column="BANK_CARD_TYPE" property="bankCardType" jdbcType="DECIMAL" />
+    <result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+    <result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+    <result column="BANK_BRANCH" property="bankBranch" jdbcType="VARCHAR" />
+    <result column="IS_DEFAULT_ACCOUNT" property="isDefaultAccount" jdbcType="DECIMAL" />
+    <result column="IS_VALID_ACCOUNT" property="isValidAccount" jdbcType="DECIMAL" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, ACC_ID, ENT_CUST_ID, ENT_RES_NO, BANK_NAME, BANK_CODE, BANK_ACC_NAME, BANK_ACC_NO, 
+    BANK_CARD_TYPE, COUNTRY_NO, PROVINCE_NO, CITY_NO, BANK_BRANCH, IS_DEFAULT_ACCOUNT, 
+    IS_VALID_ACCOUNT, ISACTIVE, CREATE_DATE, CREATEDBY, UPDATE_DATE, UPDATEDBY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ENT_UPDATE_LOG_ACC
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ENT_UPDATE_LOG_ACC
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertDel" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogAcc" >
+    insert into T_ENT_UPDATE_LOG_ACC (LOG_ID, ACC_ID, ENT_CUST_ID, 
+      ENT_RES_NO, BANK_NAME, BANK_CODE, 
+      BANK_ACC_NAME, BANK_ACC_NO, BANK_CARD_TYPE, 
+      COUNTRY_NO, PROVINCE_NO, CITY_NO, 
+      BANK_BRANCH, IS_DEFAULT_ACCOUNT, IS_VALID_ACCOUNT, 
+      ISACTIVE, CREATE_DATE, CREATEDBY, 
+      UPDATE_DATE, UPDATEDBY)
+    select #{logId,jdbcType=VARCHAR},ACC_ID, ENT_CUST_ID, 
+      ENT_RES_NO, BANK_NAME, BANK_CODE, 
+      BANK_ACC_NAME, BANK_ACC_NO, BANK_CARD_TYPE, 
+      COUNTRY_NO, PROVINCE_NO, CITY_NO, 
+      BANK_BRANCH, IS_DEFAULT_ACCOUNT, IS_VALID_ACCOUNT, 
+      ISACTIVE, CREATE_DATE, CREATEDBY, 
+      UPDATE_DATE, UPDATEDBY
+    from T_ENT_ACCOUNT t where t.acc_id=#{accId,jdbcType=DECIMAL}  
+  </insert>
+  <insert id="insertAdd" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogAcc" >
+    insert into T_ENT_UPDATE_LOG_ACC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="accId != null" >
+        ACC_ID,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="bankAccName != null" >
+        BANK_ACC_NAME,
+      </if>
+      <if test="bankAccNo != null" >
+        BANK_ACC_NO,
+      </if>
+      <if test="bankCardType != null" >
+        BANK_CARD_TYPE,
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO,
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="bankBranch != null" >
+        BANK_BRANCH,
+      </if>
+      <if test="isDefaultAccount != null" >
+        IS_DEFAULT_ACCOUNT,
+      </if>
+      <if test="isValidAccount != null" >
+        IS_VALID_ACCOUNT,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="accId != null" >
+        #{accId,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccName != null" >
+        #{bankAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccNo != null" >
+        #{bankAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardType != null" >
+        #{bankCardType,jdbcType=DECIMAL},
+      </if>
+      <if test="countryNo != null" >
+        #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null" >
+        #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultAccount != null" >
+        #{isDefaultAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="isValidAccount != null" >
+        #{isValidAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogAcc" >
+    update T_ENT_UPDATE_LOG_ACC
+    <set >
+      <if test="accId != null" >
+        ACC_ID = #{accId,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccName != null" >
+        BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccNo != null" >
+        BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardType != null" >
+        BANK_CARD_TYPE = #{bankCardType,jdbcType=DECIMAL},
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null" >
+        BANK_BRANCH = #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefaultAccount != null" >
+        IS_DEFAULT_ACCOUNT = #{isDefaultAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="isValidAccount != null" >
+        IS_VALID_ACCOUNT = #{isValidAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogAcc" >
+    update T_ENT_UPDATE_LOG_ACC
+    set ACC_ID = #{accId,jdbcType=DECIMAL},
+      ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+      BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR},
+      BANK_CARD_TYPE = #{bankCardType,jdbcType=DECIMAL},
+      COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      BANK_BRANCH = #{bankBranch,jdbcType=VARCHAR},
+      IS_DEFAULT_ACCOUNT = #{isDefaultAccount,jdbcType=DECIMAL},
+      IS_VALID_ACCOUNT = #{isValidAccount,jdbcType=DECIMAL},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=OTHER},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,52 @@
+<div id="dqptkfpywcxTpl">
+	<div class="search-toolbar">
+	<form id="platkp_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>开票日期：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+			</li>
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_resNo" id="search_resNo" placeholder="输入企业互生号" class="h28_middle input-txt w115" maxlength="11" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="search_companyName" placeholder="输入企业名称" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">配送状态：</label>
+				<input id="search_status" name="search_status" readonly="readonly" placeholder="选择配送状态"/>
+				<input id="search_invoiceMaker" name="search_invoiceMaker" type="hidden" value="0" />
+				<input id="search_queryType" name="search_queryType" type="hidden" value="2" />
+			</li>
+			<li>
+				<button id="platkp_query" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_render="operate" w_align="left">企业互生号</th>
+		<th w_index="custName" w_align="left" w_tip=true>企业名称</th>
+		<th w_index="openTime" w_align="left" w_tip=true>开票日期</th>
+		<th w_index="allAmount" w_render="operate" w_align="left">开票金额</th>
+		<th w_index="invoiceType" w_render="operate" w_align="left" w_tip=true>发票类型</th>
+		<th w_index="openOperator" w_align="left" width="6%;" w_tip=true>经办人</th>
+		<th w_index="postWay" w_render="operate" w_align="left">配送方式</th>
+		<th w_index="expressName" w_align="left" w_tip=true>承运公司</th>
+		<th w_index="trackingNo" w_align="left" w_tip=true>运单号</th>
+		<th w_index="status" w_render="operate" w_align="left" width="6%;" w_tip=true>配送状态</th>
+		<th w_index="receiveWay" w_render="operate" w_align="left" w_tip=true>签收方式</th>
+		<th w_index="updatedDate" w_align="left" w_tip=true>状态时间</th>
+		<th w_render="operate" width="13%;">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dqptkfpywcx_ckTpl" class="none"></div>
+<div id="dqptkfpywcx_xgpsTpl" class="none"></div>
+<div id="dqptkfpywcx_qs" class="none"></div>
+<div id="ckqyxxTpl" class="none"></div>

@@ -1,0 +1,39 @@
+<%var param = obj.data%>
+<%var httpUrl = obj.data.ftpHttpUrl%>
+<div class="sj_scroll2">
+<div class="">
+<!-- <fieldset> -->
+<ul>
+ <li class="sj_row clearfix pr" id="img-li">
+	<div class="" id="imgBox"> <!-- fl pa imgBox_style clearfix -->
+		<div class="" id="imgMask"><!-- fl imgMask_style -->
+			<ul class="imgList clearfix" id="imgListUl">
+				<!-- <li class="noImgLi">
+					<span class="pr addImgBox_style">
+						<input type="file" name="file" id="shopImgAdd"/>
+						<img src="resources/img/add_img_bt.gif" width="80" height="70">
+					</span>
+				</li> -->
+				
+					<%if(param.pics != null && param.pics != ""){%>
+						<%$.each(eval(param.pics),function(k,v){%>
+							<li class="pr">
+							<img src="<%=httpUrl+v['800X800']%>" width="80" height="70" class="bigImg"/>
+							<i class="tips_close pa delImg" title="删除图片" imgObjIndex='<%=JSON.stringify(v)%>'></i>
+							</li>
+						<%})%>
+					<%}%>
+				
+			</ul>
+		</div>
+		<!-- <div id="moreBt" class="fr moreBt_style mt5 mr5 f13"><img src="resources/img/arrow-right.png" width="15" height="70"></div>	 -->
+	</div>
+	<!-- <span style="color: red;display:inline-block;width:262px;padding-left:312px" id="shopImgList">用于手机用户查看商城!</span>	 -->
+</li>
+</ul>
+<!-- </fieldset> -->
+</div>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>

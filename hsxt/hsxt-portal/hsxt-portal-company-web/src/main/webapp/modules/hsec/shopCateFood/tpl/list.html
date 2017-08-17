@@ -1,0 +1,88 @@
+	<div class="search-toolbar">
+         <ul class="cssform clearfix">
+           <li>
+             <div class="cont-int">
+                 <button id="addItem" type="button" class="btn-search add-sccg">添加分类</button>
+             </div>
+           </li>
+         </ul>
+    </div>		
+   <div style="zoom:1;">
+     <table id="lsfllb" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+	<thead>
+      	<tr>
+         <th width="50%" class="nobd">分类名称</th>
+         <th width="15%">分类图片</th>
+	 	 <th width="5%">排序</th>
+	  	 <th width="15%">分类商品</th>
+	  	 <th width="15%">操作</th>
+       </tr>
+       </thead>
+       <tbody>
+       <%
+       var index = 0;
+       var urlPrefix=obj.data.itemVisitUrl;
+       $.each(obj.data.QueryResult,function(key,cate){ 
+       if(cate.parentId==0){
+       ++index;
+       %>   
+       <tr class="<%=index%2==0?'table-tr-c':''%>" objId="<%=cate.id%>" objParentId="<%=cate.parentId%>" objName="<%=cate.name%>" objCategoryId="<%=cate.categoryId%>" objPicUrl="<%=cate.picUrl%>" objSortOrder="<%=cate.sortOrder%>">
+         <td class="name_list" ><%=cate.name%></td>
+         <td class="img_list" >
+         <%if(comm.isEmpty(cate.picUrl)){%>
+           
+         <%}else{%>
+           <img src="<%=urlPrefix%><%=cate.picUrl%>" width="40">
+         <%}%>
+         </td>
+         <td align="center" class="sortOrder_list" >
+         	<%if(cate.industry==1){%>
+         		<%=cate.sortOrder%>
+         	<%}else{%>
+    			<input type="button" class="list-up-arrow" title="向上移动" />
+          		<input type="button" class="list-down-arrow" title="向下移动" />
+         	<%}%>
+         </td>
+         <td align="center">
+         	<%if(cate.industry==1){%>
+         	<!-- <a class="spxx">商品信息</a> -->
+         	<%}else{%>
+         	<a class="cpxx">菜品信息</a>
+         	<%}%>
+         </td>
+         <td align="center"><a class="goods_edit mr10">编辑</a><a class="goods_del">删除</a></td>
+       </tr>
+       <%
+       	$.each(obj.data.QueryResult,function(key1,cate1){ 
+       	if(cate1.parentId == cate.id){
+       	++index;
+       %>
+       <tr class="<%=index%2==0?'table-tr-c':''%>" objId="<%=cate1.id%>"  objParentId="<%=cate1.parentId%>" objCategoryId="<%=cate1.categoryId%>" objName="<%=cate1.name%>" objPicUrl="<%=cate1.picUrl%>" objSortOrder="<%=cate1.sortOrder%>">
+         <td ><span class="sccg"><%=cate1.name%></span><input type="button" class="upgrade-arrow ml10 none" title="提升一级"></td>
+         <td >
+          <%if(comm.isEmpty(cate1.picUrl)){%>
+          
+         <%}else{%>
+           <img src="<%=urlPrefix%><%=cate1.picUrl%>" width="40">
+         <%}%>
+         </td>
+         <td align="center"><%=cate1.sortOrder%></td>
+         <td align="center"><a class="spxx">商品信息</a></td>
+         <td align="center"><a class="goods_edit mr10">编辑</a><a class="goods_del">删除</a></td>
+       </tr>
+       	
+       <%	}
+       	});
+        }%>
+      
+      <%});
+       %>
+       </tbody>
+	</table>
+	   <!-- 图片url前缀 -->
+	   <input type="hidden" name="urlPrefix" value="<%=urlPrefix%>">
+       <div class="mt10 clearfix">
+       <div class="fl"><!--<input name="" type="checkbox" value="" /><a href="#" class="ml5 mr10">全选</a><a href="#" class="mr10 btn-model add-sccg">添加分类</a>--></div>
+   <!--<div class="table-page"><span class="page-nact">首页</span><span class="page-nact">上一页</span><a href="#" class="page-act">下一页</a><a href="#" class="page-act">末页</a><span class="page-go">跳到</span><input type="text" class="page-txt"><span class="page-go">页/10页</span></div>  -->
+   </div>
+   </div>

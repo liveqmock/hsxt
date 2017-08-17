@@ -1,0 +1,26 @@
+﻿
+<form id="pi_appform" name="pi_appform" autocomplete="off"  method="post"  onsubmit="return false;">
+<input type="hidden" id="pointAccUsable" name="pointAccUsable" />
+<input type="hidden" id="minconvert" name="minconvert" />
+<div id="pointToInvest">
+  <div class="acct-ct mb20">
+    <h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>1、积分投资金额为100.00<span id="minconvertSpan"></span>的整数倍；2、平台承诺保本投资，投资回报按每年实际收益计算；3、积分投资一经确认，永不撤销。</h1>
+  </div>
+  
+    <div class="bc mt20 info_320">
+      <ul class="cssform2 clearfix">
+        <li class="clearfix">
+          <label class="title-txt w115">可用积分数</label><div class="cont-chk tbox"><span class="ml10" id="pi_pointAccUsable"></span></div>
+        </li>
+        <li class="clearfix">
+          <label class="title-txt w115">申请投资积分数</label><input id="pi_toInvestPointNum" name="pi_toInvestPointNum" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入申请投资积分数" maxlength="10"/><div class="hint"></div>
+        </li>
+        <li class="clearfix">
+          <label class="title-txt w115">转入账户</label><div class="cont-chk tbox"><span class="ml10">投资账户</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="mt20 tc"><a id="piQrBtn" class="btn_bg submit">提&#12288;交</a></div>
+</div>
+</form>
+<div class="view_info info_500 mt40 none" id="pointToInvest_affirm"></div>

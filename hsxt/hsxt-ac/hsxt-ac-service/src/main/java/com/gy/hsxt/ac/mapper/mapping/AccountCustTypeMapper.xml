@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.mapper.AccountCustTypeMapper">
+<!-- @author 作者 : weixz -->
+
+    <resultMap type="com.gy.hsxt.ac.bean.AccountCustType" id="accCustType">
+    <!-- 客户与账户类型关系对象 -->
+	    <id column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+	    <id column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+	    <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+	    <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+	    <result column="BALANCE_MIN" property="balanceMin" jdbcType="VARCHAR" />
+	    <result column="BALANCE_MAX" property="balanceMax" jdbcType="VARCHAR" />
+	    <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+	    <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+    </resultMap>
+
+<!-- 新增批量账户客户类型 -->
+<insert id="addCustAccTypes" parameterType="list">
+		INSERT /*+ append */ INTO T_AC_CUST_ACC_TYPE( 
+            ACC_TYPE, 
+            CUST_TYPE, 
+            BALANCE_MIN, 
+            BALANCE_MAX,
+            CREATED_DATE,  
+            UPDATED_DATE) 
+        SELECT ACC_TYPE, 
+            CUST_TYPE, 
+            BALANCE_MIN, 
+            BALANCE_MAX, 
+            CREATED_DATE, 
+            UPDATED_DATE FROM (
+  			<foreach collection="list" item="item" index="index" separator="union all" > 
+				(SELECT #{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+                        #{item.custType,jdbcType=INTEGER} as CUST_TYPE,
+                        <if test="item.balanceMin != null and item.balanceMin != '' ">
+                            #{item.balanceMin,jdbcType=NUMERIC} as BALANCE_MIN,
+                        </if>
+                        <if test="item.balanceMin == null or item.balanceMin == '' ">
+                            null as BALANCE_MIN,
+                        </if>
+                        <if test="item.balanceMax != null and item.balanceMax != '' ">
+                            #{item.balanceMax,jdbcType=NUMERIC} as BALANCE_MAX,
+                        </if>
+                        <if test="item.balanceMax == null or item.balanceMax == '' ">
+                            null as BALANCE_MAX,
+                        </if> 
+                        systimestamp as CREATED_DATE,
+                        systimestamp as UPDATED_DATE FROM DUAL)
+			</foreach>
+		)
+</insert>
+<!-- 新增单个账户客户类型 -->
+<insert id="addCustAccType" parameterType="AccountCustType">
+        INSERT /*+ append */ INTO T_AC_CUST_ACC_TYPE( 
+            ACC_TYPE, 
+            CUST_TYPE, 
+            BALANCE_MIN, 
+            BALANCE_MAX,
+            CREATED_DATE, 
+            UPDATED_DATE) 
+       VALUES (
+            #{accType,jdbcType=VARCHAR},
+            #{custType,jdbcType=INTEGER},
+            #{balanceMin,jdbcType=NUMERIC},
+            #{balanceMax,jdbcType=NUMERIC},
+            systimestamp,
+            systimestamp)
+</insert>
+
+<!-- 单个客户和账户类型修改 -->
+<update id="updateCustAccType" parameterType="AccountCustType">
+        UPDATE T_AC_CUST_ACC_TYPE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="balanceMin != null and balanceMin != '' ">
+                BALANCE_MIN = #{balanceMin,jdbcType=NUMERIC},
+            </if>
+            <if test="balanceMax != null and balanceMax != '' ">
+                BALANCE_MAX = #{balanceMax,jdbcType=NUMERIC},
+            </if>
+            UPDATED_DATE = systimestamp
+        </trim>
+         WHERE ACC_TYPE= #{accType,jdbcType=VARCHAR} AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+</update>
+<!-- 批量客户和账户类型修改 --> 
+<update id="updateCustAccTypes" parameterType="list">
+	<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		UPDATE T_AC_CUST_ACC_TYPE
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="item.balanceMin != null and item.balanceMin != '' ">
+				BALANCE_MIN = #{item.balanceMin,jdbcType=NUMERIC},
+			</if>
+			<if test="item.balanceMax != null and item.balanceMax != '' ">
+				BALANCE_MAX = #{item.balanceMax,jdbcType=NUMERIC},
+			</if>
+			UPDATED_DATE = systimestamp
+		</trim>
+		 WHERE ACC_TYPE=#{item.accType,jdbcType=VARCHAR} 
+		   AND CUST_TYPE =#{item.custType,jdbcType=INTEGER};
+	</foreach>
+</update>
+<!-- 单个客户和账户类型删除 -->
+<delete id="deleteCustAccType" parameterType="map">
+        delete from T_AC_CUST_ACC_TYPE where ACC_TYPE = #{accType,jdbcType=VARCHAR} 
+        AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+</delete>
+<!-- 批量客户和账户类型删除 -->
+<delete id="deleteCustAccTypes" parameterType="list">
+		delete from T_AC_CUST_ACC_TYPE where 
+		<foreach collection="list" item="item" index="index" separator="or">
+            ACC_TYPE = #{item.accType,jdbcType=VARCHAR} 
+        AND CUST_TYPE = #{item.custType,jdbcType=INTEGER}
+        </foreach>
+</delete>
+<!-- 集合客户和账户类型查询 -->
+<select id="searchCustAccTypeListPage" resultMap="accCustType" parameterType="AccountCustType">
+		SELECT ACC_TYPE, 
+		       CUST_TYPE, 
+		       BALANCE_MIN,
+		       BALANCE_MAX , 
+		       CREATED_DATE, 
+		       UPDATED_DATE  
+		  FROM T_AC_CUST_ACC_TYPE 
+		 WHERE 1=1 
+			<if test="accType != null and accType != ''">
+				AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+			</if>
+			<if test="custType != null and custType != ''">
+				AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+			</if>
+			<if test="balanceMin != null and balanceMin != ''">
+				AND BALANCE_MIN = #{balanceMin,jdbcType=NUMERIC}
+			</if>
+			<if test="balanceMax != null and balanceMax != ''">
+				AND BALANCE_MAX = #{balanceMax,jdbcType=NUMERIC}
+			</if>
+			<if test="beginDateTim != null and beginDateTim != ''">
+				<![CDATA[ AND CREATED_DATE >= #{beginDateTim,jdbcType=TIMESTAMP}]]> 
+			</if>
+			<if test="endDateTim != null and endDateTim != ''">
+				<![CDATA[ AND CREATED_DATE <= #{endDateTim,jdbcType=TIMESTAMP} ;]]> 
+			</if>
+</select>
+<!-- 单个客户和账户类型查询 -->
+<select id="searchCustAccType" resultMap="accCustType" parameterType="map">
+		SELECT ACC_TYPE, 
+		       CUST_TYPE, 
+		       BALANCE_MIN,
+		       BALANCE_MAX, 
+		       CREATED_DATE,
+		       UPDATED_DATE 
+		  FROM T_AC_CUST_ACC_TYPE 
+		 WHERE CUST_TYPE = #{custType,jdbcType=INTEGER} 
+		   AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+</select>
+
+</mapper>

@@ -1,0 +1,39 @@
+<div id="xtdjxxTpl">
+	<div class="view_info mt40 info_500">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="30%">企业互生号</td>
+				<td class="view_text" width="70%"><%=obj.entResNo%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">系统开启日期</td>
+				<td class="view_text" width="70%"><%=obj.asEntStatusInfo.openDate%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">企业名称</td>
+				<td class="view_text" width="70%"><%=obj.entCustName%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">所属地区</td>
+				<td class="view_text" width="70%" id="placeName"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">结算币种</td>
+				<td class="view_text" width="70%"><span class="red">人民币</span></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%"><%=obj.viewText%></td>
+				<td class="view_text" width="70%"><%=obj.viewName%></td>
+			</tr>
+		</table>
+		<div class="mt20" align="center">
+		<% if(num == 'tgqy'){ %>
+		<a class="btn_bg submit" id="back_tgqyzyyl">返&#12288;回</a>
+		<% } else if(num == 'cyqy'){ %>
+		<a class="btn_bg submit" id="back_cyqyzyyl">返&#12288;回</a>
+		<% } else if(num == 'fwgs'){ %>
+		<a class="btn_bg submit" id="back_fwgszyyl">返&#12288;回</a>
+		<% } %>
+		</div>
+	</div>
+</div>

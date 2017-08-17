@@ -1,0 +1,58 @@
+﻿<%var param = obj%>
+<div class="operationsInner">
+   <!--内容添加开始-->
+                 <div class="busibox p20">
+                 <%if(param != "" && param != null){%>
+                 <form id="formRole">
+                 		<div class="cssform_320 h100">
+                        <ul class="cssform clearfix">
+                            <li class="col2 pr mt30">
+                                <label class="title-txt">角色名称</label>
+                                <div class="cont-int">
+                                <input name="id" type="hidden" value="<%=param.id%>" id="roleId" />
+                                <input class="inpt" name="roleName" type="text" value="<%=param.roleName%>" id="roleName" />
+                                <div class="hint red"><!--提示-->*</div></div>
+                            </li>
+                            <li class="col2 pr" style="height:80px;">
+                                <label class="title-txt" style="height:80px;line-height:80px;">描述</label>
+                                <div class="cont-chk"><textarea style="margin: -85px 0px 0px 120px;height:80px; width:200px" id="remark" name="remark"><%=param.remark%></textarea><div class="hint red"><!--提示-->*</div></div>
+                            </li>
+                         </ul>
+                        </div>
+                                <div class="two_button clearfix mt20" align="center"><a href="javascript:;" class="btn_bg submit mr10 fl" id="updateRole">修&#12288;改</a><a href="javascript:;" class="dlg3399 btn_bg submit fr returnRole">取&#12288;消</a></div>
+						</form>
+						<%}else{%>
+						<form id="formRole">
+                 		<div class="cssform_320 h100">
+                        <ul class="cssform clearfix">
+                            <li class="col2 pr mt30">
+                                <label class="title-txt">角色名称</label>
+                                <div class="cont-int"><input class="inpt" name="roleName" type="text" value="" placeholder="请输入角色名称" id="roleName"/><div class="hint red"><!--提示-->*</div></div>
+                            </li>
+                            <li class="col2 pr" style="height:80px;">
+                                <label class="title-txt" style="height:80px;line-height:80px;">描述</label>
+                                <div class="cont-chk"><textarea style="margin: -85px 0px 0px 120px;height:80px; width:200px" id="remark" name="remark"></textarea><div class="hint red"><!--提示-->*</div></div>
+                            </li>
+                         </ul>
+                        </div>
+                                <div class="two_button clearfix mt20" align="center"><a href="javascript:;" class="btn_bg submit mr10 fl" id="addRole">新&#12288;增</a><a href="javascript:;" class="dlg3399 btn_bg submit fr returnRole">取&#12288;消</a></div>
+						</form>
+						<%}%>
+                 </div>
+            <!--内容添加结束-->
+                        </div>
+
+<!--弹出框内容及脚本开始-->
+<div class="jqp-dialog" title="">
+  <p class="autowidth"></p>
+</div>
+
+<div id="dlg33" class="none">
+	<p style="max-height: 400px"></p>
+</div>
+
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>  
+<!--弹出框内容及脚本结束-->
+

@@ -1,0 +1,57 @@
+<div id="lxxxTpl">
+	<div class="view_info mt40 info_800 operations_content">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+	
+			<tr>
+				<td class="view_item" width="20%">联系人姓名</td>
+				<td class="view_text" width="30%"><%=obj.contactPerson%></td>
+				<td class="view_item" width="20%">联系人手机</td>
+				<td class="view_text" width="30%"><%=obj.contactPhone%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">联系地址</td>
+				<td class="view_text" width="30%"><%=obj.contactAddr%></td>
+				<td class="view_item" width="20%">邮政编码</td>
+				<td class="view_text" width="30%"><%=obj.postCode%></td>
+			</tr>
+	    
+			<tr>
+				<td class="view_item" width="20%">企业安全邮箱</td>
+				<td class="view_text" width="30%">
+					<span id="companyMail"><%=obj.contactEmail%></span>
+					<input type="hidden" id="email" name="email" value="<%=obj.contactEmail%>" />
+					<% if(comm.isNotEmpty(obj.contactEmail)) { %>
+						<% if(obj.asEntStatusInfo.isAuthEmail !=1 ) { %>
+							<span>&nbsp;&nbsp;未验证</span> 
+							<a id="btn_lxxx_yz" class="dlgEmail btn_bg submit_btn" style="float:right">验证</a>
+						<% } %>
+						<% if(obj.asEntStatusInfo.isAuthEmail ==1) { %>
+							<span>&nbsp;&nbsp;已验证</span> 
+						<% } %>
+					<% } %>	
+				</td>
+				<td class="view_item" width="20%"><!--企业网址--></td>
+            <td class="view_text" width="30%"><!--www.123.com--></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<a ><img id="img" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+				</td>
+			</tr>
+			<%if (3 == obj.custType && 2 == obj.startResType){%>
+			<tr>
+            <td class="view_item" width="20%" height="60">创业帮扶协议</td>
+            <td colspan="3" class="view_text pt5 pb5"><a ><img id="other_protocol" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a></td>
+            </tr>
+            <%}%>
+		</table>
+		<div class="mt20" align="center"><a class="btn_bg submit" id="ModifyBt_qiyelianxi">修&#12288;改</a></div>
+		
+	</div>
+</div>
+<div id="dlgEmail_content" class="none">
+<div class="tc lh200">
+
+</div>
+</div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+	
+	<!-- 消费服务 begin-->
+    
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+	<!-- 通知服务 -->
+    <dubbo:reference id="ntService" interface="com.gy.hsi.nt.api.service.INtService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+
+    <!-- 全局配置参数 -->
+    <dubbo:reference id="baseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" /><!--注入redis缓存工具类-->
+		<property name="baseDataService" ref="baseDataService" /><!--注入LCS dubbo服务-->
+	</bean>
+	
+	<!-- 业务参数配置 -->
+    <dubbo:reference id="businessParamSearchService" interface="com.gy.hsxt.bp.api.IBusinessParamSearchService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<!-- 搜索引擎 -->
+    <dubbo:reference id="userInfoService" interface="com.gy.hsxt.uc.search.api.IUCUserInfoService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+    <dubbo:reference id="userInfoSearchService" interface="com.gy.hsxt.uc.search.api.IUCUserInfoSearchService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCUserRoleService" interface="com.gy.hsxt.uc.search.api.IUCUserRoleService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<!-- 注册成功后领取抵扣券 -->
+	<dubbo:reference id="userService" interface="com.gy.hsec.external.api.UserService"  timeout="8000" retries="0"  check="false" version="3.0.0"/>
+	<!-- 修改企业名称或者联系方式（电话） -->
+	<dubbo:reference id="enterpriceService" interface="com.gy.hsec.external.api.EnterpriceService"  timeout="8000" retries="0"  check="false" version="3.0.0"/>
+	
+	<!-- 消费服务  end-->
+	<!-- tm start -->
+	<dubbo:reference id="ITMOnDutyService" interface="com.gy.hsxt.tm.api.ITMOnDutyService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<!-- tm end -->
+</beans>

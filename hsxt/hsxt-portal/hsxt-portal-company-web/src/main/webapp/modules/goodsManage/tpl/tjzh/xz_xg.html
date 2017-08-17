@@ -1,0 +1,41 @@
+﻿<form id="tjzh_xz_xg_form" name="tjzh_xz_xg_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="80">组合名称：</td>
+      <td><input type="text" id="tjzh_zhmc" name="tjzh_zhmc" value="<%=obj.zhmc%>" class="w200 p5 infobox2" placeholder="输入组合名称"></td>
+    </tr>
+    <tr>
+      <td align="right">描述：</td>
+      <td><input type="text" id="tjzh_ms" name="tjzh_ms" value="<%=obj.ms%>" class="w200 p5 infobox2" placeholder="输入描述"></td>
+    </tr>
+    <tr>
+      <td align="right">组合商品：</td>
+      <td>
+        <table id="tjzh_xz_xg_table">
+  			<thead>
+                <tr>
+                    <th w_check="true" w_index="id" width="3%"></th>
+                    <th w_render="renderImg" w_align="left">商品信息</th>
+                    <th w_index="dj" w_align="left" width="12%">单价</th>
+                    <th w_index="jf" w_align="left" width="12%">积分</th>
+                    <th w_render="operate" w_align="left" width="12%">组合积分</th>
+                    <th w_render="operate" w_align="left" width="8%">操作</th>
+                </tr>
+			</thead>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><span class="fl"><button id="tjzh_xz_xg_del" class="btn-search mr10" type="button">批量删除</button><button id="tjzh_xz_xg_add" class="btn-search" type="button">添加组合商品</button><span class="ml5 red">提示：最多可添加5个商品。</span></span><b class="fr mt5">总计：</b></td>
+                    <td style="text-align:left;" id="tjzh_xz_xg_dj_sum"></td>
+                    <td></td>
+                    <td style="text-align:left;" id="tjzh_xz_xg_zhjf_sum"></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+      </td>
+    </tr>
+</table>
+<div class="mt20 tc"><a href="javascript:;" id="btn_tjzh_xz_xg_qx" class="btn_bg submit mr30">取&#12288;消</a><a href="javascript:;" id="btn_tjzh_xz_xg_bc" class="btn_bg submit">保&#12288;存</a></div>
+<div class="mt30">&nbsp;</div>
+</form>

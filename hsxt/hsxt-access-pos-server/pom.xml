@@ -1,0 +1,221 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.gy.hsxt</groupId>
+		<artifactId>hsxt</artifactId>
+		<version>3.1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>hsxt-access-pos-server</artifactId>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 日志系统 -->
+		<dependency>
+			<groupId>com.gy.hsi</groupId>
+			<artifactId>hsi-lc-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 用户中心API -->
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-uc-as-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 业务系统API -->
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-bs-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 积分系统API -->
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-ps-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 账务系统API -->
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-ac-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- 账户操作系统API -->
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-ao-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gy.hsi</groupId>
+			<artifactId>hsi-redis-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.0.26.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-chain</groupId>
+			<artifactId>commons-chain</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gy.hsec.api</groupId>
+			<artifactId>hsec-external-api</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-uf-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-lcs-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-lcs-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-bp-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gy.hsxt</groupId>
+			<artifactId>hsxt-bp-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+  		<groupId>com.gy.hsxt</groupId>
+			  <artifactId>hsxt-uid-api</artifactId>
+			  <version>3.1.0-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.DontIncludeResourceTransformer">
+									<!-- standard demo: <resources>aaa.properties</resources> -->
+									<resources>
+										<resource>assembly.xml</resource>
+										<resource>hsxt-pos/*.properties</resource>
+									</resources>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<manifestEntries>
+										<Class-Path>. conf/hsxt-pos/ ../</Class-Path>
+										<Main-Class>com.gy.hsxt.access.pos.MainDeploy</Main-Class>
+									</manifestEntries>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/resources/assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

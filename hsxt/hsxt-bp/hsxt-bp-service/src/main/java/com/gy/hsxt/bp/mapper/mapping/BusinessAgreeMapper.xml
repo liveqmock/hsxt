@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessAgreeMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessAgree" id="businessAgree">
+     <!-- 协议参数管理对象-->
+        <id column="AGREE_ID" property="agreeId" jdbcType="VARCHAR" />
+        <result column="AGREE_CODE" property="agreeCode" jdbcType="VARCHAR" />
+        <result column="AGREE_NAME" property="agreeName" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessAgreeFee" id="businessAgreeFee">
+     <!-- 协议费用参数管理对象-->
+        <id column="AGREE_FEE_ID" property="agreeFeeId" jdbcType="VARCHAR" />
+        <result column="AGREE_FEE_CODE" property="agreeFeeCode" jdbcType="VARCHAR" />
+        <result column="AGREE_FEE_NAME" property="agreeFeeName" jdbcType="VARCHAR" />
+        <result column="AGREE_CODE" property="agreeCode" jdbcType="VARCHAR" />
+        <result column="AGREE_NAME" property="agreeName" jdbcType="VARCHAR" />
+        <result column="PAY_PERIOD" property="payPeriod" jdbcType="INTEGER" />
+        <result column="BILLING_TYPE" property="billingType" jdbcType="VARCHAR" />
+        <result column="CHARGING_TYPE" property="chargingType" jdbcType="VARCHAR" />
+        <result column="FEE_TYPE" property="feeType" jdbcType="VARCHAR" />
+        <result column="CURRENCY_CODE" property="currencyCode" jdbcType="VARCHAR" />
+        <result column="FROM_AMOUNT" property="fromAmount" jdbcType="NUMERIC" />
+        <result column="TO_AMOUNT" property="toAmount" jdbcType="NUMERIC" />
+        <result column="FEE_AMOUNT" property="feeAmount" jdbcType="NUMERIC" />
+        <result column="FEE_RATIO" property="feeRatio" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+<!-- @author 作者 : weixz -->
+
+<!-- 新增单个协议参数管理对象 -->
+<insert id="addAgree" parameterType="BusinessAgree">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_AGREE
+		      ( 
+		        AGREE_ID,
+		        AGREE_CODE,
+				AGREE_NAME, 
+				ISACTIVE,
+				CREATEDBY,
+				CREATED_DATE, 
+				UPDATEDBY, 
+				UPDATED_DATE) 
+		VALUES (
+			 	SEQ_BP_AGREE_ID.NEXTVAL,
+				#{agreeCode,jdbcType=VARCHAR},
+				#{agreeName,jdbcType=VARCHAR},
+				#{isActive,jdbcType=VARCHAR},
+				#{createdby,jdbcType=VARCHAR},
+				systimestamp,
+				#{updatedby,jdbcType=VARCHAR},
+		  		systimestamp)
+</insert>
+
+<!-- 单个协议参数管理对象修改 -->
+<update id="updateAgree" parameterType="BusinessAgree">
+        UPDATE T_BP_AGREE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="agreeCode != null and agreeCode != '' ">
+                 AGREE_CODE = #{agreeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="agreeName != null and agreeName != '' ">
+                 AGREE_NAME = #{agreeName,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="createdby != null and createdby != '' ">
+                 CREATEDBY = #{createdby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE AGREE_ID = #{agreeId,jdbcType=VARCHAR}
+</update>
+
+
+<!-- 单个协议参数管理对象删除 -->
+<delete id="deleteAgree" parameterType="String">
+        delete from T_BP_AGREE where AGREE_ID = #{agreeId,jdbcType=VARCHAR}
+</delete>
+
+
+<!-- 单个协议参数管理对象查询 -->
+<select id="getAgreeById" resultMap="businessAgree" parameterType="String">
+        SELECT  AGREE_ID,
+                AGREE_CODE,
+                AGREE_NAME, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM T_BP_AGREE  
+         WHERE AGREE_ID = #{agreeId,jdbcType=VARCHAR}
+</select>
+
+<!-- 单个协议参数管理对象查询 -->
+<select id="getAgreeByCode" resultMap="businessAgree" parameterType="String">
+        SELECT  AGREE_ID,
+                AGREE_CODE,
+                AGREE_NAME, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM T_BP_AGREE  
+         WHERE AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 所有协议参数管理对象查询 -->
+<select id="searchAgreeList" resultMap="businessAgree">
+        SELECT  AGREE_ID,
+                AGREE_CODE,
+                AGREE_NAME, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM T_BP_AGREE  
+</select>
+
+<!-- 多个协议参数管理对象查询 -->
+<select id="searchAgreeListPage" resultMap="businessAgree" parameterType="BusinessAgree">
+        SELECT  AGREE_ID,
+                AGREE_CODE,
+                AGREE_NAME, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE  
+         WHERE  1 = 1 
+         <if test="agreeId != null and agreeId != ''">
+                AND AGREE_ID = #{agreeId,jdbcType=VARCHAR}
+         </if>
+         <if test="agreeCode != null and agreeCode != '' ">
+                AND AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+         </if>
+         <if test="agreeName != null and agreeName != '' ">
+                AND AGREE_NAME = #{agreeName,jdbcType=VARCHAR}
+         </if>
+         <if test="isActive != null and isActive != '' ">
+                AND ISACTIVE = #{isActive,jdbcType=VARCHAR}
+         </if>
+         <if test="createdby != null and createdby != '' ">
+                AND CREATEDBY = #{createdby,jdbcType=VARCHAR}
+         </if>
+         <if test="updatedby != null and updatedby != '' ">
+                AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+         </if>
+</select>
+
+<!-- 新增单个协议费用参数管理对象 -->
+<insert id="addAgreeFee" parameterType="BusinessAgreeFee">
+        INSERT /*+ APPEND */ INTO  
+               T_BP_AGREE_FEE
+              ( 
+                AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE) 
+        VALUES (
+                SEQ_BP_AGREE_FEE_ID.NEXTVAL,
+                #{agreeFeeCode,jdbcType=VARCHAR},
+                #{agreeFeeName,jdbcType=VARCHAR},
+                #{agreeCode,jdbcType=VARCHAR},
+                #{payPeriod,jdbcType=INTEGER},
+                #{billingType,jdbcType=VARCHAR},
+                #{chargingType,jdbcType=VARCHAR},
+                #{feeType,jdbcType=VARCHAR},
+                #{currencyCode,jdbcType=VARCHAR},
+                #{fromAmount,jdbcType=NUMERIC},
+                #{toAmount,jdbcType=NUMERIC},
+                #{feeAmount,jdbcType=NUMERIC},
+                #{feeRatio,jdbcType=VARCHAR},
+                #{isActive,jdbcType=VARCHAR},
+                #{createdby,jdbcType=VARCHAR},
+                systimestamp,
+                #{updatedby,jdbcType=VARCHAR},
+                systimestamp)
+</insert>
+
+<!-- 单个协议费用参数管理对象修改 -->
+<update id="updateAgreeFee" parameterType="BusinessAgreeFee">
+        UPDATE T_BP_AGREE_FEE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="agreeFeeCode != null and agreeFeeCode != '' ">
+                 AGREE_FEE_CODE = #{agreeFeeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="agreeFeeName != null and agreeFeeName != '' ">
+                 AGREE_FEE_NAME = #{agreeFeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="agreeCode != null and agreeCode != '' ">
+                 AGREE_CODE = #{agreeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="payPeriod != null and payPeriod != '' ">
+                 PAY_PERIOD = #{payPeriod,jdbcType=INTEGER},
+            </if>
+            <if test="billingType != null and billingType != '' ">
+                 BILLING_TYPE = #{billingType,jdbcType=VARCHAR},
+            </if>
+            <if test="chargingType != null and chargingType != '' ">
+                 CHARGING_TYPE = #{chargingType,jdbcType=VARCHAR},
+            </if>
+            <if test="feeType != null and feeType != '' ">
+                 FEE_TYPE = #{feeType,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyCode != null and currencyCode != '' ">
+                 CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="fromAmount != null and fromAmount != '' ">
+                 FROM_AMOUNT = #{fromAmount,jdbcType=NUMERIC},
+            </if>
+            <if test="toAmount != null and toAmount != '' ">
+                 TO_AMOUNT = #{toAmount,jdbcType=NUMERIC},
+            </if>
+             <if test="feeAmount != null and feeAmount != '' ">
+                 FEE_AMOUNT = #{feeAmount,jdbcType=NUMERIC},
+            </if>
+             <if test="feeRatio != null and feeRatio != '' ">
+                 FEE_RATIO = #{feeRatio,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="createdby != null and createdby != '' ">
+                 CREATEDBY = #{createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedby != null and updatedby != '' ">
+                 UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE AGREE_FEE_ID = #{agreeFeeId,jdbcType=VARCHAR}
+</update>
+
+
+<!-- 单个协议费用参数管理对象删除 -->
+<delete id="deleteAgreeFee" parameterType="String">
+        delete from T_BP_AGREE_FEE where AGREE_FEE_ID = #{agreeFeeId,jdbcType=VARCHAR}
+</delete>
+
+
+<!-- 单个协议费用参数管理对象查询 -->
+<select id="getAgreeFeeById" resultMap="businessAgreeFee" parameterType="String">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE  
+         WHERE  AGREE_FEE_ID = #{agreeFeeId,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 单个协议费用参数管理对象查询 -->
+<select id="getAgreeFeeByCode" resultMap="businessAgreeFee" parameterType="String">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE  
+         WHERE  AGREE_FEE_CODE = #{agreeFeeCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 通过协议编码查询协议费用参数管理 -->
+<select id="searchAgreeFeeList" resultMap="businessAgreeFee" parameterType="String">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                (SELECT AGREE_NAME FROM T_BP_AGREE WHERE AGREE_CODE = T.AGREE_CODE) agreeName,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE T 
+         WHERE  AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 多个协议费用参数管理对象查询 -->
+<select id="searchAgreeFeeListPage" resultMap="businessAgreeFee" parameterType="BusinessAgreeFee">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                (SELECT AGREE_NAME FROM T_BP_AGREE WHERE AGREE_CODE = T.AGREE_CODE) agreeName,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE T  
+         WHERE  1 = 1 
+         <if test="agreeFeeId != null and agreeFeeId != ''">
+                 AND AGREE_FEE_ID = #{agreeFeeId,jdbcType=VARCHAR}
+         </if>
+         <if test="agreeFeeCode != null and agreeFeeCode != '' ">
+                 AND AGREE_FEE_CODE = #{agreeFeeCode,jdbcType=VARCHAR}
+         </if>
+         <if test="agreeFeeName != null and agreeFeeName != '' ">
+                 AND AGREE_FEE_NAME = #{agreeFeeName,jdbcType=VARCHAR}
+         </if>
+         <if test="agreeCode != null and agreeCode != '' ">
+                 AND AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+         </if>
+         <if test="payPeriod != null and payPeriod != '' ">
+                 AND PAY_PERIOD = #{payPeriod,jdbcType=INTEGER}
+         </if>
+         <if test="billingType != null and billingType != '' ">
+                 AND BILLING_TYPE = #{billingType,jdbcType=VARCHAR}
+         </if>
+         <if test="chargingType != null and chargingType != '' ">
+                 AND CHARGING_TYPE = #{chargingType,jdbcType=VARCHAR}
+         </if>
+         <if test="feeType != null and feeType != '' ">
+                 AND FEE_TYPE = #{feeType,jdbcType=VARCHAR}
+         </if>
+         <if test="currencyCode != null and currencyCode != '' ">
+                 AND CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR}
+         </if>
+         <if test="fromAmount != null and fromAmount != '' ">
+                 AND FROM_AMOUNT = #{fromAmount,jdbcType=NUMERIC}
+         </if>
+         <if test="toAmount != null and toAmount != '' ">
+                 AND TO_AMOUNT = #{toAmount,jdbcType=NUMERIC}
+         </if>
+          <if test="feeAmount != null and feeAmount != '' ">
+                 AND FEE_AMOUNT = #{feeAmount,jdbcType=NUMERIC}
+         </if>
+          <if test="feeRatio != null and feeRatio != '' ">
+                 AND FEE_RATIO = #{feeRatio,jdbcType=VARCHAR}
+         </if>
+         <if test="isActive != null and isActive != '' ">
+                 AND ISACTIVE = #{isActive,jdbcType=VARCHAR}
+         </if>
+         <if test="createdby != null and createdby != '' ">
+                 AND CREATEDBY = #{createdby,jdbcType=VARCHAR}
+         </if>
+         <if test="updatedby != null and updatedby != '' ">
+                 AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+         </if>
+</select>
+
+</mapper>

@@ -1,0 +1,49 @@
+<div class="view_info">
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td style="font-size: 18px; font-weight: bold; padding-top: 20px;"><center>开发票申请表</center></td>
+		</tr>
+	</table>
+	<div class="f13 fb">申请信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable mt10">
+		<tr>
+			<td class="view_item" width="18%">企业名称</td>
+			<td class="view_text" width="32%"><span id="qymc_txt"><%=obj.ent.baseInfo.entName%></span></td>
+			<td class="view_item" width="18%">企业互生号</td>
+			<td class="view_text" width="32%"><span id="qyhsh_txt"><%=obj.ent.baseInfo.entResNo%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">企业类型</td>
+			<td class="view_text"><span id="qylx_txt"><%=obj.ent.extendInfo.nature%></span></td>
+			<td class="view_item">申请日期</td>
+			<td class="view_text"><span id="sqrq_txt"><%=obj.invoice.applyTime%></span></td>
+		</tr>
+	</table>
+	<div class="mt10 f13 fb">发票抬头信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable mt10">
+		<tr>
+			<td class="view_item" width="18%">发票抬头</td>
+			<td class="view_text" width="32%"><span id="fptt_txt"><%=obj.invoice.invoiceTitle%></span></td>
+			<td class="view_item" width="18%">纳税人识别号</td>
+			<td class="view_text" width="32%"><span id="nsrsbh_txt"><%=obj.invoice.taxpayerNo%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">地址、电话</td>
+			<td class="view_text" colspan="3"><span id="dzdh_txt"><%=obj.invoice.address%>、<%=obj.invoice.telephone%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">开户行及账号</td>
+			<td class="view_text" colspan="3"><span id="khhjzh_txt"><%=obj.invoice.bankBranchName%> <%=obj.invoice.bankNo%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">发票类型</td>
+			<td class="view_text"><span id="fplx_txt"><%=comm.lang("invoice").invoice_type[obj.invoice.invoiceType]%></span></td>
+			<td class="view_item">发票金额</td>
+			<td class="view_text"><span id="fpje_txt"><%=comm.formatMoneyNumberAps(obj.invoice.allAmount)%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item">开票内容</td>
+			<td class="view_text" colspan="3"><span id="kpnr_txt"><%=obj.invoice.openContent%></span></td>
+		</tr>
+	</table>
+</div>

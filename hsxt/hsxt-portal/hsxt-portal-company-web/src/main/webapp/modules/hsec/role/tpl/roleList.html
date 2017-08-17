@@ -1,0 +1,37 @@
+﻿<%var param = obj.data%>             
+     <div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tableRole" class="search-table" style="word-break:break-all;word-wrap:break-word;">
+    <thead>
+   <tr>
+    <th class="nobd" width="10%">序号</th>
+    <th width="20%">角色名</th>
+    <th width="30%">描述</th>
+    <th width="10%">是否公共角色</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <%$.each(param,function(key,el){%>
+  <tr class="<%=key%2==1?'table-tr-c':''%>" roleId="<%=el.id%>">
+    <td class="nobd"><%=key+1%></td>
+    <td><%=el.roleName%></td>
+    <td><%=el.remark%></td>
+    <td>
+    <%if(el.isDefault != 1){%>
+    	否
+    <%}else{%>
+    	是
+    <%}%>
+    </td>
+    <td align="center">
+    <%if(el.isDefault != 1){%>
+       <a href="javascript:;"  class="dlg33 roleUpdate">编辑</a> | 
+    <%}%>
+    <a href="javascript:;"  class="dlg33 roleLook">查看权限</a>
+    <%if(el.isDefault != 1){%>
+    | <a href="javascript:;"  class="dlg33 rolePower">菜单授权</a>
+    | <a href="javascript:;" class="dlg33 roleDelete">删除</a>
+    <%}%>
+    </td>
+  </tr>
+  <%})%>
+</table></div>

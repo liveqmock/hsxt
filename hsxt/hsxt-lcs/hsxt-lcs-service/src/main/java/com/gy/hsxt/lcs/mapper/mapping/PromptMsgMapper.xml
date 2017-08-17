@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.PromptMsgMapper">
+	<!--是否已存在相同-->
+	<select id="existPromptMsg" resultType="string" >
+		SELECT
+			1
+		FROM
+			T_LCS_PROMPT_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryPromptMsgWithPK"  resultType="com.gy.hsxt.lcs.bean.PromptMsg">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			PROMPT_CODE promptCode,
+			PROMPT_MSG promptMsg,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_PROMPT_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+	</select>
+	  
+	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_PROMPT_MSG (
+			LANGUAGE_CODE,
+			PROMPT_CODE,
+			PROMPT_MSG,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES 
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	        (#{item.languageCode},
+			#{item.promptCode},
+			#{item.promptMsg},
+			#{item.delFlag},
+			#{item.version})
+	    </foreach>  
+    </insert>
+    
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_PROMPT_MSG
+			<set>
+	          PROMPT_MSG = #{item.promptMsg},
+	          DEL_FLAG = #{item.delFlag},
+			  VERSION = #{item.version}
+			</set>
+		 WHERE  
+		      LANGUAGE_CODE = #{item.languageCode}
+		      AND PROMPT_CODE = #{item.promptCode}
+        </foreach>
+    </update>  
+    
+</mapper>

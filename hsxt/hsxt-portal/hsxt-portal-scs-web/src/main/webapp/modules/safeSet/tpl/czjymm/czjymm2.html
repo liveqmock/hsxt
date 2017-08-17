@@ -1,0 +1,84 @@
+
+
+<!-- 资料修改开始 -->
+<div id="czjymm_sq" class="register_info mt10 info_500">
+	<form id="sqcz_form" name="sqcz_form" action="" method="post">
+		<!-- 保存上传成功的文件编号 -->
+		<input id="hidFileApply" type="hidden" value="">
+		
+		
+		
+		<ul class="cssform2 clearfix">
+        <li class="clearfix">
+            <label class="title-txt w115">企业互生号</label><div class="cont-chk tbox"><span class="ml5"  id="txtEntCustId"></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">企业名称</label><div class="cont-chk tbox"><span class="ml5" id="txtEntName"></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">联系人姓名</label><div class="cont-chk tbox"><span class="ml5"  id="txtContactPerson"></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">联系人手机</label><div class="cont-chk tbox"><span class="ml5" id="txtContactPhone"></span></div>
+        </li>
+        
+        
+        <li class="clearfix">
+            <label class="title-txt w115 h60" style="height:70px!important;line-height:64px">业务办理申请书</label>
+				<!-- <span id="imgApplyImg"  class="sample_img fl"> 
+					<i class="img_default_upload" class="mt5 ml5"> 
+						<img src="resources/img/noImg.gif">
+					</i> 
+				</span> -->
+				<span id="imgApplyImg" class="sample_img fl">
+					<i  class="certificateSample_img certificateSample_01 mt5 ml5" style="height:64px;background-image:url(resources/img/noImg.gif)"></i>
+				</span>
+			 <a href="javascript:void(0);" class="input-file btn_bg upload_btn ml10 mr10 mt15">上传
+			 <input id="fileApply" name="fileApply" type="file"></a>
+			<a id="aTmpDownload" class="btn_bg viewSample_btn mt15">模板下载</a>
+
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115 h60" style="height:70px!important;line-height:64px">申请说明</label>
+            <div class="cont-int" style="width:375px;">
+            	<textarea id="txtExplain" name="txtExplain" rows="3" maxlength="300"  class="attxta" style="height:55px; width: 356px" placeholder="输入说明，最长不超过300个字"></textarea>
+            </div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">动态验证码</label>
+            <input id="txtCode" name="txtCode" type="text" id="name" value="" placeholder="输入验证码" class="fl w120 h30_middle ml5" maxlength="4">
+			<img id="validateCode" class="fl" src=""	width="80" height="28" title="看不清，点击换一张！">
+			<a id="btn_sqcz_yzm" class="fl h30_middle ml5 blue" >看不清，换一张！</a>
+        </li>
+    </ul>
+
+		<div class="mt20 two_button " align="center">
+			<a id="btn_back" class="btn_bg submit fl">取 消</a><a
+				id="czjymm_tjzcsq" class="btn_bg submit fr" >提交重置申请</a>
+		</div>
+
+	</form>
+</div>
+
+<!-- 资料修改结束 -->
+<!--已提交申请后显示内容开始-->
+<div id="czjymm_cg" class="none">
+	<div class="page_tips_wrap">
+		<div class="page_tips_subwrap">
+			<div class="page_tips bc tc">
+				<h1 class="f16 fb">温馨提示</h1>
+				<p class="f14 fb">
+					您已提交重置申请，请耐心等待处理结果，<br>核查通过平台会发送交易密码重置授权码到授权联系人手机上，可以通过交易密码重设页面进行办理。
+				</p>
+
+			</div>
+			<div class="mt20" align="center">
+				<a id="czyjmm_fh" class="btn_bg submit">返 回</a>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+<!--已提交申请后显示内容结束-->
+

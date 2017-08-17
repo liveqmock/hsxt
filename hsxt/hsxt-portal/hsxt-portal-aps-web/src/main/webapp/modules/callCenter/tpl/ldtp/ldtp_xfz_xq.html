@@ -1,0 +1,147 @@
+
+<div id="xfzDetail_content" >
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">互生卡号</td>
+			<td class="view_text_2" width="30%" id="p_res_no"></td>
+			<td class="view_item" width="20%">卡身份状态</td>
+			<td class="view_text_2" width="30%">
+			<div class="clearfix mt5 mb5">
+				<i class="fl service_icon service_icon_Bzc_disable ml10" title="未实名注册" id="p_real_reg1"></i>
+				<i class="fl service_icon service_icon_Brz_disable ml10" title="未实名认证" id="p_real_auth1"></i>
+			<div class="fl ml10 mt5">卡行为标识：<span id="p_card_status">启用</span></div>
+			</div>
+			</td>
+		</tr>
+	</table>
+	<!-- 操作台切换标签开始 -->
+	<div class="jqp-tabs_3 mt10">
+		<ul>
+			<li><a href="#jqp-tabs_3-1">互生卡身份信息</a></li>
+			<li><a href="#jqp-tabs_3-2">账户信息</a></li>
+			<li><a href="#jqp-tabs_3-3">积分福利信息</a></li>
+			<li><a href="#jqp-tabs_3-4">积分福利申请信息</a></li>
+			<li><a href="#jqp-tabs_3-5">互生卡补办记录信息</a></li>
+		</ul>
+
+	<!-- 操作台切换标签结束 -->
+	<div id="jqp-tabs_3-1" class="tabsContent_2">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+			<tr>
+				<td class="view_item" width="20%">互生卡号</td>
+				<td class="view_text_2" width="30%" id="p_person_resNo"></td>
+				<td class="view_item" width="20%">姓名</td>
+				<td class="view_text_2" width="30%" id="p_person_name"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">证件类型</td>
+				<td class="view_text_2" width="30%" id="p_person_cre_type"></td>
+				<td class="view_item" width="20%">国籍</td>
+				<td class="view_text_2" width="30%" id="p_nationality"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">证件号码</td>
+				<td class="view_text_2" width="30%" id="p_cre_no"></td>
+				<td class="view_item" width="20%">性别</td>
+				<td class="view_text_2" width="30%" id="p_gender"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">证件有效期</td>
+				<td class="view_text_2" width="30%" id="p_cre_end"></td>
+				<td class="view_item" width="20%">户籍地址</td>
+				<td class="view_text_2" width="30%" id="p_cre_address"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">发证机关</td>
+				<td class="view_text_2" width="30%" id="p_cre_gov"></td>
+				<td class="view_item" width="20%"></td>
+				<td class="view_text_2" width="30%"></td>
+			</tr>
+		</table>
+	</div>
+	<div id="jqp-tabs_3-2" class="tabsContent_2" style="height:205px !important;">
+		<div class="view_info">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td class="view_item" width="20%">积分账户</td>
+					<td class="view_text_3" width="80%">
+						<div style="padding-bottom:3px;border-bottom:1px solid #CCC;">积分账户余数：<span id="p_point_balance"></span></div>
+						<div style="padding-top:3px;">
+							<div>可用积分数：<span id="p_point_usable"></span>；<span class="ml10">昨日积分数</span>：<span id="p_point_today"></span></div>
+						</div>
+
+					</td>
+				</tr>
+				<tr>
+					<td class="view_item">互生币账户</td>
+					<td class="view_text_3">
+						<div class="mb5"><span style="letter-spacing:1em;margin-right:-1em;">流通币</span>：<span id="p_hsb_ltb"></span></div>
+						<div>定向消费币：<span id="p_hsb_dxxf"></span></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="view_item">货币账户</td>
+					<td class="view_text_3">
+						货币账户余额：<span id="p_currency_balance"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="view_item">投资账户</td>
+					<td class="view_text_3">
+						<div class="mb5">累计积分投资总数：<span id="p_invest_sum"></span></div>
+						<div style="border:1px solid #CCC;padding:3px;background-color:#EFEFEF;">
+							<div style="padding-bottom:3px;border-bottom:1px solid #CCC;">本年度投资分红互生币：<span id="p_invest_income_sum"></span></div>
+							<div style="padding-top:3px;">其中流通币：<span id="p_invest_income_ltb"></span><span class="ml10">其中定向消费币</span>：<span id="p_invest_income_dxxf"></span></div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="jqp-tabs_3-3" class="tabsContent_2">
+		<table id="searchTable_xfz_jfflxx_ldtp">
+		  <tr>
+			  <th w_index="effectDate">达到条件日期</th>
+			  <th w_index="welfareId">保障单号</th>
+			  <th w_index="failureDate">保障单有效期</th>
+			  <th w_index="allFailureDateList">不能享受保障日</th>
+		  </tr>
+		</table>
+	</div>
+	<div id="jqp-tabs_3-4" class="tabsContent_2">
+		<div class="search-toolbar">
+			<ul class="cssform clearfix" style=" background-color:#6CB058;border:0;">
+				<li>
+					<label class="fl h30_middle">申请福利类别：</label>
+					<input id="sqfllb_ldtp" readonly="readonly" placeholder="选择申请福利类别" />
+				</li>
+				<li>
+					<button id="ldtp_jffl_qry_btn" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		</div>
+		<table id="searchTable_xfz_jffl_ldtp">
+		  <tr>
+			  <th w_index="applyWelfareNo">申请单号</th>
+			  <th w_index="applyDate">申请时间</th>
+			  <th w_index="welfareType" w_render="operate">申请福利类别</th>
+			  <th w_index="approvalStatus" w_render="operate">审核结果</th>
+			  <th w_index="approvalAmount">批复金额</th>
+		  </tr>
+		</table>
+	</div>
+	<div id="jqp-tabs_3-5" class="tabsContent_2">
+		<table id="searchTable_xfz_hskbb_ldtp">
+		  <tr>
+			  <th w_num="line" width="5%;">序号</th>
+			  <th w_index="orderNo">业务流水号</th>
+			  <th w_index="orderTime">日期</th>
+			  <th w_index="orderStatus" w_render="operate">受理结果</th>
+		  </tr>
+		</table>
+	</div>
+  </div>
+	
+</div>
+
+<div class="mt20 dlg_btn" align="center"><a class="btn_bg submit" id="ldtp_xfz_xq_fh_btn">返 回</a></div>

@@ -1,0 +1,46 @@
+<form id="search_form" name="search_form">
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>报备日期：</label>
+			<input type="text" id="search_startDate" name="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly="readonly" />
+			<span class="separator-pd">-</span>
+			<input type="text" id="search_endDate" name="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly="readonly" />
+		</li>
+		<li>
+			<label>企业名称：</label>
+			<input type="text" id="search_entName" name="search_entName" placeholder="输入企业名称" class="h28_middle w115 input-txt" maxlength="64"/>
+		</li>
+		<li>
+			<label>联系人姓名：</label>
+			<input type="text" id="search_linkman" name="search_linkman" placeholder="输入联系人姓名" class="h28_middle w115 input-txt" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">所在地区：</label>
+			<input id="search_provinceNo" name="search_provinceNo" readonly="readonly" placeholder="选择所在地区" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">审核结果：</label>
+			<input id="search_status" name="search_status" readonly="readonly" placeholder="选择审核结果" />
+		</li>
+		<li>
+			<button id="queryBtn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+</form>
+<table id="tableDetail" class="bsgrid">
+  <tr>
+    <th w_index="entCustName" w_tip="true" w_length='30'>企业名称</th>
+    <th w_index="place" w_render="operate">所在地区</th>
+    <th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+    <th w_index="phone" w_tip="true">联系人手机</th>
+    <th w_index="filingDate" w_tip="true">报备日期</th>
+    <th w_index="existSameItem" w_render="operate">相同项目</th>
+    <th w_index="status" w_render="operate">审核结果</th>
+    <th w_index="statusDate">状态日期</th>
+    <th w_render="operate">操作</th>
+  </tr>
+</table>
+
+<div id="qybbcx_dialog" class="none" ><p class="autowidth"></p></div>

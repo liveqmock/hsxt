@@ -1,0 +1,49 @@
+<%
+	var data = obj.data;
+ %>
+
+<div class="pa goodsCatalogue" style="display: none;">
+    <ul class="clearfix">
+    	<li class="fl list_ft" style="height:280px;margin-right:0px;">
+        	<div class="cl1">
+             <!--<h1><input type="text" value="" placeholder="输入名称" /></h1>-->
+             <ul class="mg4 list_sc">
+             	<%
+             		$.each(data,function(key,c){
+             		if(c.parentId == -1){
+             	%>
+             		<li class="w"><a data-id="<%=c.id%>"  class="clearfix category"><span class="gct"><%=c.categoryName %></span><i class="cbox-gcont-arrow"></i></a></li>
+             	<%	
+             		}
+             		});
+             	%>
+             </ul>
+           </div>
+       </li>
+       <li class="fl list_ft" style="height:280px;margin-right:0px;">
+       	<div class="cl2">
+       		<%
+           		$.each(data,function(key,c){
+           		if(c.parentId == -1){ %>
+           		<ul class="mg4 list_sc none child_ul" data-id="<%=c.id%>">
+           	<%		$.each(data,function(key1,c1){
+           				if(c1.parentId == c.id){
+           	%>
+           		<li class="w"><a data-id="<%=c1.id%>" class="clearfix"><span class="gct"><%=c1.categoryName %></span><i class="cbox-gcont-arrow"></i></a></li>
+           	<%	
+           				}
+           			}); %>
+           		</ul>	
+           	<%	}
+           		});
+           	%>
+             <!--<h1><input type="text" value="" placeholder="输入名称" /></h1>-->
+             
+                
+           </div>
+       </li>
+    </ul>
+    <div class="pt10 tc">
+    	<button type="button" class="btn-search syes mr10" id="confirm_btn">确定</button>
+    	<button type="button" class="btn-search sno" id="cancel_btn">取消</button></div>
+</div>

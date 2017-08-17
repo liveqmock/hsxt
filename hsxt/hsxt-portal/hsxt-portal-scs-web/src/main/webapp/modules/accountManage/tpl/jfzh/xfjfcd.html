@@ -1,0 +1,37 @@
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="50%" align="right" class="gray"></td>
+		<td width="50%"></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">撤单流水号：</td>
+		<td><%=obj.transNo %></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">交易时间：</td>
+		<td><%=obj.transDate %></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">交易类型：</td>
+		<td>消费积分撤单</td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">撤单积分数：</td>
+		<td><%=obj.amount %></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">备注：</td>
+		<td>撤单扣除原分配积分</td>
+	</tr>
+	<tr align="right">
+		<td colspan="2"><div class="cutline"></div></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">原交易流水号：</td>
+		<td><%=obj.sourceTransNo %></td>
+	</tr>
+	<tr>
+		<td align="right" class="gray">原分配积分数：</td>
+		<td><%=obj.entPoint %></td>
+	</tr>
+</table>

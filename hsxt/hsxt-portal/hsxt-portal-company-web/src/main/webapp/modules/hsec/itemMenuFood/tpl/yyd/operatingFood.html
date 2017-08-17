@@ -1,0 +1,52 @@
+<div class="search-toolbar pr">
+   <ul class="detail-tab clearfix" id="" style="top:10px;">
+     <li><a class="cddy" href="#">菜品</a></li>
+     <li><a class="yyd active" href="#">营业点</a></li>
+   </ul>
+   <ul class="cssform clearfix">
+        <li style="float:right;">
+           <div class="cont-int">
+               <button class="btn-search szyyd" type="button" id="">设置营业点</button>
+           </div>
+         </li>
+   </ul>
+</div>
+<%
+	var param = obj.data.result.result;
+	var https = obj.data.httpUrl;
+	var picname = "";
+	var menuid = menuId;
+	var vshopid = vShopId;
+%>
+<div>
+ 	<div style="height:348px;" class="foodlist p10 pr">
+ 		<div class="clearfix">
+           <ul class="floatlist clearfix pt20list">
+           	  <%try { if(param.length > 0){
+           	   $.each(param,function(k,v){
+	           	   if(v.pics != null && v.pics != ""){
+				  		var picObj = eval(v.pics);//转换对象
+				  		try{
+				  		$.each(picObj[0].web,function(y,o){
+				  			if(o.size=="400*400"){
+				  				picname = o.name;
+				  			}
+				  		});
+				  		}catch(e){}
+			  		}
+           	  %>
+           		<li class="w20p">
+	               	<div class="pr delcp bc w120" data-id="<%=v.id%>" data-varshopid="<%=vshopid%>" data-menuid="<%=menuid%>" data-shopid="<%=v.id%>">
+	                   <i title="删除营业点" class="cp_close none"></i>
+	                   <div class="fiximg"><img width="120" height="120" src="<%=https+picname%>">
+	                   </div>
+	                   <h2 class="mt5 f12 limit_MultiLine_txt"><%=v.name%></h2>
+	                 </div>
+               </li>
+              <%}); }else{%>
+              	<div align="center"><span style="color:blue">没有找到符合条件的数据</span></div>
+              <%} }catch(e){}%>
+           </ul>
+        </div>
+	</div>
+</div>

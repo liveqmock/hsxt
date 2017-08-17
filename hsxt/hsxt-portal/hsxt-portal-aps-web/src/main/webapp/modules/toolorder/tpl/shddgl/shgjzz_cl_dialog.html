@@ -1,0 +1,43 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">
+            <input type="hidden" id="custIdEnt" value="<%=obj.entCustId%>" />
+            企业互生号
+            </td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+            <td class="view_item" width="18%">售后编号</td>
+            <td class="view_text" width="32%"><%=obj.afterOrderNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item">工具类别</td>
+            <td class="view_text"><%=obj.categoryName%></td>
+            <td class="view_item">工具数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+        </tr> 
+        <tr>
+        	<td colspan="4" valign="top">
+            	<div class="p10">
+					<div class="search-toolbar clearfix">
+						<ul class="cssform">
+							<li>
+								<label class="h30_middle fb">处理工具列表</label>
+							</li>
+						 </ul>
+					</div>
+					<div class="td_hauto">
+					<table id="shgjzz_cl_table" class="bsgrid">
+						<tr>
+							<th w_num="line" width="5%;">序号</th>
+							<th w_index="newDeviceSeqNo" w_align="left" w_render="operate">机器码(序列号)</th>
+							<th w_index="disposeType" w_align="left" w_render="operate">处理方式</th>
+							<th w_index="clzt" w_align="left" w_render="operate">处理状态</th>
+							<th w_render="operate" w_align="left">操作</th>
+						</tr>
+					</table>
+					</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

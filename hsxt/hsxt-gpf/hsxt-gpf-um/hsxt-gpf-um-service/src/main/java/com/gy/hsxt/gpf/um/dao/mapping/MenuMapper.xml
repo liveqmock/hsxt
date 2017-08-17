@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IMenuMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="menuResult" type="com.gy.hsxt.gpf.um.bean.Menu">
+        <id property="menuNo" column="MENU_NO"/>
+        <result property="menuCode" column="MENU_CODE"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuType" column="MENU_TYPE"/>
+        <result property="menuLevel" column="MENU_LEVEL"/>
+        <result property="description" column="DESCRIPTION"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.Menu">
+        INSERT INTO T_UM_MENU (
+            MENU_NO,
+            MENU_CODE,
+            MENU_NAME,
+            MENU_TYPE,
+            MENU_LEVEL,
+            DESCRIPTION
+        ) VALUES (
+            #{menuNo},
+            #{menuCode},
+            #{menuName},
+            #{menuType},
+            #{menuLevel},
+            #{description}
+        )
+    </insert>
+
+    <!-- 查询相邻菜单编号 -->
+    <select id="selectAdjacentNo" parameterType="string" resultType="string">
+        SELECT max(t.MENU_NO)
+        FROM T_UM_MENU t
+        WHERE t.MENU_NO LIKE concat(#{parentNo},'___')
+    </select>
+    <!-- 查询菜单 -->
+    <select id="selectBeanById" parameterType="string" resultMap="menuResult">
+        SELECT t.*
+        FROM T_UM_MENU t
+        WHERE t.MENU_NO = #{id}
+    </select>
+
+    <!-- 根据查询实体查询菜单列表 -->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.gpf.um.bean.MenuQuery" resultMap="menuResult">
+        SELECT t.*
+        FROM T_UM_MENU t
+        WHERE 1=1
+        <if test="menuNo != null and menuNo != ''">
+            AND t.MENU_NO = #{menuNo}
+        </if>
+        <if test="menuName != null and menuName != ''">
+            AND t.MENU_NAME = #{menuName}
+        </if>
+        <if test="menuType != null">
+            AND t.MENU_TYPE = #{menuType}
+        </if>
+        <if test="menuLevel != null">
+            AND t.MENU_LEVEL = #{menuLevel}
+        </if>
+        <if test="parentNo != null and parentNo != ''">
+            AND t.MENU_NO LIKE concat(#{parentNo},'%')
+        </if>
+    </select>
+
+
+</mapper>

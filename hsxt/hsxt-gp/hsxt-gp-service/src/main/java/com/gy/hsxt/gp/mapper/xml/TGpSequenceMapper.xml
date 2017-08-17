@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpSequenceMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpSequence">
+		<id column="SEQ_ID" property="seqId" jdbcType="INTEGER" />
+		<result column="SEQ_TYPE" property="seqType" jdbcType="INTEGER" />
+		<result column="SEQ_NUMBER" property="seqNumber" jdbcType="VARCHAR" />
+		<result column="SYS_INSTANCE_NO" property="sysInstanceNo" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		SEQ_ID, SEQ_TYPE, SEQ_NUMBER, SYS_INSTANCE_NO, CREATED_DATE, UPDATED_DATE
+	</sql>
+	
+	<!-- 查询当前序列 -->
+	<select id="selectCurrSeqNumber" resultType="java.lang.String">
+		select 
+		   SEQ_NUMBER 
+		from 
+		   T_GP_SEQUENCE
+ 		where 
+ 		   SEQ_TYPE = #{seqType} and SYS_INSTANCE_NO = #{sysInstanceNo}
+	</select>
+	
+	<!-- 插入序列 -->
+	<insert id="insertSequence" parameterType="com.gy.hsxt.gp.mapper.vo.TGpSequence">
+		insert into T_GP_SEQUENCE 
+		  (SEQ_ID, SEQ_TYPE, SEQ_NUMBER, SYS_INSTANCE_NO, CREATED_DATE, UPDATED_DATE)
+		values 
+		(
+		    #{seqId,jdbcType=INTEGER},
+			#{seqType,jdbcType=INTEGER},
+			#{seqNumber,jdbcType=VARCHAR},
+			#{sysInstanceNo,jdbcType=VARCHAR},
+			#{createdDate,jdbcType=TIMESTAMP},
+			#{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<!-- 修改序列 -->
+	<update id="updateSequence" parameterType="com.gy.hsxt.gp.mapper.vo.TGpSequence">
+		update
+		   T_GP_SEQUENCE
+		set
+		   SEQ_NUMBER = #{seqNumber,jdbcType=VARCHAR},
+		   UPDATED_DATE = SYSDATE()
+		where
+		   SEQ_TYPE = #{seqType} and SYS_INSTANCE_NO = #{sysInstanceNo}
+	</update>
+	
+</mapper>

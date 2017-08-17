@@ -1,0 +1,46 @@
+﻿<div id="tjzhlb_content1">
+    <div class="search-toolbar">
+      <form id="tjzhlb_form" name="tjzhlb_form">
+        <ul class="cssform clearfix">
+          <li class="clearfix">
+            <label class="fl h30_middle">组合名称：</label>
+            <input type="text" class="h28_middle input-txt w100" placeholder="输入组合名称"/>
+          </li>
+          <li class="clearfix pr">
+            <label class="h30_middle fl">状态：</label>
+            <input type="text" id="tjzhlb_zt" readonly="readonly" optionValue="1"/>
+          </li>
+          <li>
+            <div class="cont-int">
+              <button id="btn_cx" class="btn-search mr30" type="button">查询</button>
+            </div>
+          </li>
+          <li class="fr">
+            <div class="cont-int">
+              <button id="btn_tjzhlb_del" class="btn-search mr10" type="button">删除</button>
+              <button id="btn_tjzhlb_stop" class="btn-search mr10" type="button">停用</button>
+              <button id="btn_tjzhlb_add" class="btn-search mr10" type="button">新增组合</button>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="search-cont">
+      <table id="tjzhlb_table">
+  		<thead>
+            <tr>
+              <th w_check="true" w_index="id" width="3%"></th>
+              <th w_index="zhmc" w_align="left">组合名称</th>
+              <th w_render="renderImg" w_align="left">商品信息</th>
+              <th w_index="zjf" w_align="left">总积分</th>
+              <th w_index="zjg" w_align="left">总价格</th>
+              <th w_index="zt" w_align="left" width="80">状态</th>
+              <th w_render="operate" w_align="left">操作</th>
+            </tr>
+		</thead>
+      </table>
+    </div>
+</div>
+<div id="tjzhlb_content2" class="none"></div>
+
+<div id="tjzhlb-dialog" class="none"><p></p></div>

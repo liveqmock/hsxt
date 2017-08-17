@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.AccountInfoMapper">
+    <!-- 收款账户信息 -->
+    <resultMap id="accountInfoResult" type="com.gy.hsxt.bs.bean.tempacct.AccountInfo">
+        <id column="RECEIVE_ACCOUNT_INFO_ID" property="receiveAccountInfoId"/>
+        <result column="RECEIVE_ACCOUNT_ID" property="receiveAccountId"/>
+        <result column="RECEIVE_ACCOUNT_NAME" property="receiveAccountName"/>
+        <result column="BANK_ID" property="bankId"/>
+        <result column="BANK_BRANCH_NAME" property="bankBranchName"/>
+        <result column="RECEIVE_ACCOUNT_NO" property="receiveAccountNo"/>
+        <result column="BANK_NAME" property="bankName"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdBy"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+        <result column="ISACTIVE" property="isActive"/>
+        <result column="FORBID_TIME" property="forbidTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+    </resultMap>
+
+    <!-- 创建 收款账户信息 -->
+    <insert id="insertAccountInfo" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountInfo">
+        INSERT INTO T_BS_ACCOUNT_INFO (
+            RECEIVE_ACCOUNT_INFO_ID,
+            RECEIVE_ACCOUNT_ID,
+            BANK_ID,
+            BANK_BRANCH_NAME,
+            RECEIVE_ACCOUNT_NO,
+            BANK_NAME,
+            CREATED_DATE,
+            CREATEDBY,
+            ISACTIVE
+        ) VALUES (
+            #{receiveAccountInfoId},
+            #{receiveAccountId},
+            #{bankId},
+            #{bankBranchName},
+            #{receiveAccountNo},
+            #{bankName},
+            systimestamp,
+            #{createdBy},
+            'Y'
+        )
+    </insert>
+
+    <!-- 分页查询 收款账户信息列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountInfoQuery" resultMap="accountInfoResult">
+        SELECT
+        t.*,
+        b.RECEIVE_ACCOUNT_NAME
+        FROM
+        T_BS_ACCOUNT_INFO t JOIN T_BS_ACCOUNT_NAME b ON t.RECEIVE_ACCOUNT_ID = b.RECEIVE_ACCOUNT_ID
+        WHERE 1=1
+        <if test="bankId != null and bankId != '' ">
+            AND t.BANK_ID = #{bankId}
+        </if>
+        <if test="receiveAccountName != null and receiveAccountName != '' ">
+            AND b.RECEIVE_ACCOUNT_NAME like '%'||#{receiveAccountName}||'%'
+        </if>
+        <if test="receiveAccountNo != null and receiveAccountNo != '' ">
+            AND t.RECEIVE_ACCOUNT_NO = #{receiveAccountNo}
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+
+    <!--查询某一条收款账户信息-->
+    <select id="selectBeanById" resultMap="accountInfoResult" parameterType="string">
+        SELECT
+            t.*,
+            b.RECEIVE_ACCOUNT_NAME
+        FROM
+            T_BS_ACCOUNT_INFO t JOIN T_BS_ACCOUNT_NAME b ON t.RECEIVE_ACCOUNT_ID = b.RECEIVE_ACCOUNT_ID
+        WHERE
+            RECEIVE_ACCOUNT_INFO_ID = #{receiveAccountInfoId}
+    </select>
+
+    <!--收款账户信息唯一性查询-->
+    <select id="selectUniqueBeanByQuery" resultMap="accountInfoResult" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountInfoQuery">
+        SELECT t.*
+        FROM
+            T_BS_ACCOUNT_INFO t
+        WHERE
+            t.RECEIVE_ACCOUNT_ID = #{receiveAccountId}
+            AND t.BANK_ID = #{bankId}
+            AND t.RECEIVE_ACCOUNT_NO = #{receiveAccountNo}
+    </select>
+
+    <!-- 更新 收款账户信息 -->
+    <update id="updateAccountInfo" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountInfo">
+        UPDATE
+        T_BS_ACCOUNT_INFO t
+        SET
+        <if test="receiveAccountId != null and receiveAccountId != ''">
+            t.RECEIVE_ACCOUNT_ID = #{receiveAccountId},
+        </if>
+        <if test="bankId != null and bankId != ''">
+            t.BANK_ID = #{bankId},
+        </if>
+        <if test="bankName != null and bankName != ''">
+            t.BANK_NAME = #{bankName},
+        </if>
+        <if test="bankBranchName != null and bankBranchName != ''">
+            t.BANK_BRANCH_NAME = #{bankBranchName},
+        </if>
+        <if test="receiveAccountNo != null and receiveAccountNo != ''">
+            t.RECEIVE_ACCOUNT_NO = #{receiveAccountNo},
+        </if>
+        t.UPDATEDBY = #{updatedBy},
+        t.UPDATED_DATE = systimestamp
+        WHERE
+        t.RECEIVE_ACCOUNT_INFO_ID = #{receiveAccountInfoId}
+    </update>
+
+    <!-- 条件查询收款账户信息列表 -->
+    <select id="selectListByQuery" resultMap="accountInfoResult" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountInfoQuery">
+        SELECT
+        t.RECEIVE_ACCOUNT_INFO_ID,
+        t.BANK_NAME,
+        t.RECEIVE_ACCOUNT_NO,
+        b.RECEIVE_ACCOUNT_NAME
+        FROM
+        T_BS_ACCOUNT_INFO t JOIN T_BS_ACCOUNT_NAME b ON t.RECEIVE_ACCOUNT_ID = b.RECEIVE_ACCOUNT_ID
+        WHERE 1=1
+        <if test="isActive != null and isActive != ''">
+            AND t.ISACTIVE = #{isActive}
+        </if>
+        <if test="bankId != null and bankId != '' ">
+            AND t.BANK_ID = #{bankId}
+        </if>
+        <if test="receiveAccountName != null and receiveAccountName != '' ">
+            AND b.RECEIVE_ACCOUNT_NAME like '%'||#{receiveAccountName}||'%'
+        </if>
+        <if test="receiveAccountNo != null and receiveAccountNo != '' ">
+            AND t.RECEIVE_ACCOUNT_NO = #{receiveAccountNo}
+        </if>
+    </select>
+
+    <!-- 禁用账户信息 -->
+    <update id="forbidAccountInfo" parameterType="string">
+        UPDATE T_BS_ACCOUNT_INFO t
+        SET t.ISACTIVE = 'N', t.FORBID_TIME = systimestamp
+        WHERE t.RECEIVE_ACCOUNT_INFO_ID = #{accountInfoId}
+    </update>
+</mapper>

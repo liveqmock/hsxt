@@ -1,0 +1,45 @@
+	 <% var param =obj;%>
+	 <% var entResType = comm.getCookie('entResType');%>
+	 <% var reserveInfo = comm.getCookie('reserveInfo');%>
+	 <% var tradPwd = comm.getCookie("tradPwd");%>
+	 <% var entStatus = comm.getCookie("entStatus");%>
+	 <% var custName = comm.getCookie("custName");%>
+	 <%$.each(param,function(key,el){%>
+	 
+	 	<%if(tradPwd == 'false' && (el.permUrl == "safeSetSrc/czjymm/tab" || el.permUrl == "safeSetSrc/xgjymm/tab")) return true;%>
+	 	<%if(tradPwd == 'true' && el.permUrl == "safeSetSrc/szjymm/tab") return true;%>
+	 	<%if(reserveInfo == '' && el.permUrl == "safeSetSrc/xgylxx/tab") return true;%>
+	 	<%if(reserveInfo != '' && el.permUrl == "safeSetSrc/szylxx/tab") return true;%>
+	 	<!-- 只有管理员（用户名0000的用户）才有设置密保问题菜单 -->
+		<%if(custName != '0000' && el.permUrl == "safeSetSrc/szmbwt/tab") return true;%>
+		
+	 	<!-- 如果是成员企业，则没有 【停止积分活动】、【参与积分活动 菜单】 -->
+	 	<%if(entResType==2){%>
+	 		<%if(el.permUrl!='systemBusinessSrc/tzjfhdsq/tab'&&el.permUrl!='systemBusinessSrc/cyjfhdsq/tab'){%>
+	    		<li class="clearfix"><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+	    	<%}%>
+	    <%}else if(entResType==3){%>  <!-- 如果是托管企业，则没有【成员企业资格维护】 菜单 -->
+	 	
+	 		<%if(el.permUrl!='systemBusinessSrc/cyqyzgwh/tab'){%>  <!--去掉成员企业资格维护 菜单-->
+	 		
+	 			<%if(el.permUrl == 'systemBusinessSrc/tzjfhdsq/tab'){%> <!-- 判断是否显示【停止积分活动申请】菜单 -->
+		 			<%if(entStatus == 7){%>
+		    			<li class="clearfix" style="display:none"><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+		    		<%}else{%>
+		    			<li class="clearfix" ><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+		    		<%}%>
+	    		<%}else if(el.permUrl == 'systemBusinessSrc/cyjfhdsq/tab'){%> <!-- 判断是否显示【参与积分活动申请】菜单 -->
+		 			<%if(entStatus == 7){%>
+		    			<li class="clearfix" ><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+		    		<%}else{%>
+		    			<li class="clearfix" style="display:none"><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+		    		<%}%>
+	    		<%}else{%>
+	    			<li class="clearfix" ><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+	    		<%}%>
+	    	<%}%>
+	    <%}else{%>   <!-- 服务公司 -->
+	    	<li class="clearfix" ><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+	    <%}%>
+	 
+	 <%})%>

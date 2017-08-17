@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.GrantInfoMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.GrantInfo">
+		<id column="GIVING_ID" property="givingId" jdbcType="VARCHAR" />
+		<result column="APPLY_WELFARE_NO" property="applyWelfareNo" jdbcType="VARCHAR" />
+		<result column="SUBSIDY_TOTAL_AMOUNT" property="subsidyTotalAmount" jdbcType="DECIMAL" />
+		<result column="HS_PAY_AMOUNT" property="hsPayAmount" jdbcType="DECIMAL" />
+		<result column="SUBSIDY_BALANCE" property="subsidyBalance" jdbcType="DECIMAL" />
+		<result column="WELFARE_NO" property="welfareNo" jdbcType="VARCHAR" />
+		<result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+		<result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+		<result column="APPROVAL_DATE" property="approvalDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+		<result column="IFGIVING" property="ifgiving" jdbcType="DECIMAL" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+		<result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+		<result column="GIVING_PERSON_NAME" property="givingPersonName" jdbcType="VARCHAR" />
+		<result column="GIVING_PERSON_CUST_ID" property="givingPersonCustId" jdbcType="VARCHAR" />
+
+		<result column="HS_RES_NO" property="hsResNo" jdbcType="CHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="WELFARE_TYPE" property="welfareType" jdbcType="DECIMAL" />
+		<result column="PROPOSER_NAME" property="proposerName" jdbcType="VARCHAR" />
+		<result column="PROPOSER_PHONE" property="proposerPhone" jdbcType="VARCHAR" />
+		<result column="PROPOSER_PAPERS_NO" property="proposerPapersNo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+	   GIVING_ID,
+       APPLY_WELFARE_NO,
+       SUBSIDY_TOTAL_AMOUNT,
+       HS_PAY_AMOUNT,
+       SUBSIDY_BALANCE,
+       WELFARE_NO,
+       START_DATE,
+       END_DATE,
+       APPROVAL_DATE,
+       TRANS_NO,
+       IFGIVING,
+       DESCRIPTION,
+       ISACTIVE,
+       CREATED_DATE,
+       CREATED_BY,
+       UPDATED_DATE,
+       UPDATED_BY,
+       TASK_ID,
+       GIVING_PERSON_NAME,
+       GIVING_PERSON_CUST_ID
+	</sql>
+
+	<!-- 通过主键查询 发放记录 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		t.GIVING_ID,
+		t.APPLY_WELFARE_NO,
+		t.SUBSIDY_TOTAL_AMOUNT,
+		t.HS_PAY_AMOUNT,
+		t.SUBSIDY_BALANCE,
+		t.WELFARE_NO,
+		t.START_DATE,
+		t.END_DATE,
+		t.APPROVAL_DATE,
+		t.TRANS_NO,
+		t.IFGIVING,
+		t.DESCRIPTION,
+		t.ISACTIVE,
+		t.CREATED_DATE,
+		t.CREATED_BY,
+		t.UPDATED_DATE,
+		t.UPDATED_BY,
+		t.TASK_ID,
+		t.GIVING_PERSON_NAME,
+		t.GIVING_PERSON_CUST_ID,
+		aply.cust_id,
+		aply.hs_res_no,
+		aply.proposer_name,
+		aply.proposer_phone,
+		aply.proposer_papers_no,
+		aply.welfare_type
+		from t_ws_grant t, t_ws_apply_welfare aply
+		where
+		t.apply_welfare_no = aply.apply_welfare_no
+		and t.GIVING_ID =
+		#{givingId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过工单编号查询 发放记录 -->
+	<select id="selectByTaskId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_GRANT
+		where TASK_ID = #{taskId,jdbcType=VARCHAR}
+	</select>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="condition.welfareType != null">
+			And aply.WELFARE_TYPE = #{condition.welfareType}
+		</if>
+		<if test="condition.proposerResNo != null and condition.proposerResNo != '' ">
+			And aply.HS_RES_NO  like '${condition.proposerResNo}%' 
+		</if>
+		<if test="condition.proposerName != null and condition.proposerName != '' ">
+			And aply.PROPOSER_NAME  like '${condition.proposerName}%'  
+		</if>
+		<if test="condition.proposerPapersNo != null and condition.proposerPapersNo != '' ">
+			And aply.PROPOSER_PAPERS_NO  like '${condition.proposerPapersNo}%' 
+		</if>
+		<if test="condition.grantPersonCustId != null and condition.grantPersonCustId != '' ">
+			And t.GIVING_PERSON_CUST_ID = #{condition.grantPersonCustId}
+		</if>
+	</sql>
+	
+	<!--分页排序-->
+	<sql id="Order_By">
+	   ORDER BY T.APPROVAL_DATE DESC
+	</sql>
+
+	<!-- 分页查询 统计查询总条数 -->
+	<select id="countGrantInfo" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		from t_ws_grant t, t_ws_apply_welfare aply
+		where
+		t.apply_welfare_no =
+		aply.apply_welfare_no
+		and t.IFGIVING =
+		#{grantStatus}
+		<include refid="Where_Condition" />
+	</select>
+
+	<!-- 分页查询发放记录 -->
+	<select id="pageGrantInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select 
+		t.GIVING_ID,
+		t.APPLY_WELFARE_NO,
+		t.SUBSIDY_TOTAL_AMOUNT,
+		t.HS_PAY_AMOUNT,
+		t.SUBSIDY_BALANCE,
+		t.WELFARE_NO,
+		t.START_DATE,
+		t.END_DATE,
+		t.APPROVAL_DATE,
+		t.TRANS_NO,
+		t.IFGIVING,
+		t.DESCRIPTION,
+		t.ISACTIVE,
+		t.CREATED_DATE,
+		t.CREATED_BY,
+		t.UPDATED_DATE,
+		t.UPDATED_BY,
+		t.TASK_ID,
+		t.GIVING_PERSON_NAME,
+		t.GIVING_PERSON_CUST_ID,
+		aply.cust_id,
+		aply.hs_res_no,
+		aply.proposer_name,
+		aply.proposer_phone,
+		aply.proposer_papers_no,
+		aply.welfare_type
+		from
+		t_ws_grant t, t_ws_apply_welfare aply
+		where
+		t.apply_welfare_no =
+		aply.apply_welfare_no
+		and t.IFGIVING = #{grantStatus}
+		<include refid="Where_Condition" />
+		<include refid="Order_By" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!-- 插入发放记录 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.GrantInfo">
+		insert into T_WS_GRANT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="givingId != null">
+				GIVING_ID,
+			</if>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO,
+			</if>
+			<if test="subsidyTotalAmount != null">
+				SUBSIDY_TOTAL_AMOUNT,
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT,
+			</if>
+			<if test="subsidyBalance != null">
+				SUBSIDY_BALANCE,
+			</if>
+			<if test="welfareNo != null">
+				WELFARE_NO,
+			</if>
+			<if test="startDate != null">
+				START_DATE,
+			</if>
+			<if test="endDate != null">
+				END_DATE,
+			</if>
+			<if test="approvalDate != null">
+				APPROVAL_DATE,
+			</if>
+			<if test="transNo != null">
+				TRANS_NO,
+			</if>
+			<if test="ifgiving != null">
+				IFGIVING,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE,
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY,
+			</if>
+			<if test="taskId != null">
+				TASK_ID,
+			</if>
+			<if test="givingPersonName != null">
+				GIVING_PERSON_NAME,
+			</if>
+			<if test="givingPersonCustId != null">
+				GIVING_PERSON_CUST_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="givingId != null">
+				#{givingId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyWelfareNo != null">
+				#{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="subsidyTotalAmount != null">
+				#{subsidyTotalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				#{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="subsidyBalance != null">
+				#{subsidyBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="welfareNo != null">
+				#{welfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="approvalDate != null">
+				#{approvalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transNo != null">
+				#{transNo,jdbcType=VARCHAR},
+			</if>
+			<if test="ifgiving != null">
+				#{ifgiving,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				#{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				#{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="givingPersonName != null">
+				#{givingPersonName,jdbcType=VARCHAR},
+			</if>
+			<if test="givingPersonCustId != null">
+				#{givingPersonCustId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 更新发放记录 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.GrantInfo">
+		update T_WS_GRANT
+		<set>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="subsidyTotalAmount != null">
+				SUBSIDY_TOTAL_AMOUNT =
+				#{subsidyTotalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="hsPayAmount != null">
+				HS_PAY_AMOUNT = #{hsPayAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="subsidyBalance != null">
+				SUBSIDY_BALANCE = #{subsidyBalance,jdbcType=DECIMAL},
+			</if>
+			<if test="welfareNo != null">
+				WELFARE_NO = #{welfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="startDate != null">
+				START_DATE = #{startDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endDate != null">
+				END_DATE = #{endDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="approvalDate != null">
+				APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="transNo != null">
+				TRANS_NO = #{transNo,jdbcType=VARCHAR},
+			</if>
+			<if test="ifgiving != null">
+				IFGIVING = #{ifgiving,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				TASK_ID = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="givingPersonName != null">
+				GIVING_PERSON_NAME =
+				#{givingPersonName,jdbcType=VARCHAR},
+			</if>
+			<if test="givingPersonCustId != null">
+				GIVING_PERSON_CUST_ID =
+				#{givingPersonCustId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where GIVING_ID = #{givingId,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+
+</mapper>

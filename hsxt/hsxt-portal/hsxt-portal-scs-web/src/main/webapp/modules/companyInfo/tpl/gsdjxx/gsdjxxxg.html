@@ -1,0 +1,76 @@
+<div class="mt40 info_800 bc">
+	<form id="qygsdjxx_form" name="qygsdjxx_form">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">企业名称</label>
+					<input type="text" id="entCustName" name="entCustName" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.entCustName%>" readonly="readonly">
+				</li>
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">法人代表</label>
+					<input type="text" id="legalPerson" name="legalPerson" class="fl w185 h30_middle ml5 bg_ef" readonly="readonly" value="<%=obj.legalPerson%>">
+				</li>
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">营业执照注册号</label>
+					<input type="text" id="busiLicenseNo" name="busiLicenseNo" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.busiLicenseNo%>" readonly="readonly">
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">营业期限</label>
+					<input type="text" id="endDate" name="endDate" value="<%=obj.endDate%>" class="fl w185 h30_middle ml5" placeholder="输入营业期限结束日期"  >
+				</li>
+				<!-- <li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">法人代表证件类型</label>
+	                <input id='credentialType' name="credentialType" class="bg_ef" placeholder="--请选择--" options="[]" optionValue="" disabled="disabled"  readonly="readonly"/>
+	              
+				</li> 				
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">组织机构代码证号</label>
+					<input type="text" id="orgCodeNo" name="orgCodeNo" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.orgCodeNo%>" readonly="readonly">
+				</li> -->
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">企业地址</label>
+					<input type="text" id="entRegAddr" name="entRegAddr" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.entRegAddr%>" readonly="readonly">
+					<div class="hint red"><a id="gsdjxx_map">地图标注</a></div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">企业类型</label>
+					<input type="text" id="nature" name="nature" class="fl w185 h30_middle ml5" value="<%=obj.nature%>" placeholder="输入企业类型"  >
+					<div class="hint f14 red">*</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">成立日期</label>
+					<input type="text" id="buildDate" name="buildDate" class="fl w185 h30_middle ml5" value="<%=obj.buildDate%>" placeholder="输入成立日期"  >
+					<div class="hint f14 red">*</div>
+				</li>
+				<!-- <li class="register_row clearfix">
+					<label class="fl w115 h30_middle">联系电话</label>
+					<input type="text" id="contactPhone" name="contactPhone" class="fl w185 h30_middle ml5" value="<%=obj.officeTel%>" placeholder="输入联系电话"  >
+					<div class="hint f14 red">*</div>
+				</li>
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">法人代表证件号码</label>
+					<input type="text" id="legalPersonId" name="legalPersonId" value="<%=obj.legalPersonId%>"  readonly="readonly"  class="fl w185 h30_middle ml5 bg_ef" placeholder="输入法人代表证件号码"  >
+				</li>
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">纳税人识别号</label>
+					<input type="text" id="taxNo" name="taxNo" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.taxNo%>" readonly="readonly">
+				</li> -->
+				
+			</ul>
+		</div>
+		<div class="register_info info_800">
+			<ul>
+				<li class="register_row_2 info_320 " style="height: 60px;line-height: 60px;">
+				<label for="name">经营范围</label>
+				<textarea id="businessScope" style=" width: 665px;" name="businessScope" placeholder="输入经营范围"><%=obj.businessScope%></textarea>
+				<div class="hint_2"> </div>
+				</li>
+			</ul>
+		</div>
+		<div class="two_button mt20" align="center"><a  class="btn_bg submit fr" id="backBt_gongshang">取　消</a><a  class="btn_bg submit fl" id="submitBt_gongshang">提　交</a></div>
+ 
+	</form>
+</div>
+<div id="mapTpl" class="none"></div>

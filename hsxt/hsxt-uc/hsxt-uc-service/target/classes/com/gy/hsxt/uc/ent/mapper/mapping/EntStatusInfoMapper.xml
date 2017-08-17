@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.EntStatusInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.ent.bean.EntStatusInfo" >
+    <id column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="PWD_TRANS" property="pwdTrans" jdbcType="VARCHAR" />
+    <result column="PWD_TRANS_VER" property="pwdTransVer" jdbcType="VARCHAR" />
+    <result column="PWD_TRANS_SALT_VALUE" property="pwdTransSaltValue" jdbcType="VARCHAR" />
+    <result column="BASE_STATUS" property="baseStatus" jdbcType="DECIMAL" />
+    <result column="IS_REALNAME_AUTH" property="isRealnameAuth" jdbcType="DECIMAL" />
+    <result column="IS_KEYINFO_CHANGED" property="isKeyinfoChanged" jdbcType="DECIMAL" />
+    <result column="IS_REG" property="isReg" jdbcType="DECIMAL" />
+    <result column="IS_OWE_FEE" property="isOweFee" jdbcType="DECIMAL" />
+    <result column="IS_OLD_ENT" property="isOldEnt" jdbcType="DECIMAL" />
+    <result column="IS_AUTH_MOBILE" property="isAuthMobile" jdbcType="DECIMAL" />
+    <result column="IS_AUTH_EMAIL" property="isAuthEmail" jdbcType="DECIMAL" />
+    <result column="IS_CLOSED_ENT" property="isClosedEnt" jdbcType="DECIMAL" />
+    <result column="LAST_POINT_DATE" property="lastPointDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="OPEN_DATE" property="openDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="EXPIRE_DATE" property="expireDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="COUNT_BUY_CARDS" property="countBuyCards" jdbcType="DECIMAL" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+    <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+    <result column="IS_BIND_BANK" property="isBindBank" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <!-- 查询的列信息 -->
+  <sql id="Base_Column_List" >
+    ENT_CUST_ID,
+    ENT_RES_NO, 
+    PWD_TRANS, 
+    PWD_TRANS_VER, 
+    PWD_TRANS_SALT_VALUE, 
+    BASE_STATUS, 
+    IS_REALNAME_AUTH, 
+    IS_KEYINFO_CHANGED, 
+    IS_REG, 
+    IS_OWE_FEE, 
+    IS_OLD_ENT, IS_AUTH_MOBILE, 
+    IS_AUTH_EMAIL, IS_CLOSED_ENT, LAST_POINT_DATE, OPEN_DATE, EXPIRE_DATE, COUNT_BUY_CARDS, 
+    ISACTIVE, CREATE_DATE, CREATEDBY, UPDATE_DATE, UPDATEDBY, CUST_TYPE, ENT_CUST_NAME,IS_BIND_BANK
+  </sql>
+  
+  <!-- 通过企业客户号查询企业状态信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ENT_STATUS
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </select>
+  
+	<!-- 查询企业互客户号通过企业互生号 -->
+	<select id="findEntCustIdByEntResNo" resultType="java.lang.String" parameterType="java.lang.String">
+		select
+		ENT_CUST_ID
+		from T_ENT_STATUS
+		where ENT_RES_NO = #{0}
+		and ISACTIVE = 'Y'
+	</select>
+  
+  <!-- 批量查询企业互客户号通过企业互生号列表 -->
+	<select id="batchSelectEntCustId" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		 <include refid="Base_Column_List" />
+		from T_ENT_STATUS
+		where ISACTIVE = 'Y' AND ENT_RES_NO IN
+		 <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			'${item}'
+		</foreach>
+	</select>
+  
+
+  
+  <!-- 删除企业状态信息 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ENT_STATUS
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 插入企业状态信息（有值的属性插入） -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.ent.bean.EntStatusInfo" >
+    insert into T_ENT_STATUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="pwdTrans != null" >
+        PWD_TRANS,
+      </if>
+      <if test="pwdTransVer != null" >
+        PWD_TRANS_VER,
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        PWD_TRANS_SALT_VALUE,
+      </if>
+      <if test="baseStatus != null" >
+        BASE_STATUS,
+      </if>
+      <if test="isRealnameAuth != null" >
+        IS_REALNAME_AUTH,
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        IS_KEYINFO_CHANGED,
+      </if>
+      <if test="isReg != null" >
+        IS_REG,
+      </if>
+      <if test="isOweFee != null" >
+        IS_OWE_FEE,
+      </if>
+      <if test="isOldEnt != null" >
+        IS_OLD_ENT,
+      </if>
+      <if test="isAuthMobile != null" >
+        IS_AUTH_MOBILE,
+      </if>
+      <if test="isAuthEmail != null" >
+        IS_AUTH_EMAIL,
+      </if>
+      <if test="isClosedEnt != null" >
+        IS_CLOSED_ENT,
+      </if>
+      <if test="lastPointDate != null" >
+        LAST_POINT_DATE,
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE,
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE,
+      </if>
+      <if test="countBuyCards != null" >
+        COUNT_BUY_CARDS,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME,
+      </if>
+      <if test="isBindBank != null" >
+        IS_BIND_BANK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="pwdTrans != null" >
+        #{pwdTrans,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransVer != null" >
+        #{pwdTransVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        #{pwdTransSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="baseStatus != null" >
+        #{baseStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isRealnameAuth != null" >
+        #{isRealnameAuth,jdbcType=DECIMAL},
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        #{isKeyinfoChanged,jdbcType=DECIMAL},
+      </if>
+      <if test="isReg != null" >
+        #{isReg,jdbcType=DECIMAL},
+      </if>
+      <if test="isOweFee != null" >
+        #{isOweFee,jdbcType=DECIMAL},
+      </if>
+      <if test="isOldEnt != null" >
+        #{isOldEnt,jdbcType=DECIMAL},
+      </if>
+      <if test="isAuthMobile != null" >
+        #{isAuthMobile,jdbcType=DECIMAL},
+      </if>
+      <if test="isAuthEmail != null" >
+        #{isAuthEmail,jdbcType=DECIMAL},
+      </if>
+      <if test="isClosedEnt != null" >
+        #{isClosedEnt,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPointDate != null" >
+        #{lastPointDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countBuyCards != null" >
+        #{countBuyCards,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="isBindBank != null" >
+        #{isBindBank,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+ 
+ <!-- 更新企业状态信息（有值的更新） -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.ent.bean.EntStatusInfo" >
+    update T_ENT_STATUS
+    <set >
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="pwdTrans != null" >
+        PWD_TRANS = #{pwdTrans,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransVer != null" >
+        PWD_TRANS_VER = #{pwdTransVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        PWD_TRANS_SALT_VALUE = #{pwdTransSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="baseStatus != null" >
+        BASE_STATUS = #{baseStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="isRealnameAuth != null" >
+        IS_REALNAME_AUTH = #{isRealnameAuth,jdbcType=DECIMAL},
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        IS_KEYINFO_CHANGED = #{isKeyinfoChanged,jdbcType=DECIMAL},
+      </if>
+      <if test="isReg != null" >
+        IS_REG = #{isReg,jdbcType=DECIMAL},
+      </if>
+      <if test="isOweFee != null" >
+        IS_OWE_FEE = #{isOweFee,jdbcType=DECIMAL},
+      </if>
+      <if test="isOldEnt != null" >
+        IS_OLD_ENT = #{isOldEnt,jdbcType=DECIMAL},
+      </if>
+      <if test="isAuthMobile != null" >
+        IS_AUTH_MOBILE = #{isAuthMobile,jdbcType=DECIMAL},
+      </if>
+      <if test="isAuthEmail != null" >
+        IS_AUTH_EMAIL = #{isAuthEmail,jdbcType=DECIMAL},
+      </if>
+      <if test="isClosedEnt != null" >
+        IS_CLOSED_ENT = #{isClosedEnt,jdbcType=DECIMAL},
+      </if>
+      <if test="lastPointDate != null" >
+        LAST_POINT_DATE = #{lastPointDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openDate != null" >
+        OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireDate != null" >
+        EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="countBuyCards != null" >
+        COUNT_BUY_CARDS = #{countBuyCards,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="isBindBank != null" >
+        IS_BIND_BANK = #{isBindBank,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </update>
+  
+  <!--更新企业状态信息 -->
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.ent.bean.EntStatusInfo" >
+    update T_ENT_STATUS
+    set ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      PWD_TRANS = #{pwdTrans,jdbcType=VARCHAR},
+      PWD_TRANS_VER = #{pwdTransVer,jdbcType=VARCHAR},
+      PWD_TRANS_SALT_VALUE = #{pwdTransSaltValue,jdbcType=VARCHAR},
+      BASE_STATUS = #{baseStatus,jdbcType=DECIMAL},
+      IS_REALNAME_AUTH = #{isRealnameAuth,jdbcType=DECIMAL},
+      IS_KEYINFO_CHANGED = #{isKeyinfoChanged,jdbcType=DECIMAL},
+      IS_REG = #{isReg,jdbcType=DECIMAL},
+      IS_OWE_FEE = #{isOweFee,jdbcType=DECIMAL},
+      IS_OLD_ENT = #{isOldEnt,jdbcType=DECIMAL},
+      IS_AUTH_MOBILE = #{isAuthMobile,jdbcType=DECIMAL},
+      IS_AUTH_EMAIL = #{isAuthEmail,jdbcType=DECIMAL},
+      IS_CLOSED_ENT = #{isClosedEnt,jdbcType=DECIMAL},
+      LAST_POINT_DATE = #{lastPointDate,jdbcType=TIMESTAMP},
+      OPEN_DATE = #{openDate,jdbcType=TIMESTAMP},
+      EXPIRE_DATE = #{expireDate,jdbcType=TIMESTAMP},
+      COUNT_BUY_CARDS = #{countBuyCards,jdbcType=DECIMAL},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      IS_BIND_BANK = #{isBindBank,jdbcType=DECIMAL},
+      ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR}
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </update>
+</mapper>

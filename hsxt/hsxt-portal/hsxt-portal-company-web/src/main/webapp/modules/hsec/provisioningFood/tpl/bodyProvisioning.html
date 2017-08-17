@@ -1,0 +1,56 @@
+<%
+	var param = obj.queryResult;
+	var shopName = obj.shopName;
+%>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+    	<tbody>
+     	<tr>
+           <th width="25%">服务名称</th>
+           <th width="45%">服务描述</th>
+           <th width="15%">状态</th>
+           <th width="15%">操作</th>
+         </tr>
+         <% 
+         try{
+         var paramResult = param.result;
+         if(paramResult.length <= 0){ %>
+			<tr><td colspan="4" align="center" style="color:blue;">暂无服务</td></tr>
+         <% }else{
+         	$.each(paramResult,function(key,value){
+         %>
+         <tr class="<%=key%2==1?'table-tr-c':''%>" data-id="<%=value.sysSer.id%>">
+           <td><%=value.sysSer.name%></td>
+           <td><%=value.sysSer.desc%></td>
+           <td>
+           <% if(value.status == 0){ %>
+          	 未开通
+           <% }else{ %>
+                         已开通
+           <% } %>
+           </td>
+           <td data-month="<%=value.sysSer.chargingRules%>" data-desc="<%=value.sysSer.rulesDesc%>" data-name="<%=value.sysSer.name%>" data-shop-name="<%=shopName%>">
+           <% if(value.status == 0){ %>
+           <a class="dlg2" href="javascript:void(0)">开通</a>
+           <% }else{ if(value.sysSer.name != '外卖服务费'){ %>    
+           	<a class="dlg1" href="javascript:void(0)">关闭</a>   
+           <% }} %>
+           </td>
+         </tr>
+         <% }) } }catch(e){} %>
+    	</tbody>
+    </table>
+    
+<%if(paramResult.length > 0){%>
+<div class="mt10 clearfix">
+	<div class="table-page">
+		<a href="javascript:;" class="page-nact" page="1">首页</a>
+		<a href="javascript:;" class="page-nact" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-nact" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-nact" page="<%=param.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/>
+		<span class="page-go">页/<%=param.totalPage%>页</span>
+		<a href="javascript:;" class="page-act" style="cursor:default">共<%=param.recoredCount%>条</a>
+	</div>
+</div>
+<%}%>

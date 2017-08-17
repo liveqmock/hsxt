@@ -1,0 +1,78 @@
+<div id="posgjscTpl" class="background">
+	<div >
+		<form id="fileForm">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<span>pos机固件文件</span>
+			<hr>
+			<input id="posFile" name="posFile" style="width:300px;height:30px;"  readonly="readonly" type="text"  />
+			<a class="upload_btn input-file">上传<input type="file" id="posUpLoad" name="posUpLoad"></a>
+			<span id="remind" style="display: none;"><h style="color:red">文件命名格式：hs_pos_xxxxxx_xx_yy。固定长度。
+								 xxxxxx：主版本号，数字型字符串，递增，用于较大功能性改动。
+								 xx，副版本号，数字型字符串，默认为00，递增，用于界面提示优化等微小改动。
+								 yy，语言标记，如cn表示中文版。</h></span>
+			<br>
+			<br>
+			<br>
+			<span>pos机固件信息编辑</span>
+			<hr>
+			<table>
+				<tr>
+					<td>POS机型号:<input id="posDeviceType" name="posDeviceType" class="base"/></td>
+					<!-- <td>POS机器号:<input id="posMachineNo" name="posMachineNo" class="base"/></td> -->
+					<td>固件版本号:<input id="posUpgradeVerNo" name="posUpgradeVerNo" class="base"/></td>
+					<td>语言类别:<input id="language" name="language" class="base"/></td>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">&nbsp&nbsp&nbsp&nbsp下载路径:<input id="fileHttpUrl" name="fileHttpUrl" readonly="readonly" class="base2"/>
+					<!-- <td>CRC校验码:<input id="fileCrcCode" name="fileCrcCode" class="base" readonly="readonly" /></td> -->
+					<td>强制升级标记:<input type="radio" name="isForceUpgrade" value="Y" />强制升级 
+								 <input type="radio" name="isForceUpgrade" value="N" checked="checked"/>不强制升级</td>
+				</tr>
+				<tr></tr>
+				<tr>
+					<td align="center" colspan="4">
+						<input type="button" id="save" name ="save" class="buttomStyle" value="保存">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+</div>
+<style type="text/css">
+	.base{
+		height:30px;
+		width: 200px;
+	}
+	.base2{
+		height:30px;
+		width: 468px;
+	}
+	.background{
+		background:#dff2fc;
+		color:#FFF;
+		padding:0 10px 6px 10px;
+		border-left:1px solid #CCC;
+		border-top:1px solid #CCC;
+		border-right:1px solid #CCC;
+		height:100%;
+	}
+	.buttomStyle{
+		width:30px;
+		height:30px;
+	}
+	
+</style>

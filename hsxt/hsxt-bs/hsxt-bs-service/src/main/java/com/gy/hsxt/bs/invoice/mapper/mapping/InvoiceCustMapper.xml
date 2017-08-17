@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.invoice.mapper.InvoiceCustMapper">
+
+    <resultMap id="invoiceCustResult" type="com.gy.hsxt.bs.bean.invoice.InvoiceCust">
+        <id column="INVOICE_ID" property="invoiceId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="STATUS" property="status"/>
+        <result column="REFUSE_REMARK" property="refuseRemark"/>
+        <result column="INVOICE_TITLE" property="invoiceTitle"/>
+        <result column="INVOICE_TYPE" property="invoiceType"/>
+        <result column="ALL_AMOUNT" property="allAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="BANK_BRANCH_NAME" property="bankBranchName"/>
+        <result column="BANK_NO" property="bankNo"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="TELEPHONE" property="telephone"/>
+        <result column="TAXPAYER_NO" property="taxpayerNo"/>
+        <result column="APPLY_TIME" property="applyTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPLY_OPERATOR" property="applyOperator"/>
+        <result column="OPEN_CONTENT" property="openContent"/>
+        <result column="OPEN_TIME" property="openTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="OPEN_OPERATOR" property="openOperator"/>
+        <result column="EXPRESS_NAME" property="expressName"/>
+        <result column="TRACKING_NO" property="trackingNo"/>
+        <result column="POST_WAY" property="postWay"/>
+        <result column="RECEIVE_WAY" property="receiveWay"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 创建 年费价格方案 -->
+    <insert id="insertInvoiceCust" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceCust">
+        INSERT INTO T_BS_INVOICE_CUST (
+            INVOICE_ID,
+            CUST_ID,
+            RES_NO,
+            CUST_NAME,
+            STATUS,
+            INVOICE_TITLE,
+            INVOICE_TYPE,
+            ALL_AMOUNT,
+            BANK_BRANCH_NAME,
+            BANK_NO,
+            ADDRESS,
+            TELEPHONE,
+            TAXPAYER_NO,
+            OPEN_CONTENT,
+            OPEN_TIME,
+            OPEN_OPERATOR,
+            EXPRESS_NAME,
+            TRACKING_NO,
+            POST_WAY,
+            UPDATED_DATE,
+            UPDATEDBY
+        ) VALUES (
+            #{invoiceId},
+            #{custId},
+            #{resNo},
+            #{custName},
+            #{status},
+            #{invoiceTitle},
+            #{invoiceType},
+            #{allAmount},
+            #{bankBranchName},
+            #{bankNo},
+            #{address},
+            #{telephone},
+            #{taxpayerNo},
+            #{openContent},
+            systimestamp,
+            #{openOperator},
+            #{expressName},
+            #{trackingNo},
+            #{postWay},
+            systimestamp,
+            #{openOperator}
+        )
+    </insert>
+    <!-- 分页查询客户发票数据列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceQuery" resultMap="invoiceCustResult">
+        SELECT t.* FROM T_BS_INVOICE_CUST t WHERE 1=1
+        <if test="custId != null and custId !='' ">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="resNo != null and resNo !='' ">
+            AND t.RES_NO LIKE '%'||#{resNo}||'%'
+        </if>
+        <if test="custName != null and custName !='' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <if test="status != null and status != '' ">
+            AND t.STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate !='' ">
+            AND t.OPEN_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate !='' ">
+            AND t.OPEN_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        ORDER BY t.OPEN_TIME DESC
+    </select>
+
+    <!-- 根据ID查询实体 -->
+    <select id="selectBeanById" resultMap="invoiceCustResult" parameterType="string">
+        SELECT t.*
+        FROM T_BS_INVOICE_CUST t
+        WHERE t.INVOICE_ID = #{invoiceId}
+    </select>
+
+    <!-- 更新客户发票 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceCust">
+        UPDATE T_BS_INVOICE_CUST t
+        SET t.UPDATED_DATE = systimestamp
+        , t.UPDATEDBY = #{updatedBy}
+        <if test="postWay != null">
+            ,t.POST_WAY = #{postWay}
+        </if>
+        <if test="expressName !=null and expressName != ''">
+            ,t.EXPRESS_NAME = #{expressName}
+        </if>
+        <if test="trackingNo !=null and trackingNo != ''">
+            ,t.TRACKING_NO = #{trackingNo}
+        </if>
+        <if test="status != null">
+            ,t.STATUS = #{status}
+        </if>
+        <if test="refuseRemark !=null and refuseRemark != '' ">
+        	,t.REFUSE_REMARK = #{refuseRemark}
+        </if>
+        <if test="receiveWay != null">
+            ,t.RECEIVE_WAY = #{receiveWay}
+        </if>
+        WHERE t.INVOICE_ID = #{invoiceId}
+    </update>
+</mapper>

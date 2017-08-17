@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+	
+	 <!-- 消费服务 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"  default="true"/>
+    <!-- 不发dubbo服务，无需占用端口
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}" 
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+    -->
+    <dubbo:reference id="noCardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsNoCardHolderService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<dubbo:reference id="mobileService" interface="com.gy.hsxt.uc.as.api.common.IUCAsMobileService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>   
+    <dubbo:reference id="asPwdService" interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>        
+    <dubbo:reference id="emailService" interface="com.gy.hsxt.uc.as.api.common.IUCAsEmailService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>                
+    <dubbo:reference id="loginService" interface="com.gy.hsxt.uc.as.api.common.IUCLoginService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+    <dubbo:reference id="logoutService" interface="com.gy.hsxt.uc.as.api.common.IUCAsLogoutService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+    <dubbo:reference id="tokenService" interface="com.gy.hsxt.uc.as.api.common.IUCAsTokenService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+     <dubbo:reference id="asDeviceService" interface="com.gy.hsxt.uc.as.api.device.IUCAsDeviceService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+    <dubbo:reference id="roleService" interface="com.gy.hsxt.uc.as.api.auth.IUCAsRoleService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+    <dubbo:reference id="baseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+</beans>

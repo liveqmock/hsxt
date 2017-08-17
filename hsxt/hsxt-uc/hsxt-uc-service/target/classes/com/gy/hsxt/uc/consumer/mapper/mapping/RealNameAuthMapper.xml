@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.consumer.mapper.RealNameAuthMapper" >
+
+<!-- 持卡人实名认证信息 -->
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.consumer.bean.RealNameAuth" >
+    <id column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="COUNTRY_NAME" property="countryName" jdbcType="VARCHAR" />
+    <result column="ID_TYPE" property="idType" jdbcType="DECIMAL" />
+    <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="DECIMAL" />
+    <result column="PER_NAME" property="perName" jdbcType="VARCHAR" />
+    <result column="ID_VALID_DATE" property="idValidDate" jdbcType="VARCHAR" />
+    <result column="ID_ISSUE_ORG" property="idIssueOrg" jdbcType="VARCHAR" />
+    <result column="RESIDENT_ADDR" property="residentAddr" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_FRONT" property="certificateFront" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_BACK" property="certificateBack" jdbcType="VARCHAR" />
+    <result column="CERTIFICATE_HANDHOLD" property="certificateHandhold" jdbcType="VARCHAR" />
+    <result column="JOB" property="job" jdbcType="VARCHAR" />
+    <result column="BIRTH_PLACE" property="birthPlace" jdbcType="VARCHAR" />
+    <result column="ISSUE_PLACE" property="issuePlace" jdbcType="VARCHAR" />
+    <result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+    <result column="ENT_REG_ADDR" property="entRegAddr" jdbcType="VARCHAR" />
+    <result column="ENT_TYPE" property="entType" jdbcType="VARCHAR" />
+    <result column="ENT_BUILD_DATE" property="entBuildDate" jdbcType="VARCHAR" />
+    <result column="AUTH_REMARK" property="authRemark" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="REALNAME_AUTH_DATE" property="realNameAuthDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="REALNAME_REG_DATE" property="realNameRegDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    
+  </resultMap>
+ 
+ <!-- 查询列 -->
+  <sql id="Base_Column_List" >
+    PER_CUST_ID, 
+    COUNTRY_NAME, 
+    ID_TYPE, 
+    ID_NO, 
+    SEX, 
+    PER_NAME, 
+    ID_VALID_DATE, 
+    ID_ISSUE_ORG, 
+    RESIDENT_ADDR, 
+    CERTIFICATE_FRONT, 
+    CERTIFICATE_BACK, 
+    CERTIFICATE_HANDHOLD, 
+    JOB, BIRTH_PLACE, 
+    ISSUE_PLACE, 
+    ENT_NAME, 
+    ENT_REG_ADDR, 
+    ENT_TYPE, 
+    ENT_BUILD_DATE, 
+    AUTH_REMARK, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY
+  </sql>
+  
+  <!-- 通过客户号查询持卡人实名认证信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CUST_ID_INFO
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </select>
+ 
+ <!-- 通过证件类型、证件号码查询记录数 -->
+   <select id="getIdCardNumer" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select 
+   		count(*)
+    from T_CUST_ID_INFO
+    where  ID_TYPE = #{idType,jdbcType=DECIMAL} 
+    and ID_NO = #{idNo,jdbcType=VARCHAR} 
+    and ISACTIVE = #{isactive,jdbcType=CHAR}
+    <if test="perCustId != null" >
+        and PER_CUST_ID != #{perCustId,jdbcType=VARCHAR} 
+    </if>
+    <if test="perName != null" >
+        and PER_NAME = #{perName,jdbcType=VARCHAR} 
+    </if>
+  </select>
+  
+  <!-- 插入实名认证信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.consumer.bean.RealNameAuth" >
+    insert into T_CUST_ID_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        PER_CUST_ID,
+      </if>
+      <if test="countryName != null" >
+        COUNTRY_NAME,
+      </if>
+      <if test="idType != null" >
+        ID_TYPE,
+      </if>
+      <if test="idNo != null" >
+        ID_NO,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="perName != null" >
+        PER_NAME,
+      </if>
+      <if test="idValidDate != null" >
+        ID_VALID_DATE,
+      </if>
+      <if test="idIssueOrg != null" >
+        ID_ISSUE_ORG,
+      </if>
+      <if test="residentAddr != null" >
+        RESIDENT_ADDR,
+      </if>
+      <if test="certificateFront != null" >
+        CERTIFICATE_FRONT,
+      </if>
+      <if test="certificateBack != null" >
+        CERTIFICATE_BACK,
+      </if>
+      <if test="certificateHandhold != null" >
+        CERTIFICATE_HANDHOLD,
+      </if>
+      <if test="job != null" >
+        JOB,
+      </if>
+      <if test="birthPlace != null" >
+        BIRTH_PLACE,
+      </if>
+      <if test="issuePlace != null" >
+        ISSUE_PLACE,
+      </if>
+      <if test="entName != null" >
+        ENT_NAME,
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR,
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE,
+      </if>
+      <if test="entBuildDate != null" >
+        ENT_BUILD_DATE,
+      </if>
+      <if test="authRemark != null" >
+        AUTH_REMARK,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null" >
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="perName != null" >
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="idValidDate != null" >
+        #{idValidDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idIssueOrg != null" >
+        #{idIssueOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="residentAddr != null" >
+        #{residentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateFront != null" >
+        #{certificateFront,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateBack != null" >
+        #{certificateBack,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateHandhold != null" >
+        #{certificateHandhold,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null" >
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePlace != null" >
+        #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="entName != null" >
+        #{entName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="entType != null" >
+        #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="entBuildDate != null" >
+        #{entBuildDate,jdbcType=VARCHAR},
+      </if>
+      <if test="authRemark != null" >
+        #{authRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新实名认证信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.consumer.bean.RealNameAuth" >
+    update T_CUST_ID_INFO
+    <set >
+      <if test="countryName != null" >
+        COUNTRY_NAME = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        ID_TYPE = #{idType,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo != null" >
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="perName != null" >
+        PER_NAME = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="idValidDate != null" >
+        ID_VALID_DATE = #{idValidDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idIssueOrg != null" >
+        ID_ISSUE_ORG = #{idIssueOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="residentAddr != null" >
+        RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateFront != null" >
+        CERTIFICATE_FRONT = #{certificateFront,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateBack != null" >
+        CERTIFICATE_BACK = #{certificateBack,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateHandhold != null" >
+        CERTIFICATE_HANDHOLD = #{certificateHandhold,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        JOB = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null" >
+        BIRTH_PLACE = #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePlace != null" >
+        ISSUE_PLACE = #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="entName != null" >
+        ENT_NAME = #{entName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE = #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="entBuildDate != null" >
+        ENT_BUILD_DATE = #{entBuildDate,jdbcType=VARCHAR},
+      </if>
+      <if test="authRemark != null" >
+        AUTH_REMARK = #{authRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </update>
+   
+     <!--批量删除实名认证信息（逻辑删除）-->
+  <update id="batchDeleteByPrimaryKey"  parameterType="java.util.Map">
+                UPDATE T_CUST_ID_INFO 
+                <set>
+                ISACTIVE = #{isactive,jdbcType=CHAR},
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+                UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+                </set>
+                where PER_CUST_ID IN
+                 <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                  '${item}'
+                 </foreach>
+    </update>
+
+</mapper>

@@ -1,0 +1,49 @@
+<form id="zhtzsqForm">
+	<div class="w900 bc clearfix">
+		<ul class="inputForm-ul fl w400">
+			<li class="pr">
+				<label class="inputForm-label">互生号</label>
+				<input id="zhtzsq_opt_hsht" name="zhtzsq_opt_hsht" type="text" class="inputForm-text" placeholder="输入互生号" maxlength="11" />
+				<span class="required">*</span>
+			</li>
+			<li class="pr">
+				<label class="inputForm-label">账户类型</label>
+				<input type="text" id="zhtzsq_opt_zhlx" name="zhtzsq_opt_zhlx" readonly="readonly" placeholder="选择账户类型" />
+				<span class="required">*</span>
+			</li>
+			<li class="pr">
+				<label class="inputForm-label">调账金额</label>
+				<input id="zhtzsq_opt_tzje" name="zhtzsq_opt_tzje" type="text" class="inputForm-text" placeholder="输入调账金额" />
+				<span class="required">*</span>
+			</li>
+		</ul>
+		<ul class="inputForm-ul fr w400">
+			<li class="view-bg">
+				<label class="inputForm-label">单位名称</label>
+				<input id="zhtzsq_opt_dwmc" name="zhtzsq_opt_dwmc" type="text" class="inputForm-text view-bg" readonly="readonly" />
+			</li>
+			<li class="view-bg">
+				<label class="inputForm-label">账户余额</label>
+				<input id="zhtzsq_opt_zhye" name="zhtzsq_opt_zhye" type="text" class="inputForm-text view-bg" readonly="readonly" />
+			</li>
+			<li class="clearfix pr">
+				<label class="inputForm-label fl">增/减</label>
+				<div class="fl ml5 clearfix">
+					<input type="radio" checked name="zhtzsq_opt_zj" value="1" class="ml5 mr5 mt10 fl"/><span class="f20 fb fl mt5">+</span>
+					<input type="radio" name="zhtzsq_opt_zj" value="0" class="ml20 mr5 fl mt10"/><span class="f20 fb fl mt5">-</span>
+				</div>
+				<span class="required">*</span>
+			</li>
+		</ul>
+	</div>
+	<table border="0" cellspacing="0" cellpadding="0" class="mt5 w900 bd_1_CCC" align="center">
+		<tr>
+			<td align="right" class="inputForm-label-autoHeight" valign="middle">调账原因</td>
+			<td align="left"><textarea id="zhtzsq_opt_tzyy" name="zhtzsq_opt_tzyy" placeholder="输入调帐原因"></textarea></td>
+		</tr>
+	</table>
+</form>
+<div class="mt20 clearfix w200 bc">
+	<a class="fl submit_btn" id="zhtzsq_btn_tj">提 交</a>
+	<a class="fr submit_btn" id="zhtzsq_btn_fq">放 弃</a>
+</div>

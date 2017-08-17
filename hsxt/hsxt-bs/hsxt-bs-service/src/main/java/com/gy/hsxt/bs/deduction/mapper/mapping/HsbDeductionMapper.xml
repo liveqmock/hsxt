@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.deduction.mapper.HsbDeductionMapper">
+
+    <!-- 增值积分汇总实体映射 -->
+    <resultMap id="hbsDeductionResult" type="com.gy.hsxt.bs.bean.deduction.HsbDeduction">
+        <result column="APPLY_ID" property="applyId"/>
+        <result column="ENT_RES_NO" property="entResNo"/>
+        <result column="ENT_CUST_ID" property="entCustId"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="ENT_CUST_NAME" property="entCustName"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="STATUS" property="status"/>
+        <result column="DEDUCT_DATE" property="deductDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPLY_OPER" property="applyOper"/>
+        <result column="APPLY_NAME" property="applyName"/>
+        <result column="APPLY_DATE" property="applyDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPLY_REMARK" property="applyRemark"/>
+        <result column="APPR_OPER" property="apprOper"/>
+        <result column="APPR_NAME" property="apprName"/>
+        <result column="APPR_DATE" property="apprDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPR_REMARK" property="apprRemark"/>
+    </resultMap>
+
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.deduction.HsbDeduction">
+        INSERT INTO T_BS_HSB_DEDUCTION (
+            APPLY_ID,
+            ENT_RES_NO,
+            ENT_CUST_ID,
+            CUST_TYPE,
+            ENT_CUST_NAME,
+            AMOUNT,
+            STATUS,
+            APPLY_OPER,
+            APPLY_NAME,
+            APPLY_DATE,
+            APPLY_REMARK
+        ) VALUES (
+            #{applyId},
+            #{entResNo},
+            #{entCustId},
+            #{custType},
+            #{entCustName},
+            #{amount},
+            0,
+            #{applyOper},
+            #{applyName},
+            systimestamp,
+            #{applyRemark}
+        )
+    </insert>
+
+    <select id="selectBeanListPage" resultMap="hbsDeductionResult" parameterType="com.gy.hsxt.bs.bean.deduction.HsbDeductionQuery">
+        SELECT
+        t.*
+        FROM
+        T_BS_HSB_DEDUCTION t
+        WHERE 1=1
+        <if test="startDate != null and startDate != '' ">
+            AND t.APPLY_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND t.APPLY_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="entResNo != null and entResNo != '' ">
+            AND t.ENT_RES_NO like '%'||#{entResNo}||'%'
+        </if>
+        <if test="entCustName != null and entCustName != '' ">
+            AND t.ENT_CUST_NAME LIKE '%'||#{entCustName}||'%'
+        </if>
+        <if test="status != null">
+            AND t.STATUS = #{status}
+        </if>
+        ORDER BY t.APPLY_DATE DESC
+    </select>
+
+    <select id="selectTaskListPage" resultMap="hbsDeductionResult" parameterType="com.gy.hsxt.bs.bean.deduction.HsbDeductionQuery">
+        SELECT t.*
+        FROM
+        T_BS_HSB_DEDUCTION t
+        JOIN T_BS_TASK k ON t.APPLY_ID = k.BIZ_NO
+        WHERE k.BIZ_TYPE = #{taskType}
+        AND t.STATUS = #{status}
+        AND k.STATUS = #{taskStatus}
+        AND k.EXE_CUST_ID = #{optCustId}
+        <if test="startDate != null and startDate != '' ">
+            AND t.APPLY_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND t.APPLY_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="entResNo != null and entResNo != '' ">
+            AND t.ENT_RES_NO like '%'||#{entResNo}||'%'
+        </if>
+        <if test="entCustName != null and entCustName != '' ">
+            AND t.ENT_CUST_NAME LIKE '%'||#{entCustName}||'%'
+        </if>
+        ORDER BY t.APPLY_DATE DESC
+    </select>
+
+    <select id="selectBeanById" parameterType="java.lang.String" resultMap="hbsDeductionResult">
+        SELECT *
+        FROM T_BS_HSB_DEDUCTION
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.deduction.HsbDeduction">
+        UPDATE T_BS_HSB_DEDUCTION t SET
+        t.STATUS = #{status},
+        <if test="apprName != null and apprName !=''">
+            t.APPR_NAME = #{apprName},
+        </if>
+        <if test="apprRemark != null and apprRemark !=''">
+            t.APPR_REMARK = #{apprRemark},
+        </if>
+        <if test="status == 1">
+            t.DEDUCT_DATE = sysdate,
+        </if>
+        t.APPR_OPER = #{apprOper},
+        t.APPR_DATE = sysdate
+        WHERE t.APPLY_ID = #{applyId}
+    </update>
+
+</mapper>

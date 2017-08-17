@@ -1,0 +1,50 @@
+<% var param = obj.data.SalerShopDeliver;
+   var httpUrl = obj.data.httpUrl;
+ %>
+ <form id="submitManEdit">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <input type="hidden" name="deliverId" value="<%=param.id%>"/>
+    <tr>
+      <td align="right" width="30%">送货员名称：<span class="red">*</span></td>
+      <td><input type="text" name="name" id="deliveryName" value="<%=param.name%>"/>
+        </td>
+    </tr>
+    <tr>
+      <td align="right">联系电话：<span class="red">*</span></td>
+      <td><input type="text" name="phone" id="deliveryPhone" value="<%=param.phone%>"/>
+        </td>
+    </tr>
+    <tr class="">
+      <td align="right">照片：<span class="red">*</span></td>
+      <td>
+        <img src="<%=httpUrl+param.picUrl%>" class="imgLicense" width="68" height="68" />
+      	<b id="imgLoad" style="position:relative; ">
+      	<input type="file" name="itemPhotoUpdate" class="inputFile" id="itemPhotoUpdate" >
+      	<input type="button" class="loadpic" value="上传图片">
+      	</b>
+      	<span id="shopImg" style="color: red"></span>
+      </td>
+    </tr>
+    <tr class="">
+      <td align="right">性别：</td>
+      <td>
+         <%if(param.sex==1){%>
+         <input type="radio" name="sex" id="male"  value="<%=param.sex%>" checked="checked"  />
+         <%}else{%>
+         <input type="radio" name="sex" id="male" value="1"/>
+         <%}%>
+        <label for="male">男</label>
+         <%if(param.sex==0){%>
+         <input type="radio" name="sex" id="female" value="<%=param.sex%>"  checked="checked"  />
+         <%}else{%>
+         <input type="radio" name="sex" id="female" value="0"/>
+         <%}%>
+        <label for="female">女</label>
+        </td>
+    </tr>
+    <tr class="">
+      <td align="right">备注：</td>
+      <td><textarea id="remark" name="remark"><%=$.trim(param.remark)%></textarea></td>
+    </tr>
+  </table>
+  </form>

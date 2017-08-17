@@ -1,0 +1,28 @@
+ <%
+	var data = obj.data;
+%>
+
+<div id="cateGory" class="pa goodsCatalogue" style="display: none; width:760px">
+    <ul class="clearfix">
+    	<li class="fl list_ft">
+        	<div class="cl1">
+             <!--<h1><input type="text" value="" placeholder="输入名称" /></h1>-->
+             <ul class="mg4 list_sc">
+             	<%
+             		try {$.each(data,function(key,c){
+             		if(c.parentId == -1){
+             	%>
+             		<li data-id="<%=c.id%>"><a class="clearfix category"><span class="gct"><%=c.categoryName %></span><i class="cbox-gcont-arrow"></i></a></li>
+             	<%	
+             		} }) }catch(e){};
+             	%>
+             </ul>
+           </div>
+       </li>
+       <li class="fl list_ft"></li>
+       <li class="fl list_ft"></li>
+    </ul>
+    <div class="pt10 tc">
+    	<button type="button" class="btn-search syes mr10" id="confirm_btn">确定</button>
+    	<button type="button" class="btn-search sno" id="cancel_btn">取消</button></div>
+</div>

@@ -1,0 +1,44 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>角色名称：</label>
+			<input type="text" name="searchRoleName" id="searchRoleName" class="h28_middle w115 input-txt" placeholder="输入角色名称" />
+		</li>
+		<li>
+			<button id="searchBtn" type="submit" class="btn-search">查询</button>
+		</li>
+		<li style="float:right" class="mr10">
+			<button id="btn_tjjs" type="submit" class="btn-search">添加角色</button>
+		</li>
+		
+       <!--  <li class="frfix">
+            <div class="cont-int">
+            	<button id="btn_tjjs" type="button" class="btn-search"  >添加角色</button>
+            </div>
+        </li> -->
+     </ul>
+</div>
+<div class="search-cont">
+<table id="detailTable">
+ <tr>
+    <th w_num="line">序号</th>
+    <th w_index="roleName" w_tip="true">角色名</th>
+	<th w_index="roleDesc" w_tip="true">角色描述</th>
+    <th w_render="operate">操作</th>
+  </tr>					   
+</table> 
+</div>
+
+<div id="jsgl_cdsq_dialog" class="none" title="菜单授权" >  
+  <div>
+	 <ul id="xzczy_jsfp"  class="ztree"></ul> 
+  </div> 
+</div>
+
+<div id='jscdsq_dialog' class="none" title="角色创建成功，是否进行菜单授权？">
+	<p ></p>
+</div>
+ 
+
+
+

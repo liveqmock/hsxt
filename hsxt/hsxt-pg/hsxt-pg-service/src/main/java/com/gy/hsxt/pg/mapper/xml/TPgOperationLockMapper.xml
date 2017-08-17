@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgOperationLockMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.pg.mapper.vo.TPgOperationLock">
+		<id column="LOCK_ID" property="lockId" jdbcType="INTEGER" />
+		<result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+		<result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		LOCK_ID, BUSINESS_ID, BUSINESS_TYPE, CREATED_DATE, UPDATED_DATE
+	</sql>
+
+	<!-- 根据businessId和businessType删除记录 -->
+	<select id="deleteByBusinessIdAndType">
+		delete
+		from T_PG_OPERATION_LOCK
+		where BUSINESS_ID =
+		#{businessId,jdbcType=VARCHAR}
+		and
+		BUSINESS_TYPE=#{businessType,jdbcType=INTEGER}
+	</select>
+
+	<!-- 根据businessId和businessType查询记录 -->
+	<select id="selectByBusinessId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_OPERATION_LOCK
+		where BUSINESS_ID =
+		#{businessId,jdbcType=VARCHAR}
+		and
+		BUSINESS_TYPE=#{businessType,jdbcType=INTEGER}
+	</select>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgOperationLock">
+		insert into
+		    T_PG_OPERATION_LOCK 
+		    (LOCK_ID, BUSINESS_ID, BUSINESS_TYPE, CREATED_DATE, UPDATED_DATE)
+		values (#{lockId,jdbcType=INTEGER},
+			#{businessId,jdbcType=VARCHAR},
+			#{businessType,jdbcType=INTEGER},
+			#{createdDate,jdbcType=TIMESTAMP},
+			#{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+</mapper>

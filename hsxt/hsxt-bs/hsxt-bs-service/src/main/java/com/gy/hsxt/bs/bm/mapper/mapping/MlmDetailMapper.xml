@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.bm.mapper.MlmDetailMapper">
+
+    <resultMap id="mlmDetailResult" type="com.gy.hsxt.bs.bean.bm.MlmDetail">
+        <id column="DETAIL_ID" property="detailId"/>
+        <result column="TOTAL_ID" property="totalId"/>
+        <result column="MLM_DATE" property="date"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="PV" property="pv"/>
+        <result column="LEFT_COUNT1" property="leftCount1"/>
+        <result column="RIGHT_COUNT1" property="rightCount1"/>
+        <result column="LEFT1" property="left1"/>
+        <result column="RIGHT1" property="right1"/>
+        <result column="LEFT_P1" property="leftP1"/>
+        <result column="RIGHT_P1" property="rightP1"/>
+        <result column="MLM_POINT1" property="mlmPoint1"/>
+        <result column="LEFT_COUNT2" property="leftCount2"/>
+        <result column="RIGHT_COUNT2" property="rightCount2"/>
+        <result column="LEFT2" property="left2"/>
+        <result column="RIGHT2" property="right2"/>
+        <result column="LEFT_P2" property="leftP2"/>
+        <result column="RIGHT_P2" property="rightP2"/>
+        <result column="MLM_POINT2" property="mlmPoint2"/>
+        <result column="LEFT_COUNT3" property="leftCount3"/>
+        <result column="RIGHT_COUNT3" property="rightCount3"/>
+        <result column="LEFT3" property="left3"/>
+        <result column="RIGHT3" property="right3"/>
+        <result column="LEFT_P3" property="leftP3"/>
+        <result column="RIGHT_P3" property="rightP3"/>
+        <result column="MLM_POINT3" property="mlmPoint3"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gy.hsxt.bs.bean.bm.MlmDetail">
+        INSERT INTO T_BS_MLM_DETAIL (
+            DETAIL_ID,
+            TOTAL_ID,
+            MLM_DATE,
+            RES_NO,
+            CUST_ID,
+            PV,
+            LEFT_COUNT1,
+            RIGHT_COUNT1,
+            LEFT1,
+            RIGHT1,
+            LEFT_P1,
+            RIGHT_P1,
+            MLM_POINT1,
+            LEFT_COUNT2,
+            RIGHT_COUNT2,
+            LEFT2,
+            RIGHT2,
+            LEFT_P2,
+            RIGHT_P2,
+            MLM_POINT2,
+            LEFT_COUNT3,
+            RIGHT_COUNT3,
+            LEFT3,
+            RIGHT3,
+            LEFT_P3,
+            RIGHT_P3,
+            MLM_POINT3
+        ) VALUES (
+            #{detailId},
+            #{totalId},
+            #{date},
+            #{resNo},
+            #{custId},
+            #{pv},
+            #{leftCount1},
+            #{rightCount1},
+            #{left1},
+            #{right1},
+            #{leftP1},
+            #{rightP1},
+            #{mlmPoint1},
+            #{leftCount2},
+            #{rightCount2},
+            #{left2},
+            #{right2},
+            #{leftP2},
+            #{rightP2},
+            #{mlmPoint2},
+            #{leftCount3},
+            #{rightCount3},
+            #{left3},
+            #{right3},
+            #{leftP3},
+            #{rightP3},
+            #{mlmPoint3}
+        )
+    </insert>
+
+    <select id="selectListByTotalId" parameterType="java.lang.String" resultMap="mlmDetailResult" >
+        SELECT * FROM T_BS_MLM_DETAIL WHERE TOTAL_ID = #{totalId}
+    </select>
+
+</mapper>

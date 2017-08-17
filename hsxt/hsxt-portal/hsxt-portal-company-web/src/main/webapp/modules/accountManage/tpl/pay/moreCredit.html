@@ -1,0 +1,12 @@
+<%$.each(obj,function(n,value){
+		if(n > 4){%>
+		<li class='bank_click add'><i class='bank-logo bank-<%=value.bankCode%>' data-name='<%=value.bankCode%>'></i></li>
+		<%}
+})%>
+
+<li class="more-select pay-text-blue add">
+	<div class="bc clearfix w40">
+		<span class="fl">收起</span>
+		<i class="fr ml5 pay-ui-gray pay-ui-arrow-up"></i>
+	</div>
+</li>

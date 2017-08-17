@@ -1,0 +1,80 @@
+<% 
+	var employee = obj.queryResult.result;
+	var page=obj.queryResult;
+	var currentNo = obj.currentNo;
+	var shopType = obj.shopType;
+ %>
+
+    <div>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table" id="employeeTbl" style="word-break:break-all;word-wrap:break-word;">
+        <thead>
+        	<tr>
+	          <th width="6%"><input id="all" type="checkbox" />
+	            <span>全选</span></th>
+	          <th width="10%">登录用户名</th>
+	          <th width="10%">姓名</th>
+	          <th width="12%">职务</th>
+	          <th width="12%">互生卡号</th>
+	          <th width="12%">手机号</th>
+	          <th width="8%">状态</th>
+	          <th>操作</th>
+        	</tr>
+        </thead>
+        <% $.each(employee,function(key,el){ 
+           if(el.status != 3){
+        %>
+        <tr class="<%=key%2==1?table-tr-c':''%>" data-id="<%=el.id%>">
+          <td><%if(el.accountNo != currentNo && el.accountNo!='0000'){%><input type="checkbox" class="selected"/><%}%></td>
+          <td><%=el.accountNo%></td>
+          <td><%=el.name%></td>
+          <td><%=el.job%></td>
+          <td>
+          <%if(el.accountNo!='0000'){%>
+	          <%=el.isBindName!=""?'('+el.isBindName+')':''%>
+	          <%if(el.userResourceNo != null && el.userResourceNo != ""){%>
+			         <p><%=el.userResourceNo%></p>
+	          		 <p><a class="noBindCard">解除绑定互生卡</a></p>
+	          <%}else{%>
+	          	     <p><a class="yesBindCard">申请绑定互生卡</a></p>
+	          <%}%>
+	        <%}%>
+          </td>
+          <td><%=el.phone%></td>
+          <td><%=el.status==0?"启用":"禁用"%></td>
+          <td>
+          <%if(el.accountNo!='0000'){%>
+	          <a class="updateshop">编辑</a>
+	          <%if(currentNo != el.accountNo){%>
+	           | 
+	          <% if(el.status == 0){ %>
+	          <a class="disable_emp">禁用</a>
+	          <% }else if(el.status == 1){%>
+	          <a class="start_emp">启用</a>
+	          <%}%>
+	            | <a class="delete_emp">删除</a>
+	           <%}%>
+	           	<%if(shopType != 1){%>
+	            | <a class="store">所属营业点</a> 
+	            <%}%>
+	           | <a class="role_emp">角色设置</a>
+	       <%}%>
+           </td>
+        </tr>
+        <%
+            }})
+       	 %>
+      </table>
+      </div>
+      <div>
+        <div class="table-page">
+        		<a href="javascript:;" class="page-act pageOrder" page="1">首页</a>
+          	    <a href="javascript:;" class="page-act pageOrder" page="<%=((page.currentPageIndex-1)<1?'':page.currentPageIndex-1)%>">上一页</a>
+	          	<a href="javascript:;" class="page-act pageOrder" page="<%=((page.currentPageIndex+1)>page.totalPage?'':page.currentPageIndex+1)%>">下一页</a>
+		        <a href="javascript:;" class="page-act pageOrder" page="<%=page.totalPage%>">末页</a>
+		        <span class="page-go">跳到</span><input type="text" class="page-txt" id="pageInput" totalPage="<%=page.totalPage%>" value="<%=page.currentPageIndex%>"/>
+		        <span class="page-go">页/<%=page.totalPage%>页</span>
+		        <span style="display: none;" id="thisPage"><%=page.currentPageIndex%></span>
+		        <a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=page.recoredCount%>条</a>
+          </div>
+      </div>
+  

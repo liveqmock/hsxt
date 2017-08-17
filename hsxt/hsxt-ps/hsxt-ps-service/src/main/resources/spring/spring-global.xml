@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- 因为spring的context是父子容器，所以会产生冲突，Controller会先进行扫描装配， 而此时的Service还没有进行事务的增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力） 
+		最后才是applicationContext.xml中的扫描配置进行事务处理 -->
+
+
+	<context:component-scan base-package="com.gy.hsxt.ps.*,com.gy.hsxt.bp.*">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+	
+	    <!-- disconf.properties存放路径 -->
+		<constructor-arg name="disconfFile" value="file:${user.dir}/conf/hsxt-ps/disconf.properties" />
+		
+		<!-- 本地配置文件[只有配置到本地] -->
+		<property name="locations">
+			<list>
+                <value>file:${user.dir}/conf/hsxt-ps/jdbc.properties</value>
+			</list>
+		</property>
+		
+		<!-- 远程配置文件[从disconf服务端同步到本地] -->
+		<property name="remoteLocations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-ps/hsxt-ps.properties</value>
+                <value>file:${user.dir}/conf/hsxt-ps/dubbo.properties</value>
+                <value>file:${user.dir}/conf/hsxt-ps/redis.properties</value>
+				<value>file:${user.dir}/conf/hsxt-ps/hsi-lc.properties</value>
+			</list>
+		</property>
+  	</bean>
+
+	<import resource="classpath:spring/spring-datasource.xml" />
+	<import resource="classpath:spring/spring-dubbo-consumer.xml" />
+	<import resource="classpath:spring/spring-dubbo-provider.xml" />
+    <import resource="classpath:spring/hsxt-redis-spring.xml" />
+
+
+	<bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" /><!--注入redis缓存工具类-->
+		<property name="baseDataService" ref="baseDataService" /><!--注入LCS dubbo服务-->
+	</bean>
+
+
+	<!--积分统计的线程池-->
+	<bean id="jobExecutor"  class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10"/>
+		<property name="maxPoolSize" value="50"/>
+	</bean>
+
+</beans>

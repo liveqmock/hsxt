@@ -1,0 +1,35 @@
+﻿<div class="acct-ct h200 tc">
+	<h1 class="acct-tips f20"><span class="tcr_blue fb"><%=investYear%>年度分红回报率：</span><span class="fb red"><%=investRate%></span></h1>
+	<p class="acct-line"></p>
+    <ul class="acctno-box bc pt30" style="display:inline-block;_display:inline;*width:704px;">
+        <li class="clearfix mr20"> 
+        <i class="acctno-icon icon-tzzh"></i>
+        <div class="acctno-detail tc">
+        <h1 class="f16 fb gray pt20">积分投资总数</h1>
+        <span class="f24 red fari"><%=investTotal%></span> </div>
+        </li>
+        <li class="clearfix ml30 "> <i class="acctno-icon icon-hsbzh"></i>
+        	<table class="acctno-detail tc" style="width:360px;">
+        		<tr>
+        			<td align="left" class="pl5" width="60%"><span class="f14   pr20"><%=investYear%>年度投资分红互生币</span></td>
+        			<td align="right" class="pr5" width="40%"><span class="red f14"><%=investBonus%></span></td>
+        		</tr>
+        		<tr>
+        			<td align="left" class="pl5"><span class="f14   pr20">其中流通币</span></td>
+        			<td align="right" class="pr5"><span class="red  f14"><%=investCurrency%></span></td>
+        		</tr>
+        		<tr>
+        			<td align="left" class="pl5"><span class="f14   pr20">其中慈善救助基金</span></td>
+        			<td align="right" class="pr5"><span class=" red f14"><%=investFund%></span></td>
+        		</tr>
+        	</table>
+        <!--div class="acctno-detail tc" style="width:280px;">
+        <div class="f14 gray pt10 pb10 tl pl10"><span style="width:160px; display:inline-block;"><%=investYear%>年度投资分红互生币</span><span class="red fari pl10"><%=investBonus%></span></div>
+        <div class="cutline"></div>
+        <div class="f14 gray tl pl10 mt5"><span>其中流通币</span><span class="red fari pl10"><%=investCurrency%></span></div>
+        <div class="f14 gray pb10 tl pl10"><span>其中慈善救助基金</span><span class="red fari pl10"><%=investFund%></span></div>
+        </div-->
+        </li>
+    </ul>
+</div>   
+<div class="mt20 tc"><a id="tzPointFlush" href="javascript:;" class="btn_bg submit">刷&#12288;新</a></div> 

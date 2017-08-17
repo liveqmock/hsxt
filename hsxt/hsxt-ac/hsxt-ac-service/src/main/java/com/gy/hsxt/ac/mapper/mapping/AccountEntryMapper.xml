@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ac.mapper.AccountEntryMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.ac.bean.AccountEntry" id="accountEntry">
+        <!--  账务分录实体类 -->
+        <id column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+        <result column="ENTRY_NO" property="entryNo" jdbcType="VARCHAR" />
+        <result column="SYSENTRY_NO" property="sysEntryNo" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custID" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+        <result column="ACC_TYPE" property="accType" jdbcType="VARCHAR" />
+        <result column="ADD_AMOUNT" property="addAmount" jdbcType="VARCHAR" />
+        <result column="SUB_AMOUNT" property="subAmount" jdbcType="VARCHAR" />
+        <result column="WRITE_BACK" property="writeBack" jdbcType="INTEGER" />
+        <result column="TRANS_TYPE" property="transType" jdbcType="VARCHAR" />
+        <result column="TRANS_SYS" property="transSys" jdbcType="VARCHAR" />
+        <result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+        <result column="SOURCE_TRANS_NO" property="sourceTransNo" jdbcType="VARCHAR" />
+        <result column="TRANS_DATE" property="transDate" jdbcType="VARCHAR" />
+        <result column="FISCAL_DATE" property="fiscalDate" jdbcType="VARCHAR" />
+        <result column="TRANS_DATE" property="transDateTim" jdbcType="TIMESTAMP" />
+        <result column="FISCAL_DATE" property="fiscalDateTim" jdbcType="TIMESTAMP" />
+        <result column="REL_TRANS_TYPE" property="relTransType" jdbcType="VARCHAR" />
+        <result column="REL_TRANS_NO" property="relTransNo" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="WRITE_BACKED_AMOUNT" property="writeBackedAmount" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="VARCHAR" />
+       <!--  <result column="" property="businessType" jdbcType="INTEGER" />
+        <result column="" property="accName" jdbcType="VARCHAR" /> -->
+    </resultMap>
+
+	<!-- 单个分录插入 -->
+	<insert id="addAccountEntry" parameterType="AccountEntry">
+	       INSERT /*+ append */ INTO T_AC_ACCOUNT_ENTRY( 
+	       			ENTRY_NO,  
+	       			SYSENTRY_NO,  
+	       			REL_SYSENTRY_NO,
+	       			CUST_ID, 
+	       			CUST_TYPE,
+	       			HS_RES_NO, 
+	       			BATCH_NO,
+	            	ACC_TYPE,
+	            	ADD_AMOUNT,
+	            	SUB_AMOUNT,
+	            	WRITE_BACK,
+	            	TRANS_TYPE,
+	            	TRANS_NO,
+	            	SOURCE_TRANS_NO,
+	            	TRANS_DATE,
+	            	FISCAL_DATE,
+	            	REL_TRANS_TYPE,
+	            	REL_TRANS_NO,
+	            	REMARK,
+	            	WRITE_BACKED_AMOUNT,
+	            	CREATED_DATE,
+	            	UPDATED_DATE) 
+		   VALUES ( 
+		   			#{entryNo,jdbcType=VARCHAR},
+		   			#{sysEntryNo,jdbcType=VARCHAR},
+		   			#{relSysEntryNo,jdbcType=VARCHAR},
+					#{custID,jdbcType=VARCHAR},
+					#{custType,jdbcType=VARCHAR},
+					#{hsResNo,jdbcType=VARCHAR},
+					#{batchNo,jdbcType=VARCHAR},
+					#{accType,jdbcType=VARCHAR},
+					#{addAmount,jdbcType=NUMERIC},
+					#{subAmount,jdbcType=NUMERIC},
+					#{writeBack,jdbcType=INTEGER},
+					#{transType,jdbcType=VARCHAR},
+					#{transNo,jdbcType=VARCHAR},
+					#{sourceTransNo,jdbcType=VARCHAR},
+					#{transDateTim,jdbcType=TIMESTAMP},
+					#{fiscalDateTim,jdbcType=TIMESTAMP},
+					#{relTransType,jdbcType=VARCHAR},
+					#{relTransNo,jdbcType=VARCHAR},
+					#{remark,jdbcType=VARCHAR},
+					#{writeBackedAmount,jdbcType=NUMERIC},
+					systimestamp,
+					systimestamp
+			)  
+	</insert>
+
+	<!-- 多个分录插入 -->
+	<insert id="addAccountEntrys" parameterType="list">
+	       INSERT  INTO T_AC_ACCOUNT_ENTRY( 
+	       			ENTRY_NO,  
+	       			SYSENTRY_NO,  
+	       			REL_SYSENTRY_NO,
+	       			CUST_ID, 
+	       			CUST_TYPE,
+	       			HS_RES_NO, 
+	       			BATCH_NO,
+	            	ACC_TYPE,
+	            	ADD_AMOUNT,
+	            	SUB_AMOUNT,
+	            	WRITE_BACK,
+	            	TRANS_SYS,
+	            	TRANS_TYPE,
+	            	TRANS_NO,
+	            	SOURCE_TRANS_NO,
+	            	TRANS_DATE,
+	            	FISCAL_DATE,
+	            	REL_TRANS_TYPE,
+	            	REL_TRANS_NO,
+	            	REMARK,
+	            	WRITE_BACKED_AMOUNT,
+	            	CREATED_DATE,
+	            	UPDATED_DATE) 
+		   SELECT 	ENTRY_NO,
+		            SYSENTRY_NO, 
+		            REL_SYSENTRY_NO, 
+		   			CUST_ID, 
+		   			CUST_TYPE,
+		   			HS_RES_NO, 
+		   			BATCH_NO,
+	            	ACC_TYPE,
+	            	ADD_AMOUNT,
+	            	SUB_AMOUNT,
+	            	WRITE_BACK,
+	            	TRANS_SYS,
+	            	TRANS_TYPE,
+	            	TRANS_NO,
+	            	SOURCE_TRANS_NO,
+	            	TRANS_DATE,
+	            	FISCAL_DATE,
+	            	REL_TRANS_TYPE,
+	            	REL_TRANS_NO,
+	            	REMARK,
+	            	WRITE_BACKED_AMOUNT,
+	            	CREATED_DATE,
+	            	UPDATED_DATE 
+	            	FROM(      
+	  		<foreach collection="list" item="item" index="index" separator="union all" > 
+				(SELECT 
+					#{item.entryNo,jdbcType=VARCHAR} as ENTRY_NO,
+					#{item.sysEntryNo,jdbcType=VARCHAR} as SYSENTRY_NO,
+					#{item.relSysEntryNo,jdbcType=VARCHAR} as REL_SYSENTRY_NO,
+					#{item.custID,jdbcType=VARCHAR} as CUST_ID,
+					#{item.custType,jdbcType=INTEGER} as CUST_TYPE,
+					#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+					#{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+					#{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+					#{item.addAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+					#{item.subAmount,jdbcType=NUMERIC} as SUB_AMOUNT,
+					#{item.writeBack,jdbcType=INTEGER} as WRITE_BACK,
+					#{item.transSys,jdbcType=VARCHAR} as TRANS_SYS,
+					#{item.transType,jdbcType=VARCHAR} as TRANS_TYPE,
+					#{item.transNo,jdbcType=VARCHAR} as TRANS_NO,
+					#{item.sourceTransNo,jdbcType=VARCHAR} as SOURCE_TRANS_NO,
+					#{item.transDateTim,jdbcType=TIMESTAMP} as TRANS_DATE,
+					#{item.fiscalDateTim,jdbcType=TIMESTAMP} as FISCAL_DATE,
+					#{item.relTransType,jdbcType=VARCHAR} as REL_TRANS_TYPE,
+					#{item.relTransNo,jdbcType=VARCHAR} as REL_TRANS_NO,
+					#{item.remark,jdbcType=VARCHAR} as REMARK,
+					#{item.writeBackedAmount,jdbcType=NUMERIC} as WRITE_BACKED_AMOUNT,
+					systimestamp as CREATED_DATE,
+					systimestamp as UPDATED_DATE FROM DUAL)
+			</foreach>
+			)  
+	</insert>
+
+	<!-- 正常账户类型汇总额查询 -->
+	<select id="searchSumAccNormal" resultType="AccountEntrySum" parameterType="AccountEntry">
+			SELECT sum(ADD_AMOUNT) addAmountSum, 
+			       sum(SUB_AMOUNT) subAmountSum 
+			  FROM T_AC_ACCOUNT_ENTRY 
+			 WHERE 1=1 
+			       <if test="custID != null and custID != ''">
+			       	  AND CUST_ID = #{custID,jdbcType=VARCHAR}
+			       </if> 
+			       <if test="accType != null and accType != ''">
+			       	  AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="accType == null or accType == ''">
+			       	  AND SUBSTR(ACC_TYPE, 5) = '0'
+			       </if>
+			       <if test="hsResNo != null and hsResNo != ''">
+			       	  AND HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="writeBack != null and writeBack != ''">
+			       	  AND WRITE_BACK = #{writeBack,jdbcType=INTEGER}
+			       </if>
+			        <if test="transType != null and transType != ''">
+			       	  AND trim(TRANS_TYPE) = #{transType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="transNo != null and transNo != ''">
+			       	  <![CDATA[
+			       	  AND TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%'
+			       	  ]]>
+			       </if>
+			       <if test="sourceTransNo != null and sourceTransNo != ''">
+			       	  <![CDATA[
+			       	  AND SOURCE_TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%'
+			       	  ]]>
+			       </if>
+			       <if test="relTransType != null and relTransType != ''">
+			       	  AND REL_TRANS_TYPE = #{relTransType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="relTransNo != null and relTransNo != ''">
+			       	  AND REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="beginDateTim != null and beginDateTim !=''">
+			       	<![CDATA[
+						AND FISCAL_DATE >= #{beginDateTim,jdbcType=TIMESTAMP}
+					]]>
+			       </if>
+			       <if test="endDateTim != null and endDateTim !=''">
+			       	<![CDATA[
+						AND FISCAL_DATE <= #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			       </if>
+	</select>
+	<!-- 个人今日积分查询 -->
+    <select id="searchPerIntegralByToday" resultType="AccountEntrySum" parameterType="map">
+            SELECT CUST_ID,
+                   ACC_TYPE,
+            	   sum(ADD_AMOUNT) - sum(SUB_AMOUNT) sumAmount 
+              FROM T_AC_ACCOUNT_ENTRY 
+             WHERE CUST_ID = #{custId,jdbcType=VARCHAR} 
+               AND ACC_TYPE = #{accType,jdbcType=VARCHAR} 
+               AND TRANS_SYS = 'PS'
+               AND WRITE_BACK = 0
+           <![CDATA[
+               AND FISCAL_DATE >= #{beginDate,jdbcType=TIMESTAMP}
+               AND FISCAL_DATE <= #{endDate,jdbcType=TIMESTAMP}
+           ]]>
+           	 GROUP BY CUST_ID, ACC_TYPE
+    </select>
+    <!-- 企业昨日积分查询 -->
+    <select id="searchEntIntegralByYesterday" resultType="AccountEntrySum" parameterType="map">
+            SELECT CUST_ID,
+                   ACC_TYPE,
+            	   sum(ADD_AMOUNT) - sum(SUB_AMOUNT) sumAmount 
+              FROM T_AC_ACCOUNT_ENTRY 
+             WHERE CUST_ID = #{custId,jdbcType=VARCHAR} 
+               AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+               AND TRANS_SYS = 'PS'
+               AND WRITE_BACK = 0
+	       <![CDATA[
+	           AND FISCAL_DATE >= #{beginDate,jdbcType=TIMESTAMP}
+	           AND FISCAL_DATE <= #{endDate,jdbcType=TIMESTAMP}
+	       ]]>
+	       	 GROUP BY CUST_ID, ACC_TYPE
+    </select>
+	<!-- 特殊账户类型汇总额查询 -->
+	<select id="searchSumAccSpecial" resultType="AccountEntrySum" parameterType="AccountEntry">
+			SELECT sum(ADD_AMOUNT) addAmountSum, 
+			       sum(SUB_AMOUNT) subAmountSum 
+			  FROM T_AC_ACCOUNT_ENTRY 
+			 WHERE 1=1 
+			       <if test="custID != null and custID != ''">
+			       	  AND CUST_ID = #{custID,jdbcType=VARCHAR}
+			       </if> 
+			       <if test="accType != null and accType != ''">
+			       	  AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="accType == null or accType == ''">
+			       	  AND SUBSTR(ACC_TYPE, 5) != '0'
+			       </if>
+			        <if test="hsResNo != null and hsResNo != ''">
+			       	  AND HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="writeBack != null and writeBack != ''">
+			       	  AND WRITE_BACK = #{writeBack,jdbcType=INTEGER}
+			       </if>
+			        <if test="transType != null and transType != ''">
+			       	  AND TRANS_TYPE = #{transType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="transNo != null and transNo != ''">
+			       	  <![CDATA[
+			       	  AND TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%'
+			       	  ]]>
+			       </if>
+			       <if test="sourceTransNo != null and sourceTransNo != ''">
+			       	  <![CDATA[
+			       	  AND SOURCE_TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%'
+			       	  ]]>
+			       </if>
+			       <if test="relTransType !=null and relTransType != ''">
+			       	  AND REL_TRANS_TYPE = #{relTransType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="relTransNo !=null and relTransNo != ''">
+			       	  AND REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="beginDateTim != null and beginDateTim !=''">
+			       	<![CDATA[
+						AND FISCAL_DATE >= #{beginDateTim,jdbcType=TIMESTAMP}
+					]]>
+			       </if>
+			       <if test="endDateTim != null and endDateTim !=''">
+			       	<![CDATA[
+						AND FISCAL_DATE <= #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			       </if>
+	</select>
+	<!-- 账户分录查询 -->
+	<select id="seachAccEntryListPage" resultMap="accountEntry" parameterType="AccountEntry">
+			SELECT ENTRY_NO,
+			       SYSENTRY_NO,  
+				   CUST_ID, 
+				   CUST_TYPE,
+			       ACC_TYPE, 
+			       HS_RES_NO,
+			       ADD_AMOUNT, 
+			       SUB_AMOUNT,
+			       WRITE_BACK,
+			       TRANS_TYPE, 
+			       TRANS_SYS, 
+			       TRANS_NO,
+			       SOURCE_TRANS_NO,
+			       REL_TRANS_TYPE,
+			       REL_TRANS_NO,
+			       TRANS_DATE,
+			       CREATED_DATE,
+			       UPDATED_DATE,
+			       FISCAL_DATE,
+			       BATCH_NO,
+			       REMARK,
+			       WRITE_BACKED_AMOUNT 
+			  FROM T_AC_ACCOUNT_ENTRY 
+			 WHERE 1=1 
+			       <if test="custID != null and custID != ''">
+			       	  AND CUST_ID = #{custID,jdbcType=VARCHAR}
+			       </if> 
+			       <if test="custType != null and custType != ''">
+			       	  AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+			       </if> 
+			       <if test="accType != null and accType != ''">
+			       	  AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="hsResNo != null and hsResNo != ''">
+			       	  AND HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="addAmount != null and addAmount != ''">
+			       	  AND ADD_AMOUNT = #{addAmount,jdbcType=NUMERIC}
+			       </if>
+			       <if test="subAmount != null and subAmount != ''">
+			       	  AND SUB_AMOUNT = #{subAmount,jdbcType=NUMERIC}
+			       </if>
+			       <if test="writeBack != null and writeBack != ''">
+			       	  AND WRITE_BACK = #{writeBack,jdbcType=INTEGER}
+			       </if>
+			       <if test="transType != null and transType != ''">
+			       	  AND TRANS_TYPE = #{transType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="transNo !=null and transNo != ''">
+			       	  <![CDATA[
+			       	  AND (TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%' OR SOURCE_TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%')
+			       	  ]]>
+			       </if>
+			       <if test="sourceTransNo != null and sourceTransNo != ''">
+			       	  <![CDATA[
+			       	  AND (TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%' OR SOURCE_TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%')
+			       	  ]]>
+			       </if>
+			       <if test="relTransType != null and relTransType != ''">
+			       	  AND REL_TRANS_TYPE = #{relTransType,jdbcType=VARCHAR}
+			       </if>
+			       <if test="relTransNo != null and relTransNo != ''">
+			       	  AND REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+			       </if>
+			       <if test="remark != null and remark != ''">
+			       	  AND REMARK = #{remark}
+			       </if>
+			       <if test="beginDateTim != null and beginDateTim !=''">
+			       	<![CDATA[
+						AND CREATED_DATE >=  #{beginDateTim}
+					]]>
+			       </if>
+			       <if test="endDateTim != null and endDateTim !=''">
+			       	<![CDATA[
+						AND CREATED_DATE <=  #{endDateTim}
+					]]>
+			       </if>
+	</select>
+	<!-- 账户分录查询 -->
+	<select id="seachAccEntryInfoListPage" resultMap="accountEntry" parameterType="AccountEntryInfo">
+			SELECT AE.ENTRY_NO,
+			       AE.SYSENTRY_NO,  
+				   AE.CUST_ID, 
+				   AE.CUST_TYPE,
+			       AE.ACC_TYPE, 
+			       (select ACC_NAME from T_AC_ACCOUNT_TYPE M where M.ACC_TYPE = #{accType,jdbcType=VARCHAR}) accName,
+			       AE.HS_RES_NO,
+			       AE.ADD_AMOUNT, 
+			       AE.SUB_AMOUNT,
+			       AE.WRITE_BACK,
+			       AE.TRANS_TYPE, 
+			       AE.TRANS_SYS, 
+			       AE.TRANS_NO,
+			       AE.SOURCE_TRANS_NO,
+			       AE.REL_TRANS_TYPE,
+			       AE.REL_TRANS_NO,
+			       AE.TRANS_DATE,
+			       nvl(AE.ADD_AMOUNT,0) + nvl(AE.SUB_AMOUNT,0) amount,
+			       CASE WHEN NVL(AE.ADD_AMOUNT,0)>0 THEN 1 ELSE 2 END businessType,
+			       ABS.ACC_BALANCE_NEW accBalanceNew,
+                   ABS.ACC_SNAP_ID accSnapId,
+			       <!-- (select ACC_BALANCE_NEW from T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = ENTRY_NO) accBalanceNew,
+			       (select ACC_SNAP_ID from T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = ENTRY_NO) accSnapId, -->
+			       AE.CREATED_DATE,
+			       AE.UPDATED_DATE,
+			       AE.FISCAL_DATE, 
+			       AE.BATCH_NO,
+			       AE.REMARK,
+			       AE.WRITE_BACKED_AMOUNT 
+			  FROM T_AC_ACCOUNT_ENTRY AE,T_AC_ACCOUNT_BALANCE_SNAP ABS 
+			 WHERE ABS.CHANGE_RECORD_ID = AE.ENTRY_NO 
+			   AND AE.CUST_ID = #{custID,jdbcType=VARCHAR} 
+			   AND AE.ACC_TYPE = #{accType,jdbcType=VARCHAR} 
+			   AND AE.WRITE_BACK = 0
+			   AND (nvl(AE.ADD_AMOUNT,0) + nvl(AE.SUB_AMOUNT,0)) > 0 
+			       <if test="custType != null and custType != '' ">
+                      AND AE.CUST_TYPE = #{custType,jdbcType=INTEGER}
+                   </if>
+                   <if test="transNo !=null and transNo != ''">
+			       	  <![CDATA[
+			       	  AND (AE.TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%' OR AE.SOURCE_TRANS_NO LIKE #{transNo,jdbcType=VARCHAR}||'%')
+			       	  ]]>
+			       </if>
+			       <if test="sourceTransNo != null and sourceTransNo != ''">
+			       	  <![CDATA[
+			       	  AND (AE.TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%' OR AE.SOURCE_TRANS_NO LIKE #{sourceTransNo,jdbcType=VARCHAR}||'%')
+			       	  ]]>
+			       </if>
+			       <if test="businessType == 1">
+			       	  <![CDATA[ AND AE.ADD_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="businessType == 2">
+			       	  <![CDATA[ AND AE.SUB_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="beginDateTim != null and beginDateTim !=''">
+			       	<![CDATA[
+						AND AE.CREATED_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+					]]>
+					</if>
+					<if test="endDateTim != null and endDateTim !=''">
+			       	<![CDATA[
+						AND AE.CREATED_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+					</if>
+			ORDER BY AE.CREATED_DATE DESC,ABS.ACC_SNAP_ID DESC
+	</select>
+	
+	<!-- 退单账户分录查询 -->
+    <select id="seachChargeBackAccEntryList" resultMap="accountEntry" parameterType="map">
+           SELECT  CUST_ID, 
+                   CUST_TYPE,
+                   SYSENTRY_NO, 
+                   REL_SYSENTRY_NO, 
+                   ACC_TYPE, 
+                   HS_RES_NO,
+                   ADD_AMOUNT, 
+                   SUB_AMOUNT,
+                   WRITE_BACK,
+                   TRANS_TYPE, 
+                   TRANS_NO,
+                   SOURCE_TRANS_NO,
+                   REL_TRANS_TYPE,
+                   REL_TRANS_NO,
+                   TRANS_DATE,
+                   FISCAL_DATE,
+                   CREATED_DATE,
+                   UPDATED_DATE,
+                   BATCH_NO,
+                   REMARK,
+                   WRITE_BACKED_AMOUNT  
+              FROM T_AC_ACCOUNT_ENTRY 
+             WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR} 
+               AND WRITE_BACK = #{writeBack,jdbcType=INTEGER} 
+               AND CUST_ID = #{custID,jdbcType=VARCHAR} 
+               AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+               AND REL_SYSENTRY_NO = #{relSysEntryNo,jdbcType=VARCHAR}
+    </select>
+	
+	<!-- 通过交易流水号找相关的分录记账信息记录 -->
+	<select id="seachAccountEntryByTrsNo" resultMap="accountEntry" parameterType="map">
+			SELECT CUST_ID, 
+				   CUST_TYPE,
+				   SYSENTRY_NO,  
+			       ACC_TYPE, 
+			       HS_RES_NO,
+			       ADD_AMOUNT, 
+			       SUB_AMOUNT,
+			       WRITE_BACK,
+			       TRANS_TYPE, 
+			       TRANS_NO,
+			       SOURCE_TRANS_NO,
+			       REL_TRANS_TYPE,
+			       REL_TRANS_NO,
+			       TRANS_DATE,
+			       FISCAL_DATE,
+			       CREATED_DATE,
+			       UPDATED_DATE,
+			       BATCH_NO,
+			       REMARK,
+			       WRITE_BACKED_AMOUNT  
+			  FROM T_AC_ACCOUNT_ENTRY 
+			 WHERE TRANS_NO =#{transNo,jdbcType=VARCHAR} 
+			   AND WRITE_BACK = #{writeBack,jdbcType=INTEGER} 
+			   AND CUST_ID = #{custID,jdbcType=VARCHAR} 
+			   AND ACC_TYPE = #{accType,jdbcType=VARCHAR}    
+	</select>
+	<!-- 通过交易流水号找相关的分录记账信息记录 -->
+	<select id="seachAccountEntrysByTrsNo" resultMap="accountEntry" parameterType="map">
+			SELECT CUST_ID, 
+				   CUST_TYPE,
+				   SYSENTRY_NO,  
+				   TRANS_SYS,  
+			       ACC_TYPE, 
+			       HS_RES_NO,
+			       ADD_AMOUNT, 
+			       SUB_AMOUNT,
+			       WRITE_BACK,
+			       TRANS_TYPE, 
+			       TRANS_NO,
+			       SOURCE_TRANS_NO,
+			       REL_TRANS_TYPE,
+			       REL_TRANS_NO,
+			       TRANS_DATE,
+			       FISCAL_DATE,
+			       CREATED_DATE,
+			       UPDATED_DATE,
+			       BATCH_NO,
+			       REMARK,
+			       WRITE_BACKED_AMOUNT  
+			  FROM T_AC_ACCOUNT_ENTRY 
+			 WHERE TRANS_NO =#{transNo,jdbcType=VARCHAR} 
+			 <if test="writeBack != null and writeBack != '' ">
+			   AND WRITE_BACK =#{writeBack,jdbcType=INTEGER} 
+			 </if>
+	</select>
+	
+	<!-- 通过交易流水号,系统分录序列号找相关的分录记账信息记录 -->
+    <select id="seachAccEntryByTrsNoAndSysEntryNo" resultMap="accountEntry" parameterType="map">
+            SELECT CUST_ID, 
+                   CUST_TYPE,
+                   SYSENTRY_NO,  
+                   ACC_TYPE, 
+                   HS_RES_NO,
+                   ADD_AMOUNT, 
+                   SUB_AMOUNT,
+                   WRITE_BACK,
+                   TRANS_TYPE, 
+                   TRANS_NO,
+                   SOURCE_TRANS_NO,
+                   REL_TRANS_TYPE,
+                   REL_TRANS_NO,
+                   TRANS_DATE,
+                   TRANS_SYS,  
+                   FISCAL_DATE,
+                   CREATED_DATE,
+                   UPDATED_DATE,
+                   BATCH_NO,
+                   REMARK,
+                   WRITE_BACKED_AMOUNT  
+              FROM T_AC_ACCOUNT_ENTRY 
+             WHERE TRANS_NO =#{transNo,jdbcType=VARCHAR} 
+             <if test="relSysEntryNo != null and relSysEntryNo != '' ">
+               AND SYSENTRY_NO = #{relSysEntryNo,jdbcType=VARCHAR} 
+             </if>
+               AND CUST_ID = #{custID,jdbcType=VARCHAR} 
+               AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+    </select>
+	
+	<!-- 查询序列当前值 -->
+	<select id="querySequencesNextValue" parameterType="String" resultType="String" useCache="false" flushCache="true">
+		SELECT SEQ_AC_ENTRY_NO.NEXTVAL AS SEQ_VAL FROM DUAL
+	</select>
+
+
+	<!-- 更新分录红冲金额 -->
+	<update id="updateAccountEntrysByTrsNo" parameterType="list">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			UPDATE T_AC_ACCOUNT_ENTRY 
+			   SET WRITE_BACKED_AMOUNT = nvl(WRITE_BACKED_AMOUNT,0) + #{item.writeBackedAmount,jdbcType=NUMERIC},
+				   WRITE_BACK = #{item.writeBack,jdbcType=INTEGER},
+				   UPDATED_DATE = systimestamp 
+			 WHERE TRANS_NO = #{item.transNo,jdbcType=VARCHAR} 
+			   <if test="item.sysEntryNo != null and item.sysEntryNo != '' ">
+               AND SYSENTRY_NO = #{item.sysEntryNo,jdbcType=VARCHAR} 
+               </if>
+			   AND CUST_ID = #{item.custID,jdbcType=VARCHAR}  
+			   AND ACC_TYPE = #{item.accType,jdbcType=VARCHAR} ;
+		</foreach>
+	</update>
+	
+	<!-- 通过会计时间找相关的分录记账信息记录-->
+	<select id="seachAccountEntryByFiscalDate" resultType="AccountEntry" parameterType="map">
+		SELECT *
+		  FROM (SELECT ROWNUM     RN,
+		               ENTRY_NO   entryNo,
+		               CUST_ID    custID,
+		               ACC_TYPE   accType,
+		               ADD_AMOUNT addAmount,
+		               SUB_AMOUNT subAmount,
+		               TRANS_SYS  transSys,
+		               TRANS_TYPE transType,
+		               TRANS_NO   transNo,
+		               SOURCE_TRANS_NO sourceTransNo,
+		               TRANS_DATE transDate
+		          FROM T_AC_ACCOUNT_ENTRY
+		         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+		           AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP})
+		 WHERE RN &gt;= #{baginRN,jdbcType=INTEGER}
+		   AND RN &lt;= #{endRN,jdbcType=INTEGER} 
+	  ORDER BY transNo
+	</select>
+ 	
+ 	<select id="seachAccountEntryCount" resultType="int"  parameterType="map">
+ 		SELECT COUNT(0)
+ 		  FROM T_AC_ACCOUNT_ENTRY
+ 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+		   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+ 	</select>
+ 	
+ 	<!-- 通过会计时间区间找相关的(托管企业,成员企业名单,持卡人)分录记账信息数量 -->
+ 	<select id="seachAccEntryCountByFisDate" resultType="int"  parameterType="map">
+ 		SELECT COUNT(0)
+ 		  FROM T_AC_ACCOUNT_ENTRY
+ 		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+		   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+		   AND CUST_TYPE IN(1,2,3)
+ 	</select>
+ 	<!-- 通过会计时间找相关的(托管企业,成员企业名单,持卡人)分录记账信息记录-->
+	<select id="seachAccEntryListPageByFisDate" resultType="AccountEntry" parameterType="map">
+		SELECT DISTINCT CUST_ID custID
+		  FROM T_AC_ACCOUNT_ENTRY 
+		 WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP} 
+		   AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP} 
+		   AND CUST_TYPE IN(1,2,3)
+	</select>
+	<!-- 通过积分预付款账户类型和时间段查找相关的分录记账信息数量 -->
+    <select id="seachAccEntryCountByAccType" resultType="int"  parameterType="map">
+        SELECT COUNT(0)
+          FROM T_AC_ACCOUNT_ENTRY
+         WHERE FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP} 
+           AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP} 
+           AND ACC_TYPE = #{accType,jdbcType=VARCHAR}
+    </select>
+	<!-- 通过积分预付款账户类型和月时间段查找相关的分录记账信息-->
+    <select id="seachAccEntryListPageByAccType" resultType="AccountEntry" parameterType="map">
+        SELECT CUST_ID custID,
+               HS_RES_NO hsResNo,
+               sum(nvl(ADD_AMOUNT,0) - nvl(SUB_AMOUNT,0)) amount
+          FROM T_AC_ACCOUNT_ENTRY 
+         WHERE HS_RES_NO IS NOT NULL 
+           AND FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP} 
+           AND FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP} 
+           AND ACC_TYPE = #{accType,jdbcType=VARCHAR} 
+      GROUP BY CUST_ID,HS_RES_NO
+    </select>
+    
+    <!-- 同一客户的多个账户分录查询 -->
+    <select id="searchAccEntryListByCustIdAndAccTypeListPage" resultMap="accountEntry" parameterType="AccountEntryInfo">
+			SELECT ENTRY_NO,
+			       SYSENTRY_NO,  
+				   CUST_ID, 
+				   CUST_TYPE,
+			       ACC_TYPE, 
+			       (select ACC_NAME from T_AC_ACCOUNT_TYPE where ACC_TYPE = T.ACC_TYPE) accName,
+			       HS_RES_NO,
+			       ADD_AMOUNT, 
+			       SUB_AMOUNT,
+			       WRITE_BACK,
+			       TRANS_TYPE, 
+			       TRANS_SYS, 
+			       TRANS_NO,
+			       SOURCE_TRANS_NO,
+			       REL_TRANS_TYPE,
+			       REL_TRANS_NO,
+			       TRANS_DATE,
+			       nvl(ADD_AMOUNT,0) + nvl(SUB_AMOUNT,0) amount,
+			       CASE WHEN NVL(ADD_AMOUNT,0)>0 THEN 1 ELSE 2 END businessType,
+			       (select ACC_BALANCE_NEW from T_AC_ACCOUNT_BALANCE_SNAP where CHANGE_RECORD_ID = ENTRY_NO) accBalanceNew,
+			       CREATED_DATE,
+			       UPDATED_DATE,
+			       FISCAL_DATE, 
+			       BATCH_NO,
+			       REMARK,
+			       WRITE_BACKED_AMOUNT 
+			  FROM T_AC_ACCOUNT_ENTRY T
+			 WHERE CUST_ID = #{custID,jdbcType=VARCHAR} 
+			   AND T.ACC_TYPE IN (${accType})
+			   	   <if test="custType != null and custType != '' ">
+                      AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+                   </if>
+			       <if test="businessType == 1">
+			       	  <![CDATA[ AND ADD_AMOUNT > 0 ]]>
+			       </if>
+			       <if test="businessType == 2 ">
+			       	  <![CDATA[ AND SUB_AMOUNT > 0 ]]>
+			       </if>
+			   AND WRITE_BACK = 0
+			       	<![CDATA[
+						AND FISCAL_DATE >=  #{beginDateTim,jdbcType=TIMESTAMP}
+						AND FISCAL_DATE <=  #{endDateTim,jdbcType=TIMESTAMP}
+					]]>
+			ORDER BY FISCAL_DATE DESC
+	</select>
+</mapper>

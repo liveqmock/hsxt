@@ -1,0 +1,86 @@
+
+<div class="info_800 bc" >
+	<form id="xgczyForm">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">登录用户名</label>
+					<input type="text" class="fl w185 h30_middle ml5" id="userName" name="userName" value="<%=obj.userName%>" placeholder="输入登录用户名" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">登录密码</label>
+					<!--<input type="text" class="fl w185 h30_middle ml5" placeholder="输入用户登录密码" />-->
+                   <span class="fl h30_middle ml10"><a id="czxmm_btn">重置新密码</a></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">手机号码</label>
+					<input type="text" class="fl w185 h30_middle ml5" name="mobile" id="mobile" value="<%=obj.mobile%>" placeholder="输入手机号码" />
+				</li>
+               	<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">状态</label>
+					<span class="fl w185 h30_middle ml5">
+						<label class="label_noStyle" style="display: inline !important;"><input type="radio" name="activity" <%if(obj.accountStatus == 0){%>checked="checked"<%}%> value="0" class="mr5 input_radio"/>启用</label>
+						<label class="label_noStyle" style="display: inline !important;"><input type="radio" name="activity" <%if(obj.accountStatus == 1){%>checked="checked"<%}%> value="1" class="ml10 mr5 input_radio"/>停用</label>
+					</span>
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">姓名</label>
+					<input type="text" class="fl w185 h30_middle ml5" id="realName" name="realName" maxlength="20" value="<%=obj.realName%>" placeholder="输入姓名" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">职务</label>
+					<input type="text" class="fl w185 h30_middle ml5" id="operDuty" name="operDuty" maxlength="20" value="<%=obj.operDuty%>"  placeholder="输入职务" />
+				</li>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle" style="height:62px;">用户组</label>
+					<input type="hidden" value="<%=obj.groupIds%>" id="groupId"/>
+					<textarea id="groupName" readonly="readonly" rows="4" class="inpt-tas" style="width: 188px;"><%=obj.groupNames%></textarea>
+					<i class=" icon-add left330 pa" title="选择用户组" id="btn_xgyhz" style="margin-top:-60px"></i>
+					<div class=" left360 pa w80 h30_middle" style="margin-top:-60px">多选，非必选</div>
+				</li>
+			</ul>
+		</div>
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">描述</label>
+				<textarea class="ml5 h50 w660 rsn pt5 pb5" id="remark" name="remark" maxlength="100" placeholder="输入描述,最长不超过100个字" ><%=obj.remark%></textarea>
+			</li>
+		</ul>
+		<div class="mt20 w200 bc clearfix">
+			<a class="btn_bg submit fl" id="czygl_xgczy_qr">确    认</a>
+			<a class="btn_bg submit fr" id=xgczy_qx>取    消</a>
+		</div>
+	</form>
+</div>
+
+<div id="czdlmm_dlg" class="none ovh"></div>
+
+<div id="xgczy_dialog" class="none" title="选择用户组">
+
+	<div id="receivingUnit_1" class="search-cont">
+		<table id="groupTable">
+			<tr>
+				<th w_check="true" w_index="groupId" width="5%"></th>
+		        <th  w_render="operate">用户组名称</th>
+		        <th w_index="groupDesc">用户组描述</th>
+	        </tr>
+		</table>
+	</div> 
+	
+</div>   
+
+
+<div id="xzczy_cg_dialog" class="none" title="操作员修改成功，是否进行角色设置？">
+	<p class="autowidth">
+		<table id="roleTable">
+			<tr>
+			  	<th w_check="true" w_index="roleId" width="5%"></th>
+		        <th  w_render="operate">角色名称</th>
+		        <th w_index="roleDesc">角色描述</th>
+	        </tr>
+		</table>
+	</p>
+</div>
+

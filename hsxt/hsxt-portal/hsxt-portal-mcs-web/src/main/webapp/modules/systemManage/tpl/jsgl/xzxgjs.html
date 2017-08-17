@@ -1,0 +1,36 @@
+ 
+<div class="cssform_320">
+<form id="roleForm" name="roleForm">
+<input type="hidden" id="roleId" />
+<input type="hidden" id="updateFlag" />
+<input type="hidden" id="roleType" />
+<ul class="cssform clearfix">
+    <li class="col2 pr mt30">
+        <label class="title-txt">角色名称</label>
+        <div class="cont-int"><input class="inpt" id="roleName" name="roleName" type="text" placeholder="输入角色名称" maxlength="20"><div class="must">*</div></div>
+    </li>
+    <li class="col2 pr" style="height:60px;">
+        <label class="title-txt" style="height:60px;line-height:60px;vertical-align:middle;">角色描述</label>
+        <div class="cont-chk"><textarea placeholder="输入角色描述不超过100个字" id="roleDesc" name="roleDesc" maxlength="100" style="height:50px;padding:5px; resize:none;width:188px;"></textarea></div>
+    </li>
+    <!--<li class="col2">
+        <label class="title-txt">菜单授权</label>
+        <div class="cont-chk tbox1"><input class="inpt" type="checkbox" value="" /></div>
+    </li>-->
+ </ul>
+ </form>
+</div>
+
+<div class="two_button clearfix mt20" align="center"><a  id="btn_back" class="btn_bg submit mr10 fl">取　消</a><a id="jsgl_qr"  class="dlg3399 btn_bg submit fr">确　认</a></div>
+
+<div id="jsgl_cdsq_dialog" class="none" title="角色创建成功，是否进行菜单授权？" >  
+  <div >
+	 <ul id="xzczy_jsfp"  class="ztree"></ul> 
+  </div> 
+</div>
+
+<div id="xzxgjs_dialog" class="none" title="角色创建成功">
+<p class="autowidth">
+
+</p>
+</div>

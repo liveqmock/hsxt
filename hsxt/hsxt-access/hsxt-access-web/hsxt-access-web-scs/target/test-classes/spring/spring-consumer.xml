@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> 
+
+	<!-- 打开Spring的Annotation支持 -->
+	<context:annotation-config />
+	
+	<!-- 设定Spring 去哪些包中找Annotation -->
+	<context:component-scan base-package="com.gy.hsxt.access.web.person.service"/>
+	
+	<!-- dubbo 基本配置 -->        
+	<dubbo:application name="hsxt-scs-app" />
+    <dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}" default="true" />
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}" threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+	
+	<!-- 公共参数接口 -->
+    <dubbo:reference interface="com.gy.hsxt.lcs.api.IPubParamService" id="pubParamService" timeout="${dubbo.service.timeout10000}" retries="${dubbo.reference.retires}" version="1.0.0"/>
+	  
+</beans>

@@ -1,0 +1,19 @@
+<div class="info_320 bc">
+	<form id="sqsp_form" autocomplete="off">
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">审批结果</label>
+				<span class="fl h30_middle ml5">
+					<input type="radio" name="status" value="1" checked="checked" /> 审批通过
+					<input type="radio" name="status" class="ml10" value="3" /> 审批驳回
+				</span>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">审批意见</label>
+				<textarea name="applyReason" class="fl ml5 h50 w185 rsn pt5 pb5" placeholder="输入审批意见，不超过300字" maxlength="300"></textarea>
+			<input name="applyId" value="<%=obj.applyId%>" type="hidden"/>
+			<input name="customId" value="<%=obj.custId%>" type="hidden"/>
+			</li>
+		</ul>
+	</form>
+</div>

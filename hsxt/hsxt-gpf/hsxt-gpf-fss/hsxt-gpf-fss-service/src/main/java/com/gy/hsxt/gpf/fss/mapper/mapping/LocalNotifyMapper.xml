@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.fss.mapper.LocalNotifyMapper">
+
+    <resultMap id="localResult" type="com.gy.hsxt.gpf.fss.bean.LocalNotify">
+        <id property="notifyNo" column="NOTIFY_NO"/>
+        <result property="fromPlat" column="FROM_PLAT"/>
+        <result property="toPlat" column="TO_PLAT"/>
+        <result property="fromSys" column="FROM_SYS"/>
+        <result property="toSys" column="TO_SYS"/>
+        <result property="notifyTime" column="NOTIFY_TIME"/>
+        <result property="notifyType" column="NOTIFY_TYPE"/>
+        <result property="purpose" column="PURPOSE"/>
+        <result property="fileCount" column="FILE_COUNT"/>
+        <result property="received" column="RECEIVED"/>
+        <result property="allCompleted" column="ALL_COMPLETED"/>
+        <result property="completedTime" column="COMPLETED_TIME"/>
+        <result property="allPass" column="ALL_PASS"/>
+        <result property="remark" column="REMARK"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gy.hsxt.gpf.fss.bean.LocalNotify">
+        INSERT INTO T_FSS_LOCAL_NOTIFY
+        (
+            NOTIFY_NO,
+            FROM_PLAT,
+            TO_PLAT,
+            FROM_SYS,
+            TO_SYS,
+            NOTIFY_TIME,
+            NOTIFY_TYPE,
+            PURPOSE,
+            FILE_COUNT,
+            RECEIVED,
+            ALL_COMPLETED,
+            ALL_PASS,
+            REMARK,
+            CREATE_TIME
+        ) VALUES (
+            #{notifyNo},
+            #{fromPlat},
+            #{toPlat},
+            #{fromSys},
+            #{toSys},
+            #{notifyTime},
+            #{notifyType},
+            #{purpose},
+            #{fileCount},
+            #{received},
+            #{allCompleted},
+            #{allPass},
+            #{remark},
+            now()
+        )
+    </insert>
+
+    <delete id="deleteById" parameterType="java.io.Serializable">
+        DELETE FROM T_FSS_LOCAL_NOTIFY
+        WHERE NOTIFY_NO = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.gy.hsxt.gpf.fss.bean.LocalNotify">
+        UPDATE T_FSS_LOCAL_NOTIFY SET
+        <trim suffixOverrides=",">
+            <if test="received != null and received !=''">
+                RECEIVED = #{received},
+            </if>
+            <if test="allCompleted != 0">
+                ALL_COMPLETED = #{allCompleted},
+            </if>
+            <if test="completedTime != null and completedTime !=''">
+                COMPLETED_TIME = #{completedTime},
+            </if>
+            <if test="allPass != 0">
+                ALL_PASS = #{allPass},
+            </if>
+            <if test="remark != null and remark !=''">
+                REMARK = #{remark},
+            </if>
+        </trim>
+        WHERE NOTIFY_NO = #{notifyNo}
+    </update>
+
+    <update id="updateForBmlm" parameterType="com.gy.hsxt.gpf.fss.bean.QueryNotify">
+        UPDATE T_FSS_LOCAL_NOTIFY
+        SET
+            RECEIVED = 1
+        WHERE PURPOSE = #{purpose}
+              AND TO_PLAT = #{toPlat}
+              AND TO_SYS = #{toSys}
+              AND NOTIFY_TIME &gt;= #{notifyStartDate}
+              AND NOTIFY_TIME &lt; #{notifyEndDate}
+    </update>
+
+    <select id="selectOneById" parameterType="java.io.Serializable" resultMap="localResult">
+        SELECT *
+        FROM T_FSS_LOCAL_NOTIFY
+        WHERE NOTIFY_NO = #{id}
+    </select>
+
+    <select id="selectByCondition" parameterType="com.gy.hsxt.gpf.fss.bean.LocalNotify" resultMap="localResult">
+        SELECT *FROM T_FSS_LOCAL_NOTIFY t WHERE 1=1 AND
+        <if test="fromSys != null and fromSys != ''">
+            AND t.FROM_SYS = #{fromSys}
+        </if>
+        <if test="toSys != null and toSys != ''">
+            AND t.TO_SYS = #{toSys}
+        </if>
+        <if test="notifyType != null and notifyType != ''">
+            AND t.NOTIFY_TYPE = #{notifyType}
+        </if>
+        <if test="allCompleted != null and allCompleted != ''">
+            AND t.ALL_COMPLETED = #{allCompleted}
+        </if>
+        <if test="received != null and received != ''">
+            AND t.RECEIVED = #{received}
+        </if>
+        <if test="allPass != null and allPass != ''">
+            AND t.ALL_PASS = #{allPass}
+        </if>
+    </select>
+
+    <select id="selectByOther" parameterType="com.gy.hsxt.gpf.fss.bean.QueryNotify" resultMap="localResult">
+        SELECT *FROM T_FSS_LOCAL_NOTIFY t WHERE 1=1
+        <if test="fromPlat != null and fromPlat != ''">
+            AND t.FROM_PLAT = #{fromPlat}
+        </if>
+        <if test="toPlat != null and toPlat != ''">
+            AND t.TO_PLAT = #{toPlat}
+        </if>
+        <if test="fromSys != null and fromSys != ''">
+            AND t.FROM_SYS = #{fromSys}
+        </if>
+        <if test="toSys != null and toSys != ''">
+            AND t.TO_SYS = #{toSys}
+        </if>
+        <if test="notifyType != null and notifyType != ''">
+            AND t.NOTIFY_TYPE = #{notifyType}
+        </if>
+        <if test="allCompleted != null">
+            AND t.ALL_COMPLETED = #{allCompleted}
+        </if>
+        <if test="received != null">
+            AND t.RECEIVED = #{received}
+        </if>
+        <if test="allPass != null">
+            AND t.ALL_PASS = #{allPass}
+        </if>
+        <if test="purpose != null and purpose != ''">
+            AND t.PURPOSE = #{purpose}
+        </if>
+        <if test="notifyStartDate != null and notifyStartDate!=''">
+            AND t.NOTIFY_TIME &gt;= #{notifyStartDate}
+        </if>
+        <if test="notifyEndDate != null and notifyEndDate!=''">
+            AND t.NOTIFY_TIME &lt; #{notifyEndDate}
+        </if>
+        <if test="length !=null and length &gt; 0 ">
+            LIMIT #{start},#{length}
+        </if>
+    </select>
+
+    <select id="selectCountByOther" parameterType="com.gy.hsxt.gpf.fss.bean.QueryNotify" resultType="int">
+        SELECT count(t.NOTIFY_NO) FROM T_FSS_LOCAL_NOTIFY t WHERE 1=1
+        <if test="fromPlat != null and fromPlat != ''">
+            AND t.FROM_PLAT = #{fromPlat}
+        </if>
+        <if test="toPlat != null and toPlat != ''">
+            AND t.TO_PLAT = #{toPlat}
+        </if>
+        <if test="fromSys != null and fromSys != ''">
+            AND t.FROM_SYS = #{fromSys}
+        </if>
+        <if test="toSys != null and toSys != ''">
+            AND t.TO_SYS = #{toSys}
+        </if>
+        <if test="notifyType != null and notifyType != ''">
+            AND t.NOTIFY_TYPE = #{notifyType}
+        </if>
+        <if test="allCompleted != null">
+            AND t.ALL_COMPLETED = #{allCompleted}
+        </if>
+        <if test="received != null">
+            AND t.RECEIVED = #{received}
+        </if>
+        <if test="allPass != null">
+            AND t.ALL_PASS = #{allPass}
+        </if>
+        <if test="purpose != null and purpose != ''">
+            AND t.PURPOSE = #{purpose}
+        </if>
+        <if test="notifyStartDate != null and notifyStartDate!=''">
+            AND t.NOTIFY_TIME &gt;= #{notifyStartDate}
+        </if>
+        <if test="notifyEndDate != null and notifyEndDate!=''">
+            AND t.NOTIFY_TIME &lt; #{notifyEndDate}
+        </if>
+    </select>
+</mapper>

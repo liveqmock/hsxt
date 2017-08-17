@@ -1,0 +1,37 @@
+﻿<div id="qyxtzcxxTpl">
+	<div class="view_info info_500">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="30%">拟用企业管理号</td>
+				<td class="view_text" width="70%"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">企业中文名称</td>
+				<td class="view_text" width="70%">深圳市互生科技有限公司</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">企业英文名称</td>
+				<td class="view_text" width="70%">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">所属地区</td>
+				<td class="view_text" width="70%">广东省深圳市</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">结算币种</td>
+				<td class="view_text" width="70%"><span class="red">人民币</span></td>
+			</tr>
+		</table>
+	</div>
+	<div class="w200 bc mt20 clearfix">
+		<a class="btn_bg submit fl" id="qyxtzcxx_modify">修&#12288;改</a>
+		
+		<% if (num == 'tgqy'){ %>
+		<a class="btn_bg submit fr" id="tgqy_qyxtzcxx_cancel">取&#12288;消</a>
+		<% } else if (num == 'cyqy'){ %>
+		<a class="btn_bg submit fr" id="cyqy_qyxtzcxx_cancel">取&#12288;消</a>
+		<% } else if (num == 'fwgs'){ %>
+		<a class="btn_bg submit fr" id="fwgs_qyxtzcxx_cancel">取&#12288;消</a>
+		<% } %>
+	</div>
+</div>

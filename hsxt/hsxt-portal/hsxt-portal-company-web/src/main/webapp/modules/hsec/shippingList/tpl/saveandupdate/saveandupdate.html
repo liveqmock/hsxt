@@ -1,0 +1,43 @@
+<%
+	if(null == obj.shipping || '' == obj.shipping){
+      				obj['shipping'] = '';
+      			}
+%>
+<form id="shippingForm" class="shippingForm">
+<input type="hidden" name="id" value="<%= obj.shipping!=''?obj.shipping.id:''%>"/>
+<input type="hidden" name="vShopId" value="<%= obj.shipping!=''?obj.shipping.vShopId:''%>"/>
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="30%">物流公司：</td>
+      <td><select name="logisticId" id="logisticId">
+      		<%
+      		$.each(obj.data,function(key,data){ 
+			%>
+      		<option value="<%=data.id%>" <%= obj.shipping!=''?obj.shipping.logisticId==data.id?'selected':'':''%>><%=data.name%></option>
+      		<%})%>
+      	</select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">模板名称：<span class="red">*</span></td>
+      <td><input type="text" name="name" id="shippingName" value="<%= obj.shipping!=''?obj.shipping.name:''%>"/></td>
+    </tr>
+    <tr>
+      <td align="right">类型：</td>
+      <td><input type="checkbox" id="cbox" value="0" name="type" <%= obj.shipping!=''?obj.shipping.type==0?'checked':'':''%>/><span>包邮</span>
+      </td>
+    </tr>
+    <tr id="postageId" <%= obj.shipping!=''?obj.shipping.type==0?'checked':'style="display: none;"':'style="display: none;"'%> >
+      <td align="right" class="red">消费满</td>
+      <td><input type="text" name="charge" id="charge" value="<%= obj.shipping!=''?obj.shipping.charge:0%>"/><span class="red">包邮!</span></td>
+    </tr>
+    <tr>
+      <td align="right" >运费：<span class="red">*</span></td>
+      <td><input type="text" value="<%= obj.shipping!=''?obj.shipping.postage:''%>" id="chargeId" name="postage"/></td>
+    </tr>
+    <tr>
+      <td align="right">描述：</td>
+      <td><textarea rows="3" cols="5" name="remark"><%= obj.shipping!=''?obj.shipping.remark:''%></textarea></td>
+    </tr>
+  </table>
+  </form>

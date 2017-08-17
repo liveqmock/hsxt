@@ -1,0 +1,47 @@
+<div id="ddxqTpl">
+	<div class="pt10 acct-ct">
+		<div class="bd_dot_black fb pb10 text_indent_10">收件地址</div>
+		<div class="p10 lh200">
+			<p class="pt5 pb5"><label><span class="mr5"><input type="radio" name="address" value="" class="m03vm" checked="checked"></span><span class="mr10">[联系地址]</span><span class="mr10"><%=obj.contact.userName %></span><span class="mr10"><%=obj.contact.mobile %></span><span class="mr10"><%=obj.contact.address %></span><span class="mr10"><%=obj.contact.companlyName %></span></label></p>
+            <p class="pt5 pb5"><label><span class="mr5"><input type="radio" name="address" value="" class="m03vm"></span><span class="mr10">[企业地址]</span><span class="mr10"><%=obj.enter.userName %></span><span class="mr10"><%=obj.enter.mobile %></span><span class="mr10"><%=obj.enter.address %></span><span class="mr10"><%=obj.enter.companlyName %></span></label></p>
+		</div>
+	</div>
+	
+	<div class="infobox mt20">
+		<div class="bgc_02 list_title text_indent_10 fb">工具清单</div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+		  <tr>
+			<th class="nobd">工具名称/内容</th>
+			<th>企业名称</th>
+			<th>工具单价</th>
+			<th>申购数量</th>
+			<th>订单总价</th>
+		  </tr>
+		   <tr>
+                <td>
+                	<input type="hidden" id="tjdd_toolId" value="<%=obj.toolId %>" />
+                	<input type="hidden" id="tjdd_toolType" value="<%=obj.toolType %>" />
+                	<input type="hidden" id="tjddEntResNo" value="<%=obj.entResNo %>" />
+                	<input type="hidden" id="tjddEntCustId" value="<%=obj.entCustId %>" />
+                	<input type="hidden" id="tjdd_cardStyleId" value="<%=obj.cardStyleId %>" />
+                	<%if (obj.toolName == '互生卡') {%>
+                    <div class="clearfix"><i class="card card_01 fl"></i><span class="h35_middle fl ml10"  id="tjdd_toolName">互生卡</span></div>
+                    <%}else {%>
+                    <div class="clearfix"><span class="h35_middle fl ml10" id="tjdd_toolName"><%=obj.toolName %></span></div>
+                    <%} %>
+                </td>
+                <td><span id="tjdd_companyName"><%=obj.companyName %></span></td>
+                <td><span id="tjdd_toolPrice"><%=obj.tool_price %></span></td>
+                <td><span id="tjdd_toolNum"><%=obj.toolNum %></span></td>
+                <td><span id="tjdd_totalFee"><%=obj.totalFee %></span></td>
+            </tr>
+		</table>
+	</div>
+
+	<div class="mt20 mb20 clearfix">
+		<a class="btn_bg submit fr" id="ddtj_btn">订单提交</a>
+		<a class="btn_bg submit fr ml10 mr10" id="last_sggjlx">上一步</a>
+		<div class="Pay_text fr">应付互生币金额：<span class="red fb" id="tjddTotalFee"><%=obj.totalFee %></span></div>
+	</div>
+
+</div>

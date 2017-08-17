@@ -1,0 +1,56 @@
+<div class="order_arrow_list w700 bc">
+  <ul class="clearfix">
+    <li class="clearfix">
+      <div class="order_arrow_text_white fl"><span class="arrow_number">1</span> <span class="arrow_text">填写核对订单</span></div>
+      <i class="order_arrow order_arrow_01 fr"></i>
+    </li>
+    <li class="clearfix">
+      <div class="order_arrow_text_blue fl"><span class="arrow_number">2</span> <span class="arrow_text">成功提交订单</span></div>
+      <i class="order_arrow order_arrow_02 fr"></i>
+    </li>
+    <li class="clearfix">
+      <div class="order_arrow_text_white fl"><span class="arrow_number">3</span> <span class="arrow_text">选择支付方式</span></div>
+      <i class="order_arrow order_arrow_03 fr"></i>
+    </li>
+    <li class="clearfix">
+      <div class="order_arrow_text_white fl"><span class="arrow_number">4</span> <span class="arrow_text">完成付款</span></div>
+    </li>
+  </ul>
+</div>
+<div class="mt20">
+    <div class="billstyle">
+        <div class="bd_dot_gray fb p10">收件地址</div>
+        <div class="p10">
+            <p id="entAddrList"></p>
+			<p class="mt10 ml20 clearfix"><a class="btn_bg viewSample_btn" id="add_address_btn">新增自定义地址</a></p>
+        </div>
+    </div>
+    
+    <div class="mt20">
+        <div class="infobox2 fb p10 bg_f0 bm0">工具清单</div>
+        <table id="gjsg_2_table" class="bsgrid">
+  			<thead>
+                <tr>
+                    <th width="35%">工具名称</th>
+                    <th width="15%">工具单价</th>
+                    <th width="15%">申购数量</th>
+                    <th width="15%">订单总价</th>
+                </tr>
+			</thead>
+            <% $.each(confs,function(i,itme){ %>
+				<tr>
+	                <td style="text-align:left;"><%=itme.productName %></td>
+	                <td style="text-align:right;"><%=comm.formatMoneyNumber(itme.price) %></td>
+	                <td style="text-align:right;"><%=itme.quanilty %></td>
+	                <td style="text-align:right;"><%=comm.formatMoneyNumber(itme.totalPrice) %></td>
+            	</tr>		
+			<%});%> 
+        </table>
+    </div>
+    <div class="mt20 tr">
+        <span class="f14 mr15">应付互生币金额：<b class="red" id="amountPayable"></b></span>
+        <a href="javascript:;" id="btn_hsksg_syb" class="btn_bg submit mr15">上一步</a><a href="javascript:;" id="btn_hsksg_ddtj" class="btn_bg submit">订单提交</a>
+    </div>
+</div>
+<div id="modifyAddress_dialog" class="none"></div>
+<div id="addAddress_dialog" class="none"></div>

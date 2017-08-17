@@ -1,0 +1,36 @@
+<div class="view_info mt10">
+<form id="hskzz_rk_dialog" name="gjsg_1_form" method="post">
+	<input type="hidden" id="randKey" value="<%=obj.result.randKey %>"/>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">订单号</td>
+            <td class="view_text" width="32%"><%=obj.orderNo%></td>
+            <td class="view_item" width="18%">工具类别</td>
+            <td class="view_text" width="32%"><%=obj.result.card.productName %></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+           <!--  <td class="view_item">工具型号</td>
+            <td class="view_text"></td> -->
+              <td class="view_item">批次号</td>
+            <td class="view_text"><%=obj.result.card.batchNo %></td>
+        </tr>
+        <tr>
+          <td class="view_item">入库数量</td>
+            <td class="view_text"><%=obj.result.card.inOutAmount %></td>
+            <td class="view_item">入库员</td>
+            <td class="view_text" id="operNoName"></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">复核信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">复核员</td>
+            <td class="view_input"><input type="text" id="rkfhUserName" name="rkfhUserName" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+            <td class="view_item">复核员密码</td>
+            <td class="view_input"><input type="password" id="rkfhPassWord" name="rkfhPassWord" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /></td>
+        </tr>
+    </table>
+</form>
+</div>

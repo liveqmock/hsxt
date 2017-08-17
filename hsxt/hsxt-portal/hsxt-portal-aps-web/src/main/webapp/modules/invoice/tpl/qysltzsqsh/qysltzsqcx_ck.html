@@ -1,0 +1,115 @@
+<div id="qysltzsqsh_ckTpl">
+	<div class="mb5 fb">企业信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">企业互生号</td>
+			<td class="view_text_2" width="30%"><%=obj.resNo%></td>
+			<td class="view_item" width="20%">企业名称</td>
+			<td class="view_text_2" width="30%"><%=obj.custName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">企业地址</td>
+			<td class="view_text_2"><%=obj.contactAddr%></td>
+			<td class="view_item">企业联系人</td>
+			<td class="view_text_2"><%=obj.linkman%></td>
+		</tr>
+		<tr>
+			<td class="view_item">联系人电话</td>
+			<td class="view_text_2"><%=obj.telephone%></td>
+			<td class="view_item">纳税人识别号</td>
+			<td class="view_text_2"><%=obj.taxNo%></td>
+		</tr>
+		<tr>
+			<td class="view_item"  >企业纳税人信息</td>
+			<td class="view_text_2" colspan="3" ><%=obj.creName%></td>		 
+		</tr>
+	</table>
+	<div class="mt10 mb5 fb">申请信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">申请流水号</td>
+			<td class="view_text_2" width="30%"><%=obj.applyId%></td>
+			<td class="view_item" width="20%">原税率</td>
+			<td class="view_text_2" width="30%"><%=obj.currTaxrate%></td>
+		</tr>
+		<tr>
+			<td class="view_item">申请调整税率</td>
+			<td class="view_text_2"><%=obj.applyTaxrate%></td>
+			<td class="view_item">申请说明</td>
+			<td class="view_text_2"><%=obj.applyReason%></td>
+		</tr>
+		<tr>
+			<td class="view_item">申请时间</td>
+			<td class="view_text_2"><%=obj.createdDate%></td>
+			<td class="view_item">申请操作员</td>
+			<td class="view_text_2"><%=obj.createdBy%></td>
+		</tr>
+		<% if(obj.status != '0'){ %>
+		<tr>
+			<td class="view_item">证明材料</td>
+			<td class="view_text_2"><a id="proveFile" class="blue" href="" target="_blank" >查看附件</a></td>
+			<td class="view_item"></td>
+			<td class="view_text_2"></td>
+		</tr>
+		<% } %>
+	</table>
+	<% if(obj.status == '0'){ %>
+	<div class="mt10 mb5 fb">证明材料</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">证明材料</td>
+			<td class="view_text_2" width="30%"><a id="proveFile" class="blue" href="" target="_blank" >查看附件</a></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+	</table>
+	<% }else{ %>
+	<div class="mt10 mb5 fb">审批信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">审批结果</td>
+			<td class="view_text_2" width="30%">
+				<% if(obj.status == '1' || obj.status == '2'|| obj.status == '4' ){ %>
+				待审批复核
+				<% } else if(obj.status == '3'){ %>
+				审批驳回
+				<% } %>
+			</td>
+			<td class="view_item" width="20%">审批说明</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[0].optRemark%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">审批时间</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[0].optDate%></td>
+			<td class="view_item" width="20%">审批操作员</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[0].optName%></td>
+		</tr>
+	</table>
+	<% } %>
+	<% if(obj.status == '2' || obj.status == '4'){ %>
+	<div class="mt10 mb5 fb">复核信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">复核结果</td>
+			<td class="view_text_2" width="30%">
+				<% if(obj.status == '2'){ %>
+				审批复核通过
+				<% } else if(obj.status == '4'){ %>
+				审批复核驳回
+				<% } %>
+			</td>
+			<td class="view_item" width="20%">复核说明</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[1].optRemark%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">复核时间</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[1].optDate%></td>
+			<td class="view_item" width="20%">复核操作员</td>
+			<td class="view_text_2" width="30%"><%=taxrateChangeHises[1].optName%></td>
+		</tr>
+	</table>
+	<% } %>
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="back_qysltzsqsh">返&#12288;回</a>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div id="kgxtfhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+					<label>企业互生号：</label>
+					<input type="text" id="companyResNo" name="companyResNo" maxlength="11" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+				</li>
+				<li>
+					<label>企业名称：</label>
+					<input type="text" id="companyName"  name="companyName" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+				</li>
+				<li>
+					<label>联系人姓名：</label>
+					<input type="text" id="linkman"  name="linkman" placeholder="输入联系人姓名" class="h28_middle w115 input-txt" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">企业类别：</label>
+					<input id="company_type_1" readonly="readonly" placeholder="选择企业类别" optionvalue="" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">复核类别：</label>
+					<input id="fh_type" readonly="readonly" placeholder="选择复核类别" optionvalue="" />
+				</li>	
+				<li>
+					<button id="qry_btn_2" type="button" class="btn-search">查询</button>
+				</li>
+		 </ul>
+	</div>		
+	<table id="searchTable111" class="bsgrid">
+	  <tr>
+		<th w_index="entResNo" w_tip="true">企业互生号</th>
+		<th w_index="entCustName" w_length="30"  w_tip="true">企业名称</th>
+		<th w_index="address" w_length="30"  w_tip="true">企业地址</th>
+		<th w_index="linkman" w_length="10"  w_tip="true">联系人姓名</th>
+		<th w_index="mobile" w_tip="true">联系人手机</th>
+		<th w_index="custType" w_render="operate">企业类别</th>
+		<th w_index="applyType" w_render="operate">复核类别</th>
+		<th w_index="reqTime" w_tip="true">申请日期</th>
+<!-- 		<th w_render="operate">当前系统状态</th> -->
+<!-- 		<th w_render="operate">状态日期</th> -->
+		<th w_render="operate">操作</th>
+		<th w_render="operate">工单操作</th>
+	  </tr>
+	</table>
+	
+	<div id="gdcz_gq_jjsl_dlg" class="none"></div>
+	
+</div>

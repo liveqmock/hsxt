@@ -1,0 +1,83 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable" >
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">订单信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">订单号</td>
+            <td class="view_text" width="32%"><%=obj.proxyOrderNo%></td>
+            <td class="view_item" width="18%">订单时间</td>
+            <td class="view_text" width="32%"><%=obj.reqTime%></td>
+            
+        </tr>
+        <tr>
+            <td class="view_item">订单类型</td>
+            <td class="view_text"><%=obj.orderTypeName%></td>
+            <td class="view_item">申购类型</td>
+            <td class="view_text">新增申购</td>
+        </tr> 
+        <tr>
+            <td class="view_item">订单状态</td>
+            <td class="view_text"><%=obj.statusName%></td>
+            <td class="view_item">订单操作员</td>
+            <td class="view_text" id="tdOperInfo"><%=obj.reqOperator %></td>
+        </tr>
+        <% if(obj.orderType != '107'){ %>
+	        <tr>
+	        	<td colspan="4" class="p10">
+					<div class="view_title">工具清单</div>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table fixtd">
+						<tr>
+						    <th w_index="productName">工具名称</th>
+							<th w_index="price">工具单价</th>
+							<th w_index="quantity">数量</th>
+							<th w_index="totalAmount">金额</th>
+						</tr>
+						<% $.each(obj.detail,function(i,itme){ %>
+						<tr>
+							<td><%=itme.productName%></td>
+							<td><%=comm.formatMoneyNumberAps(itme.price)%></td>
+							<td><%=itme.quantity%></td>
+							<td><%=comm.formatMoneyNumberAps(itme.totalAmount)%></td>
+						</tr>
+						<%});%>     
+					</table>
+	            </td>
+	        </tr>
+        <%}%> 
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申购企业基本信息</span></td>
+        </tr> 
+        <tr>
+            <td class="view_item">企业名称</td>
+            <td class="view_text"><%=obj.entCustName%></td>
+            <td class="view_item">企业互生号</td>
+            <td class="view_text"><%=obj.entResNo%></td>
+        </tr>
+        <% if(obj.orderType != '107'){ %>
+	        <tr>
+	            <td class="view_item">企业联系人</td>
+	            <td class="view_text"><%=obj.deliverInfo.linkman%></td>
+	            <td class="view_item">联系人电话</td>
+	            <td class="view_text"><%=obj.deliverInfo.mobile%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item">收件地址</td>
+	            <td class="view_text" colspan="3"><%=obj.deliverInfo.fullAddr%></td>
+	        </tr>
+        <%}%> 
+		<% if(obj.status == 1 || obj.status == 2){ %>
+			<tr>
+	            <td class="tab_trbg" colspan="4"><span class="ml10">复核信息</span></td>
+	        </tr>
+			<tr>
+	            <td class="view_item">复核意见</td>
+	            <td class="view_text" colspan="3"><%=obj.apprRemark%></td>
+	        </tr>
+			<tr>
+	            <td class="view_item">复核结果</td>
+	            <td class="view_text" colspan="3"><%=obj.statusName%></td>
+	        </tr>
+		<% } %>
+    </table>
+</div>

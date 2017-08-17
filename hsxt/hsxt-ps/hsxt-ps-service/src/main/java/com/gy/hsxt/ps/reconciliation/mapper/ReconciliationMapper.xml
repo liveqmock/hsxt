@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.reconciliation.mapper.ReconciliationMapper" >
+	
+    <!-- 日终查询分路表对账 -->
+    <select id="queryDayOfEnd" parameterType="PointPage"  resultType="Alloc">
+        SELECT * FROM (
+		SELECT
+                   TN.REL_TRANS_NO "relTransNo",
+                   TN.ENTRY_NO "entryNo",
+                   TN.CUST_ID "custId",
+                   TN.ADD_AMOUNT "addAmount",
+                   TN.SUB_AMOUNT "subAmount",
+				   ROWNUM RN
+		FROM T_PS_ENTRY TN
+		WHERE   TN.BATCH_NO = TO_CHAR((SYSDATE-1),'YYYY-MM-DD'))
+		WHERE RN &gt; #{startsRow} AND RN &lt;= #{endRow}
+    </select>
+
+    <!-- 日终查询分路表对账 -->
+    <select id="countDayOfEnd" resultType="int" parameterType="String">
+        SELECT count(1)
+        FROM T_PS_ENTRY TN
+        WHERE   TN.BATCH_NO = TO_CHAR((SYSDATE-1),'YYYY-MM-DD')
+    </select>
+ 
+</mapper>

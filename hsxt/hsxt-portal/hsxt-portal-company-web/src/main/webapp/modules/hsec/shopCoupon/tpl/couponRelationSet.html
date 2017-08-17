@@ -1,0 +1,41 @@
+  <% var param = obj.result%>
+<div id="coupon_view" class="none ui-dialog-content ui-widget-content" style="display: block; width: 550; min-height: 50px; max-height: none; height: auto;">
+	<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+	        <tr>
+	          <td width="30%" align="right">使用规则：</td>
+	          <td width="70%">每消费
+	         	<select class="ml5 mr5" name="useAmount_crs"  style="width: 100px" >
+	          		<option>-请选择-</option>
+	          		<option>100.00</option>
+	          		<option>200.00</option>
+	          		<option>300.00</option>
+	          		<option>400.00</option>
+	          		<option>500.00</option>
+	          		<option>600.00</option>
+	          	</select>元，使用
+	          	<select class="ml5 mr5" name="useNumber_crs" style="width: 100px">
+	          			<option>-请选择-</option>
+	          			<option>1</option>
+	          			<option>2</option>
+	          			<option>3</option>
+	          			<option>4</option>
+	          			<option>5</option>
+	          	</select>张</td>
+	        </tr>
+	        <tr>
+	          <td align="right">选择抵扣券：</td>
+	          <td>
+		          <select name="coupon_crs">
+		          	<option>-请选择-</option>
+		                <% if(param == ''){%>
+				            <%}else{
+				               $.each(param,function(key,el){%>
+				               <option faceValue="<%=el.faceValue%>" couponName="<%=el.name%>" value="<%=el.id%>"><%=el.name%>&nbsp;&nbsp;面值<%=comm.formatMoneyNumber(el.faceValue)%></option>      			                 
+            	 		<%})}%>		         
+		          </select>
+	          </td>
+	        </tr>
+   		</tbody>
+    </table>
+</div>

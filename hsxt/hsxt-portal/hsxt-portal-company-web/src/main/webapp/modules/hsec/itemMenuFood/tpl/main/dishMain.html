@@ -1,0 +1,75 @@
+	<%
+	var param = obj.data;
+	%>
+	<div class="shopcg clearfix" style="height:410px;">
+          <div class="fl shopcg-lw" style="width:15%;">
+          	<div class="cookbook-list">
+            	<ul>
+                    <%
+		             try{
+		             	if(param != null && param.result != null && param.result.length > 0){
+		             	$.each(param.result,function(key,value){
+		             	if(value.type=="1"){
+		             %>
+		             <li>
+                        <div>
+                            <a class="pr active"><!-- //Modified by zhanghh [all:替换：全部 -->
+                                <input type="text" data-id="<%=value.id%>" value="全部" data-virtual-shop-id="<%=value.virtualShopId%>" readonly="readonly" class="cookbook-ipt" />
+                            </a>
+                        </div>
+                    </li>
+		             <% }else{ %>
+                    <li>
+                        <div>
+                            <a class="pr">
+                                <input type="text" data-id="<%=value.id%>" value="<%=value.name%>"  data-virtual-shop-id="<%=value.virtualShopId%>" readonly="readonly" class="cookbook-ipt" />
+                                <span class="ckbkedit-ipt none">
+                                	<input type="button" class="ckbk-yes" title="确定" />
+                                    <input type="button" class="ckbk-del" title="取消" />
+                                </span>
+                                <span class="shopcg-list-edit none">
+                                    <input type="button" class="cg-edit" title="修改" />
+                                    <input type="button" class="cg-del" title="删除" />
+                                </span>
+                            </a>
+                        </div>
+                     </li>
+                     <% } }) 
+		              	} 
+		              }catch(e){}
+		              %>
+                     <li class="cllist none">
+                        <div>
+                            <a class="pr clearfix">
+                                <input type="text" data-id="" value="" class="cookbook-ipt ckbkedit" maxlength="100" placeholder="请输入菜单名称"/>
+                                <span class="ckbkedit-ipt">
+                                	<input type="button" class="ckbk-yes" title="确定" />
+                                    <input type="button" class="ckbk-del" title="取消" />
+                                </span>
+                                <span class="shopcg-list-edit none">
+                                    <input type="button" class="cg-edit" title="修改" />
+                                    <input type="button" class="cg-del" title="删除" />
+                                </span>
+                            </a>
+                        </div>
+                     </li>
+                     <li>
+                        <div>
+                            <a class="pr" id="addckbk">
+                                <span class="txt-fix bc"><b>+</b>新增</span>
+                            </a>
+                        </div>
+                     </li>
+                </ul>
+            </div>
+          </div>
+          <!-- 菜单定义 -->
+ 		 <div class="fr shopcg-rw" style="width:85%;" id="cddy">
+          	
+          </div>
+          <!-- 营业点 -->
+          <div class="fr shopcg-rw none" style="width:85%;" id="yyd">
+          	
+      	</div>
+</div>
+

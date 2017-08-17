@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.NetworkInfoMapper">
+<!-- 网络信息 -->
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.NetworkInfo">
+		<id column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+		<result column="NICKNAME" property="nickname" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="HEAD_SHOT" property="headShot" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="DECIMAL" />
+		<result column="AGE" property="age" jdbcType="DECIMAL" />
+		<result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+		<result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+		<result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="INDIVIDUAL_SIGN" property="individualSign"
+			jdbcType="VARCHAR" />
+		<result column="JOB" property="job" jdbcType="VARCHAR" />
+		<result column="HOBBY" property="hobby" jdbcType="VARCHAR" />
+		<result column="BLOOD" property="blood" jdbcType="DECIMAL" />
+		<result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="GRADUATE_SCHOOL" property="graduateSchool"
+			jdbcType="VARCHAR" />
+		<result column="WEIXIN" property="weixin" jdbcType="VARCHAR" />
+		<result column="QQ_NO" property="qqNo" jdbcType="VARCHAR" />
+		<result column="TEL_NO" property="telNo" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+		<result column="HOME_ADDR" property="homeAddr" jdbcType="VARCHAR" />
+		<result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+		<result column="OFFICE_PHONE" property="officePhone" jdbcType="VARCHAR" />
+		<result column="OFFICE_FAX" property="officeFax" jdbcType="VARCHAR" />
+		<result column="IS_SHOW" property="isShow" jdbcType="DECIMAL" />
+		<result column="MODIFY_ACOUNT" property="modifyAcount"
+			jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+	
+<!-- 查询的列-->
+	<sql id="Base_Column_List">
+		PER_CUST_ID,
+		NICKNAME,
+		NAME,
+		HEAD_SHOT,
+		SEX,
+		AGE,
+		COUNTRY_NO,
+		PROVINCE_NO,
+		CITY_NO,
+		AREA,
+		ADDRESS,
+		INDIVIDUAL_SIGN,
+		JOB,
+		HOBBY,
+		BLOOD,
+		POSTCODE,
+		EMAIL,
+		GRADUATE_SCHOOL,
+		WEIXIN,
+		QQ_NO,
+		TEL_NO,
+		MOBILE,
+		BIRTHDAY,
+		HOME_ADDR,
+		HOME_PHONE,
+		OFFICE_PHONE,
+		OFFICE_FAX,
+		IS_SHOW,
+		MODIFY_ACOUNT,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY
+	</sql>
+
+	<!-- 通过客户号查询网络信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_NETWORK_INFO
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 通过客户号删除网络信息-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		T_NETWORK_INFO
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</delete>
+	
+	<!--插入网络信息 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.common.bean.NetworkInfo">
+		insert into T_NETWORK_INFO (
+		PER_CUST_ID,
+		NICKNAME,
+		NAME,
+		HEAD_SHOT,
+		SEX,
+		AGE,
+		COUNTRY_NO,
+		PROVINCE_NO,
+		CITY_NO,
+		AREA,
+		ADDRESS,
+		INDIVIDUAL_SIGN,
+		JOB,
+		HOBBY,
+		BLOOD,
+		POSTCODE,
+		EMAIL,
+		GRADUATE_SCHOOL,
+		WEIXIN,
+		QQ_NO,
+		TEL_NO,
+		MOBILE,
+		BIRTHDAY,
+		HOME_ADDR,
+		HOME_PHONE,
+		OFFICE_PHONE,
+		OFFICE_FAX,
+		IS_SHOW,
+		MODIFY_ACOUNT,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY)
+		values (
+		#{perCustId,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{headShot,jdbcType=VARCHAR},
+		#{sex,jdbcType=DECIMAL},
+		#{age,jdbcType=DECIMAL},
+		#{countryNo,jdbcType=VARCHAR},
+		#{provinceNo,jdbcType=VARCHAR},
+		#{cityNo,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{individualSign,jdbcType=VARCHAR},
+		#{job,jdbcType=VARCHAR},
+		#{hobby,jdbcType=VARCHAR},
+		#{blood,jdbcType=DECIMAL},
+		#{postcode,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{graduateSchool,jdbcType=VARCHAR},
+		#{weixin,jdbcType=VARCHAR},
+		#{qqNo,jdbcType=VARCHAR},
+		#{telNo,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{birthday,jdbcType=VARCHAR},
+		#{homeAddr,jdbcType=VARCHAR},
+		#{homePhone,jdbcType=VARCHAR},
+		#{officePhone,jdbcType=VARCHAR},
+		#{officeFax,jdbcType=VARCHAR},
+		#{isShow,jdbcType=DECIMAL},
+		#{modifyAcount,jdbcType=DECIMAL},
+		#{isactive,jdbcType=CHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createdby,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{updatedby,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 插入网络信息（有值插入 ）-->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.NetworkInfo">
+		insert into T_NETWORK_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="perCustId != null">
+				PER_CUST_ID,
+			</if>
+			<if test="nickname != null">
+				NICKNAME,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="headShot != null">
+				HEAD_SHOT,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="age != null">
+				AGE,
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO,
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO,
+			</if>
+			<if test="cityNo != null">
+				CITY_NO,
+			</if>
+			<if test="area != null">
+				AREA,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="individualSign != null">
+				INDIVIDUAL_SIGN,
+			</if>
+			<if test="job != null">
+				JOB,
+			</if>
+			<if test="hobby != null">
+				HOBBY,
+			</if>
+			<if test="blood != null">
+				BLOOD,
+			</if>
+			<if test="postcode != null">
+				POSTCODE,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="graduateSchool != null">
+				GRADUATE_SCHOOL,
+			</if>
+			<if test="weixin != null">
+				WEIXIN,
+			</if>
+			<if test="qqNo != null">
+				QQ_NO,
+			</if>
+			<if test="telNo != null">
+				TEL_NO,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="birthday != null">
+				BIRTHDAY,
+			</if>
+			<if test="homeAddr != null">
+				HOME_ADDR,
+			</if>
+			<if test="homePhone != null">
+				HOME_PHONE,
+			</if>
+			<if test="officePhone != null">
+				OFFICE_PHONE,
+			</if>
+			<if test="officeFax != null">
+				OFFICE_FAX,
+			</if>
+			<if test="isShow != null">
+				IS_SHOW,
+			</if>
+			<if test="modifyAcount != null">
+				MODIFY_ACOUNT,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="perCustId != null">
+				#{perCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="headShot != null">
+				#{headShot,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=DECIMAL},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=DECIMAL},
+			</if>
+			<if test="countryNo != null">
+				#{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				#{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				#{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="individualSign != null">
+				#{individualSign,jdbcType=VARCHAR},
+			</if>
+			<if test="job != null">
+				#{job,jdbcType=VARCHAR},
+			</if>
+			<if test="hobby != null">
+				#{hobby,jdbcType=VARCHAR},
+			</if>
+			<if test="blood != null">
+				#{blood,jdbcType=DECIMAL},
+			</if>
+			<if test="postcode != null">
+				#{postcode,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="graduateSchool != null">
+				#{graduateSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="weixin != null">
+				#{weixin,jdbcType=VARCHAR},
+			</if>
+			<if test="qqNo != null">
+				#{qqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="telNo != null">
+				#{telNo,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="homeAddr != null">
+				#{homeAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="homePhone != null">
+				#{homePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="officePhone != null">
+				#{officePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="officeFax != null">
+				#{officeFax,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				#{isShow,jdbcType=DECIMAL},
+			</if>
+			<if test="modifyAcount != null">
+				#{modifyAcount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+<!-- 更新网络信息（有值更新）-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.NetworkInfo">
+		update T_NETWORK_INFO
+		<set>
+			<if test="nickname != null">
+				NICKNAME = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="headShot != null">
+				HEAD_SHOT = #{headShot,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=DECIMAL},
+			</if>
+			<if test="age != null">
+				AGE = #{age,jdbcType=DECIMAL},
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				AREA = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="individualSign != null">
+				INDIVIDUAL_SIGN = #{individualSign,jdbcType=VARCHAR},
+			</if>
+			<if test="job != null">
+				JOB = #{job,jdbcType=VARCHAR},
+			</if>
+			<if test="hobby != null">
+				HOBBY = #{hobby,jdbcType=VARCHAR},
+			</if>
+			<if test="blood != null">
+				BLOOD = #{blood,jdbcType=DECIMAL},
+			</if>
+			<if test="postcode != null">
+				POSTCODE = #{postcode,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="graduateSchool != null">
+				GRADUATE_SCHOOL = #{graduateSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="weixin != null">
+				WEIXIN = #{weixin,jdbcType=VARCHAR},
+			</if>
+			<if test="qqNo != null">
+				QQ_NO = #{qqNo,jdbcType=VARCHAR},
+			</if>
+			<if test="telNo != null">
+				TEL_NO = #{telNo,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="homeAddr != null">
+				HOME_ADDR = #{homeAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="homePhone != null">
+				HOME_PHONE = #{homePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="officePhone != null">
+				OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="officeFax != null">
+				OFFICE_FAX = #{officeFax,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				IS_SHOW = #{isShow,jdbcType=DECIMAL},
+			</if>
+			<if test="modifyAcount != null">
+				MODIFY_ACOUNT = #{modifyAcount,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 更新网络信息 -->
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.common.bean.NetworkInfo">
+		update
+		T_NETWORK_INFO
+		set NICKNAME = #{nickname,jdbcType=VARCHAR},
+		NAME =#{name,jdbcType=VARCHAR},
+		HEAD_SHOT = #{headShot,jdbcType=VARCHAR},
+		SEX= #{sex,jdbcType=DECIMAL},
+		AGE = #{age,jdbcType=DECIMAL},
+		COUNTRY_NO =#{countryNo,jdbcType=VARCHAR},
+		PROVINCE_NO =#{provinceNo,jdbcType=VARCHAR},
+		CITY_NO = #{cityNo,jdbcType=VARCHAR},
+		AREA = #{area,jdbcType=VARCHAR},
+		ADDRESS = #{address,jdbcType=VARCHAR},
+		INDIVIDUAL_SIGN = #{individualSign,jdbcType=VARCHAR},
+		JOB =#{job,jdbcType=VARCHAR},
+		HOBBY = #{hobby,jdbcType=VARCHAR},
+		BLOOD =#{blood,jdbcType=DECIMAL},
+		POSTCODE = #{postcode,jdbcType=VARCHAR},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		GRADUATE_SCHOOL =
+		#{graduateSchool,jdbcType=VARCHAR},
+		WEIXIN =#{weixin,jdbcType=VARCHAR},
+		QQ_NO = #{qqNo,jdbcType=VARCHAR},
+		TEL_NO =#{telNo,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+		HOME_ADDR =#{homeAddr,jdbcType=VARCHAR},
+		HOME_PHONE =#{homePhone,jdbcType=VARCHAR},
+		OFFICE_PHONE =#{officePhone,jdbcType=VARCHAR},
+		OFFICE_FAX =#{officeFax,jdbcType=VARCHAR},
+		IS_SHOW = #{isShow,jdbcType=DECIMAL},
+		MODIFY_ACOUNT = #{modifyAcount,jdbcType=DECIMAL},
+		ISACTIVE = #{isactive,jdbcType=CHAR},
+		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+		CREATEDBY = #{createdby,jdbcType=VARCHAR},
+		UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+		UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+		where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 查询网络信息 -->
+	<select id="searchByCustIds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_NETWORK_INFO
+		where PER_CUST_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+  <!-- 批量插入网络信息-->
+	<insert id="batchInsertSelective" parameterType="java.util.List">
+	    INSERT INTO T_NETWORK_INFO (PER_CUST_ID, NICKNAME, CREATEDBY) 
+  		<foreach collection="list" item="item" index="index" separator="union all" > 
+		(SELECT 
+			#{item.perCustId,jdbcType=VARCHAR} AS PER_CUST_ID,
+			#{item.nickname,jdbcType=VARCHAR} AS NICKNAME,
+			#{item.createdby,jdbcType=VARCHAR} AS CREATEDBY
+		FROM DUAL)
+		</foreach>
+	</insert>
+	 <!-- 批量删除网络信息 (逻辑删除)-->
+	<update id="batchDeleteByPrimaryKey"  parameterType="java.util.Map">
+                UPDATE T_NETWORK_INFO 
+                <set>
+                ISACTIVE = #{isactive,jdbcType=CHAR},
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+                UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+                </set>
+                where PER_CUST_ID IN
+                 <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+                  '${item}'
+                 </foreach>
+    </update>
+</mapper>

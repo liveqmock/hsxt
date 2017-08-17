@@ -1,0 +1,29 @@
+<div class="none" id="xtsynf_ckTpl">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">单位名称</td>
+			<td class="view_text_2" width="30%"><%=obj.order.custName%></td>
+			<td class="view_item" width="20%">企业互生号</td>
+			<td class="view_text_2" width="30%"><%=obj.order.hsResNo%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">未缴纳年费区间</td>
+			<td class="view_text_2" width="30%"><%=(obj.areaStartDate+"--"+obj.areaEndDate)%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">欠费总额</td>
+			<td class="view_text_2" width="30%"><%=comm.formatMoneyNumber(parseFloat(obj.order.orderOriginalAmount)-parseFloat(obj.order.orderDerateAmount))%></td>
+			<td class="view_item" width="20%">折合应付本币</td>
+			<td class="view_text_2" width="30%"><%=obj.order.orderCashAmount%></td>
+		</tr>
+		<!-- <tr>
+			<td class="view_item" width="20%">订单日期</td>
+			<td class="view_text_2" width="30%">2015-01-30</td>
+			<td class="view_item" width="20%">订单操作员</td>
+			<td class="view_text_2" width="30%">05001010001_0003(张三)</td>
+		</tr> -->
+	</table>
+	<div class="mt20" align="center"><a class="btn_bg submit" id="back_xtsynf">返&#12288;回</a></div>
+</div>

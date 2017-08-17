@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+
+	<!-- 消费服务 -->
+	<!-- DS调度状态上报服务接口[必须为异步方式] -->
+	<dubbo:reference id="dsBatchCallback"
+		interface="com.gy.hsi.ds.api.IDSBatchServiceListener" retries="${dubbo.reference.retires}"
+		timeout="${dubbo.service.timeout15000}" async="true" sent="false"
+		version="1.0.0" />
+
+	<!-- 外部触发DS调度任务接口 -->
+	<dubbo:reference id="dsExternalTrigger"
+		interface="com.gy.hsi.ds.api.IDSExternalTriggerServcie" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+	<!-- 支付结果通知接口, 不得随意改动 -->
+	<dubbo:reference id="pgNotifyService"
+		interface="com.gy.hsxt.pg.api.IPGNotifyService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" timeout="${dubbo.service.timeout15000}"
+		version="1.0.0" />
+
+</beans>

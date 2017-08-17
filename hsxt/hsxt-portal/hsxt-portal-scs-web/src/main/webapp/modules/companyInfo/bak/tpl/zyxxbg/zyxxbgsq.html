@@ -1,0 +1,240 @@
+
+<!-- 资料查看开始 -->
+<form id="zyxxbgsq_xx2_form_c" name="zyxxbgsq_xx2_form_c">
+	<div id="zyxx_tpl" class="table_info mt20 info_800">
+		<table width="100%" border="1" cellpadding="0" cellspacing="0"
+			bordercolor="#CCCCCC">
+			<tbody>
+				<tr>
+					<td class="table_title" width="20%">信息</td>
+					<td class="table_title" width="40%">变更前内容</td>
+					<td class="table_title" width="40%">变更后内容</td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">企业中文名称</td>
+					<td id="companyNameCn_old" class="table_text" width="40%"><%=obj.entName!=null ? obj.entName:obj.entCustNameOld%></td>
+					<td class="table_text" width="40%"><input type="text"
+						class="table_info_input" id="companyNameCn" name="custNameNew"
+						value="<%=obj.entName!=null ? obj.entName:obj.entCustNameNew%>" placeholder="输入企业中文名称"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">企业英文名称</td>
+					<td class="table_text" id="companyNameEn_old" width="40%"><%=obj.entNameEn!=null ? obj.entNameEn:obj.custNameEnOld%></td>
+					<td class="table_text" width="40%"><input type="text"
+						class="table_info_input" id="companyNameEn" name="custNameEnNew"
+						value="<%=obj.entNameEn!=null ? obj.entNameEn:obj.custNameEnNew%>" placeholder="输入企业英文名称"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">企业地址</td>
+					<td class="table_text" width="40%" id="address_old"><%=obj.entRegAddr!=null ? obj.entRegAddr:obj.custAddressOld%></td>
+					<td class="table_text" width="40%"><input type="text"
+						class="table_info_input" id="address" name="custAddressNew"
+						value="<%=obj.entRegAddr!=null ? obj.entRegAddr:obj.custAddressNew%>" placeholder="输入企业地址"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">法人代表</td>
+					<td class="table_text" width="40%" id="legalRepresentative_old"><%=obj.creName!=null ? obj.creName:obj.legalRepOld%></td>
+					<td class="table_text" width="40%"><input type="text"
+						class="table_info_input" id="legalRepresentative"
+						name="legalRepNew" value="<%=obj.creName!=null ? obj.creName:obj.legalRepNew%>" placeholder="输入法人代表">
+					</td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">法人代表证件类型</td>
+					<td class="table_text" width="40%" id="credentialType_old"></td>
+					<td class="table_text" width="40%">
+						<div class="combobox_style Lkbd">
+
+							<select id="credentialType" 
+								placeholder="请选择法人代表证件类型">
+							</select>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">法人代表证件号码</td>
+					<td class="table_text" width="40%" id="credentialNo_old"><%=obj.creNo!=null ? obj.creNo:obj.legalRepCreNoOld%></td>
+					<td class="table_text" width="40%"><input id="credentialNo"
+						name="legalRepCreNoNew" value="<%=obj.creNo!=null ? obj.creNo:obj.legalRepCreNoNew%>"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">营业执照号</td>
+					<td class="table_text" width="40%" id="busLicenceNo_old"><%=obj.busiLicenseNo!=null ? obj.busiLicenseNo:obj.bizLicenseNoOld%></td>
+					<td class="table_text" width="40%"><input id="bizLicenseNoNew"
+						name="bizLicenseNoNew" value="<%=obj.busiLicenseNo!=null ? obj.busiLicenseNo:obj.bizLicenseNoNew%>"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">组织机构代码证号</td>
+					<td class="table_text" width="40%" id="organizationNo_old"><%=obj.orgCodeNo!=null ? obj.orgCodeNo:obj.organizerNoOld%></td>
+					<td class="table_text" width="40%"><input id="organizationNo"
+						name="organizerNoNew" value="<%=obj.orgCodeNo!=null ? obj.orgCodeNo:obj.organizerNoNew%>"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">纳税人识别号</td>
+					<td class="table_text" width="40%" id="taxplayerNo_old"><%=obj.taxNo!=null ? obj.taxNo:obj.taxpayerNoOld%></td>
+					<td class="table_text" width="40%"><input id="taxplayerNo"
+						name="taxpayerNoNew" value="<%=obj.taxNo!=null ? obj.taxNo:obj.taxpayerNoNew%>"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">联系人姓名</td>
+					<td class="table_text" width="40%" id="constactName_old"><%=obj.contactPerson!=null ? obj.contactPerson:obj.linkmanOld%></td>
+					<td class="table_text" width="40%"><input id="linkmanNew"
+						name="linkmanNew" value="<%=obj.contactPerson!=null ? obj.contactPerson:obj.linkmanNew%>"></td>
+				</tr>
+				<tr>
+					<td class="table_item" width="20%">联系人手机</td>
+					<td class="table_text" width="40%" id="constactPhoneNo_old"><%=obj.contactPhone!=null ? obj.contactPhone:obj.linkmanMobileOld%></td>
+					<td class="table_text" width="40%"><input id="linkmanMobileNew"
+						name="linkmanMobileNew" value="<%=obj.contactPhone!=null ? obj.contactPhone:obj.linkmanMobileNew%>"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="clearfix mt20 mb10" align="center">
+			<a class="btn_bg submit" id="btn_zyxxbgsq_xyb">下一步</a>
+		</div>
+	</div>
+	<!-- 资料查看结束 -->
+	<!--审批结果前显示内容开始-->
+	<div class="ml20 mt20 mr20 none">
+		<div class="acct-ct p10">
+			<div class="clearfix ovh">
+				<i class="icon_tips tips_i"></i>
+				<h2 class="f14 fb ml10 fl mt10">温馨提示：目前您处于重要信息变更申请处理中，在此期间，本业务暂无法受理！</h2>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 上传图片 -->
+	<div class="busibox p20 operations_content none" id="tpsc_tpl">
+		<div class="prompt clearfix">
+			<i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！
+		</div>
+		<div class="certificateBox">
+			<ul class="certificateSample clearfix">
+				<li><span class="f13">法人代表证件正面</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="lrCredentialFrontFile_img" class="certificateSample_img certificateSample_01"></i>
+					</div>
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							type="file" id="legalRepCreFacePicNew"
+							name="legalRepCreFacePicNew"></a><a
+							id="legalRepresentative_front_img_case"
+							class="btn_bg viewSample_btn">查看示例图片</a>
+					</div></li>
+				<li><span class="f13">法人代表证件反面</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="lrCredentialBackFile_img"
+							class="certificateSample_img certificateSample_02"></i>
+					</div>
+					
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							id="legalRepCreBackPicNew" name="legalRepCreBackPicNew"
+							type="file"></a><a id="legalRepresentative_back_img_case"
+							class="btn_bg viewSample_btn">查看示例图片</a>
+					</div></li>
+				<li><span class="f13">营业执照正本扫描件</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="busLicenceFile_img"
+							class="certificateSample_img certificateSample_03"></i>
+					</div>
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							id="bizLicenseCrePicNew" name="bizLicenseCrePicNew" type="file"></a><a
+							id="busLicenceNo_img_case" class="btn_bg viewSample_btn">查看示例图片</a>
+					</div></li>
+				<li><span class="f13">组织机构代码证正本扫描件</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="organizationFile_img"
+							class="certificateSample_img certificateSample_04"></i>
+					</div>
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							id="organizerCrePicNew" name="organizerCrePicNew" type="file"></a><a
+							id="organizationNo_img_case" class="btn_bg viewSample_btn">查看示例图片</a>
+					</div></li>
+				<li><span class="f13">税务登记证正本扫描件</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="taxplayerFile_img"
+							class="certificateSample_img certificateSample_05"></i>
+					</div>
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							id="taxpayerCrePicNew" name="taxpayerCrePicNew" type="file"></a><a
+							id="taxplayerNo_img_case" class="btn_bg viewSample_btn">查看示例图片</a>
+					</div></li>
+				<!--联系人授权委托书需要后台判断，如果修改了联系人，才会显示此项-->
+				<li><span class="f13">联系人授权委托书</span>
+					<div class="mt10 mb10 sampleBox">
+						<i id="powerOfAttorneyFile_img"
+							class="certificateSample_img certificateSample_06"></i>
+					</div>
+					<div class="sample_btn">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+							id="linkAuthorizePicNew" name="linkAuthorizePicNew"
+							type="file"></a><a id="powerOfAttorneyFile_img_case"
+							class="btn_bg viewSample_btn">模板下载</a>
+					</div></li>
+			</ul>
+		</div>
+		<div class="changeOfBusiness clearfix">
+			<div class="cob_left fl">
+				<div class="f13">重要信息变更业务办理申请书</div>
+				<div class="sampleBox_2">
+					<i id="applyFile_img"
+						class="certificateSample_img certificateSample_07"></i>
+				</div>
+				<div class="ml50">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input
+						id="applyFileId" name="applyFileId" type="file"></a><a
+						id="applyFile_img_case" class="btn_bg viewSample_btn ml5">模板下载</a>
+				</div>
+
+			</div>
+			<div class="cob_right fl">
+				<div class="register_info">
+					<ul class="ml10">
+						<li class="register_row_textarea clearfix" style="width: 535px;">
+							<label for="name">申请变更原因</label>
+							<div style="background-color: white; height: 60px;">
+								<textarea id="name" name="applyReason" style="width: 390px;"
+									class="input_gray" placeholder="输入原因，最长不超过300个字"></textarea>
+							</div>
+							<div class="hint_2" style="left: 540px;">提示</div>
+						</li>
+						<li class="register_row info_320 clearfix"><label for="name">验证码</label>
+							<div style="background-color: white; height: 30px;">
+							<input id="input_verifiedCode" class="fl h30_middle"
+								style="width: 175px; padding: 0 5px;" type="text" value=""
+								placeholder="输入验证码" />
+							<input type="hidden" id="validateCode_hide"/>
+							</div>
+							<div class="hint" style="width: 200px;">
+								<span class="fl mr5" id="validateCode"></span>
+								<a id="img_zyxxbgsq_hyz">看不清，换一张</a>
+
+							</div></li>
+					</ul>
+					<div class="two_button mt20">
+						<a class="btn_bg submit fl" id="btn_zyxxbgsq_syb">上一步</a><a
+							href="#" class="btn_bg submit fr a_zyxxbgts" id="btn_zyxxbgsq_tj">提
+							交</a>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+<div id="showImageDiv50" class="none">
+	<img alt="证件图片" src="" id="showImage50" width="800" height="600">
+</div>
+<div id="confirm_dialog" class="none">
+	<p>重要信息变更申请提交处理期间，货币转银行账户业务、代兑互生币业务、积分投资业务暂无法受理，确认要提交申请？</p>
+</div>
+
+<!--审批结果前显示内容结束-->

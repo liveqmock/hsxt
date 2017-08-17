@@ -1,0 +1,95 @@
+/* CSS Document */
+.yellow{ color:#f6ff04;}
+.scrlh {overflow-y: auto; overflow-x: hidden;}
+.cursor{cursor: pointer;}
+.clearit { clear:both; height:0; font-size:0; overflow:hidden; }
+
+
+.yyxt_ddlb_sx  li{ float:left; width:315px; padding-bottom:8px;}
+.yyxt_ddlb_sx  li .text{ border:1px solid #cccccc; width:164px; height:24px; line-height:24px; padding:0 2px;}
+.yyxt_ddlb_sx  li  .title-txt{ width:140px; line-height:24px;}
+.yyxt_ddlb_sx  li  .title-txt2{ width:70px;}
+.yyxt_ddlb_sx  li  .text_time{ width:77px;}
+.shlb_td_title{ background:#6baf58; padding:0px; text-align:left;  }
+.shlb_td_title span{ float:left; color:#FFF;}
+.shlb_table_lym .shlb_title a{ line-height:18px;}
+
+.shclgc_table .search-table td{  border:1px solid #dddddd;}
+.table_no_hover tr:hover{ background:none;}
+.table_no_hover td{border:1px solid #dddddd;}
+.table_no_hover tbody{ /*visibility:inherit;*/ }
+
+.yyxt_xssrtj .xssrtj_ul li{ line-height:30px; padding-bottom:10px; float:left; width:46%;}
+
+.yyxt_xssrtj .xssrtj_ul li .text{ border:1px solid #CCC; height:24px; line-height:24px; width:215px; padding:0 5px;}
+.yyxt_xssrtj .xssrtj_ul li .text_time{ width:100px;}
+.yyxt_xssrtj .xssrtj_ul li .xssrtj_flmx{ padding-left:80px;}
+.yyxt_xssrtj .xssrtj_ul li .xssrtj_flmx dd,.yyxt_xssrtj .xssrtj_ul li .item_box{ padding-bottom:5px;}
+.yyxt_xssrtj .xssrtj_ul li .mr10{ margin-right:10px;}
+.yyxt_xssrtj .xssrtj_ul .xssrtj_btn{ width:92%;}
+.yyxt_xssrtj .xssrtj_ul li .xssrtj_flmx .text{ width:215px;}
+
+/*类目*/
+.yyxt_xssrtj .tscl_ul li{ width:40%;}
+.yyxt_xssrtj .tscl_ul .xssrtj_btn{ width:19%;}
+.yyxt_xssrtj .tscl_ul .xssrtj_btn p{ padding-top:65px;}
+.leimu_table td ,.leimu_table th{ border:none;}
+.leimu_table td{ border-bottom:1px solid #E7E7E7;}
+.leimu_table td .text{ border:1px solid #CCC; height:20px; line-height:20px;}
+.leimu_table td  .add_images{ padding-left:20px; background:url(../img/shope_03.gif) left center no-repeat; padding-top:2px; padding-bottom:2px;}
+.leimu_table .yidong_td i,.leimu_table .minyidong_td i{ padding:0 3px;}
+.leimu_table .down_btn a{ padding:5px 8px;}
+.leimu_table .add_text_tr{ display:none;}
+.leimu_table .add_text_tr .left_ico{ float:left; display: inline-block; width:16px; height:16px; background:url(../img/shope_04.gif) left top no-repeat;}
+/**.leimu_table .add_text_tr .add_text_box{ padding-left:100px;} 合并代码先保留 add by zhucy 2016-02-05*/
+.leimu_table .add_text_tr .add_text_box{ padding-left:44px; padding-top:5px; height:27px;}
+.leimu_table .add_text_tr .add_text_box span{ float:left;}
+.leimu_table .add_text_tr .add_text_box span .btn{ height:27px; line-height:27px; border:1px solid #ccc; cursor:pointer; padding:0 10px;}
+.add_text_tr .text{ width:200px; height:24px; line-height:24px;}
+.leimu_zilei_box{ margin-left:50px; border-bottom:1px dashed #CCC;}
+.leimu_zilei_box span{ display:block; padding:0 8px; float:left; text-align:center; line-height:24px;}
+
+.leimu_tick_box .seacrh_box{ text-align:center; background:#e8f4e5; padding-top:10px; padding-bottom:10px;}
+.leimu_tick_box .seacrh_box .text{ border:1px solid #CCC; height:30px; line-height:30px; width:200px;}
+.leimu_tick_box .lemu_ul,.leimu_tick_box .fl, .leimu_tick_box .fr{ height:240px;}
+.leimu_tick_box .list_tit{ line-height:30px;}
+.leimu_tick_box  .left{ width:220px;}
+.leimu_tick_box  .center{ width:70px;}
+.leimu_tick_box  .right{  width:220px;}
+.leimu_tick_box  .list_box{ border:3px solid #CCC; background:#F5F5F5; overflow:auto; width:214px; height:204px;}
+.leimu_tick_box ul li{  border-bottom:1px dashed #DFDFDF;}
+.leimu_tick_box ul li a{ display:block; line-height:28px; padding:0 5px;}
+.leimu_tick_box .left ul li a:hover{ background:url(../img/shope_02.gif) 95% center no-repeat scroll #E8F4E5;}
+.leimu_tick_box .right ul li a:hover{ background:url(../img/shope_left_ico.gif) 95% center no-repeat scroll #E8F4E5;}
+.leimu_tick_box .left_right_btn p{ text-align:center; line-height:26px; padding-bottom:10px;}
+.leimu_tick_box .left_right_btn p a{ padding:3px 10px;}
+
+.leimu_tick_box ul li{ padding:5px 0;}
+.leimu_tick_box ul li .text{border:1px solid #CCC; height:30px; line-height:30px; width:285px;}
+
+.btnbox_20140213{ clear:both; height:35px; text-align:center; margin-top:20px;}
+.btnbox_20140213 a{ padding:5px 15px; margin:0 5px;}
+
+
+.pinpai_ul li{ padding-bottom:10px;}
+.pinpai_ul li .title-txt{ width:100px;}
+.pinpai_ul li .text{ border:1px solid #CCC; height:24px; line-height:24px; width:215px; padding:0 5px;}
+.pinpai_ul li .text2{ width:430px; }
+.pinpai_ul li .textarea{ width:440px;border:1px solid #CCC; height:120px;}
+
+.guanlianshux_add{ padding:7px 15px;}
+
+/**/
+#xtgglb_tick_table .text_time{ width:130px;}
+#xtgglb_tick_table .w300{ width:300px;}
+#xtgglb_tick_table textarea{width:300px; resize:none;}
+
+/**/
+.yyxt_xfzxxlb_sx li .title-txt2{ width:80px;}
+
+#subNav_0 li{ padding:0px;}
+#subNav_0 li a{ padding:0 10px;}
+
+/**/
+.hs_btn_gray { border: 1px solid #dddddd; color: #696969;  -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius:4px; -o-border-radius: 4px; border-radius: 4px; background: #f8f8f8;  /* W3C syntax */ background: -moz-linear-gradient(top, #f8f8f8 0%, #f2f2f2 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f8f8), color-stop(100%, #f2f2f2)); background: -webkit-linear-gradient(top, #f8f8f8 0%, #f2f2f2 100%); background: -o-linear-gradient(top, #f8f8f8 0%, #f2f2f2 100%); background: -ms-linear-gradient(top, #f8f8f8 0%, #f2f2f2 100%); background: linear-gradient(top, #f8f8f8 0%, #f2f2f2 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f2f2f2', GradientType=0 );
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <!-- 因为spring的context是父子容器，所以会产生冲突，Controller会先进行扫描装配， 而此时的Service还没有进行事务的增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力）
+        最后才是applicationContext.xml中的扫描配置进行事务处理 -->
+    <context:component-scan base-package="com.gy.hsxt.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="regex" expression="com.gy.hsi.fs.client.*"/>
+    </context:component-scan>
+
+    <!-- 属性配置 -->
+    <bean id="propertyConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+        <constructor-arg name="disconfFile"
+                         value="file:${user.dir}/conf/hsxt-access-web-scs/disconf.properties"/>
+
+        <!-- 远程配置文件[远程存在, 将会同步到本地] -->
+        <property name="remoteLocations">
+            <list>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/dubbo.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/hsi-fs.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/hsi-lc.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/log4j.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/redis.properties</value>
+                <value>file:${user.dir}/conf/hsxt-access-web-scs/hsxt-access-web-scs.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 初始化文件系统 -->
+    <bean class="com.gy.hsi.fs.client.FS" init-method="init"></bean>
+
+    <bean id="scsConfigService" class="com.gy.hsxt.access.web.scs.services.common.SCSConfigService">
+   
+    </bean>
+
+    <!-- 基础数据客户端 服务依赖redis以及LCS的dubbo接口-->
+    <bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+        <property name="redisUtil" ref="fixRedisUtil"/><!--注入redis缓存工具类 -->
+        <property name="baseDataService" ref="lcsBaseDataService"/><!--注入LCS dubbo服务 -->
+    </bean>
+
+    <import resource="classpath:spring/spring-consumer.xml"/>
+	<import resource="classpath:spring/hsxt-redis-spring.xml" />
+
+</beans>
+ 

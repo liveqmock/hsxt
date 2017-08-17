@@ -1,0 +1,102 @@
+<div id="fsxxTpl">
+	<div class="register_info ml10_important">
+	<form id="msgForm">
+		<ul>
+		<li class="register_row clearfix" style="width:450px;">
+			<label for="msg_title">消息标题</label>
+			<div class="cont-chk tbox2">
+				<input type="hidden" id="msgId" name="msgId" value="<%=obj.msgId %>" >
+				<input type="text" id="msgTitle" name="msgTitle" placeholder="输入消息标题,最长不超过20个汉字" maxlength="40"  style="width:310px;" value="<%=obj.title %>" >
+			</div>
+			<div class="must" style="left:460px;">*</div>
+		</li>
+		<li class="register_row clearfix" style="width:450px;">
+			<label for="msgType_1">消息类型</label>
+			<div class="cont-chk tbox2 text_middle">
+				<input type="radio" id="msgType_1" name="msgType" class="radio_input ml10" value="12" <% if(obj.type==12){%>checked="checked"<%}%> style="float:none;"> 公开信
+				<input type="radio" id="msgType_2" name="msgType" class="radio_input ml20" value="20" <% if(obj.type==20){%>checked="checked"<%}%> style="float:none;"> 私信
+			</div>
+		<!--<div class="cont-chk tbox2 text_middle">
+				<select id="msgType" style="width:100px;height:24px;">
+					<option value="">--请选择--</option>
+					<option value="1">公开信</option>
+					<option value="2">私信</option>
+				</select>
+				<span id="sub_msgType" class="ml10 none">
+					<input type="radio" id="notice_1" name="notice" class="radio_input" value="2" checked="checked" style="float:none;"> 公告
+					<input type="radio" id="notice_2" name="notice" class="radio_input ml20" value="3" style="float:none;"> 通知
+				</span>
+			</div>--><div class="must" style="left:460px;">*</div>
+		</li>
+		<li class="register_row clearfix" style="width:450px;">
+			<label for="IptLevel_1">重要级别</label>
+			<div class="cont-chk tbox2 text_middle">
+				<input type="radio" id="IptLevel_1" name="msgLevel" class="radio_input ml10" value="1" <% if(obj.level==1){%>checked="checked"<%}%> style="float:none;"> 一般&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" id="IptLevel_2" name="msgLevel" class="radio_input ml10" value="2" <% if(obj.level==2){%>checked="checked"<%}%> style="float:none;"> 重要
+			</div>
+			<div class="must" style="left:460px;">*</div>
+		</li>
+		<li class="register_row clearfix" style="width:450px;">
+			<label for="receivingUnit">接收单位</label>
+			<div class="cont-chk tbox2">
+                <input type="hidden" id="receiveEntValue" name="receiveEntValue" value="<%=obj.receiptor %>"/>
+				<input type="text" maxlength="150" id="receivingUnit" name="receivingUnit" placeholder="输入或者选择，可以为多个接收者，接收者之间用逗号隔开"  style="width:310px;" value="<%=obj.receiptorName %>"  />
+			</div>
+			<div class="must" style="left:460px;">*</div>
+			<i id="btn_xzjsdw" class="icon-add addmsg" title="选择接收单位" style="left:470px;"></i>
+		</li>
+		<li class="register_row clearfix" style="width:450px;">
+			<label for="messageDigest">消息摘要</label>
+			<div class="cont-chk tbox2">
+				<input type="text" id="messageDigest" name="messageDigest" placeholder="输入消息摘要,不超过100个字"  maxlength="100"  style="width:310px;" value="<%=obj.summary %>">
+			</div>
+			<div class="must" style="left:460px;">*</div>
+		</li>
+		<li class="clearfix mt5" style="width:450px;border:1px solid #ccc">
+			<label class="title-txt w115 h70" style="height:70px;line-height:70px">图片</label>
+			<span id="imgApplyImg" class="sample_img fl">
+				<i id="business_apply" style="height: 64px; width: 107px;overflow: hidden;display:inline-block"></i>
+				<!-- <img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5"> -->
+				<input type="hidden" id="images" name="images" value="<%=obj.images %>"/>
+			</span>
+			<a class="input-file btn_bg upload_btn ml10 mr10 mt15">上传<input id="fileApply" name="fileApply" type="file"></a><!--a  class="btn_bg viewSample_btn">模板下载</a-->
+		</li>
+		<li class="register_row clearfix" style="height:200px;width:1000px;">
+			<label for="msgContent" style="width:115px;height:200px;">消息内容</label>
+			<div>
+				<textarea id="msgContent" name="msgContent" style="width: 879px;"><%=obj.msg %></textarea>
+			</div>
+			</li>
+		</ul>
+	</form>
+	</div>
+	<div class="mt10 w300 bc clearfix">
+		<a class="btn_bg submit fl" id="btn_send">发　送</a>
+		<a class="btn_bg submit fl" id="btn_save" style="margin-left:19px;">保  存</a>
+		<a class="btn_bg submit fl ml15" id="fsxx_yl_btn" style="margin-left:19px;">预&#12288;览</a>
+	</div>
+</div>
+
+<div id="jsdw_dialog" class="none" title="选择接受单位">
+	<p>
+		<div id="receivingUnit_1" class="view_info mt10">
+		<table width="100%"  class="fixtable">
+			<tr>
+				<td class="view_input"><input type="checkbox" name="selectReceiveEnt" id="a0" class="ml5 mr5" value="M_ALL_S" ><label for="a0">全体下属服务公司</label></td>
+			</tr>
+			<!-- 
+			<tr>
+				<td class="view_input"><input type="checkbox" name="selectReceiveEnt" id="a1" class="ml5 mr5" value="ALL_T" ><label for="a0">全体下属托管企业</label></td>
+				
+			</tr>
+			<tr>
+				<td class="view_input"><input type="checkbox" name="selectReceiveEnt" id="a2" class="ml5 mr5" value="ALL_B" ><label for="a0">全体下属成员企业</label></td>
+			</tr>
+			 -->
+		</table>
+	</div>
+	</p>
+</div>
+
+<div id="fsxx_ylTpl" class="none"></div>
+		

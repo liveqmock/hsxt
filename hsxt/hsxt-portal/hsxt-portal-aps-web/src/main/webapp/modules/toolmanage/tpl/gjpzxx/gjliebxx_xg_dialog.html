@@ -1,0 +1,29 @@
+<div class="view_info">
+<input type="hidden" id="jg_input_hidden" value=""/>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		 <tr>
+        	<td class="view_item w100">工具名称</td>
+            <td class="view_text" colspan="3" ><span id="gjmc_txt"><%=obj.productName || ''%></span></td>
+            
+        </tr>
+        <tr>    
+            <td class="view_item" >工具类别</td>
+            <td class="view_text"  colspan="3" ><span id="gjlb_txt"><%=obj.categoryCodes || ''%></span></td>
+            
+        </tr>
+        <tr>
+            <td class="view_item">价格</td>
+            <td><input type="text" id="jg_input" maxlength="10" class="h28_middle w96pc ml5" placeholder="输入价格" value="<%=comm.formatMoneyNumber(obj.price)%>" /></td>
+            <td class="view_item">计量单位</td>
+            <td class="view_text"><span id="jldw_txt"  ><%=obj.unit || ''%></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">工具说明</td>
+            <td class="view_text" colspan="3"><span id="gjsm_txt"><%=obj.description || ''%></span></td>
+        </tr>
+		<tr>
+            <td class="view_item">工具图片</td>
+            <td class="view_text" colspan="3"><span id="gjtp_txt" id="searchPicture"><a class="blue" id="gjlbxgtps">点击查看图片<img style="display:none" id="gjlbxgImgs" src="" width="80" height="20"  title="点击查看图片" /></a></span></td>
+        </tr>
+	</table>
+</div>

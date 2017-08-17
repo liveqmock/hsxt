@@ -1,0 +1,107 @@
+<!-- 关联零售商品 -->
+ <%var param = obj.data.QueryResult.result;
+   var objParam = obj.data.QueryResult;
+   var itemVistiUrl =obj.data.itemVisitUrl;
+   var typeState = obj.typeState;
+ %>
+<div class="search-toolbar">
+          <ul class="cssform clearfix">
+                         <li class="mr20">
+    						<label class="title-int">商品名称：</label>
+                            <div class="cont-int">
+                                	<input type="text" name="textfield" id="itemName_Listhead" placeholder="商品名称" value="" class="input-txt w80" />
+                            </div> 
+                            </li> 
+                         <li class="mr20">
+    						<label class="title-int">品牌：</label>
+    						<div class="cont-int">
+                                	<input type="text" name="textfield" id="itemBrand_Listhead" placeholder="品牌" value="" class="input-txt w80" />
+                            </div> 
+    						
+                          
+                          </li>
+                          <!-- 
+                          <li class="mr20">
+    						<label class="title-int">商品分类：</label>
+                            <div class="cont-chk w100 ml5 mr5">
+                            	<select id="flei">
+                                          <option>--请选择--</option>
+                                  </select>
+                             </div>
+                            </li>
+                           -->   
+                          <li class="mr20">
+                            <div class="cont-int">
+                                <button id="searchItem_Listhead" type="button" class="btn-search">查询</button>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="cont-int">
+                                <button id="searchItem_Listhead" type="button" class="btn-search szflsp">设置分类商品</button>
+                            </div>
+                          </li>
+                    </ul>
+     </div>		
+    <div style="zoom:1;">
+      <table width="100%" border="0"  cellspacing="0" cellpadding="0" class="search-table" id="gridRelationItem">
+
+        <tr>
+          <th w_render="operate" w_algin="left" width="35%"><input type="checkbox" id="all_item" class="mr10">商品名称</th>
+          <th w_index="brandName" w_algin="left" width="20%">品牌</th>
+          <th w_index="categoryName" w_algin="left" width="20%">商品分类</th>
+		  <th w_render="operate" w_algin="left" width="5%">状态</th>
+		  <th w_render="operate" w_algin="center"  width="20%">操作</th>
+        </tr>
+          <%if(0 != param.length && null != param && "" != param){%>
+	    <% $.each(param,function(key,el){    %>
+	    <% 
+	    var picUrl;
+	    try{
+        	var obj =JSON.parse(el.picList[0].webPicUrl)
+         	picUrl=el.picList[0].picUrl+obj["68x68"]
+        }catch(e){
+         	picUrl = "";
+        }
+    	%>
+        <tr itemId="<%=el.strId%>">
+          <td>
+          	<div class="clearfix">
+                  <div class="fl pr5"><input type="checkbox" name="itemDataCheckBox" class="mr10 mt30"></div>
+                  <div class="fl spmc-img"><img src="<%=picUrl%>" width="60" height="60"></div>
+                  <div class="fl spmc-txt">
+                      <ul>
+                          <li>商品编号：<%=el.strId%></li>
+                          <li class="mrg">商品名称：<%=el.name%></li>
+                          <li><span class="txt-spa2">货号</span>：<%=el.code!=null && el.code!=''?''+el.code:''%></li>
+                      </ul>
+                  </div>
+              </div>
+          </td>
+          <td align="center"><%=el.categoryName%></td>
+          <td align="center"><%=el.brandName%></td>
+          <td align="center">已上架</td>
+          <td align="center"><a class="cancelItemRelation" >删除</a></td>
+        </tr>
+       <% })%>
+     <%}%>   
+		</table>
+        <div class="mt10 clearfix">
+          <div class="fl">
+          <!--<input name="" type="checkbox" value="" /><a href="#" class="ml5 mr10">全选</a>
+          <a href="#" class="mr10 btn-model szflsp">设置分类商品</a>--><a href="#" class="mr10 btn-model batchCancelItemRelation">批量删除</a>
+          </div>   
+		  <div class="table-page">
+				<a href="javascript:;" class="page-nact pageOrder2" page="1">首页</a>
+				<a href="javascript:;" class="page-nact pageOrder2" page="<%=((objParam.currentPageIndex-1)<1?'':objParam.currentPageIndex-1)%>">上一页</a>
+				<a href="javascript:;" class="page-nact pageOrder2" page="<%=((objParam.currentPageIndex+1)>objParam.totalPage?'':objParam.currentPageIndex+1)%>">下一页</a>
+				<a href="javascript:;" class="page-nact pageOrder2" page="<%=objParam.totalPage%>">末页</a>
+				<span class="page-go">跳到</span>
+				<input type="text" class="page-txt" id="pageInput2" value="<%=objParam.currentPageIndex%>" totalPage="<%=objParam.totalPage%>"/><span class="page-go">页/<%=objParam.totalPage%>页</span>
+				<a href="javascript:;" class="page-act pageOrder2" style="cursor:default">共<%=objParam.recoredCount%>条</a>
+		  </div> 
+        </div>
+        <p class="tass tc mt20">
+          <!--  a href="javascript:void(0)" class="btn_bg submit mr10">确&nbsp;&nbsp;定</a-->
+          <a href="javascript:void(0)" class="btn_bg submit cancel1">返&nbsp;&nbsp;回</a>
+        </p>
+    </div>

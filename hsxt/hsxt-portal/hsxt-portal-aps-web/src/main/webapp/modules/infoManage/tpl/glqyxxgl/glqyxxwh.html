@@ -1,0 +1,63 @@
+<div id="glqyxxwhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_belongEntResNo" id="search_belongEntResNo" maxlength="11" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+			<label>企业名称：</label>
+			<input type="text" name="search_belongEntName" id="search_belongEntName" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="qry_qy_btn" type="button" class="btn-search">查询</button>
+			</li>
+		</ul>
+	</div>	
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="entName" w_tip=true>单位名称</th>
+		<th w_index="contactPerson">联系人姓名</th>
+		<th w_index="contactPhone">手机号码</th>
+		<th w_index="openDate">系统开启日期</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="glqyxxwh_jl" class="none view_info">
+	<input type="hidden" id="belongEntCustId"/>
+	<div class="pl5 mt20">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>修改信息：</label>
+				<input type="text" name="updateFieldName" id="updateFieldName" placeholder="输入信息" class="h28_middle w115 input-txt" />
+			</li>
+		
+			<li>
+				<button id="qry_jl_btn" type="button" class="btn-search">查询</button>
+			</li>
+		</ul>
+	</div>	
+	<table id="xgjl_table">
+	  <tr>
+		<th w_num="line" width="5%" >序号</th>
+		<th w_index="updateFieldName" width="16%" w_tip=true>修改信息</th>
+		<th w_index="updateValueOld" width="20%" w_render="operate" w_tip=true>修改前内容</th>
+		<th w_index="updateValueNew" width="20%" w_render="operate" w_tip=true>修改后内容</th>
+		<th w_index="operName" w_tip=true width="12%">操作员</th>
+		<th w_index="updateTime" w_tip=true width="15%">修改日期</th>
+		<th w_index="confirmName" w_tip=true width="12%">复核员</th>
+	  </tr>
+	</table>
+</div>
+</div>
+
+
+<div id="glqyxxwh_operation">
+
+</div>
+

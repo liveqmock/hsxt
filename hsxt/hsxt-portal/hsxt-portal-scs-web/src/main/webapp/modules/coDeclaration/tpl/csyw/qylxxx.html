@@ -1,0 +1,54 @@
+﻿<div id="qylxxxTpl">
+	<div class="view_info info_800">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">联系人姓名</td>
+				<td class="view_text" width="30%">杨过</td>
+				<td class="view_item" width="20%">联系人手机</td>
+				<td class="view_text" width="30%">13800138000</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">联系地址</td>
+				<td class="view_text" width="30%">深圳市福田区群星广场</td>
+				<td class="view_item" width="20%">邮政编码</td>
+				<td class="view_text" width="30%">518000</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">企业网址</td>
+				<td class="view_text" width="30%">www.123.com</td>
+				<td class="view_item" width="20%">企业安全邮箱</td>
+				<td class="view_text" width="30%">123@123.com</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">办公电话</td>
+				<td class="view_text" width="30%">12345678</td>
+				<td class="view_item" width="20%">传真号码</td>
+				<td class="view_text" width="30%">12345678</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">联系人职务</td>
+				<td class="view_text" width="30%">职务</td>
+				<td class="view_item" width="20%">企业联系QQ</td>
+				<td class="view_text" width="30%">11111111</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<a ><img src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" /></a>
+				</td>
+				</tr>
+		</table>
+	</div>
+	<div class="w200 bc mt20 clearfix">
+		<a class="btn_bg submit fl" id="qylxxx_modify">修&#12288;改</a>
+		
+		<% if (num == 'tgqy'){ %>
+		<a class="btn_bg submit fr" id="tgqy_qylxxx_cancel">取&#12288;消</a>
+		<% } else if (num == 'cyqy'){ %>
+		<a class="btn_bg submit fr" id="cyqy_qylxxx_cancel">取&#12288;消</a>
+		<% } else if (num == 'fwgs'){ %>
+		<a class="btn_bg submit fr" id="fwgs_qylxxx_cancel">取&#12288;消</a>
+		<% } %>
+
+	</div>
+</div>

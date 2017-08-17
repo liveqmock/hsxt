@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.mapper.BsGpImbalanceMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.tc.bean.BsGpImbalance">
+		<id column="IMBALANCE_ID" property="imbalanceId" jdbcType="DECIMAL" />
+		<result column="ACC_DATE" property="tcDate" jdbcType="CHAR" />
+		<result column="IMBALANCE_RESULT" property="imbalanceType" jdbcType="DECIMAL" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="BS_TRANS_AMOUNT" property="bsTransAmount" jdbcType="DECIMAL" />
+		<result column="BS_TRANS_STATUS" property="bsTransStatus" jdbcType="DECIMAL" />
+		<result column="BS_TRANS_DATE" property="bsTransDate" jdbcType="TIMESTAMP" />
+		<result column="GP_SEQ_ID" property="gpSeqId" jdbcType="VARCHAR" />
+		<result column="GP_TRANS_TYPE" property="gpTransType" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_AMOUNT" property="gpTransAmount" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_STATUS" property="gpTransStatus" jdbcType="DECIMAL" />
+		<result column="GP_TRANS_DATE" property="gpTransDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!--查询的列 -->
+	<sql id="Base_Column_List">
+	   IMBALANCE_ID,
+       ACC_DATE,
+       IMBALANCE_RESULT,
+       ORDER_NO,
+       BS_TRANS_AMOUNT,
+       BS_TRANS_STATUS,
+       BS_TRANS_DATE,
+       GP_SEQ_ID,
+       GP_TRANS_TYPE,
+       GP_TRANS_AMOUNT,
+       GP_TRANS_STATUS,
+       GP_TRANS_DATE
+	</sql>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<where>
+			<if test="beginDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &gt;= TO_DATE(#{beginDate},'YYYY-MM-DD')
+			</if>
+			<if test="endDate != null">
+				And TO_DATE(ACC_DATE,'YYYY-MM-DD') &lt;= TO_DATE(#{endDate},'YYYY-MM-DD')
+			</if>
+			<if test="imbalanceType != null">
+				And IMBALANCE_RESULT = #{imbalanceType}
+			</if>
+		</where>
+	</sql>
+
+	<!--分页查询 -->
+	<select id="pagination" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Base_Column_List" />
+		from T_TC_BSGP_PAY_IMBALANCE
+		<include refid="Where_Condition" />
+		<include refid="PaginationSuffix" />
+	</select>
+
+	<!--统计查询的总数 -->
+	<select id="countTotalSize" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from T_TC_BSGP_PAY_IMBALANCE
+		<include refid="Where_Condition" />
+	</select>
+
+	<!--分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		<if test="page != null">
+			select * from ( select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+		<if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+		</if>
+	</sql>
+
+</mapper>

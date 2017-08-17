@@ -1,0 +1,480 @@
+/*银行小logo样式*/
+.bank-logo{ 
+  background: url(../images/bank_logo.png) no-repeat;
+  display: block;
+  width: 125px;
+  height: 28px;
+  overflow: hidden;
+  text-indent: -9999px;
+  margin:0 auto;
+}
+.bank-0001 {background-position: 0 -140px;}
+.bank-0002 {background-position: 0 -532px;}
+.bank-0003 {background-position: 0 -840px;}
+.bank-0004 {background-position: 0 -336px;}
+.bank-0005 {background-position: 0 -784px;}
+.bank-0006 {background-position: 0 -588px;}
+.bank-0007 {background-position: 0 -196px;}
+.bank-0008 {background-position: 0 -392px;}
+.bank-0009 {background-position: 0 -896px;}
+.bank-0010 {background-position: 0 -448px;}
+.bank-0011 {background-position: 0 -756px;}
+.bank-0012 {background-position: 0 -168px;}
+.bank-0013 {background-position: 0 -308px;}
+.bank-0014 {background-position: 0 -672px;}
+.bank-0015 {background-position: 0 -644px;}
+.bank-0016 {background-position: 0 -868px;}
+.bank-0017 {background-position: 0 -28px;}
+.bank-0018 {background-position: 0 0;}
+.bank-0019 {background-position: 0 -560px;}
+.bank-0020 {background-position: 0 -1820px;}
+.bank-0021 {background-position: 0 -700px;}
+.bank-0022 {background-position: 0 -1932px;}
+.bank-0023 {background-position: 0 -57px;}
+.bank-0025 {background-position: 0 -3027px;}
+.bank-0026 {background-position: 0 -3057px;}
+.bank-0027 {background-position: 0 -4364px;}
+.bank-0028 {background-position: 0 -4399px;}
+.bank-0029 {background-position: 0 -4443px;}
+.bank-0030 {background-position: 0 -4484px;}
+.bank-0031 {background-position: 0 -4524px;}
+.bank-0032 {background-position: 0 -4567px;}
+.bank-0033 {background-position: 0 -4604px;}
+.bank-0034 {background-position: 0 -4638px;}
+.bank-0035 {background-position: 0 -4672px;}
+.bank-0036 {background-position: 0 -4710px;}
+.bank-0037 {background-position: 0 -2016px;}
+.bank-0039 {background-position: 0 -3087px;}
+.bank-0040 {background-position: 0 -84px;}
+.bank-0041 {background-position: 0 -924px;}
+.bank-0042 {background-position: 0 -4746px;}
+.bank-0043 {background-position: 0 -4782px;}
+.bank-0044 {background-position: 0 -4816px;}
+.bank-0045 {background-position: 0 -4850px;}
+.bank-0046 {background-position: 0 -3122px;}
+.bank-0047 {background-position: 0 -3164px;}
+.bank-0048 {background-position: 0 -3204px;}
+.bank-0049 {background-position: 0 -4884px;}
+.bank-0050 {background-position: 0 -952px;}
+.bank-0051 {background-position: 0 -1148px;}
+.bank-0052 {background-position: 0 -4924px;}
+.bank-0053 {background-position: 0 -3245px;}
+.bank-dyyh {background-position: 0 -2044px;}
+.bank-0054 {background-position: 0 -1205px;}
+.bank-0055 {background-position: 0 -4964px;}
+.bank-0056 {background-position: 0 -3285px;}
+.bank-0057 {background-position: 0 -1849px;}
+.bank-0059 {background-position: 0 -2045px;}
+.bank-0060 {background-position: 0 -1401px;}
+.bank-0062 {background-position: 0 -4997px;}
+.bank-0063 {background-position: 0 -5035px;}
+.bank-0064 {background-position: 0 -112px;}
+.bank-0065 {background-position: 0 -3362px;}
+.bank-0066 {background-position: 0 -2771px;}
+.bank-0067 {background-position: 0 -1008px;}
+.bank-0068 {background-position: 0 -5068px;}
+.bank-0069 {background-position: 0 -1120px;}
+.bank-0070 {background-position: 0 -3398px;}
+.bank-0071 {background-position: 0 -5099px;}
+.bank-0072 {background-position: 0 -5130px;}
+.bank-0073 {background-position: 0 -3436px;}
+.bank-0074 {background-position: 0 -2268px;}
+.bank-0075 {background-position: 0 -2239px;}
+.bank-0076 {background-position: 0 -1652px;}
+.bank-0077 {background-position: 0 -252px;}
+.bank-0078 {background-position: 0 -5164px;}
+.bank-0079 {background-position: 0 -3480px;}
+.bank-0080 {background-position: 0 -1792px;}
+.bank-0081 {background-position: 0 -1036px;}
+.bank-0082 {background-position: 0 -5203px;}
+.bank-0083 {background-position: 0 -5243px;}
+.bank-0084 {background-position: 0 -3524px;}
+.bank-0085 {background-position: 0 -5280px;}
+.bank-0086 {background-position: 0 -3562px;}
+.bank-0087 {background-position: 0 -2576px;}
+.bank-0088 {background-position: 0 -5300px;}
+.bank-0089 {background-position: 0 -2632px;}
+.bank-0090 {background-position: 0 -3592px;}
+.bank-0091 {background-position: 0 -5334px;}
+.bank-0092 {background-position: 0 -5374px;}
+.bank-0093 {background-position: 0 -5412px;}
+.bank-0094 {background-position: 0 -5440px;}
+.bank-0095 {background-position: 0 -5470px;}
+.bank-0096 {background-position: 0 -3630px;}
+.bank-0098 {background-position: 0 -364px;}
+.bank-0099 {background-position: 0 -2912px;}
+.bank-0100 {background-position: 0 -2883px;}
+.bank-0101 {background-position: 0 -1567px;}
+.bank-0102 {background-position: 0 -2072px;}
+.bank-0103 {background-position: 0 -5502px;}
+.bank-0104 {background-position: 0 -1484px;}
+.bank-0105 {background-position: 0 -5540px;}
+.bank-0106 {background-position: 0 -1876px;}
+.bank-0107 {background-position: 0 -419px;}
+.bank-0109 {background-position: 0 -1512px;}
+.bank-0110 {background-position: 0 -5572px;}
+.bank-0111 {background-position: 0 -5605px;}
+.bank-0111 {background-position: 0 -5605px;}
+.bank-0112 {background-position: 0 -5642px;}
+.bank-0113 {background-position: 0 -1539px;}
+.bank-0114 {background-position: 0 -5680px;}
+.bank-0115 {background-position: 0 -5720px;}
+.bank-0116 {background-position: 0 -1345px;}
+.bank-0117 {background-position: 0 -5758px;}
+.bank-0118 {background-position: 0 -3908px;}
+.bank-0119 {background-position: 0 -1904px;}
+.bank-0120 {background-position: 0 -5799px;}
+.bank-0122 {background-position: 0 -2295px;}
+.bank-0123 {background-position: 0 -5836px;}
+.bank-0124 {background-position: 0 -5872px;}
+.bank-0125 {background-position: 0 -3669px;}
+.bank-0126 {background-position: 0 -1957px;}
+.bank-0127 {background-position: 0 -504px;}
+.bank-0128 {background-position: 0 -5911px;}
+.bank-0129 {background-position: 0 -3705px;}
+.bank-0131 {background-position: 0 -1092px;}
+.bank-0130 {background-position: 0 -5948px;}
+.bank-0132 {background-position: 0 -476px;}
+.bank-0133 {background-position: 0 -5982px;}
+.bank-0134 {background-position: 0 -6023px;}
+.bank-0135 {background-position: 0 -2743px;}
+.bank-0136 {background-position: 0 -1990px;}
+.bank-0137 {background-position: 0 -3748px;}
+.bank-0138 {background-position: 0 -3790px;}
+.bank-0139 {background-position: 0 -6058px;}
+.bank-0140 {background-position: 0 -6094px;}
+.bank-0141 {background-position: 0 -6134px;}
+.bank-0143 {background-position: 0 -3829px;}
+.bank-0144 {background-position: 0 -616px;}
+.bank-0147 {background-position: 0 -3908px;}
+.bank-0148 {background-position: 0 -3866px;}
+.bank-0149 {background-position: 0 -6170px;}
+.bank-0150 {background-position: 0 -3908px;}
+.bank-0151 {background-position: 0 -6203px;}
+.bank-0152 {background-position: 0 -6233px;}
+.bank-0153 {background-position: 0 -6269px;}
+.bank-0154 {background-position: 0 -3944px;}
+.bank-0155 {background-position: 0 -6305px;}
+.bank-0156 {background-position: 0 -3981px;}
+.bank-0157 {background-position: 0 -4020px;}
+.bank-0158 {background-position: 0 -2323px;}
+.bank-0159 {background-position: 0 -1764px;}
+.bank-0160 {background-position: 0 -6345px;}
+.bank-0161 {background-position: 0 -4057px;}
+.bank-0162 {background-position: 0 -7150px;}
+.bank-0163 {background-position: 0 -6378px;}
+.bank-0164 {background-position: 0 -6408px;}
+.bank-0165 {background-position: 0 -7183px;}
+.bank-0166 {background-position: 0 -6438px;}
+.bank-0167 {background-position: 0 -6475px;}
+.bank-0168 {background-position: 0 -2660px;}
+.bank-0169 {background-position: 0 -4098px;}
+.bank-0170 {background-position: 0 -4142px;}
+.bank-0171 {background-position: 0 -1373px;}
+.bank-0172 {background-position: 0 -2155px;}
+.bank-0173 {background-position: 0 -7115px;}
+.bank-0174 {background-position: 0 -2996px;}
+.bank-0175 {background-position: 0 -4180px;}
+.bank-0176 {background-position: 0 -728px;}
+.bank-0177 {background-position: 0 -4218px;}
+.bank-uccb {background-position: 0 -4218px;}
+.bank-0178 {background-position: 0 -7084px;}
+.bank-0179 {background-position: 0 -7050px;}
+.bank-0180 {background-position: 0 -7016px;}
+.bank-0181 {background-position: 0 -6978px;}
+.bank-0182 {background-position: 0 -6942px;}
+.bank-0183 {background-position: 0 -6907px;}
+.bank-0184 {background-position: 0 -6872px;}
+.bank-0185 {background-position: 0 -6838px;}
+.bank-0186 {background-position: 0 -6805px;}
+.bank-0187 {background-position: 0 -6780px;}
+.bank-0188 {background-position: 0 -6755px;}
+.bank-0189 {background-position: 0 -4253px;}
+.bank-0190 {background-position: 0 -6722px;}
+.bank-0191 {background-position: 0 -6683px;}
+.bank-0193 {background-position: 0 -2688px;}
+.bank-0194 {background-position: 0 -4284px;}
+.bank-0195 {background-position: 0 -2353px;}
+.bank-0196 {background-position: 0 -6645px;}
+.bank-0197 {background-position: 0 -4320px;}
+.bank-0198 {background-position: 0 -6610px;}
+.bank-0199 {background-position: 0 -6578px;}
+.bank-0200 {background-position: 0 -6545px;}
+.bank-0201 {background-position: 0 -6512px;}
+.bank-0202 {background-position: 0 -7219px;}
+.bank-0204 {background-position: 0 -7255px;}
+.bank-0205 {background-position: 0 -7301px;}
+/*end*/
+
+/*银行大logo样式*/
+.large-bank-logo{ 
+  background: url(../images/large_bank_logo.gif) no-repeat;
+  display:inline-block;
+  max-width: 247px;
+  height: 30px;
+  overflow: hidden;
+  text-indent: -9999px;
+  margin:10px 0;
+}
+
+/*快捷支付卡样式（large-bank-xxxx）、转账银行卡样式（large-bank-card-xxxx）*/
+.large-bank-0001, .large-bank-card-111 {width:236px;background-position: 0 0;}/*工商银行*/
+.large-bank-0002, .large-bank-card-114 {width:155px;background-position: 0 -30px;}/*农业银行*/
+.large-bank-0003, .large-bank-card-113 {width:102px;background-position: 0 -60px;}/*中国银行*/
+.large-bank-0004, .large-bank-card-112 {width:179px;background-position: 0 -90px;}/*建设银行*/
+.large-bank-0005, .large-bank-card-206 {width:129px;background-position: 0 -120px;}/*招商银行*/
+.large-bank-0006, .large-bank-card-212 {width:106px;background-position: 0 -150px;}/*浦发银行*/
+.large-bank-0007, .large-bank-card-214 {width:175px;background-position: 0 -180px;}/*广发银行*/
+.large-bank-0008, .large-bank-card-115 {width:129px;background-position: 0 -210px;}/*交通银行*/
+.large-bank-0009, .large-bank-card-207 {width:107px;background-position: 0 -240px;}/*中信银行*/
+.large-bank-0010, .large-bank-card-210 {width:170px;background-position: 0 -270px;}/*民生银行*/
+.large-bank-0011, .large-bank-card-211 {width:152px;background-position: 0 -300px;}/*兴业银行*/
+.large-bank-0012, .large-bank-card-208 {width:142px;background-position: 0 -330px;}/*光大银行*/
+.large-bank-0013, .large-bank-card-209 {width:133px;background-position: 0 -360px;}/*华夏银行*/
+.large-bank-0014, .large-bank-card-223 {width:102px;background-position: 0 -390px;}/*上海银行*/
+.large-bank-0015, .large-bank-card-267 {width:241px;background-position: 0 -420px;}/*上海农商*/
+.large-bank-0016, .large-bank-card-215 {width:191px;background-position: 0 -450px;}/*邮政储蓄*/
+.large-bank-0017, .large-bank-card-222 {width:131px;background-position: 0 -480px;}/*北京银行*/
+.large-bank-0018, .large-bank-card-258 {width:171px;background-position: 0 -510px;}/*北京农商*/
+.large-bank-0019, .large-bank-card-116 {width:160px;background-position: 0 -540px;}/*平安银行*/
+.large-bank-0020, .large-bank-card-275 {width:119px;background-position: 0 -570px;}/*包商银行*/
+.large-bank-0021, .large-bank-card-1004 {width:150px;background-position: 0 -600px;}/*深圳发展银行*/
+.large-bank-0022, .large-bank-card-220 {width:121px;background-position: 0 -630px;}/*恒丰银行*/
+.large-bank-0023, .large-bank-card-231 {width:159px;background-position: 0 -660px;}/*渤海银行*/
+.large-bank-0024, .large-bank-card-260 {width:111px;background-position: 0 -690px;}/*浙商银行*/
+.large-bank-0025 {width:133px;background-position: 0 -720px;}/*花旗银行*/
+.large-bank-0026 {width:165px;background-position: 0 -750px;}/*东亚银行*/
+.large-bank-0027 {width:170px;background-position: 0 -780px;}/*渣打银行*/
+.large-bank-0028 {width:248px;background-position: 0 -810px;}/*法兴银行*/
+.large-bank-0029 {width:90px;background-position: 0 -840px;}/*大华银行*/
+.large-bank-0030 {width:145px;background-position: 0 -870px;}/*新韩银行*/
+.large-bank-0031 {width:136px;background-position: 0 -900px;}/*韩亚银行*/
+.large-bank-0032 {width:133px;background-position: 0 -930px;}/*韩国中小企业银行*/
+.large-bank-0033 {width:224px;background-position: 0 -960px;}/*南洋商行*/
+.large-bank-0034, .large-bank-card-1087 {width:241px;background-position: 0 -990px;}/*安顺市商业银行*/
+.large-bank-0035, .large-bank-card-1115 {width:193px;background-position: 0 -1020px;}/*安徽省农村信用社*/
+.large-bank-0036, .large-bank-card-1048 {width:113px;background-position: 0 -1050px;}/*安阳银行*/
+.large-bank-0037, .large-bank-card-1010 {width:132px;background-position: 0 -1080px;}/*保定银行*/
+.large-bank-0038 {width:171px;background-position: 0 -1110px;}/*北京农商银行*/
+.large-bank-0039 {width:237px;background-position: 0 -1140px;}/*成都农村商业银行*/
+.large-bank-0040, .large-bank-card-218 {width:107px;background-position: 0 -1170px;}/*成都银行*/
+.large-bank-0041, .large-bank-card-307 {width:172px;background-position: 0 -1200px;}/*重庆农村商业银行*/
+.large-bank-0042 {width:178px;background-position: 0 -1230px;}/*重庆北碚稠州村镇银行*/
+.large-bank-0043, .large-bank-card-255 {width:127px;background-position: 0 -1260px;}/*重庆三峡银行*/
+.large-bank-0044 {width:219px;background-position: 0 -1290px;}/*重庆南川石银村镇银行*/
+.large-bank-0045 {width:198px;background-position: 0 -1320px;}/*重庆忠县稠州村镇银行*/
+.large-bank-0046, .large-bank-card-232 {width:195px;background-position: 0 -1350px;}/*常熟农村商业银行*/
+.large-bank-0047, .large-bank-card-1065 {width:122px;background-position: 0 -1380px;}/*长沙银行*/
+.large-bank-0048, .large-bank-card-1012 {width:134px;background-position: 0 -1410px;}/*承德银行*/
+.large-bank-0049, .large-bank-card-1013 {width:113px;background-position: 0 -1440px;}/*沧州银行*/
+.large-bank-0050, .large-bank-card-229 {width:165px;background-position: 0 -1470px;}/*重庆银行*/
+.large-bank-0051, .large-bank-card-236 {width:121px;background-position: 0 -1500px;}/*长安银行*/
+.large-bank-0052, .large-bank-card-1018 {width:124px;background-position: 0 -1530px;}/*长治市商业银行*/
+.large-bank-0053, .large-bank-card-1005 {width:105px;background-position: 0 -1560px;}/*大连银行*/
+.large-bank-0054 {width:153px;background-position: 0 -1590px;}/*德州市商业银行*/
+.large-bank-0055, .large-bank-card-249 {width:137px;background-position: 0 -1620px;}/*德阳银行*/
+.large-bank-0056, .large-bank-card-252 {width:123px;background-position: 0 -1650px;}/*东莞银行*/
+.large-bank-0057, .large-bank-card-1124 {width:181px;background-position: 0 -1680px;}/*东莞农村商业银行*/
+.large-bank-0058 {width:253px;background-position: 0 -1710px;}/*东营莱商村镇银行*/
+.large-bank-0059 {width:123px;background-position: 0 -1740px;}/*东营银行*/
+.large-bank-0060, .large-bank-card-1022 {width:181px;background-position: 0 -1770px;}/*鄂尔多斯银行*/
+.large-bank-0061, .large-bank-card-1116 {width:147px;background-position: 0 -1800px;}/*福建省农村信用社*/
+.large-bank-0062, .large-bank-card-238 {width:163px;background-position: 0 -1830px;}/*福建海峡银行*/
+.large-bank-0063, .large-bank-card-1025 {width:118px;background-position: 0 -1860px;}/*抚顺银行*/
+.large-bank-0064, .large-bank-card-242 {width:110px;background-position: 0 -1890px;}/*富滇银行*/
+.large-bank-0065, .large-bank-card-246 {width:158px;background-position: 0 -1920px;}/*广西北部湾银行*/
+.large-bank-0066, .large-bank-card-1125 {width:132px;background-position: 0 -1950px;}/*广西农村信用社*/
+.large-bank-0067, .large-bank-card-243 {width:111px;background-position: 0 -1980px;}/*广州银行*/
+.large-bank-0068, .large-bank-card-1123 {width:204px;background-position: 0 -2010px;}/*广东农村信用社 */
+.large-bank-0069 {width:143px;background-position: 0 -2040px;}/*广东南粤银行*/
+.large-bank-0070, .large-bank-card-1097 {width:148px;background-position: 0 -2070px;}/*广州农村商业银行*/
+.large-bank-0071 {width:197px;background-position: 0 -2100px;}/*广州花都稠州村镇银行*/
+.large-bank-0072 {width:176px;background-position: 0 -2130px;}/*广元市贵商村镇银行*/
+.large-bank-0073, .large-bank-card-1038 {width:128px;background-position: 0 -2160px;}/*赣州银行*/
+.large-bank-0074, .large-bank-card-1072 {width:102px;background-position: 0 -2190px;}/*桂林银行*/
+.large-bank-0075, .large-bank-card-1084 {width:102px;background-position: 0 -2220px;}/*贵阳银行*/
+.large-bank-0076 {width:173px;background-position: 0 -2250px;}/*甘肃省农村信用社联合社*/
+.large-bank-0077, .large-bank-card-253 {width:108px;background-position: 0 -2280px;}/*杭州银行*/
+.large-bank-0078 {width:126px;background-position: 0 -2310px;}/*哈密市商业银行*/
+.large-bank-0079, .large-bank-card-250 {width:136px;background-position: 0 -2340px;}/*河北银行*/
+.large-bank-0080, .large-bank-card-1104 {width:176px;background-position: 0 -2370px;}/*河北省农村信用社*/
+.large-bank-0081, .large-bank-card-262 {width:144px;background-position: 0 -2400px;}/*徽商银行*/
+.large-bank-0082, .large-bank-card-1049 {width:122px;background-position: 0 -2430px;}/*鹤壁银行*/
+.large-bank-0083, .large-bank-card-1015 {width:126px;background-position: 0 -2460px;}/*衡水市商业银行*/
+.large-bank-0084, .large-bank-card-1023 {width:115px;background-position: 0 -2490px;}/*哈尔滨银行*/
+.large-bank-0085, .large-bank-card-1126 {width:247px;background-position: 0 -2520px;}/*海南省农村信用社联合社*/
+.large-bank-0086, .large-bank-card-244 {width:122px;background-position: 0 -2550px;}/*汉口银行*/
+.large-bank-0087, .large-bank-card-1122 {width:185px;background-position: 0 -2580px;}/*湖南省农村信用社联合社*/
+.large-bank-0088, .large-bank-card-1121 {width:247px;background-position: 0 -2610px;}/*湖北省农村信用社联合社*/
+.large-bank-0089 {width:137px;background-position: 0 -2640px;}/*湖北银行*/
+.large-bank-0090 {width:169px;background-position: 0 -2670px;}/*华融湘江银行*/
+.large-bank-0091, .large-bank-card-1028 {width:119px;background-position: 0 -2700px;}/*葫芦岛银行*/
+.large-bank-0092 {width:119px;background-position: 0 -2730px;}/*邯郸银行*/
+.large-bank-0093, .large-bank-card-297 {width:100px;background-position: 0 -2760px;}/*嘉兴银行*/
+.large-bank-0094, .large-bank-card-1019 {width:247px;background-position: 0 -2790px;}/*晋城银行*/
+.large-bank-0095, .large-bank-card-1117 {width:247px;background-position: 0 -2820px;}/*江西农村信用联合社*/
+.large-bank-0096, .large-bank-card-1113 {width:156px;background-position: 0 -2850px;}/*江苏省农村信用社联合社*/
+.large-bank-0097 {width:171px;background-position: 0 -2880px;}/*江苏锡州农村商业银行*/
+.large-bank-0098, .large-bank-card-217 {width:210px;background-position: 0 -2910px;}/*江苏银行*/
+.large-bank-card-1001 {width:157px;background-position: 0 -2940px;}/*国家开发银行*/
+.large-bank-card-1002 {width:167px;background-position: 0 -2970px;}/*中国进出口银行*/
+.large-bank-card-1003 {width:186px;background-position: 0 -3000px;}/*中国农业发展银行*/
+.large-bank-card-1006 {width:178px;background-position: 0 -3030px;}/*唐山市商业银行*/
+.large-bank-card-1007 {width:210px;background-position: 0 -3060px;}/*秦皇岛市商业银行*/
+.large-bank-card-1008 {width:146px;background-position: 0 -3090px;}/*邯郸市商业银行*/
+.large-bank-card-1009 {width:174px;background-position: 0 -3120px;}/*邢台市商业银行*/
+/*.large-bank-card-1010 {width:px;background-position: 0 -3150px;}保定市商业银行*/
+.large-bank-card-1011 {width:194px;background-position: 0 -3150px;}/*张家口市商业银行*/
+.large-bank-card-308 {width:229px;background-position: 0 -3180px;}/*乌鲁木齐市商业银行*/
+.large-bank-card-1014 {width:145px;background-position: 0 -3210px;}/*廊坊银行*/
+.large-bank-card-1016 {width:178px;background-position: 0 -3240px;}/*大同市商业银行*/
+.large-bank-card-1017 {width:174px;background-position: 0 -3270px;}/*阳泉市商业银行*/
+/*.large-bank-card-1019 {width:px;background-position: 0 -3300px;}晋城市商业银行*/
+.large-bank-card-305 {width:159px;background-position: 0 -3300px;}/*顺德农村商业银行*/
+.large-bank-card-1020 {width:117px;background-position: 0 -3330px;}/*晋中市商业银行*/
+.large-bank-card-1021 {width:104px;background-position: 0 -3360px;}/*乌海银行*/
+.large-bank-card-1024 {width:193px;background-position: 0 -3390px;}/*鞍山市商业银行*/
+/*.large-bank-card-1025 {width:px;background-position: 0 -3420px;}抚顺市商业银行*/
+.large-bank-card-304 {width:191px;background-position: 0 -3420px;}/*太仓农村商业银行*/
+.large-bank-card-1026, .large-bank-card-1098 {width:165px;background-position: 0 -3450px;}/*本溪市商业银行*/
+.large-bank-card-1027 {width:126px;background-position: 0 -3480px;}/*丹东市商业银行*/
+.large-bank-card-1029 {width:110px;background-position: 0 -3510px;}/*营口银行*/
+.large-bank-card-1030 {width:143px;background-position: 0 -3540px;}/*盘锦市商业银行*/
+.large-bank-card-1031 {width:114px;background-position: 0 -3570px;}/*铁岭市商业银行*/
+.large-bank-card-1032 {width:117px;background-position: 0 -3600px;}/*朝阳市商业银行*/
+.large-bank-card-1033 {width:126px;background-position: 0 -3630px;}/*龙江银行*/
+.large-bank-card-1034 {width:151px;background-position: 0 -3660px;}/*江苏长江商业银行*/
+.large-bank-card-1035 {width:115px;background-position: 0 -3690px;}/*临商银行*/
+.large-bank-card-1036 {width:95px;background-position: 0 -3720px;}/*金华银行*/
+.large-bank-card-1037 {width:138px;background-position: 0 -3750px;}/*南昌银行已更名为江西银行*/
+.large-bank-card-1039 {width:139px;background-position: 0 -3780px;}/*上饶银行*/
+.large-bank-card-1040 {width:100px;background-position: 0 -3810px;}/*枣庄市商业银行*/
+.large-bank-card-1041 {width:155px;background-position: 0 -3840px;}/*东营市商业银行*/
+.large-bank-card-1042 {width:110px;background-position: 0 -3870px;}/*烟台银行*/
+.large-bank-card-1043 {width:137px;background-position: 0 -3900px;}/*潍坊银行*/
+.large-bank-card-1044 {width:117px;background-position: 0 -3930px;}/*济宁银行*/
+.large-bank-card-1045 {width:163px;background-position: 0 -3960px;}/*开封市商业银行*/
+.large-bank-card-1046 {width:130px;background-position: 0 -3990px;}/*洛阳银行*/
+.large-bank-card-1047 {width:129px;background-position: 0 -4020px;}/*平顶山市商业银行*/
+/*.large-bank-card-1048 {width:px;background-position: 0 -4050px;}安阳市商业银行*/
+.large-bank-card-303 {width:129px;background-position: 0 -4050px;}/*九江银行*/
+/*.large-bank-card-1049 {width:px;background-position: 0 -4080px;}鹤壁市商业银行*/
+.large-bank-card-302 {width:138px;background-position: 0 -4080px;}/*锦州银行*/
+.large-bank-card-1050 {width:121px;background-position: 0 -4110px;}/*新乡银行*/
+.large-bank-card-1051 {width:177px;background-position: 0 -4140px;}/*焦作市商业银行*/
+.large-bank-card-1052 {width:164px;background-position: 0 -4170px;}/*许昌银行*/
+.large-bank-card-1053 {width:134px;background-position: 0 -4200px;}/*漯河市商业银行*/
+.large-bank-card-1054 {width:105px;background-position: 0 -4230px;}/*三门峡市商业银行*/
+.large-bank-card-1055 {width:225px;background-position: 0 -4260px;}/*商丘市商业银行*/
+.large-bank-card-1056 {width:108px;background-position: 0 -4290px;}/*周口市商业银行*/
+.large-bank-card-1057 {width:117px;background-position: 0 -4320px;}/*驻马店市商业银行*/
+.large-bank-card-1058 {width:108px;background-position: 0 -4350px;}/*南阳市商业银行*/
+.large-bank-card-1059 {width:127px;background-position: 0 -4380px;}/*信阳市商业银行*/
+.large-bank-card-1060 {width:106px;background-position: 0 -4410px;}/*黄石银行*/
+.large-bank-card-1061 {width:176px;background-position: 0 -4440px;}/*宜昌市商业银行*/
+.large-bank-card-1062 {width:149px;background-position: 0 -4470px;}/*襄樊市商业银行*/
+.large-bank-card-1063 {width:px;background-position: 0 -4500px;}/*孝感市商业银行 图标找不到*/
+.large-bank-card-1064 {width:141px;background-position: 0 -4530px;}/*荆州市商业银行*/
+
+.large-bank-card-1066 {width:181px;background-position: 0 -4560px;}/*株洲市商业银行 -> 华融湘江银行*/
+.large-bank-card-1067 {width:181px;background-position: 0 -4560px;}/*湘潭市商业银行 -> 华融湘江银行*/
+.large-bank-card-1068 {width:181px;background-position: 0 -4560px;}/*衡阳市商业银行 -> 华融湘江银行*/
+.large-bank-card-1069 {width:181px;background-position: 0 -4560px;}/*岳阳市商业银行 -> 华融湘江银行*/
+
+.large-bank-card-1070 {width:164px;background-position: 0 -4680px;}/*珠海市商业银行*/
+.large-bank-card-1071 {width:142px;background-position: 0 -4710px;}/*湛江市商业银行*/
+.large-bank-card-1073 {width:140px;background-position: 0 -4740px;}/*自贡市商业银行*/
+.large-bank-card-1074 {width:188px;background-position: 0 -4770px;}/*攀枝花市商业银行*/
+.large-bank-card-1075 {width:155px;background-position: 0 -4800px;}/*泸州市商业银行*/
+.large-bank-card-1076 {width:179px;background-position: 0 -4830px;}/*绵阳市商业银行*/
+.large-bank-card-1077 {width:156px;background-position: 0 -4860px;}/*遂宁市商业银行*/
+.large-bank-card-1078 {width:153px;background-position: 0 -4890px;}/*乐山市商业银行*/
+.large-bank-card-1079 {width:166px;background-position: 0 -4920px;}/*宜宾市商业银行*/
+.large-bank-card-1080 {width:139px;background-position: 0 -4950px;}/*南充市商业银行*/
+.large-bank-card-1081 {width:163px;background-position: 0 -4980px;}/*达州市商业银行*/
+.large-bank-card-1082 {width:159px;background-position: 0 -5010px;}/*雅安市商业银行*/
+.large-bank-card-1083 {width:133px;background-position: 0 -5040px;}/*凉山州商业银行*/
+/*.large-bank-card-1084 {width:px;background-position: 0 -5070px;}贵阳市商业银行*/
+.large-bank-card-301 {width:218px;background-position: 0 -5070px;}/*滨海银行*/
+.large-bank-card-1085 {width:178px;background-position: 0 -5100px;}/*贵州省六盘水市商业银行*/
+.large-bank-card-1086 {width:153px;background-position: 0 -5130px;}/*遵义市商业银行*/
+.large-bank-card-1088 {width:124px;background-position: 0 -5160px;}/*曲靖市商业银行*/
+.large-bank-card-1089 {width:230px;background-position: 0 -5190px;}/*玉溪市商业银行*/
+.large-bank-card-1090 {width:159px;background-position: 0 -5220px;}/*平凉市商业银行*/
+.large-bank-card-1091 {width:146px;background-position: 0 -5250px;}/*青海银行*/
+.large-bank-card-1092 {width:112px;background-position: 0 -5280px;}/*石嘴山银行*/
+.large-bank-card-1093 {width:158px;background-position: 0 -5310px;}/*库尔勒市商业银行*/
+.large-bank-card-1094 {width:162px;background-position: 0 -5340px;}/*奎屯市商业银行*/
+.large-bank-card-1095 {width:247px;background-position: 0 -5370px;}/*江苏江阴农村商业银行*/
+.large-bank-card-1096 {width:247px;background-position: 0 -5400px;}/*江苏东吴农村商业银行*/
+/*.large-bank-card-1098 {width:px;background-position: 0 -5430px;}本溪市城市信用社*/
+.large-bank-card-300 {width:138px;background-position: 0 -5430px;}/*台州银行*/
+.large-bank-card-1099 {width:162px;background-position: 0 -5460px;}/*景德镇市城市信用社*/
+.large-bank-card-1100 {width:px;background-position: 0 -5490px;}/*濮阳市城市信用社 图标找不到*/
+.large-bank-card-1101 {width:px;background-position: 0 -5520px;}/*邵阳市城市信用社 图标找不到*/
+.large-bank-card-1102 {width:160px;background-position: 0 -5550px;}/*白银市城市信用社*/
+.large-bank-card-1103 {width:124px;background-position: 0 -5580px;}/*哈密市城市信用社*/
+.large-bank-card-1105 {width:219px;background-position: 0 -5610px;}/*山西省农村信用社*/
+.large-bank-card-1106 {width:px;background-position: 0 -5640px;}/*晋城市农村信用社 图标找不到*/
+.large-bank-card-1107 {width:px;background-position: 0 -5670px;}/*临汾市尧都区农村信用社 图标找不到*/
+.large-bank-card-1108 {width:px;background-position: 0 -5700px;}/*运城市农村信用社 图标找不到*/
+.large-bank-card-1109 {width:149px;background-position: 0 -5730px;}/*内蒙古自治区农村信用社*/
+.large-bank-card-1110 {width:185px;background-position: 0 -5760px;}/*辽宁省农村信用社*/
+.large-bank-card-1111 {width:120px;background-position: 0 -5790px;}/*吉林省农村信用社*/
+.large-bank-card-1112 {width:193px;background-position: 0 -5820px;}/*黑龙江省农村信用社*/
+.large-bank-card-1114 {width:69px;background-position: 0 -5850px;}/*浙江省农村信用社*/
+.large-bank-card-1118 {width:184px;background-position: 0 -5880px;}/*山东省农村信用社*/
+.large-bank-card-1119 {width:px;background-position: 0 -5910px;}/*郑州农村信用社 图标找不到*/
+.large-bank-card-1120 {width:189px;background-position: 0 -5940px;}/*河南省农村信用社*/
+.large-bank-card-1127 {width:px;background-position: 0 -5970px;}/*成都市农村信用社 图标找不到*/
+.large-bank-card-1128 {width:141px;background-position: 0 -6000px;}/*四川省农村信用社*/
+.large-bank-card-1129 {width:152px;background-position: 0 -6030px;}/*贵州省农村信用社*/
+.large-bank-card-1130 {width:190px;background-position: 0 -6060px;}/*云南省农村信用社*/
+.large-bank-card-1131 {width:126px;background-position: 0 -6090px;}/*陕西省农村信用社*/
+.large-bank-card-1132 {width:px;background-position: 0 -6120px;}/*甘肃省农村合作金融结算服务中心 图标找不到*/
+.large-bank-card-1133 {width:144px;background-position: 0 -6150px;}/*青海省农村信用社*/
+.large-bank-card-1134 {width:px;background-position: 0 -6180px;}/*新疆维吾尔自治区农村信用社*/
+.large-bank-card-221 {width:101px;background-position: 0 -6210px;}/*宁波银行*/
+.large-bank-card-226 {width:203px;background-position: 0 -6240px;}/*吴江农村商业银行*/
+.large-bank-card-234 {width:111px;background-position: 0 -6270px;}/*厦门银行*/
+.large-bank-card-235 {width:125px;background-position: 0 -6300px;}/*西安银行*/
+.large-bank-card-239 {width:122px;background-position: 0 -6330px;}/*阜新银行*/
+.large-bank-card-247 {width:113px;background-position: 0 -6360px;}/*湖州银行*/
+.large-bank-card-248 {width:109px;background-position: 0 -6390px;}/*南京银行*/
+.large-bank-card-254 {width:125px;background-position: 0 -6420px;}/*德州银行*/
+.large-bank-card-256 {width:210px;background-position: 0 -6450px;}/*黄河农村商业银行*/
+.large-bank-card-259 {width:195px;background-position: 0 -6480px;}/*浙江泰隆商业银行*/
+.large-bank-card-261 {width:117px;background-position: 0 -6510px;}/*日照银行*/
+.large-bank-card-264 {width:104px;background-position: 0 -6540px;}/*吉林银行*/
+.large-bank-card-265 {width:140px;background-position: 0 -6570px;}/*郑州银行*/
+.large-bank-card-266 {width:247px;background-position: 0 -6600px;}/*天津农商银行*/
+.large-bank-card-268 {width:137px;background-position: 0 -6630px;}/*齐商银行*/
+.large-bank-card-269 {width:124px;background-position: 0 -6660px;}/*青岛银行*/
+.large-bank-card-271 {width:160px;background-position: 0 -6690px;}/*宁夏银行*/
+.large-bank-card-272 {width:105px;background-position: 0 -6720px;}/*齐鲁银行*/
+.large-bank-card-273 {width:199px;background-position: 0 -6750px;}/*张家港农村商业银行*/
+.large-bank-card-277 {width:122px;background-position: 0 -6780px;}/*泉州银行*/
+.large-bank-card-278 {width:231px;background-position: 0 -6810px;}/*浙江稠州商业银行*/
+.large-bank-card-279 {width:190px;background-position: 0 -6840px;}/*浙江民泰商业银行*/
+.large-bank-card-280 {width:185px;background-position: 0 -6870px;}/*昆山农村商业银行*/
+.large-bank-card-281 {width:113px;background-position: 0 -6900px;}/*莱商银行*/
+.large-bank-card-282 {width:120px;background-position: 0 -6930px;}/*兰州银行*/
+.large-bank-card-283 {width:222px;background-position: 0 -6960px;}/*泰安市商业银行*/
+.large-bank-card-284 {width:112px;background-position: 0 -6990px;}/*晋商银行*/
+.large-bank-card-285 {width:100px;background-position: 0 -7020px;}/*昆仑银行*/
+.large-bank-card-286 {width:133px;background-position: 0 -7050px;}/*天津银行*/
+.large-bank-card-287 {width:113px;background-position: 0 -7080px;}/*内蒙古银行*/
+.large-bank-card-288 {width:135px;background-position: 0 -7110px;}/*温州银行*/
+.large-bank-card-289 {width:92px;background-position: 0 -7140px;}/*辽阳银行*/
+.large-bank-card-291 {width:207px;background-position: 0 -7170px;}/*威海市商业银行*/
+.large-bank-card-292 {width:116px;background-position: 0 -7200px;}/*柳州银行*/
+.large-bank-card-293 {width:176px;background-position: 0 -7230px;}/*深圳农村商业银行*/
+.large-bank-card-294 {width:143px;background-position: 0 -7260px;}/*绍兴银行*/
+.large-bank-card-295 {width:185px;background-position: 0 -7290px;}/*鄞州银行*/
+.large-bank-card-298 {width:120px;background-position: 0 -7320px;}/*盛京银行*/
+
+
+
+
+
+

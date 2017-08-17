@@ -1,0 +1,26 @@
+<div id="zysjylb_01Tpl">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab-xfz mb20">
+	  <tr>
+		<td align="left">管理公司<span class="ml10 red"><%=obj.mCustName%></span>
+		</td>
+		<td rowspan="2">服务公司系统资源配额<span class="ml10 red"><%=obj.sResNum%></span>
+		</td>												
+		<td class="bg_grey">计划城市配额<span class="ml10"><%=obj.planNum%></span></td>
+		<td class="bg_grey">计划外城市配额<span class="ml10"><%=obj.notPlanNum%></span></td>
+	  </tr>
+	  <tr>
+		<td align="left">管理公司编号<span class="ml10"><%=obj.mEntResNo%></span></td>
+		<td class="bg_lvse">已使用配额<span class="ml10"><%=obj.useNum%></span></td>
+		<td class="bg_lvse">尚可用配额<span class="ml10"><%=obj.usableNum%></span></td>
+	  </tr>
+	</table>
+	<table id="searchTable">
+	  <tr>
+		<th w_render="operate">本地区平台关联区域</th>
+		<th w_render="operate">结算币种</th>
+		<th w_index="planSResNum">计划服务公司资源数</th>
+		<th w_index="useSResNum">当前服务公司数</th>
+		<th w_render="operate">详情</th>
+	  </tr>
+	</table>
+</div>

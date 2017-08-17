@@ -1,0 +1,39 @@
+<!-- 资料查看开始 -->
+<div class="view_info mt40 info_500" id="yhzhxxTpl_xq">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="30%">账户名称</td>
+			<td class="view_text" width="70%" id="bankAccName"><%=obj.bankAccName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">结算币种</td>
+			<td class="view_text" ><%=obj.platform_currency%></td>
+		</tr>
+		<!--  
+		<tr>
+			<td class="view_item">收支类别</td>
+			<td class="view_text"><%=obj.applyCategory%></td>
+		</tr>
+		-->
+		<tr>
+			<td class="view_item">开户银行</td>
+			<td class="view_text"><%=obj.bankName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">开户地区</td>
+			<td class="view_text"><%=obj.provinceName%><%=obj.cityName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">银行账号</td>
+			<td class="view_text">
+			<%=obj.bankAccNo.substring(0,4)%>*****<%=obj.bankAccNo.substring(obj.bankAccNo.length-4,obj.bankAccNo.length) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">默认银行账号</td>
+			<td class="view_text"><%=obj.isDefault ? '是' : '否'%></td>
+		</tr>
+	</table>
+	<div class="mt20" align="center"><a class="btn_bg submit" id="back_yhzhxx">返&#12288;回</a></div>
+</div>
+<!-- 资料查看结束 -->

@@ -1,0 +1,160 @@
+
+<div id="smrz_qyxx" class="view_info mt20 info_500">
+	<form id="smrz_qyxx_form_info" name="smrz_qyxx_form_info">
+		<table  width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" >
+			
+			<!-- 显示从UC的6重要信息中的数据  -->
+			
+				<tbody >
+				   <tr>
+			           <td class="table_item"  width="30%">企业中文名称</td>
+			           
+			           <td class="table_text" width="70%" name="entCustName"> 
+			        	  <%=obj.entName!=null ? obj.entName:obj.entCustName%>
+			           </td>
+					
+				  </tr>
+				  
+			      <tr>
+			        <td class="table_item">企业英文名称</td>
+			        <td class="table_text" name="entCustNameEn">
+			        	<%=obj.entNameEn!=null ? obj.entNameEn:obj.entCustNameEn%>
+			        </td>
+			      </tr>
+			      
+			      <tr>
+			        <td class="table_item">企业地址</td>
+			        <td class="table_text" name="entAddr"><%=obj.entRegAddr!=null ? obj.entRegAddr:obj.entAddr%></td>
+			      </tr>
+			      
+			      <tr>
+			        <td class="table_item">法人代表</td>
+			        <td class="table_text" name="legalName"><%=obj.creName!=null ? obj.creName:obj.legalName%></td>
+			      </tr>
+		      
+			      <tr>
+			        <td class="table_item">法人代表证件类型</td>
+			        <td class="table_text" id="lab_credence_type"></td>
+			      </tr>
+			      <tr>
+			        <td class="table_item">法人代表证件号码</td>
+			        <td class="table_text" name="legalCreNo"><%=obj.creNo!=null ? obj.creNo:obj.legalCreNo%></td>
+			      </tr>
+			      <tr>
+			        <td class="table_item">营业执照号</td>
+			        <td class="table_text" name="licenseNo"><%=obj.busiLicenseNo!=null ? obj.busiLicenseNo:obj.licenseNo%></td>
+			      </tr>
+			      <tr>
+			        <td class="table_item">组织机构代码证号</td>
+			        <td class="table_text" name="orgNo"><%=obj.orgCodeNo!=null ? obj.orgCodeNo:obj.orgNo%></td>
+			      </tr>
+			      <tr>
+			        <td class="table_item" >纳税人识别号</td>
+			        <td class="table_text" name="taxNo"><%=obj.taxNo%></td>
+			      </tr>
+			      
+			      <input type = "hidden" name="legalCreType"  value="<%=obj.legalCreType!=null ? obj.legalCreType:obj.creType%>"/>
+			     
+				</tbody>
+		</table>
+	<div class="clearfix mt20" align="center"><a  class="btn_bg submit" id="btn_smrz_xyb">下一步</a></div>
+	</form>
+</div>
+
+<div id="smrz_qyxx2" class="p20 ovh none">
+<form id="smrz_qyxx_form_file" name="smrz_qyxx_form_file" method="post">
+		<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+		<div class="certificateBox bd_dot_gray">
+		<ul class="certificateSample clearfix">
+			<li>
+				<span class="f13">法人代表证件正面</span>
+				<div class="mt10 mb10 sampleBox">
+					<i  id="legalRepresentative_front_img" class="certificateSample_img certificateSample_01"></i>
+				</div>
+				<div class="sample_btn">
+					<a href="javascript:;" class="input-file btn_bg upload_btn">上传
+						<input id="lrCredentialFrontFileId" name="lrCredentialFrontFileId"  type="file">
+						<input type="hidden" name="lrcFacePic"  type="file" value="<%=obj.lrcFacePic%>">
+					</a>
+					<a id="legalRepresentative_front_img_case" class="btn_bg viewSample_btn">查看示例图片</a>
+				</div>
+			</li>
+			<li>
+				<span class="f13">法人代表证件反面</span>
+				<div class="mt10 mb10 sampleBox">
+					<i  id="legalRepresentative_back_img" class="certificateSample_img certificateSample_02">
+					</i>
+				</div>				
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传
+						<input id="lrCredentialBackFileId" name="lrCredentialBackFileId" type="file">
+						<input type="hidden" name="lrcFacePic"  type="file" value="<%=obj.lrcFacePic%>">
+					</a>
+					<a href="#"  id="legalRepresentative_back_img_case" class="btn_bg viewSample_btn">查看示例图片
+					</a>
+				</div>
+			</li>
+			<li>
+				<span class="f13">营业执照正本扫描件</span>
+				<div class="mt10 mb10 sampleBox">
+					<i id="busLicenceNo_img" class="certificateSample_img certificateSample_03"></i>
+				</div>
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传
+						<input id="busLicenceFileId"  name="busLicenceFileId" type="file">
+						<input type="hidden" name="licensePic"  type="file" value="<%=obj.licensePic%>">
+					</a>
+					<a id="busLicenceNo_img_case" class="btn_bg viewSample_btn">查看示例图片</a>
+				</div>
+			</li>
+			<li>
+				<span class="f13">组织机构代码证正本扫描件</span>
+				<div class="mt10 mb10 sampleBox">
+					<i id="organizationNo_img" class="certificateSample_img certificateSample_04"></i>
+				</div>
+				<div class="sample_btn">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传
+						<input id="organizationFileId" type="file" name="organizationFileId">
+						<input type="hidden" name="orgPic"  type="file" value="<%=obj.orgPic%>">
+					</a>
+					<a href="#" class="btn_bg viewSample_btn" id="organizationNo_img_case">查看示例图片</a>
+				</div>
+			</li>
+			<li style="margin-right:0;">
+				<span class="f13">税务登记证正本扫描件</span>
+				<div class="mt10 mb10 sampleBox">
+					<i class="certificateSample_img certificateSample_05" id="taxplayerNo_img"></i>
+				</div>
+				<div class="sample_btn clearfix">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传
+						<input id="taxplayerFileId" name="taxplayerFileId" type="file">
+						<input type="hidden" name="taxPic"  type="file" value="<%=obj.taxPic%>">
+					</a>
+					<a href="#" class="btn_bg viewSample_btn" id="taxplayerNo_img_case" >查看示例图片</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="register_info mt40">
+	<form>
+		<fieldset>
+		<ul>
+			<li class="register_row info_320 clearfix">
+			<label for="name">验证码</label>
+			<input type="text" id="input_verificationCode" name="input_verificationCode" class="input_gray" placeholder="输入验证码"  >
+			<div class="hint" style="width:200px;">
+			<span class="fl verificationCode" id="validateCode" name="validateCode" >
+		
+			</span>
+			<input type="hidden" id="validateCode_hide" name="validateCode_hide"/>
+			<a id="img_smrz_hyz">看不清，换一张</a>
+			</div>
+			</li>
+		</ul>
+		<div class="two_button mt20"><a href="#" class="btn_bg submit fl" id="btn_smrz_syb">上一步</a><a href="#" class="btn_bg submit fr" id="btn_smrz_tj">提　交</a></div>
+	</fieldset>
+	</form>
+	</div>
+</div>
+<div id="showImageDiv50" class="none"><img alt="上传图片" src="" id="showImage50" width="800" height="600"></div>
+					

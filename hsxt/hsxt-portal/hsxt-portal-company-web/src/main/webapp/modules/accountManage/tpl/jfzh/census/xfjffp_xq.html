@@ -1,0 +1,34 @@
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+  <tr>
+    <td class="billstyle p5 tr br0" width="15%">汇总时间：</td>
+    <td class="billstyle p5"><%=obj.batchNo %></td>
+    <td class="billstyle p5 tr br0" width="15%">消费积分数：</td>
+    <td class="billstyle p5"><%=obj.sum %><span class="ml10"><%=obj.count %>笔</span></td>
+  </tr>
+  <tr>
+    <td class="billstyle p5 tr br0">交易类型：</td>
+    <td class="billstyle p5">消费积分分配</td>
+    <td class="billstyle p5 tr br0">撤单积分数：</td>
+    <td class="billstyle p5"><%=obj.backSum %><span class="ml10"><%=obj.backCount %>笔</span></td>
+  </tr>
+  <tr>
+    <td class="billstyle p5 bm0 tr br0">汇总时间范围：</td>
+    <td class="billstyle p5 bm0"><%=obj.batchNo%> 00:00:00 - <%=obj.batchNo%> 23:59:59</td>
+    <td class="billstyle p5 bm0 tr br0">获分配积分数：</td>
+    <td class="billstyle p5 bm0"><%=obj.collect %><span class="ml10"><%=obj.collectCount %>笔</span><span class="ml10">扣除税金：<%=obj.taxes %></span></td>
+  </tr>
+</table>
+</div>
+<div class="search-cont">
+  <table id="xfjffp_details_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+    <tr>
+      <th w_index="transNo" w_align="left">流水号</th>
+      <th w_index="perResNo" w_align="left">互生卡号</th>
+      <th w_index="sourceTransDate" w_align="left">交易时间</th>
+      <th w_render="operate" w_align="left">交易类型</th>
+      <th w_render="operate" w_align="left">获分配积分数</th>
+    </tr>
+  </table>
+</div>
+<div class="mt20 tc"><a id="mxcx_xq_btn_fh" class="btn_bg submit">返&#12288;回</a></div> 

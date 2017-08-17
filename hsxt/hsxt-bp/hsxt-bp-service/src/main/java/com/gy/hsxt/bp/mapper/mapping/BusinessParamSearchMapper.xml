@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessParamSearchMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessAgree" id="businessAgree">
+     <!-- 协议参数管理对象-->
+        <id column="AGREE_ID" property="agreeId" jdbcType="VARCHAR" />
+        <result column="AGREE_CODE" property="agreeCode" jdbcType="VARCHAR" />
+        <result column="AGREE_NAME" property="agreeName" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessAgreeFee" id="businessAgreeFee">
+     <!-- 协议费用参数管理对象-->
+        <id column="AGREE_FEE_ID" property="agreeFeeId" jdbcType="VARCHAR" />
+        <result column="AGREE_FEE_CODE" property="agreeFeeCode" jdbcType="VARCHAR" />
+        <result column="AGREE_FEE_NAME" property="agreeFeeName" jdbcType="VARCHAR" />
+        <result column="AGREE_CODE" property="agreeCode" jdbcType="VARCHAR" />
+        <result column="PAY_PERIOD" property="payPeriod" jdbcType="INTEGER" />
+        <result column="BILLING_TYPE" property="billingType" jdbcType="VARCHAR" />
+        <result column="CHARGING_TYPE" property="chargingType" jdbcType="VARCHAR" />
+        <result column="FEE_TYPE" property="feeType" jdbcType="VARCHAR" />
+        <result column="CURRENCY_CODE" property="currencyCode" jdbcType="VARCHAR" />
+        <result column="FROM_AMOUNT" property="fromAmount" jdbcType="NUMERIC" />
+        <result column="TO_AMOUNT" property="toAmount" jdbcType="NUMERIC" />
+        <result column="FEE_AMOUNT" property="feeAmount" jdbcType="NUMERIC" />
+        <result column="FEE_RATIO" property="feeRatio" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessCustParamItems" id="businessCustParamItems">
+     <!-- 客户业务对象-->
+        <id column="CUST_ITEMS_ID" property="custItemsId" jdbcType="VARCHAR" />
+        <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_KEY" property="sysItemsKey" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_NAME" property="sysItemsName" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_VALUE" property="sysItemsValue" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessSysParamGroup" id="businessSysParamGroup">
+    <!-- 系统参数组对象-->
+        <id column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_NAME" property="sysGroupName" jdbcType="VARCHAR" />
+        <result column="ISPUBLIC" property="isPublic" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessSysParamItems" id="businessSysParamItems">
+     <!-- 系统参数项对象-->
+        <id column="SYS_ITEMS_CODE" property="sysItemsCode" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_KEY" property="sysItemsKey" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_NAME" property="sysItemsName" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_VALUE" property="sysItemsValue" jdbcType="VARCHAR" />
+        <result column="ACCESS_LEVEL" property="accessLevel" jdbcType="INTEGER" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+<!-- @author 作者 : weixz -->
+
+<!-- 单个系统参数组查询 -->
+<select id="searchSysParamItemsByCodeKey" resultMap="businessSysParamItems" parameterType="map">
+       SELECT  SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  
+         WHERE SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+           AND SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+</select>
+
+<!-- 系统参数组查询 -->
+<select id="searchSysParamItemsByGroup" resultMap="businessSysParamItems" parameterType="String">
+       SELECT  SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  
+         WHERE SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 获取全部激活状态的系统参数项-->
+<select id="searchSysParamItemsList" resultMap="businessSysParamItems" parameterType="String">
+       SELECT  SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  
+         WHERE  ISACTIVE = #{isActive,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 单个客户业务对象查询 -->
+<select id="searchCustParamItemsByIdKey" resultMap="businessCustParamItems" parameterType="map">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE  
+           FROM T_BP_CUST_BUSINESS_PARAM  
+          WHERE CUST_ID = #{custId,jdbcType=VARCHAR}
+            AND SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 客户业务对象查询 -->
+<select id="searchCustParamItemsByGroup" resultMap="businessCustParamItems" parameterType="String">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE  
+           FROM T_BP_CUST_BUSINESS_PARAM  
+          WHERE CUST_ID = #{custId,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 客户业务对象查询 -->
+<select id="searchCustParamItemsList" resultMap="businessCustParamItems" parameterType="String">
+        SELECT  CUST_ITEMS_ID,
+                CUST_ID,
+                SYS_GROUP_CODE,
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE, 
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE  
+           FROM T_BP_CUST_BUSINESS_PARAM  
+          WHERE ISACTIVE = #{isActive,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 单个协议费用参数管理对象查询 -->
+<select id="searchBusinessAgreeFeeByCode" resultMap="businessAgreeFee"  parameterType="map">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE  
+         WHERE  AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+           AND  AGREE_FEE_CODE = #{agreeFeeCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 协议费用参数管理对象查询 -->
+<select id="searchBusinessAgreeFee" resultMap="businessAgreeFee"  parameterType="String">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE  
+         WHERE  AGREE_CODE = #{agreeCode,jdbcType=VARCHAR}
+</select>
+
+
+<!-- 获取全部激活协议费用接口-->
+<select id="searchBusinessAgreeFeeList" resultMap="businessAgreeFee"  parameterType="String">
+        SELECT  AGREE_FEE_ID,
+                AGREE_FEE_CODE,
+                AGREE_FEE_NAME, 
+                AGREE_CODE,
+                PAY_PERIOD,
+                BILLING_TYPE,
+                CHARGING_TYPE,
+                FEE_TYPE,
+                CURRENCY_CODE,
+                FROM_AMOUNT,
+                TO_AMOUNT,
+                FEE_AMOUNT,
+                FEE_RATIO,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE
+          FROM  T_BP_AGREE_FEE  
+         WHERE  ISACTIVE = #{isActive,jdbcType=VARCHAR}
+</select>
+
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.BatchSettleMapper">
+
+	<!-- 根据结算批次信息查询是否已经存在批结算记录，如果有直接返回记录中的结果。 * 结算信息包括：企业客户号、企业互生号、批次编号、终端渠道、终端编号 -->
+	<select id="findBatchSettleByInfo" parameterType="com.gy.hsxt.ao.bean.BatchSettle"
+		resultType="java.lang.Integer">
+		select t.is_same
+		  from T_AO_BATCH_SETTLE t
+		 where t.ent_cust_id = #{entCustId}
+		   and t.ent_res_no = #{entResNo}
+		   and t.channel = #{channel}
+		   and t.term_no = #{termNo}
+		   and t.batch_no = #{batchNo}
+	</select>
+	<select id="findExistsBatchSettleInfo" parameterType="com.gy.hsxt.ao.bean.BatchSettle"
+		resultType="java.lang.Integer">
+		select t.is_same
+		  from T_AO_BATCH_SETTLE t
+		 where t.ent_cust_id = #{entCustId}
+		   and t.ent_res_no = #{entResNo}
+		   and t.channel = #{channel}
+		   and t.term_no = #{termNo}
+		   and t.batch_no = #{batchNo}
+		   and t.BUY_HSB_SUM = #{buyHsbSum}
+		   and t.BUY_HSB_CNT = #{buyHsbCnt}
+		   and t.PROXY_HSB_SUM = #{proxyHsbSum}
+		   and t.PROXY_HSB_CNT = #{proxyHsbCnt}
+	</select>
+
+	<!-- 根据结算批次信息查询批总账编号 * 结算信息包括：企业客户号、企业互生号、批次编号、终端渠道、终端编号 -->
+	<select id="findBatchCheckIdByInfo" parameterType="com.gy.hsxt.ao.bean.BatchSettle"
+		resultType="java.lang.String">
+		select t.BATCH_CHECK_ID
+		   from T_AO_BATCH_SETTLE t
+		 where t.ent_cust_id = #{entCustId}
+		   and t.ent_res_no = #{entResNo}
+		   and t.channel = #{channel}
+		   and t.term_no = #{termNo}
+		   and t.batch_no = #{batchNo}
+	</select>
+
+	<!-- 根据结算批次信息查询上传标识 * 结算信息包括：企业客户号、企业互生号、批次编号、终端渠道、终端编号 -->
+	<select id="findUploadFlagByInfo" parameterType="com.gy.hsxt.ao.bean.BatchSettle"
+		resultType="java.lang.Integer">
+		select t.UPLOAD_FLAG
+		   from T_AO_BATCH_SETTLE t
+		where t.ent_cust_id = #{entCustId}
+		   and t.ent_res_no = #{entResNo}
+		   and t.channel = #{channel}
+		   and t.term_no = #{termNo}
+		   and t.batch_no = #{batchNo}
+	</select>
+
+	<!-- 插入保存批结算结果 -->
+	<insert id="insertBatchSettle" parameterType="com.gy.hsxt.ao.bean.BatchSettle">
+		INSERT INTO T_AO_BATCH_SETTLE
+		  (batch_check_id,
+		   ent_cust_id,
+		   ent_res_no,
+		   channel,
+		   term_no,
+		   batch_no,
+		   buy_hsb_sum,
+		   buy_hsb_cnt,
+		   proxy_hsb_sum,
+		   proxy_hsb_cnt,
+		   check_time,
+		   upload_flag,
+		   is_same,
+		   process_status)
+		VALUES
+		  (#{batchCheckId},
+		   #{entCustId},
+		   #{entResNo},
+		   #{channel},
+		   #{termNo},
+		   #{batchNo},
+		   #{buyHsbSum},
+		   #{buyHsbCnt},
+		   #{proxyHsbSum},
+		   #{proxyHsbCnt},
+		   sysdate,
+		   #{uploadFlag},
+		   #{isSame},
+		   #{processStatus})
+	</insert>
+
+	<!-- 更新交易结果 -->
+	<update id="updateBatchSettleByInfo" parameterType="com.gy.hsxt.ao.bean.BatchSettle">
+		UPDATE T_AO_BATCH_SETTLE
+		   SET upload_date = sysdate, upload_flag = #{uploadFlag}
+		 WHERE ent_cust_id = #{entCustId}
+		   and batch_no = #{batchNo}
+		   and term_no = #{termNo}
+		   and channel = #{channel}
+	</update>
+
+
+	<delete id="deleteBatchSettleLastMath">
+		delete from T_AO_BATCH_SETTLE WHERE check_time &lt;
+        last_day(add_months(SYSDATE, -#{month}))
+	</delete>
+
+</mapper>

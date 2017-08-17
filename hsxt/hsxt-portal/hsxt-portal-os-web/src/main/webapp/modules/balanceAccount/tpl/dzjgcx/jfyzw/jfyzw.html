@@ -1,0 +1,35 @@
+<div id="jfyzwTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>对账日期：</label>
+				<input type="text" name="jfyzw_beginDate" id="jfyzw_beginDate" placeholder="开始日期" class="queryList-toolbar-text" readonly="readonly">
+        <span class="separator-pd">-</span>
+        <input type="text" name="jfyzw_endDate" id="jfyzw_endDate" placeholder="截止日期" class="queryList-toolbar-text" readonly="readonly">
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">对账结果：</label>
+				<input id="jfyzw_tb_dzjg" name="ywyzw_tb_dzxt" placeholder="选择对账结果" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="jfyzw_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="jfyzw_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="tcDate" w_align="left">对账日期</th>
+			<th w_index="psTranNum" w_align="left">积分交易笔数</th>
+			<th w_index="acTranNum" w_align="left">账务交易笔数</th>
+			<th w_index="flatNum" w_align="left">账平笔数</th>
+			<th w_index="acHaveNum" w_align="left">积分无账务有笔数</th>
+            <th w_index="acHaveAmount" w_align="left">积分无账务有金额</th>
+            <th w_index="psHaveNum" w_align="left">积分有账务无笔数</th>
+            <th w_index="psHaveAmount" w_align="left">积分有账务无金额</th>
+           <th w_render="operate"  w_index="tcResult" w_align="left">对账结果</th>
+		</tr>
+	</table>
+</div>
+
+<div id="jfyzw_dlg" class="none ovh"></div>

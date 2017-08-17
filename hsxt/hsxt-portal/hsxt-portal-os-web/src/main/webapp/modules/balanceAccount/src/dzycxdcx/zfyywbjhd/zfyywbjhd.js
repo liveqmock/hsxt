@@ -1,0 +1,80 @@
+define(['text!balanceAccountTpl/dzycxdcx/zfyywbjhd/zfyywbjhd.html',
+		],function(zfyywbjhdTpl){
+	return {
+ 
+		showPage : function(tabid){
+			$('#main-content > div[data-contentid="'+tabid+'"]').html(_.template(zfyywbjhdTpl)) ;
+			
+			var self = this;
+		    
+		    /*下拉列表*/
+			$("#zfyywbjhd_tb_dzjg").selectList({
+				borderWidth : 1,
+				borderColor : '#CCC',
+				options:[
+					{name:'所有',value:'',selected : true},
+					{name:'长款',value:'0'},
+					{name:'短款',value:'1'},
+					{name:'要素不一致',value:'2'}
+				]
+			}).change(function(e){
+				console.log($(this).val() );
+			});
+			/*end*/
+			
+			/*日期控件*/
+			$("#zfyywbjhd_beginDate").datepicker({dateFormat:'yy-mm-dd'});
+			$("#zfyywbjhd_endDate").datepicker({dateFormat:'yy-mm-dd'});
+			/*end*/
+		   	
+		   	
+			/*表格数据模拟*/
+			var json = [{
+							"zfyywbjhd_date":"2015-12-23",
+							"zfyywbjhd_dzjg":"长款",
+							"zfyywbjhd_no":"AB000121213",
+							"zfyywbjhd_pay":"100.00",
+							"zfyywbjhd_stat":"成功",
+							"zfyywbjhd_zfsj":"2015-12-23 12:02:00",
+							"zfyywbjhd_ywje":"100.00",
+							"zfyywbjhd_ywzt":"成功",
+							"zfyywbjhd_ywsj":"2015-12-23 12:02:00"
+						},
+						{
+							"zfyywbjhd_date":"2015-12-23",
+							"zfyywbjhd_dzjg":"短款",
+							"zfyywbjhd_no":"AB000121213",
+							"zfyywbjhd_pay":"100.00",
+							"zfyywbjhd_stat":"成功",
+							"zfyywbjhd_zfsj":"2015-12-23 12:02:00",
+							"zfyywbjhd_ywje":"100.00",
+							"zfyywbjhd_ywzt":"失败",
+							"zfyywbjhd_ywsj":"2015-12-23 12:02:00"
+						},
+						{
+							"zfyywbjhd_date":"2015-12-23",
+							"zfyywbjhd_dzjg":"要素不一致",
+							"zfyywbjhd_no":"AB000121213",
+							"zfyywbjhd_pay":"100.00",
+							"zfyywbjhd_stat":"成功",
+							"zfyywbjhd_zfsj":"2015-12-23 12:02:00",
+							"zfyywbjhd_ywje":"100.00",
+							"zfyywbjhd_ywzt":"成功",
+							"zfyywbjhd_ywsj":"2015-12-23 12:02:00"
+						}];	
+			
+			var gridObj = $.fn.bsgrid.init('zfyywbjhd_ql', {				 
+				//url : comm.domainList['local']+comm.UrlList['tgqycsyw'],
+				// autoLoad: false,
+				pageSizeSelect: true ,
+				pageSize: 100 ,
+				stripeRows: true,  //行色彩分隔 
+				displayBlankRows: false ,   //显示空白行
+				localData:json 
+			});
+			
+			/*end*/		
+				
+		}
+	}
+}); 

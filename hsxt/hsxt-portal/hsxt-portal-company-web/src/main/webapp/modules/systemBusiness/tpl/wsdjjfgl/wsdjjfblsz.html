@@ -1,0 +1,37 @@
+<%if (obj.status == '1') {%>
+<div id="jnxtsynf">
+    <div class="acct-ct mb20">
+    	<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>积分比例范围为0.0001-0.3000，此积分比例只用于网上登记积分业务。</h1>
+    </div>
+    <div class="bc info_320">
+    <form id="wsdjjfblsz_form" name="wsdjjfblsz_form" action="" method="post">
+        <ul class="cssform2 clearfix">
+            <li>
+                <label class="title-txt w115">积分比例1</label><input class="w185 h30_middle ml5" type="text" name="rate1" id="rate1" value="" placeholder="输入积分比例"/>
+            </li>
+            <li>
+                <label class="title-txt w115">积分比例2</label><input class="w185 h30_middle ml5" type="text" name="rate2" id="rate2" value="" placeholder="输入积分比例"/>
+            </li>
+            <li>
+                <label class="title-txt w115">积分比例3</label><input class="w185 h30_middle ml5" type="text" name="rate3" id="rate3" value="" placeholder="输入积分比例"/>
+            </li>
+            <li>
+                <label class="title-txt w115">积分比例4</label><input class="w185 h30_middle ml5" type="text" name="rate4" id="rate4" value="" placeholder="输入积分比例"/>
+            </li>
+            <li>
+                <label class="title-txt w115">积分比例5</label><input class="w185 h30_middle ml5" type="text" name="rate5" id="rate5" value="" placeholder="输入积分比例"/>
+            </li>
+        </ul>
+        <div class="mt20 tc"><a href="javascript:;" id="btn_wsdjjfblsz_tj" class="btn_bg submit">提&#12288;交</a></div>
+    </form>
+    </div>
+</div>
+<%} else {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您的企业网上登记积分比例已经设置，如果需要修改，请在【网上登记积分比例修改】页面中修改！</p>
+    </div>
+</div>
+<%}%>

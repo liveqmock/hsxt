@@ -1,0 +1,59 @@
+<div id="qynfjnTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>互生号：</label>
+				<input type="text" name="companyResNo" id="companyResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入互生号" />
+			</li>
+			<li>
+				<button id="query_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+	  <tr>
+		<th w_index="th_1">互生号</th>
+		<th w_index="th_2">企业名称</th>
+		<th w_index="th_3">联系人姓名</th>
+		<th w_index="th_4">联系人手机</th>
+	  </tr>
+	</table>
+	<div class="info_800 bc mt20">
+		<form id="annualFeeForm">
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">系统使用年费</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" id="arrearAmount" name="arrearAmount" value="" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">目前年费有效期</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" id="endDate" value="" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">缴纳年费区间</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" id="areaDate" value="" readonly="readonly" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+				    <li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">需缴纳年费金额</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" id="orderHsbAmount" name="orderHsbAmount" value="" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">结算币种</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" id="currency"value="人民币" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">支付方式</label>
+						<input type="text" class="fl w185 h30_middle ml5 cannotEdit-bg" value="转账汇款" readonly="readonly" />
+						<input type="hidden"  id="companyCustId" name="companyCustId" value=""  />
+					</li>
+				</ul>
+			</div>
+			<div id="submitTpl" class="mt20 none" align="center">
+				<a class="btn_bg submit " id="submitAnnualFeeForm">提交订单</a>
+			</div>   
+		</form>
+	</div>
+</div>

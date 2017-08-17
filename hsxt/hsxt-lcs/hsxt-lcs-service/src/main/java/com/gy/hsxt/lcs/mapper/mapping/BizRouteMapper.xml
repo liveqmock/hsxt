@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.BizRouteMapper">
+	<!--是否已存在相同-->
+	<select id="existBizRoute" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_LCS_BIZ_ROUTE
+			WHERE
+				BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	
+	<!--主键查询-->
+	<select id="queryBizRouteWithPK" resultType="com.gy.hsxt.lcs.bean.BizRoute">
+		SELECT
+			BIZ_CODE bizCode,
+			SUBSYS_CODE subSysCode,
+			BIZ_NAME_CN bizNameCn,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_BIZ_ROUTE
+		WHERE
+			BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+	</select>
+	
+    	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_BIZ_ROUTE (
+			BIZ_CODE,
+			SUBSYS_CODE,
+			BIZ_NAME_CN,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	     <foreach collection="list" item="item" index="index" separator=",">  
+		       (#{item.bizCode},
+	            #{item.subSysCode},
+	            #{item.bizNameCn},
+	            #{item.delFlag},
+	            #{item.version}
+			)
+	    </foreach>  
+    </insert>
+    
+    
+		          
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_BIZ_ROUTE
+			<set>
+	           SUBSYS_CODE = #{item.subSysCode},
+	           BIZ_NAME_CN = #{item.bizNameCn},
+	           DEL_FLAG =  #{item.delFlag},
+			   VERSION = #{item.version}
+			</set>
+		 WHERE  
+		       BIZ_CODE = #{item.bizCode}
+        </foreach>
+    </update>  
+</mapper>

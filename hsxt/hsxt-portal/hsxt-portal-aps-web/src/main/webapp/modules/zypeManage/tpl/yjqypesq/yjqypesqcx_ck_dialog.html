@@ -1,0 +1,42 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">本次配额申请信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司资源号</td>
+            <td class="view_text" width="30%"><%=obj.entResNo%></td>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"><%=obj.entCustName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">本次申请调整配额数</td>
+            <td class="view_text" colspan="3"><%=obj.applyNum%></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.reqTime%></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text"><%=obj.reqOperator%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审批信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">审批结果</td>
+            <td class="view_text"><%=comm.lang("zypeManage").quotaStatusEnume[obj.status]%></td>
+            <td class="view_item">批复配额数</td>
+            <td class="view_text"><%=obj.apprNum%></td>
+        </tr>
+        <tr>
+            <td class="view_item">批复配额号段</td>
+            <td class="view_text" colspan="3"><%=obj.resNoList%></td>
+        </tr>
+        <tr>
+            <td class="view_item">审批时间</td>
+            <td class="view_text"><%=obj.apprTime%></td>
+            <td class="view_item">审核说明</td>
+            <td class="view_text"><%=obj.apprRemark%></td>
+        </tr>
+    </table>
+</div>

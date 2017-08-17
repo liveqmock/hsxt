@@ -1,0 +1,34 @@
+﻿<div id="htffTpl">
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>企业互生号：</label>
+			<input type="text" name="textfield" id="entResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入企业互生号" />
+		</li>
+		<li>
+			<label>企业名称：</label>
+			<input type="text" name="textfield" id="entCustName" class="h28_middle w115 input-txt" placeholder="输入企业名称" />
+		</li>
+		<li class="clearfix">
+			<label class="fl h30_middle">发放状态：</label>
+			<input id="sendStatus" readonly="readonly" placeholder="选择发放状态"/>
+		</li>
+		<li>
+			<button id="qry_htff_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable" class="bsgrid">
+	<tr>
+		<th w_index="entResNo" w_tip="true">企业互生号</th>
+		<th w_index="entCustName" w_tip=true>企业名称</th>
+		<th w_index="linkman" w_tip=true>联系人姓名</th>
+		<th w_index="mobile" w_tip="true">联系人手机</th>
+		<th w_index="custType" w_render="operate">申报类别</th>
+		<th w_index="regDate" w_tip="true">系统开启日期</th>
+		<th w_index="sendCount" w_render="operate">发放状态</th>
+		<th w_index="sendDate" w_tip="true">发放时间</th>
+		<th w_render="operate" width="15%;">操作</th>
+	</tr>
+</table>
+</div>

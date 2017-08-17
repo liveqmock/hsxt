@@ -1,0 +1,95 @@
+/* 背景样式 */
+#wrap{/*width:100%;background:url(../img/wrap_bg.gif) repeat-x;height:765px;padding:20px 0;*/
+	width:1440px;width:auto !important;min-width:1440px;}/*2015-02-28设置自适应宽度*/
+
+/* 左边导航栏样式开始 */
+.sideBar_menu li{height:74px;background:url(../img/sideBar_bg.gif) repeat-x;text-align:center;line-height:28px;padding-top:10px;}
+
+/* 左边导航栏菜单选中状态 */
+.sideBar_menu li.menu_hover{height:74px;background:url(../img/nav_li_bg_hover.gif) repeat-x bottom;text-align:center;line-height:28px;padding-top:10px;}
+
+.sideBar_menu_icon{width:44px;height:44px;background:url(../img/sideBar_menu.png) no-repeat 0 0;display:block;overflow:hidden;cursor:pointer;margin:0 auto 0 auto;}
+.sideBar_menu li span{color:black;}
+/* 左边导航栏样式结束 */
+
+/* 中间菜单样式开始 */
+
+/* 主菜单样式开始*/
+/*.mainNav{height:100px;background:url(../img/nav_bg.gif) no-repeat;}*/
+.mainNav{height:100px;background:url(../img/nav_repeat_bg.gif);}/*2014-12-15 qinsl*/
+.ulNav{background:url(../img/nav_bg_flower.gif) no-repeat right top}/*2014-12-15 qinsl*/
+.navMenu{width:90px;height:90px;background:url(../img/nav_li_bg.gif) no-repeat right;line-height:30px;padding-top:10px;text-align:center;}
+.navMenu_hover{height:90px;background:url(../img/nav_li_bg_hover.gif) repeat-x;margin-left:-1px;width:91px;line-height:30px;padding-top:10px;text-align:center;}
+/*鼠标事件，移在按钮上改变样式（已在nav.js里面实现，可移除）
+.mainNav li:hover .navMenu{height:90px;background:url(../img/nav_li_bg_hover.gif) repeat-x;margin-left:-1px;width:91px;}
+.mainNav li:hover span{color:#3d8028;}
+*/
+.nav_menu_icon{width:56px;height:58px;background:url(../img/nav_menu.png) no-repeat 0 0;display:block;overflow:hidden;margin:0 auto 0 auto;}
+/* 主菜单样式结束 */
+
+/* 子菜单样式开始 */
+.subNav{height:40px;background:url(../img/subNav_bg.gif) repeat-x;overflow:hidden;}
+.subNav li{
+	float:left;
+	display:inline;
+	padding:0 10px;
+	*width:110px;
+	text-align:center;
+	height:40px;
+	line-height:40px;
+	vertical-align:middle;
+	background:url(../img/subNav_menu_line.gif) no-repeat right;
+	}
+.subNav li div{height:27px;line-height:27px;vertical-align:middle;margin-top:7px;cursor:pointer;}
+.subNav_bg_left,.subNav_bg_right,.subNav_bg_left_hover,.subNav_bg_right_hover{width:12px;}
+.subNav_bg_center,.subNav_bg_center_hover{margin:0 12px 0 12px;text-align:center;}
+
+/*
+.subNav li:hover .subNav_bg_left{background:url(../img/subNav_bg_hover_left.gif) no-repeat;}
+.subNav li:hover .subNav_bg_right{background:url(../img/subNav_bg_hover_right.gif) no-repeat;}
+.subNav li:hover .subNav_bg_center{ background:url(../img/subNav_bg_hover.gif) repeat-x;}
+.subNav li:hover a{color:white;}
+*/
+.subNav_bg_left_hover{background:url(../img/subNav_bg_hover_left.gif) no-repeat;}
+.subNav_bg_right_hover{background:url(../img/subNav_bg_hover_right.gif) no-repeat;}
+.subNav_bg_center_hover{background:url(../img/subNav_bg_hover.gif) repeat-x;}
+.subNam_a_hover{color:white;}
+
+.subNav li a{color:black;}
+/* 子菜单样式结束*/
+
+/* 中间菜单样式结束 */
+
+/* 操作台样式开始 */
+.operationsArea{min-height:478px;padding:20px;background:url(../img/operationsArea_bg_1.gif) repeat-x bottom;}
+/* 操作台样式结束 */
+
+/* 右边服务模块样式开始 */
+.corporate_info{height:100px;background-color:#eef5ec;}
+.serviceNav{height:36px;border-bottom:2px solid #aecaa6;}
+.myFriend,.tourist,.blackList{cursor:pointer;background:url(../img/serviceNav_titleBg.gif) repeat-x;color:#1d4d0e;font-size:12px;font-weight:bold;}
+.myFriend:hover,.tourist:hover,.blackList:hover{ background:url(../img/serviceNav_titleBg_hover.gif) repeat-x;color:white;}
+.serviceItem h3{height:35px;background-image:url(../img/service_titleBg.gif); background-repeat:repeat-x;border-top:1px solid #aecaa6;border-bottom:1px solid #aecaa6;cursor:pointer;}
+.serviceItem_icon{background-image:url(../img/icon_serviceItem.png); background-repeat:no-repeat;display:block;overflow:hidden;}
+/* 右边服务模块样式结束 */
+
+/* 页脚样式开始 */
+#footer{height:41px;line-height:41px;vertical-align:middle;background:url(../img/footer_bg.gif) repeat-x;text-align:center;}
+.copyRight{color:#447a33;}
+/* 页脚样式结束 */
+
+.sideBar_menu li.menu_hover {
+    height: 74px;
+    background: url('../img/nav_li_bg_hover.gif') repeat-x scroll center bottom transparent;
+    text-align: center;
+    line-height: 28px;
+    padding-top: 10px;
+}
+
+.s_hover,.subNav1 li a:hover{
+	background:url(../img/subNav_bg_hover.gif);
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+}
+a.s_hover,.subNav1 li a:hover {color:#FFF;}

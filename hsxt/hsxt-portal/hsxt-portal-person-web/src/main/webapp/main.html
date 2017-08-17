@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+	<title>互生系统平台 - 首页</title>
+	
+	<script src="library/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="library/plugins/jquery.cookie.js" type="text/javascript"></script>
+	
+</head>
+<body>
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+function getQueryString(name){
+	var input = "";
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var search =  window.location.search;
+    var r = search.substr(1).match(reg);
+    if (r == null)
+    {
+    	return null;
+    }
+      	input= r[2];
+    
+		var output = "";
+	   var chr1, chr2, chr3 = "";
+	   var enc1, enc2, enc3, enc4 = "";
+	   var i = 0;
+	   var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+	   // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+	   var base64test = /[^A-Za-z0-9\+\/\=]/g;
+	   if (base64test.exec(input )) {
+	      alert("There were invalid base64 characters in the input text.\n" +
+	            "Valid base64 characters are A-Z, a-z, 0-9, '+', '/', and '='\n" +
+	            "Expect errors in decoding.");
+	   }
+	   input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+	   do {
+	      enc1 = keyStr.indexOf(input.charAt(i++));
+	      enc2 = keyStr.indexOf(input.charAt(i++));
+	      enc3 = keyStr.indexOf(input.charAt(i++));
+	      enc4 = keyStr.indexOf(input.charAt(i++));
+
+	      chr1 = (enc1 << 2) | (enc2 >> 4);
+	      chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+	      chr3 = ((enc3 & 3) << 6) | enc4;
+
+	      output = output + String.fromCharCode(chr1);
+
+	      if (enc3 != 64) {
+	         output = output + String.fromCharCode(chr2);
+	      }
+	      if (enc4 != 64) {
+	         output = output + String.fromCharCode(chr3);
+	      }
+
+	      chr1 = chr2 = chr3 = "";
+	      enc1 = enc2 = enc3 = enc4 = "";
+
+	   } while (i < input.length);
+
+	   return decodeURIComponent(output);
+}
+
+function validateIp(){
+	var url = document.domain;
+	var re = /^([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/;
+	return re.test(url);
+}
+
+function firstDomain(){
+	var url = document.domain;
+	if (!validateIp()) {
+		var arr = url.split(".");
+		url = "." + arr[arr.length - 2] + "." + arr[arr.length - 1];
+	}
+	return url;
+}
+
+function setCookie(c_name, value,_d){
+	 $.cookie(c_name,value, { path: '/',domain:_d});
+}
+
+function clearCookie(firDomain){
+	 $.cookie("custId",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("custName",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("email",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("entResNo",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("isBindBank",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("isLocal",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("isRealnameAuth",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("isBindBank",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("isAuthMobile",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("resNo",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("creType",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("pointNo",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("token",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie("userName",null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie('lastLoginDate',null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie('lastLoginIp',null,{expires: -1, path: '/',domain:firDomain});
+	 $.cookie('headPic',null,{expires: -1, path: '/',domain:firDomain});
+}
+debugger;
+var _domain = firstDomain();
+clearCookie(_domain);
+
+var result = getQueryString("hsxtPre");
+
+if(result){
+	var objParam = eval('(' + result + ')');
+	
+	setCookie("custId",objParam.custId,_domain);
+	setCookie("custName",objParam.custName == null?"":objParam.custName,_domain);
+	setCookie("email",objParam.email,_domain);
+	setCookie("entResNo",objParam.entResNo,_domain);
+	setCookie("isBindBank",objParam.isBindBank,_domain);
+	setCookie("isLocal",objParam.isLocal,_domain);
+	setCookie("isRealnameAuth",objParam.isRealnameAuth,_domain);
+	setCookie("isBindBank",objParam.isBindBank,_domain);
+	setCookie("isAuthMobile",objParam.isAuthMobile,_domain);
+	setCookie("resNo",objParam.resNo,_domain);
+	setCookie('creType',objParam.creType,_domain);
+	setCookie("pointNo",objParam.resNo,_domain);
+	setCookie("token",objParam.token,_domain);
+	setCookie("userName",objParam.userName,_domain);
+	setCookie('lastLoginDate',objParam.lastLoginDate,_domain);
+	setCookie('lastLoginIp',objParam.lastLoginIp,_domain);
+	setCookie('headPic',objParam.headPic,_domain);
+}
+	
+	window.location="index.html";
+</script>

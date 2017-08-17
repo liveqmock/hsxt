@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+    <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+	
+	<dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="hsxt-bs-provider" address="${dubbo.registry.address}"  default="true"/>
+   <!--  <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}"
+    	threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<dubbo:monitor protocol="registry"/> -->
+	
+	
+
+	<!-- 全局配置参数 -->
+	<dubbo:reference id="baseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	<!-- 用户中心企业接口 -->
+	<dubbo:reference id="bsEntService" interface="com.gy.hsxt.uc.bs.api.ent.IUCBsEntService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	<!-- 用户中心设备接口 -->
+	<dubbo:reference id="bsDeviceService" interface="com.gy.hsxt.uc.bs.api.device.IUCBsDeviceService"
+           retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	<!-- 用户中心互生卡开卡接口 -->
+	<dubbo:reference id="UCBsCardHolderService" interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderService"
+           retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+    <!-- 用户中心持卡人状态信息接口 -->
+	<dubbo:reference id="iUCBsCardHolderStatusInfoService" interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderStatusInfoService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+    <!-- 用户中心持卡人认证信息接口 -->
+	<dubbo:reference id="iUCBsCardHolderAuthInfoService" interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderAuthInfoService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+
+	<!-- 通知系统 -->
+	<dubbo:reference id="ntService" interface="com.gy.hsi.nt.api.service.INtService"
+           retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	<!-- 账户实时记账 -->
+	<dubbo:reference id="accountEntryService" interface="com.gy.hsxt.ac.api.IAccountEntryService"
+           retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+    <!-- 账户查询接口 -->
+	<dubbo:reference id="accountSearchService" interface="com.gy.hsxt.ac.api.IAccountSearchService"
+           retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+
+    <!--文件同步系统-->
+    <dubbo:reference id="fssNotifyService"  interface="com.gy.hsxt.gpf.fss.api.IfssNotifyService"  timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+	<!--支付系统-->
+	<dubbo:reference id="gpPaymentService" interface="com.gy.hsxt.gp.api.IGPPaymentService" timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+    <!-- 工单系统 -->
+	<dubbo:reference id="tmTaskService" interface="com.gy.hsxt.tm.api.ITMTaskService" async="true" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+<!-- ####################### 资源业务  ################################# -->
+    <!-- 意向客户管理服务 -->
+    <dubbo:reference id="iBSIntentCustService" interface="com.gy.hsxt.bs.api.apply.IBSIntentCustService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 报备管理服务  -->
+    <dubbo:reference id="iBSFilingService" interface="com.gy.hsxt.bs.api.apply.IBSFilingService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 申报管理服务  -->
+    <dubbo:reference id="iBSDeclareService" interface="com.gy.hsxt.bs.api.apply.IBSDeclareService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 申报欠款管理服务  -->
+    <dubbo:reference id="iBSDebtOrderService" interface="com.gy.hsxt.bs.api.apply.IBSDebtOrderService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+		   	   
+	<!-- 证书管理服务  -->
+    <dubbo:reference id="iBSCertificateService" interface="com.gy.hsxt.bs.api.apply.IBSCertificateService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>	   
+	
+	<!-- 合同管理服务  -->
+    <dubbo:reference id="iBSContractService" interface="com.gy.hsxt.bs.api.apply.IBSContractService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>	   
+	
+	<!-- 重要信息变更服务  -->
+    <dubbo:reference id="iBSChangeInfoService" interface="com.gy.hsxt.bs.api.entstatus.IBSChangeInfoService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 成员企业注销服务  -->
+    <dubbo:reference id="iBSMemberQuitService" interface="com.gy.hsxt.bs.api.entstatus.IBSMemberQuitService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 积分活动服务  -->
+    <dubbo:reference id="iBSPointActivityService" interface="com.gy.hsxt.bs.api.entstatus.IBSPointActivityService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	
+	<!-- 实名认证服务  -->
+    <dubbo:reference id="iBSRealNameAuthService" interface="com.gy.hsxt.bs.api.entstatus.IBSRealNameAuthService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 实名认证服务  -->
+    <dubbo:reference id="iBSCloseOpenEntService" interface="com.gy.hsxt.bs.api.entstatus.IBSCloseOpenEntService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- 官网服务  -->
+    <dubbo:reference id="iBSOfficialWebService" interface="com.gy.hsxt.bs.api.apply.IBSOfficialWebService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<!-- ####################### 资源业务  ################################# -->
+	
+	
+	<!-- ####################### 工具业务  ################################# -->
+	<dubbo:reference id="toolProductService" interface="com.gy.hsxt.bs.api.tool.IBSToolProductService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	
+	<dubbo:reference id="toolOrderService" interface="com.gy.hsxt.bs.api.tool.IBSToolOrderService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<dubbo:reference id="toolMarkService" interface="com.gy.hsxt.bs.api.tool.IBSToolMarkService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<dubbo:reference id="toolSendService" interface="com.gy.hsxt.bs.api.tool.IBSToolSendService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   	   
+	<dubbo:reference id="toolStockService" interface="com.gy.hsxt.bs.api.tool.IBSToolStockService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<dubbo:reference id="toolAfterService" interface="com.gy.hsxt.bs.api.tool.IBSToolAfterService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>	   	   
+	<!-- ####################### 工具业务  ################################# -->
+	
+	<!-- ####################### 配额业务  ################################# -->
+	<dubbo:reference id="quotaService" interface="com.gy.hsxt.bs.api.quota.IBSQuotaService"
+		url="dubbo://192.168.1.142:20890/com.gy.hsxt.bs.api.quota.IBSQuotaService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+	<!-- ####################### 配额业务  ################################# -->
+	
+	<!-- 用户中心：银行帐户管理 -->
+    <dubbo:reference id="ucBankAcctInfoService" interface="com.gy.hsxt.uc.bs.api.common.IUCBsBankAcctInfoService"  timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+	
+	 <!-- 发布业务文档管理服务 -->
+    <dubbo:reference id="ibsBizFileService" interface="com.gy.hsxt.bs.api.bizfile.IBSBizFileService" timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+	
+	
+</beans>

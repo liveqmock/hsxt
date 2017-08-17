@@ -1,0 +1,29 @@
+﻿<div class="busibox p20" id="pointInvest">
+	<div class="acct-ct">
+		<h1 class="acct-tips tl"><p class="tcr_blue fb ml200 tl">投资说明：</p></h1>
+		<p class="tl lh30 ml200 pb30">1、积分投资金额为<span id="pi_integrationInvIntMult" name="pi_integrationInvIntMult"></span>的整数倍；<br/>2、平台承诺保本投资，投资回报按每年实际收益计算；<br/>3、积分投资一经确认，永不撤销。</p>
+		<p class="acct-line"></p>
+	</div>
+	<form id="pi_appform" autocomplete="off" name="pi_appform" action="" method="post" onsubmit="return false;">
+		<input name="pi_minPointInvest" id="pi_minPointInvest" type="hidden"/>
+		<input name="pi_pointAccUsable_hidden" id="pi_pointAccUsable_hidden" type="hidden"/>
+		<input name="pi_randomToken" id="pi_randomToken" type="hidden"/>
+		<div class="cssform_400 pt20">
+			<ul class="cssform clearfix">
+				<li class="col2 pr bg_EFEFEF">
+					<label class="title-txt">可用积分数</label>
+					<div class="cont-int"><span class="red f16 fb lh35 pl5" id="pi_pointAccUsable"></span><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr">
+					<label class="title-txt">申请投资积分数</label>
+					<div class="cont-int"><input class="inpt w176 input_gray" type="text" name="pi_pointInvestNum" id="pi_pointInvestNum" placeholder="输入申请投资积分数"/><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+					<label class="title-txt">转入账户</label>
+					<div class="cont-chk tbox2 wseltbox"><span class="lh30 pl5">投资账户</span></div><div class="hint"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="tc mt20"><a href="javascript:;" id="piQrBtn" data-id="zhgl_jfzh_jftz2" class="hs_btn myhs_ajax_btn">提&#12288;交</a></div>
+	</form>
+</div>

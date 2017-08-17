@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.TransOutMapper">
+	<resultMap type="java.util.HashMap" id="dayTransTimesResultMap">
+		<result column="transTimes" property="transTimes" javaType="java.lang.Integer"
+			jdbcType="INTEGER" />
+		<result column="transAmount" property="transAmount" javaType="java.lang.Double"
+			jdbcType="DOUBLE" />
+	</resultMap>
+
+	<!-- 插入银行转帐记录 -->
+	<insert id="insertTransOut" parameterType="com.gy.hsxt.ao.bean.TransOut">
+		INSERT INTO
+		T_AO_TRANS_OUT
+		(
+		TRANS_NO,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		TRANS_REASON,
+		AMOUNT,
+		FEE_AMT,
+		REAL_AMT,
+		CURRENCY_CODE,
+		BANK_ACCT_NAME,
+		BANK_ACCT_NO,
+		BANK_NO,
+		BANK_BRANCH,
+		BANK_PROVINCE_NO,
+		BANK_CITY_NO,
+		BANK_ADDRESS,
+		IS_VERIFY,
+		TRANS_STATUS,
+		TRANS_RESULT,
+		RESULT_TIME,
+		FAIL_REASON,
+		REQ_OPT_ID,
+		REQ_OPT_NAME,
+		REQ_TIME,
+		REQ_REMARK,
+		APPR_OPT_ID,
+		APPR_OPT_NAME,
+		APPR_TIME,
+		APPR_REMARK,
+		CHANNEL,
+		TERM_NO,
+		BATCH_NO,
+		COMMIT_TYPE,
+		ACC_ID
+		)
+		VALUES
+		(
+		#{transNo},
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{transReason},
+		#{amount},
+		#{feeAmt},
+		0,
+		#{currencyCode},
+		#{bankAcctName},
+		#{bankAcctNo},
+		#{bankNo},
+		#{bankBranch},
+		#{bankProvinceNo},
+		#{bankCityNo},
+		#{bankAddress},
+		#{isVerify},
+		#{transStatus},
+		#{transResult},
+		null,
+		null,
+		#{reqOptId},
+		#{reqOptName},
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss'),
+		#{reqRemark},
+		#{apprOptId},
+		#{apprOptName},
+		#{apprTime},
+		#{apprRemark},
+		#{channel},
+		#{termNo},
+		#{batchNo},
+		#{commitType},
+		#{accId}
+		)
+	</insert>
+
+	<!-- 查询银行转帐信息 -->
+	<select id="findTransOutInfo" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_AO_TRANS_OUT
+		WHERE
+		TRANS_NO =
+		#{transNo}
+	</select>
+	
+	<!-- 查询银行转帐信息 -->
+	<select id="findUnTransOutInfo" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_AO_TRANS_OUT
+		WHERE
+		TRANS_STATUS != 8
+		and TRANS_RESULT != 1000
+		and TRANS_NO =	#{transNo}
+	</select>
+	
+	<!-- 查询撤单的银行转帐信息 -->
+	<select id="findTransOutRevokeInfo" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_AO_TRANS_OUT
+		WHERE
+		TRANS_STATUS = 1
+		and TRANS_RESULT = -1
+		and TRANS_NO = #{transNo}
+	</select>
+
+	<!-- 查询银行转帐列表 -->
+	<select id="findTransOutListPage" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM T_AO_TRANS_OUT
+		<where>
+			<if test="startDate!=null and startDate!=''">
+				and REQ_TIME &gt;=
+				to_date(#{startDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and REQ_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<choose>
+				<when test="transStatus!=null and transStatus == 6">
+					and TRANS_STATUS in (5,6)
+				</when>
+				<otherwise>
+					<if test="transStatus!=null">
+						and TRANS_STATUS = #{transStatus}
+					</if>
+				</otherwise>
+			</choose>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and HS_RES_NO like '%${hsResNo}%'
+			</if>
+			<if test="custType!=null">
+				and CUST_TYPE = #{custType}
+			</if>
+			<if test="custName!=null and custName!=''">
+				and CUST_NAME like '%${custName}%'
+			</if>
+			<if test="transReason!=null">
+				and TRANS_REASON = #{transReason}
+			</if>
+		</where>
+		order by REQ_TIME desc
+	</select>
+
+	<!-- 查询银行转帐列表 -->
+	<select id="findTransOutList" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		TRANS_NO AS transNo,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CUST_TYPE AS custType,
+		TRANS_REASON AS transReason,
+		AMOUNT AS amount,
+		FEE_AMT AS feeAmt,
+		REAL_AMT AS realAmt,
+		CURRENCY_CODE AS currencyCode,
+		BANK_ACCT_NAME AS bankAcctName,
+		BANK_ACCT_NO AS bankAcctNo,
+		BANK_NO AS bankNo,
+		BANK_BRANCH AS bankBranch,
+		BANK_PROVINCE_NO AS bankProvinceNo,
+		BANK_CITY_NO AS bankCityNo,
+		BANK_ADDRESS AS bankAddress,
+		IS_VERIFY AS isVerify,
+		case 
+		when TRANS_STATUS = 1 then '申请中'
+		when TRANS_STATUS = 2 then '付款中'
+		when TRANS_STATUS = 3 then '已撤单'
+		when TRANS_STATUS = 4 then '已冲正'
+		when TRANS_STATUS = 5 then '银行退票'
+		when TRANS_STATUS = 6 then '转账失败'
+		when TRANS_STATUS = 7 then '转账退款完成'
+		when TRANS_STATUS = 8 then '转账成功'
+		else '申请中' end AS transStatusName,
+		TRANS_RESULT AS transResult,
+		RESULT_TIME AS resultTime,
+		FAIL_REASON AS failReason,
+		REQ_OPT_ID AS reqOptId,
+		REQ_OPT_NAME AS reqOptName,
+		REQ_TIME AS reqTime,
+		REQ_REMARK AS reqRemark,
+		APPR_OPT_ID AS apprOptId,
+		APPR_OPT_NAME AS apprOptName,
+		APPR_TIME AS apprTime,
+		APPR_REMARK AS apprRemark,
+		CHANNEL AS channel,
+		TERM_NO AS termNo,
+		BATCH_NO AS batchNo,
+		case
+		when COMMIT_TYPE = 1 then '单笔自动'
+		when COMMIT_TYPE = 2 then '批量自动'
+		when COMMIT_TYPE = 3 then '手工提交'
+		end AS commitTypeName,
+		BANK_TRANS_NO AS bankTransNo,
+		ACC_ID AS accId
+		FROM 
+		T_AO_TRANS_OUT
+		<where>
+			<if test="startDate!=null and startDate!=''">
+				and REQ_TIME &gt;=
+				to_date(#{startDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and REQ_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="transStatus!=null">
+				and TRANS_STATUS = #{transStatus}
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and HS_RES_NO like '%${hsResNo}%'
+			</if>
+			<if test="custType!=null">
+				and CUST_TYPE = #{custType}
+			</if>
+			<if test="custName!=null and custName!=''">
+				and CUST_NAME like '%${custName}%'
+			</if>
+			<if test="transReason!=null">
+				and TRANS_REASON = #{transReason}
+			</if>
+		</where>
+		order by REQ_TIME desc
+	</select>
+
+	<!-- 查询银行转帐列表统计 -->
+	<select id="findTransOutListCount" resultType="com.gy.hsxt.ao.bean.TransOutCustom">
+		SELECT
+		count(0) as totalNum,
+		sum(amount) as totalAmount,
+		sum(fee_amt) as
+		deductFeeAmount,
+		sum(case when trans_status = 5 or trans_status = 6
+		then amount else 0 end) as
+		waitBackAmount,
+		sum(case when trans_status =
+		1 then amount else 0 end) as applyingAmount,
+		sum(case when trans_status
+		= 2 then amount else 0 end) as
+		payingAmount,
+		sum(case when trans_status
+		= 4 then amount else 0 end) as reversedAmount,
+		sum(case when
+		trans_status = 3 then amount else 0 end) as
+		revokedAmount,
+		sum(case when
+		trans_status = 5 then amount else 0 end) as bankBackAmount,
+		sum(case
+		when trans_status = 7 then amount else 0 end) as
+		backSuccessAmount,
+		sum(case when trans_status = 8 then amount else 0 end) as
+		transSuccessAmount,
+		sum(case when trans_status = 6 then amount else 0
+		end) as
+		transFailAmount
+		FROM T_AO_TRANS_OUT
+		<where>
+			<if test="startDate!=null and startDate!=''">
+				and REQ_TIME &gt;=
+				to_date(#{startDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and REQ_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="transStatus!=null">
+				and TRANS_STATUS = #{transStatus}
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and HS_RES_NO like '%${hsResNo}%'
+			</if>
+			<if test="custType!=null">
+				and CUST_TYPE = #{custType}
+			</if>
+			<if test="custName!=null and custName!=''">
+				and CUST_NAME like '%${custName}%'
+			</if>
+			<if test="transReason!=null">
+				and TRANS_REASON = #{transReason}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询银行转帐复核信息 -->
+	<select id="findTransOutReview" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_AO_TRANS_OUT
+		WHERE
+		TRANS_STATUS = 1
+		and TRANS_NO = #{transNo}
+	</select>
+
+	<!-- 查询对账列表 -->
+	<select id="findCheckUpListPage" resultType="com.gy.hsxt.ao.bean.TransOut">
+		SELECT
+		<include refid="base_column_list" />
+		FROM
+		T_AO_TRANS_OUT
+		<where>
+			and TRANS_STATUS = 8
+			and TRANS_RESULT = 1000
+			<if test="startDate!=null and startDate!=''">
+				and REQ_TIME &gt;=
+				to_date(#{startDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and REQ_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and HS_RES_NO like '%${hsResNo}%'
+			</if>
+			<if test="custName!=null and custName!=''">
+				and CUST_NAME like '%${custName}%'
+			</if>
+		</where>
+		order by REQ_TIME desc
+	</select>
+
+	<!-- 查询转账失败列表 -->
+	<select id="findTransFailListPage" resultType="com.gy.hsxt.ao.bean.TransOut">
+		select
+		t.TRANS_NO
+		AS transNo,
+		t.CUST_ID AS custId,
+		t.HS_RES_NO AS hsResNo,
+		t.CUST_NAME AS
+		custName,
+		t.CUST_TYPE AS custType,
+		t.TRANS_REASON AS transReason,
+		t.AMOUNT AS amount,
+		t.FEE_AMT AS feeAmt,
+		t.REAL_AMT AS realAmt,
+		t.CURRENCY_CODE AS currencyCode,
+		t.BANK_ACCT_NAME AS bankAcctName,
+		t.BANK_ACCT_NO AS bankAcctNo,
+		t.BANK_NO AS bankNo,
+		t.BANK_BRANCH AS
+		bankBranch,
+		t.BANK_PROVINCE_NO AS bankProvinceNo,
+		t.BANK_CITY_NO AS
+		bankCityNo,
+		t.BANK_ADDRESS AS bankAddress,
+		t.IS_VERIFY AS isVerify,
+		t.TRANS_STATUS AS transStatus,
+		t.TRANS_RESULT AS transResult,
+		t.RESULT_TIME AS resultTime,
+		t.FAIL_REASON AS failReason,
+		t.REQ_OPT_ID
+		AS reqOptId,
+		t.REQ_OPT_NAME AS reqOptName,
+		t.REQ_TIME AS reqTime,
+		t.REQ_REMARK AS reqRemark,
+		t.APPR_OPT_ID AS apprOptId,
+		t.APPR_OPT_NAME
+		AS apprOptName,
+		t.APPR_TIME AS apprTime,
+		t.APPR_REMARK AS apprRemark,
+		t.CHANNEL AS channel,
+		t.TERM_NO AS termNo,
+		t.BATCH_NO AS batchNo,
+		t.COMMIT_TYPE AS commitType
+		from t_ao_trans_out t,t_ao_trans_out_fail
+		tf
+		where
+		t.trans_no = tf.orig_trans_no
+		and tf.PROCESS_MODE=2
+		and
+		tf.PROCESS_RESULT = 0
+		order by REQ_TIME desc
+	</select>
+
+	<!-- 查询批量自动提交列表 -->
+	<select id="findBatchAutoCommit" resultType="string">
+		select
+		t.trans_no
+		from
+		t_ao_trans_out t
+		where
+		t.TRANS_STATUS = 1
+		and t.trans_result = -1
+		and
+		ceil((sysdate - to_date(to_char(t.req_time,'yyyy-mm-dd
+		hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')) * 24 * 60) > #{autoCommitTime}
+		and rownum
+		&lt;= 50
+	</select>
+
+	<!-- 转账失败后 -->
+	<update id="updateTransFail">
+		UPDATE
+		T_AO_TRANS_OUT
+		<set>
+			TRANS_STATUS = #{transStatus},
+			TRANS_RESULT = #{transResult},
+			FEE_AMT = #{feeAmt},
+			BANK_TRANS_NO =	#{bankTransNo},
+			<if test="resultTime!=null and resultTime!=''">
+				RESULT_TIME =
+				to_date(#{resultTime},'yyyy-mm-dd
+				hh24:mi:ss'),
+			</if>
+			<if test="resultTime==null">
+				RESULT_TIME =sysdate,
+			</if>
+			APPR_TIME = sysdate,
+			FAIL_REASON = #{failReason},
+		</set>
+		WHERE
+		TRANS_NO =
+		#{transNo}
+	</update>
+
+	<!-- 转账成功后 -->
+	<update id="updateTransSuccess">
+		UPDATE
+		T_AO_TRANS_OUT
+		SET
+		REAL_AMT = #{realAmt},
+		TRANS_STATUS = #{transStatus},
+		TRANS_RESULT = #{transResult},
+		FEE_AMT = #{feeAmt},
+		BANK_TRANS_NO =	#{bankTransNo},
+		RESULT_TIME = to_date(#{resultTime},'yyyy-mm-dd	hh24:mi:ss')
+		WHERE
+		TRANS_STATUS != 8
+		and TRANS_RESULT != 1000
+		and TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 更新银行通知手续费 -->
+	<update id="updateFeeAmt">
+		UPDATE
+		T_AO_TRANS_OUT
+		SET
+		fee_amt = #{feeAmt},
+		BANK_TRANS_NO = #{bankTransNo}
+		WHERE
+		TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 批量更新转帐单状态 -->
+	<update id="updateBatchTransOut">
+		update
+		T_AO_TRANS_OUT
+		<set>
+			TRANS_STATUS = #{transStatus},
+			RESULT_TIME = SYSDATE,
+			<if test="batchNo!=null and batchNo!=''">
+				BATCH_NO = #{batchNo},
+			</if>
+			<if test="apprOptId!=null and apprOptId!=''">
+				APPR_OPT_ID = #{apprOptId},
+				APPR_TIME = sysdate,
+			</if>
+			<if test="apprOptName!=null and apprOptName!=''">
+				APPR_OPT_NAME = #{apprOptName},
+			</if>
+			<if test="apprRemark!=null and apprRemark!=''">
+				APPR_REMARK = #{apprRemark},
+			</if>
+		</set>
+		where
+		TRANS_NO
+		<foreach collection="transNos" item="no" open="in(" close=")"
+			separator=",">
+			#{no}
+		</foreach>
+	</update>
+
+	<!-- 批量更新提交类型 -->
+	<update id="updateBatchCommitType">
+		update
+		T_AO_TRANS_OUT
+		set commit_type = #{commitType}
+		where
+		TRANS_NO
+		<foreach collection="transNos" item="no" open="in(" close=")"
+			separator=",">
+			#{no}
+		</foreach>
+	</update>
+
+	<!-- 单条更新转帐单状态 -->
+	<update id="updateTransStatus">
+		update
+		T_AO_TRANS_OUT
+		<set>
+			<if test="transStatus!=null">
+				TRANS_STATUS = #{transStatus},
+			</if>
+			<if test="apprOptId!=null and apprOptId!=''">
+				APPR_OPT_ID = #{apprOptId},
+				APPR_TIME = sysdate,
+			</if>
+			<if test="apprOptName!=null and apprOptName!=''">
+				APPR_OPT_NAME = #{apprOptName},
+			</if>
+			<if test="apprRemark!=null and apprRemark!=''">
+				APPR_REMARK = #{apprRemark},
+			</if>
+			RESULT_TIME = sysdate
+		</set>
+		where
+		TRANS_NO = #{transNo}
+	</update>
+	
+	<!-- 单条更新转帐撤单状态 -->
+	<update id="updateTransRevokeStatus">
+		update
+		T_AO_TRANS_OUT
+		<set>
+			<if test="transStatus!=null">
+				TRANS_STATUS = #{transStatus},
+			</if>
+			<if test="apprOptId!=null and apprOptId!=''">
+				APPR_OPT_ID = #{apprOptId},
+				APPR_TIME = sysdate,
+			</if>
+			<if test="apprOptName!=null and apprOptName!=''">
+				APPR_OPT_NAME = #{apprOptName},
+			</if>
+			<if test="apprRemark!=null and apprRemark!=''">
+				APPR_REMARK = #{apprRemark},
+			</if>
+			RESULT_TIME = sysdate
+		</set>
+		where
+		TRANS_STATUS = 1
+		and TRANS_RESULT = -1
+		and TRANS_NO = #{transNo}
+	</update>
+	
+	<!-- 单条更新转帐失败退回状态 -->
+	<update id="updateTransFailBackStatus">
+		update
+		T_AO_TRANS_OUT
+		<set>
+			<if test="transStatus!=null">
+				TRANS_STATUS = #{transStatus},
+			</if>
+			RESULT_TIME = sysdate
+		</set>
+		where
+		TRANS_STATUS in (5,6)
+		and TRANS_RESULT in (1001,1003)
+		and TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 更新转帐结果 -->
+	<update id="updateTransResult">
+		update
+		T_AO_TRANS_OUT
+		<set>
+			TRANS_RESULT = #{transResult},
+			<if test="transResult!=1002">
+				RESULT_TIME = SYSDATE
+			</if>
+		</set>
+		where
+		TRANS_NO = #{transNo}
+	</update>
+
+	<!-- sql片段 -->
+	<sql id="base_column_list">
+		TRANS_NO AS
+		transNo,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS
+		custName,
+		CUST_TYPE AS custType,
+		TRANS_REASON AS
+		transReason,
+		AMOUNT AS
+		amount,
+		FEE_AMT AS feeAmt,
+		REAL_AMT AS realAmt,
+		CURRENCY_CODE AS
+		currencyCode,
+		BANK_ACCT_NAME AS bankAcctName,
+		BANK_ACCT_NO AS
+		bankAcctNo,
+		BANK_NO AS
+		bankNo,
+		BANK_BRANCH AS bankBranch,
+		BANK_PROVINCE_NO AS bankProvinceNo,
+		BANK_CITY_NO AS bankCityNo,
+		BANK_ADDRESS AS bankAddress,
+		IS_VERIFY AS
+		isVerify,
+		TRANS_STATUS AS
+		transStatus,
+		TRANS_RESULT AS transResult,
+		case when RESULT_TIME is null then to_char(REQ_TIME,'yyyy-MM-dd hh24:mi:ss') else to_char(RESULT_TIME,'yyyy-MM-dd hh24:mi:ss') end AS resultTime,
+		FAIL_REASON AS failReason,
+		REQ_OPT_ID AS
+		reqOptId,
+		REQ_OPT_NAME AS
+		reqOptName,
+		REQ_TIME AS reqTime,
+		REQ_REMARK AS
+		reqRemark,
+		APPR_OPT_ID AS
+		apprOptId,
+		APPR_OPT_NAME AS apprOptName,
+		APPR_TIME AS apprTime,
+		APPR_REMARK AS apprRemark,
+		CHANNEL AS channel,
+		TERM_NO AS termNo,
+		BATCH_NO AS batchNo,
+		COMMIT_TYPE AS commitType,
+		BANK_TRANS_NO AS
+		bankTransNo,
+		ACC_ID AS accId
+	</sql>
+
+	<!-- 查询销户退款退票列表 -->
+	<select id="findCloseTransBackListPage" resultType="com.gy.hsxt.ao.bean.TransOut">
+		select
+		t.TRANS_NO AS transNo,
+		t.CUST_ID AS custId,
+		t.HS_RES_NO AS hsResNo,
+		t.CUST_NAME AS custName,
+		t.CUST_TYPE AS custType,
+		t.TRANS_REASON AS
+		transReason,
+		t.AMOUNT AS amount,
+		t.FEE_AMT AS feeAmt,
+		t.REAL_AMT AS
+		realAmt,
+		t.CURRENCY_CODE AS currencyCode,
+		t.BANK_ACCT_NAME AS
+		bankAcctName,
+		t.BANK_ACCT_NO AS bankAcctNo,
+		t.BANK_NO AS bankNo,
+		t.BANK_BRANCH AS bankBranch,
+		t.BANK_PROVINCE_NO AS bankProvinceNo,
+		t.BANK_CITY_NO AS bankCityNo,
+		t.BANK_ADDRESS AS bankAddress,
+		t.IS_VERIFY AS isVerify,
+		t.TRANS_STATUS AS transStatus,
+		t.TRANS_RESULT
+		AS transResult,
+		t.RESULT_TIME AS resultTime,
+		t.FAIL_REASON AS
+		failReason,
+		t.REQ_OPT_ID AS reqOptId,
+		t.REQ_OPT_NAME AS reqOptName,
+		t.REQ_TIME AS reqTime,
+		t.REQ_REMARK AS reqRemark,
+		t.APPR_OPT_ID AS
+		apprOptId,
+		t.APPR_OPT_NAME AS apprOptName,
+		t.APPR_TIME AS apprTime,
+		t.APPR_REMARK AS apprRemark,
+		t.CHANNEL AS channel,
+		t.TERM_NO AS termNo,
+		t.BATCH_NO AS batchNo,
+		t.COMMIT_TYPE AS commitType
+		from t_ao_trans_out
+		t,t_ao_trans_out_fail
+		tf
+		where
+		t.trans_no = tf.orig_trans_no
+		and
+		t.TRANS_REASON = 2
+		and tf.PROCESS_MODE=2
+		and tf.PROCESS_RESULT = 1
+		order
+		by REQ_TIME desc
+	</select>
+</mapper>

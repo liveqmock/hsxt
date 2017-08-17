@@ -1,0 +1,140 @@
+﻿<div class="bc view_info info_500" style="display:none;width:700px;" id="smrz_tpl">
+	<form id="qysczl_form" name="qysczl_form">
+    <table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+		<tbody>
+			<tr>
+				<td class="table_item" width="30%">企业名称</td>
+				<td class="table_text" width="70%"><%=obj.entCustName%></td>
+			</tr>
+			<tr>
+				<td class="table_item">企业地址</td>
+				<td class="table_text"><%=obj.entRegAddr%></td>
+			</tr>
+			<tr>
+				<td class="table_item">法人代表</td>
+				<td class="table_text"><%=obj.legalPerson%></td>
+			</tr>
+			<tr>
+				<td class="table_item">营业执照注册号</td>
+				<td class="table_text"><%=obj.busiLicenseNo%></td>
+			</tr>
+			<tr>
+				<td class="table_item">营业执照扫描件</td>
+				<td class="pb5">
+					<span class="fl ml5 mt5"><i class="certificateSample_img certificateSample_03" id="preview-3"></i></span>
+					<div class="fl mt20 ml20">
+						<a class="input-file btn_bg upload_btn">上传<input id="busLicenceFileId" name="busLicenceFileId" type="file">
+						<a class="btn_bg viewSample_btn showExamplesImg ml20" id="busLicenceNo_img_case">查看示例图片
+								</a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+			  	<td class="table_item pl5" colspan="2">
+					<div class="clearfix prompt" style="width: 360px;"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+				</td>
+		  	</tr>
+			<tr>
+				<td class="table_item">认证附言</td>
+				<td class="table_text">
+					<textarea class="fl ml5 h50 w400 rsn pt5 pb5" style="width:470px;height: 58px"
+										placeholder="输入认证附言,不超过300个字" maxlength="300" id="postScript" name="postScript"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="table_item">验证码</td>
+				<td class="table_text">
+					<input type="text" id="input_verificationCode" name="input_verificationCode" maxlength="4" class="fl input_gray" style="width:185px;border:0 none;" placeholder="输入验证码">
+					<span class="fl verificationCode">
+						<img id='validateCode'  width="77" height="30">
+					</span>
+					<a id="btn_sqcz_yzm" class="fl mt10" href="javascript:void();">看不清，换一张</a>
+					<span class="fl red ml10 mt10">*</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</form>
+
+<div class="mt20 tc">
+	<a href="javascript:;" id="smrz_tj" class="btn_bg submit">提&#12288;交</a>
+</div>
+<!-- </div> -->
+</div>
+
+<div id="smrz_zt_tpl" class="table_info mt20 info_800" style="display: none;">
+		<div class=" bd_dot_gray">
+		<ul class="certificateSample clearfix">
+			<li>
+				<span class="f13">营业执照扫描件</span>
+				<div class="mt10 mb10 sampleBox"><i id="preview_3" class="certificateSample_img certificateSample_03"></i></div>
+				
+			</li>
+		</ul>
+	</div>
+   	<!--待审批-->
+    <div id="status_0" class="mt20 none">
+		<table class="view-table2" width="100%" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td width="10%" align="right" class="billstyle">状态：</td>
+	        <td>待审批</td>
+	      </tr>
+	    </table>
+	</div>
+	<!--审批中-->
+    <div id="status_1" class="mt20 none">
+		<table class="view-table2" width="100%" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td width="10%" align="right" class="billstyle">状态：</td>
+	        <td>审批中</td>
+	      </tr>
+	    </table>
+	</div>
+    <!--审批驳回-->
+	<div id="status_3" class="register_info mt20 none">
+		<table class="view-table2" width="100%" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td width="10%" align="right" class="billstyle">状态：</td>
+	        <td>审批驳回</td>
+	      </tr>
+	      <tr>
+	        <td width="10%" align="right" class="billstyle">审批日期：</td>
+	        <td id='apprDate'></td>
+	      </tr>
+	      <tr>
+	        <td align="right" class="billstyle">审批意见：</td>
+	        <td class="wordbreak" id="backMessage"></td>
+	      </tr>
+	    </table>
+	</div>
+	<div class="mt20" align="center"><a class="btn_bg submit_long" id="smrz_csrz" style="display: none;">重新实名认证</a></div>
+</div>
+
+
+<div id="smrz_spz_tpl" class="page_tips_wrap" style="display: none;">
+    <div class="page_tips_subwrap">
+        <div class="page_tips bc tc">
+            <h1 class="f16 fb">温馨提示</h1>
+            <p class="f14 fb" id="apprShowMsg"></p>
+        </div>
+    </div>
+</div>
+
+<div id="smrz_ztts_tpl" class="page_tips_wrap" style="display: none;">
+    <div class="page_tips_subwrap">
+        <div class="page_tips bc tc">
+            <h1 class="f16 fb">温馨提示</h1>
+            <p class="f14 fb">贵企业已通过实名认证！</p>
+        </div>
+    </div>
+</div>
+
+<div id="showExamplesImg-dialog" class="none">
+	<p></p>
+</div>
+
+<input type="hidden" id="fileId-1"/>
+<input type="hidden" id="fileId-2"/>
+<input type="hidden" id="fileId-3"/>
+<input type="hidden" id="fileId-4"/>
+<input type="hidden" id="fileId-5"/>

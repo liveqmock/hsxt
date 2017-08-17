@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+
+	<!-- 生成远程服务代理 -->
+	<!-- 全局配置 -->
+	<dubbo:reference id="baseDataService"
+		interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<!-- 工单系统 -->
+	<dubbo:reference id="taskSync_1"
+		interface="com.gy.hsxt.tm.api.ITMSyncTaskService" group="BS"
+		timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}"
+		check="false" version="1.0.0" />
+		
+	<!-- 积分福利系统 -->
+	<dubbo:reference id="taskSync_2"
+		interface="com.gy.hsxt.tm.api.ITMSyncTaskService" group="WS"
+		timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}"
+		check="false" version="1.0.0" />
+		
+	<!-- 消费服务 -->
+	<dubbo:reference id="dsBatchCallback"
+		interface="com.gy.hsi.ds.api.IDSBatchServiceListener" retries="${dubbo.reference.retires}"
+		timeout="${dubbo.service.timeout15000}" async="true" sent="false"
+		version="1.0.0" />
+		
+	<!-- 通知系统 -->
+	<dubbo:reference id="ntService"
+		interface="com.gy.hsi.nt.api.service.INtService" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+		
+	<!-- 用户中心：查询企业重要信息 -->
+	<dubbo:reference id="ucEntService"
+		interface="com.gy.hsxt.uc.bs.api.ent.IUCBsEntService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+		
+	<!-- 用户中心权限 -->
+	<dubbo:reference id="ucPermissionService"
+		interface="com.gy.hsxt.uc.as.api.auth.IUCAsPermissionService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+		
+	<!-- 用户中心操作员信息 -->
+	<dubbo:reference id="ucOperatorService"
+		interface="com.gy.hsxt.uc.as.api.operator.IUCAsOperatorService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+</beans>

@@ -1,0 +1,26 @@
+<div id="skzhmcgl_xgTpl">
+	<div class="info_500 bc mt40">
+		<form id="skzhmcgl_xg_form" autocomplete="off">
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款账户类型</label>
+					<input  id="skzhlx" readonly="readonly" value="<%=obj.receiveAccountTypeName%>" placeholder="选择收款账户类型" />
+					<input name="receiveAccountType" value="<%=obj.receiveAccountType%>" type="hidden" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款账户名称</label>
+					<input name="receiveAccountName" type="text" class="fl info_360 h30_middle ml5" value="<%=obj.receiveAccountName%>" placeholder="输入收款账户名称" value="xxx" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">简称</label>
+					<input name="abbreviation" type="text" class="fl info_360 h30_middle ml5" value="<%=obj.abbreviation%>" placeholder="输入简称"  />
+					<input name="receiveAccountId" type="hidden" value="<%=obj.receiveAccountId%>"/>
+				</li>
+			</ul>
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="xg_save">保&#12288;存</a>
+				<a class="btn_bg submit fr" id="xg_back">返&#12288;回</a>
+			</div>
+		</form>
+	</div>
+</div>

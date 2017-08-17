@@ -1,0 +1,105 @@
+<form id="gysxx_xg_form" name="gysxx_xg_form">
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">供应商名称</td>
+            <td width="32%">
+				<input type="text" id="supplierName" name="supplierName" class="ml5 h28_middle w96pc" placeholder="输入供应商名称" value="<%=obj.supplierName%>" />
+			</td>
+            <td class="view_item" width="18%">公司名称</td>
+            <td width="32%">
+				<input type="text" id="corpName" name="corpName" class="ml5 h28_middle w96pc" placeholder="输入公司名称" value="<%=obj.corpName%>" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">供应商地址</td>
+            <td colspan="3">
+				<input type="text" id="addr" name="addr" class="ml5 h28_middle w96pc" placeholder="输入供应商地址" value="<%=obj.addr%>" />
+			</td>
+        </tr>
+        <!--<tr>
+            <td class="view_item">供应工具类别</td>
+            <td colspan="3">
+				<input type="checkbox" name="" id="a11" class="ml5" <% if(obj.th_4 == '互生卡'){ %>checked<% } %> ><label for="a11" class="ml5 mr10">互生卡</label>
+				<input type="checkbox" name="" id="a22" <% if(obj.th_4 == 'POS机'){ %>checked<% } %> ><label for="a22" class="ml5 mr10">POS机</label>
+				<input type="checkbox" name="" id="a33" <% if(obj.th_4 == '刷卡器'){ %>checked<% } %> ><label for="a33" class="ml5 mr10">刷卡器</label>
+				<input type="checkbox" name="" id="a44" <% if(obj.th_4 == '积分手册'){ %>checked<% } %> ><label for="a44" class="ml5 mr10">积分手册</label>
+				<input type="checkbox" name="" id="a55" <% if(obj.th_4 == '宣传手册'){ %>checked<% } %> ><label for="a55" class="ml5 mr10">宣传手册</label>
+				<input type="checkbox" name="" id="a66" <% if(obj.th_4 == '...'){ %>checked<% } %> ><label for="a66" class="ml5">...</label>
+			</td>
+        </tr>-->
+        <tr>
+            <td class="view_item">业务联系人</td>
+            <td>
+				<input type="text" id="linkMan" name="linkMan" class="ml5 h28_middle w96pc" placeholder="输入业务联系人" value="<%=obj.linkMan%>" />
+			</td>
+            <td class="view_item">办公电话</td>
+            <td>	
+				<input type="text" id="phone" name="phone" class="ml5 h28_middle w96pc" placeholder="输入办公电话" value="<%=obj.phone%>" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">手机号码</td>
+            <td>
+				<input type="text" id="mobile" name="mobile" class="ml5 h28_middle w96pc" placeholder="输入手机号码" value="<%=obj.mobile%>" />
+			</td>
+		 <td class="view_item">供应商是否已停用</td>
+            <td>
+				<input type="radio" name="active" id="isActive_1" value="N" class="ml5"><label for="isActive_1" class="ml5 mr10">是</label>
+				<input type="radio" name="active" id="isActive_2" value="Y" class=""><label for="isActive_2" class="ml5 mr10">否</label>
+			</td>
+            <!-- <td class="view_item">传真</td>
+            <td>
+				<input type="text" id="fax" name="fax" class="ml5 h28_middle w96pc" placeholder="输入传真" value="<%=obj.fax%>" />
+			</td> -->
+        </tr>
+        <!--<tr>
+            <td class="view_item">供应商所在地区</td>
+            <td colspan="3">
+				<span class="ml5 pr">
+					<input id="area_xg" readonly="readonly" placeholder="选择供应商所在地区" value="xxx" />
+				</span>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">供应商供货地区</td>
+            <td colspan="3">
+			 		<input type="text" name="" id="cityPlugin"  placeholder="供应商供货地区" /> 		
+			</td>
+        </tr>-->
+  <!--       <tr>
+            <td class="view_item">公司网址</td>
+            <td>
+				<input type="text" id="website" name="website" class="ml5 h28_middle w96pc" placeholder="输入公司网址" value="<%=obj.website%>" />
+			</td>
+            <td class="view_item">Email</td>
+            <td>
+				<input type="text" id="email" name="email" class="ml5 h28_middle w96pc" placeholder="输入Email" value="<%=obj.email%>" />
+			</td>
+        </tr> -->
+        <!--<tr>
+            <td class="view_item">排序值</td>
+            <td>
+				<input type="text" class="ml5 h28_middle w96pc" placeholder="输入，值越大越靠后排序" />
+			</td>
+            <td class="view_item">是否为默认</td>
+            <td>
+				<input type="radio" name="bbbb" id="b123" class="ml5"><label for="b123" class="ml5 mr10">是</label>
+				<input type="radio" name="bbbb" id="b456" class=""><label for="b456" class="ml5 mr10">否</label>
+			</td>
+        </tr>-->
+    <!--     <tr>
+            <td class="view_item">供应商是否已停用</td>
+            <td colspan="3">
+				<input type="radio" name="active" id="isActive_1" value="N" class="ml5"><label for="isActive_1" class="ml5 mr10">是</label>
+				<input type="radio" name="active" id="isActive_2" value="Y" class=""><label for="isActive_2" class="ml5 mr10">否</label>
+			</td>
+        </tr> -->
+        <tr>
+            <td class="view_item">备注信息</td>
+            <td colspan="3">
+				<textarea id="remark" name="remark" class="ml5 h50 w98pc rsn pt5 pb5" maxlength="300" placeholder="输入备注信息,字数不超过300个字"><%=obj.remark%></textarea></td>
+        </tr>
+    </table>
+</div>
+</form>

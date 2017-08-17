@@ -1,0 +1,67 @@
+<div class="register_info info_800">
+<!-- 	<ul>
+		<li class="register_row clearfix">
+			<label>消息标题</label>
+			<div class="fl h30_middle pl5"><%=obj.title %></div>
+		</li>
+		<li class="mt5 h30 clearfix">
+			<div class="fl clearfix border_CCC w380 h30 lh30">
+				<span class="fl spanLabel  ">消息类型</span>
+				<span class="fl pl5 h30_middle"><%=obj.typeName %></span>
+			</div>
+			<div class="fr clearfix border_CCC w380">
+				<span class="fl spanLabel">重要级别</span>
+				<span class="fl pl5 h30_middle lh30"><%=obj.levelName %></span>
+			</div>
+		</li>
+		<li class="register_row clearfix">
+			<label>接收单位</label>
+			<div class="fl h30_middle pl5"><%=obj.receiptorName %></div>
+		</li>
+		<li class="register_row clearfix" style="height:100px;">
+			<label style="height:100px;line-height:100px;">消息摘要</label>
+			<div class="fl pl5" style="height:100px;">
+				<%=obj.summary %>
+			</div>
+		</li>
+		<li class="register_row clearfix" style="height:100px;">
+			<label style="height:100px;line-height:100px;">图片</label>
+			<div class="fl pl5" style="height:100px;"  id="iamgeDiv">
+			</div>
+		</li>
+	</ul>
+	<div class="mt5 border_CCC">
+		<h1 class="msg-title h30 lh30">消息正文</h1>
+		<div class="msg-content" style="overflow:auto; height:300px;"><%=obj.msg %></div>
+	</div> -->
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">消息标题</td>
+			<td class="view_text_2" width="30%"><%=obj.title %></td>
+			<td class="view_item" width="20%">消息类型</td>
+			<td class="view_text_2" width="30%"><%=obj.typeName %></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">重要级别</td>
+			<td class="view_text_2" width="30%"><%=obj.levelName %></td>
+			<td class="view_item" width="20%">接收单位</td>
+			<td class="view_text_2" width="30%"><%=obj.receiptorName %></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">消息摘要</td>
+			<td class="view_text_2" width="30%"><%=obj.summary %></td>
+			<td class="view_item" width="20%">图片</td>
+			<td class="view_text_2" width="30%">
+				<div class="fl pl5" style="height:100px;"  id="iamgeDiv">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">消息内容</td>
+			<td colspan="3" class="view_text_2"><%=obj.msg %></td>
+			</tr>
+	</table>
+	
+</div>
+<div class="mt10" align="center"><a id="btn_back" class="btn_bg submit back_yfxx" >返　回</a></div>

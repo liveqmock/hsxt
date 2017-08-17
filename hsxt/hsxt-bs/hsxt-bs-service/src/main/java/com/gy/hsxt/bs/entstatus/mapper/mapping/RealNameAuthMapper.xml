@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.entstatus.mapper.RealNameAuthMapper">
+
+    <!-- 是否存在消费者实名认证 -->
+    <select id="existPerAuth" resultType="boolean">
+        SELECT DECODE(COUNT(1), 0, 0, 1)
+        FROM T_BS_PER_REALNAME_AUTH
+        WHERE PER_CUST_ID = #{perCustId}
+			  <![CDATA[ AND STATUS <> 3 AND STATUS <> 4
+        ]]>
+    </select>
+
+    <!-- 创建消费者实名认证申请 -->
+    <insert id="createPerRealnameAuth" parameterType="com.gy.hsxt.bs.bean.entstatus.PerRealnameAuth">
+        INSERT INTO T_BS_PER_REALNAME_AUTH
+        (APPLY_ID,
+         PER_RES_NO,
+         PER_CUST_ID,
+         NAME,
+         SEX,
+         MOBILE,
+         COUNTRY_NO,
+         COUNTRY_NAME,
+         NATION,
+         BIRTH_ADDR,
+         LICENCE_ISSUING,
+         PROFESSION,
+         CERTYPE,
+         CREDENTIALS_NO,
+         CERPICA,
+         CERPICB,
+         CERPICH,
+         VALID_DATE,
+         APPEAL_TYPE,
+         APPEAL_REASON,
+         POST_SCRIPT,
+         ISSUE_PLACE,
+         ENT_NAME,
+         ENT_REG_ADDR,
+         ENT_TYPE,
+         ENT_BUILD_DATE,
+         APPLY_DATE,
+         STATUS,
+         CREATED_DATE,
+         CREATEDBY)
+            SELECT
+                #{applyId},
+                #{perResNo},
+                #{perCustId},
+                #{name},
+                #{sex},
+                #{mobile},
+                #{countryNo},
+                #{countryName},
+                #{nation},
+                #{birthAddr},
+                #{licenceIssuing},
+                #{profession},
+                #{certype},
+                #{credentialsNo},
+                #{cerpica},
+                #{cerpicb},
+                #{cerpich},
+                #{validDate},
+                #{appealType},
+                #{appealReason},
+                #{postScript},
+                #{issuePlace},
+                #{entName},
+                #{entRegAddr},
+                #{entType},
+                to_date(#{entBuildDate}, 'yyyy-MM-dd'),
+                SYSDATE,
+                0,
+                SYSDATE,
+                #{optCustId}
+            FROM dual
+            WHERE NOT EXISTS(SELECT *
+                             FROM T_BS_PER_REALNAME_AUTH
+                             WHERE PER_CUST_ID = #{perCustId} AND STATUS IN (0, 1, 2)
+            )
+    </insert>
+
+    <!-- 更新消费者实名认证 -->
+    <update id="updatePerRealnameAuth" parameterType="com.gy.hsxt.bs.bean.entstatus.PerRealnameAuth">
+        UPDATE T_BS_PER_REALNAME_AUTH
+        <set>
+            NAME = #{name},
+            SEX = #{sex},
+            COUNTRY_NO = #{countryNo},
+            COUNTRY_NAME = #{countryName},
+            CERTYPE = #{certype},
+            CREDENTIALS_NO = #{credentialsNo},
+            VALID_DATE = #{validDate},
+            BIRTH_ADDR = #{birthAddr},
+            CERPICA = #{cerpica},
+            CERPICB = #{cerpicb},
+            CERPICH = #{cerpich},
+            POST_SCRIPT = #{postScript},
+            ISSUE_PLACE = #{issuePlace},
+            ENT_NAME = #{entName},
+            ENT_REG_ADDR = #{entRegAddr},
+            ENT_TYPE = #{entType},
+            ENT_BUILD_DATE = to_date(#{entBuildDate}, 'yyyy-MM-dd'),
+            NATION = #{nation},
+            LICENCE_ISSUING = #{licenceIssuing},
+            PROFESSION = #{profession},
+            UPDATEBY = #{optCustId},
+            UPDATED_DATE = SYSDATE
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询消费者实名认证 -->
+    <select id="queryPerAuthListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.RealNameQueryParam"
+            resultType="com.gy.hsxt.bs.bean.entstatus.PerRealnameBaseInfo">
+        SELECT APPLY_ID AS applyId,
+        PER_RES_NO AS perResNo,
+        CASE WHEN CERTYPE=3 THEN ENT_NAME ELSE NAME END AS linkman,
+        MOBILE AS linkmanMobil,
+        STATUS AS status,
+        to_char(APPLY_DATE,'yyyy-MM-dd HH24:mi:ss') AS applyDate,
+        to_char(CASE WHEN APPR_DATE IS NULL
+        THEN APPLY_DATE
+        ELSE APPR_DATE
+        END,'yyyy-MM-dd HH24:mi:ss') AS statusDate
+        FROM T_BS_PER_REALNAME_AUTH
+        WHERE 1=1
+        <if test="status != null and status == 10">
+            AND (STATUS = 1 or STATUS = 0)
+        </if>
+        <if test="status != null and status == 43">
+            AND (STATUS = 4 or STATUS = 3)
+        </if>
+        <if test="status != null and status != 10 and status != 43">
+            AND STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND APPLY_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND APPLY_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND PER_RES_NO LIKE #{resNo}||'%'
+        </if>
+        <if test="name != null and name != '' ">
+            AND UPPER(NAME) like UPPER('%'||#{name}||'%')
+        </if>
+        ORDER BY APPLY_DATE DESC
+    </select>
+
+    <!-- 查询消费者实名认证 -->
+    <select id="queryPerAuth4ApprListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.RealNameQueryParam"
+            resultType="com.gy.hsxt.bs.bean.entstatus.PerRealnameBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.PER_RES_NO AS perResNo,
+        CASE WHEN t1.CERTYPE=3 THEN t1.ENT_NAME ELSE t1.NAME END AS linkman,
+        t1.MOBILE AS linkmanMobil,
+        t1.STATUS AS status,
+        to_char(t1.APPLY_DATE,'yyyy-MM-dd HH24:mi:ss') AS applyDate,
+        to_char(CASE WHEN t1.APPR_DATE IS NULL
+        THEN t1.APPLY_DATE
+        ELSE t1.APPR_DATE
+        END,'yyyy-MM-dd HH24:mi:ss') AS statusDate
+        FROM T_BS_PER_REALNAME_AUTH t1,T_BS_TASK t2
+        WHERE t1.STATUS IN (0,1)
+        AND t1.APPLY_ID = t2.BIZ_NO
+        AND t2.STATUS = 2
+        AND t2.EXE_CUST_ID = #{optCustId}
+        <if test="status != null and status == 10">
+            AND (t1.STATUS = 1 or t1.STATUS = 0)
+        </if>
+        <if test="status != null and status == 43">
+            AND (t1.STATUS = 4 or t1.STATUS = 3)
+        </if>
+        <if test="status != null and status != 10 and status != 43">
+            AND t1.STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.APPLY_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.APPLY_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.PER_RES_NO LIKE #{resNo}||'%'
+        </if>
+        <if test="name != null and name != '' ">
+            AND UPPER(t1.NAME) like UPPER('%'||#{name}||'%')
+        </if>
+        ORDER BY t1.APPLY_DATE DESC
+    </select>
+
+    <!-- 通过申请编号查询消费者实名认证详情 -->
+    <select id="queryPerRealnameAuthById" resultType="com.gy.hsxt.bs.bean.entstatus.PerRealnameAuth">
+        SELECT
+            APPLY_ID                              AS applyId,
+            PER_RES_NO                            AS perResNo,
+            PER_CUST_ID                           AS perCustId,
+            NAME                                  AS name,
+            SEX                                   AS sex,
+            COUNTRY_NO                            AS countryNo,
+            COUNTRY_NAME                          AS countryName,
+            NATION                                AS nation,
+            BIRTH_ADDR                            AS birthAddr,
+            LICENCE_ISSUING                       AS licenceIssuing,
+            PROFESSION                            AS profession,
+            CERTYPE                               AS certype,
+            CREDENTIALS_NO                        AS credentialsNo,
+            CERPICA                               AS cerpica,
+            CERPICB                               AS cerpicb,
+            CERPICH                               AS cerpich,
+            VALID_DATE                            AS validDate,
+            APPEAL_TYPE                           AS appealType,
+            APPEAL_REASON                         AS appealReason,
+            POST_SCRIPT                           AS postScript,
+            ISSUE_PLACE                           AS issuePlace,
+            ENT_NAME                              AS entName,
+            ENT_REG_ADDR                          AS entRegAddr,
+            ENT_TYPE                              AS entType,
+            to_char(ENT_BUILD_DATE, 'yyyy-MM-dd') AS entBuildDate,
+            STATUS                                AS status,
+            MOBILE                                AS mobile,
+            to_char(APPLY_DATE, 'yyyy-MM-dd')     AS applyDate,
+            APPR_CONTENT                          AS apprContent,
+            APPR_DATE                             AS apprDate
+        FROM T_BS_PER_REALNAME_AUTH
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 通过消费者客户号查询消费者实名认证详情 -->
+    <select id="queryPerRealnameAuthByCustId" resultType="com.gy.hsxt.bs.bean.entstatus.PerRealnameAuth">
+        SELECT
+            ROWNUM,
+            T.*
+        FROM
+            (SELECT
+                 APPLY_ID                              AS applyId,
+                 PER_RES_NO                            AS perResNo,
+                 PER_CUST_ID                           AS perCustId,
+                 NAME                                  AS name,
+                 SEX                                   AS sex,
+                 COUNTRY_NO                            AS countryNo,
+                 COUNTRY_NAME                          AS countryName,
+                 NATION                                AS nation,
+                 BIRTH_ADDR                            AS birthAddr,
+                 LICENCE_ISSUING                       AS licenceIssuing,
+                 PROFESSION                            AS profession,
+                 CERTYPE                               AS certype,
+                 CREDENTIALS_NO                        AS credentialsNo,
+                 CERPICA                               AS cerpica,
+                 CERPICB                               AS cerpicb,
+                 CERPICH                               AS cerpich,
+                 VALID_DATE                            AS validDate,
+                 APPEAL_TYPE                           AS appealType,
+                 APPEAL_REASON                         AS appealReason,
+                 POST_SCRIPT                           AS postScript,
+                 ISSUE_PLACE                           AS issuePlace,
+                 ENT_NAME                              AS entName,
+                 ENT_REG_ADDR                          AS entRegAddr,
+                 ENT_TYPE                              AS entType,
+                 to_char(ENT_BUILD_DATE, 'yyyy-MM-dd') AS entBuildDate,
+                 STATUS                                AS status,
+                 MOBILE                                AS mobile,
+                 to_char(APPLY_DATE, 'yyyy-MM-dd')     AS applyDate,
+                 APPR_CONTENT                          AS apprContent,
+                 to_char(APPR_DATE, 'yyyy-MM-dd')      AS apprDate
+             FROM T_BS_PER_REALNAME_AUTH
+             WHERE PER_CUST_ID = #{perCustId}
+             ORDER BY APPLY_DATE DESC) T
+        WHERE ROWNUM = 1
+    </select>
+
+    <!-- 更新消费者实名认证状态 -->
+    <update id="updatePerRealnameAuthStatus">
+        UPDATE T_BS_PER_REALNAME_AUTH
+        <set>
+            STATUS = #{status},
+            UPDATEBY = #{apprOperator},
+            APPR_CONTENT = #{apprRemark},
+            APPR_DATE = SYSDATE,
+            UPDATED_DATE = SYSDATE
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询个人实名认证记录 -->
+    <select id="queryPerAuthRecordListPage" resultType="com.gy.hsxt.bs.bean.entstatus.SysBizRecord">
+        SELECT APPLY_ID AS no,
+        STATUS AS bsResult,
+        APPR_CONTENT AS remark,
+        CREATED_DATE AS bsDate
+        FROM T_BS_PER_REALNAME_AUTH
+        WHERE PER_CUST_ID = #{perCustId}
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[ AND CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ AND CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <!-- 是否存在企业实名认证 -->
+    <select id="existEntAuth" resultType="boolean">
+        SELECT DECODE(COUNT(1), 0, 0, 1)
+        FROM T_BS_ENT_REALNAME_AUTH
+        WHERE ENT_CUST_ID = #{entCustId}
+			  <![CDATA[ AND STATUS <> 3 AND STATUS <> 4
+        ]]>
+    </select>
+
+    <!-- 创建企业实名认证申请 -->
+    <insert id="createEntRealnameAuth" parameterType="com.gy.hsxt.bs.bean.entstatus.EntRealnameAuth">
+        INSERT INTO T_BS_ENT_REALNAME_AUTH
+        (APPLY_ID,
+         ENT_RES_NO,
+         ENT_CUST_ID,
+         CUST_TYPE,
+         ENT_CUST_NAME,
+         ENT_CUST_NAME_EN,
+         COUNTRY_NO,
+         PROVINCE_NO,
+         CITY_NO,
+         ENT_ADDR,
+         LINKMAN,
+         MOBILE,
+         LEGAL_NAME,
+         LEGAL_CRE_TYPE,
+         LEGAL_CRE_NO,
+         LICENSE_NO,
+         ORG_NO,
+         TAX_NO,
+         LRC_FACE_PIC,
+         LRC_BACK_PIC,
+         LICENSE_PIC,
+         ORG_PIC,
+         TAX_PIC,
+         STATUS,
+         POST_SCRIPT,
+         CREATED_DATE,
+         CREATEDBY)
+            SELECT
+                #{applyId},
+                #{entResNo},
+                #{entCustId},
+                #{custType},
+                #{entCustName},
+                #{entCustNameEn},
+                #{countryNo},
+                #{provinceNo},
+                #{cityNo},
+                #{entAddr},
+                #{linkman},
+                #{mobile},
+                #{legalName},
+                #{legalCreType},
+                #{legalCreNo},
+                #{licenseNo},
+                #{orgNo},
+                #{taxNo},
+                #{lrcFacePic},
+                #{lrcBackPic},
+                #{licensePic},
+                #{orgPic},
+                #{taxPic},
+                0,
+                #{postScript},
+                SYSDATE,
+                #{optCustId}
+            FROM DUAL
+            WHERE NOT EXISTS(SELECT *
+                             FROM T_BS_ENT_REALNAME_AUTH
+                             WHERE ENT_CUST_ID = #{entCustId} AND STATUS IN (0, 1, 2))
+    </insert>
+
+    <!-- 更新企业实名认证申请 -->
+    <update id="updateEntRealnameAuth" parameterType="com.gy.hsxt.bs.bean.entstatus.EntRealnameAuth">
+        UPDATE T_BS_ENT_REALNAME_AUTH SET
+        ENT_CUST_NAME = #{entCustName},
+        <if test="entCustNameEn != null and entCustNameEn !=''">
+            ENT_CUST_NAME_EN = #{entCustNameEn},
+        </if>
+        ENT_ADDR = #{entAddr},
+        LEGAL_NAME = #{legalName},
+        <if test="legalCreType != null">
+            LEGAL_CRE_TYPE = #{legalCreType},
+        </if>
+        <if test="legalCreNo != null and legalCreNo != ''">
+            LEGAL_CRE_NO = #{legalCreNo},
+        </if>
+        LICENSE_NO = #{licenseNo},
+        <if test="orgNo != null and orgNo != ''">
+            ORG_NO = #{orgNo},
+        </if>
+        <if test="taxNo != null and  taxNo != ''">
+            TAX_NO = #{taxNo},
+        </if>
+        <if test="lrcFacePic != null and lrcFacePic != ''">
+            LRC_FACE_PIC = #{lrcFacePic},
+        </if>
+        <if test="lrcBackPic != null and lrcBackPic !=''">
+            LRC_BACK_PIC = #{lrcBackPic},
+        </if>
+        LICENSE_PIC = #{licensePic},
+        <if test="orgPic !=null and orgPic != ''">
+            ORG_PIC = #{orgPic},
+        </if>
+        <if test="taxPic != null and taxPic != ''">
+            TAX_PIC = #{taxPic},
+        </if>
+        POST_SCRIPT = #{postScript},
+        UPDATEBY = #{optCustId},
+        UPDATED_DATE = SYSDATE
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询企业实名认证申请 -->
+    <select id="queryEntAuthListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.RealNameQueryParam"
+            resultType="com.gy.hsxt.bs.bean.entstatus.EntRealnameBaseInfo">
+        SELECT APPLY_ID AS applyId,
+        ENT_RES_NO AS entResNo,
+        ENT_CUST_NAME AS entName,
+        LINKMAN AS linkman,
+        MOBILE AS linkmanMobile,
+        COUNTRY_NO AS countryNo,
+        PROVINCE_NO AS provinceNo,
+        CITY_NO AS cityNo,
+        STATUS AS status,
+        to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS applyDate,
+        to_char(CASE WHEN APPR_DATE IS NULL
+        THEN CREATED_DATE
+        ELSE APPR_DATE
+        END,'yyyy-MM-dd HH24:mi:ss') AS statusDate
+        FROM T_BS_ENT_REALNAME_AUTH
+        WHERE 1=1
+        <if test="entType != null">
+            AND CUST_TYPE = #{entType}
+        </if>
+        <if test="status != null and status == 10">
+            AND (STATUS = 1 or STATUS = 0)
+        </if>
+        <if test="status != null and status == 43">
+            AND (STATUS = 4 or STATUS = 3)
+        </if>
+        <if test="status != null and status != 10 and status != 43">
+            AND STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND ENT_RES_NO LIKE #{resNo}||'%'
+        </if>
+        <if test="name != null and name != '' ">
+            AND UPPER(ENT_CUST_NAME) like UPPER('%'||#{name}||'%')
+        </if>
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <!-- 关联工单查询企业实名认证审批 -->
+    <select id="queryEntAuth4ApprListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.RealNameQueryParam"
+            resultType="com.gy.hsxt.bs.bean.entstatus.EntRealnameBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.ENT_RES_NO AS entResNo,
+        t1.ENT_CUST_NAME AS entName,
+        t1.LINKMAN AS linkman,
+        t1.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.STATUS AS status,
+        to_char(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS applyDate,
+        to_char(CASE WHEN t1.APPR_DATE IS NULL
+        THEN t1.CREATED_DATE
+        ELSE t1.APPR_DATE
+        END,'yyyy-MM-dd HH24:mi:ss') AS statusDate
+        FROM T_BS_ENT_REALNAME_AUTH t1,T_BS_TASK t2
+        WHERE t1.STATUS IN (0,1)
+        AND t1.APPLY_ID = t2.BIZ_NO
+        AND t2.STATUS = 2
+        AND t2.EXE_CUST_ID = #{optCustId}
+        <if test="entType != null">
+            AND t1.CUST_TYPE = #{entType}
+        </if>
+        <if test="status != null and status == 10">
+            AND (t1.STATUS = 1 or t1.STATUS = 0)
+        </if>
+        <if test="status != null and status == 43">
+            AND (t1.STATUS = 4 or t1.STATUS = 3)
+        </if>
+        <if test="status != null and status != 10 and status != 43">
+            AND t1.STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.ENT_RES_NO LIKE #{resNo}||'%'
+        </if>
+        <if test="name != null and name != '' ">
+            AND UPPER(t1.ENT_CUST_NAME) like UPPER('%'||#{name}||'%')
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 通过申请编号查询企业实名认证申请详情 -->
+    <select id="queryEntRealnameAuthById" resultType="com.gy.hsxt.bs.bean.entstatus.EntRealnameAuth">
+        SELECT
+            APPLY_ID                                       AS applyId,
+            ENT_RES_NO                                     AS entResNo,
+            ENT_CUST_ID                                    AS entCustId,
+            CUST_TYPE                                      AS custType,
+            ENT_CUST_NAME                                  AS entCustName,
+            ENT_CUST_NAME_EN                               AS entCustNameEn,
+            ENT_ADDR                                       AS entAddr,
+            LINKMAN                                        AS linkman,
+            MOBILE                                         AS mobile,
+            LEGAL_NAME                                     AS legalName,
+            LEGAL_CRE_TYPE                                 AS legalCreType,
+            LEGAL_CRE_NO                                   AS legalCreNo,
+            LICENSE_NO                                     AS licenseNo,
+            ORG_NO                                         AS orgNo,
+            TAX_NO                                         AS taxNo,
+            LRC_FACE_PIC                                   AS lrcFacePic,
+            LRC_BACK_PIC                                   AS lrcBackPic,
+            LICENSE_PIC                                    AS licensePic,
+            ORG_PIC                                        AS orgPic,
+            TAX_PIC                                        AS taxPic,
+            STATUS                                         AS status,
+            COUNTRY_NO                                     AS countryNo,
+            PROVINCE_NO                                    AS provinceNo,
+            CITY_NO                                        AS cityNo,
+            POST_SCRIPT                                    AS postScript,
+            APPR_CONTENT                                   AS apprContent,
+            to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+            to_char(APPR_DATE, 'yyyy-MM-dd HH24:mi:ss')    AS apprDate
+        FROM T_BS_ENT_REALNAME_AUTH
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 通过企业客户号查询企业实名认证申请详情 -->
+    <select id="queryEntRealnameAuthByCustId" resultType="com.gy.hsxt.bs.bean.entstatus.EntRealnameAuth">
+        SELECT
+            ROWNUM,
+            T.*
+        FROM
+            (SELECT
+                 APPLY_ID                                       AS applyId,
+                 ENT_RES_NO                                     AS entResNo,
+                 ENT_CUST_ID                                    AS entCustId,
+                 CUST_TYPE                                      AS custType,
+                 ENT_CUST_NAME                                  AS entCustName,
+                 ENT_CUST_NAME_EN                               AS entCustNameEn,
+                 ENT_ADDR                                       AS entAddr,
+                 LINKMAN                                        AS linkman,
+                 MOBILE                                         AS mobile,
+                 LEGAL_NAME                                     AS legalName,
+                 LEGAL_CRE_TYPE                                 AS legalCreType,
+                 LEGAL_CRE_NO                                   AS legalCreNo,
+                 LICENSE_NO                                     AS licenseNo,
+                 ORG_NO                                         AS orgNo,
+                 TAX_NO                                         AS taxNo,
+                 LRC_FACE_PIC                                   AS lrcFacePic,
+                 LRC_BACK_PIC                                   AS lrcBackPic,
+                 LICENSE_PIC                                    AS licensePic,
+                 ORG_PIC                                        AS orgPic,
+                 TAX_PIC                                        AS taxPic,
+                 STATUS                                         AS status,
+                 COUNTRY_NO                                     AS countryNo,
+                 PROVINCE_NO                                    AS provinceNo,
+                 CITY_NO                                        AS cityNo,
+                 POST_SCRIPT                                    AS postScript,
+                 APPR_CONTENT                                   AS apprContent,
+                 to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+                 to_char(APPR_DATE, 'yyyy-MM-dd HH24:mi:ss')    AS apprDate
+             FROM T_BS_ENT_REALNAME_AUTH
+             WHERE ENT_CUST_ID = #{entCustId}
+             ORDER BY CREATED_DATE DESC) T
+        WHERE ROWNUM = 1
+    </select>
+
+    <!-- 更新企业实名认证状态  -->
+    <update id="updateEntRealnameAuthStatus">
+        UPDATE T_BS_ENT_REALNAME_AUTH
+        SET
+            STATUS       = #{status},
+            UPDATEBY     = #{apprOperator},
+            APPR_CONTENT = #{apprRemark},
+            APPR_DATE    = SYSDATE,
+            UPDATED_DATE = SYSDATE
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+</mapper>

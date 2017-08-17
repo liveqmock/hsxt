@@ -1,0 +1,48 @@
+ <form id="fjxx_form" name="fjxx_form">
+<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+<div class="certificateBox bd_dot_gray">
+	<ul class="certificateSample clearfix">
+		<li>
+			<span class="f13">营业执照扫描件<span class="red"> *</span></span>
+			<div class="mt10 mb10 sampleBox"><i id="realPicFileId-3" class="certificateSample_img certificateSample_03"></i></div>
+			<div class="bc w140"><a class="input-file btn_bg upload_btn">上传<input type="file" id="licensePicId" name="licensePicId"></a><a id="picFileId-3" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+		</li>
+		<li>
+			<span class="f13">银行资金证明</span>
+			<div class="mt10 mb10 sampleBox"><i id="realPicFileId-4" class="certificateSample_img certificateSample_09"></i></div>
+			<div class="bc w140"><a class="input-file btn_bg upload_btn">上传<input type="file" id="bankPicId" name="bankPicId"></a><a id="picFileId-4" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+		</li>
+		<li>
+			<span class="f13">合作股东证明</span>
+			<div class="mt10 mb10 sampleBox"><i id="realPicFileId-5" class="certificateSample_img certificateSample_10"></i></div>
+			<div class="bc w140"><a class="input-file btn_bg upload_btn">上传<input type="file" id="sharePicId" name="sharePicId"></a><a id="picFileId-5" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+		</li>
+	</ul>
+</div>
+<div class="mt20 info_600 bc">
+		<ul>
+			<li class="register_row clearfix pr info_320">
+				<label class="fl w115 h30_middle">验证码</label>
+				<input type="text" id="ent_declare_bbsh_input" name="ent_declare_bbsh_input" class="fl w185 h30_middle ml5" placeholder="输入验证码" />
+				<div class="pa left330 w200 clearfix">
+					<a id="ent_declare_bbsh_btn_1" class="fl"><img id="ent_declare_bbsh_iamges" width="77" height="30" /></a>
+					<a id="ent_declare_bbsh_btn_2" class="fl ml5 h30_middle" id="img_smrz_hyz blue">看不清，换一张</a>
+				</div>
+			</li>
+		</ul>
+		<div class="w200 bc clearfix mt20">
+			<a class="btn_bg submit fl" id="qybb_bc">保&#12288;存</a>
+			<a class="btn_bg submit fr" id="cancel_btn">取&#12288;消</a>
+		</div>
+		<input type="hidden" id="fileId-3"><!-- 营业执照正本扫描件文件ID -->
+		<input type="hidden" id="fileId-4"><!-- 银行资金证明文件ID -->
+		<input type="hidden" id="fileId-5"><!-- 合作股东证明文件ID -->
+		<input type="hidden" id="filingAptId-3"><!-- 营业执照正本扫描件附件ID -->
+		<input type="hidden" id="filingAptId-4"><!-- 银行资金证明附件ID -->
+		<input type="hidden" id="filingAptId-5"><!-- 合作股东证明附件ID -->
+</div>
+</form>
+
+<div id="fjxx_dialog" class="none" title="附件信息修改确认">
+	<p class="autowidth"></p>
+</div>

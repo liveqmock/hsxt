@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.message.mapper.MessageMapper">
+    <!-- 消息与公告 -->
+    <resultMap id="messageResult" type="com.gy.hsxt.bs.bean.message.Message">
+        <result column="MSG_ID" property="msgId"/>
+        <result column="TITLE" property="title"/>
+        <result column="SUMMARY" property="summary"/>
+        <result column="IMAGES" property="images"/>
+        <result column="MSG" property="msg"/>
+        <result column="FILE_ID" property="fileId"/>
+        <result column="TYPE" property="type"/>
+        <result column="LEVEL" property="level"/>
+        <result column="RECEIPTOR" property="receiptor"/>
+        <result column="SENDER" property="sender"/>
+        <result column="SEND_TIME" property="sendTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="ENT_RES_NO" property="entResNo"/>
+        <result column="ENT_CUST_ID" property="entCustId"/>
+        <result column="ENT_CUST_NAME" property="entCustName"/>
+        <result column="STATUS" property="status"/>
+        <result column="ISACTIVE" property="isActive"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdBy"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 创建 消息与公告 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.message.Message">
+        INSERT INTO T_BS_MESSAGE (
+            MSG_ID,
+            TITLE,
+            SUMMARY,
+            IMAGES,
+            MSG,
+            "TYPE",
+            "LEVEL",
+            RECEIPTOR,
+            <if test="sender !=null and sender != ''">
+                FILE_ID,
+                SENDER,
+                SEND_TIME,
+            </if>
+           ENT_RES_NO,
+           ENT_CUST_ID,
+           ENT_CUST_NAME,
+           STATUS,
+           ISACTIVE,
+           CREATED_DATE,
+           CREATEDBY
+        ) VALUES (
+            #{msgId},
+            #{title},
+            #{summary},
+            #{images},
+            #{msg},
+            #{type},
+            #{level},
+            #{receiptor},
+        <if test="sender !=null and sender != ''">
+            #{fileId},
+            #{sender},
+            systimestamp,
+        </if>
+            #{entResNo},
+            #{entCustId},
+            #{entCustName},
+            #{status},
+            'Y',
+            systimestamp,
+            #{createdBy}
+        )
+    </insert>
+
+    <!-- 修改 消息与公告 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.message.Message">
+        UPDATE T_BS_MESSAGE t
+        SET
+        <if test="msg != null and msg != ''">
+            t.MSG = #{msg},
+        </if>
+        <if test="type != null">
+            t."TYPE" = #{type},
+        </if>
+        <if test="level != null ">
+            t."LEVEL" = #{level},
+        </if>
+        <if test="receiptor != null and receiptor != ''">
+            t.RECEIPTOR = #{receiptor},
+        </if>
+        <if test="images != null and images != ''">
+            t.IMAGES = #{images},
+        </if>
+        <if test="sender != null and sender != ''">
+            t.SENDER = #{sender},
+        </if>
+        <if test="entResNo != null and entResNo != ''">
+            t.ENT_RES_NO = #{entResNo},
+        </if>
+        <if test="entCustId != null and entCustId != ''">
+            t.ENT_CUST_ID = #{entCustId},
+        </if>
+        <if test="entCustName != null and entCustName !=''">
+            t.ENT_CUST_NAME = #{entCustName},
+        </if>
+        <if test="fileId != null and fileId !=''">
+            t.FILE_ID = #{fileId},
+        </if>
+        <if test="status != null and status >1">
+            t.STATUS = #{status},
+            t.SEND_TIME = systimestamp,
+        </if>
+        <if test="title != null and title != ''">
+            t.TITLE = #{title},
+        </if>
+            t.UPDATEDBY=#{updatedBy},
+            t.UPDATED_DATE = systimestamp
+        WHERE
+            t.MSG_ID = #{msgId}
+    </update>
+
+    <!-- 分页查询 某 发送者的消息与公告列表 -->
+    <select id="selectBeanListPage" resultMap="messageResult" parameterType="com.gy.hsxt.bs.bean.message.MessageQuery">
+        SELECT
+        t.*
+        FROM
+        T_BS_MESSAGE t
+        WHERE
+        t.ISACTIVE = 'Y'
+        AND t.ENT_CUST_ID = #{entCustId}
+        <if test="sender !=null and sender != ''">
+            AND t.SENDER = #{sender}
+        </if>
+        <if test="status != null ">
+            AND t.STATUS = #{status}
+        </if>
+        <if test="title != null and title != '' ">
+            AND t.TITLE like '%'||#{title}||'%'
+        </if>
+        ORDER BY t.SEND_TIME DESC
+    </select>
+
+    <!-- 获取 某一条消息与公告记录 -->
+    <select id="selectBeanById" resultMap="messageResult" parameterType="string">
+        SELECT t.*
+        FROM
+            T_BS_MESSAGE t
+        WHERE
+            t.ISACTIVE = 'Y'
+            AND t.MSG_ID = #{msgId}
+    </select>
+
+    <!-- 删除 当前某一条记录（非物理删除） -->
+    <update id="deleteBeanById">
+        UPDATE
+            T_BS_MESSAGE
+        SET
+            ISACTIVE = 'N'
+        WHERE
+            MSG_ID = #{msgId}
+    </update>
+
+</mapper>

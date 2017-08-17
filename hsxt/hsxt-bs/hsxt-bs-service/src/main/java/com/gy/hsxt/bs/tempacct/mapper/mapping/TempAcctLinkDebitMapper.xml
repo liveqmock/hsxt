@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.TempAcctLinkDebitMapper">
+    <!-- 临帐记录 -->
+    <resultMap id="debitResultRef" type="com.gy.hsxt.bs.bean.tempacct.Debit"
+               extends="com.gy.hsxt.bs.tempacct.mapper.DebitMapper.debitResult"/>
+    <!-- 关联的临账关系实体映射 -->
+    <resultMap id="linkDebitResult" type="com.gy.hsxt.bs.bean.tempacct.TempAcctLinkDebit">
+        <result column="APPLY_ID" property="applyId"/>
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="DEBIT_ID" property="debitId"/>
+        <result column="LINK_AMOUNT" property="linkAmount"/>
+        <association property="debit" column="DEBIT_ID"  select="com.gy.hsxt.bs.tempacct.mapper.DebitMapper.selectBeanById"/>
+    </resultMap>
+
+    <!-- 创建关联的临账关系实体 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctLinkDebit">
+        INSERT INTO T_BS_TEMP_ACCT_LINK_DEBITS (
+            APPLY_ID,
+            ORDER_NO,
+            DEBIT_ID,
+            LINK_AMOUNT
+        ) VALUES (
+            #{applyId},
+            #{orderNo},
+            #{debitId},
+            #{linkAmount}
+        )
+    </insert>
+
+    <!-- 根据业务订单编号查询关联的临账关系实体列表  -->
+    <select id="selectBeanListById" resultMap="linkDebitResult">
+        SELECT t.*
+        FROM T_BS_TEMP_ACCT_LINK_DEBITS t
+        WHERE t.APPLY_ID = #{applyId}
+    </select>
+    <!-- 更新关联关系实体 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctLinkDebit">
+        UPDATE T_BS_TEMP_ACCT_LINK_DEBITS t
+        SET t.LINK_AMOUNT = #{linkAmount}
+        WHERE t.APPLY_ID = #{applyId}
+              AND t.DEBIT_ID = #{debitId}
+    </update>
+</mapper>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.EnterMapper">
+	
+	<!-- 插入入库 -->
+	<insert id="insertEnter" parameterType="com.gy.hsxt.bs.bean.tool.Enter">
+		INSERT INTO 
+		T_BS_ENTER(
+			ENTER_BATCH_NO,
+			PRODUCT_ID,
+			CATEGORY_CODE,
+			WH_ID,
+			QUANTITY,
+			ENTER_DATE,
+			URCHASE_PRICE,
+			MARKET_PRICE,
+			TOTAL_AMOUNT,
+			OPER_NO,
+			REMARK,
+			SUPPLIER_ID
+		) VALUES (
+			#{enterBatchNo},
+			#{productId},
+			#{categoryCode},
+			#{whId},
+			#{quantity},
+			SYSDATE,
+			#{purchasePrice},
+			#{marketPrice},
+			#{totalAmount,jdbcType=VARCHAR},
+			#{operNo},
+			#{remark,jdbcType=VARCHAR},
+			#{supplierId,jdbcType=VARCHAR})	
+	</insert>
+	
+	<!-- 插入入库清单 -->
+	<insert id="insertEnterDetail" parameterType="com.gy.hsxt.bs.tool.bean.EnterDetail">
+		INSERT INTO 
+		T_BS_ENTER_DETAIL(
+			ENTER_BATCH_NO,
+			DEVICE_CUST_ID)
+		<foreach collection="details" item="detail" index="index" separator="union all">
+			(SELECT
+			#{detail.batchNo},
+			#{detail.deviceCustId}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 根据批次号查询入库 -->
+	<select id="selectEnterByNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.Enter">
+		SELECT 
+			ENTER_BATCH_NO AS enterNo,
+			PRODUCT_ID AS productId,
+			CATEGORY_CODE AS categoryCode,
+			WH_ID AS whId,
+			QUANTITY AS quantity,
+			ENTER_DATE AS enterDate,
+			OPER_NO AS operNo
+		FROM T_BS_ENTER 
+		WHERE ENTER_BATCH_NO = #{enterNo}
+	</select>
+	
+	<!-- 查询入库的免费工具 -->
+	<select id="selectToolEnterByForFree" resultType="string">		  		  
+		  SELECT DECODE(EE.ENTER_NUM,NULL,0,EE.ENTER_NUM) - DECODE(OO.OUT_NUM,NULL,0,OO.OUT_NUM)
+		    FROM (SELECT #{productId} PRODUCT_ID, SUM(QUANTITY) ENTER_NUM
+		            FROM T_BS_ENTER E
+		           WHERE WH_ID = #{whId}
+		             AND PRODUCT_ID = #{productId} AND E.CATEGORY_CODE IN ('SUPPORT','GIFT')) EE
+		         LEFT JOIN     
+		         (SELECT #{productId} PRODUCT_ID, SUM(QUANTITY) AS OUT_NUM
+		            FROM T_BS_OUT
+		           WHERE WH_ID = #{whId}
+		             AND PRODUCT_ID = #{productId}) OO
+		   ON EE.PRODUCT_ID = OO.PRODUCT_ID	  
+	</select>
+	
+	<!-- 分页查询需要配置工具库存-->
+	<select id="selecConfigToolStockByListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolStock">
+		SELECT
+			T.ENTER_BATCH_NO AS batchNo,
+			T.CATEGORY_CODE AS categoryCode,
+			T.PRODUCT_NAME AS productName,
+			T.WH_NAME AS whName,
+			T.QUANTITY AS enterNum,
+			T.OUT_NUM AS outNum,
+			T.SHOULED_NUM AS shouldNum,
+			T.ACTUAL_NUM AS actualNum
+		FROM(SELECT
+				E.ENTER_BATCH_NO AS ENTER_BATCH_NO,
+				E.CATEGORY_CODE AS CATEGORY_CODE,
+				P.PRODUCT_NAME AS PRODUCT_NAME,
+				P.PRODUCT_ID AS PRODUCT_ID,
+				W.WH_ID AS WH_ID,
+				W.WH_NAME AS WH_NAME,
+				E.QUANTITY AS QUANTITY,
+				NVL(O.OUT_NUM, 0) AS OUT_NUM,
+				E.QUANTITY - NVL(O.OUT_NUM, 0) AS SHOULED_NUM,
+				E.QUANTITY - NVL(O.OUT_NUM, 0) AS ACTUAL_NUM
+			FROM
+			T_BS_ENTER E
+			LEFT JOIN (SELECT ED.ENTER_BATCH_NO, SUM(DECODE(OD.OUT_BATCH_NO, NULL, 0, 1)) OUT_NUM
+						FROM T_BS_ENTER_DETAIL ED
+						LEFT JOIN T_BS_OUT_DETAIL OD
+							ON ED.DEVICE_CUST_ID = OD.DEVICE_CUST_ID
+						GROUP BY ED.ENTER_BATCH_NO) O
+				ON E.ENTER_BATCH_NO  = O.ENTER_BATCH_NO
+			LEFT JOIN T_BS_TOOL_PRODUCT P
+				ON E.PRODUCT_ID = P.PRODUCT_ID
+			LEFT JOIN T_BS_WAREHOUSE W
+				ON E.WH_ID = W.WH_ID
+			WHERE E.CATEGORY_CODE IN ('P_POS','POINT_MCR','CONSUME_MCR','TABLET') ORDER BY E.ENTER_BATCH_NO) T
+		WHERE 1 = 1
+		<if test="categoryCode != null and categoryCode != ''">
+			AND T.CATEGORY_CODE = #{categoryCode}
+		</if>
+		<if test="productId != null and productId != ''">
+			AND T.PRODUCT_ID = #{productId}
+		</if>
+		<if test="whId != null and whId != ''">
+			AND T.WH_ID = #{whId}
+		</if>		
+	</select>
+	
+	<!-- 根据入库批次号查询POS机配置数量 -->
+	<select id="selectPosConfigNumByNo" resultType="java.lang.Integer">
+		SELECT 
+		  	SUM(DECODE(DC.CONFIG_NO, NULL, 0, 1))
+		FROM T_BS_ENTER_DETAIL ED
+		LEFT JOIN T_BS_TOOL_DEVICE_CONFIG DC
+		  ON ED.DEVICE_CUST_ID = DC.DEVICE_CUST_ID
+		WHERE ED.ENTER_BATCH_NO = #{batchNo}
+		GROUP BY ED.ENTER_BATCH_NO
+	</select>
+	
+	<!-- 根据批次号查询POS机设备序列号 -->
+	<select id="selectPosDeviceSeqNoByNo" resultType="string">
+		SELECT
+		   DI.DEVICE_SEQ_NO 
+		FROM T_BS_ENTER_DETAIL ED LEFT JOIN T_BS_TOOL_DEVICE_INFO DI 
+		ON ED.DEVICE_CUST_ID = DI.DEVICE_CUST_ID
+		WHERE ED.ENTER_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 插入工具库存盘库 -->
+	<insert id="insertWhInventory" parameterType="com.gy.hsxt.bs.bean.tool.WhInventory">
+		INSERT INTO 
+		T_BS_WH_INVENTORY(
+			INVENTORY_ID,
+			ENTER_NO,
+			SHOULD_QUANTITY,
+			QUANTITY,
+			OPER_NO,
+			INVENTORY_DATE
+		) VALUES (
+			#{inventoryId},
+			#{enterNo},
+			#{shouldQuantity},
+			#{quantity},
+			#{operNo},
+			SYSDATE)
+	</insert>
+	
+	<!-- 插入工具入库抽检 -->
+	<insert id="insertEnterInspection" parameterType="com.gy.hsxt.bs.bean.tool.InstorageInspection">
+		INSERT INTO 
+		T_BS_INSTORAGE_INSPECTION(
+			INSPECTION_ID,
+			ENTER_NO,
+			QUANTITY,
+			PASSQUANTITY,
+			PASSRATE,
+			INSPECTION_DATE,
+			OPER_NO,
+			REMARK
+		) VALUES (
+			#{inspectionId},
+			#{enterNo},
+			#{quantity},
+			#{passQuantity},
+			#{passRate},
+			SYSDATE,
+			#{operNo},
+			#{remark,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 分页查询工具库存预警 -->
+	<select id="toolEnterStockWarningListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolStockWarning">		 		 
+		 SELECT 
+		 		TT.PRODUCT_NAME AS productName,
+		 		TT.CATEGORY_CODE AS categoryCode,
+		 		TT.WH_NAME AS whName,
+		 		TT.WARNING_STATUS AS warningStatus,
+		 		TT.REPORTED_RATE AS reportedRate,
+		 		TT.USE_RATE AS useRate
+		  FROM (SELECT P.PRODUCT_NAME AS PRODUCT_NAME,
+		               P.CATEGORY_CODE AS CATEGORY_CODE,
+		               W.WH_NAME AS WH_NAME,
+		               CASE
+		                 WHEN SURPLUS_NUM > DECODE(P.WARNING_VALUE,NULL,0,P.WARNING_VALUE) THEN
+		                  0
+		                 ELSE
+		                  1
+		               END AS WARNING_STATUS,
+		               TO_CHAR(NVL(EOD.REPORTED_NUM, 0) / NVL(EOD.ENTER_NUM, 0) * 100,
+		                       'fm9999990.00') || '%' AS REPORTED_RATE,
+		               TO_CHAR(NVL(EOD.USE_NUM, 0) / NVL(EOD.ENTER_NUM, 0) * 100,
+		                       'fm9999990.00') || '%' AS USE_RATE
+		          FROM (SELECT EE.CATEGORY_CODE,
+		                       EE.PRODUCT_ID,
+		                       EE.WH_ID,
+		                       EE.ENTER_NUM,
+		                       DECODE(OO.USE_NUM,NULL,0,OO.USE_NUM) USE_NUM,
+                           	   DECODE(DD.REPORTED_NUM, NULL, 0, DD.REPORTED_NUM) REPORTED_NUM,
+                           	   EE.ENTER_NUM - DECODE(OO.USE_NUM,NULL,0,OO.USE_NUM) -
+                           	   DECODE(DD.REPORTED_NUM, NULL, 0, DD.REPORTED_NUM) SURPLUS_NUM
+		                  FROM (SELECT E.WH_ID,
+		                               E.CATEGORY_CODE,
+		                               E.PRODUCT_ID,
+		                               SUM(E.QUANTITY) ENTER_NUM
+		                          FROM T_BS_ENTER E
+		                         GROUP BY E.WH_ID, E.CATEGORY_CODE, E.PRODUCT_ID) EE
+		                  LEFT JOIN (SELECT O.WH_ID,
+		                                   O.CATEGORY_CODE,
+		                                   O.PRODUCT_ID,
+		                                   SUM(O.QUANTITY) USE_NUM
+		                              FROM T_BS_OUT O
+		                             GROUP BY O.WH_ID, O.CATEGORY_CODE, O.PRODUCT_ID) OO
+		                    ON EE.PRODUCT_ID = OO.PRODUCT_ID
+		                  LEFT JOIN (SELECT DI.PRODUCT_ID,
+		                                   SUM(DECODE(DUR.RECORD_ID, NULL, 0, 1)) REPORTED_NUM
+		                              FROM T_BS_TOOL_DEVICE_INFO DI
+		                              LEFT JOIN T_BS_DEVICE_USE_RECORD DUR
+		                                ON DUR.DEVICE_SEQ_NO = DI.DEVICE_SEQ_NO
+		                             WHERE DUR.USE_TYPE = 2
+		                             GROUP BY DI.PRODUCT_ID) DD
+		                    ON EE.PRODUCT_ID = DD.PRODUCT_ID) EOD
+		          LEFT JOIN T_BS_WAREHOUSE W
+		            ON W.WH_ID = EOD.WH_ID
+		          LEFT JOIN T_BS_TOOL_PRODUCT P
+		            ON P.PRODUCT_ID = EOD.PRODUCT_ID) TT
+		  WHERE 1 = 1          
+		 <if test="warningStatus != null">
+		 	AND TT.WARNING_STATUS = #{warningStatus}
+		 </if>           
+		 <if test="productName != null and productName != ''">
+		 	AND TT.PRODUCT_NAME LIKE #{productName}||'%'
+		 </if>
+		 <if test="categoryCode != null and categoryCode != ''">
+		 	AND TT.CATEGORY_CODE = #{categoryCode}
+		 </if>
+	</select>
+	
+	<!-- 分页查询工具入库流水 -->
+	<select id="selectToolEnterSerialListPage" parameterType="com.gy.hsxt.bs.bean.tool.pageparam.ToolProductVo" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolEnterOutPage">
+		SELECT 
+			EC.CATEGORY_CODE AS categoryCode,
+	        EC.PRODUCT_NAME AS productName,
+	        EC.WH_NAME AS whName,
+	        EC.ENTER_BATCH_NO AS batchNo,
+	        EC.QUANTITY AS quantity,
+	        EC.ENTER_DATE AS operDate,
+	        EC.OPER_NO AS operNo
+	  FROM (SELECT P.CATEGORY_CODE,
+	               P.PRODUCT_NAME,
+	               W.WH_NAME,
+	               E.ENTER_BATCH_NO,
+	               E.QUANTITY,
+	               E.ENTER_DATE,
+	               E.OPER_NO
+	          FROM T_BS_ENTER        E,
+	               T_BS_TOOL_PRODUCT P,
+	               T_BS_WAREHOUSE    W
+	         WHERE E.PRODUCT_ID = P.PRODUCT_ID
+	           AND E.WH_ID = W.WH_ID
+	        UNION ALL
+	        SELECT 'P_CARD',
+	               C.PRODUCT_NAME,
+	               W.WH_NAME,
+	               C.BATCH_NO,
+	               C.INOUT_AMOUNT,
+	               C.INOUT_DATE, 
+	               C.OPER_NO
+	          FROM T_BS_CARD_INOUT C,T_BS_WAREHOUSE W
+	         WHERE C.WH_ID = W.WH_ID
+	           AND C.INOUT_FLAG &lt; 4) EC	
+	     WHERE 1=1
+	    <if test="startDate != null and startDate != ''">
+			AND EC.ENTER_DATE &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND EC.ENTER_DATE &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="categoryCode != null and categoryCode != ''">
+			AND EC.CATEGORY_CODE = #{categoryCode}
+		</if>
+		ORDER BY EC.ENTER_DATE DESC
+	</select>
+	
+	<!-- 分页统计地区平台仓库工具 -->
+	<select id="statisticPlatWhToolListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolStock">
+		SELECT
+				T.CATEGORY_CODE AS categoryCode,
+				T.PRODUCT_NAME AS productName,
+				T.WH_NAME AS whName,
+				T.ENTER_NUM AS enterNum,
+				T.OUT_NUM AS outNum,
+				T.SHOULED_NUM AS shouldNum,
+				T.ACTUAL_NUM AS actualNum
+		  FROM (SELECT
+				P.CATEGORY_CODE AS CATEGORY_CODE,
+				P.PRODUCT_NAME AS PRODUCT_NAME,
+				W.WH_NAME AS WH_NAME,
+				TT.ENTER_NUM AS ENTER_NUM,
+				TT.OUT_NUM AS OUT_NUM,
+				TT.SHOULED_NUM AS SHOULED_NUM,
+				TT.ACTUAL_NUM AS ACTUAL_NUM
+			FROM (SELECT
+					EE.PRODUCT_ID AS PRODUCT_ID,
+					EE.WH_ID AS WH_ID,
+					EE.ENTER_NUM AS ENTER_NUM,
+					NVL(OO.OUT_NUM, 0) AS OUT_NUM,
+					EE.ENTER_NUM - NVL(OO.OUT_NUM, 0) AS SHOULED_NUM,
+					EE.ENTER_NUM - NVL(OO.OUT_NUM, 0) AS ACTUAL_NUM
+				FROM (SELECT
+						E.PRODUCT_ID,
+						E.WH_ID,
+						SUM(E.QUANTITY) ENTER_NUM
+					FROM T_BS_ENTER E
+					GROUP BY E.PRODUCT_ID, E.WH_ID) EE
+					LEFT JOIN (SELECT O.PRODUCT_ID, O.WH_ID, SUM(O.QUANTITY) OUT_NUM
+								FROM T_BS_OUT O
+								GROUP BY O.PRODUCT_ID, O.WH_ID) OO
+						ON OO.PRODUCT_ID = EE.PRODUCT_ID
+			UNION ALL
+				SELECT
+					CI.PRODUCT_ID AS PRODUCT_ID,
+					CI.WH_ID AS WH_ID,
+					SUM(CI.INOUT_AMOUNT) AS ENTER_NUM,
+					SUM(CI.INOUT_AMOUNT) AS OUT_NUM,
+					SUM(CI.INOUT_AMOUNT) AS SHOULED_NUM,
+					SUM(CI.INOUT_AMOUNT) AS ACTUAL_NUM
+				FROM T_BS_CARD_INOUT CI
+				GROUP BY CI.PRODUCT_ID, CI.WH_ID ) TT
+			LEFT JOIN T_BS_WAREHOUSE W
+				ON TT.WH_ID = W.WH_ID
+			LEFT JOIN T_BS_TOOL_PRODUCT P
+				ON P.PRODUCT_ID = TT.PRODUCT_ID ORDER BY TT.PRODUCT_ID DESC) T
+		WHERE 1 = 1
+		<if test="categoryCode != null and categoryCode != ''">
+		   	AND T.CATEGORY_CODE = #{categoryCode}
+		</if>
+	</select>
+	
+</mapper>

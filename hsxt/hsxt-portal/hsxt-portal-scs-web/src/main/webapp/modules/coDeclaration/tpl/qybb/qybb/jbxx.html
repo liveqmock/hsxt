@@ -1,0 +1,37 @@
+ 
+			<div class="register_info info_800">
+        	<form id="filing_form" name="filing_form">
+	 
+				<div class="clearfix">
+					<ul class="fl">
+						<li class="register_row info_320 "><label for="entCustName">企业名称</label><input type="text" id="entCustName" name="entCustName" value="<%=obj.entCustName%>" class="input_gray" placeholder="输入企业名称" maxlength="64" ><div class="hint red">*</div><div class="hint"><!--提示--></div></li>
+                        <li class="register_row info_320 "><label for="entAddress">企业地址</label><input type="text" id="entAddress" name="entAddress" value="<%=obj.entAddress%>" class="input_gray" placeholder="输入企业地址"  ><div class="hint red">*</div><div class="hint"><!--提示--></div></li>
+						<li class="register_row info_320 "><label for="legalName">企业法人代表</label><input type="text" id="legalName" name="legalName" value="<%=obj.legalName%>" class="input_gray" placeholder="输入企业法人代表姓名"  ><div class="hint red">*</div><div class="hint"><!--提示--></div></li>
+                        <li class="register_row info_320 "><label for="linkman">联系人姓名</label><input type="text" id="linkman" name="linkman" value="<%=obj.linkman%>" class="input_gray" placeholder="输入联系人姓名"  ><div class="hint red">*</div><div class="hint"><!--提示--></div></li>
+					</ul>
+					<ul class="fr">
+						<li class="register_row info_320 ">
+							<label for="provinceNo">所在地区</label>
+							<div class="two_column_select fl">
+								<input id="provinceNo" name="provinceNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+							</div>
+							<div class="two_column_select fr">
+								<input id="cityNo" name="cityNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+							</div>
+							<div class="hint red">*</div>
+						</li>
+						<li class="register_row info_320 "><label for="licenseNo">营业执照注册号</label><input type="text" id="licenseNo" name="licenseNo" value="<%=obj.licenseNo%>" class="input_gray" placeholder="输入营业执照注册号"  ><div class="hint red">*</div></li>
+                        <li class="register_row info_320 "><label for="entType">企业类型</label><input type="text" id="entType" name="entType" value="<%=obj.entType%>" class="input_gray" placeholder="输入企业类型"  ><div class="hint"><!--提示--></div></li>
+                        <li class="register_row info_320 "><label for="phone">联系人手机</label><input type="text" id="phone" name="phone" value="<%=obj.phone%>" class="input_gray" placeholder="输入联系人手机"  ><div class="hint red">*</div><div class="hint"><!--提示--></div></li>
+						
+					</ul>
+				</div>
+				<ul class="mt5">
+					<li class="register_row_2 info_320 "><label for="dealArea">企业经营范围</label><textarea id="dealArea" name="dealArea" class="input_gray" style="width:665px;" placeholder="输入企业经营范围，不超过300个字" maxlength="300"><%=obj.dealArea%></textarea> </li>
+                    <li class="register_row_2 info_320 "><label for="reqReason">报备说明</label><textarea id="reqReason" name="reqReason" class="input_gray" style="width:665px;" placeholder="输入报备说明，不超过300个字" maxlength="300" ><%=obj.reqReason%></textarea> </li>
+				</ul>
+				
+				<input type="hidden" id="countryNo" name="countryNo" value="<%=obj.countryNo%>">
+			</form>
+        </div>
+ 

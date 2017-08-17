@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.DividendRateMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.bs.bean.order.DividendRate">
+		<id column="DIVIDEND_YEAR" property="dividendYear" />
+		<result column="DIVIDEND_RATE" property="dividendRate"
+			typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler" />
+		<result column="DIVIDEND_DATE" property="dividendDate" />
+		<result column="DIVIDEND_PERIOD" property="dividendPeriod" />
+		<result column="DIVIDEND_STATUS" property="dividendStatus" />
+	</resultMap>
+	
+	<!-- 插入年度分红比率记录 -->
+	<insert id="insertDividendRate" parameterType="com.gy.hsxt.bs.bean.order.DividendRate">
+		INSERT INTO
+		T_BS_DIVIDEND_RATE
+		(
+		DIVIDEND_YEAR,
+		DIVIDEND_RATE,
+		DIVIDEND_DATE,
+		DIVIDEND_PERIOD,
+		DIVIDEND_STATUS
+		)
+		VALUES
+		(
+		#{dividendYear},
+		#{dividendRate},
+		sysdate,
+		#{dividendPeriod},
+		1
+		)
+	</insert>
+	
+	<!-- 分红历史 -->
+	<resultMap type="com.gy.hsxt.bs.bean.order.CustomPointDividend" id="DividendListMap">
+		<result column="dividend_year" property="dividendYear"/>
+		<result column="dividend_period" property="dividendPeriod"/>
+		<result column="dividend_rate" property="yearDividendRate" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+		<result column="invest_amount" property="dividendInvestTotal"/>
+		<result column="total_dividend" property="totalDividend"/>
+	</resultMap>
+	<!-- 分页查询历史分红总数 -->
+	<select id="findHisDividendListPage" resultMap="DividendListMap">
+		select 
+		dd.dividend_year,
+		dr.dividend_period ,
+		dr.dividend_rate ,
+		sum(pi.invest_amount) as dividendInvestTotal,
+		sum(dd.total_dividend) as totalDividend
+ 		from 
+ 		t_bs_dividend_detail dd,T_BS_POINT_INVEST pi,T_BS_DIVIDEND_RATE dr
+		where dd.invest_no = pi.invest_no 
+		and dd.dividend_year = dr.dividend_year
+		group by dd.dividend_year,dr.dividend_period,dr.dividend_rate order by dd.dividend_year desc
+	</select>
+	
+	<!-- 查询是否已存在年度分红比率 -->
+	<select id="findExistsYearRate" resultType="int">
+		select count(0) from T_BS_DIVIDEND_RATE where DIVIDEND_YEAR = #{dividendYear}
+	</select>
+
+	<!-- 查询年度分红比率列表 -->
+	<select id="findDividendRateListPage" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.DividendRate">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_BS_DIVIDEND_RATE
+		<where>
+			<if test="dividendYear!=null and dividendYear!=''">
+				and DIVIDEND_YEAR = #{dividendYear}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询新一年的分红比率 -->
+	<select id="findNewDividendRate" parameterType="string"
+		resultMap="BaseResultMap">
+		select
+		*
+		from 
+		T_BS_DIVIDEND_RATE 
+		where DIVIDEND_YEAR = #{dividendYear}
+	</select>
+	
+	<!-- 查询最近分红的年份 -->
+	<select id="findMaxDividendYear" resultType="string">
+		select
+		max(DIVIDEND_YEAR)
+		from T_BS_DIVIDEND_RATE
+	</select>
+
+	<!-- 更新分红状态 -->
+	<update id="updateDividendStatus">
+		update T_BS_DIVIDEND_RATE 
+		set 
+		DIVIDEND_STATUS = #{dividendStatus} 
+		where 
+		DIVIDEND_STATUS = 3 
+		and DIVIDEND_YEAR &lt;= #{dividendYear}
+	</update>
+
+	<!-- 表字段片段 -->
+	<sql id="base_column_list">
+		DIVIDEND_YEAR AS dividendYear,
+		DIVIDEND_RATE AS dividendRate,
+		to_char(DIVIDEND_DATE,'yyyy-MM-dd hh24:mi:ss') AS dividendDate,
+		DIVIDEND_PERIOD AS dividendPeriod,
+		DIVIDEND_STATUS AS dividendStatus
+	</sql>
+</mapper>

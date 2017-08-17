@@ -1,0 +1,36 @@
+<!--startprint-->
+<div class="bc w900 infobox p10">
+	
+	<fieldset class="bdColor_999_dashed">
+		<legend class="f13">工具清单联</legend>
+		<h1 class="fb f13 mt10">配送企业信息</h1>
+		<div class="dypsd_table">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+				<tr>
+					<td class="view_item" width="12%">配送企业互生号：</td>
+					<td class="view_text" width="21%"><%=obj.hsResNo%></td>
+					<td class="view_item" width="12%">配送公司名称：</td>
+					<td class="view_text" width="21%"><%=obj.entName%></td>
+					<td class="view_item" width="12%"></td>
+					<td class="view_text" width="21%"></td>
+				</tr>
+			</table>
+		</div>
+		<h1 class="fb f13">配送工具清单</h1>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bsgrid mt10 mb20">
+			<tr>
+				<td width="30" class="fb">工具名称</td>
+				<td width="30" class="fb">工具数量</td>
+				<td width="40" class="fb">配送物品类型</td>
+			</tr>
+            <% for(var i=0; i<obj.content.configs.length;i++){%>
+			<tr>
+				<td class="td_tl" height="30"><%=obj.content.configs[i].productName%></td>
+				<td class="td_tl"><%=obj.content.configs[i].quantity%></td>
+				<td class="td_tl"><%=comm.lang("toolorder").all_CategoryCode[obj.content.configs[i].categoryCode]%></td>
+			</tr>
+			<%}%>
+		</table>
+	</fieldset>
+</div>
+<!--endprint-->

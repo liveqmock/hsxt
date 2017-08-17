@@ -1,0 +1,54 @@
+﻿<div id="lssplb_content1">
+    <div class="search-toolbar">
+      <form id="lssplb_form" name="lssplb_form">
+        <ul class="cssform clearfix">
+          <li class="clearfix">
+            <label class="fl h30_middle">商品编号：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入商品编号"/>
+          </li>
+          <li class="clearfix">
+            <label class="fl h30_middle">商品名称：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入商品名称"/>
+          </li>
+          <li class="clearfix">
+            <label class="fl h30_middle">货号：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入货号"/>
+          </li>
+          <li class="clearfix pr">
+            <label class="h30_middle fl">商品类目：</label>
+            <input type="text" id="lssplb_splm" readonly="readonly" optionValue=""/>
+          </li>
+          <li class="clearfix">
+            <label class="fl h30_middle">品牌：</label>
+            <input type="text" class="h28_middle input-txt w80" placeholder="输入品牌"/>
+          </li>
+          <li class="clearfix pr">
+            <label class="h30_middle fl">状态：</label>
+            <input type="text" id="lssplb_zt" readonly="readonly" optionValue=""/>
+          </li>
+          <li>
+            <div class="cont-int">
+              <button id="btn_cx" class="btn-search" type="button">查询</button>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+    <div class="search-cont">
+      <table id="lssplb_table">
+  		<thead>
+            <tr>
+              <th w_check="true" w_index="id" width="15"></th>
+              <th w_render="renderImg" w_align="left">商品名称</th>
+              <th w_index="pp" w_align="left">品牌</th>
+              <th w_render="operate" w_align="left"><img src="resources/img/price.png" width="20" height="20" style="vertical-align:middle;"/><span class="ml5">价格</span></th>
+              <th w_render="operate" w_align="left"><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"/><span class="ml5">积分</span></th>
+              <th w_index="sjsj" w_align="left">上架时间</th>
+              <th w_index="zt" w_align="left">状态</th>
+              <th w_render="operate" w_align="left">操作</th>
+            </tr>
+		</thead>
+      </table>
+    </div>
+</div>
+<div id="lssplb_content2" class="none"></div>

@@ -1,0 +1,51 @@
+﻿<form id="spfl_xz_xg_form" name="spfl_xz_xg_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<input type="hidden" name="pId" value="<%=obj.pId%>"/>
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="120">上级分类：</td>
+      <td><input type="text" id="spfl_sjfl" name="spfl_sjfl" value="<%=obj.pName%>" class="w300 h30_middle pl5 infobox2" placeholder="输入上级分类"/></td>
+    </tr>
+    <tr>
+      <td align="right">分类名称：</td>
+      <td><input type="text" id="spfl_splm" name="spfl_splm" class="feellist_input" value="<%=obj.name%>" readonly="readonly"/></td>
+    </tr>
+    <tr>
+      <td align="right">分类图片：</td>
+      <td>
+        <ul class="pImgList clearfix" id="spfl_fltp">
+            <li data-flag="<%=obj.fltp ? 1 : 0%>">
+                <span class="addpImgBox_style">
+                    <input type="file"><img src="<%=obj.fltp ? obj.fltp : 'resources/img/store_main_img_1.gif'%>" width="100" height="100">
+                </span>
+                <i class="tips_close pa delImg" title="删除图片"></i>
+            </li>
+        </ul>
+      </td>
+    </tr>
+</table>
+</form>
+<div class="goodslist" id="spfl_splm_list">
+  <ul class="clearfix">
+    <li class="fl list_ft">
+        <div>
+            <ul class="list_sc">
+            <%$.each(obj.splm, function(k, v) { if(v.pid === '0') {%>
+                <li><a class="clearfix" data-id="<%=v.id%>"><%if(v.letter) {%><span class="list_sc_letter"><%=v.letter%></span><%}%><span class="gct"><%=v.name%></span><i class="list_sc_arrow"></i></a></li>
+            <%}})%>
+            </ul>
+        </div>
+    </li>
+    <li class="fl list_ft">
+        <div>
+            <ul class="list_sc"></ul>
+        </div>
+    </li>
+    <li class="fl list_ft">
+        <div>
+            <ul class="list_sc"></ul>
+        </div>
+    </li>
+  </ul>
+  <div class="mt10 tc"><button type="button" class="btn-search mr10" id="spfl_splm_btn_qd">确定</button><button type="button" class="btn-search" id="spfl_splm_btn_qx">取消</button></div>
+</div>

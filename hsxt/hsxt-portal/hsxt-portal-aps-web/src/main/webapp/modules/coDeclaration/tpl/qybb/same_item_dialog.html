@@ -1,0 +1,192 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">企业基本信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">被报备企业名称</td>
+            <td class="view_text" width="32%"><%=entName%></td>
+            <td class="view_item" width="18%">所在地区</td>
+            <td class="view_text" width="32%"><%=area%></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业地址</td>
+            <td class="view_text" colspan="3"><%=address%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">相同项目列表</span></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+            	<div class="p10">
+                    <div class="chgtd">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+						  <tr class="table-tr-c" align="center">
+							<td>项目名称</td>
+							<td>项目内容</td>
+							<td>资料相同的企业名称</td>
+							<td>提交报备企业互生号</td>
+						  </tr>
+							<!-- 企业名称 -->
+							<%
+							if(sameEntNames&&sameEntNames.length>0){
+							$.each(sameEntNames,function(index,name){
+							if(index==0){
+							%>
+							<tr>
+								<td rowspan="<%=sameEntNames.length%>" align="right">企业名称</td>
+								<td rowspan="<%=sameEntNames.length%>"><%=entName%></td><!-- 营业执照号 -->
+								<td><%=name[1]%></td><!-- 企业名称 -->
+								<td><%=name[0]%></td><!-- 提交报备的企业互生号 -->
+							</tr>
+							<%
+							}else{
+							%>
+							<tr>
+								<td><%=name[1]%></td><!-- 企业名称 -->
+								<td><%=name[0]%></td><!-- 提交报备的企业互生号 -->
+							</tr>
+							<%
+							}
+							});
+							}
+							%>
+							<!-- 营业执照号 -->
+							<%
+									if(sameLicenses&&sameLicenses.length>0){
+										$.each(sameLicenses,function(index,license){
+											if(index==0){
+							%>
+												<tr>
+													<td rowspan="<%=sameLicenses.length%>" align="right">营业执照号</td>
+													<td rowspan="<%=sameLicenses.length%>"><%=license[2]%></td><!-- 营业执照号 -->
+													<td><%=license[1]%></td><!-- 企业名称 -->
+													<td><%=license[0]%></td><!-- 提交报备的企业互生号 -->
+												</tr>
+							<%
+											}else{
+							%>
+												<tr>
+													<td><%=license[1]%></td><!-- 企业名称 -->
+													<td><%=license[0]%></td><!-- 提交报备的企业互生号 -->
+												</tr>
+							<%
+											}
+										});
+									}
+							%>
+							<!-- 法人代表信息 -->
+							<%
+								var cerTypes = ['身份证','护照','营业执照'];
+								if(sameLegalReps&&sameLegalReps.length>0){
+									$.each(sameLegalReps,function(index,legal){
+										if(index==0){
+							%>
+									<tr>
+										<td rowspan="<%=sameLegalReps.length%>" align="right">法人代表信息</td>
+										<td rowspan="<%=sameLegalReps.length%>"><%=legal[2]%>  </td><!-- 法人代表信息 -->
+										<td><%=legal[1]%></td><!-- 企业名称 -->
+										<td><%=legal[0]%></td><!-- 提交报备的企业互生号 -->
+									</tr>
+							<%
+										}else{
+							%>
+									<tr>
+										<td><%=legal[1]%></td><!-- 企业名称 -->
+										<td><%=legal[0]%></td><!-- 提交报备的企业互生号 -->
+									</tr>
+							<%
+										}
+									});
+								}
+							%>
+
+							<!-- 联系人信息 -->
+							<%
+								if(sameLinkmans&&sameLinkmans.length>0){
+									$.each(sameLinkmans,function(index,linkman){
+										if(index==0){
+							%>
+										<tr>
+											<td rowspan="<%=sameLinkmans.length%>" align="right">联系人信息</td>
+											<td rowspan="<%=sameLinkmans.length%>"><%=linkman[2]%> <%=linkman[3]%> </td><!-- 联系人信息 -->
+											<td><%=linkman[1]%></td><!-- 企业名称 -->
+											<td><%=linkman[0]%></td><!-- 提交报备的企业互生号 -->
+										</tr>
+							<%
+										}else{
+							%>
+										<tr>
+											<td><%=linkman[1]%></td><!-- 企业名称 -->
+											<td><%=linkman[0]%></td><!-- 提交报备的企业互生号 -->
+										</tr>
+							<%
+										}
+									});
+								}
+							%>
+
+							<!-- 股东信息 -->
+							<%
+								if(sameShareHolders&&sameShareHolders.length>0&&group&&group.length>0&&count&&count.length>0){
+									for(var i =0; i < group.length; i++){
+										if(i==0){
+											var flag = 0;
+											$.each(sameShareHolders,function(ind,shareHolder){
+												var gn = $.trim(shareHolder[2])+'-'+$.trim(shareHolder[3])+'-'+$.trim(shareHolder[4]);
+												if(gn==group[i]){
+													if(flag==0){
+														flag = 1;
+							%>
+														<tr>
+															<td rowspan="<%=sameShareHolders.length%>" align="right">股东信息</td>
+															<td rowspan="<%=count[i]%>"><%=shareHolder[2]%> <%=shareHolder[3]%> (<%=cerTypes[parseInt(shareHolder[4])-1]%>)</td><!-- 股东信息 -->
+															<td><%=shareHolder[1]%></td><!-- 企业名称 -->
+															<td><%=shareHolder[0]%></td><!-- 提交报备的企业互生号 -->
+														</tr>
+							<%
+													}else{
+							%>
+														<tr>
+															<td><%=shareHolder[1]%></td><!-- 企业名称 -->
+															<td><%=shareHolder[0]%></td><!-- 提交报备的企业互生号 -->
+														</tr>
+							<%
+													}
+												}
+											});
+										}else{
+											var first = 0;
+											$.each(sameShareHolders,function(index,shareHolder){
+												var gn = $.trim(shareHolder[2])+'-'+$.trim(shareHolder[3])+'-'+$.trim(shareHolder[4]);
+												if(gn==group[i]){
+													if(first==0){
+														first = 1;
+							%>
+														<tr>
+															<td rowspan="<%=count[i]%>"><%=shareHolder[2]%> <%=shareHolder[3]%> (<%=cerTypes[parseInt(shareHolder[4])-1]%>)</td><!-- 股东信息 -->
+															<td><%=shareHolder[1]%></td><!-- 企业名称 -->
+															<td><%=shareHolder[0]%></td><!-- 提交报备的企业互生号 -->
+														</tr>
+							<%
+													}else{
+							%>
+														<tr>
+															<td><%=shareHolder[1]%></td><!-- 企业名称 -->
+															<td><%=shareHolder[0]%></td><!-- 提交报备的企业互生号 -->
+														</tr>
+							<%
+													}
+												}
+											});
+										}
+									}
+								}
+							%>
+						</table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div> 

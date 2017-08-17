@@ -1,0 +1,46 @@
+<dl class="corporate_info clearfix">
+    <dt><i class="corporate_logo corporate_logo_01"></i></dt>
+    <dd>
+        <b>真维斯专卖店</b><br />
+        企业类型：成员<br />
+        注册日期：2014-12-04<br />
+        年费缴扣日期：2014-12-30
+    </dd>
+</dl>
+<div class="online_service">
+    <div class="serviceNav">
+        <ul>
+            <li class="myFriend">我的好友</li>
+            <li><i class="serviceItem_line"></i></li>
+            <li class="tourist">游客</li>
+            <li><i class="serviceItem_line"></i></li>
+            <li class="blackList">黑名单</li>
+        </ul>
+    </div>
+    <div class="serviceItem">
+        <h3>
+            <ul class="clearfix">
+                <li><i class="serviceItem_icon icon_serviceItem_01"></i></li>
+                <li class="f14 serviceItem_text">咨询信息</li>
+                <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+            </ul>
+        </h3>
+    <div>咨询信息</div>
+        <h3>
+            <ul class="clearfix">
+                <li><i class="serviceItem_icon icon_serviceItem_02"></i></li>
+                <li class="f14 serviceItem_text">订单信息</li>
+                <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+            </ul>
+        </h3>
+    <div>订单信息</div>
+        <h3>
+            <ul class="clearfix">
+                <li><i class="serviceItem_icon icon_serviceItem_03"></i></li>
+                <li class="f14 serviceItem_text">站内消息</li>
+                <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+            </ul>
+        </h3>
+    <div>站内消息</div>
+    </div>
+</div>

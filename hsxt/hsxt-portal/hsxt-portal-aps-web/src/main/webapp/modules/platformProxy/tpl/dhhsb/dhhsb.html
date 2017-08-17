@@ -1,0 +1,63 @@
+<div id="dhhsbTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>互生号：</label>
+				<input type="text" id="companyResNo" name="companyResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入互生号" />
+			</li>
+			<li>
+				<button id="query_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+	  <tr>
+		<th w_index="th_1">互生号</th>
+		<th w_index="th_2">企业名称</th>
+		<th w_index="th_3">联系人姓名</th>
+		<th w_index="th_4">联系人手机</th>
+	  </tr>
+	</table>
+	<div class="info_800 bc mt20">
+		<form id="buyhsbform">
+		   <input type="hidden" id="orderCashAmount"  name="orderCashAmount" value=""  /> 
+			<input type="hidden" id="orderOriginalAmount"  name="orderOriginalAmount"  value=""/>
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">兑换互生币数量</label>
+						<input type="text" class="fl w185 h30_middle ml5" id="orderHsbAmount" name="orderHsbAmount" maxlength="10" placeholder="输入兑换互生币数量"/>
+					</li>
+					<li class="register_row clearfix  cannotEdit-bg">
+						<label class="fl w115 h30_middle">当地结算货币</label>
+						<input type="text" class="fl w185 h30_middle ml5  cannotEdit-bg" id="currencyCodeCn" name="currencyCodeCn" readonly="readonly" />
+						<input type="hidden" id="currencyCode" name="currencyCode"/>
+					</li>
+					<li class="register_row clearfix  cannotEdit-bg">
+						<label class="fl w115 h30_middle">货币转换比率</label>
+						<input type="text" class="fl w185 h30_middle ml5  cannotEdit-bg" id="exchangeRate" name="exchangeRate" readonly="readonly" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix  cannotEdit-bg">
+						<label class="fl w115 h30_middle">折合货币金额</label>
+						<input type="text" class="fl w185 h30_middle ml5  cannotEdit-bg" id="orderCashAmountValue" name="orderCashAmountValue"readonly="readonly" />
+					</li>
+					<li class="register_row clearfix  cannotEdit-bg">
+						<label class="fl w115 h30_middle">应支付金额</label>
+						<input type="text" class="fl w185 h30_middle ml5  cannotEdit-bg" id="orderOriginalAmountValue" name="orderOriginalAmountValue" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix  cannotEdit-bg">
+						<label class="fl w115 h30_middle">支付方式</label>
+						<input type="text" class="fl w185 h30_middle ml5  cannotEdit-bg" value="转账汇款" readonly="readonly" />
+					    <input type="hidden"  id="companyCustId" name="companyCustId" value=""  />
+					    <input type="hidden"  id="companyCustName" name="companyCustName" value=""  />
+					</li>
+				</ul>
+			</div>
+			<div class="mt20 none" id="formsubmit_div" align="center">
+				<a class="btn_bg submit" id="buyhsbform_submit">提交订单</a>
+			</div>   
+		</form>
+	</div>
+</div>

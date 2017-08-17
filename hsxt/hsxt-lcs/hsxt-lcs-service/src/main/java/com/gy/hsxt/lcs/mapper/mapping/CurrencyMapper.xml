@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.CurrencyMapper">
+	<!--是否已存在相同 -->
+	<select id="existCurrency" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_LCS_CURRENCY
+			WHERE
+				CURRENCY_NO = #{currencyNo}
+		]]>
+	</select>
+	<!-- 批量插入数据 -->
+	<insert id="batchInsert" parameterType="com.gy.hsxt.lcs.bean.Currency">
+		INSERT INTO T_LCS_CURRENCY (
+			CURRENCY_NO,
+			CURRENCY_CODE,
+			CURRENCY_NAME_CN,
+			CURRENCY_SYMBOL,
+			PRECISION_NUM,
+			UNIT_CODE,
+			EXCHANGE_RATE,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.currencyNo},
+			#{item.currencyCode},
+			#{item.currencyNameCn},
+			#{item.currencySymbol},
+			#{item.precisionNum},
+			#{item.unitCode},
+			#{item.exchangeRate},
+			#{item.delFlag},
+			#{item.version})
+		</foreach>
+	</insert>
+	<!-- 批量更新数据 -->
+	<update id="batchUpdate" parameterType="com.gy.hsxt.lcs.bean.Currency">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			UPDATE T_LCS_CURRENCY
+			<set>
+				CURRENCY_CODE = #{item.currencyCode},
+				CURRENCY_NAME_CN = #{item.currencyNameCn},
+				CURRENCY_SYMBOL = #{item.currencySymbol},
+				PRECISION_NUM = #{item.precisionNum},
+				UNIT_CODE = #{item.unitCode},
+				EXCHANGE_RATE = #{item.exchangeRate},
+				VERSION = #{item.version},
+				DEL_FLAG = #{item.delFlag}
+			</set>
+			WHERE
+				CURRENCY_NO = #{item.currencyNo}
+		</foreach>
+	</update>
+	
+	
+		<!-- 获取所有记录 -->
+	<select id="queryCurrencyAll"  resultType="com.gy.hsxt.lcs.bean.Currency">
+	   	SELECT
+			t.CURRENCY_NO AS currencyno,
+			t.CURRENCY_CODE AS currencycode,
+			t.CURRENCY_NAME_CN AS currencynamecn,
+			t.CURRENCY_SYMBOL AS currencysymbol,
+			t.PRECISION_NUM AS precisionnum,
+			t.UNIT_CODE AS unitcode,
+			t.EXCHANGE_RATE AS exchangerate
+		FROM
+			T_LCS_CURRENCY t
+		WHERE
+			t.DEL_FLAG = FALSE;
+	</select>
+	
+		<!-- 根据货币代码获取某个条记录 -->
+	<select id="queryCurrencyByCode" parameterType="string" resultType="com.gy.hsxt.lcs.bean.Currency">
+		SELECT
+			t.CURRENCY_NO AS currencyno,
+			t.CURRENCY_CODE AS currencycode,
+			t.CURRENCY_NAME_CN AS currencynamecn,
+			t.CURRENCY_SYMBOL AS currencysymbol,
+			t.PRECISION_NUM AS precisionnum,
+			t.UNIT_CODE AS unitcode,
+			t.EXCHANGE_RATE AS exchangerate
+		FROM
+			T_LCS_CURRENCY t
+		WHERE
+			t.CURRENCY_CODE = #{currencyCode}
+	</select>
+	
+	<!-- 根据货币编号获取某个条记录 -->
+	<select id="getCurrencyById" parameterType="string" resultType="com.gy.hsxt.lcs.bean.Currency">
+		SELECT
+			t.CURRENCY_NO AS currencyno,
+			t.CURRENCY_CODE AS currencycode,
+			t.CURRENCY_NAME_CN AS currencynamecn,
+			t.CURRENCY_SYMBOL AS currencysymbol,
+			t.PRECISION_NUM AS precisionnum,
+			t.UNIT_CODE AS unitcode,
+			t.EXCHANGE_RATE AS exchangerate
+		FROM
+			T_LCS_CURRENCY t 
+		WHERE 
+			t.CURRENCY_NO = #{currencyno}
+	</select>
+</mapper>

@@ -1,0 +1,50 @@
+<form id="validateData_hsxzz_zzdzc_fh_dialog" name="hskzz_zzdzc_fh_form" method="post">
+<div class="view_info mt10">
+	<input type="hidden" id="fhsupplie" value="<%=obj.supplie %>"/>
+	<input type="hidden" id="fhstyle" value="<%=obj.style %>"/>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="3"><span class="ml10">复核内容</span></td>
+        </tr>
+        <tr>
+            <td class="table_title" width="20%">修改信息</td>
+            <td class="table_title" width="40%" colspan="2">修改后内容</td>
+        </tr>
+        <tr>
+            <td class="view_item">互生卡图样</td>
+            <td class="view_text" colspan="2"><div class="pt5 pb5"><img id="fuheStyleImg" src="" width="120" height="90" /></div></td>
+        </tr>
+        <tr>
+            <td class="view_item">备注</td>
+            <td class="view_input" colspan="2"><textarea class="rsn h100 w98pc ml5" id="remark" placeholder="输入备注,字数不超过300个字"></textarea></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="3"><span class="ml10">复核信息</span></td>
+        </tr>
+        <!-- <tr>
+            <td class="view_item">复核员</td>
+            <td class="view_input" colspan="2"><input type="text" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">复核员密码</td>
+            <td class="view_input" colspan="2"><input type="password" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /></td>
+        </tr> -->
+        <tr>
+			<td class="view_item" width="20%">选择验证方式</td>
+			<td colspan="2" class="pr">
+				<input id="verificationMode_zzdzc" name="verificationMode_zzdzc" readonly="readonly" placeholder="选择验证方式" />
+				<span class="ml10 red none" id="verificationMode_prompt_zzdzc" name="verificationMode_kk">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		 </tr>
+		 <tr id="fhy_userName_zzdzc" class="none">
+			<td class="view_item" width="20%">复核员用户名</td>
+			<td colspan="2" class="pr"><input type="text" id="zzdzcfhUserName" name="zzdzcfhUserName" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /><span class="required-right-10">*</span></td>
+		 </tr>
+		 <tr id="fhy_password_zzdzc" class="none">
+			<td class="view_item" width="20%">复核员登录密码</td>
+			<td colspan="2" class="pr"><input type="password" id="zzdzcfhPassWord" name="zzdzcfhPassWord" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /><span class="required-right-10">*</span></td>
+		</tr>
+    </table>
+</div>
+</form>

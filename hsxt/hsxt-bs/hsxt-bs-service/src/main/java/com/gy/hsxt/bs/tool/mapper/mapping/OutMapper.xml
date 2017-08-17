@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.OutMapper">
+
+	<!-- 插入工具出库明细 -->
+	<insert id="batchInsertOut" parameterType="com.gy.hsxt.bs.tool.bean.Out">
+		INSERT INTO T_BS_OUT(
+			OUT_BATCH_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			WH_ID,
+			OUT_TYPE,
+			BIZ_NO,
+			QUANTITY,
+			OUT_DATE,
+			OPER_NO,
+			REMARKS)
+		<foreach collection="outs" item="out" separator="union all">
+			(SELECT
+			#{out.batchNo},
+			#{out.categoryCode},
+			#{out.productId},
+			#{out.whId},
+			#{out.outType},
+			#{out.bizNo,jdbcType=VARCHAR},
+			#{out.quantity},
+			SYSDATE,
+			#{out.operNo},
+			#{out.remark,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 插入工具出库明细 -->
+	<insert id="insertOut" parameterType="com.gy.hsxt.bs.tool.bean.Out">
+		INSERT INTO T_BS_OUT(
+			OUT_BATCH_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			WH_ID,
+			OUT_TYPE,
+			BIZ_NO,
+			QUANTITY,
+			OUT_DATE,
+			OPER_NO,
+			REMARKS
+		) VALUES(
+			#{batchNo},
+			#{categoryCode},
+			#{productId},
+			#{whId},
+			#{outType},
+			#{bizNo,jdbcType=VARCHAR},
+			#{quantity},
+			SYSDATE,
+			#{operNo},
+			#{remark,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 批量插入出库清单 -->
+	<insert id="batchInsertOutDetail" parameterType="com.gy.hsxt.bs.tool.bean.OutDetail">
+		INSERT INTO T_BS_OUT_DETAIL(
+			OUT_BATCH_NO,
+			DEVICE_CUST_ID) 
+		<foreach collection="outDetails" item="outDetail" separator="union all">
+			(SELECT
+			#{outDetail.outBatchNo},
+			#{outDetail.deviceCustId}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 插入出库清单 -->
+	<insert id="insertOutDetail" parameterType="com.gy.hsxt.bs.tool.bean.OutDetail">
+		INSERT INTO T_BS_OUT_DETAIL(
+			OUT_BATCH_NO,
+			DEVICE_CUST_ID
+		) VALUES (
+			#{outBatchNo},
+			#{deviceCustId})
+	</insert>
+	
+	<!-- 分页查询工具出库流水 -->
+	<select id="selectToolOutSerialListPage" parameterType="com.gy.hsxt.bs.bean.tool.pageparam.ToolProductVo" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolEnterOutPage">
+		SELECT 
+		   OC.CATEGORY_CODE AS categoryCode,
+	       OC.PRODUCT_NAME AS productName,
+	       OC.WH_NAME AS whName,
+	       OC.OUT_BATCH_NO AS batchNo,
+	       OC.QUANTITY AS quantity,
+	       OC.OUT_DATE AS operDate,
+	       OC.OPER_NO  AS operNo
+	  FROM (SELECT O.CATEGORY_CODE,
+	               P.PRODUCT_NAME,
+	               W.WH_NAME,
+	               O.OUT_BATCH_NO,
+	               O.QUANTITY,
+	               O.OUT_DATE,
+	               O.OPER_NO
+	          FROM T_BS_OUT O, T_BS_TOOL_PRODUCT P, T_BS_WAREHOUSE W
+	         WHERE O.PRODUCT_ID = P.PRODUCT_ID
+	           AND O.WH_ID = W.WH_ID
+	        UNION ALL
+	        SELECT 'P_CARD',
+	               C.PRODUCT_NAME,
+	               W.WH_NAME,
+	               C.BATCH_NO,
+	               C.INOUT_AMOUNT,
+	               C.INOUT_DATE,
+	               C.OPER_NO
+	          FROM T_BS_CARD_INOUT C,T_BS_WAREHOUSE W
+	         WHERE C.WH_ID = W.WH_ID
+	           AND C.INOUT_FLAG = 2) OC
+	     WHERE 1 = 1
+	     <if test="startDate != null and startDate != ''">
+			AND OC.OUT_DATE &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND OC.OUT_DATE &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="categoryCode != null and categoryCode != ''">
+			AND OC.CATEGORY_CODE = #{categoryCode}
+		</if>
+		ORDER BY OC.OUT_DATE DESC    
+	</select>
+	
+</mapper>

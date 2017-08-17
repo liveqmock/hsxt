@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>互生电子商务平台-打印送货单</title>
+<link rel="stylesheet" href="resources/css/base.css">
+<!--<link rel="stylesheet" href="resources/css/style.css">
+<script type="text/javascript" src="library/jquery/jquery-1.9.1.min.js"></script>-->
+</head>
+<style>
+body{color:#000;background:#FFF;}
+.printbox{font-size:11px;width:900px;margin:0 auto;}
+.printbox h1{font-size:11px;font-weight:bold; text-align:center;}
+.printbox li{font-size:11px;float:left;display:inline;width:50%;}
+.printbox li.w{width:100%;}
+fieldset{border:1px solid #999;padding:0;margin:0;}
+fieldset legend{margin-left:10px;background:#FFF}
+.printbox li{line-height:24px;}
+.signName{text-align:right;}
+.signName span{margin-right:4cm;}
+hr{border:1px dashed #666;}
+th,td{padding:2px;}
+th{height:15px;border-bottom:2px double #E4E4E4;text-align:center;}
+td{border-bottom:1px solid #E4E4E4;line-height:15px;}
+.td-no-bd td{border-bottom:0 none;}
+@media print{
+  .printbox{width:100%;font-size:11px;}		
+}
+</style>
+<body>
+<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="WebBrowser3" width="0" VIEWASTEXT>
+</OBJECT>
+<%
+  var param = obj.order;
+  var httpUrl = obj.httpUrl;
+  var itemVisitUrl = obj.itemVisitUrl;
+  var logistic = obj.Logistic;
+%>
+<div class="printbox">
+	<h1 style="font-size:16px;font-weight:700;">送货单</h1>
+    <div class="printInfo mt5">
+        <ul class="clearfix">
+        	<li class="w">企业名称：<%=param.vShopName%> </li>
+            <li>联系电话：<%=param.shopContectWay%></li>
+            <li class="tr">打印时间：<%=obj.currentTime%></li>
+        </ul>
+    </div>
+    <div>
+    	<fieldset>
+        	<legend style="font-size:14px;font-weight:700;">订单信息</legend>
+            <div class="m10">
+              <ul class="clearfix">
+                  <li>订单编号：<%=param.odId%></li>
+                  <li>付款状态： 
+                  <% if(param.isPayOnDelivery==0){%>
+	               		已付款
+	           		 <%}%>
+	           	  <% if(param.isPayOnDelivery==1){%>
+	        			货到付款	
+			  		<%}%></li>
+                  <li>   
+	                   <% if(param.isDrawed==0){%>	               	
+	               		<span class="title-txt tcr_grey ">发票信息：</span>
+	               		<span class="title-txt mr50">未开具发票</span>	
+	           		   <%}%>
+	           		   <% if(param.isDrawed==1){%>
+	        			<span class="title-txt tcr_grey ">发票抬头:</span>
+						<span class="title-txt mr50"><%=param.invoiceTitle%></span>		
+			  		  <%}%>
+		   		  </li>
+		   		  <!-- 是否货到付款  0 否，1 是 -->
+                  <li>付款方式： 
+                     <% if(param.payType==1){%>
+	               		现金
+	           		 <%}%>
+	           	     <% if(param.payType==3){%>
+	        			互生币支付
+			  		 <%}%> 
+			  		 <% if(param.payType==4){%>
+	        			网银支付
+			  		 <%}%> 
+			  	</li>
+              </ul>
+              <hr />
+              <ul class="clearfix">
+                  <li>&nbsp;&nbsp;&nbsp;&nbsp;收货人：<%=param.receiver%></li>
+                  <li>联系电话：<%=param.receiverContact%></li>
+                  <li class="w">收货地址：<%=param.receiverAddress%></li>
+              </ul>
+        <!-- 商品信息栏 -->  
+      <%var params = param.orderDetailList%>
+     		 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr>
+                    <th colspan="2" width="45%">商品信息</th>
+                    <th width="15%">单价</th>
+                    <th width="12%">数量</th>                
+                    <th width="15%"><font>金额</font></th>                   
+                    <th width="13%">积分</th>
+                  </tr>
+                </thead>
+               	 <tbody>
+					  <%$.each(params,function(key,value){%>	
+				           <tr>			  
+				           	                
+				                    <td valign="top" width="45%">编号:<%=value.itemId%><br /><%=value.itemName%></td>			
+				                    <td valign="top" width="45%">
+				                    <% var skus = value.skus.split(",")%>
+      									<%$.each(skus,function(k,vl){%>
+       									<p><%=vl%></p>
+       								<%})%>
+				                    </td>		                  
+				                    <td valign="top" width="9%" align="center"><%=comm.formatMoneyNumber(value.price)%></td>
+				                    <td valign="top" width="6%" align="center"><%=comm.formatMoneyNumber(value.quantity)%></td>				                			                    
+				                    <td valign="top" width="9%" align="center"><%=comm.formatMoneyNumber(value.subTotal)%></td>
+				                    <td valign="top" width="6%" align="center"><%=comm.formatMoneyNumber(value.subPoints)%></td>
+				          </tr> 
+				 	  <%})%>
+				 	   	 <tr>
+		                    <td colspan="4" align="right" class="td-no-bd">
+			                    <p>运费：</p>
+			                    <p>抵扣金额：</p>
+			                    <p>优惠金额：</p>
+		                    </td>
+		                    <td><p><%=comm.formatMoneyNumber(param.postAge!=''?param.postAge:'0')%></p>
+                    		  <p><%=comm.formatMoneyNumber(param.couponAmount)%></p>
+                    		  <p><%=comm.formatMoneyNumber(param.activityAmount)%></p></td>                  		
+		                    <td>&nbsp;</td>
+                  		</tr>
+                  		<tr class="td-no-bd fb">
+		                    <td colspan="4" align="right"><p>合计：</p></td>
+		                    <td><p><%=comm.formatMoneyNumber(param.actuallyAmount)%></p></td>	            
+		                    <td><p><%=comm.formatMoneyNumber(param.totalPoints)%></p></td>
+                 		</tr>			 	  
+			 	  </tbody>
+              </table>
+            </div>
+        </fieldset>
+    </div>
+    <div>
+    	<fieldset>
+        	<legend style="font-size:14px;font-weight:700;">送货员信息</legend>
+            <div class="m10">
+              <ul class="clearfix">
+                  <li>送货员：<%=param.deliverName%></li>
+                  <li>联系电话：<%=param.deliverContact%></li>
+                  <li class="w">备注：<%=param.deliverNode%></li>
+              </ul> 
+            </div>
+        </fieldset>
+    </div>
+    <div class="signName mt10">
+    	<span>签收人：</span>
+    </div>
+</div>
+</body>
+</html>

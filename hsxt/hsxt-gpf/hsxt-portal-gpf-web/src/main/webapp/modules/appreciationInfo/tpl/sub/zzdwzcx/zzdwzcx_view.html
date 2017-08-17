@@ -1,0 +1,45 @@
+<div class="queryList-toolbar bd_bottom">
+    <ul class="queryList-toolbar-ul clearfix" id="queryList_toolbar_ul">
+        <li>
+            <label>企业资源号：</label>
+            <input type="text" id="zzdwzcx_tb_resNo" name="zzdwzcx_tb_resNo" class="queryList-toolbar-text" placeholder="输入企业资源号" maxlength="11"/>
+        </li>
+        <li>
+            <button id="zzdwzcx_tb_cz" type="button" class="queryList-toolbar-btn">查 找</button>
+        </li>
+        <li>
+            <button id="zzdwzcx_tb_czjddxslj" type="button" class="queryList-toolbar-btn tab">查找节点的向上路径</button>
+        </li>
+        <li>
+            <button id="zzdwzcx_tb_czjddxxzbzclj" type="button" class="queryList-toolbar-btn tab">查找节点的向下左边最长路径</button>
+        </li>
+        <li>
+            <button id="zzdwzcx_tb_czjddxxybzclj" type="button" class="queryList-toolbar-btn tab">查找节点的向下右边最长路径</button>
+        </li>
+        <li>
+            <label>选择节点：</label>
+            <button id="zzdwzcx_tb_syjd" type="button" class="queryList-toolbar-btn tab">上一节点</button>
+        </li>
+        <li>
+            <button id="zzdwzcx_tb_zzjdsxfw" type="button" class="queryList-toolbar-btn">增值节点刷新服务</button>
+        </li>
+    </ul>
+</div>
+
+
+<div class="pt20 pb20">
+    <!--增值点树形结构开始-->
+    <div id="appreciationInfoTree" class="valueAddedTree"></div>
+    <!--增值点树形结构结束-->
+</div>
+<div class="pt5 pb5">
+    <div>
+        <ul class="VAInfoList">
+            <li class="ptArw1 binary_tree_s"></li><h2>服务公司</h2>
+            <li class="ptArw1 binary_tree_t"></li><h2>托管企业</h2>
+            <li class="ptArw1 binary_tree_m"></li><h2>成员企业</h2>
+            <li class="ptArw1 binary_tree_invalid"></li><h2>失效节点</h2>
+        </ul>
+    </div>
+</div>
+<div id="zzdwzcxDlg" class="none"></div>

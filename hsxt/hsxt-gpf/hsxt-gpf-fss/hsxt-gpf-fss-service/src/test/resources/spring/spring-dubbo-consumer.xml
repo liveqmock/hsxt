@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">   
+  
+    <!-- 关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>
+
+	<!--增值系统- 再增值积分统计-->
+    <dubbo:reference id="bmFssNotifyService" interface="com.gy.hsxt.gpf.fss.api.IOtherNotifyService" group="BM"  retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+
+    <!--全局配置系统-路由规则查询-->
+    <dubbo:reference id="gcsRouteRuleService"  interface="com.gy.hsxt.gpf.gcs.api.IGCSRouteRuleService"  timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+    <!--业务系统-再增值和增值积分记账-->
+    <dubbo:reference id="bsFssNotifyService"  interface="com.gy.hsxt.gpf.fss.api.IOtherNotifyService" group="BS" timeout="${dubbo.service.timeout5000}" retries="${dubbo.reference.retires}" check="false" version="1.0.0"/>
+
+</beans>

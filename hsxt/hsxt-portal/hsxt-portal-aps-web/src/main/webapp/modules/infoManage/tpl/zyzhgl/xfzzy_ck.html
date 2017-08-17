@@ -1,0 +1,141 @@
+<div id="xfzzy_ckTpl">
+	<!-- 身份证类型 -->
+	<div id="card_1" class="view_info info_800" >
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td class="view_item" width="20%">互生卡号</td>
+					<td class="view_text" width="30%"><%=obj.baseInfo.perResNo%></td>
+					<td class="view_item" width="20%">姓名</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.userName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">国籍</td>
+					<td class="view_text" width="30%"><%=cacheUtil.getRegionByCode(obj.authInfo.countryCode,'','','').data%></td>
+					<td class="view_item" width="20%">证件类型</td>
+					<td class="view_text" width="30%"><%=obj.cerStr%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件号码</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.cerNo%></td>
+					<td class="view_item" width="20%">性别</td>
+					<td class="view_text" width="30%"><%=obj.sexStr%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">职业</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.job%></td>
+					<td class="view_item" width="20%">证件有效期</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.validDate%></td>
+				</tr>	
+				<tr>
+					<td class="view_item" width="20%">发证机关</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.issuingOrg%></td>
+					<td class="view_item" width="20%">户籍地址</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.birthAddress%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件图片</td>
+					<td colspan="3" class="view_text" width="80%">
+					<%if(null != obj.authInfo.cerPica && obj.authInfo.cerPica !=''){%>
+						<a href="#" id="pic_1_1" class="blue ml10">查看正面照</a>
+					<%}%>
+					<%if(null != obj.authInfo.cerPicb && obj.authInfo.cerPicb !=''){%>
+						<a href="#" id="pic_1_2" class="blue ml10">查看反面照</a>
+					<%}%>
+					<%if(null != obj.authInfo.cerPich && obj.authInfo.cerPich !=''){%>
+						<a href="#" id="pic_1_3" class="blue ml10">查看手持正面半身照</a>
+					<%}%>
+					</td>
+				</tr>					
+			</table>
+		</div>
+		<!-- 护照类型 -->
+		<div id="card_2" class="view_info info_800" >
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td class="view_item" width="20%">互生卡号</td>
+					<td class="view_text" width="30%"><%=obj.baseInfo.perResNo%></td>
+					<td class="view_item" width="20%">姓名</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.userName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">性别</td>
+					<td class="view_text" width="30%"><%=obj.sexStr%></td>
+					<td class="view_item" width="20%">国籍</td>
+					<td class="view_text" width="30%"><%=cacheUtil.getRegionByCode(obj.authInfo.countryCode,'','','').data%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件类型</td>
+					<td class="view_text" width="30%"><%=obj.cerStr%></td>
+					<td class="view_item" width="20%">证件号码</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.cerNo%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件有效期</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.validDate%></td>
+					<td class="view_item" width="20%">出生地点</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.birthPlace%></td>
+				</tr>	
+				<tr>
+					<td class="view_item" width="20%">签发地点</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.issuePlace%></td>
+					<td class="view_item" width="20%">签发机关</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.issuingOrg%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件图片</td>
+					<td colspan="3" class="view_text" width="80%">
+					<%if(null != obj.authInfo.cerPica && obj.authInfo.cerPica !=''){%>
+						<a href="#" id="pic_2_1" class="blue ml10">查看正面照</a>
+					<%}%>
+					<%if(null != obj.authInfo.cerPich && obj.authInfo.cerPich !=''){%>
+						<a href="#" id="pic_2_3"  class="blue ml10">查看手持正面半身照</a>
+					<%}%>
+					</td>
+				</tr>					
+			</table>
+		</div>
+		<!-- 营业执照类型 -->
+		<div id="card_3" class="view_info info_800" >
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td class="view_item" width="20%">互生卡号</td>
+					<td class="view_text" width="30%"><%=obj.baseInfo.perResNo%></td>
+					<td class="view_item" width="20%">企业名称</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.entName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件类型</td>
+					<td class="view_text" width="30%"><%=obj.cerStr%></td>
+					<td class="view_item" width="20%">证件号码</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.cerNo%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">注册地址</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.entRegAddr%></td>
+					<td class="view_item" width="20%">公司类型</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.entType%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">成立日期</td>
+					<td class="view_text" width="30%"><%=obj.authInfo.entBuildDate%></td>
+					<td class="view_item" width="20%"></td>
+					<td class="view_text" width="30%"></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">证件图片</td>
+					<td colspan="3" class="view_text" width="80%">
+					<%if(null != obj.authInfo.cerPica && obj.authInfo.cerPica !=''){%>
+						<a href="#" id="pic_3_1" class="blue ml10">查看正面照</a>
+					<%}%>
+					<%if(null != obj.authInfo.cerPich && obj.authInfo.cerPich !=''){%>
+						<a href="#" id="pic_3_3"  class="blue ml10">查看手持正面半身照</a>
+					<%}%>
+					</td>
+				</tr>					
+			</table>
+		</div>
+		 <div class="mt20" align="center">
+			<a class="btn_bg submit" id="back_xfzzy">返&#12288;回</a>
+		</div> 
+	</div>
+

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+ xsi:schemaLocation="
+						http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://code.alibabatech.com/schema/dubbo		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+  	<!-- dubbo 基本配置 -->
+     
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"  default="true"/>
+    <!--
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}" 
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<dubbo:monitor protocol="registry" /> 
+	-->
+	
+	<!-- 关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>
+	
+	<!-- bp api begin -->
+	<dubbo:reference id="iBusinessSysParamService" interface="com.gy.hsxt.bp.api.IBusinessSysParamService" retries="0"  connections="10" check="false" version="1.0.0"/>	
+	<dubbo:reference id="iBusinessAgreeService" interface="com.gy.hsxt.bp.api.IBusinessAgreeService" retries="0"  connections="10" check="false" version="1.0.0"/>	
+	<dubbo:reference id="iBusinessCustParamService" interface="com.gy.hsxt.bp.api.IBusinessCustParamService" retries="0"  connections="10" check="false" version="1.0.0"/>	
+	<dubbo:reference id="iBusinessPosUpgradeInfoService" interface="com.gy.hsxt.bp.api.IBusinessPosUpgradeInfoService" retries="0"  connections="10" check="false" version="1.0.0"/>	
+
+	<!-- bp api end -->
+
+	<!-- uc api begin -->
+	<dubbo:reference id="IUCAsPermissionService" interface="com.gy.hsxt.uc.as.api.auth.IUCAsPermissionService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCAsRoleService" interface="com.gy.hsxt.uc.as.api.auth.IUCAsRoleService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCAsSysOperInfoService" interface="com.gy.hsxt.uc.as.api.sysoper.IUCAsSysOperInfoService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCLoginService" interface="com.gy.hsxt.uc.as.api.common.IUCLoginService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCAsTokenService" interface="com.gy.hsxt.uc.as.api.common.IUCAsTokenService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCAsCardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IUCAsEntService" interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	
+	
+	<!-- uc api end -->
+	
+	<!-- tc api begin -->
+	<dubbo:reference id="ITcBsAcService" interface="com.gy.hsxt.tc.api.ITcBsAcService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="ITcBsGpService" interface="com.gy.hsxt.tc.api.ITcBsGpService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="ITcGpChService" interface="com.gy.hsxt.tc.api.ITcGpChService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="ITcPsAcService" interface="com.gy.hsxt.tc.api.ITcPsAcService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="checkBalanceResultService" interface="com.gy.hsxt.tc.api.ITcCheckBalanceResultService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="checkBalanceService" interface="com.gy.hsxt.tc.api.ITcCheckBalanceService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<dubbo:reference id="IAccountSearchService" interface="com.gy.hsxt.ac.api.IAccountSearchService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	<!-- tc api end -->
+	
+	<!-- BS API BEGIN -->
+	<!-- 投资分红接口 -->
+	<dubbo:reference id="IBSInvestProfitService" interface="com.gy.hsxt.bs.api.order.IBSInvestProfitService" retries="0"  connections="10" check="false" version="1.0.0"/>
+	
+	<!-- BS API END -->
+</beans>

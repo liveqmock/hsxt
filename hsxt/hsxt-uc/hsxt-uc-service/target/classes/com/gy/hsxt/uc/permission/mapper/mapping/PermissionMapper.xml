@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.permission.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.permission.bean.Permission" >
+    <id column="PERM_ID" property="permId" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="PERM_NAME" property="permName" jdbcType="VARCHAR" />
+    <result column="PERM_CODE" property="permCode" jdbcType="VARCHAR" />
+    <result column="PERM_DESC" property="permDesc" jdbcType="VARCHAR" />
+    <result column="PERM_URL" property="permUrl" jdbcType="VARCHAR" />
+    <result column="PERM_TYPE" property="permType" jdbcType="DECIMAL" />
+    <result column="SUB_SYSTEM_CODE" property="subSystemCode" jdbcType="VARCHAR" />
+    <result column="PLATFORM_CODE" property="platformCode" jdbcType="VARCHAR" />
+    <result column="LAYOUT" property="layout" jdbcType="DECIMAL" />
+    <result column="SORT_NUM" property="sortNum" jdbcType="DECIMAL" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PERM_ID, 
+    PARENT_ID, 
+    PERM_NAME, 
+    PERM_CODE, 
+    PERM_DESC, 
+    PERM_URL, 
+    PERM_TYPE, 
+    SUB_SYSTEM_CODE, 
+    PLATFORM_CODE, 
+    LAYOUT, 
+    SORT_NUM, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY
+  </sql>
+  <!-- 查询单条权限信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PERMISSION
+    where PERM_ID = #{permId,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询权限列表 -->
+  <select id="selectByPid" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uc.permission.bean.Permission" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PERMISSION
+    where ISACTIVE='Y' 
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    <if test="permType != null" >
+      and PERM_TYPE = #{permType,jdbcType=DECIMAL}
+    </if>
+    <if test="parentId != null" >
+      and PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="permCode != null" >
+      and (PERM_CODE ='0' or PERM_CODE = #{permCode,jdbcType=VARCHAR} )
+    </if>
+    <if test="permName != null" >
+      and PERM_NAME like '%${permCode}%'
+    </if>
+    order by parent_id,sort_num,perm_id 
+  </select>
+	<!-- 查询权限列表 -->
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PERMISSION
+    where ISACTIVE='Y'     
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>    
+    <if test="parentId != null" >
+      and PARENT_ID = #{parentId,jdbcType=VARCHAR}
+    </if>
+    <if test="permType != null" >
+      and PERM_TYPE = #{permType,jdbcType=DECIMAL}
+    </if>
+    <if test="permCode != null" >
+      and (PERM_CODE ='0' or PERM_CODE = #{permCode,jdbcType=VARCHAR} )
+    </if>
+    <if test="custId != null" >
+    and PERM_ID in
+    (select a.perm_id from t_role_permission a 
+    	where a.role_id in(
+    		select b.role_id from t_user_role b left join t_role c on b.role_id=c.role_id
+    		where c.isactive='Y'
+    		and b.cust_id =#{custId,jdbcType=VARCHAR}) 
+    ) 
+    </if>
+    order by parent_id,sort_num,perm_id 
+  </select>
+  <!-- 查询权限列表 -->
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PERMISSION
+    where ISACTIVE='Y' 
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    <if test="permType != null" >
+      and PERM_TYPE = #{permType,jdbcType=DECIMAL}
+    </if>
+    and  PERM_ID in
+    (select a.PERM_ID from t_role_permission a 
+		where role_id=#{roleId,jdbcType=DECIMAL} ) 
+	order by parent_id,sort_num,perm_id 
+  </select>
+  <!-- 删除权限信息 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PERMISSION
+    where PERM_ID = #{permId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 插入权限信息 -->
+  <insert id="insert" parameterType="com.gy.hsxt.uc.permission.bean.Permission" >
+    insert into T_PERMISSION (PERM_ID, PARENT_ID, PERM_NAME, 
+      PERM_CODE, PERM_DESC, PERM_URL, 
+      PERM_TYPE, SUB_SYSTEM_CODE, PLATFORM_CODE, LAYOUT,SORT_NUM,
+      ISACTIVE, CREATE_DATE, CREATEDBY, 
+      UPDATE_DATE, UPDATEDBY)
+    values (#{permId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{permName,jdbcType=VARCHAR}, 
+      #{permCode,jdbcType=VARCHAR}, #{permDesc,jdbcType=VARCHAR}, #{permUrl,jdbcType=VARCHAR}, 
+      #{permType,jdbcType=DECIMAL}, #{subSystemCode,jdbcType=VARCHAR}, #{platformCode,jdbcType=VARCHAR}, #{layout,jdbcType=DECIMAL},#{sortNum,jdbcType=DECIMAL},
+      #{isactive,jdbcType=CHAR}, #{createDate,jdbcType=OTHER}, #{createdby,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=OTHER}, #{updatedby,jdbcType=VARCHAR})
+  </insert>
+  <!-- 插入权限信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.permission.bean.Permission" >
+    insert into T_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      
+        PERM_ID,
+      
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="permName != null" >
+        PERM_NAME,
+      </if>
+      <if test="permCode != null" >
+        PERM_CODE,
+      </if>
+      <if test="permDesc != null" >
+        PERM_DESC,
+      </if>
+      <if test="permUrl != null" >
+        PERM_URL,
+      </if>
+      <if test="permType != null" >
+        PERM_TYPE,
+      </if>
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE,
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE,
+      </if>
+      <if test="layout != null" >
+        LAYOUT,
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+        CREATE_DATE,
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permId != null" >
+        #{permId,jdbcType=VARCHAR},
+      </if>
+      <if test="permId == null" >
+      SEQ_T_PERMISSION.nextval,
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="permName != null" >
+        #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="permCode != null" >
+        #{permCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permDesc != null" >
+        #{permDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="permUrl != null" >
+        #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permType != null" >
+        #{permType,jdbcType=DECIMAL},
+      </if>
+      <if test="subSystemCode != null" >
+        #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        #{layout,jdbcType=DECIMAL},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      SYSDATE,
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 更新权限信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.permission.bean.Permission" >
+    update T_PERMISSION
+    <set >
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="permName != null" >
+        PERM_NAME = #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="permCode != null" >
+        PERM_CODE = #{permCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permDesc != null" >
+        PERM_DESC = #{permDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="permUrl != null" >
+        PERM_URL = #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permType != null" >
+        PERM_TYPE = #{permType,jdbcType=DECIMAL},
+      </if>
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="layout != null" >
+        LAYOUT = #{layout,jdbcType=DECIMAL},
+      </if>
+      <if test="sortNum != null" >
+        SORT_NUM = #{sortNum,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      UPDATE_DATE = SYSDATE
+    </set>
+    where PERM_ID = #{permId,jdbcType=VARCHAR}
+  </update>
+  <!-- 更新权限信息 -->
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.permission.bean.Permission" >
+    update T_PERMISSION
+    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      PERM_NAME = #{permName,jdbcType=VARCHAR},
+      PERM_CODE = #{permCode,jdbcType=VARCHAR},
+      PERM_DESC = #{permDesc,jdbcType=VARCHAR},
+      PERM_URL = #{permUrl,jdbcType=VARCHAR},
+      PERM_TYPE = #{permType,jdbcType=DECIMAL},
+      SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR},
+      PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR},
+      LAYOUT = #{layout,jdbcType=DECIMAL},
+      SORT_NUM = #{sortNum,jdbcType=DECIMAL},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      UPDATE_DATE = SYSDATE,
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+    where PERM_ID = #{permId,jdbcType=VARCHAR}
+  </update>
+  <!-- 插入角色-权限授权信息 -->
+  <insert id="insertRolePermission" parameterType="java.util.Map" >
+      insert into T_ROLE_PERMISSION(ROLE_ID,PERM_ID,CREATEDBY)
+		select #{roleId,jdbcType=VARCHAR},t.PERM_ID,#{operator,jdbcType=VARCHAR} 
+		from T_PERMISSION t
+		left join 
+		(select PERM_ID from T_ROLE_PERMISSION a where a.role_id=#{roleId,jdbcType=VARCHAR}) b on t.perm_id=b.perm_id
+		where b.perm_id is null
+		and t.perm_id in 
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item,jdbcType=VARCHAR}
+        </foreach>
+  </insert>
+  <!-- 删除角色-权限授权信息 -->
+  <delete id="deleteRolePermission" parameterType="java.util.Map" >
+    delete from T_ROLE_PERMISSION
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    <if test="idList != null" >
+      	and PERM_ID in
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item,jdbcType=VARCHAR}
+        </foreach>
+    </if>
+  </delete>
+  
+
+</mapper>

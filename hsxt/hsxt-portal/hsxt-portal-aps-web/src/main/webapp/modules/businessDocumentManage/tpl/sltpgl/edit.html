@@ -1,0 +1,27 @@
+<div class="info_320 bc" style="overflow:hidden;">
+<form id="edit_form" name="edit_form">
+    <ul>
+        <li class="register_row clearfix pr">
+            <label class="fl w115 h30_middle">示例图片名称</label>
+            <input id="docName" name="docName" value="<%=obj.docName%>" type="text" class="fl w185 h30_middle ml5"  placeholder="输入示例图片名称，不超过20字" > 
+        </li>
+        <li class="register_row clearfix">
+            <label class="fl w115 h30_middle">唯一标识</label>
+            <input id="docCode" name="docCode" readonly="readonly"  placeholder="请选择" >
+        </li>
+        <li class="register_row clearfix">
+            <label class="fl w115 h60_middle">示例图片说明</label>
+            <textarea id="remark" name="remark" type="text" placeholder="输入说明内容,字数不超过300个字" class="fl ml5 h50 w185 rsn pt5 pb5" maxlength="300"><%=obj.remark%></textarea>
+        </li>
+        <li class="register_row clearfix">
+            <label class="fl w115 h110_middle">示例图片上传</label>
+            <div class="pr imgsty fl">
+                <input id="fileId" name="fileId" type="file" class="files">
+                <div id="imgage" class="tc lh102" style="z-index:-1;"></div>
+            </div>
+        </li>
+    </ul>
+<input id="docId" value="<%=obj.docId%>" name="docId" type="hidden">
+<input id="hidden-fileId" value="<%=obj.fileId%>" name="hidden-fileId" type="hidden">
+</form>
+</div>

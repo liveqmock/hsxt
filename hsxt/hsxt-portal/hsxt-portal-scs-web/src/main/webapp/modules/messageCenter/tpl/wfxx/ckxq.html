@@ -1,0 +1,80 @@
+<div class="register_info ml10_important">
+<form id="ckxx_form">
+ 
+	<ul>
+	<li class="register_row clearfix" style="width:450px;"><label for="name">消息标题</label>
+		<input type="hidden" name="msgId" id="msgId" value="<%=obj.msgId %>"/>
+		<div class="cont-chk tbox2">
+			<input type="text" id="ckxx_msgTitle" name="ckxx_msgTitle" class="input_gray" placeholder="输入消息标题,最长不超过100个字"  style="width:310px;" value="<%=obj.title %>"/>
+		</div>
+		<div class="hint" style="left:460px;">提示</div>
+	</li>
+	<li class="register_row clearfix" style="width:450px;"><label for="name">消息类型</label>
+	    <div class="cont-chk tbox2 text_middle">
+				<input type="radio" id="msgType_0" name="msgType" class="radio_input ml20" value="0" <%if(obj.type == 0) {%> checked="checked"<%} %> style="float:none;"> 公告
+				<input type="radio" id="msgType_1" name="msgType" class="radio_input ml10" value="1" <%if(obj.type == 1) {%> checked="checked"<%} %> style="float:none;"> 通知
+				<input type="radio" id="msgType_2" name="msgType" class="radio_input ml20" value="2" <%if(obj.type == 2) {%> checked="checked"<%} %> style="float:none;"> 私信
+		</div>
+	    <!--<div class="cont-chk tbox2 text_middle">
+				<select id="msgType" style="width:100px;height:24px;">
+					<option value="">--请选择--</option>
+					<option value="1">公开信</option>
+					<option value="2">私信</option>
+				</select>
+				<span id="sub_msgType" class="ml10 none">
+					<input type="radio" id="notice_1" name="notice" class="radio_input" value="2" checked="checked" style="float:none;"> 公告
+					<input type="radio" id="notice_2" name="notice" class="radio_input ml20" value="3" style="float:none;"> 通知
+				</span>
+			</div>-->
+		<div class="hint" style="left:460px;">提示</div>
+	</li>
+	<li class="register_row clearfix" style="width:450px;">
+		<label for="name">重要级别</label>
+		<div class="cont-chk tbox2 text_middle">
+			&nbsp;&nbsp;&nbsp;<input type="radio" name="msgLevel" class="radio_input ml10" value="1" <%if(obj.level == 1) {%> checked="checked"<%} %> style="float:none;"> 一般&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="msgLevel" class="radio_input ml10" value="2" <%if(obj.level == 2) {%> checked="checked"<%} %> style="float:none;"> 重要
+		</div>
+		<div class="hint" style="left:460px;">提示</div>
+	</li>
+	<li class="register_row clearfix" style="width:450px;">
+		<label for="name">接收单位</label>
+		<div class="cont-chk tbox2">
+			<input type="hidden" id="receiveEntValue" name="receiveEntValue" value="<%=obj.receiptor %>"/>
+			<input type="text" id="receiveEnt" name="receiveEnt" class="input_gray" value="<%=obj.receiptorName %>" placeholder="输入选择、可以为多个接收者，接收者之间由分隔符分开"   style="width:310px;">
+		</div>
+		<i id="btn_xzjsdw" class="icon-add addmsg" title="选择接收单位"></i>
+		<div class="hint" style="left:500px;">提示</div>
+	</li>
+	<li class="register_row clearfix" style="height:200px;width:1000px;">
+		<label for="name" style="width:115px;height:200px;">消息内容</label>
+		<div><textarea id="message_content" name="message_content" style="width: 879px; height: 170px !important; display: none;"><%=obj.msg %></textarea></div>
+	</li>
+	</ul>
+ 
+</form>
+</div>
+<div class="mt10 w200 bc">
+	<a class="btn_bg submit fl" id="btn_send">发　送</a>
+	<a class="btn_bg submit fr" id="btn_save">保  存</a>
+</div>
+
+<div id="jsdw_dialog" class="none" title="选择接受单位">
+	<p>
+		<div id="receivingUnit_1" class="view_info mt10">
+		<table width="100%"  class="fixtable">
+			<tr>
+				<td class="view_input"><input type="radio" name="selectReceiveEnt" id="a0" value="S_ALL" class="ml5 mr5"><label for="a0">全体下级企业</label></td>
+			</tr>
+			<tr>
+				<td class="view_input"><input type="radio" name="selectReceiveEnt" id="a1" value="S_ALL_T" class="ml5 mr5"><label for="a0">全体下级托管企业</label></td>
+			</tr>
+			<tr>
+				<td class="view_input"><input type="radio" name="selectReceiveEnt" id="a2" value="S_ALL_B" class="ml5 mr5"><label for="a0">全体下级成员企业</label></td>
+			</tr>
+		</table>
+	</div>
+	</p>
+</div>
+
+
+		

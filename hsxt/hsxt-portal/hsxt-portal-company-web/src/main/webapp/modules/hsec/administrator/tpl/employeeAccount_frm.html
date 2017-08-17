@@ -1,0 +1,56 @@
+<% 
+	var map = obj.data;
+	var account = map["account"];
+	var networkInfo = map["networkInfo"];
+	if( networkInfo == null){
+		networkInfo = new Array();
+	}
+	
+%>
+<!--内容信息开始-->
+<div class="mallStore">
+  <div class="qymh_ygxx searchbox p20  clearfix" style="height: 350px">
+    <div class="fb cl_green lh30 pl20">企业门户-用户信息</div>
+    <div class="cutline"></div>
+    <form id="updata_employee_form">
+    <div class="qymh_ygxx2 mt20" style="padding-right: 0px">
+      <input type="hidden" name="id" value="<%=account.id%>">
+      <table  class="detail  no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="12%" align="right">登录用户名：</td>
+          <td width="40%"><%=account.accountNo%></td>
+          <td width="12%" align="right">登录密码：</td>
+          <td width="40%"><a id="restPwd_a" data-id="<%=account.id%>">重置新密码</a></td>
+        </tr>
+        <tr>
+          <td align="right">姓名：</td>
+          <td><input type="text" class="text" id="adName" name="name" value="<%=account.name%>" placeholder="请输入名字(25字内)"/></td>
+          <td align="right">手机号码：</td>
+          <td><input type="text" class="text" name="phone" value="<%=account.phone%>" maxlength="11" placeholder="请输入11位手机号码"/></td>
+        </tr>
+        <tr>
+          <td align="right">职务：</td>
+          <td><input type="text" class="text" id="adJob" name="job" value="<%=account.job%>" placeholder="请输入职务(50字内)"/></td>
+          <td align="right">互生卡号：</td>
+          <td><input type="text" class="text disabled" disabled="disabled" id="userResourceNo" name="userResourceNo" value="<%=account.userResourceNo%>"/></td>
+        </tr>
+        <tr>
+           <td align="right">状态：</td>
+           <td><select name="status">
+           <option value="0" <%=account.status==0?"selected":""%>>启用</option>
+           <option value="1" <%=account.status==1?"selected":""%>>禁用</option>
+           </select></td>
+          <td align="right"></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    </form>
+
+    <p class="ta">
+      <input class="btn_bg submit mr10 popup02" id="updata_submit" type="button" value="保&nbsp;&nbsp;存">
+      <input class="btn_bg submit mr10 popup01" id="cancle_update" type="button" value="取&nbsp;&nbsp;消">
+    </p>
+  </div>
+</div>
+<!--内容信结束--> 

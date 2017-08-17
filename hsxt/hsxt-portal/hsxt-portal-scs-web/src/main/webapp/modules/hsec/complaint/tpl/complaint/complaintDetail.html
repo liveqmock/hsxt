@@ -1,0 +1,55 @@
+<% var param = obj.data.result%>
+<% var httpurl = obj.data.url%>
+<div class="view_info mt10">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+        <tr>
+            <td class="view_item" width="18%">商城名称</td>
+            <td class="view_text" width="32%"><%=param.virtualShopName%></td>
+            <td class="view_item" width="18%">企业互生号</td>
+            <td class="view_text" width="32%"><%=param.shopResourceNo%></td>
+        </tr>
+        <tr>
+            <td class="view_item">投诉类型</td>
+            <td class="view_text"><%=param.complainType%></td>
+            <td class="view_item">消费者</td>
+            <td class="view_text"><%=param.userName%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">投诉内容</td>
+            <td class="view_text"><%=param.content%></td>
+            <td class="view_item">投诉人电话</td>
+            <td class="view_text"><%=param.contectWay%></td>
+        </tr>
+  <tr>
+  <td colspan="4" valign="top">
+   <div class="p10">
+   <div class="view_title" style="padding:10px;font-size:12px;background-color:#e8f4e6;">投诉凭证</div>
+   <div class="search-cont scrlh h160">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table fixtd">
+  <tr>
+    <!-- <th class="nobd">商品图片</th> -->
+    <th class="nobd">凭证图片</th>
+  </tr>
+  <tr>
+ <!-- <% if(param.itemUrls == null || param.itemUrls == ''){ %>
+<td>无商品图片</td>
+<% }else{ %>
+  <td><img alt="" src="<%=httpurl+param.itemUrls%>" height="80px"></td>	   
+<%}%> -->
+<% if(param.picUrls == null || param.picUrls == ''){ %>
+<td>无凭证图片</td>
+<% }else{ %>
+  <td>
+  <%$.each(param.picUrls.split(","),function(k,v){%>
+  <img alt="" src="<%=httpurl%><%=v%>" height="80px">
+  <%})%>
+ </td>	   
+<%}%>
+</tr>
+</table>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,24 @@
+<%var param = obj%>
+<div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0"
+		class="search-table" id="menuItemFoodList"
+		style="word-break: break-all; word-wrap: break-word;">
+		<thead>
+			<tr>
+				<th width="10%">选择</th>
+				<!-- 		        <th width="12%">营业点简称</th> -->
+				<th width="30%">菜单名称</th>
+				<th width="60%">备注</th>
+			</tr>
+		</thead>
+		<%$.each(param.data,function(key,value){%>
+		<tr
+			<%=key%2==1?"class='table-tr-c'":""%>>
+			<td><input name="itemMenuFood" id="menu_<%=value.id%>" type="radio" foodItemId="<%=value.id%>"></td>
+<!--         	<td><a href="javascript:;" class="detail"><%=value.name%></a></td> -->
+            <td><%=value.name%></td>
+            <td><%=value.remark%></td>            
+        </tr>
+		<%})%>
+	</table>
+</div>

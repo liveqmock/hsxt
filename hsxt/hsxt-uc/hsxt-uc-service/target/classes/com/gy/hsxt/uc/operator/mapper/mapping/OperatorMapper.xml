@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.operator.mapper.OperatorMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.operator.bean.Operator">
+		<id column="OPER_CUST_ID" property="operCustId" jdbcType="VARCHAR" />
+		<result column="OPER_RES_NO" property="operResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_RESOURCE_TYPE" property="enterpriseResourceType"
+			jdbcType="VARCHAR" />
+		<result column="OPER_NO" property="operNo" jdbcType="VARCHAR" />
+		<result column="PWD_LOGIN" property="pwdLogin" jdbcType="VARCHAR" />
+		<result column="PWD_LOGIN_VER" property="pwdLoginVer" jdbcType="VARCHAR" />
+		<result column="PWD_LOGIN_SALT_VALUE" property="pwdLoginSaltValue"
+			jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="OPER_NAME" property="operName" jdbcType="VARCHAR" />
+		<result column="OPER_DUTY" property="operDuty" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_STATUS" property="accountStatus"
+			jdbcType="DECIMAL" />
+		<result column="IS_BIND_RES_NO" property="isBindResNo"
+			jdbcType="DECIMAL" />
+		<result column="APPLY_BIND_DATE" property="applyBindDate"
+			jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+		<result column="LAST_LOGIN_DATE" property="lastLoginDate"
+			jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"
+			javaType="java.sql.Timestamp" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"
+			javaType="java.sql.Timestamp" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="OperatorAndNetworkInfo" type="com.gy.hsxt.uc.operator.bean.Operator">
+		<id column="OPER_CUST_ID" property="operCustId" jdbcType="VARCHAR" />
+		<result column="OPER_RES_NO" property="operResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_RESOURCE_TYPE" property="enterpriseResourceType" jdbcType="VARCHAR" />
+		<result column="OPER_NO" property="operNo" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="OPER_NAME" property="operName" jdbcType="VARCHAR" />
+		<result column="OPER_DUTY" property="operDuty" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_STATUS" property="accountStatus" jdbcType="DECIMAL" />
+		<result column="IS_BIND_RES_NO" property="isBindResNo" jdbcType="DECIMAL" />
+		<result column="APPLY_BIND_DATE" property="applyBindDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+		<result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+		<result column="nickname" property="networkInfo.nickname" jdbcType="VARCHAR" />
+		<result column="name" property="networkInfo.name"/>
+		<result column="head_shot" property="networkInfo.headShot"/>
+		<result column="sex" property="networkInfo.sex"/>
+		<result column="age" property="networkInfo.age"/>
+		<result column="individual_sign" property="networkInfo.individualSign"/>
+		<result column="job" property="networkInfo.job"/>
+		<result column="qq_no" property="networkInfo.qqNo"/>
+		<result column="weixin" property="networkInfo.weixin"/>
+		<result column="mobile" property="networkInfo.mobile"/>
+	</resultMap>
+
+	<resultMap id="OperatorResultMap" type="com.gy.hsxt.uc.as.bean.operator.AsOperator">
+		<id column="OPER_CUST_ID" property="operCustId" jdbcType="VARCHAR" />
+		<result column="OPER_RES_NO" property="operResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+		<result column="ENTERPRISE_RESOURCE_TYPE" property="enterpriseResourceType" jdbcType="VARCHAR" />
+		<result column="OPER_NO" property="userName" jdbcType="VARCHAR" />
+		<result column="PHONE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="OPER_NAME" property="realName" jdbcType="VARCHAR" />
+		<result column="OPER_DUTY" property="operDuty" jdbcType="VARCHAR" />
+		<result column="IS_BIND_RES_NO" property="bindResNoStatus" jdbcType="DECIMAL" />
+		<result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="ACCOUNT_STATUS" property="accountStatus" jdbcType="DECIMAL" />
+
+		<collection property="roleList" column="operCustId" ofType="com.gy.hsxt.uc.as.bean.auth.AsRole">
+			<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+			<result column="ROLE_TYPE" property="roleType" jdbcType="DECIMAL" />
+			<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+			<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+			<result column="SUB_SYSTEM_CODE" property="subSystemCode"
+				jdbcType="VARCHAR" />
+			<result column="PLATFORM_CODE" property="platformCode"
+				jdbcType="VARCHAR" />
+		</collection>
+
+		<collection property="groupList" column="operCustId" ofType="com.gy.hsxt.uc.as.bean.ent.AsEntGroup">
+			<id column="GROUP_ID" property="groupId" jdbcType="DECIMAL" />
+			<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+			<result column="GROUP_DESC" property="groupDesc" jdbcType="VARCHAR" />
+		</collection>
+
+	</resultMap>
+
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+		OPER_CUST_ID,
+		OPER_RES_NO,
+		ENT_CUST_ID,
+		ENT_RES_NO,
+		ENTERPRISE_RESOURCE_TYPE,
+		OPER_NO,
+		PWD_LOGIN,
+		PWD_LOGIN_VER,
+		PWD_LOGIN_SALT_VALUE,
+		PHONE,
+		EMAIL,
+		OPER_NAME,
+		OPER_DUTY,
+		ACCOUNT_STATUS,
+		IS_BIND_RES_NO,
+		APPLY_BIND_DATE,
+		IS_ADMIN,
+		LAST_LOGIN_DATE,
+		LAST_LOGIN_IP,
+		o.ISACTIVE,
+		REMARK,
+		o.CREATE_DATE,
+		o.CREATEDBY,
+		o.UPDATE_DATE,
+		o.UPDATEDBY
+	</sql>
+
+	<!-- 查询操作员信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_OPERATOR o
+		where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+	</select>
+	<select id="selectOperatorSecondPwd" resultType="java.util.HashMap" parameterType="java.lang.String">
+		select *
+		from T_ENT_OPERATOR_PWD2
+		where OPER_CUST_ID =
+		#{operCustId,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询操作员信息通过用户名 -->
+	<select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_ENT_OPERATOR o 
+		where ENT_RES_NO = #{0}
+		and
+		OPER_NO = #{1}
+		and
+		ISACTIVE = 'Y'
+	</select>
+
+	<!-- 查询操作员客户号通过操作员互生号 -->
+	<select id="findOperCustIdByOperResNo" resultType="java.lang.String" parameterType="java.lang.String">
+		select
+		OPER_CUST_ID
+		from
+		T_ENT_OPERATOR
+		where OPER_RES_NO =
+		#{0}
+		and ISACTIVE = 'Y'
+	</select>
+
+	<!-- 查询操作员通过企业互生号 -->
+	<select id="listOperByEntCustId" resultMap="OperatorAndNetworkInfo" parameterType="java.lang.String">
+		select oper_cust_id,
+		n.per_cust_id,
+		ent_res_no,
+		enterprise_resource_type,
+		oper_no,
+		phone,
+		o.email as email,
+		oper_name,
+		oper_duty,
+		account_status,
+		is_bind_res_no,
+		apply_bind_date,
+		o.create_date as create_date,
+		o.createdby as createdby,
+		o.update_date as update_date,
+		o.updatedby as updatedby,
+		o.REMARK,
+		o.OPER_RES_NO,
+		last_login_date,
+		last_login_ip,
+		nickname,
+		name,
+		head_shot,
+		sex,
+		age,
+		individual_sign,
+		job,
+		qq_no,
+		mobile,
+		weixin
+		from T_ENT_OPERATOR o, T_NETWORK_INFO n
+		where o.oper_cust_id = n.per_cust_id(+)
+		and o.ent_cust_id =#{0} and o.ISACTIVE = 'Y'
+	</select>
+
+
+	<!-- 插入操作员（有值的属性插入） -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.operator.bean.Operator">
+		insert into T_ENT_OPERATOR
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="operCustId != null">
+				OPER_CUST_ID,
+			</if>
+			<if test="operResNo != null">
+				OPER_RES_NO,
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID,
+			</if>
+			<if test="entResNo != null">
+				ENT_RES_NO,
+			</if>
+			<if test="enterpriseResourceType != null">
+				ENTERPRISE_RESOURCE_TYPE,
+			</if>
+			<if test="operNo != null">
+				OPER_NO,
+			</if>
+			<if test="pwdLogin != null">
+				PWD_LOGIN,
+			</if>
+			<if test="pwdLoginVer != null">
+				PWD_LOGIN_VER,
+			</if>
+			<if test="pwdLoginSaltValue != null">
+				PWD_LOGIN_SALT_VALUE,
+			</if>
+			<if test="phone != null">
+				PHONE,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="operName != null">
+				OPER_NAME,
+			</if>
+			<if test="operDuty != null">
+				OPER_DUTY,
+			</if>
+			<if test="accountStatus != null">
+				ACCOUNT_STATUS,
+			</if>
+			<if test="isBindResNo != null">
+				IS_BIND_RES_NO,
+			</if>
+			<if test="applyBindDate != null">
+				APPLY_BIND_DATE,
+			</if>
+			<if test="isAdmin != null">
+				IS_ADMIN,
+			</if>
+			<if test="lastLoginDate != null">
+				LAST_LOGIN_DATE,
+			</if>
+			<if test="lastLoginIp != null">
+				LAST_LOGIN_IP,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="operCustId != null">
+				#{operCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="operResNo != null">
+				#{operResNo,jdbcType=CHAR},
+			</if>
+			<if test="entCustId != null">
+				#{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="entResNo != null">
+				#{entResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseResourceType != null">
+				#{enterpriseResourceType,jdbcType=VARCHAR},
+			</if>
+			<if test="operNo != null">
+				#{operNo,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLogin != null">
+				#{pwdLogin,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLoginVer != null">
+				#{pwdLoginVer,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLoginSaltValue != null">
+				#{pwdLoginSaltValue,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="operName != null">
+				#{operName,jdbcType=VARCHAR},
+			</if>
+			<if test="operDuty != null">
+				#{operDuty,jdbcType=VARCHAR},
+			</if>
+			<if test="accountStatus != null">
+				#{accountStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="isBindResNo != null">
+				#{isBindResNo,jdbcType=DECIMAL},
+			</if>
+			<if test="applyBindDate != null">
+				#{applyBindDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isAdmin != null">
+				#{isAdmin,jdbcType=DECIMAL},
+			</if>
+			<if test="lastLoginDate != null">
+				#{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginIp != null">
+				#{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=CHAR},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertPwd2" parameterType="com.gy.hsxt.uc.operator.bean.Operator">
+		insert into
+		T_ENT_OPERATOR_PWD2
+		(OPER_CUST_ID,
+		ENT_RES_NO,
+		OPER_NO,
+		PWD_LOGIN,
+		PWD_LOGIN_VER,
+		PWD_LOGIN_SALT_VALUE,
+		PHONE,
+		EMAIL,
+		OPER_NAME,
+
+		REMARK,
+		CREATEDBY)
+		values
+		(#{operCustId,jdbcType = VARCHAR},
+		#{entResNo,jdbcType=VARCHAR},
+		#{operNo,jdbcType = VARCHAR},
+		#{pwdLogin,jdbcType = VARCHAR},
+		#{pwdLoginVer,jdbcType = VARCHAR},
+		#{pwdLoginSaltValue,jdbcType = VARCHAR},
+		#{phone,jdbcType = VARCHAR},
+		#{email,jdbcType = VARCHAR},
+		#{operName,jdbcType = VARCHAR},
+
+		#{remark,jdbcType = CHAR},
+		#{createdby,jdbcType = VARCHAR})
+	</insert>
+
+	<!-- 更新操作员信息（有值的属性更新，通过操作员客户号，单笔更新） -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.operator.bean.Operator">
+		update T_ENT_OPERATOR
+		<set>
+			<if test="operResNo != null">
+				OPER_RES_NO = #{operResNo,jdbcType=CHAR},
+			</if>
+			<if test="entCustId != null">
+				ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="entResNo != null">
+				ENT_RES_NO = #{entResNo,jdbcType=VARCHAR},
+			</if>
+			<if test="enterpriseResourceType != null">
+				ENTERPRISE_RESOURCE_TYPE =
+				#{enterpriseResourceType,jdbcType=VARCHAR},
+			</if>
+			<if test="operNo != null">
+				OPER_NO = #{operNo,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLogin != null">
+				PWD_LOGIN = #{pwdLogin,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLoginVer != null">
+				PWD_LOGIN_VER = #{pwdLoginVer,jdbcType=VARCHAR},
+			</if>
+			<if test="pwdLoginSaltValue != null">
+				PWD_LOGIN_SALT_VALUE =
+				#{pwdLoginSaltValue,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="operName != null">
+				OPER_NAME = #{operName,jdbcType=VARCHAR},
+			</if>
+			<if test="operDuty != null">
+				OPER_DUTY = #{operDuty,jdbcType=VARCHAR},
+			</if>
+			<if test="accountStatus != null">
+				ACCOUNT_STATUS = #{accountStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="isBindResNo != null">
+				IS_BIND_RES_NO = #{isBindResNo,jdbcType=DECIMAL},
+			</if>
+			<if test="applyBindDate != null">
+				APPLY_BIND_DATE = #{applyBindDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isAdmin != null">
+				IS_ADMIN = #{isAdmin,jdbcType=DECIMAL},
+			</if>
+			<if test="lastLoginDate != null">
+				LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginIp != null">
+				LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=CHAR},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+	</update>
+
+
+
+
+	<!-- 更新操作员 -->
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.operator.bean.Operator">
+		update
+		T_ENT_OPERATOR
+		set OPER_RES_NO = #{operResNo,jdbcType = CHAR},
+		ENT_CUST_ID = #{entCustId,jdbcType = VARCHAR},
+		ENT_RES_NO =
+		#{entResNo,jdbcType = VARCHAR},
+		ENTERPRISE_RESOURCE_TYPE =
+		#{enterpriseResourceType,jdbcType = VARCHAR},
+		OPER_NO =
+		#{operNo,jdbcType = VARCHAR},
+		PWD_LOGIN = #{pwdLogin,jdbcType =
+		VARCHAR},
+		PWD_LOGIN_VER = #{pwdLoginVer,jdbcType = VARCHAR},
+		PWD_LOGIN_SALT_VALUE = #{pwdLoginSaltValue,jdbcType = VARCHAR},
+		PHONE =
+		#{phone,jdbcType = VARCHAR},
+		EMAIL = #{email,jdbcType = VARCHAR},
+		OPER_NAME = #{operName,jdbcType = VARCHAR},
+		OPER_DUTY =
+		#{operDuty,jdbcType = VARCHAR},
+		ACCOUNT_STATUS =
+		#{accountStatus,jdbcType = DECIMAL},
+		IS_BIND_RES_NO =
+		#{isBindResNo,jdbcType = DECIMAL},
+		APPLY_BIND_DATE =
+		#{applyBindDate,jdbcType = TIMESTAMP},
+		IS_ADMIN = #{isAdmin,jdbcType =
+		DECIMAL},
+		LAST_LOGIN_DATE = #{lastLoginDate,jdbcType = TIMESTAMP},
+		LAST_LOGIN_IP = #{lastLoginIp,jdbcType = VARCHAR},
+		REMARK =
+		#{remark,jdbcType = CHAR},
+		ISACTIVE = #{isactive,jdbcType = CHAR},
+		CREATE_DATE = #{createDate,jdbcType = TIMESTAMP},
+		CREATEDBY =
+		#{createdby,jdbcType = VARCHAR},
+		UPDATE_DATE = #{updateDate,jdbcType =
+		TIMESTAMP},
+		UPDATEDBY = #{updatedby,jdbcType = VARCHAR}
+		where
+		OPER_CUST_ID = #{operCustId, jdbcType = VARCHAR}
+	</update>
+
+	<!-- 查询操作员通过企业用户组编号 -->
+	<select id="listOperByEntGroupId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		SELECT
+		T.OPER_CUST_ID,
+		T.OPER_RES_NO,
+		T.ENT_CUST_ID,
+		T.ENT_RES_NO,
+		T.OPER_NO,
+		T.PHONE,
+		T.EMAIL,
+		T.OPER_NAME,
+		T.OPER_DUTY,
+		T.IS_ADMIN
+		FROM T_ENT_OPERATOR T
+		WHERE T.ISACTIVE = 'Y'
+		and T.OPER_CUST_ID in (
+			select  R.OPER_CUST_ID	from T_ENT_GROUP_USER R	
+			where R.GROUP_ID = #{0}
+		)
+	</select>
+
+
+	<!-- 分页查询隶属企业动态条件 -->
+	<sql id="Page_Query_Condition">
+		<if test="condition.entCustId != null and condition.entCustId != '' ">
+			And T.ENT_CUST_ID = #{condition.entCustId}
+		</if>
+		<if test="condition.userName != null and condition.userName != '' ">
+			And T.OPER_NO like '%${condition.userName}%'
+		</if>
+		<if test="condition.realName != null and condition.realName != '' ">
+			And T.OPER_NAME like  '%${condition.realName}%'
+		</if>
+	</sql>
+
+	<!-- 分页查询操作员的列信息 -->
+	<sql id="Operator_Column_List">
+		G.GROUP_NAME,
+		G.GROUP_ID,
+		G.GROUP_DESC,
+		R.ROLE_NAME,
+		R.ROLE_TYPE,
+		R.ROLE_ID,
+		R.ROLE_DESC,
+		R.SUB_SYSTEM_CODE,
+		R.PLATFORM_CODE,
+		T.OPER_CUST_ID,
+		T.OPER_RES_NO,
+		T.ENT_RES_NO,
+		T.ENT_CUST_ID,
+		T.ENTERPRISE_RESOURCE_TYPE,
+		T.OPER_NO,
+		T.PHONE,
+		T.EMAIL,
+		T.OPER_NAME,
+		T.OPER_DUTY,
+		T.ACCOUNT_STATUS,
+		T.IS_BIND_RES_NO,
+		T.APPLY_BIND_DATE,
+		T.IS_ADMIN,
+		T.ISACTIVE,
+		T.REMARK
+	</sql>
+
+	<!-- 分页查询操作员 -->
+	<select id="pageOperators" resultMap="OperatorResultMap"
+		parameterType="java.util.Map">
+		
+
+		select
+		<include refid="Operator_Column_List" />
+		FROM T_ENT_OPERATOR T,
+		T_ENT_GROUP_USER GU,
+		T_ENT_GROUP G,
+		T_USER_ROLE UR,
+		T_ROLE R
+		WHERE T.OPER_CUST_ID = GU.OPER_CUST_ID(+)
+		AND GU.GROUP_ID = G.GROUP_ID(+)
+		AND T.OPER_CUST_ID = UR.CUST_ID(+)
+		AND UR.ROLE_ID = R.ROLE_ID(+)
+		AND T.ISACTIVE = 'Y'
+		<include refid="Page_Query_Condition" />
+
+		
+		ORDER BY OPER_NO
+	</select>
+
+
+	<!-- 统计隶属操作员的数量 -->
+	<select id="countOperator" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(distinct t.oper_cust_id)
+		FROM T_ENT_OPERATOR T,
+		T_ENT_GROUP_USER GU,
+		T_ENT_GROUP G,
+		T_USER_ROLE UR,
+		T_ROLE R
+		WHERE
+		T.OPER_CUST_ID = GU.OPER_CUST_ID(+)
+		AND GU.GROUP_ID = G.GROUP_ID(+)
+		AND
+		T.OPER_CUST_ID = UR.CUST_ID(+)
+		AND UR.ROLE_ID = R.ROLE_ID(+)
+		AND
+		T.ISACTIVE = 'Y'
+		<include refid="Page_Query_Condition" />
+	</select>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		<if test="page != null">
+			select * from ( select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+		<if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+		</if>
+	</sql>
+	
+	<select id="countOperCustId" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(0)
+		FROM T_ENT_OPERATOR T
+		where OPER_CUST_ID=#{0}
+	</select>
+	
+	<select id="selectMaxSeqNo" parameterType="java.util.Map" resultType="java.lang.String">
+		select max(substr(t.oper_cust_id,16,4)) from T_ENT_OPERATOR t  
+		where t.ENT_RES_NO = #{0}
+		and t.OPER_NO = #{1}
+		and  length(t.oper_cust_id) > 18 
+		<![CDATA[ 
+		and substr(t.oper_cust_id,16,1) >= '0'   
+		and substr(t.oper_cust_id,16,1) <= '9'   
+		and substr(t.oper_cust_id,17,1) >= '0'   
+		and substr(t.oper_cust_id,17,1) <= '9'   
+		and substr(t.oper_cust_id,18,1) >= '0'   
+		and substr(t.oper_cust_id,18,1) <= '9'   
+		and substr(t.oper_cust_id,19,1) >= '0'   
+		and substr(t.oper_cust_id,19,1) <= '9'   
+		]]>
+	</select>
+	
+	<select id="selectByIds" parameterType="java.util.Map" resultMap="BaseResultMap" >
+		select distinct
+		<include refid="Base_Column_List" />
+		from T_ENT_OPERATOR o
+		<if test="roleId != null">  left join T_USER_ROLE r on r.cust_id=o.oper_cust_id </if>
+		where OPER_CUST_ID in 
+		<foreach item="id" index="index" collection="ids" 
+                         open="(" separator="," close=")">
+           #{id}
+        </foreach> 
+		<if test="name != null">
+			and oper_name like '%${name}%'
+		</if>
+		<if test="phone != null">
+			and phone like '%${phone}%'
+		</if>
+		<if test="roleId != null">  
+       		and role_id=#{roleId}
+        </if>
+		 
+	</select>
+	
+	<!-- 更新操作员信息（有值的属性更新,通过企业客户号，批量更新，用于企业注销） -->
+	<update id="cancelAllOper" parameterType="java.lang.String">
+		update T_ENT_OPERATOR
+		set ACCOUNT_STATUS = 2,ISACTIVE = 'N'
+		where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+	</update>
+</mapper>

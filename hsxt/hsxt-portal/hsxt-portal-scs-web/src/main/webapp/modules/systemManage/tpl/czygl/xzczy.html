@@ -1,0 +1,46 @@
+ <div class="bc mt20 info_320">
+<form id="xzczyForm" name="xzxgczy_form" action="" method="post">
+    <ul class="cssform2 clearfix   cssform2 ">
+        <li class="clearfix pr">
+            <label class="title-txt w115">登录用户名</label><input class="fl w185 h30_middle ml5" maxlength="4" type="text" id="userName" name="userName" placeholder="输入登录用户名"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">登录密码</label><input class="fl w185 h30_middle ml5" maxlength="6" type="password" id="loginPwd" name="loginPwd" placeholder="输入登录密码"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">确认登录密码</label><input class="fl w185 h30_middle ml5" maxlength="6" type="password" id="loginPwd2" name="loginPwd2" placeholder="输入确认登录密码"/><div class="hint red">*</div>
+        </li>
+		 <li class="clearfix pr">
+            <label class="title-txt w115">状态</label><input id="accountStatus" name="accountStatus" type="text" placeholder="选择状态"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">姓名</label><input class="fl w185 h30_middle ml5" id="realName" name="realName" type="text" maxlength="20" value="" placeholder="输入姓名"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">手机号码</label><input class="fl w185 h30_middle ml5" type="text" id="mobile" name="mobile" placeholder="输入手机号码" maxlength="20"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">职务</label><input class="fl w185 h30_middle ml5" type="text" id="operDuty" name="operDuty" maxlength="20" placeholder="输入职务" maxlength="20"/>
+        </li>
+         
+        <li class="clearfix">
+            <label class="title-txt w115" style="height: 95px;">描述</label><div class="cont-int w195"><textarea id="remark" rows="5" maxlength="100" class="attxta w98pc" placeholder="输入描述,不超过100个字" style="height:85px;width:195px;"></textarea></div>
+        </li>
+    </ul>
+    <div class="mt20 tc">
+        <a   id="btn_xzxgczy_cx" class="btn_bg submit w150 inline-block">取&#12288;消</a><div class="p10 inline-block"></div><a   id="xzczy_tj" class="btn_bg submit  w150 inline-block">提&#12288;交</a>
+    </div>
+</form>
+</div>
+ 
+ 
+<div id="xzczy_dialog" class="none" title="用户创建成功，是否进行角色设置？">
+	<p class="autowidth">
+		<table id="roleTable">
+		 	<th w_check="true" w_index="roleId" width="5%"></th>
+	        <th  w_render="operate">角色名称</th>
+	        <th w_index="roleDesc">角色描述</th>
+		</table>
+	</p>
+</div>
+

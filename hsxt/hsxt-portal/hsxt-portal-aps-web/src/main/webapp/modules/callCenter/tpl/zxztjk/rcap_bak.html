@@ -1,0 +1,64 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li class="clearfix">
+			<label class="fl h30_middle">工作组名称：</label>
+			<input id="workingGroupName" readonly="readonly" placeholder="选择工作组名称" />
+		</li>
+		<li>
+			<label>工作人员：</label>
+			<input type="text" name="textfield" placeholder="输入工作人员名称" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>上班时间：</label>
+			<input type="text" name="textfield" id="sb_time" placeholder="输入上班时间" class="h28_middle input-txt w115" readonly="readonly" />
+		</li>
+		<li>
+			<button id="" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="th_1">工作组名称</th>
+	<th w_index="th_2">工作人员</th>
+	<th w_index="th_3">班次名称</th>
+	<th w_index="th_4">上班时间</th>
+	<th w_index="th_5">是否正常上班</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+				
+
+	
+<div id="modify_content" class="none">
+	<div class="info_320 bc">
+		<form>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">工作组名称</label>
+					<span class="fl ml5"><input id="workingGroupName_pop" readonly="readonly" placeholder="选择工作组名称" /></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">工作人员</label>
+					<input type="text" class="fl w185 h30_middle ml5" placeholder="输入工作人员名称" value="赵六" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">班次名称</label>
+					<span class="fl ml5"><input id="bcmc" readonly="readonly" placeholder="选择班次名称" /></span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">上班时间</label>
+					<input class="fl w185 h30_middle ml5" id="sbsj" readonly="readonly" value="2015-08-13" placeholder="输入上班时间" />
+				</li>
+					<li class="register_row clearfix">
+						<label for="name" class="fl w115 h30_middle">是否正常上班</label>
+						<div class="fl h30_middle">
+							<input type="radio" name="name" class="ml10" value="1" checked="checked" /> 是			
+							<input type="radio" name="name" class="ml10" value="0"  /> 否
+						</div>
+					</li>
+			</ul>
+		</form>
+	</div>
+</div>

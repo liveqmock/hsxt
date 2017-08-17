@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.fss.mapper.FileDetailMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="fileDetailResult" type="com.gy.hsxt.gpf.fss.bean.FileDetail">
+        <id property="detailId" column="DETAIL_ID"/>
+        <result property="notifyNo" column="NOTIFY_NO"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+        <result property="unit" column="UNIT"/>
+        <result property="code" column="CODE"/>
+        <result property="isPass" column="IS_PASS"/>
+        <result property="startTime" column="START_TIME"/>
+        <result property="endTime" column="END_TIME"/>
+        <result property="source" column="SOURCE"/>
+        <result property="target" column="TARGET"/>
+        <result property="isLocal" column="IS_LOCAL"/>
+        <result property="percent" column="PERCENT"/>
+        <result property="recount" column="RECOUNT"/>
+        <result property="reason" column="REASON"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insert" parameterType="com.gy.hsxt.gpf.fss.bean.FileDetail">
+        INSERT INTO T_FSS_FILE_DETAIL
+        (
+            NOTIFY_NO,
+            FILE_NAME,
+            FILE_SIZE,
+            UNIT,
+            CODE,
+            IS_PASS,
+            START_TIME,
+            END_TIME,
+            SOURCE,
+            TARGET,
+            IS_LOCAL,
+            PERCENT,
+            REASON
+        ) VALUES (
+            #{notifyNo},
+            #{fileName},
+            #{fileSize},
+            #{unit},
+            #{code},
+            #{isPass},
+            #{startTime},
+            #{endTime},
+            #{source},
+            #{target},
+            #{isLocal},
+            #{percent},
+            #{reason}
+        )
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO T_FSS_FILE_DETAIL
+        (
+        NOTIFY_NO,
+        FILE_NAME,
+        FILE_SIZE,
+        UNIT,
+        CODE,
+        IS_PASS,
+        START_TIME,
+        END_TIME,
+        SOURCE,
+        TARGET,
+        IS_LOCAL,
+        PERCENT,
+        REASON
+        ) VALUES
+
+        <foreach collection="details" item="detail" separator=",">
+            (
+            #{detail.notifyNo},
+            #{detail.fileName},
+            #{detail.fileSize},
+            #{detail.unit},
+            #{detail.code},
+            #{detail.isPass},
+            #{detail.startTime},
+            #{detail.endTime},
+            #{detail.source},
+            #{detail.target},
+            #{detail.isLocal},
+            #{detail.percent},
+            #{detail.reason}
+            )
+        </foreach>
+
+    </insert>
+
+    <delete id="deleteById" parameterType="java.io.Serializable">
+        DELETE FROM T_FSS_FILE_DETAIL
+        WHERE DETAIL_ID = #{id};
+    </delete>
+
+    <update id="update" parameterType="com.gy.hsxt.gpf.fss.bean.FileDetail">
+        UPDATE T_FSS_FILE_DETAIL SET
+        <trim suffixOverrides=",">
+            <if test="startTime != null and startTime !=''">
+                START_TIME = #{startTime},
+            </if>
+            <if test="endTime != null and endTime !=''">
+                END_TIME = #{endTime},
+            </if>
+            <if test="isPass != 0">
+                IS_PASS = #{isPass},
+            </if>
+            <if test="recount != 0">
+                RECOUNT = #{recount},
+            </if>
+            <if test="percent != 0">
+                PERCENT = #{percent},
+            </if>
+            <if test="reason != null and reason !=''">
+                REASON = #{reason},
+            </if>
+        </trim>
+        WHERE NOTIFY_NO = #{notifyNo}
+    </update>
+
+    <select id="selectOneById" parameterType="java.io.Serializable" resultMap="fileDetailResult">
+        SELECT *
+        FROM T_FSS_FILE_DETAIL
+        WHERE DETAIL_ID = #{id}
+    </select>
+
+    <select id="selectByCondition" parameterType="com.gy.hsxt.gpf.fss.bean.FileDetail" resultMap="fileDetailResult">
+        SELECT *FROM T_FSS_FILE_DETAIL t
+        <where>
+            <trim suffixOverrides="and">
+                <if test="notifyNo != null and notifyNo != ''">
+                    t.NOTIFY_NO = #{notifyNo}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <!-- 根据通知编号查询对应的所有文件详情-->
+    <select id="selectByNotifyNo" parameterType="java.lang.String" resultMap="fileDetailResult">
+        SELECT *FROM T_FSS_FILE_DETAIL t WHERE t.NOTIFY_NO = #{notifyNo}
+    </select>
+
+</mapper>

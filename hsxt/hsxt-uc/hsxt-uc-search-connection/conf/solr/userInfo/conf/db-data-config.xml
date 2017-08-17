@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataConfig>
+	<dataSource driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.230.115:1521:orcl" user="DBUC01" password="DBUC01"/>
+	
+	<document>
+		<entity name="userInfo" pk="custId" 
+			query="select enterprise_resource_type as userType, o.oper_cust_id as ID, o.oper_res_no as resNo, age, o.ent_res_no as entResNo, mobile as mobile ,o.oper_no as username, n.nickname as nickName, n.name as name, n.head_shot as headImage, sex,n.province_no as province, n.city_no as city, n.area as area, n.individual_sign as sign , n.job as job,n.hobby as bobby from T_ENT_OPERATOR o , T_NETWORK_INFO n where o.oper_cust_id=n.per_cust_id(+)  and o.isactive='Y'"
+			deletedPkQuery="select oper_cust_id as ID from T_ENT_OPERATOR where isactive='N'"
+			>
+			<field column="ID" name="custId" />
+			<field column="username" name="username" />
+		  <field column="name" name="name" />
+		  <field column="entResNo" name="entResNo" />
+			<field column="sex" name="sex" />
+			<field column="headImage" name="headImage" />
+			<field column="area" name="area" />
+			<field column="hobby" name="hobby" />
+			<field column="sign" name="sign" />
+			<field column="nickName" name="nickName" />
+			<field column="resNo" name="resNo" />
+			<field column="userType" name="userType" />
+			<field column="age" name="age" />
+			<field column="province" name="province" />
+			<field column="city" name="city" />
+			<field column="mobile" name="mobile" />
+		</entity>
+		
+		<entity name="userInfo" pk="custId" 
+			query="select nvl(NULL,1) as userType,t.per_cust_id  as ID, t.per_res_no as resNo, t.ent_res_no as entResNo, nickname as nickName, t.per_res_no as username, n.name as name, head_shot as headImage, sex, age,n.province_no as province, n.city_no as city, area, n.individual_sign as sign ,job,hobby from T_CUST_CARDHOLDER t , T_NETWORK_INFO n where t.per_cust_id=n.per_cust_id(+) and t.isactive='Y'and n.isactive='Y'"
+			deletedPkQuery="select per_cust_id as ID from T_CUST_CARDHOLDER where isactive='N'"
+			>
+			<field column="ID" name="custId" />
+		  <field column="name" name="name" />
+		  <field column="username" name="username" />
+		  <field column="entResNo" name="entResNo" />
+			<field column="sex" name="sex" />
+			<field column="headImage" name="headImage" />
+			<field column="area" name="area" />
+			<field column="hobby" name="hobby" />
+			<field column="sign" name="sign" />
+			<field column="nickName" name="nickName" />
+			<field column="resNo" name="resNo" />
+			<field column="userType" name="userType" />
+			<field column="age" name="age" />
+			<field column="province" name="province" />
+			<field column="city" name="city" />
+		</entity>
+		
+		<entity name="userInfo" pk="custId" 
+			query="select nvl(NULL,0) as userType, t.per_cust_id  as ID, t.mobile as mobile , nickname as nickName, n.name as name, head_shot as headImage, sex, age,n.province_no as province, n.city_no as city, area, n.individual_sign as sign ,job,hobby from T_CUST_NONCARDHOLDER t , T_NETWORK_INFO n where t.per_cust_id=n.per_cust_id(+) and t.isactive='Y'and n.isactive='Y'"
+			deletedPkQuery="select per_cust_id as ID from T_CUST_NONCARDHOLDER where isactive='N'"
+			>
+			<field column="ID" name="custId" />
+		  <field column="name" name="name" />
+		  <field column="username" name="username" />
+			<field column="sex" name="sex" />
+			<field column="headImage" name="headImage" />
+			<field column="area" name="area" />
+			<field column="hobby" name="hobby" />
+			<field column="sign" name="sign" />
+			<field column="mobile" name="mobile" />
+			<field column="nickName" name="nickName" />
+			<field column="resNo" name="resNo" />
+			<field column="userType" name="userType" />
+			<field column="age" name="age" />
+			<field column="province" name="province" />
+			<field column="city" name="city" />
+		</entity>
+	</document>
+	
+</dataConfig>

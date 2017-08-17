@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.PromptMsgMapper">
+	<!--插入-->
+	<insert id="addPromptMsg" parameterType="com.gy.hsxt.gpf.gcs.bean.PromptMsg" >
+		<![CDATA[
+		INSERT INTO T_GCS_PROMPT_MSG (
+			LANGUAGE_CODE,
+			PROMPT_CODE,
+			PROMPT_MSG,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+			(
+				#{languageCode,jdbcType=VARCHAR},
+				#{promptCode,jdbcType=VARCHAR},
+				#{promptMsg,jdbcType=VARCHAR},
+				#{delFlag,jdbcType=TINYINT},
+				#{version,jdbcType=BIGINT}
+			);
+		 ]]>
+	</insert>
+	<!--逻辑删除-->
+	<update id="deletePromptMsg" parameterType="com.gy.hsxt.gpf.gcs.bean.PromptMsg">
+		UPDATE T_GCS_PROMPT_MSG
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updatePromptMsg" parameterType="com.gy.hsxt.gpf.gcs.bean.PromptMsg">
+		UPDATE T_GCS_PROMPT_MSG
+			<set>
+	          PROMPT_MSG = #{promptMsg,jdbcType=VARCHAR},
+	          DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existPromptMsg" resultType="string" >
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_PROMPT_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryPromptMsgListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.PromptMsg" resultType="com.gy.hsxt.gpf.gcs.bean.PromptMsg">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			PROMPT_CODE promptCode,
+			PROMPT_MSG promptMsg,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_PROMPT_MSG
+		WHERE
+			TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if>
+			<if test="languageCode != null and languageCode != '' "> 
+				AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+			</if>
+			<if test="promptCode != null and promptCode != '' "> 
+				AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR} 
+			</if>   
+			<if test="promptMsg != null and promptMsg != '' "> 
+				<![CDATA[  AND PROMPT_MSG like  CONCAT('%',#{promptMsg},'%')   escape '/' ]]>
+			</if>
+			 ORDER BY LANGUAGE_CODE,PROMPT_CODE
+	</select>
+	
+	
+	<select id="queryPromptMsgWithPK"  resultType="com.gy.hsxt.gpf.gcs.bean.PromptMsg">
+		<![CDATA[
+		SELECT
+			LANGUAGE_CODE languageCode,
+			PROMPT_CODE promptCode,
+			PROMPT_MSG promptMsg,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_PROMPT_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND PROMPT_CODE = #{promptCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	  
+	<select id="queryPromptMsg4SyncData"  resultType="com.gy.hsxt.gpf.gcs.bean.PromptMsg">
+		<![CDATA[
+		SELECT
+			LANGUAGE_CODE languageCode,
+			PROMPT_CODE promptCode,
+			PROMPT_MSG promptMsg,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_PROMPT_MSG
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT}  
+		ORDER BY
+			LANGUAGE_CODE,
+			PROMPT_CODE
+		]]> 
+	</select>  
+    
+</mapper>

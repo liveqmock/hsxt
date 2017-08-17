@@ -1,0 +1,204 @@
+﻿<!-- 身故保障金 -->
+<div class="register_info mt40 info_900">
+	<div id="applyDeathDiv">
+		<form id="applyDeathForm">
+			<fieldset>
+				<div class="clearfix">
+					<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>证件图片要求必须是清晰，仅支持jpg、jpeg、bmp、png格式图片且不能超过2M！</h1>
+					<p class="acct-line"></p>
+					<div class="clearfix">
+						<ul class="fl">
+							<li class="register_row  clearfix pr" style="width:400px;">
+								<label for="name" >被保障人互生卡号</label> 
+								<input type="text" id="deathResNo" name="deathResNo"  class="input_gray" placeholder="请输入被保障人互生卡号" maxlength="11"/>
+								<span class="required-box">*</span>
+							</li>
+						</ul>
+						<ul class="fl ml50">
+							<li class="register_row  clearfix pr" style="width:400px;">
+								<label for="name" >被保障人姓名</label>
+								<input type="text" id="diePeopleName" name="diePeopleName" style="width:265px;"  class="input_gray" placeholder="请输入被保障人姓名" maxlength="20"/>
+								<span class="required-box">*</span>
+							</li>
+						</ul>
+					</div>
+					<ul class="fl">
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height:20px;">被保障人死亡<br />证明附件</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="deathProveImg" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="deathProve" name="deathProve"/></a>
+							<a id="deathSecurity_demo_href_1" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 ml50 pr">
+							<label for="name">户籍注销证明</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="hrcImg" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="hrc" name="hrc"/></a>
+							<a id="deathSecurity_demo_href_2" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5">
+							<label for="name" style="line-height:20px;">被保障人法定<br>身份证明</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="diePeopleCerImg" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="diePeopleCer" name="diePeopleCer"/></a>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 ml50 pr">
+							<label for="name" style="line-height:20px;">与被保障人关系<br />证明书</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="ifpImg" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ifp" name="ifp"/></a>
+							<a id="deathSecurity_demo_href_3" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+						
+						<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+							<label for="name" style="line-height:20px;">代办人法定<br>身份证明</label> 
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="aipImg" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="aip" name="aip"/></a>
+							<a id="deathSecurity_demo_href_4" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> 
+							<span class="required-box-h60">*</span>
+						</li>
+					</ul>
+				</div>
+				<ul class="clearfix">
+					<li class="input_item_upload_1 clearfix mt5" style="width:850px;">
+						<label for="name">其它证明材料</label> 
+						<span id="otherProveSpan1">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg1" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+								</i>
+							</span>
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve1" name="otherProve1"/></a> 
+						</span>
+						<span id="otherProveSpan2" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg2" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve2" name="otherProve2"/></a>
+						</span>
+						<span id="otherProveSpan3" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg3" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve3" name="otherProve3"/></a>
+						</span>
+						<span id="otherProveSpan4" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg4" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve4" name="otherProve4"/></a>
+						</span>
+						<span id="otherProveSpan5" style="display:none">
+							<span class="spanfl sample_img">
+								<i class="noImgMidSample_img certificateSample_01">
+									<img id="otherProveImg5" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+								</i>
+							</span> 
+							<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve5" name="otherProve5"/></a>
+						</span>
+					</li>
+				</ul>
+				<p><a href="javascript:;" class="lh200 cl-blue Thick_btn_death" id="death_Thick_btn2">代理身故保障金证明材料说明</a></p>
+				<div class="tc two_button h50 mt20">
+					<a id="submit_death" class="hs_btn Thick_btn">确认提交</a>
+				</div>
+			</fieldset>
+			
+		<!-- <input id="custId" name="custId" type="hidden"/>	 -->					<!-- String	是	客户ID -->
+		<!--<input id="hsResNo" name="hsResNo" type="hidden"/>						 String	是	互生号 -->
+		<input id="proposerName" name="proposerName" type="hidden"/>			<!-- String	是	申请人姓名 -->
+		<input id="proposerPhone" name="proposerPhone" type="hidden"/>			<!-- String	是	申请人电话 -->
+		<input id="proposerPapersNo" name="proposerPapersNo" type="hidden"/>	<!-- String	是	申请人证件号码 -->
+		<input id="applyDate" name="applyDate" type="hidden"/>					<!-- String	否	申请时间 -->
+		<input id="explain" name="explain" type="hidden" value="代理身故保障金申请"/>						<!-- String	否	说明 -->
+		<!-- <input id="deathResNo" name="deathResNo" type="hidden"/> -->				<!-- String	是	身故用户（被保障人）互生号 -->
+		<!-- <input id="diePeopleName" name="diePeopleName" type="hidden"/> -->			<!-- String	是	身故用户（被保障人）姓名 -->
+		<input id="deathProvePath" name="deathProvePath" type="hidden"/>		<!-- List<String>	是	身故人（被保障人）死亡证明 图片路径 --> 
+		<input id="hrcPath" name="hrcPath" type="hidden"/>						<!-- List<String>	是	身故人（被保障人）户籍注销证明 -->
+		<input id="diePeopleCerPath" name="diePeopleCerPath" type="hidden"/>	<!-- List<String>	是	身故人 （被保障人）法定身份证明 图片路径 -->
+		<input id="ifpPath" name="ifpPath" type="hidden"/>						<!-- List<String>	是	直系亲属证明书图片路径 -->
+		<input id="agentAccreditPath" name="agentAccreditPath" type="hidden" value="123456"/>	<!-- List<String>	否	代理人委托授权书图片路径  取消-->
+		<input id="aipPath" name="aipPath" type="hidden"/>						<!-- List<String>	是	申请保障代理人身份证明图片路径图片路径 -->
+		<input type="hidden" name="otherProvesPath" id="otherProve1Path"/>		<!-- 其他证明图片路径 -->
+		<input type="hidden" name="otherProvesPath" id="otherProve2Path"/>		<!-- 其他证明图片路径 -->
+		<input type="hidden" name="otherProvesPath" id="otherProve3Path"/>		<!-- 其他证明图片路径 -->
+		<input type="hidden" name="otherProvesPath" id="otherProve4Path"/>		<!-- 其他证明图片路径 -->
+		<input type="hidden" name="otherProvesPath" id="otherProve5Path"/>		<!-- 其他证明图片路径 -->
+				 
+		</form>
+	</div>
+	
+	
+	<!--提交系统审批后温馨提示--->
+	<div class="page_tips_subwrap pt100 pb100 none" id="approving">
+		<div class="page_tips bc tc">
+			<h1 class="f16 fb">温馨提示</h1>
+			<p class="f14 fb">已提交代他人申请身故保障金申请处理中，在此期间，本业务暂无法受理！</p>
+		</div>
+	</div>
+	
+	<!--end-->
+	
+	<!--审批驳回-->
+	<div class="view_info mt40 info_500 none" id="approvalReject" style="height:200px;">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">审批结果</td>
+				<td class="view_text" width="30%" id="approvalResult"></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批意见</td>
+				<td class="view_text" id="approvalReason" ></td>
+			</tr>
+			<tr>
+				<td class="view_item">审批日期</td>
+				<td class="view_text" id="approvalDate" ></td>
+			</tr>
+		</table>
+		<div class="mt20" align="center">
+		<a href="javascript:;" id="applyAgain_btn" class="hs_btn myhs_ajax_btn">重新申请</a>
+		</div>
+	</div>
+	<!--end-->
+	
+	<!--审批通过-->
+	<div class="page_tips_subwrap pt100 pb100 none" id="approvalPass">
+		<div class="page_tips bc tc">
+			<h1 class="f16 fb">温馨提示</h1>
+			<p class="f14 fb">您已通过代他人申请身故保障金申请，请留意互生币账户身故保障金的发放！</p>
+		</div>
+		<div align="center"  style="margin-top:20px;"><a href="javascript:;" id="back_btn" class="hs_btn myhs_ajax_btn">返 回</a></div>
+	</div>
+
+	
+</div>
+<div id="showImageDiv" class="none"><img alt="证件图片" src="" id="showImage" width="800" height="600"></div>

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.TaskMapper">
+	<resultMap id="BaseTaskResultMap" type="com.gy.hsxt.tm.bean.TmTask">
+		<id column="TASK_ID" property="taskId" />
+		<result column="BIZ_TYPE_NAME" property="bizType" />
+		<result column="BIZ_NO" property="bizNo" />
+		<result column="ENT_CUST_ID" property="entCustId" />
+		<result column="HS_RES_NO" property="hsResNo" />
+		<result column="CUST_NAME" property="custName" />
+		<result column="CREATED_DATE" property="createdDate" />
+		<result column="PRIORITY" property="priority" />
+		<result column="EXE_CUST_ID" property="exeCustId" />
+		<result column="EXE_CUST_NAME" property="exeCustName" />
+		<result column="ASSIGNED_TIME" property="assignedTime" />
+		<result column="HANG_UP_TIME" property="hangUpTime" />
+		<result column="FINISH_TIME" property="finishTime" />
+		<result column="WARN_FLAG" property="warnFlag" />
+		<result column="REDIRECT_FLAG" property="redirectFlag" />
+		<result column="STATUS" property="status" />
+		<result column="REMARK" property="remark" />
+		<result column="ASSIGN_HIS" property="assignHis" />
+		<result column="TASK_SRC" property="taskSrc" />
+	</resultMap>
+	<!-- 保存工单 -->
+	<insert id="insertTask" parameterType="com.gy.hsxt.tm.bean.TmTask">
+		INSERT INTO T_TM_TASK (
+		TASK_ID,
+		BIZ_TYPE,
+		BIZ_NO,
+		ENT_CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CREATED_DATE,
+		PRIORITY,
+		EXE_CUST_ID,
+		EXE_CUST_NAME,
+		ASSIGNED_TIME,
+		HANG_UP_TIME,
+		FINISH_TIME,
+		WARN_FLAG,
+		REDIRECT_FLAG,
+		STATUS,
+		REMARK,
+		ASSIGN_HIS,
+		TASK_SRC
+		)
+		VALUES
+		(
+		#{taskId},
+		#{bizType},
+		#{bizNo},
+		#{entCustId},
+		#{hsResNo},
+		#{custName},
+		sysdate,
+		0,
+		null,
+		null,
+		null,
+		null,
+		NULL,
+		0,
+		0,
+		0,
+		#{remark},
+		#{assignHis},
+		#{taskSrc}
+		)
+	</insert>
+
+	<!-- 批量插入工单 -->
+	<insert id="insertBatchTask" parameterType="com.gy.hsxt.tm.bean.TmTask">
+		INSERT INTO T_TM_TASK (
+		TASK_ID,
+		BIZ_TYPE,
+		BIZ_NO,
+		ENT_CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CREATED_DATE,
+		PRIORITY,
+		EXE_CUST_ID,
+		EXE_CUST_NAME,
+		ASSIGNED_TIME,
+		HANG_UP_TIME,
+		FINISH_TIME,
+		WARN_FLAG,
+		REDIRECT_FLAG,
+		STATUS,
+		REMARK,
+		ASSIGN_HIS,
+		TASK_SRC
+		)
+		<foreach collection="tasks" item="task" separator="union all">
+			(SELECT
+			#{task.taskId},
+			#{task.bizType},
+			#{task.bizNo},
+			#{task.entCustId},
+			#{task.hsResNo},
+			#{task.custName},
+			sysdate,
+			0,
+			#{task.exeCustId},
+			#{task.exeCustName},
+			null,
+			null,
+			null,
+			0,
+			0,
+			#{task.status},
+			#{task.remark},
+			#{task.assignHis},
+			#{task.taskSrc}
+			FROM
+			DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 更新任务执行人 -->
+	<update id="updateTaskExecutor">
+		UPDATE T_TM_TASK
+		<set>
+			EXE_CUST_ID = #{exeCustId},
+			EXE_CUST_NAME = #{exeCustName},
+			ASSIGNED_TIME = sysdate,
+			STATUS = 2,
+			ASSIGN_HIS = case when ASSIGN_HIS is null then EXE_CUST_NAME else
+			CONCAT(CONCAT(ASSIGN_HIS,'>'),EXE_CUST_NAME) end,
+			REDIRECT_Flag=#{isRedirect},
+			SEND_MOD = #{sendMod}
+		</set>
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+	
+	<!-- 更新任务执行人 -->
+	<update id="updateTaskExecutorAuto">
+		UPDATE T_TM_TASK
+		<set>
+			EXE_CUST_ID = #{exeCustId},
+			EXE_CUST_NAME = #{exeCustName},
+			ASSIGNED_TIME = sysdate,
+			STATUS = 2,
+			SEND_MOD = 0
+		</set>
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+	
+	<!-- 更新任务执行人为空 -->
+	<update id="updateTaskExecutorNull">
+		UPDATE T_TM_TASK
+		<set>
+			EXE_CUST_ID = null,
+			EXE_CUST_NAME = null,
+			HANG_UP_TIME = sysdate,
+			STATUS = 4,
+			<if test="exeCustName!=null and exeCustName!=''">
+			ASSIGN_HIS = case when ASSIGN_HIS is null then '${exeCustName}' else
+			CONCAT(CONCAT(ASSIGN_HIS,'>'),'${exeCustName}') end
+			</if>
+		</set>
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+
+	<!-- 更新任务状态 -->
+	<update id="updateTaskStatus">
+		UPDATE T_TM_TASK
+		<set>
+			<if test="status == 3">
+				FINISH_TIME = sysdate,
+			</if>
+			<if test="status == 5">
+				FINISH_TIME = sysdate,
+			</if>
+			<if test="status == 4">
+				HANG_UP_TIME = sysdate,
+			</if>
+			STATUS = #{status},
+			REMARK = #{remark}
+		</set>
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+
+	<!-- 获取任务业务编号 -->
+	<select id="findTaskBizNo" resultType="com.gy.hsxt.tm.bean.TmTask">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_TM_TASK
+		WHERE
+		TASK_ID = #{taskId}
+	</select>
+
+	<!-- 获取任务业务编号 -->
+	<select id="findTaskInfoByBizNo" resultMap="BaseTaskResultMap">
+		SELECT
+		t.TASK_ID AS taskId,
+		bt.BIZ_TYPE AS bizType,
+		bt.BIZ_TYPE_NAME AS
+		bizTypeName,
+		t.BIZ_NO AS
+		bizNo,
+		t.ENT_CUST_ID AS entCustId,
+		t.HS_RES_NO AS
+		hsResNo,
+		t.CUST_NAME AS
+		custName,
+		t.CREATED_DATE AS createdDate,
+		t.PRIORITY AS priority,
+		t.EXE_CUST_ID AS exeCustId,
+		t.EXE_CUST_NAME AS
+		exeCustName,
+		t.ASSIGNED_TIME AS assignedTime,
+		t.HANG_UP_TIME AS
+		hangUpTime,
+		t.FINISH_TIME AS finishTime,
+		t.REDIRECT_FLAG AS
+		redirectFlag,
+		t.STATUS AS status,
+		t.REMARK AS remark,
+		t.ASSIGN_HIS AS
+		assignHis,
+		t.TASK_SRC AS taskSrc
+		FROM T_TM_TASK
+		t,t_Tm_Biz_Type bt
+		WHERE
+		t.biz_type = bt.biz_type
+		and t.BIZ_NO = #{bizNo}
+		and rownum = 1
+		order by CREATED_DATE DESC
+	</select>
+	
+	<!-- 查询任务列表 -->
+	<select id="findTaskListPage" parameterType="com.gy.hsxt.tm.bean.TmBaseParam"
+		resultMap="BaseTaskResultMap">
+		SELECT
+		t.TASK_ID AS taskId,
+		bt.BIZ_TYPE AS bizType,
+		bt.BIZ_TYPE_NAME AS
+		bizTypeName,
+		t.BIZ_NO AS
+		bizNo,
+		t.ENT_CUST_ID AS entCustId,
+		t.HS_RES_NO AS
+		hsResNo,
+		t.CUST_NAME AS
+		custName,
+		t.CREATED_DATE AS createdDate,
+		t.PRIORITY AS priority,
+		t.EXE_CUST_ID AS exeCustId,
+		t.EXE_CUST_NAME AS
+		exeCustName,
+		t.ASSIGNED_TIME AS assignedTime,
+		t.HANG_UP_TIME AS
+		hangUpTime,
+		t.FINISH_TIME AS finishTime,
+		t.REDIRECT_FLAG AS
+		redirectFlag,
+		t.STATUS AS status,
+		t.REMARK AS remark,
+		t.ASSIGN_HIS AS
+		assignHis,
+		t.TASK_SRC AS taskSrc
+		FROM T_TM_TASK
+		t,t_Tm_Biz_Type bt
+		<if test="_parameter != null">
+			<include refid="query_task_where"></include>
+		</if>
+		ORDER BY
+		CREATED_DATE DESC
+	</select>
+
+	<!-- 查询转派任务列表 -->
+	<select id="findTurnTaskListPage" resultType="com.gy.hsxt.tm.bean.TmTask">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_TM_TASK
+		WHERE
+		STATUS IN (1, 2, 4)
+		ORDER BY
+		CREATED_DATE DESC
+	</select>
+
+	<!-- 查询未派单和已自动分配的工单列表 -->
+	<select id="findUnSendTaskList" resultType="com.gy.hsxt.tm.bean.TmTask">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_TM_TASK
+		WHERE
+		STATUS in (0,2,4)
+		and (send_mod = 0 or send_mod is null)
+		ORDER BY
+		CREATED_DATE DESC
+	</select>
+
+	<!-- 催办紧急工单 -->
+	<select id="findUrgencyTask" resultType="com.gy.hsxt.tm.bean.TmTask">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM
+		T_TM_TASK
+		WHERE
+		PRIORITY = 1
+		or warn_flag = 1
+		AND
+		ceil((sysdate -
+		to_date(to_char(CREATED_DATE,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd
+		hh24:mi:ss')) * 24 * 60) > #{timeOut}
+	</select>
+
+	<!-- 查询自动催办紧急工单的经办人客户号 -->
+	<select id="findAutoUrgencyTask" resultType="string">
+		select t.EXE_CUST_ID
+		from
+		T_TM_TASK t
+		where
+		t.priority = 1 or
+		t.warn_flag = 1
+		and t.status = 1
+		and ceil((sysdate -
+		to_date(to_char(t.assigned_time,'yyyy-mm-dd
+		hh24:mi:ss'),'yyyy-mm-dd
+		hh24:mi:ss')) * 24 * 60) > #{timeOut}
+	</select>
+
+	<!-- 更新任务紧急状态 -->
+	<update id="updateTaskPriorityStat">
+		UPDATE T_TM_TASK
+		SET 
+		PRIORITY = 1
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+
+	<!-- 更新任务催办状态 -->
+	<update id="updateWarnFlag">
+		UPDATE T_TM_TASK
+		<set>
+			<if test="warnFlag==1">
+				PRIORITY = 1,
+				ASSIGNED_TIME = sysdate,
+			</if>
+			<if test="warnFlag==0">
+				PRIORITY = 0,
+			</if>
+			WARN_FLAG = #{warnFlag}
+		</set>
+		WHERE
+		STATUS not in(3,5)
+		and TASK_ID = #{taskId}
+	</update>
+
+	<!-- 查询订单条件sql片段 -->
+	<sql id="query_task_where">
+		<where>
+			and t.biz_type = bt.biz_type
+			<if test="startDate!=null and startDate!=''">
+				and t.CREATED_DATE &gt;= to_date(#{startDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and t.CREATED_DATE &lt;= to_date(#{endDate},'yyyy-MM-dd
+				HH24:mi:ss')
+			</if>
+			<if test="entCustId!=null and entCustId!=''">
+				and t.ENT_CUST_ID = #{entCustId}
+			</if>
+			<if test="status!=null">
+				and t.STATUS = #{status}
+			</if>
+			<if test="bizType!=null and bizType!=''">
+				and t.BIZ_TYPE = #{bizType}
+			</if>
+			<if test="executor!=null and executor!=''">
+				and t.EXE_CUST_NAME like '%${executor}%'
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and t.HS_RES_NO like '%${hsResNo}%'
+			</if>
+			<if test="custName!=null and custName!=''">
+				and t.CUST_NAME like '%${custName}%'
+			</if>
+		</where>
+	</sql>
+	<!-- 任务工单字段片段 -->
+	<sql id="base_column_list">
+		TASK_ID AS taskId,
+		BIZ_TYPE AS bizType,
+		BIZ_NO AS bizNo,
+		ENT_CUST_ID AS entCustId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CREATED_DATE AS createdDate,
+		PRIORITY AS priority,
+		EXE_CUST_ID AS
+		exeCustId,
+		EXE_CUST_NAME AS exeCustName,
+		ASSIGNED_TIME AS assignedTime,
+		HANG_UP_TIME AS hangUpTime,
+		REDIRECT_FLAG AS redirectFlag,
+		STATUS AS
+		status,
+		REMARK AS remark,
+		ASSIGN_HIS AS assignHis,
+		TASK_SRC AS taskSrc
+	</sql>
+</mapper>

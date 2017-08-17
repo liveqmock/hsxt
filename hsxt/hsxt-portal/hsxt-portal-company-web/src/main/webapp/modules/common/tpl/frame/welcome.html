@@ -1,0 +1,45 @@
+<% var param =obj.data 
+%>
+<div class="operationsInner">
+        										<!--2015-03-26 qinsl add end -->
+                            <div class="busibox p20 ovh">
+                 			
+                            <div class="jf_bjcr1" style="width:400px;margin-top:100px;">
+                            <div class="tc fb">欢迎登录互生系统平台</div>
+                            </div>
+                            <div class="cssform_400">
+                        <ul class="cssform clearfix" style="margin-top:5px;">
+                            <li class="col2" style="height:auto;">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td class="p10 tips_320">
+												<div class="clearfix">
+													<i class="icon_tips tips_1 fl"></i>
+													<div class="fr" style="width:356px;">
+														<span class="red">预留信息：</span>
+														<span class="gray" id="welcomeReservedInfo"><%=param.resveredInfo%></span>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+                            </li>
+                            <li class="col2 pr">
+                                <label class="title-txt">企业名称</label>
+                                <div class="cont-chk tbox"><input id="home_companyName" style="width: 280px" readonly="readonly" value="<%=param.companyName%>"/></div>
+                            </li>
+                            <li class="col2 pr">
+                                <label class="title-txt">企业互生号</label>
+                                <div class="cont-chk tbox"><span id="home_resNo" class="ml5"><%=param.ResNo%></span></div>
+                            </li>
+                            <li class="col2 pr">
+                                <label class="title-txt">用户名</label>
+                                <div class="cont-chk tbox"><span id="home_loginId" class="ml5"><%=param.userName%></span></div>
+                            </li>
+                         </ul>
+                         
+                        </div>
+                 </div>
+        				</div>

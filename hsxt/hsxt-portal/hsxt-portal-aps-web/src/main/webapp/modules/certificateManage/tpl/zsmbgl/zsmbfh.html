@@ -1,0 +1,31 @@
+<div id="zsmbfhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>模版名称：</label>
+				<input type="text" name="textfield" id="templetName" placeholder="输入模版名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">模版类型：</label>
+				<input id="templateType" readonly="readonly" placeholder="选择模版类型" />
+			</li>
+			<li>
+				<button id="qry_mbfh_btn" type="button" class="btn-search">查询</button>
+			</li>
+			<!--<li>
+				<button id="xzmb_btn" type="button" class="btn-search">新增模版</button>
+			</li>-->
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="templetName" w_tip=true>模版名称</th>
+		<th w_index="templetType" w_render="operate">模版类型</th>
+		<th w_index="custType" w_render="operate">企业类别</th>
+		<th w_index="status" w_render="operate">状态</th>
+		<th w_index="th_5">状态时间</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcBsacMapper" >
+  
+  <delete id="deleteTableData" >    
+    truncate table ${_parameter}   
+  </delete>
+
+  <!-- keys:TABLE,COLUMNS,DATA_LIST 
+  -->
+  <insert id="insertFileDataToDb" parameterType="java.util.Map" >
+  	<if test="TABLE == 'T_TC_BSAC_BS_TMP'">
+    insert into T_TC_BSAC_BS_TMP (BS_TRANS_NO,BS_ACCOUNT_SUB_ID,BS_CUST_ID,BS_ACC_TYPE,BS_ADD_AMOUNT,BS_DEC_AMOUNT,BS_STATUS,BS_TRANS_TYPE,BS_SOURCE_TRANS_NO)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select 
+        #{item.BS_TRANS_NO},#{item.BS_ACCOUNT_SUB_ID},#{item.BS_CUST_ID},#{item.BS_ACC_TYPE},
+        #{item.BS_ADD_AMOUNT},#{item.BS_DEC_AMOUNT},#{item.BS_STATUS},#{item.BS_TRANS_TYPE},#{item.BS_SOURCE_TRANS_NO,jdbcType=VARCHAR}
+		from dual
+      </foreach>
+    ) A
+    </if>
+  	<if test="TABLE == 'T_TC_BSAC_AC_TMP'">
+    insert into T_TC_BSAC_AC_TMP (AC_ENTRY_NO,AC_CUST_ID,AC_ACC_TYPE,AC_ADD_AMOUNT,AC_DEC_AMOUNT,AC_TRANS_NO,AC_ACCOUNT_SUB_ID,AC_TRANS_DATE,AC_TRANS_TYPE,AC_SOURCE_TRANS_NO)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select #{item.AC_ENTRY_NO}, #{item.AC_CUST_ID},#{item.AC_ACC_TYPE},
+        #{item.AC_ADD_AMOUNT},#{item.AC_DEC_AMOUNT},#{item.AC_TRANS_NO},#{item.AC_ACCOUNT_SUB_ID},
+        to_date('${item.AC_TRANS_DATE}','yyyy-mm-dd hh24:mi:ss'),#{item.AC_TRANS_TYPE},#{item.AC_SOURCE_TRANS_NO}
+		from dual
+      </foreach>
+     ) A
+     </if>
+  </insert>
+  <!-- 对账要素： 客户号|账户类型|增向金额|减向金额|交易流水号|业务记账分录ID
+  CHECK_KEY_COLUMNS= new String[] { "CUST_ID","ACC_TYPE","ADD_AMOUNT","DEC_AMOUNT","TRANS_NO","ACCOUNT_SUB_ID"}; 
+  -->
+  <insert id="insertDoubtByMore" >    
+    insert into T_TC_BSAC_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	      TRANS_NO,ACCOUNT_SUB_ID,BS_CUST_ID,BS_ACC_TYPE,BS_ADD_AMOUNT,BS_DEC_AMOUNT,BS_STATUS,BS_TRANS_TYPE,BS_SOURCE_TRANS_NO)
+	select seq_T_TC_BSAC_DOUBT.nextval,'${TC_DATE}',0,
+	BS_TRANS_NO,BS_ACCOUNT_SUB_ID,BS_CUST_ID,BS_ACC_TYPE,BS_ADD_AMOUNT,BS_DEC_AMOUNT,BS_STATUS,BS_TRANS_TYPE,BS_SOURCE_TRANS_NO
+	from T_TC_BSAC_BS_TMP
+    where BS_TRANS_NO =#{TRANS_NO,jdbcType=VARCHAR} and BS_ACCOUNT_SUB_ID =#{ACCOUNT_SUB_ID,jdbcType=VARCHAR}
+    and BS_CUST_ID =#{CUST_ID,jdbcType=VARCHAR}
+    
+    and BS_ADD_AMOUNT =#{ADD_AMOUNT,jdbcType=DECIMAL}
+    and BS_DEC_AMOUNT =#{DEC_AMOUNT,jdbcType=DECIMAL}
+  </insert>
+  
+  <update id="updateDoubtByLack" >
+    <![CDATA[ 
+	update T_TC_BSAC_DOUBT a
+	set (imbalance_result,
+	      AC_ENTRY_NO,AC_CUST_ID,AC_ACC_TYPE,AC_ADD_AMOUNT,AC_DEC_AMOUNT,TRANS_NO,ACCOUNT_SUB_ID,AC_TRANS_DATE,AC_TRANS_TYPE,AC_SOURCE_TRANS_NO) =( 
+	select 2,
+	AC_ENTRY_NO,AC_CUST_ID,AC_ACC_TYPE,AC_ADD_AMOUNT,AC_DEC_AMOUNT,AC_TRANS_NO,AC_ACCOUNT_SUB_ID,AC_TRANS_DATE,AC_TRANS_TYPE,AC_SOURCE_TRANS_NO
+	from T_TC_BSAC_AC_TMP b where b.AC_TRANS_NO=a.TRANS_NO and b.AC_ACCOUNT_SUB_ID=a.ACCOUNT_SUB_ID and rownum=1
+	)
+	where TRANS_NO =#{TRANS_NO,jdbcType=VARCHAR} and ACCOUNT_SUB_ID =#{ACCOUNT_SUB_ID,jdbcType=VARCHAR}
+	and imbalance_result=0
+	and AC_ENTRY_NO is null
+	and exists (select 1
+	from T_TC_BSAC_AC_TMP b where b.AC_TRANS_NO=a.TRANS_NO and b.AC_ACCOUNT_SUB_ID=a.ACCOUNT_SUB_ID and rownum=1
+	)
+	]]>
+  </update>
+  <insert id="insertDoubtByLack" >    
+    insert into T_TC_BSAC_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	AC_ENTRY_NO,AC_CUST_ID,AC_ACC_TYPE,AC_ADD_AMOUNT,AC_DEC_AMOUNT,TRANS_NO,ACCOUNT_SUB_ID,AC_TRANS_DATE,AC_TRANS_TYPE,AC_SOURCE_TRANS_NO)
+	select seq_T_TC_BSAC_DOUBT.nextval,'${TC_DATE}',1,
+	AC_ENTRY_NO,AC_CUST_ID,AC_ACC_TYPE,AC_ADD_AMOUNT,AC_DEC_AMOUNT,AC_TRANS_NO,AC_ACCOUNT_SUB_ID,AC_TRANS_DATE,AC_TRANS_TYPE,AC_SOURCE_TRANS_NO
+	from T_TC_BSAC_AC_TMP
+    where AC_TRANS_NO =#{TRANS_NO,jdbcType=VARCHAR} and AC_ACCOUNT_SUB_ID =#{ACCOUNT_SUB_ID,jdbcType=VARCHAR}
+    and AC_CUST_ID =#{CUST_ID,jdbcType=VARCHAR}
+    
+    and AC_ADD_AMOUNT =#{ADD_AMOUNT,jdbcType=DECIMAL}
+    and AC_DEC_AMOUNT =#{DEC_AMOUNT,jdbcType=DECIMAL}
+  </insert>
+  
+  <insert id="insertImbalanceByDoubt" > 
+  	<![CDATA[
+  	insert into T_TC_BSAC_imbalance
+	  (imbalance_id, acc_date, imbalance_result, trans_no, account_sub_id, bs_cust_id, bs_acc_type, bs_add_amount, bs_dec_amount, bs_status,BS_TRANS_TYPE,BS_SOURCE_TRANS_NO, ac_entry_no, ac_cust_id, ac_acc_type, ac_add_amount, ac_dec_amount, ac_trans_date, ac_trans_type,AC_SOURCE_TRANS_NO)
+	select doubt_id, acc_date, imbalance_result, trans_no, account_sub_id, bs_cust_id, bs_acc_type, bs_add_amount, bs_dec_amount, bs_status,BS_TRANS_TYPE,BS_SOURCE_TRANS_NO, ac_entry_no, ac_cust_id, ac_acc_type, ac_add_amount, ac_dec_amount, ac_trans_date, ac_trans_type,AC_SOURCE_TRANS_NO
+	from T_TC_BSAC_DOUBT
+	
+  	]]>
+  </insert>
+  <delete id="deleteDoubtAfterMoveToImbalance" >
+    delete from T_TC_BSAC_DOUBT 
+  </delete>
+ 
+</mapper>

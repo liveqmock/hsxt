@@ -1,0 +1,18 @@
+<%$.each(obj.stationList,function(k,v){%>
+<%$.each(v.stationList,function(k2,v2){%>
+<%if(v2.newStr == 1 || v2.newStr == -1){%>
+	<li data-id="<%=v.codeId%>" station-id = "<%=v2.oneNum%>">
+	<dl>
+	<dt>
+	<img src="resources/img/husheng_hd.png"><span class=""></span>
+	</dt>
+	<dd class="name">
+	<span><%=obj.stationType(v.codeId)%><span <%if(v2.newStr == 1){%> class='count'<%}%>></span>
+	</span></dd>
+	<dd></dd>
+	<dd class="time"><%=obj.DatetimeNew(v2.time)%></dd>
+	</dl>
+	</li>
+<%}%>
+<%})%>
+<%})%>

@@ -1,0 +1,42 @@
+﻿<div id="qyyhzhxxTpl">
+	<ul class="bank_content">
+		<%if(obj.bankDetail!=undefined){%>
+		<%$.each(obj.bankDetail,function(i,v){%>
+		<li class="<%if(i==0){%>pr<%}%> bank_bg">
+			<%if(v.isDefaultAccount==1){%><i class="default_bank"></i><%}%>
+			<div class="bank_row bank_row_margin_1 clearfix">
+				<div class="fl clearfix">
+					<!-- <i class="bank_logo bank_zhaoShang"></i> -->
+					<span class="f14"><%=v.bankName%></span>
+				</div>
+			</div>
+			<div class="bank_row bank_row_margin_2 tc">
+				<span class="bank_number"><%=comm.hideCard(v.bankAccNo)%></span>
+			</div>
+			<div class="bank_row bank_row_margin_2 clearfix">
+				<div class="fl">
+					<span class="gray">结算币种：</span><%=obj.currencyName%>
+				</div>
+			</div>
+		</li>
+		<%});%>
+		<%}else {%>
+			<li class="pr bank_bg">
+				<div class="bank_row bank_row_margin_1 clearfix">
+					<div class="fl clearfix">
+						<!-- <i class="bank_logo bank_zhaoShang"></i> -->
+						<span class="f14">暂无银行信息</span>
+					</div>
+				</div>
+				<div class="bank_row bank_row_margin_2 tc">
+					<span class="bank_number"></span>
+				</div>
+				<div class="bank_row bank_row_margin_2 clearfix">
+					<div class="fl">
+						<span class="gray"></span>
+					</div>
+				</div>
+			</li>
+		<%}%>
+	</ul>
+</div>

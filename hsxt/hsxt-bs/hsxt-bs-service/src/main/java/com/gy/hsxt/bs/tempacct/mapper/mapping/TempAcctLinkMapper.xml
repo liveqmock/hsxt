@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 临帐关联 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.TempAcctLinkMapper">
+
+    <!-- 业务订单映射 -->
+    <resultMap id="orderResult" type="com.gy.hsxt.bs.bean.order.Order">
+        <id column="ORDER_NO" property="orderNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="HS_RES_NO" property="hsResNo"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="BIZ_NO" property="bizNo"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="IS_PROXY" property="isProxy"/>
+        <result column="QUANTITY" property="quantity"/>
+        <result column="ORDER_UNIT" property="orderUnit"/>
+        <result column="ORDER_ORIGINAL_AMOUNT" property="orderOriginalAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="ORDER_DERATE_AMOUNT" property="orderDerateAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="ORDER_CASH_AMOUNT" property="orderCashAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="CURRENCY_CODE" property="currencyCode"/>
+        <result column="ORDER_HSB_AMOUNT" property="orderHsbAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="EXCHANGE_RATE" property="exchangeRate"/>
+        <result column="ORDER_REMARK" property="orderRemark"/>
+        <result column="ORDER_TIME" property="orderTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="DELIVER_ID" property="deliverId"/>
+        <result column="ORDER_CHANNEL" property="orderChannel"/>
+        <result column="ORDER_OPERATOR" property="orderOperator"/>
+        <result column="PAY_OVERTIME" property="payOvertime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+        <result column="PAY_CHANNEL" property="payChannel"/>
+        <result column="PAY_TIME" property="payTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="IS_NEED_INVOICE" property="isNeedInvoice"/>
+        <result column="IS_INVOICED" property="isInvoiced"/>
+    </resultMap>
+
+    <!-- 临账关联申请映射 -->
+    <resultMap id="tempAcctLinkResult" type="com.gy.hsxt.bs.bean.tempacct.TempAcctLink">
+        <id column="APPLY_ID" property="applyId"/>
+        <result column="ORDER_NO" property="orderNo" />
+        <result column="CASH_AMOUNT" property="cashAmount" />
+        <result column="TOTAL_LINK_AMOUNT" property="totalLinkAmount" />
+        <result column="STATUS" property="status" />
+        <result column="REQ_OPERATOR" property="reqOperator" />
+        <result column="REQ_OPERATOR_NAME" property="reqOperatorName" />
+        <result column="REQ_TIME" property="reqTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="REQ_REMARK" property="reqRemark" />
+        <result column="APPR_OPERATOR" property="apprOperator" />
+        <result column="APPR_OPERATOR_NAME" property="apprOperatorName" />
+        <result column="APPR_TIME" property="apprTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPR_REMARK" property="apprRemark" />
+        <result column="LINK_AMOUNT" property="linkAmount" />
+    </resultMap>
+
+    <!-- 创建 临帐关联申请 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctLink">
+        INSERT INTO T_BS_TEMP_ACCT_LINK t (
+            t.APPLY_ID,
+            t.ORDER_NO,
+            t.CASH_AMOUNT,
+            t.TOTAL_LINK_AMOUNT,
+            t.STATUS,
+            t.REQ_OPERATOR,
+            t.REQ_OPERATOR_NAME,
+            t.REQ_TIME,
+            t.REQ_REMARK
+        ) VALUES (
+            #{applyId},
+            #{orderNo},
+            #{cashAmount},
+            #{totalLinkAmount},
+            #{status},
+            #{reqOperator},
+            #{reqOperatorName},
+            systimestamp,
+            #{reqRemark}
+        )
+    </insert>
+
+    <!--分页查询临帐关联相关的业务订单-->
+    <select id="selectTempOrderListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.TempOrderQuery" resultMap="orderResult">
+        SELECT o.*
+        FROM
+        T_BS_ORDER o
+        WHERE
+         o.ORDER_STATUS = #{orderStatus}
+        <if test="payStatus != null">
+            AND o.PAY_STATUS = #{payStatus}
+        </if>
+        <if test="payChannel != null ">
+            AND o.PAY_CHANNEL = #{payChannel}
+        </if>
+        <if test="hsResNo != null and hsResNo != '' ">
+            AND o.HS_RES_NO LIKE '%'||#{hsResNo}||'%'
+        </if>
+        <if test="orderType != null and orderType != ''">
+            AND o.ORDER_TYPE=#{orderType}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            AND o.ORDER_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            AND o.ORDER_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND o.CUST_NAME like '%'||#{custName}||'%'
+        </if>
+        AND o.CUST_TYPE IN (2,3,4)
+        ORDER BY o.ORDER_TIME DESC
+    </select>
+
+    <!--分页查询临帐关联未复核的业务订单-->
+    <select id="selectTempTaskListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.TempOrderQuery" resultMap="orderResult">
+        SELECT o.*
+        FROM
+            T_BS_ORDER o
+            JOIN T_BS_TASK k ON k.BIZ_NO = o.ORDER_NO
+        WHERE
+            k.STATUS = #{taskStatus}
+            AND k.BIZ_TYPE = #{taskType} AND k.EXE_CUST_ID = #{optCustId}
+        <if test="hsResNo != null and hsResNo != '' ">
+            AND o.HS_RES_NO LIKE '%'||#{hsResNo}||'%'
+        </if>
+        <if test="orderType != null and orderType != ''">
+            AND o.ORDER_TYPE=#{orderType}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            AND o.ORDER_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            AND o.ORDER_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND o.CUST_NAME like '%'||#{custName}||'%'
+        </if>
+        ORDER BY o.ORDER_TIME DESC
+    </select>
+
+    <!-- 查询临账记录相关联的业务订单 -->
+    <select id="selectTempOrderByDebitId" parameterType="string" resultMap="orderResult">
+        SELECT o.*
+        FROM T_BS_TEMP_ACCT_LINK_DEBITS t
+            JOIN T_BS_ORDER o
+                ON t.ORDER_NO = o.ORDER_NO
+            JOIN T_BS_TEMP_ACCT_LINK al
+                ON al.APPLY_ID = t.APPLY_ID
+        WHERE
+            t.DEBIT_ID = #{debitId} AND  al.STATUS = 1
+    </select>
+
+    <!-- 根据订单编号查询临账关联申请 -->
+    <select id="selectBeanById" parameterType="string" resultMap="tempAcctLinkResult">
+        SELECT t.*
+        FROM T_BS_TEMP_ACCT_LINK t
+        WHERE t.APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 更具查询实体查询临账关联申请 -->
+    <select id="selectBeanByQuery" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctLinkQuery" resultMap="tempAcctLinkResult">
+        SELECT t.*
+        FROM T_BS_TEMP_ACCT_LINK t
+        WHERE t.ORDER_NO = #{orderNo}
+        AND t.STATUS = #{status}
+    </select>
+
+    <!-- 查询临账关联申请信息详情 -->
+    <select id="selectBeanDetail" resultMap="tempAcctLinkResult">
+        SELECT t.*
+        FROM T_BS_TEMP_ACCT_LINK t
+        WHERE t.APPLY_ID = (
+            SELECT d.APPLY_ID FROM T_BS_TEMP_ACCT_LINK_DEBITS d WHERE d.DEBIT_ID = #{debitId} AND d.ORDER_NO = #{orderNo}
+        )
+    </select>
+    <!-- 查询单个临账的所有关联申请信息 -->
+    <select id="selectBeanListByDebitId" resultMap="tempAcctLinkResult">
+        SELECT t.*,d.LINK_AMOUNT
+        FROM T_BS_TEMP_ACCT_LINK t
+            JOIN  T_BS_TEMP_ACCT_LINK_DEBITS d ON d.APPLY_ID=t.APPLY_ID
+        WHERE d.DEBIT_ID = #{debitId}
+    </select>
+    <!-- 修改临账关联申请 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tempacct.TempAcctLink">
+        UPDATE
+            T_BS_TEMP_ACCT_LINK
+        SET
+            STATUS        = #{status},
+            APPR_OPERATOR = #{apprOperator},
+            APPR_OPERATOR_NAME = #{apprOperatorName},
+            <if test="apprRemark != null and apprRemark != ''">
+                APPR_REMARK   = #{apprRemark},
+            </if>
+            APPR_TIME     = systimestamp
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+</mapper>

@@ -1,0 +1,74 @@
+<div id="dfkddTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>订单日期：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+				</li>
+				<li>
+					<label>互生号/手机号：</label>
+					<input id="txtHsResNo" type="text" name="textfield" placeholder="输入互生号/手机号" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>单位名称：</label>
+					<input id="txtCustName" type="text" name="textfield" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">订单类型：</label>
+					<input id="order_type" readonly="readonly" placeholder="选择订单类型" optionvalue="" />
+				</li>
+				<li>
+					<button id="btnQuery" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>	
+<table id="searchTable" class="bsgrid">
+  <tr>
+	<th w_index="orderNo"  w_length="35"  w_tip="true">订单号</th>
+	<th w_index="custName" w_length="25"  w_tip="true">单位名称</th>
+	<th w_index="hsResNo">互生号/手机号</th>
+	<th w_render="operate">订单类型</th>
+	<th w_index="orderTime" w_tip="true">订单日期</th>
+	<th w_render="operate">订单总价</th>
+	<th w_render="operate">折合应付本币(人民币)</th>
+<!-- 	<th w_render="operate">订单状态</th>  -->
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+</div>
+
+<div id="orderClose_content" class="none">
+	<form id="gbdx_form">
+		<div class="info_320 bc">
+			<ul>
+				<!--<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">复核意见</label>
+					<textarea type="text" placeholder="输入复核意见,字数不超过300个字" class="fl ml5 h50 w185 rsn pt5 pb5"></textarea>
+				</li>-->
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">选择验证方式</label>
+					<div data-tag="div-input-select" style="width:184px;display:inline-block;"><input id="verificationMode_gb" readonly="readonly" placeholder="选择验证方式" class="selectList-input" style="width: 180px; height: 30px; font-size: 12px; line-height: 30px; border: 0px solid rgb(102, 204, 102);" optionvalue="1"><ol data-tag="ol-input-select" class="selectList-ol none" style="width: 185px; overflow-x: hidden; overflow-y: auto; z-index: 1000000;"><li data-value="1" style="font-size: 12px;" class="selectList-active" selected="selected">密码验证</li><li data-value="2" style="font-size: 12px;" class="">指纹验证</li><li data-value="3" style="font-size: 12px;">刷卡验证</li></ol><span data-tag="span-icon-select" tabindex="0" hidefocus="true" class="selectList-span" style="margin-top: -27.5px;"></span></div>
+					<span class="required-left330">*</span>
+				</li>
+			
+				<li id="verificationMode_prompt_gb" class="red h30_middle none">
+					当前版本暂时不支持这种验证方式
+				</li>
+				<li class="register_row clearfix pr" id="fhy_userName_gb">
+					<label class="fl w115 h30_middle">复核员用户名</label>
+					 <input id="txtCheckAccount" name="txtCheckAccount" type="text" class="fl w185 h30_middle ml5" placeholder="输入复核员用户名">
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix pr" id="fhy_password_gb">
+					<label class="fl w115 h30_middle">复核员登录密码</label>
+					 <input id="txtCheckPwd" name="txtCheckPwd" type="password" class="fl w185 h30_middle ml5" placeholder="输入复核员登录密码">
+					 <span class="required-left330">*</span>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,45 @@
+<div id="xtyhxxglTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>登陆账号：</label>
+				<input type="text" id="xtyhxxgl_tb_dlzh" name="xtyhxxgl_tb_dlzh" class="queryList-toolbar-text" placeholder="输入登陆账号" />
+			</li>
+			<li>
+				<label>客户号：</label>
+				<input type="text" id="xtyhxxgl_tb_khh" name="xtyhxxgl_tb_khh" class="queryList-toolbar-text" placeholder="输入客户号" />
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">用户类型：</label>
+				<input id="xtyhxxgl_tb_yhlx" name="xtyhxxgl_tb_yhlx" placeholder="选择用户类型" readonly="readonly"/>
+			</li>
+			<li>
+				<label>姓名：</label>
+				<input type="text" id="xtyhxxgl_tb_xm" name="xtyhxxgl_tb_xm" class="queryList-toolbar-text" placeholder="输入姓名" />
+			</li>
+			<li>
+				<label>子系统：</label>
+				<input type="text" id="xtyhxxgl_tb_zxt" name="xtyhxxgl_tb_zxt" class="queryList-toolbar-text" placeholder="输入子系统" />
+			</li>
+			<li>
+				<button id="xtyhxxgl_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="xtyhxxgl_tb_addBtn" type="button" class="queryList-toolbar-btn">新 增</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="xtyhxxgl_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="operCustId" w_align="left">客户号</th>
+			<th w_index="userName" w_align="left">登陆账号</th>
+			<th w_index="realName" w_align="left">姓名</th>
+			<th w_index="duty" w_align="left">职务</th>
+			<th w_index="isAdmin" w_render="operate" w_align="left">用户类型</th>
+			<th w_render="operate" w_align="left" width="12%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="xtyhxxgl_dlg" class="none ovh"></div>

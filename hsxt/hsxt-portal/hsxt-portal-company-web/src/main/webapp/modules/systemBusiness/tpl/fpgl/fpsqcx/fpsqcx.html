@@ -1,0 +1,79 @@
+<div id="fpsqcxTpl"  >
+	<div class="bc"> 
+			<div class="clearfix">
+				<div class="fl info_360 infobox2">
+					<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+						<tr>
+							<td align="left" height="30" class="f13 border_bottom_CCC">需开发票总金额：<span id="remainAllAmount"></span></td>
+						</tr>
+						<tr>
+							<td align="left" height="30" class="f13">已开发票总金额：<span id="openedAllAmount"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div class="fr info_360">
+					<a id="fpgl_qykfp" class="btn_bg submit mt15">开 票</a>
+				</div>
+			</div>
+			  <div class="search-toolbar mt10">
+			  <form id="fpsq_form">
+					<ul class="cssform clearfix">
+						 <li>
+					        <label>开票日期从：</label>
+					        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="选择起始日期" class="h28_middle input-txt w100" />
+					   
+					      </li>	
+					      <li>
+					        <label>到：</label>
+					        <input type="text" name="search_endDate" id="search_endDate" placeholder="选择结束日期" class="h28_middle input-txt w100" />
+					   
+					      </li>							      
+						  <li>
+					        <label>配送状态：</label>
+					        <input type="text" name="search_status" id="search_status" readonly="readonly" placeholder="选择配送状态" class="h28_middle input-txt w100" />
+				            <input id="search_invoiceMaker" name="search_invoiceMaker" type="hidden" value="1" />					     	  
+					      </li>
+					      <li>
+					        <div class="cont-int">
+					          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+					        </div>
+					      </li>
+					    </ul> 
+					    </form>
+					</div>
+					 <table id="fpsq_table" border="0" cellspacing="0" cellpadding="0" class="bsgrid">
+						  	<thead>
+						        <tr>	
+								  <th w_index="openTime" w_length="18" w_align="left">开票日期</th>
+						          <th w_align="right" w_length="10"  w_tip="true" w_render="operate" width="8%;">开票金额</th>
+						          <th w_index="invoiceType" w_render="operate" w_align="left" width="12%;">发票类型</th>
+						          <th w_index="openOperator" w_align="left" width="8%;">经办人</th>
+								  <th w_index="postWay" w_render="operate"w_align="left" width="8%;">配送方式</th>
+								  <th w_index="expressName" w_align="left" w_length="18"  w_tip="true">承运公司</th>
+								  <th w_index="trackingNo" w_align="left">运单号</th>
+								  <th w_index="status" w_render="operate" w_align="left" width="8%;">配送状态</th>
+								  <th w_index="updatedDate" w_length="18" w_align="left">状态日期</th>	
+								  <th w_render="operate" width="8%;">操作</th>				       			       
+						        </tr>
+							</thead>
+						  </table>
+					<!-- <table id="fpsq_table" border="0" cellspacing="0" cellpadding="0" class="bsgrid">
+	                    <tr>
+						          <th w_index="openTime" w_align="left">开票日期</th>
+						          <th w_align="left" w_length="10"  w_tip="true" w_render="operate" width="15%;">开票金额</th>
+						          <th w_index="invoiceType" w_render="operate" w_align="left" width="15%;">发票类型</th>
+						          <th w_index="openOperator" w_tip="true" w_align="left">经办人</th>
+								  <th w_index="postWay" w_render="operate"w_align="left">配送方式</th>
+								  <th w_index="expressName" w_length="18" w_tip="true" w_align="left">承运公司</th>
+								  <th w_index="trackingNo" w_tip="true" w_align="left">运单号</th>
+								  <th w_index="status" w_render="operate"w_align="left">配送状态</th>
+								  <th w_index="updatedDate" w_tip="true" w_align="left">状态日期</th>	
+								  <th w_render="operate" >操作</th>				       
+						        </tr>
+	                </table> -->
+		
+	</div>
+</div>
+
+<div  id="fpsqcx_xq_dialog" class="bc info_800 none" style=" overflow:hidden;"> </div>
+<div  id="fpsqcx_ps_dialog" class="bc info_800 none" style=" overflow:hidden;"> </div>

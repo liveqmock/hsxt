@@ -1,0 +1,48 @@
+<div class="view_info mt20 info_500">
+	<form id="fTaxApply">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tbody>
+				<tr>
+					<td class="view_item" width="30%">当前税率</td>
+					<td class="view_input bg_ef" width="70%"><span class="ml5" id="sTaxRate"></span></td>
+				</tr>
+				<tr>
+					<td class="view_item">申请调整税率</td>
+					<td class="view_input pr"><input id="txtApplyTaxrate" name="txtApplyTaxrate" type="text" class="ml5 w300 input-txt input_gray" placeholder="输入调整税率(0.01%~99.99%)"  ><span class="ml5">%</span>
+					<div class="redStar f12">*</div></td>
+				</tr>
+				<tr>
+					<td class="view_item">企业纳税人类型</td> 
+					<td class="view_input pr pl5"> 
+					 <input id='txtTaxpayerType' name="txtTaxpayerType" placeholder="请选择企业纳税人类型" optionValue=""  readonly="readonly"  />
+					<div class="redStar f12">*</div>
+					</td>
+				</tr>
+		        <tr> 
+					<td class="view_item">申请说明</td>
+					<td class="view_input pr"><textarea id="txtApplyReason" name="txtApplyReason" placeholder="输入申请说明,不超过300个字" rows="2" class="attxta w h100 input_gray"  ></textarea>
+					<div class="redStar"><!--提示--></div></td>
+				</tr>
+				<tr>
+					<td class="view_item">证明材料</td>
+				<td class="view_input pt5 pb5 pr" width="70%">
+				<div class="clearfix">
+					<div class="fl ml5" id="imgApplyImg">
+						<img class="ml5" style="vertical-align:middle;" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片">
+					</div>
+					<div class="fl ml10" style="margin-top:15px;">
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input id="fileApplyImg" name="fileApplyImg" type="file"></a>
+						<a id="aDownLoad" href="resources/doc/taxRateTemp.docx" class="btn_bg viewSample_btn ml5">模板下载</a>
+					</div>
+				</div>
+				<div class="redStar f12">*</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="clearfix mt20 two_button" align="center">
+		<a id="btn_sltz_cancel" class="btn_bg submit fl">取消申请</a>
+		<a id="btn_sltz_post" class="btn_bg submit fr">提交申请</a>
+	</div>
+	</form>
+</div>

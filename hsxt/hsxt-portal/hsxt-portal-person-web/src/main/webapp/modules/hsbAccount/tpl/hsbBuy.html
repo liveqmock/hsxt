@@ -1,0 +1,57 @@
+﻿<div class="busibox p20" id="hsbBuy">
+	<input type="hidden" id='regMinAount_buyHsbVal'/>
+	<input type="hidden" id='regMaxAount_buyHsbVal'/>
+	<input type="hidden" id='unRegMinAount_buyHsbVal'/>
+	<input type="hidden" id='unRegMaxAount_buyHsbVal'/>
+	<input type="hidden" id='maxAountDaily_buyHsbVal'/>
+	<input type="hidden" id='leftAountDaily_buyHsbVal'/>
+	<div class="acct-ct">
+		<div class="clearfix pt10 h60 bc" style="width:450px;">
+			<span class="tcr_blue fb fl">温馨提示：</span>
+			<div class="fl ml5 tl" style="width:">
+				已实名注册用户单笔兑换数量为<span id="regMinAount_buyHsb"></span>-<span id="regMaxAount_buyHsb"></span>；<br /> 
+				未实名注册用户单笔兑换数量为<span id="unRegMinAount_buyHsb"></span>-<span id="unRegMaxAount_buyHsb"></span>；<br />
+				每日兑换互生币数量最多为<span id="maxAountDaily_buyHsb"></span>,今日还可兑换<span id="leftAountDaily_buyHsb"></span>互生币。
+			</div>
+		</div>
+		<p class="acct-line"></p> 
+	</div>
+	<form id="hb_appForm" autocomplete="off" name="hb_appForm" method="post" onsubmit="return false;">
+		<input type="hidden" id="hb_hid_isRegistration" name="hb_hid_isRegistration" />
+		<input type="hidden" id="hb_currency" name="hb_currency" value=""/>
+		<div class="cssform_400 pt20">
+			<ul class="cssform clearfix">
+				<li class="col2 pr ">
+				<label class="title-txt">兑换互生币数量</label>
+				<div class="cont-int"><input type="text" class="inpt w176 input_gray" name="hb_appBuyNum" id="hb_appBuyNum" placeholder="输入互生币"/><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">当地结算货币</label>
+				<div class="cont-int"><span class="lh30 pl5"id="currencyNameCn"></span><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">货币转换比率</label>
+				<div class="cont-int"><span class="lh30 pl5" id="hb_rate"></span><div class="hint"></div></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">折合货币金额</label>
+				<div class="cont-chk tbox2 wseltbox"><span class="lh30 pl5" id="hb_convertAppMoney"></span></div><div class="hint"></div>
+				</li>
+				<li class="col2 pr bg_EFEFEF">
+				<label class="title-txt">应支付金额</label>
+				<div class="cont-chk tbox2 wseltbox"><span class="lh30 pl5" id="hb_realMoney"></span></div><div class="hint"></div>
+				</li>
+				<!--<li class="col2 pr">
+				<label class="title-txt">支付方式</label>
+				<div class="cont-chk tbox" id="hsbzh_ghsb_zffs">
+				<span class="ml10"><input type="radio" checked="checked" name="hb_checkbox" id="hb_cashAcct" value="hb_cashAcctValue"/>货币支付</span>
+				<span class="ml10"><input type="radio" name="hb_checkbox" id="hb_ebank" value="hb_ebankValue"/>网银支付</span>
+				<span class="ml10"><input type="radio" name="hb_checkbox" id="hb_qpay" value="hb_qpayValue"/>快捷支付</span>
+				<div class="hint"></div></div>
+				</li>-->
+			</ul>
+		</div>
+		<input id="realMoney" value="" type="hidden">
+		<div class="tc mt20"><a href="javascript:;" id="hb_QrBtn" class="hs_btn myhs_ajax_btn">去付款</a></div>
+	</form>
+</div>

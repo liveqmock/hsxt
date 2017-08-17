@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    
+	<!-- ========================= 银行接口bean配置 开始 ======================= -->
+	<!-- 中国银联B2C -->
+	<bean id="chinapayB2cFacade" class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.ChinapayFacade">
+		<property name="mechantNo" value="${chinapay.b2c.mechantNo}" />
+		<property name="bankPubKeyPath" value="${chinapay.b2c.bankPubKeyPath}" />
+		<property name="privateKeyFilePath" value="${chinapay.b2c.privateKeyFilePath}" />
+
+		<!-- B2C页面支付 -->
+		<property name="pay">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.PayWorker">
+				<property name="bankPayServAddress" value="${chinapay.b2c.bankPayServAddress}" />
+			</bean>
+		</property>
+
+		<!-- B2C退款业务 -->
+		<property name="refund">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.RefundWorker">
+				<property name="bankRefundAddress" value="${chinapay.b2c.bankRefundAddress}" />
+			</bean>
+		</property>
+
+		<!-- B2C查询订单状态 -->
+		<property name="orderState">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.OrderStateWorker">
+				<property name="bankGetOrderAddress" value="${chinapay.b2c.bankGetOrderAddress}" />
+			</bean>
+		</property>
+
+		<!-- B2C每日对账 -->
+		<property name="dayBalance">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.B2cDayBalanceWorker" />
+		</property>
+	</bean>
+
+	<!-- 中国银联NC无卡支付(接口与B2C共用, 只是商户号、私钥、公钥不同而已) -->
+	<bean id="chinapayNcFacade" class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.ChinapayFacade">
+		<property name="mechantNo" value="${chinapay.nc.mechantNo}" />
+		<property name="bankPubKeyPath" value="${chinapay.nc.bankPubKeyPath}" />
+		<property name="privateKeyFilePath" value="${chinapay.nc.privateKeyFilePath}" />
+
+		<!-- Nc页面支付 -->
+		<property name="pay">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.PayWorker">
+				<property name="bankPayServAddress" value="${chinapay.nc.bankPayServAddress}" />
+			</bean>
+		</property>
+
+		<!-- Nc退款业务 -->
+		<property name="refund">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.RefundWorker">
+				<property name="bankRefundAddress" value="${chinapay.nc.bankRefundAddress}" />
+			</bean>
+		</property>
+
+		<!-- Nc查询订单状态 -->
+		<property name="orderState">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.OrderStateWorker">
+				<property name="bankGetOrderAddress" value="${chinapay.nc.bankGetOrderAddress}" />
+			</bean>
+		</property>
+
+		<!-- Nc每日对账 -->
+		<property name="dayBalance">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.b2c.worker.B2cDayBalanceWorker" />
+		</property>
+	</bean>
+
+	<!-- 中国银联UPOP快捷支付 -->
+	<bean id="chinapayUpopFacade"
+		class="com.gy.hsxt.pg.bankadapter.chinapay.upop.ChinapayUpopFacade">
+		<property name="mechantNo" value="${chinapay.upop.mechantNo}" />
+		<property name="bankPubKeyPath" value="${chinapay.upop.bankPubKeyPath}" />
+		<property name="privateKeyFilePath" value="${chinapay.upop.privateKeyFilePath}" />
+
+		<!-- UPOP快捷支付[首次] -->
+		<property name="quickPayFirst">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.QuickPayFirstWorker">
+				<property name="bankQuickPayFirstAddress" value="${chinapay.upop.bankQuickPayFirstAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付[非首次] -->
+		<property name="quickPaySecond">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.QuickPaySecondWorker">
+				<property name="bankQuickPaySecondAddress" value="${chinapay.upop.bankQuickPaySecondAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付短信验证码 -->
+		<property name="smsCodeRequest">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.SmsCodeRequestWorker">
+				<property name="bankSMSCodeAddress" value="${chinapay.upop.bankSMSCodeAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付签约号查询 -->
+		<property name="bindingNoQuery">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.BindingNoQueryWorker">
+				<property name="bankQryBindingNoAddress" value="${chinapay.upop.bankQryBindingNoAddress}" />
+			    <property name="productionEnv" value="${IS_PRODUCTION_ENV}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付退款业务 -->
+		<property name="refund">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.RefundsWorker">
+				<property name="bankRefundAddress" value="${chinapay.upop.bankRefundAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付查询订单状态 -->
+		<property name="orderState">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.OrderStatesWorker">
+				<property name="bankGetOrderAddress" value="${chinapay.upop.bankGetOrderAddress}" />
+			</bean>
+		</property>
+		
+		<!-- UPOP快捷支付银行卡签约请求 -->
+		<property name="cardBinding">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.CardBindingWorker">
+				<property name="bankCardBindingAddress" value="${chinapay.upop.bankCardBindingAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPOP快捷支付每日对账 -->
+		<property name="dayBalance">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upop.worker.UpopDayBalanceWorker" />
+		</property>
+	</bean>
+	
+	<!-- 中国银联UPACP手机支付[UnionPay All Channel Payment, 简称UPACP] -->
+	<bean id="chinapayUpacpFacade"
+		class="com.gy.hsxt.pg.bankadapter.chinapay.upacp.ChinapayUpacpFacade" init-method="init">
+		<property name="mechantNo" value="${chinapay.upacp.mechantNo}" />
+		<property name="validateCertDir" value="${chinapay.upacp.validateCert.dir}" />
+		<property name="signCertPath" value="${chinapay.upacp.signCert.path}" />
+		<property name="signCertPwd"  value="${chinapay.upacp.signCert.pwd}" />
+		<property name="signCertType" value="${chinapay.upacp.signCert.type}" />
+
+		<!-- UPACP手机支付 -->
+		<property name="pay">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upacp.work.UpacpPayWorker">
+				<property name="bankPayServAddress" value="${chinapay.upacp.bankPayServAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPACP退款业务 -->
+		<property name="refund">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upacp.work.UpacpRefundWorker">
+				<property name="bankRefundAddress" value="${chinapay.upacp.bankRefundAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPACP查询订单状态 -->
+		<property name="orderState">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upacp.work.UpacpOrderStateWorker">
+				<property name="bankGetOrderAddress" value="${chinapay.upacp.bankGetOrderAddress}" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 中国银联UPMP手机支付[UnionPay Mobile Payment, 简称UPMP] -->
+	<bean id="chinapayUpmpFacade"
+		class="com.gy.hsxt.pg.bankadapter.chinapay.upmp.ChinapayUpmpFacade">
+		<property name="mechantNo" value="${chinapay.upmp.mechantNo}" />
+		<property name="privateKey" value="${chinapay.upmp.privateKey}" />
+
+		<!-- UPMP手机支付 -->
+		<property name="pay">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upmp.worker.UpmpPayWorker">
+				<property name="bankPayServAddress" value="${chinapay.upmp.bankPayServAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPMP退款业务 -->
+		<property name="refund">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upmp.worker.UpmpRefundWorker">
+				<property name="bankRefundAddress" value="${chinapay.upmp.bankRefundAddress}" />
+			</bean>
+		</property>
+
+		<!-- UPMP查询订单状态 -->
+		<property name="orderState">
+			<bean class="com.gy.hsxt.pg.bankadapter.chinapay.upmp.worker.UpmpOrderStateWorker">
+				<property name="bankGetOrderAddress" value="${chinapay.upmp.bankGetOrderAddress}" />
+			</bean>
+		</property>
+	</bean>
+	<!-- ========================= 银行接口bean配置 结束 ======================= -->
+</beans>

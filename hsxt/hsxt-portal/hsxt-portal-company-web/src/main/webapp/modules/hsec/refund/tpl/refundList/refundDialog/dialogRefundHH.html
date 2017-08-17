@@ -1,0 +1,99 @@
+<%
+  var param = obj.data.RefundDetail;
+  var lstOrderDetail = obj.data.lstOrderDetail;
+  var logistic = obj.logistic;
+%>
+<div id="after_deal" style="display: block;max-height:600px;overflow:auto;">
+<table class="detail-table" width="100%"  border="0" cellspacing="0" cellpadding="0" style="word-break:break-all;word-wrap:break-word;">
+  <tr>
+    <td width="165" align="right">订单编号：</td>
+    <td><%=param.ordId%><input class="inpt" type="hidden" id="orderIds" value="<%=param.ordId%>" disabled="disabled">
+    <input  type="hidden" id="refId" value="<%=param.refundId%>" disabled="disabled">
+    <input  type="hidden" id="userId" value="<%=param.userId%>" disabled="disabled">
+    </td>
+  </tr>
+  <tr>
+    <td align="right">买家昵称/互生卡号/手机号码：</td>
+    <td><%=(param.nickName!=null && param.nickName!="" ? param.nickName:param.buyerAccountNo)%></td>
+  </tr>
+  <tr>
+    <td align="right">商品名称：</td>
+    <td>
+    <%$.each(lstOrderDetail,function(key,value){%>
+    	[<span class="red"><%=value.itemName%></span>]<br/>
+    <%})%>
+    </td>
+  </tr>
+  <tr>
+    <td align="right">申请类型：</td>
+    <td><% if(param.refundType==1){%>退款退货<%}else if(param.refundType==2){%>仅退款<%}else{%>换货<%}%><input class="inpt" type="hidden" id="refundType" refundType="<%=param.refundType%>"  value="<% if(param.refundType==1){%>退款退货<%}else if(param.refundType==2){%>仅退款<%}else{%>换货<%}%>" disabled="disabled"></td>
+  </tr>
+  <tr>
+    <td align="right">申请理由：</td>
+    <td><%=param.reasonDesc%></td>
+  </tr>
+  <tr>
+    <td align="right"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">退款金额：</td>
+    <td><span class="fb red"><%=comm.formatMoneyNumber(param.price)%></span></td>
+  </tr>
+  <tr>
+    <td align="right"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">退还积分：</td>
+    <td><span class="fb blue"><%=comm.formatMoneyNumber(param.points)%></span></td>
+  </tr>
+                  <%if(param.status == 0&&(param.refundType == 1||param.refundType == 3)){%>
+                <tr>
+                  <td align="right">收货地址</td>
+                  <td><input class="inpt" type="text" value="" id="salerAddress"></td>
+                </tr>
+                <tr>
+                  <td align="right">联系方式</td>
+                  <td><input class="inpt" type="text" value="" id="salerContact"></td>
+                </tr>
+                <tr>
+                  <td align="right">联系人</td>
+                  <td><input class="inpt" type="text" value="" id="salerContactor"></td>
+                </tr>
+                <tr>
+                  <td align="right">邮政编码</td>
+                  <td><input class="inpt" type="text" value="" id="salerPostCode"></td>
+                </tr>
+                <%}%>
+       <%if(param.status == 8){%>
+        <tr>
+          <td align="right">快递</td>
+          <td>
+      <select id="logisticName" class="ddlb_selectc">
+        <option value="">请选择</option>
+	    <% $.each(logistic,function(key,el){ %>
+	         <option value="<%=el.id%>"><%=el.name%></option>
+	      <% } )%>
+	    </select>
+          </td>
+        </tr>
+        <tr>
+           <td align="right">快递单号</td>
+           <td><input class="inpt" type="text" value="" id="logId"></td>
+        </tr>
+           <tr>
+           <td align="right">备注</td>
+           <td>
+           <textarea rows="5" cols="10" id="salerNote"></textarea>
+           </td>
+        </tr>
+       <%}%>
+         <tr>
+           <td colspan="2" style="text-align: center;">
+    			 <%if(param.status == 0){%>
+                 <input class="btn_bg submit mr10 popup02 status" status="<%=param.status%>" updateStatus="0" type="button" value="同&nbsp;&nbsp;意" style="display: inline-block;">
+                 <input class="btn_bg submit mr10 popup02 status" status="<%=param.status%>" updateStatus="1" type="button" value="拒&nbsp;&nbsp;绝" style="display: inline-block;">
+                 <%}%>
+                 <%if(param.status == 8){%>
+                 <input class="btn_bg submit mr10 popup01 status" status="<%=param.status%>" updateStatus="2" type="button" value="发&nbsp;&nbsp;货">
+                 <%}%>
+                 <%if(param.status == 4){%>
+                 <input class="btn_bg submit status" type="button" status="<%=param.status%>" updateStatus="3" value="确认收货">
+                 <%}%>
+		</td>
+        </tr>
+</table>
+</div>

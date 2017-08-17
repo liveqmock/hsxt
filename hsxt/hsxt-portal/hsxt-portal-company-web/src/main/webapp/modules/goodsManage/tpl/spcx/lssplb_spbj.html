@@ -1,0 +1,523 @@
+﻿<div id="fbsp_content1">
+<form id="fbsp_form" name="fbsp_form">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr10" width="22%"><span class="mr5 red">*</span>商品名称</td>
+          <td><input type="text" id="fbsp_spmc" name="fbsp_spmc" value="<%=obj.spxx.mc%>" class="w300 h30_middle pl5 infobox2" placeholder="输入商品名称"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>卖点信息</td>
+          <td><input type="text" id="fbsp_mdxx" name="fbsp_mdxx" value="<%=obj.mdxx%>" class="w300 h30_middle pl5 infobox2" placeholder="输入卖点信息"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>商品价格</td>
+          <td><input type="text" id="fbsp_spjg" name="fbsp_spjg" value="<%=obj.jg%>" class="w300 h30_middle pl5 infobox2" placeholder="输入商品价格"/><span class="ml10">价格必须在0~999999999 之间，单位：互生币</span></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">货号</td>
+          <td><input type="text" id="fbsp_sphh" name="fbsp_sphh" value="<%=obj.spxx.hh%>" class="w300 h30_middle pl5 infobox2" placeholder="输入货号"/><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" class="ml10" title="生产厂商对不同商品记的唯一编号"></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">条形码</td>
+          <td><input type="text" id="fbsp_sptxm" name="fbsp_sptxm" value="<%=obj.sptxm%>" class="w300 h30_middle pl5 infobox2" placeholder="输入条形码"/><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" class="ml10" title="商品条形码"></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">厂家名称</td>
+          <td><input type="text" id="fbsp_sccsmc" name="fbsp_sccsmc" value="<%=obj.sccsmc%>" class="w300 h30_middle pl5 infobox2" placeholder="输入厂家名称"/><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" class="ml10" title="生产厂商名称"></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>商品图片</td>
+          <td>
+          	<ul class="pImgList clearfix" id="fbsp_sptp">
+                <li data-flag="<%=obj.spxx.zp ? 1 : 0%>">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="<%=obj.spxx.zp ? obj.spxx.zp : 'resources/img/store_main_img_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="0">
+                    <span class="addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+          	<div class="red clearfix">
+              <div class="fl h18_middle">温馨提示：</div>
+              <div class="fl">
+              	<p class="h18_middle">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</p>
+				<p class="h18_middle">2、上传图片大小不超过1M。</p>
+                <p class="h18_middle">3、最多可上传6张图片。</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">商品介绍</td>
+          <td><input type="text" id="fbsp_spjs" name="fbsp_spjs" value="<%=obj.spjs%>" class="w300 h30_middle pl5 infobox2" placeholder="输入商品介绍"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">图文详情</td>
+          <td><textarea id="fbsp_twxq" class="w h160"><%=obj.twxq%></textarea></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+          	<div class="red clearfix">
+              <div class="fl h18_middle">温馨提示：</div>
+              <div class="fl">
+              	<p class="h18_middle">建议上传图片宽度800以内，上传图片支持格式jpg、png、jpeg。</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">商城自定义分类</td>
+          <td>
+          <div class="infobox2 w282 p10">
+             <ul class="shopDiyClass">
+         	 <%$.each(obj.sczdyfl, function(k, v) {%>
+             	<li>
+                	<p data-value="<%=v.id%>"><%=v.name%></p>
+                    <ul class="ml20">
+         			<%$.each(v.data, function(k1, v1) {%>
+                    	<li>
+                        	<p><label><input type="checkbox" value="<%=v1.id%>" class="m03vm"><%=v1.name%></label></p>
+                            <ul class="ml20">
+                            <%$.each(v1.data, function(k2, v2) {%>
+                                <li><label><input type="checkbox" value="<%=v2.id%>" class="m03vm"><%=v2.name%></label></li>
+                            <%})%>
+                            </ul>
+                        </li>
+         	 		<%})%>
+                    </ul>
+                </li>
+         	 <%})%>
+             </ul>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10 fb green">物流信息</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">运费</td>
+          <td><label><input type="radio" id="fbsp_myf" name="fbsp_yf" value="" class="m03vm" checked="checked"/>免运费</label><label class="ml15"><input type="radio" id="fbsp_yfmb" name="fbsp_yf" value="" class="m03vm"/>运费模板</label></td>
+        </tr>
+        <tr class="none" id="fbsp_yfmb_tr">
+          <td></td>
+          <td><div class="ineblk infobox2 pr pr1"><input type="text" id="fbsp_yfmblb" readonly="readonly" optionValue=""/></div><button id="fbsp_btn_xjyfmb" class="btn-search ml15" type="button">新建运费模板</button><span class="red ml10">*</span></td>
+        </tr>
+        <tr>
+          <td class="tr pr10 fb green">其他信息</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">可开具发票</td>
+          <td><label><input type="radio" name="fbsp_kkjfp" value="" class="m03vm" checked="checked"/>是</label><label class="ml15"><input type="radio" name="fbsp_kkjfp" value="" class="m03vm"/>否</label></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">互生消费抵扣券</td>
+          <td><label><input type="radio" id="fbsp_hsxfdkq_s" name="fbsp_hsxfdkq" value="" class="m03vm" checked="checked"/>是</label><label class="ml15"><input type="radio" id="fbsp_hsxfdkq_f" name="fbsp_hsxfdkq" value="" class="m03vm"/>否</label><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" class="ml10" title="商品是否支持使用互生消费抵扣券"></td>
+        </tr>
+        <tr id="fbsp_hsdkq_tr">
+          <td></td>
+          <td>
+          	<ul class="infobox2 pt5 pb5 pl10 pr10 w500 h70 scrlh">
+         	 <%if(!obj.hsxfdkqlb || ($.isArray(obj.hsxfdkqlb) && obj.hsxfdkqlb.length == 0)) {%>
+             	<li class="h22_middle">无抵扣券数据</li>
+             <%}else{$.each(obj.hsxfdkqlb, function(k, v) {%>
+             	<li class="h22_middle"><label><input type="radio" name="fbsp_hsdkq" value="<%=v.id%>" class="m03vm"<%= k == 0 ? ' checked="checked"' : ''%>/>每消费<%=v.xfys%>元使用<%=v.syzs%>张</label><span class="ml30"><%=v.dkqmc%>面值：<%=v.mz%></span></li>
+             <%})}%>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">上架类型</td>
+          <td><label><input type="radio" name="fbsp_sjlx" value="" class="m03vm" checked="checked"/>自动上架</label><label class="ml15"><input type="radio" name="fbsp_sjlx" value="" class="m03vm"/>手动上架</label></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+          	<div class="red clearfix">
+              <div class="fl h18_middle">温馨提示：</div>
+              <div class="fl">
+              	<p class="h18_middle">自动上架：商品审核通过即商品自动上架。</p>
+              	<p class="h18_middle">手动上架：商品审核通过需人工手动上架。</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">营业点</td>
+          <td>
+          	<div class="ineblk infobox2">
+                <div class="clearfix h28_middle bg_f0">
+                	<a class="blue ml10" id="fbsp_yyd_chkAll">全选/全不选</a>
+                    <span class="fr mr10">已选择<span id="fbsp_yyd_num">0</span>个营业点</span>
+                </div>
+                <ul class="pt5 pb5 pl10 pr10 w500 h70 scrlh">
+                 <%$.each(obj.yydlb, function(k, v) {%>
+                    <li class="h22_middle"><label><input type="checkbox" name="fbsp_yyd" value="<%=v.id%>" class="m03vm fbsp_yyd_chk"/><%=v.name%></label></li>
+                 <%})%>
+                </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+          	<div class="red clearfix">
+              <div class="fl h18_middle">温馨提示：</div>
+              <div class="fl">
+              	<p class="h18_middle">选择哪些营业点上架此商品</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+    </table>
+    <div class="mt20 tc"><a href="javascript:;" id="fbsp_btn_xyb" class="btn_bg submit mr30">下一步</a><a href="javascript:;" id="fbsp_btn_qx" class="btn_bg submit">取&#12288;消</a></div>
+    <div class="mt30">&nbsp;</div>
+</form>
+</div>
+<div class="bc w940 none" id="fbsp_content2">
+<form id="fbsp_next_form" name="fbsp_next_form">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr10" width="10%">商品类目</td>
+          <td>
+          <div class="goodslist_div">
+              <div class="goodslist" id="fbsp_splm_list">
+                  <ul class="clearfix">
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc">
+                			<%$.each(obj.splm, function(k, v) { if(v.pid === '0') {%>
+                                <li><a class="clearfix" data-id="<%=v.id%>"><%if(v.letter) {%><span class="list_sc_letter"><%=v.letter%></span><%}%><span class="gct"><%=v.name%></span><i class="list_sc_arrow"></i></a></li>
+                			<%}})%>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc">
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="fl list_ft">
+                    	<div>
+                            <ul class="list_sc">
+                            </ul>
+                        </div>
+                    </li>
+                  </ul>
+                  <div class="mt10 tc"><button type="button" class="btn-search mr10" id="fbsp_splm_btn_qd">确定</button><button type="button" class="btn-search" id="fbsp_splm_btn_qx">取消</button></div>
+              </div>
+              <input type="text" id="fbsp_splm" name="fbsp_splm" class="feellist_input" value="" readonly="readonly"/>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">等级</td>
+          <td><input type="text" id="fbsp_dj" name="fbsp_dj" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入等级"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">产地</td>
+          <td><input type="text" id="fbsp_cd" name="fbsp_cd" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入产地"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">执行标准</td>
+          <td><input type="text" id="fbsp_zxbz" name="fbsp_zxbz" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入执行标准"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">安全类别</td>
+          <td><input type="text" id="fbsp_aqlb" name="fbsp_aqlb" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入安全类别"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">面料</td>
+          <td><input type="text" id="fbsp_ml" name="fbsp_ml" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入面料"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">配料</td>
+          <td><input type="text" id="fbsp_pl" name="fbsp_pl" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入配料"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">里料</td>
+          <td><input type="text" id="fbsp_ll" name="fbsp_ll" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入里料"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">厚薄</td>
+          <td><input type="text" id="fbsp_hb" name="fbsp_hb" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入厚薄"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">图案</td>
+          <td><input type="text" id="fbsp_tn" name="fbsp_tn" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入图案"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">领型</td>
+          <td><input type="text" id="fbsp_lx" name="fbsp_lx" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入领型"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">风格</td>
+          <td><input type="text" id="fbsp_fg" name="fbsp_fg" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入风格"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">版型</td>
+          <td><input type="text" id="fbsp_bx" name="fbsp_bx" value="" class="w300 h30_middle pl5 infobox2" placeholder="输入版型"/></td>
+        </tr>
+        <tr>
+        	<td class="tr pr10">商品属性</td>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="infobox2 p5 bm0">
+                    <tr>
+                        <td width="70" align="right">机身颜色：</td>
+                        <td>
+                        <ul class="editval clearfix" id="fbsp_jsys_list">
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>白色</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>黑色</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>银色</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="edipt clearfix none"><span class="fl"><input type="checkbox" checked="checked" class="m03vm"/><input type="text" class="w50 infobox2 p2 edipt-input"/></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="edipt"></i></a></li>
+                        </ul>
+                        </td>
+                        <td width="30" class="tc"><a class="editval-add" id="fbsp_jsys_btn_add" title="新增"></a></td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="infobox2 p5 bm0">
+                    <tr>
+                        <td width="70" align="right">机身内存：</td>
+                        <td>
+                        <ul class="editval clearfix" id="fbsp_jsnc_list">
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>16G</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>32G</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>64G</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="edipt clearfix none"><span class="fl"><input type="checkbox" checked="checked" class="m03vm"/><input type="text" class="w50 infobox2 p2 edipt-input"/></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="edipt"></i></a></li>
+                        </ul>
+                        </td>
+                        <td width="30" class="tc"><a class="editval-add" id="fbsp_jsnc_btn_add" title="新增"></a></td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="infobox2 p5">
+                    <tr>
+                        <td width="70" align="right">版本类型：</td>
+                        <td>
+                        <ul class="editval clearfix" id="fbsp_bblx_list">
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>港澳台</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>美国</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="clearfix"><span class="fl"><label><input type="checkbox" checked="checked" class="m03vm"/>日本</label></span><a class="fl editval-del" title="删除"><i></i></a></li>
+                            <li class="edipt clearfix none"><span class="fl"><input type="checkbox" checked="checked" class="m03vm"/><input type="text" class="w50 infobox2 p2 edipt-input"/></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="edipt"></i></a></li>
+                        </ul>
+                        </td>
+                        <td width="30" class="tc"><a class="editval-add" id="fbsp_bblx_btn_add" title="新增"></a></td>
+                    </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mt20 search-table bsgrid" id="fbsp_spsx_table">
+  					<thead>
+                      <tr>
+                        <th>机身颜色</th>
+                        <th>机身内存</th>
+                        <th>版本类型</th>
+                        <th width="15%">
+                        	<span>价格</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th width="15%">
+                        	<span>积分值</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th width="21%">
+                            <span>积分百分比</span><input type="text" class="infobox2 p2 w40 ml5 fl_th_input"/> <span>%</span>
+                            <div class="popup_set">
+                                <i></i>
+                                <ul>
+                                    <li>应用到全部SKU</li>
+                                    <li>应用到未填写SKU</li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th>扣除积分预付款</th>
+                        <th>持卡人可得积分</th>
+                      </tr>
+                  </thead>
+                  <tr>
+                    <td>白色</td>
+                    <td>16G</td>
+                    <td>港澳台</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="even_index_row">
+                    <td>白色</td>
+                    <td>32G</td>
+                    <td>港澳台</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                 <tr>
+                    <td>黑色</td>
+                    <td>16G</td>
+                    <td>港澳台</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                  <tr class="even_index_row">
+                    <td>黑色</td>
+                    <td>32G</td>
+                    <td>港澳台</td>
+                    <td><input type="text" value="1000" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="100" class="infobox2 p2 w60 ml5"></td>
+                    <td><input type="text" value="10" class="infobox2 p2 w60 ml5"></td>
+                    <td>54</td>
+                    <td>12</td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mt20 detail-table" id="fbsp_spsx_1_table">
+                    <tr class="infobox2 bg_f0"><td colspan="2" class="pl5">图片上传</td></tr>
+                    <tr class="infobox2">
+                      <td class="tr pr10" width="70">红色</td>
+                      <td>
+                        <ul class="pImgList clearfix">
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_main_img_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr class="infobox2">
+                      <td class="tr pr10" width="70">白色</td>
+                      <td>
+                        <ul class="pImgList clearfix">
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_main_img_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                            <li data-flag="0">
+                                <span class="addpImgBox_style">
+                                    <input type="file"><img src="resources/img/store_noimg_1.gif" width="100" height="100"/>
+                                </span>
+                                <i class="tips_close pa delImg" title="删除图片"></i>
+                            </li>
+                        </ul>
+                      </td>
+                    </tr>
+            	</table>
+            </td>
+        </tr>
+    </table>
+
+    <div class="mt20 tc">
+        <a href="javascript:;" id="fbsp_btn_syb" class="btn_bg submit mr30">上一步</a><a href="javascript:;" id="fbsp_btn_bc" class="btn_bg submit mr30">保&#12288;存</a><a href="javascript:;" id="fbsp_next_btn_qx" class="btn_bg submit">取&#12288;消</a>
+    </div>
+  <div class="mt30">&nbsp;</div>
+</form>
+</div>
+<div class="none" id="fbsp_fbsp-dialog"><p></p></div>

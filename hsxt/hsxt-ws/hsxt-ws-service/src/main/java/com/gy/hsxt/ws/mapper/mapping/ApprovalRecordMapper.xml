@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.ApprovalRecordMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.ApprovalInfo">
+		<id column="APPROVAL_ID" property="approvalId" jdbcType="VARCHAR" />
+		<result column="APPLY_WELFARE_NO" property="applyWelfareNo" jdbcType="VARCHAR" />
+		<result column="APPROVAL_AMOUNT" property="approvalAmount" jdbcType="DECIMAL" />
+		<result column="APPROVAL_STATUS" property="approvalStatus" jdbcType="DECIMAL" />
+		<result column="APPROVAL_STEP" property="approvalStep" jdbcType="DECIMAL" />
+		<result column="APPROVAL_REASON" property="approvalReason" jdbcType="VARCHAR" />
+		<result column="APPROVER" property="approver" jdbcType="VARCHAR" />
+		<result column="APPROVAL_DATE" property="approvalDate" jdbcType="TIMESTAMP" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+		<result column="TASK_ID" property="taskId" jdbcType="VARCHAR" />
+		<result column="APPROVER_CUST_ID" property="approverCustId" jdbcType="VARCHAR" />
+		<result column="WELFARE_TYPE" property="welfareType" jdbcType="DECIMAL" />
+		<result column="APPLY_DATE" property="applyDate" jdbcType="VARCHAR" />
+		<result column="PROPOSER_NAME" property="proposerName" jdbcType="VARCHAR" />
+		<result column="PROPOSER_PHONE" property="proposerPhone" jdbcType="VARCHAR" />
+		<result column="HS_RES_NO" property="proposerResNo" jdbcType="VARCHAR" />
+		<result column="WELFARE_ID" property="welfareId" jdbcType="VARCHAR" />
+		<result column="SUBSIDY_BALANCE" property="subsidyBalance" jdbcType="VARCHAR" />
+		<result column="STATUS_DATE" property="statusDate" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询的列信息 -->
+	<sql id="Base_Column_List">
+		APPROVAL_ID,
+		APPLY_WELFARE_NO,
+		APPROVAL_AMOUNT,
+		APPROVAL_STATUS,
+		APPROVAL_STEP,
+		APPROVAL_REASON,
+		APPROVER,
+		APPROVAL_DATE,
+		ISACTIVE,
+		CREATED_DATE,
+		CREATED_BY,
+		UPDATED_DATE,
+		UPDATED_BY,
+		TASK_ID,
+		APPROVER_CUST_ID,
+		SUBSIDY_BALANCE
+	</sql>
+	
+	<!--通过互生号查询审批信息-->
+	<select id="queryApprovalInfoByHsResNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		t.APPROVAL_ID,
+		t.APPLY_WELFARE_NO,
+		t.APPROVAL_AMOUNT,
+		t.APPROVAL_STATUS,
+		t.APPROVAL_STEP,
+		t.APPROVAL_REASON,
+		t.APPROVER,
+		t.APPROVAL_DATE,
+		t.ISACTIVE,
+		t.CREATED_DATE,
+		t.CREATED_BY,
+		t.UPDATED_DATE,
+		t.UPDATED_BY,
+		t.TASK_ID,
+		t.APPROVER_CUST_ID,
+		t.SUBSIDY_BALANCE
+ 	 	from T_WS_APPROVAL t, t_ws_apply_welfare aply
+ 		where t.apply_welfare_no = aply.apply_welfare_no
+		And aply.HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+		order by t.UPDATED_DATE desc
+	</select>
+
+	<!--通过主键查询审批记录信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		t.APPROVAL_ID,
+		t.APPLY_WELFARE_NO,
+		t.APPROVAL_AMOUNT,
+		t.APPROVAL_STATUS,
+		t.APPROVAL_STEP,
+		t.APPROVAL_REASON,
+		t.APPROVER,
+		t.APPROVAL_DATE,
+		t.ISACTIVE,
+		t.CREATED_DATE,
+		t.CREATED_BY,
+		t.UPDATED_DATE,
+		t.UPDATED_BY,
+		t.TASK_ID,
+		t.APPROVER_CUST_ID,
+		aply.WELFARE_TYPE,
+		aply.PROPOSER_NAME,
+		aply.PROPOSER_PHONE,
+		aply.HS_RES_NO,
+		aply.WELFARE_ID,
+		t.SUBSIDY_BALANCE
+ 	 	from T_WS_APPROVAL t, t_ws_apply_welfare aply
+ 		where t.apply_welfare_no = aply.apply_welfare_no
+		 and t.APPROVAL_ID = #{approvalId,jdbcType=VARCHAR}
+	</select>
+
+	<!--通过工单ID查询审批记录 -->
+	<select id="selectByTaskId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_APPROVAL
+		where TASK_ID = #{taskId,jdbcType=VARCHAR}
+	</select>
+
+	<!--查询审批记录通过审批步骤-->
+	<select id="selectByApprovalStep" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_APPROVAL
+		where APPLY_WELFARE_NO = #{applyWelfareNo}
+			And APPROVAL_STEP = #{approvalStep}
+	</select>
+	
+	<!-- 查询的列信息 -->
+	<sql id="ApprovalInfo_Column_List">
+		t.APPROVAL_ID,
+		t.APPROVAL_AMOUNT,
+		t.APPLY_WELFARE_NO,
+		t.APPROVAL_STATUS,
+		t.APPROVAL_STEP,
+		t.APPROVER,
+		t.APPROVAL_DATE,
+		to_char(decode(t.approval_status,
+                                       0,
+                                       t.created_date,
+                                       t.approval_date),
+                                'yyyy-mm-dd hh24:mi:ss') status_date,
+		t.TASK_ID,
+		t.APPROVER_CUST_ID,
+		aply.WELFARE_ID, 
+		t.SUBSIDY_BALANCE,
+		aply.welfare_type,
+		aply.cust_id,
+		aply.proposer_name,
+		aply.proposer_phone,
+		aply.proposer_papers_no,
+		aply.hs_res_no ,
+		to_char(aply.apply_date,'yyyy-mm-dd hh24:mi:ss') APPLY_DATE
+	</sql>
+
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="condition.welfareType != null">
+			And aply.WELFARE_TYPE = #{condition.welfareType}
+		</if>
+		<if test="condition.proposerResNo != null and condition.proposerResNo != '' ">
+			And aply.HS_RES_NO like '${condition.proposerResNo}%'
+		</if>
+		<if test="condition.proposerName != null and condition.proposerName != '' ">
+			And aply.PROPOSER_NAME  like '${condition.proposerName}%'
+		</if>
+		<if test="condition.approvalStep != null">
+			And t.APPROVAL_STEP = #{condition.approvalStep}
+		</if>
+		<if test="condition.approvalCustId != null and condition.approvalCustId != '' ">
+			And t.APPROVER_CUST_ID = #{condition.approvalCustId}
+		</if>
+		<if test="condition.startTime != null and condition.startTime != '' ">
+			<![CDATA[   And aply.APPLY_DATE >= to_date(#{condition.startTime},'yyyy-mm-dd')  ]]>
+		</if>
+		<if test="condition.endTime != null and condition.endTime != '' ">
+			<![CDATA[   And aply.APPLY_DATE <= to_date(#{condition.endTime},'yyyy-mm-dd') + 1 ]]>
+		</if>
+		<if test="approvalStatus != null">
+			And t.approval_status =  #{approvalStatus}
+		</if>
+	</sql>
+	
+	<!--分页排序-->
+	<sql id="Order_By">
+	   ORDER BY aply.APPLY_DATE  DESC
+	</sql>
+
+	<!-- 分页查询统计查询总条数 -->
+	<select id="countApprovalInfo" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select count(*)
+		<if test="approvalStatus != null">
+			<include refid="searchPendingApprovalInfo" />
+		</if>
+		<if test="approvalStatus == null">
+			<include refid="searchAllApprovalInfo" />
+		</if>
+		<include refid="Where_Condition" />
+	</select>
+
+	<!--分页查询审批信息 -->
+	<select id="pageApprovalInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select 
+		<include refid="ApprovalInfo_Column_List" />
+		<if test="approvalStatus != null">
+			<include refid="searchPendingApprovalInfo" />
+		</if>
+		<if test="approvalStatus == null">
+			<include refid="searchAllApprovalInfo" />
+		</if>
+		<include refid="Where_Condition" />
+		<include refid="Order_By" />
+		<include refid="PaginationSuffix" />
+	</select>
+	
+	<sql id="searchAllApprovalInfo">
+		from t_ws_approval t, t_ws_apply_welfare aply ,( select t.apply_welfare_no, max(t.approval_step) approval_step
+   		from t_ws_approval t group by t.apply_welfare_no)  m
+		where t.apply_welfare_no = aply.apply_welfare_no
+		and t.APPLY_WELFARE_NO = m.APPLY_WELFARE_NO 
+		and t.APPROVAL_STEP = m.APPROVAL_STEP
+	</sql>
+	
+	<sql id="searchPendingApprovalInfo">
+		from t_ws_approval t, t_ws_apply_welfare aply 
+		where t.apply_welfare_no = aply.apply_welfare_no
+	</sql>
+
+	<!--插入审批记录 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.ApprovalInfo">
+		insert into T_WS_APPROVAL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="approvalId != null">
+				APPROVAL_ID,
+			</if>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO,
+			</if>
+			<if test="approvalAmount != null">
+				APPROVAL_AMOUNT,
+			</if>
+			<if test="approvalStatus != null">
+				APPROVAL_STATUS,
+			</if>
+			<if test="approvalStep != null">
+				APPROVAL_STEP,
+			</if>
+			<if test="approvalReason != null">
+				APPROVAL_REASON,
+			</if>
+			<if test="approver != null">
+				APPROVER,
+			</if>
+			<if test="approvalDate != null">
+				sysdate,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE,
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY,
+			</if>
+			<if test="taskId != null">
+				TASK_ID,
+			</if>
+			<if test="approverCustId != null">
+				APPROVER_CUST_ID,
+			</if>
+			<if test="subsidyBalance != null">
+				SUBSIDY_BALANCE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="approvalId != null">
+				#{approvalId,jdbcType=VARCHAR},
+			</if>
+			<if test="applyWelfareNo != null">
+				#{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalAmount != null">
+				#{approvalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStatus != null">
+				#{approvalStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStep != null">
+				#{approvalStep,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalReason != null">
+				#{approvalReason,jdbcType=VARCHAR},
+			</if>
+			<if test="approver != null">
+				#{approver,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalDate != null">
+				#{approvalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				#{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				#{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="approverCustId != null">
+				#{approverCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="subsidyBalance != null">
+				#{subsidyBalance,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+
+	<!--修改审批记录 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.ApprovalInfo">
+		update T_WS_APPROVAL
+		<set>
+			<if test="applyWelfareNo != null">
+				APPLY_WELFARE_NO = #{applyWelfareNo,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalAmount != null">
+				APPROVAL_AMOUNT = #{approvalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStatus != null">
+				APPROVAL_STATUS = #{approvalStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalStep != null">
+				APPROVAL_STEP= #{approvalStep,jdbcType=DECIMAL},
+			</if>
+			<if test="approvalReason != null">
+				APPROVAL_REASON = #{approvalReason,jdbcType=VARCHAR},
+			</if>
+			<if test="approver != null">
+				APPROVER = #{approver,jdbcType=VARCHAR},
+			</if>
+			<if test="approvalDate != null">
+				APPROVAL_DATE = #{approvalDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+			<if test="taskId != null">
+				TASK_ID = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="approverCustId != null">
+				APPROVER_CUST_ID = #{approverCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="subsidyBalance != null">
+				SUBSIDY_BALANCE =#{subsidyBalance,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where APPROVAL_ID = #{approvalId,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<!--修改审批记录 -->
+	<update id="updateSubsidyBalance" parameterType="java.util.Map">
+  		update t_ws_approval t
+    	 set t.subsidy_balance = #{subsidyBalance}
+   			where t.approval_id in (
+                    select t.approval_id
+                     from t_ws_approval t, t_ws_apply_welfare aply
+                    where t.apply_welfare_no = aply.apply_welfare_no
+                      and t.approval_status = 0
+                      <if test="welfareType != 2">
+						and aply.hs_res_no = #{hsResNo,jdbcType=VARCHAR}
+					  </if>
+                      <if test="welfareType == 2">
+						and aply.death_res_no = #{hsResNo,jdbcType=VARCHAR}
+					  </if>
+					  and aply.welfare_type = #{welfareType}
+   
+             )
+	</update>
+
+	<!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+
+	<!--分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+
+</mapper>

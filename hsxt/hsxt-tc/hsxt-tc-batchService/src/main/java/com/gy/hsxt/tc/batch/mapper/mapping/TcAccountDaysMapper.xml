@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcAccountDaysMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.tc.batch.bean.TcAccountDays" >
+    <id column="ACC_DAYS_ID" property="accDaysId" jdbcType="DECIMAL" />
+    <result column="ACC_SYS" property="accSys" jdbcType="VARCHAR" />
+    <result column="ACC_DATE" property="accDate" jdbcType="CHAR" />
+    <result column="ACC_PROGRESS" property="accProgress" jdbcType="DECIMAL" />
+    <result column="ACC_STATE" property="accState" jdbcType="DECIMAL" />
+    <result column="ACC_DESC" property="accDesc" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="OTHER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACC_DAYS_ID, ACC_SYS, ACC_DATE, ACC_PROGRESS, ACC_STATE, ACC_DESC, UPDATED_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_TC_ACCOUNT_DAYS
+    where ACC_DAYS_ID = #{accDaysId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_TC_ACCOUNT_DAYS
+    where ACC_DAYS_ID = #{accDaysId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsxt.tc.batch.bean.TcAccountDays" >
+    insert into T_TC_ACCOUNT_DAYS (ACC_DAYS_ID, ACC_SYS, ACC_DATE, 
+      ACC_PROGRESS, ACC_STATE, ACC_DESC)
+    values (SEQ_T_TC_ACCOUNT_DAYS.nextval, #{accSys,jdbcType=VARCHAR}, #{accDate,jdbcType=CHAR}, 
+      #{accProgress,jdbcType=DECIMAL}, #{accState,jdbcType=DECIMAL}, #{accDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.tc.batch.bean.TcAccountDays" >
+    insert into T_TC_ACCOUNT_DAYS
+    <trim prefix="(" suffix=")" suffixOverrides="," >      
+        ACC_DAYS_ID,
+      <if test="accSys != null" >
+        ACC_SYS,
+      </if>
+      <if test="accDate != null" >
+        ACC_DATE,
+      </if>
+      <if test="accProgress != null" >
+        ACC_PROGRESS,
+      </if>
+      <if test="accState != null" >
+        ACC_STATE,
+      </if>
+      <if test="accDesc != null" >
+        ACC_DESC,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >     
+      SEQ_T_TC_ACCOUNT_DAYS.nextval,
+      <if test="accSys != null" >
+        #{accSys,jdbcType=VARCHAR},
+      </if>
+      <if test="accDate != null" >
+        #{accDate,jdbcType=CHAR},
+      </if>
+      <if test="accProgress != null" >
+        #{accProgress,jdbcType=DECIMAL},
+      </if>
+      <if test="accState != null" >
+        #{accState,jdbcType=DECIMAL},
+      </if>
+      <if test="accDesc != null" >
+        #{accDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.tc.batch.bean.TcAccountDays" >
+    update T_TC_ACCOUNT_DAYS
+    <set >
+      <if test="accSys != null" >
+        ACC_SYS = #{accSys,jdbcType=VARCHAR},
+      </if>
+      <if test="accDate != null" >
+        ACC_DATE = #{accDate,jdbcType=CHAR},
+      </if>
+      <if test="accProgress != null" >
+        ACC_PROGRESS = #{accProgress,jdbcType=DECIMAL},
+      </if>
+      <if test="accState != null" >
+        ACC_STATE = #{accState,jdbcType=DECIMAL},
+      </if>
+      <if test="accDesc != null" >
+        ACC_DESC = #{accDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=OTHER},
+      </if>
+    </set>
+    where ACC_DAYS_ID = #{accDaysId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.tc.batch.bean.TcAccountDays" >
+    update T_TC_ACCOUNT_DAYS
+    set ACC_SYS = #{accSys,jdbcType=VARCHAR},
+      ACC_DATE = #{accDate,jdbcType=CHAR},
+      ACC_PROGRESS = #{accProgress,jdbcType=DECIMAL},
+      ACC_STATE = #{accState,jdbcType=DECIMAL},
+      ACC_DESC = #{accDesc,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=OTHER}
+    where ACC_DAYS_ID = #{accDaysId,jdbcType=DECIMAL}
+  </update>
+</mapper>

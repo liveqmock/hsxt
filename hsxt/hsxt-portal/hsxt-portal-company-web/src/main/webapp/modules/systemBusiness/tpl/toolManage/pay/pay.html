@@ -1,0 +1,23 @@
+<div id="payTpl" class="pay-container">
+	<div class="pay-container-inner mt10 bc">
+	
+		<div class="clearfix">
+		
+			<div class="fl clearfix">
+				<i class="fl pay-icon pay-icon-yes"></i>
+				<h3 class="fl f16 pay-msg">订单已提交，订单号：<%=obj.orderNo%>,请您在 <%=obj.payOverTime%> 前完成支付，订单逾期自动取消。</span></h3>
+			</div>
+			
+			<div class="fr clearfix">
+				<span class="fl f16 h52_middle">应付金额：</span>
+				<i class="fl ml5 pay-price mt10"></i>
+				<span class="fl ml5 pay-text-red h52_middle fb f16"><%=obj.hsbAmount%></span>
+			</div>
+			
+		</div>
+		
+		<div class="tr pay-text-blue">本地结算币种：<span class="mr15"><%=obj.currencyNameCn%></span>货币转换比率：<span class="mr15"><%=obj.exchangeRate%></span>折算货币金额：<span><%=obj.cashAmount%></span></div>
+				
+		<div id="payment_operate"></div>
+	</div>
+</div>

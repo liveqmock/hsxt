@@ -1,0 +1,53 @@
+ <%
+ 	var addressList = obj.data;
+ %>
+         <div class="saledquery_table " data-id="2">
+		 <input type="hidden" id = "countryCodeHid" name="countryCodeHid" >
+	<%if(addressList!=null){ 
+		$.each(addressList,function(key,list){ %>
+         	<div class="border-gray pl20 pr20 pb20">
+            	<div class="p10 border-bot-gray">
+                	<span>收货人：</span><span class="fb"><%=list.receiver%></span>
+                	<%
+                		var phone = list.mobile;
+                		if(phone!=""){
+                	%>
+                    <span class="ml100 pl30">手机：</span><span class="fb"><%=phone %></span>
+                    <%}%>
+                    <%
+                		var fixedTelephone = list.telphone;
+                		if(fixedTelephone!=""){
+                	%>
+                	<span class="ml100 pl30">固定电话：</span><span class="fb"><%=fixedTelephone %></span>
+                	<%}%>
+                    <span class="fr"><a class="edit" href="#updateAddress" val="<%=list.addrId%>">编辑</a> | <a class="delete" val="<%=list.addrId%>">删除</a></span>
+                </div>
+         	 <table class="w mt10">             	
+             	<tr>
+               		<td class="w80 tr ">所在地区：</td>
+                    <td class="w600 pr30  ">
+                    	<%=list.provinceName%><%=list.cityName%><%=list.address%>
+                    </td>
+                    <td class="tr"> 
+                    <%if(list.isDefault!=1){%>
+                    <a val="<%=list.addrId%>" class="setDefult btn_default_addr dsb-line fb tc">设置默认地址</a>
+                    <%}else{%>
+                    <a  class="btn_default_addr dsb-line fb tc" style="color: gray;">默认地址</a>
+                    <%}%>
+                     </td>
+                </tr>
+                <tr>
+               		<td class="  tr ">邮编：</td>
+                    <td class="  pr30 "><%=list.postCode%></td>
+                    <td class="  tr "> </td>
+                </tr>  
+             </table>
+        	 </div><br/>
+        	<%})}%>
+        	<form id="addressForm">
+        	<div id="updateAddress">
+                         
+             </div>
+             </form>
+         </div>
+        <!--2-->

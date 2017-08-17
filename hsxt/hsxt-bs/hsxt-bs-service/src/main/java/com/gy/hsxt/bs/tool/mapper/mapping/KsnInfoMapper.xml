@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.KsnInfoMapper">
+	
+	<!-- 生成积分刷卡器的数据 -->
+	<insert id="insertPointKsnInfo" parameterType="com.gy.hsxt.bs.bean.tool.PointKSN">
+		INSERT INTO 
+		T_BS_POINT_MCR_INFO(
+			DEVICE_CUST_ID,
+			DEVICE_SEQ_NO,
+			DATA_BATCH_NO,
+			KSN_CODE) 
+		<foreach collection="ponints" item="ponint" index="index" separator="union all">
+			(SELECT
+			#{ponint.deviceCustId},
+			#{ponint.deviceSeqNo},
+			#{ponint.batchNo},
+			#{ponint.ksnCode}
+			FROM DUAL)	
+		</foreach>
+	</insert>
+		
+	<!-- 生成消费刷卡器的数据 -->
+	<insert id="insertConsumeKsnInfo" parameterType="com.gy.hsxt.bs.bean.tool.ConsumeKSN">
+		INSERT INTO 
+		T_BS_CONSUME_MCR_INFO(
+			DEVICE_CUST_ID,
+			DEVICE_SEQ_NO,
+			DATA_BATCH_NO,
+			CONSUMER_CARD_CODE,
+			KSN_CODE1,
+			KSN_CODE2,
+			KSN_CODE3,
+			CIPHERTEXT1,
+			CIPHERTEXT2,
+			CIPHERTEXT3,
+			VAILD1,
+			VAILD2,
+			VAILD3) 
+		<foreach collection="comsumes" item="comsume" index="index" separator="union all">
+			(SELECT
+			#{comsume.deviceCustId},
+			#{comsume.deviceSeqNo},
+			#{comsume.batchNo},
+			#{comsume.consumeCode},
+			#{comsume.ksnCodeY},
+			#{comsume.ksnCodeE},
+			#{comsume.ksnCodeS},
+			#{comsume.ciphertextY},
+			#{comsume.ciphertextE},
+			#{comsume.ciphertextS},
+			#{comsume.vaildY},
+			#{comsume.vaildE},
+			#{comsume.vaildS}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 查询积分刷卡器字段 -->
+	<sql id="selectPointField">
+		DEVICE_CUST_ID AS deviceCustId,
+		DEVICE_SEQ_NO AS deviceSeqNo,
+		DATA_BATCH_NO AS batchNo,
+		KSN_CODE AS ksnCode
+	</sql>
+	
+	<!-- 根据设备客户号查询积分刷卡器KSN信息 -->
+	<select id="selectPointKsnInfoById" resultType="com.gy.hsxt.bs.bean.tool.PointKSN" parameterType="string">
+		SELECT 
+			<include refid="selectPointField"/>
+		FROM T_BS_POINT_MCR_INFO 
+		WHERE DEVICE_CUST_ID = #{deviceCustId}
+	</select>
+	
+	<!-- 根据批次号查询积分刷卡器 -->
+	<select id="selectPointKsnInfoByNo" resultType="com.gy.hsxt.bs.bean.tool.PointKSN" parameterType="string">
+		SELECT 
+			<include refid="selectPointField"/>
+		FROM T_BS_POINT_MCR_INFO 
+		WHERE DATA_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 查询消费刷卡器字段 -->
+	<sql id="selectConsumeField">
+		DEVICE_CUST_ID AS deviceCustId,
+		DEVICE_SEQ_NO AS deviceSeqNo,
+		DATA_BATCH_NO AS batchNo,
+		CONSUMER_CARD_CODE AS consumeCode,
+		KSN_CODE1 AS ksnCodeY,
+		KSN_CODE2 AS ksnCodeE,
+		KSN_CODE3 AS ksnCodeS,
+		CIPHERTEXT1 AS ciphertextY,
+		CIPHERTEXT2 AS ciphertextE,
+		CIPHERTEXT3 AS ciphertextS,
+		VAILD1 AS vaildY,
+		VAILD2 AS vaildE,
+		VAILD3 AS vaildS 
+	</sql>
+	
+	<!-- 根据设备客户号查询消费刷卡器KSN信息 -->
+	<select id="selectConsumeKsnInfoById" resultType="com.gy.hsxt.bs.bean.tool.ConsumeKSN" parameterType="string">
+		SELECT 
+			<include refid="selectConsumeField"/>
+		FROM T_BS_CONSUME_MCR_INFO 
+		WHERE DEVICE_CUST_ID = #{deviceCustId}
+	</select>
+	
+	<!-- 根据批次号查询消费刷卡器 -->
+	<select id="selectConsumeKsnByNo" resultType="com.gy.hsxt.bs.bean.tool.ConsumeKSN" parameterType="string">
+		SELECT 
+			<include refid="selectConsumeField"/>
+		FROM T_BS_CONSUME_MCR_INFO 
+		WHERE DATA_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 查询刷卡器入库字段 -->
+	<sql id="selectKsnEnter">
+		DEVICE_CUST_ID AS deviceCustId,
+		DEVICE_SEQ_NO AS deviceSeqNo,
+		DATA_BATCH_NO AS batchNo
+	</sql>
+	
+	<!-- 入库时查询积分刷卡器数据 -->
+	<select id="selectPointKsnInfoByEnter" resultType="com.gy.hsxt.bs.tool.bean.KsnEnterInfo" parameterType="string">
+		SELECT 
+			<include refid="selectKsnEnter"/>
+		FROM T_BS_POINT_MCR_INFO 
+		WHERE DATA_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 入库时查询消费刷卡器数据 -->
+	<select id="selectConsumeKsnByEnter" resultType="com.gy.hsxt.bs.tool.bean.KsnEnterInfo" parameterType="string">
+		SELECT 
+			<include refid="selectKsnEnter"/>
+		FROM T_BS_CONSUME_MCR_INFO 
+		WHERE DATA_BATCH_NO = #{batchNo}
+	</select>
+	
+	<!-- 查询最大的积分刷卡器的序列号 -->
+	<select id="selectMaxPointDeviceSeqNo" resultType="string">
+		SELECT 
+			MAX(DEVICE_SEQ_NO)
+		FROM T_BS_POINT_MCR_INFO 
+	</select>
+	
+	<!-- 插入刷卡器KSN记录 -->
+	<insert id="insertMcrKsnRecord" parameterType="com.gy.hsxt.bs.bean.tool.McrKsnRecord">
+		INSERT INTO 
+		T_BS_MCR_KSN_RECORD(
+			RECORD_ID,
+			BATCH_NO,
+			MCR_TYPE,
+			QUANTITY,
+			STORE_STATUS,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEBY
+		) VALUES (
+			#{recordId},
+			#{batchNo},
+			#{mcrType},
+			#{quantity},
+			#{storeStatus},
+			'Y',
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 修改刷卡器KSN生成记录入库 -->
+	<update id="updateMcrKsnRecordByNo">
+		UPDATE T_BS_MCR_KSN_RECORD SET 
+			STORE_STATUS = 1,
+			UPDATED_DATE = SYSDATE,
+			UPDATEBY = #{operNo} 
+		WHERE BATCH_NO = #{batchNo}
+	</update>
+	
+	<!-- 分页查询刷卡器KSN生成记录 -->
+	<select id="selectMcrKsnRecordListPage" resultType="com.gy.hsxt.bs.bean.tool.McrKsnRecord">
+		SELECT 
+			RECORD_ID AS recordId,
+			BATCH_NO AS batchNo,
+			MCR_TYPE AS mcrType,
+			QUANTITY AS quantity,
+			STORE_STATUS AS storeStatus,
+			CREATED_DATE AS createdDate,
+			CREATEDBY AS createdBy
+		FROM T_BS_MCR_KSN_RECORD 
+		WHERE 1 = 1
+		<if test="storeStatus != null">
+			AND STORE_STATUS = #{storeStatus}
+		</if>
+		<if test="mcrType != null">
+			AND MCR_TYPE = #{mcrType}
+		</if>
+		ORDER BY CREATED_DATE DESC
+	</select>
+	
+	<!-- 插入积分刷卡器导出记录 -->
+	<insert id="insertPointKsnExportRecord" parameterType="com.gy.hsxt.bs.bean.tool.KsnExportRecord">
+		INSERT INTO 
+		T_BS_POINT_MCR_EXPORT(
+			EXPORT_ID,
+			DATA_BATCH_NO,
+			EXPORT_REMARK,
+			OPT_ID,
+			OPT_NAME,
+			OPT_TIME
+		) VALUES (
+			#{exportId},
+			#{bahctNo},
+			#{remark},
+			#{createdBy},
+			#{createdName},
+			SYSDATE)
+	</insert>
+	
+	<!-- 插入消费刷卡器导出记录 -->
+	<insert id="insertConsumeKsnExportRecord" parameterType="com.gy.hsxt.bs.bean.tool.KsnExportRecord">
+		INSERT INTO 
+		T_BS_CONSUME_MCR_EXPORT(
+			EXPORT_ID,
+			DATA_BATCH_NO,
+			EXPORT_REMARK,
+			OPT_ID,
+			OPT_NAME,
+			OPT_TIME
+		) VALUES (
+			#{exportId},
+			#{bahctNo},
+			#{remark},
+			#{createdBy},
+			#{createdName},
+			SYSDATE)
+	</insert>
+	
+	<!-- 查询刷卡器导出记录 -->
+	<select id="selectKsnExportRecord" resultType="com.gy.hsxt.bs.bean.tool.KsnExportRecord">
+		SELECT 
+			MC.DATA_BATCH_NO AS bahctNo,
+	       	MC.EXPORT_REMARK AS remark,
+	       	MC.OPT_ID AS createdBy,
+	       	MC.OPT_NAME AS createdName,
+	       	MC.OPT_TIME AS createdDate
+		  FROM (SELECT *
+		          FROM T_BS_POINT_MCR_EXPORT PME
+		         WHERE PME.DATA_BATCH_NO = #{batchNo}
+		        UNION ALL
+		        SELECT *
+		          FROM T_BS_CONSUME_MCR_EXPORT CME
+		         WHERE CME.DATA_BATCH_NO = #{batchNo}) MC
+	</select>
+	
+	<!-- 查询序列号是否已存在 -->
+	<select id="selectConsumeKsnBySeqNo" resultType="string">
+		SELECT DEVICE_SEQ_NO FROM T_BS_CONSUME_MCR_INFO WHERE DEVICE_SEQ_NO ${seqNos}
+	</select>
+	
+</mapper>

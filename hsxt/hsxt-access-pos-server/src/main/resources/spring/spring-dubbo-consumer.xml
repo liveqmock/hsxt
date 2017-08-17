@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+    
+    <dubbo:application name="${dubbo.application.name}" />
+    <dubbo:registry id="default" address="${dubbo.registry.address}" /> 
+    <dubbo:registry id="etService" address="zookeeper://192.168.229.92:2181" default="false"/> 
+    <!-- 关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>
+    
+ 	<!-- 用户中心 -->
+    <dubbo:reference id="ucAsAuthService" interface="com.gy.hsxt.uc.as.api.common.IUCAsAuthService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    <dubbo:reference id="ucAsEntService" interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    <dubbo:reference id="ucAsCardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    <dubbo:reference id="ucPwdService" interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    	
+    
+    <!-- 设备签到 -->
+    <dubbo:reference id="ucAsDeviceSignInService" interface="com.gy.hsxt.uc.as.api.common.IUCAsDeviceSignInService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    <!-- 企业设备管理 -->
+    <dubbo:reference id="ucAsDeviceService" interface="com.gy.hsxt.uc.as.api.device.IUCAsDeviceService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    <!-- 用户注册相关信息 -->
+    <dubbo:reference id="ucAsCardHolderAuthInfoService" 
+    	interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderAuthInfoService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    
+    
+    <!-- 账务 -->
+    <dubbo:reference id="accountSearchService" interface="com.gy.hsxt.ac.api.IAccountSearchService" 
+    	retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+    	connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+    
+	<!-- 积分系统 -->
+	<dubbo:reference id="psPointService" interface="com.gy.hsxt.ps.api.IPsPointService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" group="ps" version="1.0.0" registry="default" />
+	<dubbo:reference id="psQueryService" interface="com.gy.hsxt.ps.api.IPsQueryService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" group="ps" version="1.0.0" registry="default" />
+	<dubbo:reference id="psSettleService" interface="com.gy.hsxt.ps.api.IPsSettleService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" group="ps" version="1.0.0" registry="default" />
+	
+	<!-- 业务系统 -->
+	<dubbo:reference id="bsTransInnerService" interface="com.gy.hsxt.bs.api.order.IBSTransInnerService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />		
+	<dubbo:reference id="bsOrderService" interface="com.gy.hsxt.bs.api.order.IBSOrderService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+	
+	<!-- 账户操作系统 -->
+	<dubbo:reference id="aoExchangeHsbService" interface="com.gy.hsxt.ao.api.IAOExchangeHsbService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout15000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />		
+	<dubbo:reference id="aoBatchCheckResultService" interface="com.gy.hsxt.ao.api.IAOBatchCheckResultService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout15000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+	
+	<!-- 电商系统 -->
+	<dubbo:reference id="orderService" interface="com.gy.hsec.external.api.OrderService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" version="3.0.0" registry="default" />
+	
+	<!-- 综合前置 -->
+	<dubbo:reference id="ufRegionPacketService" interface="com.gy.hsxt.uf.api.IUFRegionPacketService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout10000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+	
+	<!-- 常用基础数据服务 -->
+	<dubbo:reference id="baseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout5000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+	
+	<!-- 业务参数 -->
+	<dubbo:reference id="businessParamSearchService" interface="com.gy.hsxt.bp.api.IBusinessParamSearchService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout5000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+		
+	<dubbo:reference id="businessPosUpgradeInfoService" interface="com.gy.hsxt.bp.api.IBusinessPosUpgradeInfoService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout5000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />		
+		
+	<!-- 获取业务流水号 -->
+	<dubbo:reference id="uidService" interface="com.gy.hsxt.uid.uid.service.IUidService" 
+		retries="${dubbo.reference.retires}" timeout="${dubbo.service.timeout5000}" 
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" registry="default" />
+		
+</beans>

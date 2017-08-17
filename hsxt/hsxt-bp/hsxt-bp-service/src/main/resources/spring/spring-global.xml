@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- 因为spring的context是父子容器，所以会产生冲突，Controller会先进行扫描装配， 而此时的Service还没有进行事务的增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力） 
+		最后才是applicationContext.xml中的扫描配置进行事务处理 -->
+
+	<context:component-scan base-package="com.gy.hsxt.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	 
+	<!-- 账务系统-属性配置 -->
+	<bean id="hsPropertiesConfigurer" class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+		<!-- disconf.properties存放路径 -->
+		<constructor-arg name="disconfFile"
+			value="file:${user.dir}/conf/hsxt-bp/disconf.properties" />
+
+		<!-- 本地配置文件[只有配置到本地] -->
+		<property name="locations">
+			<list>
+			</list>
+		</property>
+
+		<!-- 远程配置文件[从disconf服务端同步到本地] -->
+		<property name="remoteLocations">
+			<list>
+				<value>file:${user.dir}/conf/hsxt-bp/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsxt-bp/hsi-lc-bp.properties</value>
+				<value>file:${user.dir}/conf/hsxt-bp/hsxt-bp.properties</value>
+				<value>file:${user.dir}/conf/hsxt-bp/jdbc.properties</value>
+				<value>file:${user.dir}/conf/hsxt-bp/log4j.properties</value>
+				<value>file:${user.dir}/conf/hsxt-bp/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	 
+	<import resource="classpath:spring/spring-datasource.xml" />
+	<import resource="classpath:spring/spring-dubbo-consumer.xml" />
+    <import resource="classpath:spring/spring-dubbo-provider.xml" />
+    <!-- <import resource="classpath:spring/spring-redis-client.xml" /> -->
+	<import resource="classpath:spring/hsxt-redis-spring.xml" />
+</beans>

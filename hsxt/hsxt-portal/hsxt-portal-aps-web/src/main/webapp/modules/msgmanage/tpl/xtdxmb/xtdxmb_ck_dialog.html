@@ -1,0 +1,35 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">模版名称</td>
+		<td class="view_text_2" width="30%"><%=obj.th_1%></td>
+		<td class="view_item" width="20%">模版用途</td>
+		<td class="view_text_2" width="30%"><%=obj.th_2%></td>
+	</tr>
+	<tr>
+		<td class="view_item">模版状态</td>
+		<td class="view_text_2"><%=obj.th_4%></td>
+		<td class="view_item"></td>
+		<td class="view_text_2"></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">短信内容</td>
+		<td colspan="3" width="80%" class="view_text_2"><%=obj.th_3%></td>
+	</tr>
+</table>
+<% if(obj.th_4 == '已停用' || obj.th_4 == '复核驳回'){ %>
+<div class="mt10 fb mb5">复核信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">复核结果</td>
+		<td class="view_text_2" width="30%">xxx</td>
+		<td class="view_item" width="20%">复核意见</td>
+		<td class="view_text_2" width="30%">xxx</td>
+	</tr>
+	<tr>
+		<td class="view_item">复核时间</td>
+		<td class="view_text_2">2015-09-07 17:55:00</td>
+		<td class="view_item">复核操作员</td>
+		<td class="view_text_2">0003（李四）</td>
+	</tr>
+</table>
+<% } %>

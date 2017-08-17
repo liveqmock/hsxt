@@ -1,0 +1,35 @@
+    <div class="ddlb_contentc">           
+    <form id="fahuo">
+  	<!-- <fieldset> -->
+                     
+	<ul>
+    <li class="ddlb_row clearfix">
+    <label for="name" style="text-align:right; padding-right:10px;">快递公司：</label>
+    <select name="logisticalSelect" id="logisticalSelect" class="ddlb_selectc">
+        <option value="">-----</option>
+        <%if(null!=obj.lstLogistic&&''!=obj.lstLogistic){%>
+		      <%$.each(obj.lstLogistic,function(key,el){ %>
+		         <option value="<%=el.id%>" 
+		         <%$.each(obj.logisticIdList,function(k,v){%>
+		          <%if(v==el.id){%>
+		          	selected
+		          <%return;}%>
+		         <%})%>
+		         ><%=el.name%></option>
+		      <%})%>
+		  <%}%>
+    </select>
+    
+    </li>                                     
+    <li class="ddlb_row clearfix">
+    <label for="name" style="text-align:right; padding-right:10px;">快递单号：</label>
+    <input type="text" name="logisticCode" id="logisticCode" placeholder="输入快递单号"  value="" class="sj_input"/>
+    </li>
+    <li class="ddlb_row clearfix">
+     <label for="name" style="text-align:right; padding-right:10px;">发货备注：</label>
+	<textarea type="text" name="logisticNode" id="logisticNode" placeholder="请输入发货备注" class="input_gray tcr_grey  sj_txt"></textarea>
+	</li>
+	</ul>
+    <!-- </fieldset> -->
+	</form>
+    </div>

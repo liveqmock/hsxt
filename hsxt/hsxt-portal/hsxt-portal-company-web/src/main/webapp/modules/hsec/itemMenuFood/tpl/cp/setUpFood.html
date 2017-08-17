@@ -1,0 +1,79 @@
+<%
+var param = obj.data.result;
+var https = obj.data.httpUrl;
+var picname ="";
+%>
+<!--设置菜品-->
+<div class="search-toolbar">
+ 	<ul class="cssform clearfix">
+         <li class="mr20">
+             <label class="title-int">菜品名称：</label>
+             <div class="cont-int">
+                 <input type="text" class="input-txt w150" value="" placeholder="输入菜品名称" name="itemName" id="itemName">
+             </div> 
+         </li>
+          <li class="mr10" >
+              <label class="title-int">菜品分类：</label>
+          		<div class="cont-int pr" >
+	          		<input type="hidden" id="categoryId" name="categoryId">
+	         		<input id="categoryName" name="categoryName" class="input-txt w150" type="text" size="8" value="" placeholder="点击选择菜品分类" readonly="readonly">
+	        		<i class="goodsC_arrow cp" id="gArrow" title="点击选择商品类目"></i>
+	          		<div id="category_content"></div>
+           		</div>
+           </li>
+         <li class="mr20">
+             <div class="cont-int">
+                 <button class="btn-search foodserach" type="button" id="">查询</button>
+             </div>
+         </li>
+         <li style="float:right">
+             <div class="cont-int">
+                 <button class="btn-search dycdback mr10" type="button" id="">取消</button>
+                 <button class="btn-search foodsave" type="button" id="">保存</button>
+             </div>
+         </li>
+      </ul>
+ </div> 
+ <div class="search-cont">
+   <div class="foodlist pr">
+   <% try {if(param != null && param.length > 0){ $.each(param,function(key,value){%>
+      	 <h1 class="mt10"><label><input type="checkbox" class="mr5 allgetchk"><%=value.itemCustomCategoryName%>（<%=value.itemNum%>）</label></h1>
+         <ul class="floatlist clearfix pt20list">
+         	<%$.each(value.itemInfoFoodList,function(k,v){
+		  		if(v.pics != null && v.pics != ""){
+			  		var picObj = eval(v.pics);//转换对象
+			  		try{
+			  		$.each(picObj[0].web,function(y,o){
+			  			if(o.size=="400*400"){
+			  				picname = o.name;
+			  			}
+			  		});
+			  		}catch(e){}
+		  		}
+         	%>
+         	<li class="w20p" data-id="<%=v.id%>">
+             	<div class="pr addcp bc w120">
+                 <i title="添加菜品" class="cp_get none"></i>
+                 <% if(v.ishaspv == 1){%>
+                   		<div class="fiximg"><img width="120" height="120" src="resources/img/item_df.png">  </div>
+                   <%}else {%>
+                   		<div class="fiximg"><img width="120" height="120" src="<%=https+picname%>"> </div>
+                  <% }%> 
+                 <!-- <div class="fiximg"><img width="120" height="120" src="<%=https+picname%>"></div> -->
+                 <h2 class="mt5 f12"><%=v.name%></h2>
+                 <div class="mt5">
+                 	<span class="f12 mr5 lh12 red"><img width="16" style="vertical-align:middle;" src="resources/img/price.png"><%=v.price%></span>
+                    <span class="f12 lh12 blue"><img width="22" style="vertical-align:middle;" src="resources/img/pv.png"><%=v.pv%></span>
+                 </div>
+                 </div>
+             </li>
+             <%})%>
+         </ul>
+   <%}) } else {%>
+   		<br>
+      	<div align="center" class="blue">暂无菜品！</div>
+      <%} }catch(e){}%>
+     </div>
+</div>
+
+  		

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.EnumItemMapper">
+	<!--插入-->
+	<insert id="addEnumItem" parameterType="com.gy.hsxt.gpf.gcs.bean.EnumItem" >
+		<![CDATA[
+			INSERT INTO T_GCS_ENUM_ITEM (
+				LANGUAGE_CODE,
+				ENUM_GROUP_CODE,
+				ENUM_ITEM_CODE,
+				ENUM_ITEM_NAME,
+				ENUM_ITEM_VALUE,
+				DEL_FLAG,
+				VERSION
+			)
+		  VALUES
+				(
+					#{languageCode,jdbcType=VARCHAR},
+					#{groupCode,jdbcType=VARCHAR},
+					#{itemCode,jdbcType=VARCHAR},
+					#{itemName,jdbcType=VARCHAR},
+					#{itemValue,jdbcType=VARCHAR},
+					#{delFlag,jdbcType=TINYINT},
+					#{version,jdbcType=BIGINT}
+				);
+		 ]]>
+	</insert>
+	<!--逻辑删除-->
+	<update id="deleteEnumItem" parameterType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		 UPDATE T_GCS_ENUM_ITEM
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR}
+		      AND ENUM_ITEM_CODE = #{itemCode,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updateEnumItem" parameterType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		UPDATE T_GCS_ENUM_ITEM
+			<set>
+	          ENUM_ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+	          ENUM_ITEM_VALUE = #{itemValue,jdbcType=VARCHAR},
+	          DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR}
+		      AND ENUM_ITEM_CODE = #{itemCode,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existEnumItem" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_GCS_ENUM_ITEM
+			WHERE
+				LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+			AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR}
+			AND ENUM_ITEM_CODE = #{itemCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	<!--主键查询-->
+	<select id="queryEnumItemWithPK" resultType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			ENUM_GROUP_CODE groupCode,
+			ENUM_ITEM_CODE itemCode,
+			ENUM_ITEM_NAME itemName,
+			ENUM_ITEM_VALUE itemValue,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_ENUM_ITEM
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+		AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR} 
+		AND ENUM_ITEM_CODE = #{itemCode,jdbcType=VARCHAR} 
+	</select>
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryEnumItemListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.EnumItem" resultType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			ENUM_GROUP_CODE groupCode,
+			ENUM_ITEM_CODE itemCode,
+			ENUM_ITEM_NAME itemName,
+			ENUM_ITEM_VALUE itemValue,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_ENUM_ITEM
+		WHERE
+			TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if> 
+			<if test="languageCode != null and languageCode != '' "> 
+				AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+			</if>
+			<if test="groupCode != null and groupCode != '' "> 
+				AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR} 
+			</if> 
+			<if test="itemCode != null and itemCode != '' "> 
+				AND ENUM_ITEM_CODE = #{itemCode,jdbcType=VARCHAR} 
+			</if>  
+			<if test="itemName != null and itemName != '' "> 
+				<![CDATA[  AND ENUM_ITEM_NAME like CONCAT('%',#{itemName},'%')  escape '/' ]]>
+			</if>    
+			<if test="itemValue != null and itemValue != '' "> 
+				<![CDATA[  AND ENUM_ITEM_VALUE like CONCAT('%',#{itemValue},'%')  escape '/' ]]>
+			</if>
+			  ORDER BY LANGUAGE_CODE,ENUM_GROUP_CODE,ENUM_ITEM_CODE
+	</select>
+	
+	
+	<select id="queryEnumItemByGroup" resultType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			ENUM_GROUP_CODE groupCode,
+			ENUM_ITEM_CODE itemCode,
+			ENUM_ITEM_NAME itemName,
+			ENUM_ITEM_VALUE itemValue,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_ENUM_ITEM
+		WHERE
+			DEL_FLAG = FALSE
+		AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+		AND ENUM_GROUP_CODE = #{groupCode,jdbcType=VARCHAR} 
+		ORDER BY
+			LANGUAGE_CODE,
+			ENUM_GROUP_CODE,
+			ENUM_ITEM_CODE
+	</select>
+	
+	<select id="queryEnumItem4SyncData" resultType="com.gy.hsxt.gpf.gcs.bean.EnumItem">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			ENUM_GROUP_CODE groupCode,
+			ENUM_ITEM_CODE itemCode,
+			ENUM_ITEM_NAME itemName,
+			ENUM_ITEM_VALUE itemValue,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_ENUM_ITEM
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT}
+		ORDER BY
+			LANGUAGE_CODE,
+			ENUM_GROUP_CODE,
+			ENUM_ITEM_CODE
+	</select>
+	    
+</mapper>

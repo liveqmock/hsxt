@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.AccumulativePointMapper">
+	
+	<!-- 查询已存在累计积分的客户号 -->
+	<select id="queryExistCustId" resultType="java.lang.String"
+		parameterType="java.util.List">
+		select
+		CUST_ID
+		from T_WS_ACCUMULATIVE_POINT
+		where CUST_ID in
+		<foreach item="item" collection="list" separator="," open="("
+			close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<!-- 清空临时数据 -->
+	<delete id="clearTempData" parameterType="java.lang.String">
+		delete from T_WS_POINT_TEMP t where t.accounting_date = #{accountingDate,jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 批处理数据插入临时表 -->
+	<insert id="batchInsertPoint" parameterType="java.util.List">
+		INSERT /*+APPEND*/ INTO T_WS_POINT_TEMP (
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CONSUME_POINT,
+		INVEST_POINT,
+		ACCOUNTING_DATE
+		)
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			(SELECT
+			#{item.custId,jdbcType=VARCHAR},
+			#{item.hsResNo,jdbcType=VARCHAR},
+			#{item.custName,jdbcType=VARCHAR},
+			#{item.consumePoint,jdbcType=DECIMAL},
+			#{item.investPoint,jdbcType=DECIMAL},
+			#{item.accountingDate,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 调用统计累计积分的 存储过程-->
+	<select id="countAccumulativePoint" statementType="CALLABLE" parameterType="java.util.Map">  
+		<![CDATA[  
+   	 		{call PRO_COUNT_ACCUMULATIVE_POINT ( #{executeDate,mode=IN,jdbcType=DATE})}  
+		]]>
+	</select>
+
+</mapper>

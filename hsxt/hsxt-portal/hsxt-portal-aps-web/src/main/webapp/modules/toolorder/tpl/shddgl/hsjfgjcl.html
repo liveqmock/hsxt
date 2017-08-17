@@ -1,0 +1,39 @@
+﻿<div id="hsjfgjclTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>机器码/序列号：</label>
+				<input type="text" id="seqNo" name="textfield" placeholder="输入POS机机器码或刷卡器序列号，最长不超过20位" class="h28_middle info_320 input-txt" value=""/>
+			</li>
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" id="entResNo" name="textfield" placeholder="输入企业互生号" maxlength="11" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="qry_hsjfgjcl_btn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="cxgl_btn" type="button" class="btn-search">重新关联/灌秘钥</button>
+			</li>
+			<li>
+				<button id="plcxgl_btn" type="button" class="btn-search">批量导入重新关联/灌秘钥</button>
+			</li>
+		 </ul>
+	</div>			
+	<table id="searchTable110" class="bsgrid">
+	  <tr>
+		<th w_check="true" width="3%;"></th>
+		<th w_index="entResNo" w_tip="true">企业互生号</th>
+		<th w_index="entCustName" w_tip="true">企业名称</th>
+		<th w_index="orderNo" w_tip="true">工具订单编号</th>
+		<th w_index="deviceSeqNo" w_tip="true">机器码/序列号</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="terminalNo" w_tip="true">终端编号</th>
+		<!--<th w_index="th_7">备注</th>
+		<th w_render="operate">备注</th>-->
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_cxgl" class="none"></div>
+<div id="dialogBox_plcxgl" class="none"></div>
+<div id="dialogBox_ck" class="none ovh"></div>

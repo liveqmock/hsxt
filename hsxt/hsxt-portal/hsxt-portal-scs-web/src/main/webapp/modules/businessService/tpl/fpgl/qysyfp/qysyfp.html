@@ -1,0 +1,112 @@
+<div id="gsdjxx_xgTpl">
+	<div class="bc">
+		<div class="clearfix">
+			<form>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="50%" class="pr10">
+							<table width="100%" class="fixtable">
+								<tr>
+									<td width="25%" style="border-bottom: 0; height: 0;"></td>
+									<td width="33%" style="border-bottom: 0; height: 0;"></td>
+									<td width="20%" style="border-bottom: 0; height: 0;"></td>
+									<td width="12%" style="border-bottom: 0; height: 0;"></td>
+								</tr>
+								<tr>
+									<td rowspan="6 " align="center">可索取发票总金额</td>
+								</tr>
+								<tr>
+									<td class="p5">系统使用年费</td>
+									<td class="p5"><span id="PC003remain">0.00</span></td>
+									<td align="center"><a id="PC003" class="pl5 pr5">索要发票</a></td>
+								</tr>
+								<tr>
+									<td class="p5">服务公司系统资源费</td>
+									<td class="p5"><span id="PC001remain">0.00</span></td>
+									<td align="center"><a id="PC001" class="pl5 pr5">索要发票</a></td>
+								</tr>
+							</table>
+						</td>
+						<td width="50%" class="pl10" align="right">
+							<table width="100%" class="fixtable bg_ef">
+								<tr>
+									<td rowspan="6 " align="center">已索取发票总金额</td>
+								</tr>
+								<tr>
+									<td class="p5 border_top_CCC">系统使用年费</td>
+									<td class="p5 border_top_CCC"><span id="PC003opened">0.00</span></td>
+								</tr>
+								<tr>
+									<td class="p5 ">服务公司系统资源费</td>
+									<td class="p5 "><span id="PC001opened">0.00</span></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+				</table>
+
+
+			</form>
+
+		</div>
+		<div class="search-toolbar mt10">
+			<form id="search_form">
+				<ul class="cssform clearfix">
+					<li class="mr10"><label class="title-int">申请日期：</label> <input
+						type="text" name="search_startDate" id="search_startDate"
+						placeholder="输入时间范围" class="h28_middle input-txt w115" /> <span
+						class="separator-pd">-</span> <input type="text"
+						name="search_endDate" id="search_endDate" placeholder="输入时间范围"
+						class="h28_middle input-txt w115" /></li>
+
+					<li class="mr10"><label class="title-int">配送状态：</label> <input
+						type="text" name="search_status" id="search_status"
+						readonly="readonly" placeholder="选择配送状态"
+						class="h28_middle input-txt w100" /> <input
+						id="search_invoiceMaker" name="search_invoiceMaker" type="hidden"
+						value="0" /> <input id="search_queryType" name="search_queryType"
+						type="hidden" value="0" /></li>
+					<li>
+						<div class="cont-int">
+							<button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+						</div>
+					</li>
+				</ul>
+			</form>
+		</div>
+
+		<table id="fpsq_table" class="bsgrid">
+			<thead>
+				<tr>
+					<th w_index="applyTime" w_align="left">申请日期</th>
+					<th w_render="operate" w_align="left">开票金额</th>
+					<th w_index="bizType" w_render="operate" w_align="left">业务类别</th>
+					<!--<th w_index="applyOperator" w_align="left">经办人</th>-->
+					<th w_index="postWay" w_render="operate" w_align="left">配送方式</th>
+					<th w_index="expressName" w_align="left">承运公司</th>
+					<th w_index="trackingNo" w_align="left">运单号</th>
+					<th w_index="status" w_render="operate" w_align="left">配送状态</th>
+					<th w_index="updatedDate" w_align="left">状态日期</th>
+					<th w_render="operate">操作</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+</div>
+
+<!-- 索票对话框  -->
+<div id="qysyfp_dialog" class="none ovh"></div>
+<div id="qysyfp_xq_dialog" class="bc  info_800 none"></div>
+
+
+
+
+
+
+
+
+
+
+

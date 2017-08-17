@@ -1,0 +1,87 @@
+<div class="register_info info_800 bc mt20">
+	<form id="xzczyForm">
+	<div class="clearfix">
+		<ul class="fl">
+			<li class="register_row info_320 clearfix pr">
+				<label class="title-txt">登录用户名</label>
+				<div class="cont-int"><input class="inpt" id="userName" name="userName" type="text" value="" placeholder="输入用户名" ><div class="must">*</div></div>
+			</li>
+			<li class="register_row info_320 clearfix pr">
+				<label class="title-txt">登录密码</label>
+				<div class="cont-int"><input class="inpt" id="loginPwd" name="loginPwd" type="password" maxlength="6" value="" placeholder="输入用户登录密码"><div class="must">*</div></div>
+			</li>
+			<li class="register_row clearfix">
+					<label class="title-txt">确认登录密码</label>
+					<div class="cont-int"><input class="inpt" id="loginPwd2" name="loginPwd2" type="password" maxlength="6" value="" placeholder="输入确认登录密码"><div class="must">*</div></div>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">姓名</label>
+				<div class="cont-int"><input class="inpt" id="realName" name="realName" maxlength="20" type="text" placeholder="输入用户姓名"  ><div class="must">*</div></div>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">职务</label>
+				<div class="cont-int"><input class="inpt" id="operDuty" name="operDuty" maxlength="10"  type="text" placeholder="输入用户职务"  ></div>
+			</li>
+		 </ul>
+		 <ul class="fr">
+			 <li class="register_row info_320 clearfix">
+				<label class="title-txt">手机号码</label>
+				<div class="cont-int"><input class="inpt" id="mobile" maxlength="11" name="mobile" type="text" placeholder="输入手机号码"  ></div>
+			</li>
+			<li class="register_row info_320 clearfix">
+				<label class="title-txt">状态</label>
+				<div class="cont-int ml5 mt10" style="line-height:8px;">
+					<input name="activity" type="radio" class="mr5 radio_input" value="0" checked="checked">
+				</div>
+				<label style="width:30px; border:none">启用</label>
+				<div class="cont-int ml5 mt10" style="line-height:8px;">
+					<input name="activity" type="radio" class="ml10 mr5 radio_input" value="1">
+				</div>
+				<label style="width:30px; border:none">停用</label>
+			</li>
+			<li class="register_row info_320 clearfix" style="height: 92px; border: 1px solid #CCC;">
+				<label class="title-txt" style=" background-color: #e8f4e6; height: 92px; line-height: 60px;">用户组</label>
+				<input type="hidden" value="" id="groupId" />
+				<div class="cont-int" style="width: 196px;height: 92px;">
+				<textarea id="groupName" readonly="readonly" name="groupName" rows="5" class="inpt-tas" style="width: 186px;height: 80px;"></textarea>
+				</div>
+				<i id="btn_xzyhz" class="icon-add sltusergrounp" style="left:330px;margin-top:30px" title="选择用户组"></i>
+				<div class="hint" style="left:360px;margin-top:30px">多选，非必选</div>
+			</li>
+		 </ul>
+	</div>									
+	<ul class="mt5">
+		<li class="register_row_2 clearfix">
+			<label class="title-txt">描述</label>
+			<div class="cont-int" style="width:199px;"><textarea id="remark" name="remark" maxlength="100" rows="2" class="inpt-tas" placeholder="输入描述,最长不超过100个字"></textarea></div><div class="hintas"><!--提示--></div>
+		</li>
+	</ul>	
+</form>
+</div>
+<div align="center" class="mt20"><a id="xzczy_qr" class="dlg34 btn_bg submit">确　认</a></div>
+
+<div id="xzczy_dialog" class="none"  title="选项用户组">
+
+	<div id="receivingUnit_1" class="search-cont">
+		<table id="groupTable">
+			<th w_check="true" w_index="groupId" width="3%;"></th>
+	        <th w_index="groupName">用户组名称</th>
+	        <th w_index="groupDesc">用户组描述</th>
+		</table>
+	</div> 
+	
+</div>   
+
+
+<div id="xzczy_cg_dialog" class="none" title="操作员创建成功，是否进行角色设置？">
+	<p class="autowidth">
+		<table id="roleTable">
+		 	<th w_check="true" w_index="roleId" width="5%"></th>
+	        <th  w_render="operate">角色名称</th>
+	        <th w_index="roleDesc">角色描述</th>
+		</table>
+	</p>
+</div>
+
+
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd"
+	default-autowire="byName" default-lazy-init="true">
+	
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" /> 
+	
+	<util:properties id="pos_KeyServerConf" location="config/keyserver.properties" />
+	<bean id="pos_configurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound">
+			<value>true</value>
+		</property>
+		<property name="propertiesArray">
+			<array>
+				<ref bean="pos_KeyServerConf" />
+			</array>
+		</property>
+	</bean>
+	<!-- Config -->
+	<bean id="config" class="com.gy.hsxt.keyserver.tools.Config" lazy-init="false">
+		<property name="SubCenter" value="${SubCenter}"/>
+		<property name="DueTime" value="${checkin.DueTime}"/>
+		<property name="saveDataType" value="${saveDataType}"/>	
+		<property name="logLevel" value="${logLevel}"/>	
+	</bean>
+		
+	<!-- 自动扫描(自动注入) -->
+	<context:annotation-config />
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.gy.hsxt.keyserver" />
+	<!-- baseDAO -->
+	<bean id="oracleStore" class="com.gy.hsxt.keyserver.storebase.OracleStore" 
+		autowire="default">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<bean id="pos_dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${pos.jdbc.url}" />
+		<property name="username" value="${pos.jdbc.username}" />
+		<property name="password" value="${pos.jdbc.password}" />
+		<property name="filters" value="${jdbc.druid.filters}" />
+		<property name="initialSize" value="${jdbc.druid.initialSize}" />
+		<property name="minIdle" value="${jdbc.druid.minIdle}" />
+		<property name="maxActive" value="${jdbc.druid.maxActive}" />
+		<property name="maxWait" value="${jdbc.druid.axWait}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.druid.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.druid.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="SELECT 'x' FROM DUAL" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="poolPreparedStatements" value="${jdbc.druid.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="${jdbc.druid.maxPoolPreparedStatementPerConnectionSize}" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" 
+		abstract="false" lazy-init="false" autowire="default">
+		<property name="dataSource" ref="pos_dataSource" />
+	</bean>
+
+</beans>

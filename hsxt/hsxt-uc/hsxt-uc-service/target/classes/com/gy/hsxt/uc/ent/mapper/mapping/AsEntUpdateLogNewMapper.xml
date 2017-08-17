@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.AsEntUpdateLogNewMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogNew" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+    <result column="APPLY_ENT_RES_NO" property="applyEntResNo" jdbcType="CHAR" />
+    <result column="SUPER_ENT_RES_NO" property="superEntResNo" jdbcType="CHAR" />
+    <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+    <result column="ENT_REG_ADDR" property="entRegAddr" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENSE_NO" property="busiLicenseNo" jdbcType="VARCHAR" />
+    <result column="BUSI_LICENSE_IMG" property="busiLicenseImg" jdbcType="VARCHAR" />
+    <result column="ORG_CODE_NO" property="orgCodeNo" jdbcType="VARCHAR" />
+    <result column="ORG_CODE_IMG" property="orgCodeImg" jdbcType="VARCHAR" />
+    <result column="TAX_NO" property="taxNo" jdbcType="VARCHAR" />
+    <result column="TAX_REG_IMG" property="taxRegImg" jdbcType="VARCHAR" />
+    <result column="BUILD_DATE" property="buildDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="END_DATE" property="endDate" jdbcType="VARCHAR" />
+    <result column="NATURE" property="nature" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON_ID" property="legalPersonId" jdbcType="VARCHAR" />
+    <result column="CREDENTIAL_TYPE" property="credentialType" jdbcType="DECIMAL" />
+    <result column="LEGAL_PERSON_PIC_FRONT" property="legalPersonPicFront" jdbcType="VARCHAR" />
+    <result column="LEGAL_PERSON_PIC_BACK" property="legalPersonPicBack" jdbcType="VARCHAR" />
+    <result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+    <result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+    <result column="BUSI_AREA" property="busiArea" jdbcType="DECIMAL" />
+    <result column="ENT_EMP_NUM" property="entEmpNum" jdbcType="DECIMAL" />
+    <result column="CERTIFICATE_DEPOSIT" property="certificateDeposit" jdbcType="VARCHAR" />
+    <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+    <result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+    <result column="CONTACT_PERSON" property="contactPerson" jdbcType="VARCHAR" />
+    <result column="CONTACT_DUTY" property="contactDuty" jdbcType="VARCHAR" />
+    <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="CONTACT_ADDR" property="contactAddr" jdbcType="VARCHAR" />
+    <result column="CONTACT_EMAIL" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="OFFICE_QQ" property="officeQq" jdbcType="VARCHAR" />
+    <result column="OFFICE_TEL" property="officeTel" jdbcType="VARCHAR" />
+    <result column="OFFICE_FAX" property="officeFax" jdbcType="VARCHAR" />
+    <result column="ENT_CUST_NAME_EN" property="entCustNameEn" jdbcType="VARCHAR" />
+    <result column="LOGO_IMG" property="logoImg" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="DECIMAL" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="WEB_SITE" property="webSite" jdbcType="VARCHAR" />
+    <result column="ENSURE_INFO" property="ensureInfo" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="TAX_RATE" property="taxRate" jdbcType="DECIMAL" />
+    <result column="CONTACT_PROXY" property="contactProxy" jdbcType="VARCHAR" />
+    <result column="HELP_AGREEMENT" property="helpAgreement" jdbcType="VARCHAR" />
+    <result column="ART_RES_TYPEST" property="artResTypest" jdbcType="DECIMAL" />
+    <result column="MODIFY_ACOUNT" property="modifyAcount" jdbcType="DECIMAL" />
+    <result column="ENT_REG_CODE" property="entRegCode" jdbcType="VARCHAR" />
+    <result column="ENT_REG_IMG" property="entRegImg" jdbcType="VARCHAR" />
+    <result column="BUSI_REG_CODE" property="busiRegCode" jdbcType="VARCHAR" />
+    <result column="BUSI_REG_IMG" property="busiRegImg" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, ENT_CUST_ID, ENT_RES_NO, CUST_TYPE, APPLY_ENT_RES_NO, SUPER_ENT_RES_NO, ENT_CUST_NAME, 
+    ENT_REG_ADDR, BUSI_LICENSE_NO, BUSI_LICENSE_IMG, ORG_CODE_NO, ORG_CODE_IMG, TAX_NO, 
+    TAX_REG_IMG, BUILD_DATE, END_DATE, NATURE, LEGAL_PERSON, LEGAL_PERSON_ID, CREDENTIAL_TYPE, 
+    LEGAL_PERSON_PIC_FRONT, LEGAL_PERSON_PIC_BACK, COUNTRY_NO, PROVINCE_NO, CITY_NO, 
+    BUSI_AREA, ENT_EMP_NUM, CERTIFICATE_DEPOSIT, BUSINESS_SCOPE, INTRODUCTION, CONTACT_PERSON, 
+    CONTACT_DUTY, CONTACT_PHONE, CONTACT_ADDR, CONTACT_EMAIL, OFFICE_QQ, OFFICE_TEL, 
+    OFFICE_FAX, ENT_CUST_NAME_EN, LOGO_IMG, INDUSTRY, POST_CODE, WEB_SITE, ENSURE_INFO, 
+    LONGITUDE, LATITUDE, TAX_RATE, CONTACT_PROXY, HELP_AGREEMENT, ART_RES_TYPEST, MODIFY_ACOUNT, 
+    ENT_REG_CODE, ENT_REG_IMG, BUSI_REG_CODE, BUSI_REG_IMG, ISACTIVE, CREATE_DATE, CREATEDBY, 
+    UPDATE_DATE, UPDATEDBY, BUSINESS_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ENT_UPDATE_LOG_NEW
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ENT_UPDATE_LOG_NEW
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogNew" >
+    insert into T_ENT_UPDATE_LOG_NEW (LOG_ID, ENT_CUST_ID, ENT_RES_NO, 
+      CUST_TYPE, APPLY_ENT_RES_NO, SUPER_ENT_RES_NO, 
+      ENT_CUST_NAME, ENT_REG_ADDR, BUSI_LICENSE_NO, 
+      BUSI_LICENSE_IMG, ORG_CODE_NO, ORG_CODE_IMG, 
+      TAX_NO, TAX_REG_IMG, BUILD_DATE, 
+      END_DATE, NATURE, LEGAL_PERSON, 
+      LEGAL_PERSON_ID, CREDENTIAL_TYPE, LEGAL_PERSON_PIC_FRONT, 
+      LEGAL_PERSON_PIC_BACK, COUNTRY_NO, PROVINCE_NO, 
+      CITY_NO, BUSI_AREA, ENT_EMP_NUM, 
+      CERTIFICATE_DEPOSIT, BUSINESS_SCOPE, INTRODUCTION, 
+      CONTACT_PERSON, CONTACT_DUTY, CONTACT_PHONE, 
+      CONTACT_ADDR, CONTACT_EMAIL, OFFICE_QQ, 
+      OFFICE_TEL, OFFICE_FAX, ENT_CUST_NAME_EN, 
+      LOGO_IMG, INDUSTRY, POST_CODE, 
+      WEB_SITE, ENSURE_INFO, LONGITUDE, 
+      LATITUDE, TAX_RATE, CONTACT_PROXY, 
+      HELP_AGREEMENT, ART_RES_TYPEST, MODIFY_ACOUNT, 
+      ENT_REG_CODE, ENT_REG_IMG, BUSI_REG_CODE, 
+      BUSI_REG_IMG, ISACTIVE, CREATE_DATE, 
+      CREATEDBY, UPDATE_DATE, UPDATEDBY, 
+      BUSINESS_TYPE)
+    values (#{logId,jdbcType=VARCHAR}, #{entCustId,jdbcType=VARCHAR}, #{entResNo,jdbcType=CHAR}, 
+      #{custType,jdbcType=DECIMAL}, #{applyEntResNo,jdbcType=CHAR}, #{superEntResNo,jdbcType=CHAR}, 
+      #{entCustName,jdbcType=VARCHAR}, #{entRegAddr,jdbcType=VARCHAR}, #{busiLicenseNo,jdbcType=VARCHAR}, 
+      #{busiLicenseImg,jdbcType=VARCHAR}, #{orgCodeNo,jdbcType=VARCHAR}, #{orgCodeImg,jdbcType=VARCHAR}, 
+      #{taxNo,jdbcType=VARCHAR}, #{taxRegImg,jdbcType=VARCHAR}, #{buildDate,jdbcType=OTHER}, 
+      #{endDate,jdbcType=VARCHAR}, #{nature,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, 
+      #{legalPersonId,jdbcType=VARCHAR}, #{credentialType,jdbcType=DECIMAL}, #{legalPersonPicFront,jdbcType=VARCHAR}, 
+      #{legalPersonPicBack,jdbcType=VARCHAR}, #{countryNo,jdbcType=VARCHAR}, #{provinceNo,jdbcType=VARCHAR}, 
+      #{cityNo,jdbcType=VARCHAR}, #{busiArea,jdbcType=DECIMAL}, #{entEmpNum,jdbcType=DECIMAL}, 
+      #{certificateDeposit,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, 
+      #{contactPerson,jdbcType=VARCHAR}, #{contactDuty,jdbcType=VARCHAR}, #{contactPhone,jdbcType=VARCHAR}, 
+      #{contactAddr,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{officeQq,jdbcType=VARCHAR}, 
+      #{officeTel,jdbcType=VARCHAR}, #{officeFax,jdbcType=VARCHAR}, #{entCustNameEn,jdbcType=VARCHAR}, 
+      #{logoImg,jdbcType=VARCHAR}, #{industry,jdbcType=DECIMAL}, #{postCode,jdbcType=VARCHAR}, 
+      #{webSite,jdbcType=VARCHAR}, #{ensureInfo,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{taxRate,jdbcType=DECIMAL}, #{contactProxy,jdbcType=VARCHAR}, 
+      #{helpAgreement,jdbcType=VARCHAR}, #{artResTypest,jdbcType=DECIMAL}, #{modifyAcount,jdbcType=DECIMAL}, 
+      #{entRegCode,jdbcType=VARCHAR}, #{entRegImg,jdbcType=VARCHAR}, #{busiRegCode,jdbcType=VARCHAR}, 
+      #{busiRegImg,jdbcType=VARCHAR}, #{isactive,jdbcType=CHAR}, #{createDate,jdbcType=OTHER}, 
+      #{createdby,jdbcType=VARCHAR}, #{updateDate,jdbcType=OTHER}, #{updatedby,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogNew" >
+    insert into T_ENT_UPDATE_LOG_NEW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="applyEntResNo != null" >
+        APPLY_ENT_RES_NO,
+      </if>
+      <if test="superEntResNo != null" >
+        SUPER_ENT_RES_NO,
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME,
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR,
+      </if>
+      <if test="busiLicenseNo != null" >
+        BUSI_LICENSE_NO,
+      </if>
+      <if test="busiLicenseImg != null" >
+        BUSI_LICENSE_IMG,
+      </if>
+      <if test="orgCodeNo != null" >
+        ORG_CODE_NO,
+      </if>
+      <if test="orgCodeImg != null" >
+        ORG_CODE_IMG,
+      </if>
+      <if test="taxNo != null" >
+        TAX_NO,
+      </if>
+      <if test="taxRegImg != null" >
+        TAX_REG_IMG,
+      </if>
+      <if test="buildDate != null" >
+        BUILD_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+      <if test="nature != null" >
+        NATURE,
+      </if>
+      <if test="legalPerson != null" >
+        LEGAL_PERSON,
+      </if>
+      <if test="legalPersonId != null" >
+        LEGAL_PERSON_ID,
+      </if>
+      <if test="credentialType != null" >
+        CREDENTIAL_TYPE,
+      </if>
+      <if test="legalPersonPicFront != null" >
+        LEGAL_PERSON_PIC_FRONT,
+      </if>
+      <if test="legalPersonPicBack != null" >
+        LEGAL_PERSON_PIC_BACK,
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO,
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="busiArea != null" >
+        BUSI_AREA,
+      </if>
+      <if test="entEmpNum != null" >
+        ENT_EMP_NUM,
+      </if>
+      <if test="certificateDeposit != null" >
+        CERTIFICATE_DEPOSIT,
+      </if>
+      <if test="businessScope != null" >
+        BUSINESS_SCOPE,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="contactPerson != null" >
+        CONTACT_PERSON,
+      </if>
+      <if test="contactDuty != null" >
+        CONTACT_DUTY,
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE,
+      </if>
+      <if test="contactAddr != null" >
+        CONTACT_ADDR,
+      </if>
+      <if test="contactEmail != null" >
+        CONTACT_EMAIL,
+      </if>
+      <if test="officeQq != null" >
+        OFFICE_QQ,
+      </if>
+      <if test="officeTel != null" >
+        OFFICE_TEL,
+      </if>
+      <if test="officeFax != null" >
+        OFFICE_FAX,
+      </if>
+      <if test="entCustNameEn != null" >
+        ENT_CUST_NAME_EN,
+      </if>
+      <if test="logoImg != null" >
+        LOGO_IMG,
+      </if>
+      <if test="industry != null" >
+        INDUSTRY,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="webSite != null" >
+        WEB_SITE,
+      </if>
+      <if test="ensureInfo != null" >
+        ENSURE_INFO,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="taxRate != null" >
+        TAX_RATE,
+      </if>
+      <if test="contactProxy != null" >
+        CONTACT_PROXY,
+      </if>
+      <if test="helpAgreement != null" >
+        HELP_AGREEMENT,
+      </if>
+      <if test="artResTypest != null" >
+        ART_RES_TYPEST,
+      </if>
+      <if test="modifyAcount != null" >
+        MODIFY_ACOUNT,
+      </if>
+      <if test="entRegCode != null" >
+        ENT_REG_CODE,
+      </if>
+      <if test="entRegImg != null" >
+        ENT_REG_IMG,
+      </if>
+      <if test="busiRegCode != null" >
+        BUSI_REG_CODE,
+      </if>
+      <if test="busiRegImg != null" >
+        BUSI_REG_IMG,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="businessType != null" >
+        BUSINESS_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="applyEntResNo != null" >
+        #{applyEntResNo,jdbcType=CHAR},
+      </if>
+      <if test="superEntResNo != null" >
+        #{superEntResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustName != null" >
+        #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenseNo != null" >
+        #{busiLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenseImg != null" >
+        #{busiLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCodeNo != null" >
+        #{orgCodeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCodeImg != null" >
+        #{orgCodeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNo != null" >
+        #{taxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegImg != null" >
+        #{taxRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDate != null" >
+        #{buildDate,jdbcType=OTHER},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonId != null" >
+        #{legalPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="credentialType != null" >
+        #{credentialType,jdbcType=DECIMAL},
+      </if>
+      <if test="legalPersonPicFront != null" >
+        #{legalPersonPicFront,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPicBack != null" >
+        #{legalPersonPicBack,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiArea != null" >
+        #{busiArea,jdbcType=DECIMAL},
+      </if>
+      <if test="entEmpNum != null" >
+        #{entEmpNum,jdbcType=DECIMAL},
+      </if>
+      <if test="certificateDeposit != null" >
+        #{certificateDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null" >
+        #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactDuty != null" >
+        #{contactDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddr != null" >
+        #{contactAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="officeQq != null" >
+        #{officeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="officeTel != null" >
+        #{officeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFax != null" >
+        #{officeFax,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustNameEn != null" >
+        #{entCustNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logoImg != null" >
+        #{logoImg,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=DECIMAL},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="ensureInfo != null" >
+        #{ensureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contactProxy != null" >
+        #{contactProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="helpAgreement != null" >
+        #{helpAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="artResTypest != null" >
+        #{artResTypest,jdbcType=DECIMAL},
+      </if>
+      <if test="modifyAcount != null" >
+        #{modifyAcount,jdbcType=DECIMAL},
+      </if>
+      <if test="entRegCode != null" >
+        #{entRegCode,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegImg != null" >
+        #{entRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="busiRegCode != null" >
+        #{busiRegCode,jdbcType=VARCHAR},
+      </if>
+      <if test="busiRegImg != null" >
+        #{busiRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogNew" >
+    update T_ENT_UPDATE_LOG_NEW
+    <set >
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="applyEntResNo != null" >
+        APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=CHAR},
+      </if>
+      <if test="superEntResNo != null" >
+        SUPER_ENT_RES_NO = #{superEntResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenseNo != null" >
+        BUSI_LICENSE_NO = #{busiLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiLicenseImg != null" >
+        BUSI_LICENSE_IMG = #{busiLicenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCodeNo != null" >
+        ORG_CODE_NO = #{orgCodeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCodeImg != null" >
+        ORG_CODE_IMG = #{orgCodeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNo != null" >
+        TAX_NO = #{taxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegImg != null" >
+        TAX_REG_IMG = #{taxRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="buildDate != null" >
+        BUILD_DATE = #{buildDate,jdbcType=OTHER},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        NATURE = #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonId != null" >
+        LEGAL_PERSON_ID = #{legalPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="credentialType != null" >
+        CREDENTIAL_TYPE = #{credentialType,jdbcType=DECIMAL},
+      </if>
+      <if test="legalPersonPicFront != null" >
+        LEGAL_PERSON_PIC_FRONT = #{legalPersonPicFront,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPicBack != null" >
+        LEGAL_PERSON_PIC_BACK = #{legalPersonPicBack,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiArea != null" >
+        BUSI_AREA = #{busiArea,jdbcType=DECIMAL},
+      </if>
+      <if test="entEmpNum != null" >
+        ENT_EMP_NUM = #{entEmpNum,jdbcType=DECIMAL},
+      </if>
+      <if test="certificateDeposit != null" >
+        CERTIFICATE_DEPOSIT = #{certificateDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        BUSINESS_SCOPE = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null" >
+        CONTACT_PERSON = #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contactDuty != null" >
+        CONTACT_DUTY = #{contactDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null" >
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddr != null" >
+        CONTACT_ADDR = #{contactAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        CONTACT_EMAIL = #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="officeQq != null" >
+        OFFICE_QQ = #{officeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="officeTel != null" >
+        OFFICE_TEL = #{officeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFax != null" >
+        OFFICE_FAX = #{officeFax,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustNameEn != null" >
+        ENT_CUST_NAME_EN = #{entCustNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logoImg != null" >
+        LOGO_IMG = #{logoImg,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        INDUSTRY = #{industry,jdbcType=DECIMAL},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        WEB_SITE = #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="ensureInfo != null" >
+        ENSURE_INFO = #{ensureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRate != null" >
+        TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contactProxy != null" >
+        CONTACT_PROXY = #{contactProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="helpAgreement != null" >
+        HELP_AGREEMENT = #{helpAgreement,jdbcType=VARCHAR},
+      </if>
+      <if test="artResTypest != null" >
+        ART_RES_TYPEST = #{artResTypest,jdbcType=DECIMAL},
+      </if>
+      <if test="modifyAcount != null" >
+        MODIFY_ACOUNT = #{modifyAcount,jdbcType=DECIMAL},
+      </if>
+      <if test="entRegCode != null" >
+        ENT_REG_CODE = #{entRegCode,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegImg != null" >
+        ENT_REG_IMG = #{entRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="busiRegCode != null" >
+        BUSI_REG_CODE = #{busiRegCode,jdbcType=VARCHAR},
+      </if>
+      <if test="busiRegImg != null" >
+        BUSI_REG_IMG = #{busiRegImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null" >
+        BUSINESS_TYPE = #{businessType,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.as.bean.ent.AsEntUpdateLogNew" >
+    update T_ENT_UPDATE_LOG_NEW
+    set ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=CHAR},
+      SUPER_ENT_RES_NO = #{superEntResNo,jdbcType=CHAR},
+      ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR},
+      BUSI_LICENSE_NO = #{busiLicenseNo,jdbcType=VARCHAR},
+      BUSI_LICENSE_IMG = #{busiLicenseImg,jdbcType=VARCHAR},
+      ORG_CODE_NO = #{orgCodeNo,jdbcType=VARCHAR},
+      ORG_CODE_IMG = #{orgCodeImg,jdbcType=VARCHAR},
+      TAX_NO = #{taxNo,jdbcType=VARCHAR},
+      TAX_REG_IMG = #{taxRegImg,jdbcType=VARCHAR},
+      BUILD_DATE = #{buildDate,jdbcType=OTHER},
+      END_DATE = #{endDate,jdbcType=VARCHAR},
+      NATURE = #{nature,jdbcType=VARCHAR},
+      LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+      LEGAL_PERSON_ID = #{legalPersonId,jdbcType=VARCHAR},
+      CREDENTIAL_TYPE = #{credentialType,jdbcType=DECIMAL},
+      LEGAL_PERSON_PIC_FRONT = #{legalPersonPicFront,jdbcType=VARCHAR},
+      LEGAL_PERSON_PIC_BACK = #{legalPersonPicBack,jdbcType=VARCHAR},
+      COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      BUSI_AREA = #{busiArea,jdbcType=DECIMAL},
+      ENT_EMP_NUM = #{entEmpNum,jdbcType=DECIMAL},
+      CERTIFICATE_DEPOSIT = #{certificateDeposit,jdbcType=VARCHAR},
+      BUSINESS_SCOPE = #{businessScope,jdbcType=VARCHAR},
+      INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      CONTACT_PERSON = #{contactPerson,jdbcType=VARCHAR},
+      CONTACT_DUTY = #{contactDuty,jdbcType=VARCHAR},
+      CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      CONTACT_ADDR = #{contactAddr,jdbcType=VARCHAR},
+      CONTACT_EMAIL = #{contactEmail,jdbcType=VARCHAR},
+      OFFICE_QQ = #{officeQq,jdbcType=VARCHAR},
+      OFFICE_TEL = #{officeTel,jdbcType=VARCHAR},
+      OFFICE_FAX = #{officeFax,jdbcType=VARCHAR},
+      ENT_CUST_NAME_EN = #{entCustNameEn,jdbcType=VARCHAR},
+      LOGO_IMG = #{logoImg,jdbcType=VARCHAR},
+      INDUSTRY = #{industry,jdbcType=DECIMAL},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      WEB_SITE = #{webSite,jdbcType=VARCHAR},
+      ENSURE_INFO = #{ensureInfo,jdbcType=VARCHAR},
+      LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=VARCHAR},
+      TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      CONTACT_PROXY = #{contactProxy,jdbcType=VARCHAR},
+      HELP_AGREEMENT = #{helpAgreement,jdbcType=VARCHAR},
+      ART_RES_TYPEST = #{artResTypest,jdbcType=DECIMAL},
+      MODIFY_ACOUNT = #{modifyAcount,jdbcType=DECIMAL},
+      ENT_REG_CODE = #{entRegCode,jdbcType=VARCHAR},
+      ENT_REG_IMG = #{entRegImg,jdbcType=VARCHAR},
+      BUSI_REG_CODE = #{busiRegCode,jdbcType=VARCHAR},
+      BUSI_REG_IMG = #{busiRegImg,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=OTHER},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=OTHER},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      BUSINESS_TYPE = #{businessType,jdbcType=DECIMAL}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+</mapper>

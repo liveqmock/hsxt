@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.ProvinceMapper">
+
+	<!-- 获取某个条记录 -->
+	<select id="getProvince"  resultType="com.gy.hsxt.lcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_LCS_PROVINCE
+		WHERE
+			COUNTRY_NO = #{countryNo} 
+		AND	PROVINCE_NO = #{provinceNo} 
+	</select>
+	<!-- 获取下拉菜单列表 -->
+	<select id="queryProvinceByParent" parameterType="string"
+		resultType="com.gy.hsxt.lcs.bean.Province">
+		SELECT
+			PROVINCE_NO AS provinceNo,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NAME_CN AS provinceNameCn,
+			PROVINCE_NAME AS provinceName,
+			DIRECTED_CITY AS directedCity,
+			VERSION AS version
+		FROM
+			T_LCS_PROVINCE
+		WHERE
+			DEL_FLAG = 0
+		AND COUNTRY_NO = #{countryNo} 
+		ORDER BY
+			PROVINCE_NO
+	</select>
+	<!--是否已存在相同代码 -->
+	<select id="existProvince" resultType="string">
+		SELECT
+			1
+		FROM
+			T_LCS_PROVINCE
+		WHERE
+			PROVINCE_NO = #{provinceNo} 
+		AND COUNTRY_NO = #{countryNo}
+	</select>
+	<!-- 批量插入数据 -->
+	<insert id="batchInsert" parameterType="com.gy.hsxt.lcs.bean.Province">
+		INSERT INTO T_LCS_PROVINCE (
+			PROVINCE_NO,
+			COUNTRY_NO,
+			PROVINCE_NAME_CN,
+			PROVINCE_NAME,
+			DIRECTED_CITY,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.provinceNo},
+			#{item.countryNo},
+			#{item.provinceNameCn},
+			#{item.provinceName},
+			#{item.directedCity},
+			#{item.delFlag},
+			#{item.version})
+		</foreach>
+	</insert>
+	<!-- 批量更新数据 -->
+	<update id="batchUpdate" parameterType="com.gy.hsxt.lcs.bean.Province">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE T_LCS_PROVINCE
+			<set>
+				COUNTRY_NO = #{item.countryNo},
+				PROVINCE_NAME_CN = #{item.provinceNameCn},
+				PROVINCE_NAME = #{item.provinceName},
+				DIRECTED_CITY = #{item.directedCity},
+				DEL_FLAG = #{item.delFlag},
+				VERSION = #{item.version}
+			</set>
+			WHERE 
+				COUNTRY_NO  = #{item.countryNo} 
+			AND	PROVINCE_NO = #{item.provinceNo}
+		</foreach>
+	</update>
+</mapper>

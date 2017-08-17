@@ -1,0 +1,35 @@
+  <% var param = obj.result%>
+  <% var page = obj%>
+          <table width="100%" id="tableCoupon" border="0"  class="search-table lowh">        
+         	<tr >
+              <th rowspan="2" class="nobd" >店内使用规则</th>
+              <th colspan="2">抵扣券信息</th>
+              <th rowspan="2">操作</th>
+            </tr>
+            <tr style="border-top: 1px solid #FFF">
+              <th>抵扣券名称</th>
+              <th>面值</th>
+            </tr>    
+            <% if(param == ''){%>
+            <%}else{
+               $.each(param,function(key,el){%>      
+              <tr <%=key%2==1?"class='table-tr-c'":""%> shopCouponId="<%=el.shopCouponId%>" partionId="<%=el.id%>">           
+	              <td>每满<%=el.useAmount%>元使用<%=el.useNumber%>张 </td>              		
+	              <td> <%=el.couponName%></td>
+	              <td><%=el.faceValue%></td>
+	             <td><a class="removeCouponRelation">删除</a></td>	                   	            
+              </tr>       
+             <%})}%>
+          
+          </table>
+          <div class="mt10 clearfix" style="height:40px;">
+              <div class="table-page">
+	              <a href="javascript:void(0)" class="page-act pageOrder" page="1">首页</a>
+	          	  <a href="javascript:void(0)" class="page-act pageOrder" page="<%=((page.currentPageIndex-1)<1?'':page.currentPageIndex-1)%>">上一页</a>
+	          	  <a href="javascript:void(0)" class="page-act pageOrder" page="<%=((page.currentPageIndex+1)>page.totalPage?'':page.currentPageIndex+1)%>">下一页</a>
+		          <a href="javascript:void(0)" class="page-act pageOrder" page="<%=page.totalPage%>">末页</a>
+		          <span class="page-go">跳到</span><input type="text" class="page-txt" id="pageInput" totalPage="<%=page.totalPage%>" value="<%=page.currentPageIndex%>"/>
+		          <span class="page-go">页/<%=page.totalPage%>页</span>
+		          <a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=page.recoredCount%>条</a>
+              </div>
+          </div> 

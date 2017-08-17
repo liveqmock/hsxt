@@ -1,0 +1,50 @@
+<div id="wslgdylTpl">
+	<form id="wslgdyl_form">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix mr20">
+				<label class="title-int">快捷日期：</label>
+				<input id="quickDate" readonly="readonly" placeholder="选择快捷日期" optionvalue=""/>
+			</li>
+			<li class="mr20">
+				<label class="title-int">时间范围：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly="readonly" />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115" readonly="readonly" />
+			</li>
+			<li class="clearfix mr20">
+				<label class="title-int">业务类型：</label>
+				<input id="service_type" readonly="readonly" placeholder="选择业务类型" optionvalue=""/>
+			</li>
+			<li class="mr20">
+				<label class="title-int">经办人：</label>
+				<input id="txtExecutor" type="text" name="textfield" placeholder="输入经办人" class="h28_middle w115 input-txt">
+			</li>
+			<li class="mr20">
+					<label class="title-int">互生号：</label>
+					<input type="text" name="txtQueryResNo" id="txtQueryResNo" placeholder="输入互生号" class="h28_middle input-txt w115" maxlength="11" />
+			</li>
+			<li class="mr20">
+				<button id="wslgdqry_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	</form>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_check="true" width="3%;"></th>
+		<th w_index="taskId" w_align="left" w_tip=true w_length='20'>工单号</th>
+		<th w_index="exeCustName" w_align="left" w_tip=true>经办人</th>
+		<th w_index="bizTypeName" w_align="left" w_tip=true>业务类型</th>
+		<th w_render="operate" w_align="left" w_tip=true>互生号</th>
+		<th w_render="operate" w_align="left" w_tip=true>名称</th>
+		<th w_index="createdDate" w_align="left" w_tip=true>发起时间</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+	<div class="mt20" align="center"><a class="btn_bg submit" id="plzrdb_btn">批量转入待办</a></div>
+</div>
+<!-- <div id="zrdb_dialog" class="none"></div>
+<div id="zzgd_dialog" class="none"></div>
+<div id="gqgd_dialog" class="none"></div> -->
+<div id="gd_dialog" class="none"></div>

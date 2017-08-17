@@ -1,0 +1,33 @@
+<div class="clearfix">
+<div class="std_checkbox pr5">
+   <input name="itemDataCheckBox" style="margin-top:34px;" type="checkbox" status="<%=status%>" value="<%=id%>" class="myDeviler"/>
+ </div>
+ <%
+ 	var picsUrl;
+ 	try{
+ 		if(pics){
+ 			var arr = eval(pics);
+ 			$.each(arr,function(key,p){
+ 				if(p["web"]!=null){
+ 					picsUrl = eval(p["web"])[0].name;
+ 				}
+ 			});
+ 		}
+ 	}catch(e){}
+ %>
+ 
+ <div class="std_jbxximg">
+ <%if(picsUrl){%>
+ 	<img class="itemFooImg" data-src="<%=picsUrl%>" width="80" height="80" data-ishaspv="<%=ishaspv%>"></div>
+ <%	}else{%>
+ 	<img class="itemFooImg" src='resources/img/item_df.png' width="80" height="80"></div>
+ <%	}%>
+ <div class="fl tl">
+   <ul class="w180">
+     <li class="lh24" style="white-space:nowrap;">菜品编码：<%=code%></li>
+     <li class="lh24" style="white-space:nowrap;">商品编号：<%=id%></li>
+     <li class="lh24">菜品名称：<%=name%></a></li>
+     <li class="lh24">菜品分类：<%=categoryName%></li>           
+   </ul>
+ </div>
+</div>

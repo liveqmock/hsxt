@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.PaymentManagementOrderMapper">
+
+	<!-- 查询收款管理订单列表 -->
+	<select id="findPaymentOrderListPage" parameterType="com.gy.hsxt.rp.bean.PaymentManagementOrder"
+		resultType="com.gy.hsxt.rp.bean.PaymentManagementOrder">
+		select
+		<include refid="base_column_list" />
+		FROM
+		V_BS_ORDER_AND_AO_BUY_HSB
+		where
+		1=1
+		<if test="startDate!=null and startDate!=''">
+			and ORDER_TIME &gt;= #{startDate}
+		</if>
+		<if test="endDate!=null and endDate!=''">
+			and ORDER_TIME &lt;= #{endDate}
+		</if>
+		<if test="payStartTime!=null and payStartTime!=''">
+			and PAY_TIME &gt;= #{payStartTime}
+		</if>
+		<if test="payEndTime!=null and payEndTime!=''">
+			and PAY_TIME &lt;= #{payEndTime}
+		</if>
+		<if test="orderType!=null and orderType!=''">
+			and ORDER_TYPE IN (${orderType})
+		</if>
+		<if test="payChannel!=null and payChannel!=''">
+			and PAY_CHANNEL = #{payChannel}
+		</if>
+		<if test="custId!=null and custId!=''">
+			and CUST_ID = #{custId}
+		</if>
+		<if test="hsResNo!=null and hsResNo!=''">
+			and HS_RES_NO like '%${hsResNo}%'
+		</if>
+		<if test="custName!=null and custName!=''">
+			and CUST_NAME like '%${custName}%'
+		</if>
+		<if test="orderStatus!=null">
+			and ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderChannel!=null">
+			and ORDER_CHANNEL = #{orderChannel}
+			<if test="customWhere!=null and customWhere!=''">
+				and PAY_CHANNEL IN (${customWhere})
+			</if>			
+		</if>
+		<choose>
+			<when test="payStatus==null">
+				<if test="unPayStatus!=null and unPayStatus!=''">
+					and PAY_STATUS in (${unPayStatus})
+				</if>
+				and ORDER_STATUS not in (4,5)
+			</when>
+			<otherwise>
+				<if test="payStatus!=null">
+					and PAY_STATUS = #{payStatus}
+				</if>
+				and ORDER_STATUS not in (4,5)
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="payStartTime!=null and payEndTime!=null and payStartTime!='' and payEndTime!=''">
+				order by pay_time desc,order_no desc
+			</when>
+			<otherwise>
+				order by order_time desc,order_no desc
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="findExportPaymentOrderList" parameterType="com.gy.hsxt.rp.bean.PaymentManagementOrder"
+		resultType="com.gy.hsxt.rp.bean.PaymentManagementOrder">
+		select 
+		ORDER_NO AS orderNo,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		case 
+			when ORDER_TYPE = 100 then '缴纳系统使用年费'
+			when ORDER_TYPE = 101 then '系统资源费'
+			when ORDER_TYPE = 102 then '兑换互生币'
+			when ORDER_TYPE = 103 then '新增申购工具'
+			when ORDER_TYPE = 104 then '售后工具维修费'
+			when ORDER_TYPE = 105 then '补办互生卡'
+			when ORDER_TYPE = 107 then '个性卡定制服务费'
+			when ORDER_TYPE = 108 then '缴纳积分预付款'
+			when ORDER_TYPE = 110 then '系统资源申购'
+			else ''
+			end
+			AS orderTypeName,
+		case 
+			when PAY_CHANNEL = 200 then  ORDER_HSB_AMOUNT
+			else ORDER_CASH_AMOUNT
+			end
+		 	AS orderAmount,
+		ORDER_CASH_AMOUNT AS orderCashAmount,
+		ORDER_TIME AS orderTime,
+		case 
+			when PAY_CHANNEL = 100 then '网银支付'
+			when PAY_CHANNEL = 101 then '手机网银支付'
+			when PAY_CHANNEL = 102 then '快捷支付'
+			when PAY_CHANNEL = 200 then '互生币支付'
+			when PAY_CHANNEL = 300 then '货币账户支付'
+			when PAY_CHANNEL = 400 then '转账汇款'
+			else ''
+			end
+			AS payChannelName,
+		PAY_TIME AS payTime,
+		BANK_TRANS_NO AS bankTransNo
+		from 
+		V_BS_ORDER_AND_AO_BUY_HSB
+		where
+		1=1
+		<if test="startDate!=null and startDate!=''">
+			and ORDER_TIME &gt;= #{startDate}
+		</if>
+		<if test="endDate!=null and endDate!=''">
+			and ORDER_TIME &lt;= #{endDate}
+		</if>
+		<if test="payStartTime!=null and payStartTime!=''">
+			and PAY_TIME &gt;= #{payStartTime}
+		</if>
+		<if test="payEndTime!=null and payEndTime!=''">
+			and PAY_TIME &lt;= #{payEndTime}
+		</if>
+		<if test="orderType!=null and orderType!=''">
+			and ORDER_TYPE IN (${orderType})
+		</if>
+		<if test="payChannel!=null and payChannel!=''">
+			and PAY_CHANNEL = #{payChannel}
+		</if>
+		<if test="custId!=null and custId!=''">
+			and CUST_ID = #{custId}
+		</if>
+		<if test="hsResNo!=null and hsResNo!=''">
+			and HS_RES_NO like '%${hsResNo}%'
+		</if>
+		<if test="custName!=null and custName!=''">
+			and CUST_NAME like '%${custName}%'
+		</if>
+		<if test="orderStatus!=null">
+			and ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderChannel!=null">
+			and ORDER_CHANNEL = #{orderChannel}
+			<if test="customWhere!=null and customWhere!=''">
+				and PAY_CHANNEL IN (${customWhere})
+			</if>			
+		</if>
+		<choose>
+			<when test="payStatus==null">
+				<if test="unPayStatus!=null and unPayStatus!=''">
+					and PAY_STATUS in (${unPayStatus})
+				</if>
+				and ORDER_STATUS not in (4,5)
+			</when>
+			<otherwise>
+				<if test="payStatus!=null">
+					and PAY_STATUS = #{payStatus}
+				</if>
+				and ORDER_STATUS not in (4,5)
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="payStartTime!=null and payEndTime!=null and payStartTime!='' and payEndTime!=''">
+				order by pay_time desc,order_no desc
+			</when>
+			<otherwise>
+				order by order_time desc,order_no desc
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 查询订单详情 -->
+	<select id="findOrderInfo" resultType="com.gy.hsxt.rp.bean.PaymentManagementOrder">
+		select
+		<include refid="base_column_list" />
+		FROM
+		V_BS_ORDER_AND_AO_BUY_HSB
+		where
+		ORDER_NO = #{orderNo}
+	</select>
+	
+	<!-- 订单字段片段 -->
+	<sql id="base_column_list">
+		ORDER_NO AS orderNo,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CUST_TYPE AS custType,
+		BIZ_NO AS bizNo,
+		ORDER_TYPE AS orderType,
+		QUANTITY AS quantity,
+		ORDER_UNIT AS orderUnit,
+		ORDER_ORIGINAL_AMOUNT AS orderOriginalAmount,
+		ORDER_DERATE_AMOUNT AS orderDerateAmount,
+		ORDER_CASH_AMOUNT AS orderCashAmount,
+		case when CURRENCY_CODE='156' then 'CNY'
+			 when CURRENCY_CODE='000' then 'HSB'
+			 else CURRENCY_CODE END AS currencyCode,
+		ORDER_HSB_AMOUNT AS orderHsbAmount,
+		EXCHANGE_RATE AS exchangeRate,
+		ORDER_REMARK AS orderRemark,
+		ORDER_TIME AS orderTime,
+		ORDER_CHANNEL AS orderChannel,
+		ORDER_OPERATOR AS orderOperator,
+		PAY_OVERTIME AS payOvertime,
+		ORDER_STATUS AS	orderStatus,
+		PAY_STATUS AS payStatus,
+		PAY_CHANNEL AS payChannel,
+		PAY_TIME AS payTime,
+		FINISHED_DATE	AS finishedDate,
+		BANK_TRANS_NO	AS bankTransNo
+	</sql>
+</mapper>

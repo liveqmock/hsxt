@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.CommonMapper">
+
+	<!-- 卡制作数据 -->
+	<select id="selectCardMarkData" parameterType="string"
+		resultType="com.gy.hsxt.bs.bean.tool.resultbean.CardMarkData">
+		SELECT
+			O.ORDER_NO AS orderNo,
+			O.ORDER_TYPE AS orderType,
+			D.LINKMAN AS linkMan,
+			D.MOBILE AS phone,
+			TC.CARD_STYLE_ID AS cardStyleId,
+			TC.CONFIRM_FILE AS confirmFile,
+			CI.SUPPLIER_ID AS supplierId,
+			CI.BATCH_NO AS batchNo
+			FROM T_BS_ORDER O
+				LEFT JOIN T_BS_TOOL_CONFIG TC ON O.ORDER_NO = TC.ORDER_NO
+				LEFT JOIN T_BS_CARD_INOUT CI ON O.ORDER_NO = CI.RELATED_ORDER_NO
+				LEFT JOIN T_BS_DELIVER_INFO D ON O.DELIVER_ID = D.DELIVER_ID
+		WHERE TC.CATEGORY_CODE = 'P_CARD'
+		  AND O.ORDER_NO = #{orderNo}
+	</select>
+	
+	<!-- 验证配置单的类型是否一致 -->
+	<select id="vaildToolConfigType" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.CONFIG_NO IN
+		<foreach collection="confNo" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		AND TC.CONFIG_TYPE = #{confType}
+	</select>
+
+	<!-- 验证配置单是否是生成同一个企业的发货单 -->
+	<select id="vaildShippingIsSameEnt" resultType="string">
+		SELECT
+			DISTINCT TC.HS_RES_NO AS HS_RES_NO
+		FROM T_BS_TOOL_CONFIG TC
+		<include refid="vaildShippingCommonSql" />
+	</select>
+
+	<!-- 验证配置单生成的发货单的地址是否一致 -->
+	<select id="vaildShippingIsSameAddr" resultType="com.gy.hsxt.bs.bean.order.DeliverInfo">
+		SELECT
+			T.FULL_ADDR AS fullAddr,
+			T.LINKMAN AS linkman,
+			T.MOBILE AS mobile,
+			T.ZIP_CODE AS zipCode
+		FROM(SELECT
+				DISTINCT D.LINKMAN,D.MOBILE,D.FULL_ADDR,D.ZIP_CODE
+				FROM T_BS_TOOL_CONFIG TC 
+					JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO
+					JOIN T_BS_DELIVER_INFO D ON O.DELIVER_ID = D.DELIVER_ID
+		<include refid="vaildShippingCommonSql" />
+		) T
+	</select>
+
+	<!-- 验证申报申购是否同一个服务公司下的企业 -->
+	<select id="vaildShippingIsSameEntApp" resultType="string">
+		SELECT
+			DISTINCT SUBSTR(TC.HS_RES_NO,0,5) AS HS_RES_NO
+		FROM T_BS_TOOL_CONFIG TC
+		<include refid="vaildShippingCommonSql" />
+	</select>
+
+	<!-- 验证发货单公共sql -->
+	<sql id="vaildShippingCommonSql">
+		WHERE TC.CONFIG_NO IN
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</sql>
+
+	<!-- 根据设备序列号，查询设备详情-->
+	<select id="selectDeviceDetailByNo" parameterType="string"
+		resultType="com.gy.hsxt.bs.bean.tool.resultbean.DeviceDetail">		
+		SELECT 
+		   EI.DEVICE_SEQ_NO AS deviceSeqNo,
+	       E.ENTER_BATCH_NO AS batchNo,
+	       P.PRODUCT_NAME   AS productName,
+	       P.CATEGORY_CODE AS categoryCode,
+	       W.WH_NAME AS whName
+	  FROM T_BS_ENTER E,
+	       (SELECT ED.ENTER_BATCH_NO, DI.DEVICE_SEQ_NO
+	          FROM T_BS_ENTER_DETAIL ED, T_BS_TOOL_DEVICE_INFO DI
+	         WHERE ED.DEVICE_CUST_ID = DI.DEVICE_CUST_ID
+	           AND DI.DEVICE_SEQ_NO = #{deviceSeqNo}
+	           AND DI.USE_STATUS = 0) EI,
+	       T_BS_TOOL_PRODUCT P,
+	       T_BS_WAREHOUSE W
+	 WHERE E.ENTER_BATCH_NO = EI.ENTER_BATCH_NO
+	   AND E.PRODUCT_ID = P.PRODUCT_ID
+	   AND E.WH_ID = W.WH_ID
+	</select>
+
+	<!-- 企业分页查询业务订单 -->
+	<select id="selectOrderEntByListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam"
+		resultType="com.gy.hsxt.bs.bean.tool.resultbean.OrderEnt">
+		SELECT
+			O.ORDER_NO AS orderNo,
+			O.ORDER_TIME AS orderDate,
+			O.ORDER_CASH_AMOUNT AS orderAmount,
+			O.ORDER_TYPE AS orderType,
+			O.PAY_CHANNEL AS payChannel,
+			O.ORDER_STATUS AS orderStatus
+		FROM T_BS_ORDER O
+		WHERE O.CUST_TYPE IN (2,3) 
+		<if test="orderType != null and orderType != ''">
+			AND O.ORDER_TYPE ${orderType}	
+		</if>
+		  AND O.HS_RES_NO = #{hsResNo}
+		<if test="startDate != null and startDate != ''">
+			AND O.ORDER_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND O.ORDER_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="orderNo != null and orderNo != ''">
+			AND O.ORDER_NO LIKE #{orderNo}||'%'
+		</if>
+		<if test="type != null and type != ''">
+			AND O.ORDER_TYPE = #{type}
+		</if>
+		<if test="channel != null ">
+			AND O.PAY_CHANNEL = #{channel}
+		</if>
+		<if test="status != null">
+			AND O.ORDER_STATUS = #{status}
+		</if>
+		<if test="hsCustId != null and hsCustId != '' ">
+			AND O.CUST_ID = #{hsCustId}
+		</if>
+		ORDER BY O.ORDER_TIME DESC
+	</select>
+	
+	<!-- 分页查询个人补卡订单 -->
+	<select id="selectPersonMendCardOrderListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" 
+		resultType="com.gy.hsxt.bs.bean.order.Order">
+		SELECT
+			O.ORDER_NO AS orderNo,
+			O.CUST_ID AS custId,
+			O.HS_RES_NO AS hsResNo,
+			O.ORDER_TIME AS orderTime,
+			O.ORDER_CASH_AMOUNT AS orderCashAmount,
+			O.ORDER_STATUS AS orderStatus,
+			O.ORDER_REMARK AS orderRemark
+		FROM T_BS_ORDER O
+		WHERE O.CUST_ID = #{hsCustId}
+		  AND O.ORDER_TYPE = #{type}
+		<if test="startDate != null and startDate != ''">
+			<![CDATA[AND O.ORDER_TIME >= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')]]> 
+		</if>
+		<if test="endDate != null and endDate != ''">
+			<![CDATA[AND O.ORDER_TIME <= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')]]> 
+		</if>
+		ORDER BY O.ORDER_TIME DESC
+	</select>
+	
+	<!-- 平台分页查询工具订单 -->
+	<select id="selectToolOrderPlatListPage"  parameterType="com.gy.hsxt.bs.bean.base.BaseParam"
+	resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolOrderPage">
+		SELECT
+			O.ORDER_NO AS orderNo,
+			O.CUST_ID AS entCustId,
+			O.HS_RES_NO AS entResNo,
+			O.CUST_NAME AS custName,
+			O.ORDER_STATUS AS orderStatus,
+			O.ORDER_CASH_AMOUNT AS orderTotal,
+			O.PAY_CHANNEL AS payChannel,
+			O.ORDER_TYPE AS orderType,
+			O.ORDER_TIME AS orderDate
+		FROM T_BS_ORDER O
+		WHERE O.CUST_TYPE IN (1,2,3)
+		<if test="startDate != null and startDate != ''">
+			AND O.ORDER_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND O.ORDER_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="orderType != null and orderType != ''">
+			AND O.ORDER_TYPE ${orderType}	
+		</if>
+		<if test="orderNo != null and orderNo != '' ">
+			AND O.ORDER_NO LIKE #{orderNo}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND O.HS_RES_NO LIKE #{hsResNo}||'%'
+		</if>
+		<if test="status != null">
+			AND O.ORDER_STATUS = #{status}
+		</if>
+		ORDER BY O.ORDER_TIME DESC
+	</select>
+
+	<!-- 修改支付超时的订单失效 -->
+	<update id="updateOrderStatusByPayOverTime">
+		UPDATE T_BS_ORDER O
+		   SET O.ORDER_STATUS = 4
+		 WHERE <![CDATA[ O.PAY_OVERTIME <= SYSDATE ]]> 
+		   AND O.ORDER_STATUS = 1	
+		   AND O.ORDER_TYPE IN 
+		   <foreach collection="orderType" item="type" open="(" separator="," close=")">  
+             #{type}   
+    	   </foreach> 
+	</update>
+	
+	<!-- 修改订单已发货 -->
+	<update id="updateOrderSended">
+		UPDATE T_BS_ORDER O
+		   SET O.ORDER_STATUS = 9
+		 WHERE O.ORDER_STATUS = 2 AND O.ORDER_NO IN
+		 	(SELECT 
+		 			TT. ORDER_NO
+                 FROM (SELECT TC.ORDER_NO,
+                              COUNT(TC.CONFIG_NO) TOTAL,
+                              SUM(DECODE(TC.TOOL_STATUS, 6, 1, 0)) SHIPPING_NUM
+                         FROM T_BS_TOOL_CONFIG TC
+                        WHERE TC.ORDER_NO IS NOT NULL
+                        GROUP BY TC.ORDER_NO) TT
+                WHERE TT.TOTAL = SHIPPING_NUM)
+	</update>
+
+	<!-- 修改订单已完成 -->
+	<update id="updateOrderFinish">
+		UPDATE T_BS_ORDER O
+		   SET O.ORDER_STATUS = 3,
+		   O.FINISHED_DATE = SYSDATE
+		 WHERE O.ORDER_STATUS = 9 AND O.ORDER_NO IN
+		 	(SELECT
+		 			TT. ORDER_NO
+                 FROM (SELECT TC.ORDER_NO,
+                              COUNT(TC.CONFIG_NO) TOTAL,
+                              SUM(DECODE(TC.TOOL_STATUS, 7, 1, 0)) SIGN_NUM
+                         FROM T_BS_TOOL_CONFIG TC
+                        WHERE TC.ORDER_NO IS NOT NULL
+                        GROUP BY TC.ORDER_NO) TT
+                WHERE TT.TOTAL = SIGN_NUM)
+	</update>
+
+
+	<!-- 删除定制卡样费订单失效的卡样 -->
+	<delete id="deleteCardStyleByOrderPayOverTime">
+		DELETE FROM T_BS_CARD_STYLE C 
+		WHERE C.ORDER_NO IN 
+			(SELECT O.ORDER_NO
+			  FROM T_BS_ORDER O
+			 WHERE <![CDATA[ O.PAY_OVERTIME <= SYSDATE ]]> 
+			   AND O.ORDER_STATUS = 1
+			   AND O.ORDER_TYPE = #{orderType})
+	</delete>
+	
+	<!-- 修改配置单支付超时 -->
+	<update id="updateToolConfigByPayOverTime">
+		UPDATE T_BS_TOOL_CONFIG TC
+		   SET TC.TOOL_STATUS = 8
+		 WHERE TC.ORDER_NO IN
+		 	(SELECT O.ORDER_NO
+			  FROM T_BS_ORDER O
+			 WHERE <![CDATA[ O.PAY_OVERTIME <= SYSDATE ]]> 
+			   AND O.ORDER_STATUS = 1
+			   AND O.ORDER_TYPE IN
+			   	<foreach collection="orderType" item="type" open="(" separator="," close=")">  
+	             	#{type}   
+	    	   </foreach> )
+	</update>
+	
+	<!-- 查询未完成的订单 -->
+	<select id="selectNotFinishToolOrder" resultType="com.gy.hsxt.bs.bean.order.Order">
+		SELECT 
+		   O.ORDER_NO AS orderNo,
+	       O.CUST_ID AS custId,
+	       O.HS_RES_NO AS hsResNo,
+	       O.CUST_NAME AS custName,
+	       O.ORDER_TYPE AS orderType,
+	       O.ORDER_STATUS AS orderStatus,
+	       O.PAY_STATUS AS payStatus,
+	       O.ORDER_TIME AS orderTime
+	  FROM T_BS_ORDER O
+	 WHERE O.CUST_ID = #{entCustId}
+	   AND O.ORDER_TYPE IN 
+	   <foreach collection="orderType" item="type" open="(" separator="," close=")">  
+	       #{type}   
+	   </foreach>
+	   AND (O.ORDER_STATUS IN (2, 6, 8, 9) OR
+	       (O.ORDER_STATUS = 1 AND <![CDATA[ O.PAY_OVERTIME > SYSDATE ]]> ))
+	</select>
+	
+	<!-- 查询申报发货单包含企业 -->
+	<select id="selectApplyShippingHavEnt" resultType="com.gy.hsxt.bs.bean.tool.resultbean.EntInfo">
+		SELECT 
+			O.HS_RES_NO AS entResNo, 
+			O.CUST_NAME AS entCustName
+		  FROM T_BS_ORDER O
+		 WHERE O.ORDER_NO IN 
+	 		(SELECT TC.ORDER_NO
+                     FROM T_BS_TOOL_CONFIG TC
+                    WHERE TC.SHIPPING_ID = #{shippingId}
+                      AND TC.ORDER_NO IS NOT NULL
+                    GROUP BY TC.ORDER_NO)
+	</select>
+
+	<!-- 调用存储过程工具跑批 -->
+	<select  id="toolExecuteBatch" parameterType="com.gy.hsxt.bs.tool.bean.ToolBatch" statementType="CALLABLE">
+		<![CDATA[
+		{call P_BS_TOOL_BATCH(
+			#{signDays,jdbcType=INTEGER,mode=IN},
+			#{result,jdbcType=VARCHAR, mode=OUT}
+		)}
+		]]>
+	</select >
+
+	<!-- 修改资源段支付超时-->
+	<update id="updateResSegmentByPayOverTime">
+		UPDATE T_BS_RES_SEGMENT RS
+			SET RS.STATUS = 3
+		WHERE RS.CONFIG_NO IN
+			(SELECT
+					TC.CONFIG_NO
+				FROM T_BS_ORDER O,T_BS_TOOL_CONFIG TC
+			WHERE O.ORDER_NO = TC.ORDER_NO
+			AND <![CDATA[ O.PAY_OVERTIME <= SYSDATE ]]>
+			AND O.ORDER_STATUS = 1
+			AND O.ORDER_TYPE = '110')
+	</update>
+	
+</mapper>

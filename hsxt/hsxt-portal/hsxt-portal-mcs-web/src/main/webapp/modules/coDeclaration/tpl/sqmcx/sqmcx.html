@@ -1,0 +1,29 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label class="title-int">企业互生号：</label>
+			<input type="text" name="search_entResNo" id="search_entResNo" placeholder="输入互生号" class="w100 input-txt" />
+		</li>
+		<li>
+			<label class="ml20 title-int">企业名称：</label>
+			<input type="text" name="search_entName" id="search_entName" placeholder="输入申请企业名称" class="w100 input-txt" />
+		</li>
+		<li>
+			<label class="ml20 title-int">联系人姓名：</label>
+			<input type="text" name="search_linkman" id="search_linkman" placeholder="输入联系人姓名" class="w100 input-txt" />
+		</li>
+		<li>
+			<button id="queryBtn" type="button" class="ml20 btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="tableDetail" class="bsgrid">
+	<tr>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="entName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+		<th w_index="linkmanMobile">联系人电话</th>
+		<th w_index="authCode" w_tip="true">授权码</th>
+		<th w_index="expireDate">授权码有效期</th>
+	</tr>				
+</table>

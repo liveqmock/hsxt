@@ -1,0 +1,61 @@
+<table width="100%" style="background-color:#e8f4e6;">
+	<tbody>
+		<tr>
+			<td width="114" class="p5 tr">发票抬头：</td>
+			<td width="399" class="p5"><span><%=obj.invoiceTitle%></span></td>
+			<td width="123" class="p5 tr">纳税人识别号：</td>
+			<td width="244" class="p5"><span><%=obj.taxpayerNo%></span></td>
+		</tr>
+		<tr>
+			<td class="p5 tr">地址，电话：</td>
+			<td class="p5"><span><%=obj.address%></span><span class="pl20"><%=obj.telephone%></span></td>
+			<td class="p5 tr">开票内容：</td>
+			<td class="p5"><span><%=obj.openContent%></span></td>
+		</tr>
+		<tr>
+			<td class="p5 tr">开户行及账号：</td>
+			<td class="p5"><span><%=obj.bankBranchName%></span><span class="pl20"><%=obj.bankNo%></span></td>
+			<td class="p5 tr">发票金额：</td>
+			<td class="p5"><span><%=obj.allAmount%></span></td>
+		</tr>
+		<tr>
+			<td class="p5 tr">发票类型：</td>
+			<td class="p5"><%=obj.invoiceTypeName%></td>
+		</tr>
+	</tbody>
+</table>
+<table id="searchTable_xgps">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="invoiceCode">发票代码</th>
+	<th w_index="invoiceNo">发票号码</th>
+	<th w_render="operate" w_index="invoiceAmount" w_align="right">发票金额</th>
+  </tr>
+</table>
+<div class="mt10">
+<form id="xgps_form" name="xgps_form">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table-2">
+		<tr>
+			<td class="view_item" width="20%" height="40">配送方式</td>
+			<td class="view_text_2" width="30%">
+				<input type="radio" name="postWay" value="0" class="mr5">快递配送
+				<input type="radio" name="postWay" value="1" class="ml10 mr5">自由配送
+			</td>
+			<td class="view_item" width="20%">承运公司</td>
+			<td class="view_text_2" width="30%"><input type="text" name="expressName" value="<%=obj.expressName%>" placeholder="输入承运公司" class="h28_middle w200 input-txt"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%" height="40"></td>
+			<td class="view_text_2" width="30%"></td>
+			<td class="view_item" width="20%">运单号</td>
+			<td class="view_text_2" width="30%"><input type="text" name="trackingNo" value="<%=obj.trackingNo%>" placeholder="输入运单号" class="h28_middle w200 input-txt">
+			<input type="hidden" name="invoiceId" value="<%=obj.invoiceId%>"/>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<div class="w200 bc clearfix mt10">
+	<a class="btn_bg submit fl" id="xgps_submit">提&#12288;交</a>
+	<a class="btn_bg submit fr" id="xgps_back_dqptkfpywcx">返&#12288;回</a>
+</div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	 <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+	
+	<dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="hsxt-ao-provider"  address="${dubbo.registry.address}"  default="true"/>
+
+	<!-- 银行转帐服务 -->
+	<dubbo:reference id="bankTransferService" interface="com.gy.hsxt.ao.api.IAOBankTransferService" 
+		retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		
+
+	<!-- 兑换互生币服务 -->
+	<dubbo:reference id="exchangeHsbService" interface="com.gy.hsxt.ao.api.IAOExchangeHsbService" 
+	 	retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		
+	<!-- 货币转换服务 -->
+	<dubbo:reference id="currencyConvertService" interface="com.gy.hsxt.ao.api.IAOCurrencyConvertService" 
+		retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+
+	<!-- 终端批结算  -->
+	<dubbo:reference id="batchCheckResultService" interface="com.gy.hsxt.ao.api.IAOBatchCheckResultService"
+		retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		
+    <!-- 账务系统：帐户查询 -->
+	<dubbo:reference id="accountSearchService"
+		interface="com.gy.hsxt.ac.api.IAccountSearchService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />		
+	
+</beans>

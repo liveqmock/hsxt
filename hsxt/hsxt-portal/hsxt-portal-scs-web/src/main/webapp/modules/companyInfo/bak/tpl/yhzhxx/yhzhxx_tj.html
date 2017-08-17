@@ -1,0 +1,118 @@
+<div class="busibox p20 scrlh">
+                            <div class="acct-ct mb20">
+                            	<h1 class="acct-tips lh150 bc" style="width:620px;text-align:left;"><span class="tcr_blue fb">温馨提示：</span><br>
+1、可最多添加5张银行卡信息，可设其中一个银行卡为默认银行账号；<br>2、填写的银行卡开户名称须与真实姓名一致，银行卡结算币种与结算币种一致，开户银行、开户地区须填写正确；<br>3、当提交的信息不符合第2条时，将影响货币转银行业务正常办理。</h1>
+                            </div>
+                            
+<div class="bc mt20 info_600">
+	<form id="yhzhxx_tj_form" name="yhzhxx_tj_form">
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">账户名称</label>
+				<input id="bankAccName" class="fl w465 h30_middle ml5" type="text" value="<%=obj.login_name%>" readonly="readonly" name="bankAccName" />
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">结算币种</label>
+				<input id="busCurrency" class="fl w465 h30_middle ml5" value="<%=obj.platform_currency%>" type="text" name="busCurrency" readonly="readonly" />
+			</li>
+			<!--  <li class="register_row clearfix">
+				<label class="fl w115 h30_middle">收支类别</label>
+				<input class="fl w465 h30_middle ml5" type="text" value="<%=obj.applyCurrency%>" readonly="readonly" />
+			</li>
+			-->
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">开户银行</label>
+					<div class="fl ml5 combobox_style brandSelect pr">
+						<select id="brandSelect_add" name="bankCode"></select>
+					</div>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">开户地区</label>
+				<div class="fl clearfix">
+					<div class="fl w230 ml5 pr">
+						<input id="province_slt" name="provinceName" readonly="readonly"  placeholder="请选择开户行的省份" />
+					</div>
+					<div class="fr w230 ml10 pr">
+						<input id="city_slt" name="cityName" readonly="readonly"  placeholder="请选择开户行的城市"/>
+					</div>
+				</div>
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">银行账号</label>
+				<input type="text" id="input_cardNo" name="input_cardNo" class="table_info_input ml5" placeholder="输入银行账号" />
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">确认账号</label>
+				<input type="text" id="input_cardNo_c" name="input_cardNo_c" class="table_info_input ml5" placeholder="确认银行账号" />
+			</li>
+			<li class="register_row clearfix">
+				<label class="fl w115 h30_middle">默认银行账号</label>
+				<div class="fl h30_middle">
+					<input type="radio" name="bankDefault" value="0" class="ml20" checked="checked" /> 否
+					<input type="radio" name="bankDefault" value="1" class="ml20" /> 是
+				</div>
+			</li>
+		</ul>
+
+		<div class="w200 mt20 bc clearfix">
+			<a class="fl btn_bg submit" id="tj_tj">提&#12288;交</a>
+			<a class="fr btn_bg submit" id="tj_cancel">取&#12288;消</a>
+		</div>
+	</form>
+</div>
+                            
+                            <!-- <div class="bc info_600">
+								 <div class="cssform_600">
+									<form id="yhzhxx_tj_form" name="yhzhxx_tj_form">
+  										 
+											<ul class="cssform clearfix">
+												<li class="col2 pr register_row">
+                                					<label class="fl w115 h30_middle">账户名称</label>
+                                					<div class="cont-int"><input id="bankAccName" class="inpt w176 w465 h30_middle ml5" type="text" name="bankAccName" readonly="readonly"></div>
+													
+                            					</li>
+												<li class="col2 pr">
+													<label class="fl w115 h30_middle">结算币种</label>
+														<input  id="busCurrency"  readonly="readonly"  />
+												</li>
+												<li class="col2 pr">
+                                					<label class="fl w115 h30_middle">开户银行</label>
+                                					<div class="cont-chk tbox2 combobox_style">
+														 <select id="brandSelect_add" name="bankCode">
+														
+														</select>
+													</div>
+												
+                            					</li>
+												<li class="col2 pr">
+                                					<label class="title-txt">开户地区</label>
+                                					<div class="cont-chk tbox2 clearfix">
+													<input id='province_slt' name="provinceName"  placeholder="--请选择--"   readonly="readonly"  />
+													<input id='city_slt'  name="cityName" placeholder="--请选择--"  readonly="readonly"  />
+													</div>
+                            					</li>
+												<li class="col2 pr">
+													<label for="name" class="title-txt">银行账号</label>
+													<div class="cont-int">
+													<input type="text" id="input_cardNo" name="bankAcct" class="inpt w176 input_gray" placeholder="输入银行账号" ></div>
+													
+												</li>
+												<li class="col2 pr">
+													<label for="name" class="title-txt">确认账号</label>
+													<div class="cont-int">
+													<input type="text" id="input_cardNo_c" class="inpt w176 input_gray" placeholder="确认银行账号" ></div>
+													
+													</li>
+													<li class="col2 pr">
+														<label for="name" class="title-txt">默认银行账号</label>
+													<div class="cont-int text_middle tc setdiy190">
+													<input type="radio" name="bankDefault" value="0" class="radio_input ml10" value="0" checked="checked"> 否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<input type="radio" name="bankDefault" value="1" class="radio_input ml10" value="0"> 是</div>
+													</li>
+											</ul>
+											<div class="two_button mt20" align="center"><a  class="btn_bg submit fl"  id="tj_cancel" >取　消</a><a  class="btn_bg submit" id="tj_tj">提　交</a></div>
+								 
+									</form>
+								</div>
+                            </div> -->
+                            </div>

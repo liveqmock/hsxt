@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.ErrorMsgMapper">
+	<!--是否已存在相同-->
+	<select id="existErrorMsg" resultType="string" >
+		SELECT
+			1
+		FROM
+			T_LCS_ERROR_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND ERROR_CODE = #{errorCode,jdbcType=INTEGER}
+	</select>
+	
+	<!--主键查询-->
+	<select id="queryErrorMsgWithPK"  resultType="com.gy.hsxt.lcs.bean.ErrorMsg">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			ERROR_CODE errorCode,
+			ERROR_MSG errorMsg,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_ERROR_MSG
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND ERROR_CODE = #{errorCode,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">  
+	    INSERT INTO T_LCS_ERROR_MSG (
+			LANGUAGE_CODE,
+			ERROR_CODE,
+			ERROR_MSG,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	       	(#{item.languageCode},
+			#{item.errorCode},
+			#{item.errorMsg},
+			#{item.delFlag},
+			#{item.version})
+	    </foreach>  
+    </insert>
+		        
+    <update id="batchUpdate"  parameterType="java.util.List">
+       <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         UPDATE T_LCS_ERROR_MSG
+			<set>
+	          ERROR_MSG = #{item.errorMsg},
+	          DEL_FLAG = #{item.delFlag},
+			  VERSION = #{item.version}
+			</set>
+		 WHERE  
+			  LANGUAGE_CODE = #{item.languageCode}
+		      AND ERROR_CODE = #{item.errorCode}
+        </foreach>
+    </update> 	  
+	    
+</mapper>

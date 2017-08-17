@@ -1,0 +1,143 @@
+<% if(obj.flag == '1'){ %>
+<div class="table_info">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+	<tr>
+		<td class="view_item" width="18%">订单号</td>
+		<td class="view_text" width="32%"><%=obj.orderNo%></td>
+		<td class="view_item" width="18%">订单数量</td>
+		<td class="view_text" width="32%"><%=obj.quantity%></td>
+	</tr>
+	<tr>
+		<td class="view_item">单位名称</td>
+		<td class="view_text"><%=obj.custName%></td>
+		<td class="view_item">系统资源号</td>
+		<td class="view_text"><%=obj.entResNo%></td>
+	</tr>
+	<tr>
+		<td colspan="4" class="p10">
+			<div class="td_hauto">
+				<table id="searchTable_1">
+					<tr>
+						<th w_index="terminalNo">终端编号</th>
+						<th w_index="deviceSeqNo">序列号</th>
+						<th w_index="batchNo">批次号</th>
+						<th w_index="supplierName">供应商</th>
+						<th w_index="linkMan">联系人</th>
+						<th w_index="mobile">联系电话</th>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
+
+<% } else if(obj.flag == '2'){ %>
+<div class="table_info">
+<input  type="hidden" id="detailListHidden"  />
+<input  type="hidden" id="deviceSeqNoHidden"  />
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">企业基本信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">企业互生号</td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+            <td class="view_item" width="18%">企业名称</td>
+            <td class="view_text" width="32%"><%=obj.custName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">联系人</td>
+            <td class="view_text"><span id="contactPerson"></span></td>
+            <td class="view_item">联系电话</td>
+            <td class="view_text"><span id="contactPhone"></span></td>
+        </tr> 
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">刷卡器关联信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+            <td class="view_item">申购类别</td>
+            <td class="view_text"><%=obj.type%></td>
+        </tr>
+		<tr>
+            <td class="view_item">已关联数量</td>
+            <td class="view_text"><span id="yglsl"><%=obj.th_4%></span></td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+        </tr>
+		<tr>
+            <td colspan="4" class="p10">
+				<div class="view_title">已关联刷卡器列表</div>
+				<div class="search-toolbar">
+					<ul class="cssform clearfix">
+						<li>
+							<label>序列号：</label>
+							<input type="text" name="textfield" id="deviceSeqNo" placeholder="输入刷卡器序列号" class="h28_middle w185 input-txt" />
+						</li>
+						<li>
+							<button id="addRelationBtn" type="button" class="btn-search">添加关联</button>
+						</li>
+					 </ul>
+				</div>
+				<div class="td_hauto">
+					<table id="searchTable_2" >
+						<tr>
+							<th w_index="deviceSeqNo">序列号</th>
+							<th w_index="batchNo" w_tip="true">批次号</th>
+							<th w_index="supplierName">供应商</th>
+							<th w_index="linkMan">联系人</th>
+							<th w_index="mobile" >联系电话</th>
+							<th  w_render="operate">操作</th>
+						</tr>
+					</table>
+				
+				</div>
+			</td>
+        </tr> 
+		 
+	</table> 
+</div>
+<% } else if(obj.flag == '3'){ %>
+<div class="table_info">
+<input  type="hidden" id="detailListHidden"  />
+<input  type="hidden" id="deviceSeqNoHidden"  />
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">企业基本信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">企业互生号</td>
+            <td class="view_text" width="32%"><%=obj.entResNo%></td>
+            <td class="view_item" width="18%">企业名称</td>
+            <td class="view_text" width="32%"><%=obj.custName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">联系人</td>
+            <td class="view_text"><span id="contactPerson"></span></td>
+            <td class="view_item">联系电话</td>
+            <td class="view_text"><span id="contactPhone"></span></td>
+        </tr> 
+		<tr>
+            <td colspan="4" class="p10">
+				<div class="view_title">关联刷卡器详情</div>
+				<div class="td_hauto">
+					<table id="searchTable_3" >
+						<tr>
+						    <th w_index="terminalNo">终端编号</th>
+							<th w_index="deviceSeqNo">序列号</th>
+							<th w_index="batchNo" w_tip="true">批次号</th>
+							<th w_index="supplierName">供应商</th>
+							<th w_index="linkMan">联系人</th>
+							<th w_index="mobile" >联系电话</th>
+						</tr>
+					</table>
+				
+				</div>
+			</td>
+        </tr> 
+		 
+	</table> 
+</div>
+<% } %>

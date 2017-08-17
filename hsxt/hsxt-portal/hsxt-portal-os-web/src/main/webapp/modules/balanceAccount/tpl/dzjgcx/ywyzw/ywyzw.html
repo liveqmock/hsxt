@@ -1,0 +1,35 @@
+<div id="ywyzwTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>对账日期：</label>
+				<input type="text" name="ywyzw_beginDate" id="ywyzw_beginDate" placeholder="开始日期" class="queryList-toolbar-text" readonly="readonly">
+        <span class="separator-pd">-</span>
+        <input type="text" name="ywyzw_endDate" id="ywyzw_endDate" placeholder="截止日期" class="queryList-toolbar-text" readonly="readonly">
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">对账结果：</label>
+				<input id="ywyzw_tb_dzjg" name="ywyzw_tb_dzxt" placeholder="选择对账结果" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="ywyzw_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="ywyzw_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="tcDate" w_align="left">对账日期</th>
+			<th w_index="bsTranNum" w_align="left">业务交易笔数</th>
+			<th w_index="acTranNum" w_align="left">账务交易笔数</th>
+			<th w_index="flatNum" w_align="left">账平笔数</th>
+			<th w_index="acHaveNum" w_align="left">业务无账务有笔数</th>
+            <th w_index="acHaveAmount" w_align="left">业务无账务有金额</th>
+            <th w_index="bsHaveNum" w_align="left">业务有账务无笔数</th>
+            <th w_index="bsHaveAmount" w_align="left">业务有账务无金额</th>
+            <th w_render="operate"  w_index="tcResult" w_align="left">对账结果</th>
+		</tr>
+	</table>
+</div>
+
+<div id="ywyzw_dlg" class="none ovh"></div>

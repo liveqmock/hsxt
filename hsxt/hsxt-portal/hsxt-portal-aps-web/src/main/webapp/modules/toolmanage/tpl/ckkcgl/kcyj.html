@@ -1,0 +1,31 @@
+﻿<div id="kcyjTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">预警状态：</label>
+				<input id="search_warningState" readonly="readonly" placeholder="选择预警状态" />
+			</li>
+			<li>
+				<label>工具名称：</label>
+				<input id="search_productName" type="text" placeholder="输入工具名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">工具类别：</label>
+				<input id="search_categoryCode" readonly="readonly" placeholder="选择工具类别" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+	  	<th w_index="whName" w_tip=true>仓库名称</th>
+		<th w_index="productName" w_tip=true>工具名称</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="warningStatus" w_render="operate">预警状态</th>
+		<th w_index="reportedRate">损失率</th>
+		<th w_index="useRate">使用率</th>
+	  </tr>
+	</table>
+</div>

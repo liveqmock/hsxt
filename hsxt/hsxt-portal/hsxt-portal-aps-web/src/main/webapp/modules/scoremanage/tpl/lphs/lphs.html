@@ -1,0 +1,41 @@
+<div id="lphsTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+		<!--<li>
+			<label>时间范围：</label>
+			<input type="text" name="textfield" id="timeRange_start" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+			<span class="separator-pd">-</span>
+			<input type="text" name="textfield" id="timeRange_end" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+		</li>-->
+        <li>
+			<label>申请单号：</label>
+			<input type="text" name="applyWelfareNo"  id="applyWelfareNo" placeholder="输入申请单号" class="h28_middle input-txt w115" />
+		</li>
+		<li>
+			<label>申请人互生卡号：</label>
+			<input type="text" name="proposerResNo" id="proposerResNo" maxlength="11" placeholder="输入申请人互生卡号" class="h28_middle input-txt w120" />
+		</li>
+		
+		<!--<li class="clearfix">
+			<label class="fl h30_middle">申请福利类别：</label>
+			<input id="application_type" readonly="readonly" placeholder="选择申请福利类别" />
+		</li>-->
+		<li>
+			<button id="qry_lphs" type="button" class="btn-search">查询</button>
+		</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="applyWelfareNo" w_tip="true" width="20%">申请单号</th>
+		<th w_index="welfareId"  w_tip="true" width="20%">关联保障单号</th>
+		<th w_index="hsResNo"  w_tip="true" width="10%">申请人互生卡号</th>
+		<th w_index="proposerName"  w_tip="true">申请人</th>
+		<th w_render="operate" w_index="hsPayAmount">核算金额</th>
+		<th w_index="accountDate"  w_tip="true">核算日期</th>
+		<th w_index="accountPersonName"  w_tip="true">核算人</th>
+		<th w_index="status"  w_render="operate">状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>

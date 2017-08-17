@@ -1,0 +1,332 @@
+<div class="operationsInner" id=""> 
+  <!-- 操作台切换标签开始 -->
+  <div class="pr">
+    <div class="tabNav">
+      <ul class="tabList clearfix">
+      <!--  <li id="tab01"><a class="active">待审核</a></li>
+       <li id="tab02"><a>待处理举报</a></li>
+       <li id="tab03"><a>审核不通过</a></li>
+       <li id="tab04"><a>举报处理下架</a></li>
+       <li id="tab05"><a>举报处理不违规</a></li>
+       <li id="tab06"><a>正常上架商品</a></li> -->
+       <li><a class="stdsh">实体店审核</a></li>
+       <li><a class="wsscsh">网上商城审核</a></li>
+       <li><span class="active">商品审核</span></li>
+       
+     </ul>
+   </div>
+ </div>
+ <!-- 操作台切换标签结束 --> 
+ <!--内容添加开始-->
+ <div class="mallStore goods_list p20" style="height:400px;">
+  <div class="tabs">
+    <ul>
+       <li class="cur">待审核</li>
+       <li>待处理举报</li>
+       <li>审核不通过</li>
+       <li>举报处理下架</li>
+       <li>举报处理不违规</li>
+       <li>正常上架商品</li>
+    </ul>
+  </div>
+  <div class="search-toolbar">
+
+   <ul class="cssform clearfix">
+    <li class="mr">
+      <label class="title-int">商品名称：</label>
+      <div class="cont-int">
+       <input type="text" name="" id="" value="" class="input-txt" />
+     </div> 
+   </li>
+   <li class="mr" style="height: 35px;">
+    <label class="title-int ml20">商城名称：</label>
+    <div class="fl combobox_style selectDiv gools-Lkbd"  >
+   		  <select id="sel_scmc" name="sel_pp"   >
+				<option value="">请选择...</option>
+				<option value="1">苹果专买店</option>
+				<option value="2">三星专买店</option>
+				<option value="3">小米专买店</option>
+				<option value="4">真维斯专买店</option> 
+			</select>
+	</div>	 
+</li>
+<li class="last "  style="height: 35px;">
+  <label class="title-int ml20 ">品牌：</label>
+ 
+   <!-- <input type="text" id="brand" value="" class="input-txt" autocomplete="off" />    -->
+   <div class="fl combobox_style selectDiv gools-Lkbd spsh_input"  >
+   		  <select id="sel_pp" name="sel_pp"   >
+				<option value="">请选择...</option>
+				<option value="1">苹果</option>
+				<option value="2">三星</option>
+				<option value="3">小米</option>
+				<option value="4">真维斯</option> 
+			</select>
+	</div>		
+  
+</li>
+</ul>
+<ul class="cssform clearfix">
+<li class="mr">
+  <label class="title-int">商品分类：</label>
+     <div class="fl combobox_style selectDiv gools-Lkbd" style="margin-left: 0px;"  >
+   		  <select id="sel_sp" name="sel_sp"   >
+				<option value="">请选择...</option>
+				<option value="1">女装</option>
+				<option value="2">男装</option>
+				<option value="3">童装</option>
+				<option value="4">老人装</option> 
+			</select>
+			 
+	</div>		
+   <div class="fl combobox_style selectDiv gools-Lkbd"  >
+   		 
+			<select id="sel_fl" name="sel_fl"   >
+				<option value="">请选择...</option>
+				<option value="1">外套</option>
+				<option value="2">帽子</option>
+				<option value="3">裤子</option>
+			 
+			</select>
+	</div>		
+  
+   
+</li>
+<li>
+ <label class="title-int ml20">状态：</label>
+ <div class="cont-chk">
+ 	 
+	<input id='sel_zt' placeholder="--选择状态--"
+options="[{name:'状态1',value:'1'},{name:'状态2',value:'2'},{name:'状态3',value:'3'}]" optionValue=""  readonly="readonly"  />
+                  
+	
+</div>
+</li>
+<li class="last">
+  <div class="cont-int ml20">
+   <button id="" type="button" class="btn-search ml10">搜索</button>
+
+ </div>
+</li>
+
+</ul>
+<div class="alone_row"><input class="btn-search ml10" type="button" value="批量审核通过"/><input class="btn-search ml10" type="button" value="批量审核不通过"/></div>
+</div>
+
+<div id="tableBox" class="search-cont mt0" >
+  
+  <!-- 待审核 -->
+  <table id="tableDetail_dsh">   
+	    <tr>   
+	    	  <th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>
+		      <th w_index="tjsj">提交时间</th>
+		      <th w_index="clsj">处理时间</th>
+		      <th w_index="shsj">审核时间</th>
+		      <th w_index="shcz">审核操作</th>		      	
+		      <th w_index="cljg">处理结果</th>		       
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 	
+  <!-- 待处理举报 -->
+	<table id="tableDetail_dcljb" class="none">   
+	    <tr>   
+	    	<th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>		 
+		      <th w_index="cljg">处理结果</th>		      
+		      <th w_index="jbnr">举报内容</th>
+		      <th w_render="renderImg">举报图片</th>
+		      <th w_index="jbr">举报人</th>
+		      <th w_index="jbsj">举报时间</th>
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 	
+  <!-- 审核不通过 -->
+	<table id="tableDetail_shbtg" class="none">   
+	    <tr>   
+	    	  <th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>
+		      <th w_index="tjsj">提交时间</th>
+		      <th w_index="shsj">审核时间</th>
+		      <th w_index="shcz">审核操作</th>
+		      <th w_index="shr">审核人</th>	 
+		      <th w_index="cljg">处理结果</th>		      
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 	
+  <!-- 举报处理下架 -->
+	<table id="tableDetail_jbclxj" class="none">   
+	    <tr>   
+	    	  <th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>
+		   
+		      <th w_index="cljg">处理结果</th>
+		 
+		      <th w_index="jbnr">举报内容</th>
+		      <th  w_render="renderImg">举报图片</th>
+		      <th w_index="jbr">举报人</th>
+		      <th w_index="jbsj">举报时间</th>
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 	
+  <!-- 举报处理不违规 -->
+	<table id="tableDetail_jbclbwg" class="none">   
+	    <tr>   
+	    	<th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>
+		   
+		      <th w_index="cljg">处理结果</th>
+		 
+		      <th w_index="jbnr">举报内容</th>
+		      <th  w_render="renderImg">举报图片</th>
+		      <th w_index="jbr">举报人</th>
+		      <th w_index="jbsj">举报时间</th>
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 
+	  <!-- 正常上架商品 -->
+	<table id="tableDetail_zcsjsp" class="none">   
+	    <tr>   
+	    	<th w_check="true"  w_index="sn" ></th>
+	    	  <th w_render="renderImg">商品</th>
+		      <th w_index="scmc">商城名称</th>
+		      <th w_index="tjsj">提交时间</th>
+		      
+		      <th w_index="clsj">处理时间</th>
+		      <th w_index="cljg">处理结果</th>
+		      
+		      <th w_index="sm">说明</th>
+		      <th w_render="operate" >操作</th>
+	    </tr>            
+	</table> 
+   
+</div>
+
+</div>
+<!--内容添加结束--> 
+</div>
+<!--弹出框内容及脚本开始-->
+<div id="review_dialog" class="none">
+  <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right">审核说明：</td>
+      <td><textarea placeholder="请输入"></textarea></td>
+    </tr>
+  </table>
+</div>
+<div id="review_record" class="none">
+  <div class="alone_row clearfix"><span class="fl">商品名称：外套</span><input type="button" value="查看商品详情" class="btn fr" /></div>
+  <table class="popup_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+       <th>提交审核时间</th>
+       <th>审核时间</th>
+       <th>审核人</th>
+       <th>审核结果</th>
+       <th>审核说明</th>
+     </tr>
+   </thead>
+   <tbody>
+    <tr>
+      <td>2015-01-01</td>
+      <td>2015-01-02</td>
+      <td>张三</td>
+      <td>通过</td>
+      <td>审核说明</td>
+    </tr>
+    <tr class="table-tr-c">
+      <td>2015-01-01</td>
+      <td>2015-01-02</td>
+      <td>张三</td>
+      <td>通过</td>
+      <td>审核说明</td>
+    </tr>
+    <tr>
+      <td>2015-01-01</td>
+      <td>2015-01-02</td>
+      <td>张三</td>
+      <td>通过</td>
+      <td>审核说明</td>
+    </tr>
+    <tr class="table-tr-c">
+      <td>2015-01-01</td>
+      <td>2015-01-02</td>
+      <td>张三</td>
+      <td>未通过</td>
+      <td>审核说明审核说明</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div id="report_detail" class="relative none">
+  <div class="goods_detail">
+    <dl class="">
+      <dt><img src="resources/img/product02.jpg" width="120"></dt>
+      <dd><span class="tit">商品名称：</span>2014冬季韩版加绒一步裙</dd>
+      <dd><span class="tit">商城名称：</span>蓝色旗舰店</dd>
+      <dd class="tc"><input type="button" value="查看商品详情" class="btn" /></dd>
+    </dl>
+  </div>
+  <table class="detail-table input_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="100" align="right">举报人：</td>
+      <td><input type="text" disabled="disabled"/></td>
+    </tr>
+    <tr>
+      <td align="right">联系方式：</td>
+      <td><input type="text" disabled="disabled"/></td>
+    </tr>
+    <tr>
+      <td align="right">举报时间：</td>
+      <td><input type="text" disabled="disabled"/></td>
+    </tr>
+    <tr>
+      <td align="right">举报类型：</td>
+      <td><input type="text" disabled="disabled" value="假冒伪劣产品"/></td>
+    </tr>
+    <tr>
+      <td align="right">举报内容：</td>
+      <td><input type="text" disabled="disabled"/></td>
+    </tr>
+    <tr class="tr_img">
+      <td align="right">图片：</td>
+      <td>
+        <div class="warp_img">
+          <div class="td_img">
+            <div class="inner_img clearfix">
+              <img src="resources/img/store_noimg.gif"><img src="resources/img/store_noimg.gif"><img src="resources/img/store_noimg.gif"><img src="resources/img/store_noimg.gif"><img src="resources/img/store_noimg.gif">
+            </div>
+
+          </div>
+          <div class="arrow_left" style="display: none;">&lt;</div>
+          <div class="arrow_right" style="display: none;">&gt;</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">处理人：</td>
+      <td><input type="text" disabled="disabled" value="张三"/></td>
+    </tr>
+    <tr>
+      <td align="right">处理时间：</td>
+      <td><input type="text" disabled="disabled" value="2015-01-02"/></td>
+    </tr>
+    <tr>
+      <td align="right">处理结果：</td>
+      <td><input type="text" disabled="disabled" value="违规下架/不违规"/></td>
+    </tr>
+  </table>
+</div>
+<!--弹出框内容及脚本结束-->
+

@@ -1,0 +1,41 @@
+<div id="zypecxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">省 / 州 / 直辖市：</label>
+				<input id="area" readonly="readonly" placeholder="选择省/州/直辖市" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">城市 / 区县：</label>
+				<input id="city" readonly="readonly" placeholder="选择城市/区县" />
+			</li>
+			<li>
+				<button id="btnQuery" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab-xfz">
+	  <tr>
+		<td class="bg_grey red" width="25%" id="tdProvinceNo"></td>
+		<td class="bg_lvse" width="25%">城市/区个数<span class="ml10" id="sCityCount"></span></td>
+		<td class="bg_lvse" width="25%">系统资源服务公司配额<span class="ml10" id="sSResNum"></span></td>
+		<td class="bg_lvse" width="25%">已使用配额<span class="ml10" id="sUseSResNum"></span></td>
+	  </tr>
+	</table>
+	<table id="searchTable_xq">
+	 <!--  <tr>
+		<th colspan="4"></th>
+		<th colspan="3">尚可用配额</th>
+	  </tr> -->
+	  <tr>
+	  	<th w_index="cityNo" w_render="operate">城市、区县</th>
+		<th w_index="population">城市常住人口</th>
+		<th w_index="totalNum" w_render="operate">城市配额</th>
+		<th w_index="usedNum" w_render="operate">已使用配额</th>
+		<!-- <th w_index="usableNum" w_render="operate">总数</th> -->
+		<th w_index="unUseNum" w_render="operate">未分配</th>
+		<th w_index="usingNum" w_render="operate">拟分配</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

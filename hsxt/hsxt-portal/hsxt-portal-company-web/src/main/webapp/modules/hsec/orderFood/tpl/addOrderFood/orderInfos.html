@@ -1,0 +1,41 @@
+<%
+var orderInfos=obj.data.QueryResult
+%>
+<!--加菜 订单信息-->
+<div id="order_diancai_box" class="order-info-box w380 pr" style="display:inline-block;left: 0px;top: 0px;">      	
+   	<fieldset>
+       	<legend>已选菜品</legend>
+           <div class="m10">
+               <table cellpadding="0" cellspacing="0" border="0" width="100%" class="table-food-list">
+               	<tr class="title-h1">
+                       <th width="55%">菜品名称</th>
+                       <th width="30%">份数</th>
+                       <th width="15%">单价</th>
+                   </tr>
+                   <% $.each(orderInfos.orderDetailList,function(key3,orderDetail){ %>
+                   <!-- 未删除的 -->
+	                <% if(orderDetail.status=='0'){%>
+	                 <tr>
+	                	<td width="55%"><%=orderDetail.itemName%>  </td>
+	                    <td width="30%">
+	                        <input type="button" class="no-sub" />
+	                        <input type="text" class="number-show" orderDetailId="<%=orderDetail.id%>"  
+	                        beforeChangeQuantity="<%=orderDetail.quantity%>" value="<%=orderDetail.quantity%>" />
+	                        <input type="button" class="add_sub" />                                  
+	                    </td>
+	                    <td width="15%"><%=comm.formatMoneyNumber(orderDetail.price)%></td>
+	                </tr>
+	                <%}%>
+                <%})%>
+                <tr class="bdr-top">
+                	<td colspan="6">
+                    	<div class="tass tc mt10">
+                            <a href="javascript:void(0)" class="btn_bg submit btn-jc">确&nbsp;&nbsp;认</a>
+                        </div>
+                    </td>
+                </tr>                             
+            </table>
+        </div>
+    </fieldset>
+</div> 
+<!--结束-->

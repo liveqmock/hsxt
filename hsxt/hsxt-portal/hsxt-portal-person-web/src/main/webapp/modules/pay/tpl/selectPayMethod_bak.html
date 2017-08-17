@@ -1,0 +1,37 @@
+<% var method = obj.selectedMethod,
+	paymentName_1 = obj.paymentName_1 || '互生币支付'; 
+%>
+<div class="p20 pay-box">
+	<ul class="pay-ul clearfix">
+		<li>
+			<label class="clearfix pay-label">
+				<% if(paymentName_1 == '互生币支付'){ %>
+					<input type="radio" name="paymentMethod" value="hsbzf" <% if(method == 'hsbPay'){ %>checked="checked"<% } %> /><span class="ml5 pay-mt-2"><%=paymentName_1%></span>
+				<% } else if(paymentName_1 == '货币账户支付'){ %>
+					<input type="radio" name="paymentMethod" value="hbzhzf" <% if(method == 'hbzhPay'){ %>checked="checked"<% } %> /><span class="ml5 pay-mt-2"><%=paymentName_1%></span>
+				<% } %>
+				
+			</label>
+		</li>
+		<li class="ml30"><span class="blk pay-mt2">余额：</span></li>
+		<li><span class="pay-icon-sprice">100.00</span></li>
+	</ul>
+	
+	<ul class="pay-ul clearfix mt10">
+		<li>
+			<label class="clearfix pay-label">
+				<input type="radio" name="paymentMethod" value="wyzf" <% if(method == 'unionPay'){ %>checked="checked"<% } %> /><span class="ml5 pay-mt-2">银联支付</span>
+			</label>
+		</li>
+		<li class="ml30">本地结算币种：<span class="pay-text-red mr10">人民币</span>   货币转换比率：<span class="pay-text-red mr10">1</span>   折算货币金额： <span class="pay-text-red">50.00</span></li>
+	</ul>
+	
+	<ul class="pay-ul clearfix mt10">
+		<li>
+			<label class="clearfix pay-label">
+				<input type="radio" name="paymentMethod" value="kjzf" <% if(method == 'quickPay'){ %>checked="checked"<% } %> /><span class="ml5 pay-mt-2 fb">快捷支付</span>
+			</label>
+		</li>
+		<li class="ml30">本地结算币种：<span class="pay-text-red mr10">人民币</span>   货币转换比率：<span class="pay-text-red mr10">1</span>   折算货币金额： <span class="pay-text-red">50.00</span></li>
+	</ul>	
+</div>

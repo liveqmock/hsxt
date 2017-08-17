@@ -1,0 +1,55 @@
+<div id="mxxcTpl">
+	<div class="search-toolbar">
+	  <form id="hsb_form">
+		<ul class="cssform clearfix">
+		  <li class="clearfix pr">
+			<label class="fl h30_middle">快捷日期：</label>
+			<input type="text" id="quickDate" readonly="readonly" placeholder="请选择"/>
+		  </li>
+		  <li>
+			<label>日期：</label>
+			<input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" readonly="readonly"/>
+			<span class="separator-pd">-</span>
+			<input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80" readonly="readonly"/>
+		  </li>
+		  <li class="clearfix pr">
+			<label class="fl h30_middle">互生币类别：</label>
+			<input type="text" id="optHsbType" name="optHsbType" readonly="readonly" />
+		  </li>
+		  <li class="clearfix pr">
+			<label class="fl h30_middle">业务类别：</label>
+			<input type="text" id="subject" name="subject" readonly="readonly" />
+		  </li>
+		  <li>
+			<div class="cont-int">
+			  <button id="btnQuery" class="btn-search" type="button">查询</button>
+			</div>
+		  </li>
+		</ul>
+	  </form>
+	</div>
+	<div class="search-cont">
+	  <table id="tableDetail" width="100%" border="0" cellspacing="0" cellpadding="0" class="bsgrid">
+		<thead>
+			<tr>
+			  <th w_index="fiscalDate" w_render="operate" w_align="left">交易时间</th>
+			  <th w_index="transType" w_render="operate" w_align="left">交易类型</th>
+			  <th w_index="transCode" w_render="operate" w_align="left">业务类别</th>
+			  <th w_index="transAmount" w_render="operate"  w_align="left">发生金额</th>
+			  <th w_index="balance" w_render="operate" w_align="left">交易后账户余额</th>
+			</tr>
+		</thead>
+	  </table>
+	</div>
+</div>
+
+
+
+<!--弹出框内容及脚本开始-->
+<div id="hsbzh-mxcx-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->
+
+<div id="detailList_1Tpl" class="none"></div>
+<div id="detailList_2Tpl" class="none"></div>

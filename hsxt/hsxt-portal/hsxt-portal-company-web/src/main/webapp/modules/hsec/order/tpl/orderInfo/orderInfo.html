@@ -1,0 +1,191 @@
+<%
+  var param = obj.order;
+  var httpUrl = obj.httpUrl;
+  var itemVisitUrl = obj.itemVisitUrl;
+  var logistic = obj.Logistic;
+%>
+<div class="operationsInner">
+  <div class="p20 pr">
+  <div class="pa" style="right:35px;"><img src="resources/img/closelvse.png" style="cursor:pointer;" id="orderClose"></div>
+    <div class="scrlh" style="height:440px;">
+      <h1 class="fb f14 lh200 h30">订单详情</h1>
+      <div class="cutline"></div>
+      <div class="mb5 pb5">
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">订单号：</span><span class="title-txt"><%=param.odId%></span></li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">交易时间：</span><span class="title-txt"><%=param.createTime%></span></li>
+          <%if(param.orderStatus == 3){%>
+          	<li class="fl w300 h30"><span class="title-txt tcr_grey">发货时间：</span><span class="title-txt"><%=param.sendTime%></span></li>
+          <%}%>
+          <li class="fl w300 h30"><span class="title-txt">状态：</span> <span class="title-txt"><%=param.orderStatusName%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">商城名称：</span> <span class="title-txt classtext" style="text-align: left;" title="<%=param.vShopName%>"><%=param.vShopName%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">企业互生号：</span> <span class="title-txt"><%=param.companyResourceNo%></span> </li>
+          <li class="fl w300 h30">
+          <span class="title-txt tcr_grey">
+           <%if(param.isCardCustomer == 0){%>
+                                                        消费者：
+             <%}else{%>
+                                                       互生卡号：
+             <%}%></span> <span class="title-txt">
+          <%try{%>
+          <%if(param.isCardCustomer == 0){%>
+          		<%if(param.nickName!=null && param.nickName!=""){%>
+		          			<%var allName = param.nickName;%>
+		          			<%if(param.buyerAccountNo!=null && param.buyerAccountNo!=""){%>
+		          				<%=allName+"（"+param.buyerAccountNo.substring(0,3)+"****"+param.buyerAccountNo.substring(7,11)+"）"%>
+		          			<%}else{%>
+		          				<%=allName%>
+		          			<%}%>
+          		<%}else{%>
+          					<%if(param.buyerAccountNo!=null && param.buyerAccountNo!=""){%>
+          						<%=param.buyerAccountNo.substring(0,3)+"****"+param.buyerAccountNo.substring(7,11)%>
+          					<%}%>	
+          		<%}%>
+          <%}else{%>
+          		<%if(param.nickName!=null && param.nickName!=""){%>
+		          			<%var allName = param.nickName;%>
+		          			<%if(param.buyerAccountNo!=null && param.buyerAccountNo!=""){%>
+		          				<%=allName+"（"+param.buyerAccountNo+"）"%>
+		          			<%}else{%>
+		          				<%=allName%>
+		          			<%}%>
+          		<%}else{%>
+          					<%if(param.buyerAccountNo!=null && param.buyerAccountNo!=""){%>
+          						<%=param.buyerAccountNo%>
+          					<%}%>	
+          		<%}%>
+          <%}%>
+          <%}catch(e){}%>
+          </span>
+          </li>
+          <%if(param.cancelReason != null && param.cancelReason != ""){%>
+          	<li class="fl w300 h30" style="color: red"><span class="title-txt tcr_grey">取消原因：</span> <span class="title-txt"><%=param.cancelReason%></span> </li>
+          <%}%>
+           <li class="fl h30"><span class="title-txt tcr_grey">营业点：</span> <span class="title-txt div_spill classtext" style="width: 600px;text-align: left;" title="<%=param.shopName%>"><%=param.shopName%></span></li>
+        </ul>
+      </div>
+      
+      <!--收货人信息-->
+      <div class="mb5 pb5">
+        <h3 class="fb f12 lh200 h30">
+        收货人信息
+        </h3>
+        <div class="cutline"></div>
+        <ul class="lh300 clearfix">
+        <!--<%if(param.buyerAccountNo != null && param.buyerAccountNo != ""){%><li class="fl w300 h30"><span class="title-txt tcr_grey">互生卡号：</span> <span class="title-txt"><%=param.buyerAccountNo%></span></li><%}%> -->
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">收货人：</span> <span class="title-txt"><%=param.receiver%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">手机号码：</span> <span class="title-txt"><%=param.receiverContact%></span> </li>
+          <li class="fl w100 h30"><span class="title-txt tcr_grey">邮编：</span> <span class="title-txt"><%=param.receiverPostCode%></span> </li>
+          <li class="fl w800 h30"><span class="title-txt tcr_grey">地址：</span> <span class="title-txt classtext" style="width: 700px;text-align: left;" title="<%=param.receiverAddress%>"><%=param.receiverAddress%></span> </li>
+        </ul>
+      </div>
+      <!--收货人信息 结束--> 
+      
+      <!--支付及配送方式-->
+      <div class="mb5 pb5">
+        <h3 class="fb f12 lh200 h30">
+        支付及配送方式
+        </h3>
+        <div class="cutline"></div>
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">配送方式：</span> <span class="title-txt"><%=param.deliveryTypeName%></span></li>
+          <li class="fl w400 h30"><span class="title-txt tcr_grey">配送营业点：</span> <span class="title-txt classtext" style="width: 300px;text-align: left;" title="<%=param.shopName%>"><%=param.shopName%></span></li>
+        </ul>
+        <%if(param.deliveryType == 3){%>
+	        <ul class="lh200 clearfix">
+	          <li class="fl w300 h30"><span class="title-txt tcr_grey">送货人姓名：</span> <span class="title-txt"><%=param.deliverName%></span></li>
+	          <li class="fl w300 h30"><span class="title-txt tcr_grey">送货人联系电话：</span> <span class="title-txt"><%=param.deliverContact%></span></li>
+	          <li class="fl w400 h30"><span class="title-txt tcr_grey">送货时间：</span> <span class="title-txt"><%=param.deliverTime%></span></li>
+	        </ul>
+        <%}%>
+        <%if(logistic != null && logistic != ""){%>
+	        <ul class="lh200 clearfix">
+	          <li class="fl w300 h30"><span class="title-txt tcr_grey">快递公司名称：</span> <span class="title-txt"><%=logistic.name%></span></li>
+	          <li class="fl w300 h30"><a href="http://www.kuaidi100.com/chaxun?com=<%=logistic.code%>&nu=<%=param.logisticCode%>" target="_blank"><span class="title-txt tcr_grey">快递单号：</span> <span class="title-txt"><%=param.logisticCode%></span></a></li>
+	        </ul>
+        <%}%>
+        
+      </div>
+      <!--支付及配送方式 结束--> 
+      
+      <!--支付方式-->
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">支付方式：</span> <span class="title-txt"><%=param.payTypeName%></span> </li>
+        </ul>
+      </div>
+      <!--支付方式 结束--> 
+      
+      <!--买家备注-->
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <div class="w800 lh200 clearfix"><span class="title-txt tcr_grey">买家备注：</span> <span class="title-txt"><%=param.userNote%></span></div>
+      </div>
+      <!--买家备注 结束-->
+      
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <div class="w800 lh200 clearfix">
+        <span class="title-txt fb mr30">发票信息</span>
+           <% if(param.isDrawed==0){%>
+               <span class="title-txt tcr_grey ">未开具发票</span>
+           <%}%>
+           <% if(param.isDrawed==1){%>
+        <span class="title-txt tcr_grey ">发票抬头：</span>
+		<span class="title-txt mr50"><%=param.invoiceTitle%></span>
+		<!-- 
+		<span class="title-txt tcr_grey">发票内容：</span>
+		<span class="title-txt">办公用品</span>
+		 -->
+		   <%}%>
+</div>
+      </div>
+      <%var params = param.orderDetailList%>
+      <table id="gridInfo" class="bsgrid">
+      <tr>
+          <th w_render="operate" w_align="left" width="60%"><div class="pl10 fl">商品</div></th>
+          <th w_render="operate" w_algin="left" width="10%"><img src="resources/img/price.png" width="25" style="vertical-align:middle;"/>单价</th>
+          <th w_render="operate" w_algin="left" width="10%">数量</th>
+          <th w_render="operate" w_algin="left" width="10%"><img src="resources/img/price.png" width="25" style="vertical-align:middle;"/>金额</th>
+          <th w_render="operate" w_algin="left" width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+        </tr>
+	  <%$.each(params,function(key,value){%>
+     <% 
+	    var pic;
+	    try{
+        	var picObj =JSON.parse(value.picUrl)
+         	pic=httpUrl+picObj["68x68"]
+        }catch(e){
+         	pic = "";
+        }
+        
+         %>
+        <tr class="<%=(key%2==1?'table-tr-c':'')%>">
+          <td><div class="pr h80 lh200">
+              <div class="pa"><img src="<%=pic%>" width="68px" height="68px"/></div>
+              <p class="tl" style="padding-left: 100px"><a href="<%=itemVisitUrl+value.snapShopUrl%>" target="_blank"><%=value.itemName%></a></p>
+            </div></td>
+          <td><span class="red"><%=comm.formatMoneyNumber(value.price)%></span></td>
+          <td><%=value.quantity%></td>
+          <td><span class="red fb"><%=comm.formatMoneyNumber(value.subTotal)%></span>
+            </td>
+          <td><p class="blue"><%=comm.formatMoneyNumber(value.subPoints)%></p></td>
+        </tr>
+ 	<%})%>
+      </table>
+      
+      <div class="h40 tr lh200 pr30" style="padding-top: 12px"><span>消费积分总计：<img src="resources/img/pv.png" width="25" style="vertical-align:middle;">&nbsp;<em class="fb blue"><%=comm.formatMoneyNumber(param.totalPoints)%></em></span></div>
+      <div class="cutline"></div>
+      <div class="tr lh200">
+      <p class="pr30 pt10">运费：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"/><span class="fr w100" style="color: #FF4500"><%=comm.formatMoneyNumber(param.postAge!=''?param.postAge:'0')%></span></p>
+	  <p class="pr30 pt10">总计：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"/><span class="fr w100"><em class="fb red"><%=comm.formatMoneyNumber(param.totalAmount)%></em></span></p>
+<%if(param.couponInfo != null && param.couponInfo != ""){%>
+	  <p class="pr30 pt10">抵扣金额：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"/><span class="fr w100" style="color: magenta"><%=comm.formatMoneyNumber(param.couponAmount)%></span></p>
+<%}%>	
+<p  class="pr30 pt10">实付款(含运费)：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"/><span class="fr w100 fb red f20"><%=comm.formatMoneyNumber(param.actuallyAmount)%></span></p>
+      </div>
+      
+    </div>
+  </div>
+</div>

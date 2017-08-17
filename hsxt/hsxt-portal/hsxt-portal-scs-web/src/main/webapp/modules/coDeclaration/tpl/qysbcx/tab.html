@@ -1,0 +1,44 @@
+ 
+		<!-- 操作台切换标签开始 -->
+        <div class="pr">
+        	<div class="tabNav"></div>
+            <ul class="tabList clearfix">
+                <li id="qysbcx_tgqysbtj" style="display: none"><a class="active">托管企业申报统计</a></li>
+                <li id="qysbcx_cyqysbtj" style="display: none"><a  >成员企业申报统计</a></li>
+                <li id="qysbcx_fwgssbtj" style="display: none"><a  >服务公司申报统计</a></li>
+                
+            </ul>
+        </div>
+        <!-- 操作台切换标签结束 -->
+		<!-- id值：
+				contentWidth_2：如果显示 "修改资料" 则用此id;
+		-->
+        <div id="contentWidth_2">
+				<div id="cx_content_list" class="">
+					
+				</div>
+				<div id="cx_content_detail" class="codbox p20 none">
+					  <div class="infobox">
+				        <div class="pr">
+				    	<div class="tabNav_s"></div>
+				        <ul class="tabList_s clearfix">
+				            <li id="ckxq_sbxx"><a  class="active">申报信息</a></li>
+				            <li id="ckxq_qyxtzcxx"><a>企业系统注册信息</a></li>
+				            <li id="ckxq_qygsdjxx"><a  >企业工商登记信息</a></li>
+				            <li id="ckxq_qylxxx"><a  >企业联系信息</a></li>
+				            <li id="ckxq_qyyhzhxx" style="display:none;"><a  >企业银行账户信息</a></li>
+				            <li id="ckxq_qysczl" style="display:none;"><a  >企业上传资料</a></li>
+				            <li id="ckxq_blztxx"><a  >办理状态信息</a></li>
+				            <li><span class="tabLast_s"></span></li>
+				        </ul> 
+				    </div>
+				    <div id="ckxq_view" class="view_info infobox_sro">
+					</div>
+				    </div>
+				    <div id="sbtj_cx_an" class="two_button mt20 h30" align="center"><a  id="ckxq_qx" class="btn_bg submit fl"  >返　回</a><a  id="ckxq_xg"  class="btn_bg submit tabNone" >修　改</a></div>
+				</div>
+        </div>
+    	
+<input type="hidden" id="custType" name="custType"><!-- 修改时记录申报类别 -->
+<input type="hidden" id="applyId" name="applyId"><!-- 修改时记录申请编号 -->
+<input type="hidden" id="sbStatus" name="sbStatus"><!-- 申报单状态-->

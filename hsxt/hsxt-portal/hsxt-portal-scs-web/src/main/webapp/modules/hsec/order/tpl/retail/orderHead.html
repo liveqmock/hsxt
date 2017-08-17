@@ -1,0 +1,68 @@
+ <!--搜索条件-->
+      <div>
+      	<form name="orderSearchForm">
+      	<div class="search-toolbar">
+        <ul class="clearfix cssform">
+         <li class="mr20">                     
+	          <label class="title-int">订单编号：</label>
+	          <div class="cont-int">                   
+	            <input type="text" name="orderId" id="orderId" class="input-txt" maxlength="17"/>
+	          </div> 
+          </li>
+          <li class="mr20"><label class="title-int">企业互生号：</label>
+	           <div class="cont-int"> 
+	            <input type="text" name="companyNo" id="companyNo" class="input-txt" maxlength="11"/>
+	            </div>
+          </li>
+          <li class="mr20"><label class="title-int">订单日期：</label>
+          <div class="cont-int">
+			<input type="text" class="input-txt" readonly="readonly" value="" id="startTime" name="startTime" > 
+			<span class="white"> - </span> 
+			<input type="text" class="input-txt" readonly="readonly" value="" id="endTime" name="endTime">
+		</div>
+          </li>
+          <li class="mr20"><label class="title-int">消费者互生卡号/手机号：</label>
+          	<div class="cont-int">
+            	<input type="text" name="resourceNo" id="resourceNo" class="input-txt" maxlength="11"/>
+            </div>
+          </li>
+          <li class="mr20"><label class="title-int">订单状态：</label>
+		     <input id="orderTab" placeholder="请选择" readonly="readonly" optionvalue="" />
+          </li>
+       		<li class="last">
+              <div class="cont-int">
+              	<button id="orderList_search" type="button" class="btn-search ml10">查询</button>    
+              </div>
+          </li>
+        </ul>
+        </div>
+        </form>
+      </div>
+      
+      <!--局部切换页签-->
+     <!--  <div class="pr mb5">
+        <div class="tabNav"></div>
+        <ul class="tabList subTabList clearfix" id="orderTab">
+          <li data-id="1"><a class="">未支付</a></li>
+          <li data-id="2"><a class="">已支付</a></li>
+          <li data-id="3"><a class="">已完成</a></li>
+          <li data-id="4"><a class="">已取消</a></li>
+          <li data-id="5"><a class="">退款退货订单</a></li>
+          <li data-id="6"><a class="active">全部</a></li>
+        </ul>
+      </div> -->
+      <!--局部切换页签 结束--> 
+      <!--表格区域-->
+      <div class="shopebox">
+        <table id="orderList">
+          <tr>
+            <th w_render="operate" w_algin="center" width="40%">订单信息</th>
+            <th w_render="operate" w_algin="center" width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">实付款</th>
+            <th w_render="operate" w_algin="center" width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+            <th w_render="operate" w_algin="center" width="10%"><div class="cont-chk setdiy100">订单状态</div></th>
+            <th w_render="operate" w_algin="center" width="10%">操作</th>
+          </tr>
+      </table>
+      </div>
+<div id="showDialog" class="none"></div>
+<div id="showDialogs" class="none"></div>

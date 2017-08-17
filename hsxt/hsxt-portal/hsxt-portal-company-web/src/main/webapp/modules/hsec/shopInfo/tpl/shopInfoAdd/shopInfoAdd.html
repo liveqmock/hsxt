@@ -1,0 +1,272 @@
+<%var param = obj.MainPageCategory%>
+<%var address = obj.vShop%>
+<%var quyu = obj.Area%>
+<%var shoptime = obj.shoptime%>
+  <div class="searchbox mallStore">
+  <div class="search-toolbar pr h30">
+      <ul id="xinxiMain" class="tabList clearfix">
+      	<li><a href="#" class="jbxx active">基本信息</a></li>
+        <li><a href="#" class="mjfw">卖家服务</a></li>
+      </ul>
+    </div>
+<div class="search-cont" style="margin-top:0;height:392px;" id="shopPanel">
+<table id="ls-jbxx" class="detail" width="100%" border="0" cellspacing="0" cellpadding="0" >
+        <tbody><tr>
+          <td width="150" align="right">营业点类型<span class="red">*</span></td>
+          <td width="180"><div class="cont-int" id="drop-down">
+            <select id="shopType" class="w300 yydtype">
+              <option value="1" selected="selected">零售</option>
+              <option value="2">餐饮</option>
+            </select>
+          </div></td>
+          <td align="left" width="200">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">详细地址<span class="red">*</span></td>
+          <td colspan="2"><input type="hidden" id="zuobiaodiqu" value="<%=address.province==address.city?address.city:address.province+address.city%>"><input class="inpt w-left" type="text" value="<%=address.province==address.city?address.country+address.city:address.country+address.province+address.city%>" readonly="readonly" style="width:auto;">
+          <%var chengshiID = "";%>
+                <select class="ml5 mr5" style="padding-top:7px;" id="quyu" name="quyu">
+                      <option value="">选择区域</option>
+                      <%$.each(quyu,function(key,el){%>
+                      <%chengshiID = el.parentCode;%>
+                      <option value="<%=el.areaCode%>" ><%=el.areaName%></option>
+                      <%})%>
+                    </select>
+                    <input id="chengshiId" value="<%=chengshiID%>" type="hidden"/>
+        <input class="inpt" id="addr" type="text" placeholder="如：xx路xx号" maxlength="50">
+        &nbsp;<span class="red redError "></span>
+        </td>
+        </tr>
+        <tr>
+          <td align="right">经纬度<span class="red">*</span></td>
+          <td><input class="inpt w-left" id="xyMap" type="text" readonly="readonly" style="width:auto;" yw-city="<%=address.city%>"><input type="button" id="addPosition" class="inpt dw" value="选择地图坐标点"></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <!--<tr>
+          <td align="right">营业点法人</td>
+          <td ><input class="inpt" type="text"></td>
+          <td align="left">&nbsp;</td>
+        </tr>-->
+             <tr>
+                  <td align="right">所属商圈</td>
+                  <td><select class="w300"  id="section" name="shangquan">
+						<option value="">所属商圈</option>
+                    </select></td>
+                  <td align="left"><span class="red redError "></span></td>
+                </tr>
+
+     		<tr class="time1">
+                  <td align="right">营业时间<span class="red">*</span></td>
+                  <td><select id= "dateSelect" style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                  	  <%$.each(shoptime,function(k,v){%>
+                      <option value="<%=v%>"><%=v%></option>
+                      <%})%>
+                    </select>
+                   <span class="timeSpan1 none">
+                    <select class="timesec timesec1">
+                      <option> </option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec timesec2">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec timesec3">
+                      <option> </option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec timesec4">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+                     </span>
+                    </td>
+                  <td id="date_add" align="left"><input type="button" class="date_add" style="border:1px solid #CCC;padding:0 3px;font-size:20px;color:#CCC" value="+"><span class="ml10 red">最多设置2个.</span>&nbsp;&nbsp;<span class="red redError "></span></td>
+                </tr>
+                <tr class="time2" style="display: none;">
+                  <td align="right">&nbsp;</td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                      <%$.each(shoptime,function(k,v){%>
+                      <option value="<%=v%>"><%=v%></option>
+                      <%})%>
+                    </select>
+                    <span class="timeSpan2 none">
+                       <select class="timesec timesec1">
+                       <option> </option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec timesec2">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec timesec3">
+                      <option> </option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec timesec4">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+                    </span>
+                    </td>
+                  <td align="left"><input type="button"  class="btn-search time_del delTime" value="删除"><span class="red redError"></span></td>
+                </tr>
+
+        <tr>
+          <td align="right">营业时间备注</td>
+          <td><textarea rows="3" id="openingHoursRemark" name="" style="resize:none;" maxlength="50"></textarea></td>
+          <td align="left">还能输入<span class="red">50</span>个字</td>
+        </tr>
+        <tr>
+          <td align="right">服务热线<span class="red">*</span></td>
+          <td><input class="inpt" id="hotLine" type="text" style="width: 282px"></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">简介</td>
+          <td><textarea rows="3" id="introduce" name="" style="resize:none;" maxlength="200"></textarea></td>
+          <td align="left">还能输入<span class="red">200</span>个字</td>
+        </tr>
+        <tr>
+          <td align="right">主营分类<span class="red">*</span></td>
+          <td>
+          	<div id="zhuyinType" class="p10 shangcheng_spfl_box" style="width: 278px">
+            	<ul class="shopDiyClass">
+            		   <%$.each(param,function(key,el){%>
+			                  	<%if(el.parentId==-1 && el.name != "餐饮"){ %>
+			                  	  	<li lId="<%=el.categoryId%>"><%=el.name%>
+				                    	<ul class="ml20">
+						            	<%$.each(param,function(key1,category1){
+						            		if(category1.parentId==el.categoryId){%>
+			                        			<li><input type="checkbox" value="<%=category1.categoryId%>" valueName="<%=category1.name%>"/><%=category1.name%></li>
+			                        		<%}});%>
+				                        </ul>
+				                    </li>
+			                   	<%}%>
+			                   <%})%>
+                </ul>
+          </div></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit xiaBu" >下一步</button></td>
+        </tr>
+      </tbody></table>
+      
+      <table id="ls-mjfw" class="detail none" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+          <td width="500" align="right"><b class="green">支持送货上门</b></td>
+          <td width="330"><p>
+              <input class="inpt mr5" type="checkbox" name="" id="songhuo"><img src="resources/img/icon-shopcs-sh.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left" width="500">&nbsp;</td>
+        </tr>
+        <tr class="songhuo none">
+          <td align="right">送货范围</td>
+          <td><input class="inpt" type="text" id="km" /></td>
+          <td align="left">单位：公里&nbsp;&nbsp;<span class="red redError "></span></td>
+        </tr>
+        <tr class="songhuo none">
+          <td align="right">预计送货时长</td>
+          <td><input class="inpt" type="text" id="estimateTime"/></td>
+          <td align="left">单位：分钟&nbsp;&nbsp;<span class="red redError "></span></td>
+        </tr>
+        <tr class="songhuo none">
+          <td align="right">支持时间</td>
+          <td><select class="timesec itemTimeStart">
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec itemTimeStart">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec itemTimeEnd">
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec itemTimeEnd">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select></td>
+          <td align="left"></td>
+        </tr>
+        <tr class="songhuo none">
+          <td align="right">即时送达</td>
+          <td><p>
+              <input class="inpt" type="radio" name="songda" value="1">
+              <label class="ml5">是</label>
+              <input class="inpt ml20" type="radio" name="songda" value="0">
+              <label class="ml5">否</label>
+              </p></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr class="songhuo none">
+          <td align="right">货到付款</td>
+          <td><p>
+              <input class="inpt" type="radio" name="fukuang" value="1">
+              <label class="ml5">是</label>
+              <input class="inpt ml20" type="radio" name="fukuang" value="0">
+              <label class="ml5">否</label>
+              </p></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">支持门店自提</b></td>
+          <td><p>
+              <input class="inpt mr5" type="checkbox" name="" id="ziti"><img src="resources/img/icon-shopcs-zt.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="ziti none">
+          <td align="right">支持时间</td>
+          <td><select class="timesec doorUpStart">
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec doorUpStart">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec doorUpEnd">
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec doorUpEnd">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select></td>
+          <td align="left"></td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit shangBu" >上一步</button><button class="btn_bg submit" id="lsSubmit" style="margin:0 5px;">保&nbsp;&nbsp;存</button></td>
+        </tr>
+      </tbody></table>
+</div>      
+    </div>  

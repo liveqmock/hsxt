@@ -1,0 +1,28 @@
+<!-- 主菜单开始 -->
+<% var param  = obj;  %>
+
+<div class="mainNav">
+	<ul id="navUl" class="ulNav clearfix">
+		<!--<li id="nav_10">
+			<div class="navMenu"><i class="nav_menu_icon icon_nav_20"></i><span class="f13">我的任务</span></div>
+		</li>-->
+		<%
+		$.each(param,function(key,el){
+		if(0==el.permType&&1==el.layout){ %>
+		<li> <div class="navMenu"><i class="nav_menu_icon <%=el.permDesc%>"></i><span class="f13" id="<%=el.permId%>"><%=el.permName%></span></div> </li>
+		<% }})%>
+	</ul>
+</div>
+<!-- 主菜单结束-->
+
+<!-- 子菜单开始 -->
+<div class="subNav1 clearfix pr" id="subNav">
+	<!-- 子菜单滚动 20150310 add -->
+	<a class="arrow_left"></a>
+	<!-- 子菜单滚动 20150310 add -->
+	<a class="arrow_right"></a>
+	<!-- 子菜单滚动 20150310 add -->
+
+
+</div>
+<!-- 子菜单结束 -->

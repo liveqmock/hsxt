@@ -1,0 +1,30 @@
+<div id="zypeylb_xqTpl">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab-xfz">
+	  <tr>
+		<td class="bg_grey red" width="25%"><%=obj.provinceName%></td>
+		<td class="bg_lvse" width="25%">城市/区个数<span class="ml10"><%=obj.cityCount%></span></td>
+		<td class="bg_lvse" width="25%">系统资源服务公司配额<span class="ml10"><%=obj.sResNum%></span></td>
+		<td class="bg_lvse" width="25%">已使用配额<span class="ml10"><%=obj.useSResNum%></span></td>
+	  </tr>
+	</table>
+
+	<table id="searchTable_xq">
+	<!--   <tr>
+		<th colspan="4"></th>
+		<th colspan="3">尚可用配额</th>
+	  </tr> -->
+	  <tr>
+	  	<th w_index="cityNo"  w_render="operate">城市、区县</th>
+		<th w_index="population">城市常住人口</th>
+		<th w_index="totalNum" w_render="operate">城市配额</th>
+		<th w_index="usedNum" w_render="operate">已使用配额</th>
+		<!-- <th w_index="usableNum" w_render="operate">总数</th> -->
+		<th w_index="unUseNum" w_render="operate">未分配</th>
+		<th w_index="usingNum" w_render="operate">拟分配</th>
+	  </tr>
+	</table>
+	<div align="center" class="mt20">
+		<a class="btn_bg submit" id="back_zysjylb">返　回</a>
+	</div>
+</div>
+<div id="dialogBox" class="none"></div>

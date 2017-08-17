@@ -1,0 +1,87 @@
+/*.clearfix:after {content:'.';display:block;clear:both;visibility:hidden;height:0px;}
+.clearfix {*zoom:1;}
+*/
+.selectList-active{background-color:#ddd;}
+
+.selectList-div{	 
+	position:relative;
+	display:inline-block;
+	 
+}
+.selectList-input{
+	
+	position: relative ;
+	width: 100px ;
+	height: 22px ;
+	display: block ;
+	font-size: 14px ;
+	border: solid 1px #6C6  ;
+	line-height: 22px ;
+	padding: 0px 0px 0px 5px!important ;
+	border-radius:5px ;
+	overflow:hidden ;
+	text-overflow:ellipsis ;
+	white-space:nowrap	 ; 
+	margin-top:0px!important;
+	float:none!important;
+}
+.selectList-span{
+	
+	position:relative;
+	float:right;
+	width:24px;
+	height:24px; 
+	display:block;				 
+	background-image:url(../img/select_bt_down.gif);
+	background-repeat:no-repeat;
+	background-position:right center ; 
+	
+	z-index:1;outline:0;
+	
+}
+.selectList-span-active{
+	background-image:url(../img/select_bt_down_hover.gif);	
+}
+.selectList-span-disabled{
+	background-image:url(../img/select_bt_down_disabled.gif);	
+}
+
+.selectList-ol{
+	
+	position:absolute;
+	list-style-type:none;
+	margin-top:-1px;
+	padding: 0;
+	/*width: optionWidth+px
+	height:optionHeight+px 
+	overflow-x:overflowX
+	overflow-y:overflowY*/
+	/*border:solid 1px #6C9;*/ /*2015-12-24 modify*/
+	border:solid 1px #CCC;
+	background-color:#FFF ;
+	z-index:1000;			
+	
+}
+.selectList-ol li{
+	
+	width:100%; 
+ 
+	text-align:left;
+	padding-left: 0.3em; 
+	font-size: 12px;
+	font-weight:normal;
+	height: 24px!important;
+	line-height:24px!important;
+	border-top:none!important;
+	border-left:none!important;
+	border-right:none!important;
+	border-bottom:solid 1px #CCC!important;
+	margin-top:0 !important; /*2015-12-24 modify*/
+	padding-top:0 !important; /*2015-12-24 modify*/
+	color:black;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	margin-bottom: 0px!important;
+	white-space:nowrap; 
+	 
+}

@@ -1,0 +1,44 @@
+<div id="lzglfh_fhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="h30_middle fb">订单信息</li>
+		</ul>
+	</div>
+	<table id="searchTable_1">
+	   <tr>
+		<th w_index="hsResNo">企业互生号</th>
+		<th w_index="custName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="orderOperator">订单操作员</th>
+		<th w_index="orderNo" w_tip="true" w_length='20'>订单号</th>
+		<th w_index="orderTypeName">订单类型</th>
+		<th w_index="orderAmount">订单金额</th>
+		<th w_index="orderCashAmount" width="13%;">折合应付本币(人民币)</th>
+		<th w_index="orderTime">订单时间</th>
+	  </tr>
+	</table>
+		<div class="search-toolbar mt20 clearfix">
+		<ul class="cssform fl">
+			<li class="h30_middle fb">待关联的临账信息</li>
+		</ul>
+		<ul class="cssform clearfix fr">
+			<li class="h30_middle fb f13">已选择临账金额：<span class="red" id="totalLinkAmount"></span></li>			
+		</ul>		
+	</div>
+	<table id="searchTable_2">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="payEntCustName" w_tip="true" w_length='30'>付款企业</th>
+		<th w_index="payAmount" w_render="operate">付款金额</th>
+		<th w_index="useEntCustName">拟用企业互生号</th>
+		<th w_index="payUse" w_render="operate">付款用途</th>
+		<th w_index="payTime" >付款时间</th>
+		<th w_index="unlinkAmount" w_render="operate">未关联金额</th>
+		<th w_index="linkAmount" w_render="operate">关联金额</th>
+	  </tr>
+	</table>
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="qrfh_btn">确认复核</a>
+		<a class="btn_bg submit fr" id="fh_back">返&#12288;回</a>
+	</div>				
+</div>
+<div id="dialogBox" class="none ovh"></div>

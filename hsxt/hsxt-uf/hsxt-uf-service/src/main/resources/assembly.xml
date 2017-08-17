@@ -1,0 +1,44 @@
+<assembly>
+	<id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<dependencySets>
+		<dependencySet>
+			<useProjectArtifact>true</useProjectArtifact>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+
+	<fileSets>
+		<fileSet>
+			<directory>src/main/resources/script</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>startup.bat</include>
+				<include>startup.sh</include>
+				<include>shutdown.sh</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>conf/hsxt-uf</directory>
+			<outputDirectory>/conf/hsxt-uf</outputDirectory>
+			<includes>
+				<include>log4j.xml</include>
+				<include>hsxt-uf.properties</include>
+				<include>dubbo.properties</include>
+				<include>jdbc.properties</include>
+				<include>disconf.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/resources/security</directory>
+			<outputDirectory>/security</outputDirectory>
+			<includes>
+				<include>uf_aes_encrypt.key</include>
+				<include>uf_rsa_private.key</include>
+				<include>uf_rsa_public.key</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

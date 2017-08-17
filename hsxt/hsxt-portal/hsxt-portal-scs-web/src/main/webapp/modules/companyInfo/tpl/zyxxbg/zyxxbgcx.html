@@ -1,0 +1,45 @@
+<div class="p20">
+	<form id="search_form" name="search_form">
+                 	<div class="search-toolbar ">
+                    	<ul class="cssform clearfix">
+                            <li>
+                                <label class="title-int">快捷日期：</label>
+                                <div class="cont-chk setdiy100">
+                                 	<input id='quickDate' placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"  />
+                                 </div>
+                            </li>
+                            <li class="ml20 mr20">
+                                <label class="title-int">日期范围：</label>
+                                <div class="cont-int">
+                                	<input type="text" placeholder="--请选择--" name="search_startDate" id="search_startDate" class="input-txt w100" readonly="readonly" ><span class="separator-pd">-</span><input type="text" name="search_endDate" id="search_endDate" placeholder="--请选择--" class="input-txt w100" readonly="readonly" >
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">审批状态：</label>
+                                <div class="cont-chk setdiy100">
+				                      <input id='search_status' placeholder="--请选择--" options="[]" optionValue="" readonly="readonly"/>
+                                 </div>
+                            </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="btnQuery" type="button" class="btn-search ml10">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                   </form>
+                    <div class="search-cont">
+                    	<table id="tableDetail" class="bsgrid">
+							 <tr>
+							    <th w_index='applyId'>申请流水号</th>
+							    <th w_index='applyDate'>申请日期</th>
+							    <th w_index='status' w_render='operate'>审批状态</th>
+							    <th w_index='apprDate'  w_render='operate'>审批日期</th>
+							    <th w_render='operate'>操作</th>
+							  </tr>
+						</table> 
+                    </div>
+ </div>
+                 
+<div id="zyxxbgcx_dialog" class="none" title=""><p class="autowidth"></p></div>
+

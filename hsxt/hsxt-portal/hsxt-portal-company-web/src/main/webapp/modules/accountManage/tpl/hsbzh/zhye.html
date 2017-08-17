@@ -1,0 +1,27 @@
+﻿<div class="acct-ct h200">
+<h1 class="acct-tips bc" style="width:400px;text-align:left;">
+        <span class="tcr_blue fb">温馨提示：</span><br/>
+         <%=obj.hsbzhyetx%>
+    </h1>
+    <p class="acct-line"></p>
+	<ul class="acctno-box w472 bc pt20">
+        <li class="clearfix">
+            <i class="acctno-icon icon-hsbzh"></i>
+            <div class="acctno-long">
+<!--                <h1 class="f16 fb gray mt20 ml10"><span style="letter-spacing:1.5em;margin-right:-1.5em;">流通币</span>：<span class="red f18"><%=obj.hsbAcctTotal||0%></span></h1> -->
+<!--                <div id="hsbHelpAcct"> <h1 class="f16 fb gray mt5 ml10">慈善救助基金：<span class="red f18"><%=obj.hsbHelpAcct||0%></span></h1></div> -->
+           		<table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:-5px;">
+					<tr>
+						<td align="left" height="30"><h1 class="f16 fb gray mt20 ml10">流通币</h1></td>
+						<td align="right" class="red f18"><h1 class="f16 fb gray mt20 ml10"><span class="red f18"><%=obj.hsbAcctTotal||0%></span></h1></td>
+					</tr>
+					 <tr id="hsbHelpAcct">
+						<td align="left" height="30"><h1 class="f16 fb gray mt20 ml10">慈善救助基金</h1></td>
+						<td align="right"><h1 class="f16 fb gray mt20 ml10"><span class="red f18"><%=obj.hsbHelpAcct||0%></span></h1></td>
+					</tr> 
+				</table>	
+            </div>
+        </li>
+    </ul>
+</div>   
+<div class="mt20 tc"><a id="hsbPointFlush" href="javascript:;" class="btn_bg submit">刷&#12288;新</a></div>

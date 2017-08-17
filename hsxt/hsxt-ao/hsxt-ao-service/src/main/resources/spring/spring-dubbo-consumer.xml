@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false" />
+
+	<!-- 生成远程服务代理 -->
+
+	<!-- 全局配置 -->
+	<dubbo:reference id="baseDataService"
+		interface="com.gy.hsxt.lcs.api.ILCSBaseDataService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<!-- 支付系统：单笔提现接口 -->
+	<dubbo:reference id="gpTransCashService"
+		interface="com.gy.hsxt.gp.api.IGPTransCashService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 支付系统：网银支付接口 -->
+	<dubbo:reference id="gpPaymentService"
+		interface="com.gy.hsxt.gp.api.IGPPaymentService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<!-- 用户中心：银行帐户管理 -->
+	<dubbo:reference id="ucBankAcctInfoService"
+		interface="com.gy.hsxt.uc.bs.api.common.IUCBsBankAcctInfoService"
+		timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+	<!-- 用户中心：查询重要信息变更状态 -->
+	<dubbo:reference id="ucCardHolderStatusInfoService"
+		interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderStatusInfoService"
+		timeout="${dubbo.service.timeout15000}" retries="${dubbo.reference.retires}"
+		connections="${dubbo.reference.connections}" check="false" version="1.0.0" />
+	<!-- 用户中心：查询企业重要信息 -->
+	<dubbo:reference id="ucEntService"
+		interface="com.gy.hsxt.uc.bs.api.ent.IUCBsEntService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 用户中心：查询企业重要信息 -->
+	<dubbo:reference id="ucAsEntService"
+		interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 用户中心：查询持卡人认证信息 -->
+	<dubbo:reference id="ucCardAuthService"
+		interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderAuthInfoService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 用户中心：查询非持卡人信息 -->
+	<dubbo:reference id="ucNoCardHolderServie"
+		interface="com.gy.hsxt.uc.as.api.consumer.IUCAsNoCardHolderService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 用户中心：查询非持卡人网络信息 -->
+	<dubbo:reference id="ucNetworkInfoService"
+		interface="com.gy.hsxt.uc.as.api.common.IUCAsNetworkInfoService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 用户中心：查询持卡人认证信息 -->
+	<dubbo:reference id="ucCardHolderAuthInfoService"
+		interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderAuthInfoService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<!-- 账务系统：实时记账 -->
+	<dubbo:reference id="accountEntryService"
+		interface="com.gy.hsxt.ac.api.IAccountEntryService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	<!-- 账务系统：帐户查询 -->
+	<dubbo:reference id="accountSearchService"
+		interface="com.gy.hsxt.ac.api.IAccountSearchService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<!-- 参数配置系统 -->
+	<dubbo:reference id="businessParamSearchService"
+		interface="com.gy.hsxt.bp.api.IBusinessParamSearchService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+
+	<dubbo:reference id="batchServiceListener"
+		interface="com.gy.hsi.ds.api.IDSBatchServiceListener" retries="${dubbo.reference.retires}"
+		timeout="${dubbo.service.timeout15000}" async="true" sent="false"
+		version="1.0.0" />
+
+	<!-- 业务系统：年费信息 -->
+	<dubbo:reference id="bsAnnualFeeService"
+		interface="com.gy.hsxt.bs.api.annualfee.IBSAnnualFeeService" timeout="${dubbo.service.timeout15000}"
+		retries="${dubbo.reference.retires}" connections="${dubbo.reference.connections}"
+		check="false" version="1.0.0" />
+	
+</beans>

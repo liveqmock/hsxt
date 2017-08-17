@@ -1,0 +1,31 @@
+<form id="psfsxx_form" name="psfsxx_form">
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="25%">配送方式名称</td>
+            <td>
+				<input type="text" id="smName" name="smName" maxlength="21" class="ml5 h28_middle w96pc" placeholder="输入配送方式名称" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">排序值</td>
+            <td>
+				<input type="text" id="sort" name="sort"  maxlength="5" class="ml5 h28_middle w96pc" placeholder="输入排序值，值越大越靠后显示"/>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">状态</td>
+            <td>
+				<input type="radio" name="isActive" id="isActive_Y" value="Y" class="ml5" checked="checked" /><label for="isActive_Y" class="ml5 mr10">启用</label>
+				<input type="radio" name="isActive" id="isActive_N" value="N" class="" /><label for="isActive_N" class="ml5">停用</label>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">配送说明</td>
+            <td>
+				<textarea id="smDesc" name="smDesc" maxlength="200" class="ml5 h50 w98pc rsn pt5 pb5" placeholder="输入配送说明,字数不超过200个字"></textarea>
+			</td>
+        </tr>
+    </table>
+</div>
+</form>

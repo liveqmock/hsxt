@@ -1,0 +1,16 @@
+﻿<ul class="img-group-list clearfix">
+<%$.each(obj, function(k, v) {%>
+	<li>
+		<img src="<%=v.zp%>" width="50" height="50"/>
+		<div class="img-group-detail">
+			<img src="<%=v.zp%>" class="fl" width="80" height="80"/>
+			<div class="img-group-content">
+				<h1><%=v.mc%></h1>
+				<p>颜色：<%=v.ys%></p>
+				<p>尺寸：<%=v.cc%></p>
+				<p>数量：<%=v.sl%></p>
+			</div>
+		</div>
+	</li>
+<%})%>
+</ul>

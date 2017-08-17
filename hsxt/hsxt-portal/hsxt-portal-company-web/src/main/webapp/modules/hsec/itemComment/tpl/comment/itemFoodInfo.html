@@ -1,0 +1,51 @@
+<%if(obj!=null&&obj!=""){%>
+<ul class="ev-list-box clearfix">
+	<li class="w250">
+		<%if(obj.score =="20"){%>
+        	<p>一般</p>
+       	<%}else if(obj.score=="40"){%>
+       		<p>建议</p>
+       	<%}else if(obj.score=="60"){%>
+       		<p>推荐</p>
+       	<%} else if(obj.score=="80"){%>
+       		<p>优秀</p>
+      	<%}else if(obj.score=="100"){%>
+       		<p>极好</p>
+       	<%}else{%>
+       		<p>一般</p>
+       	<%}%>
+            <p class="ftst eps" style="word-break:break-all"><%=obj.content%></p>
+        </li>
+        <li class="w100">
+        <%if(obj.surroundingsScore =="20"){%>
+        	<p>不好</p>
+       	<%}else if(obj.surroundingsScore=="40"){%>
+       		<p>一般</p>
+       	<%}else if(obj.surroundingsScore=="60"){%>
+       		<p>好</p>
+       	<%} else if(obj.surroundingsScore=="80"){%>
+       		<p>很好</p>
+       	<%}else if(obj.surroundingsScore=="100"){%>
+       		<p>非常好</p>
+       	<%}else{%>
+       		<p>不好</p>
+       	<%}%>
+        </li>
+        <li class="w250">
+        	<p><%=obj.recommendationItemName%></p>
+            <p class="ftst eps" style="word-break:break-all"><span class="fb">推荐理由：</span><%=(obj.recommendationContent!=null&&obj.recommendationContent!="")?obj.recommendationContent:"无推荐理由"%></p>
+        </li>
+        <li class="w185"><%=(obj.userName!=null&&obj.userName!="")?obj.userName:"无"%></li>
+        <li>
+        	<div class="w120" style="word-wrap: break-word; word-break: break-all;"><%=(obj.shopName!=null&&obj.shopName!="")?obj.shopName:"无营业点名称无营业点名称无营业点名称"%></div>
+        	
+        
+        <a href="javascript:void(0);" class="pr togterm t2"><span>更多</span><i></i></a></li>
+        <!-- <li>
+            <a href="javascript:void(0);" class="pr togterm t2">更多
+                <span>更多</span>
+                <i></i>
+            </a>
+        </li> -->
+    </ul>
+    <%}%>

@@ -1,0 +1,59 @@
+<div class="cssform_320" style="width:380px">
+<form id="hskbdForm">
+ <ul class="cssform2 clearfix">
+        <li class="col2 mt30 tips_320" style="width:380px">
+        	<div class="p10"><i class="icon_tips tips_1"></i><span class="red ml10">特别提示：</span><span class="gray">请输入管理员登录密码确认绑定！</span></div>
+    	</li>
+        <li class="clearfix bg_ef">
+            <label class="title-txt w115">登录用户名</label><div class="cont-chk tbox"><span class="ml10"><%=obj.userName%></span></div>
+        </li>
+        <li class="clearfix bg_ef">
+            <label class="title-txt w115">姓名</label><div class="cont-chk tbox"><span class="ml10"><%=obj.realName%></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">互生卡号</label><input id="operResNo" name="operResNo" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入互生卡号" maxlength="11"/><div class="hint red" style="left:380px;">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">确认互生卡号</label><input id="operResNo2" name="operResNo2" class="fl w185 h30_middle ml5" type="text" value="" placeholder="再次输入互生卡号" maxlength="11"/><div class="hint red" style="left:380px;">*</div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">管理员登录密码</label><input id="loginPwd" name="loginPwd" maxlength="6" class="fl w185 h30_middle ml5" type="password" placeholder="输入管理员登录密码"/><div class="hint red" style="left:380px;">*</div>
+        </li>
+  </ul>
+ </form>
+</div>
+
+<div class="two_button clearfix mt20" align="center"><a id="hskbd_qx" class="btn_bg submit mr10 fl">取　消</a><a  id="hskbd_tj"  class="dlg35 btn_bg submit fr">确　认</a></div>
+
+<div id="hskbd_dialog" class="none" title="互生卡登录绑定成功！">
+	<p class="autowidth">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">登录用户名：</td>
+    <td id="userNameTd"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">姓名：</td>
+    <td id="realNameTd"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">互生卡号：</td>
+    <td id="hskhTd"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" class=" input_gray">请用此互生卡号登录互生消费积分管理平台完成绑定确认</td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="cutline"></div></td>
+  </tr>
+</tbody></table>
+</p>
+</div> 
+

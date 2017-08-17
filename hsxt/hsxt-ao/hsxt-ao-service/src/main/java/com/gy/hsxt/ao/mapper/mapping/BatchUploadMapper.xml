@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.BatchUploadMapper">
+
+	<!-- 插入终端批上传明细数据 -->
+	<insert id="insertBatchUpload" parameterType="com.gy.hsxt.ao.bean.BatchUpload">
+		INSERT INTO
+		T_AO_BATCH_UPLOAD
+		(
+		DETAIL_CHECK_ID,
+		BATCH_CHECK_ID,
+		BIZ_TYPE,
+		TRANS_AMT,
+		PER_RES_NO,
+		ORIGIN_NO,
+		TERM_RUNCODE
+		)
+		<foreach collection="batchUpload" item="batchUpload"
+			separator="union all">
+			(SELECT
+			#{batchUpload.detailCheckId},
+			#{batchUpload.batchCheckId},
+			#{batchUpload.bizType},
+			#{batchUpload.transAmt},
+			#{batchUpload.perResNo},
+			#{batchUpload.originNo},
+			#{batchUpload.termRuncode}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+
+
+	<delete id="deleteBatchUploadLastMath">
+		delete from T_AO_BATCH_UPLOAD
+		WHERE batch_check_id in
+		(select batch_check_id
+		FROM t_ao_batch_settle
+		WHERE upload_date &lt; last_day(add_months(SYSDATE, -#{month})))
+	</delete>
+</mapper>

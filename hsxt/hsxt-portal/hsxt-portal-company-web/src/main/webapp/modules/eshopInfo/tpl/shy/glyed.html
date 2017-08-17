@@ -1,0 +1,17 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix">
+  <tr>
+    <th width="70" class="nobd leftfix"><label><input class="shy_chkAll m03vm mr5" name="" type="checkbox" value="">全选</label></th>
+    <th>营业点名称</th>
+  </tr>
+</table>
+<div class="heightscroll">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table tlayfix">
+<%$.each(obj.yedlb, function(k, v) {%>
+  <tr<%= k % 2 == 1 ? ' class="table-tr-c"' : ''%>>
+    <td width="70" class="nobd"><label><input class="shy_chk m03vm mr5" name="" type="checkbox" value="<%=v.id%>"><%=k + 1%></label></td>
+    <td><%=v.name%></td>
+  </tr>
+<%})%>
+</table>
+</div>
+ 

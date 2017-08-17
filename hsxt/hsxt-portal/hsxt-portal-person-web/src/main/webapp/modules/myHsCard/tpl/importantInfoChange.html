@@ -1,0 +1,63 @@
+<div class="table_info mt20 info_800" data-id="7" id="impInfoChange_view_div">
+	<h1 class="acct-tips"><span class="tcr_blue fb">温馨提示：</span>提交重要信息变更申请后，评审审核通过之前，货币转银行功能将停止办理！</h1>
+	<!-- 基本信息 -->
+	<div id="baseInfo" class="none"></div>
+	<input type="hidden" id="certype"/>
+	<input type="hidden" id="imp_new_lrcFacePath"/>
+	<input type="hidden" id="imp_new_lrcBackPath"/>
+	<input type="hidden" id="imp_new_lrcCackPath"/>
+	<input type="hidden" id="imp_new_lrcBlogPath"/>
+</div>
+
+<div class="jqp-dialog" id="successDiv" style="display:none;text-align:center;">
+	<div class="content">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="50"><div class="clearfix" style="margin-left: 260px"><i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">您已通过重要信息变更申请。</span></div></td></tr>
+			<tr><td height="50"><a id="reApply-1" class="hs_btn ml50 jfzx_tjcg_btn">再次申请</a></td></tr>
+		</table>
+	</div>
+</div>
+
+<div class="jqp-dialog" id="failDiv" style="display:none;text-align:center;">
+	<div class="title">重要信息变更状态</div>
+	
+	<div class="clearfix">
+				<!-- <ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">审批结果</label>
+					<label for="name"><input type="text"  value="申请驳回" disabled="disabled"/></label>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">审批意见</label>
+					<label for="name"><input type="text" id="apprRemark" name="apprRemark" value="" disabled="disabled"/></label>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">审批日期</label>
+					<label for="name"><input type="text" id=updateDate name="updateDate" value="" disabled="disabled"/></label>
+					</li>
+				</ul> -->
+		<div class="content">
+			<table width="100%" class="fixtable" style="border: 1px solid #CCC;margin-left:100px;">
+				<tr style=" height: 36px;background-color: #EFEFEF;"><td>审批结果</td><td class="view_text">申请驳回</td></tr>
+				<tr style=" height: 36px;background-color: #EFEFEF;"><td >审批意见</td><td class="view_text" id="apprRemark"></td></tr>
+				<tr style=" height: 36px;background-color: #EFEFEF;"><td >审批日期</td><td class="view_text" id="updateDate"></td></tr>
+				<tr style=" height: 50px;"><td colspan="2" style="border: 1px solid #FFF;"><a id="reApply-2" class="hs_btn ml50 jfzx_tjcg_btn">重新申请</a></td></tr>
+			</table>	
+		</div>
+	</div>
+	
+</div>
+
+<div class="page_tips_subwrap pt100 pb100 none" id="impInfoChange_tip_Info">
+	<div class="page_tips bc tc">
+		<h1 class="f16 fb">温馨提示</h1>
+		<p class="f14 fb">目前您处于重要信息变更申请处理中，在此期间，本业务暂无法受理！</p>
+	</div>
+</div>
+
+<div class="page_tips_subwrap pt100 pb100 none" id="noRealNameAuth">
+	<div class="page_tips bc tc">
+		<h1 class="f16 fb">温馨提示</h1>
+		<p class="f14 fb">请完成实名认证后再进行重要信息变更申请。</p>
+	</div>
+</div>

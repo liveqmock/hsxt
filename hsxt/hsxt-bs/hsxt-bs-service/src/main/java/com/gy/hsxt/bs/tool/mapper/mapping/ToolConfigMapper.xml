@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ToolConfigMapper">
+
+
+	<!-- 插入配置单 -->
+	<insert id="insertToolConfig" parameterType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		INSERT INTO 
+		T_BS_TOOL_CONFIG(
+			CONFIG_NO,
+			SHIPPING_ID,
+			CUST_ID,
+			HS_RES_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			PRODUCT_NAME,
+			PRODUCT_UNIT,
+			PRODUCT_PRICE,
+			QUANTITY,
+			TOTAL_AMOUNT,
+			CARD_STYLE_ID,
+			CONFIRM_FILE,
+			ORDER_NO,
+			TOOL_STATUS,
+			STORE_OUT_NO,
+			CONFIG_DESCRIPTION,
+			CONFIG_USER,
+			CONFIG_DATE,
+			CONFIG_TYPE,
+			WH_ID
+		) VALUES (
+			#{confNo},
+			#{shippingId,jdbcType=VARCHAR},
+			#{hsCustId},
+			#{hsResNo},
+			#{categoryCode},
+			#{productId},
+			#{productName},
+			#{unit,jdbcType=VARCHAR},
+			#{price},
+			#{quantity},
+			#{totalAmount},
+			#{cardStyleId,jdbcType=VARCHAR},
+			#{confirmFile,jdbcType=VARCHAR},
+			#{orderNo},
+			#{confStatus},
+			#{storeOutNo,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{confUser},
+			SYSDATE,
+			#{confType},
+			#{whId})
+	</insert>
+	
+	<!-- 批量插入配置单 -->
+	<insert id="batchInsertToolConfig" parameterType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		INSERT INTO 
+		T_BS_TOOL_CONFIG(
+			CONFIG_NO,
+			SHIPPING_ID,
+			CUST_ID,
+			HS_RES_NO,
+			CATEGORY_CODE,
+			PRODUCT_ID,
+			PRODUCT_NAME,
+			PRODUCT_UNIT,
+			PRODUCT_PRICE,
+			QUANTITY,
+			TOTAL_AMOUNT,
+			CARD_STYLE_ID,
+			CONFIRM_FILE,
+			ORDER_NO,
+			TOOL_STATUS,
+			STORE_OUT_NO,
+			CONFIG_DESCRIPTION,
+			CONFIG_USER,
+			CONFIG_DATE,
+			CONFIG_TYPE,
+			WH_ID) 
+		<foreach collection="confs" item="conf" separator="union all">
+			(SELECT #{conf.confNo},
+			#{conf.shippingId,jdbcType=VARCHAR},
+			#{conf.hsCustId},
+			#{conf.hsResNo},
+			#{conf.categoryCode},
+			#{conf.productId},
+			#{conf.productName},
+			#{conf.unit,jdbcType=VARCHAR},
+			#{conf.price},
+			#{conf.quantity},
+			#{conf.totalAmount},
+			#{conf.cardStyleId,jdbcType=VARCHAR},
+			#{conf.confirmFile,jdbcType=VARCHAR},
+			#{conf.orderNo},
+			#{conf.confStatus},
+			#{conf.storeOutNo,jdbcType=VARCHAR},
+			#{conf.description,jdbcType=VARCHAR},
+			#{conf.confUser},
+			SYSDATE,
+			#{conf.confType},
+			#{conf.whId}
+			 FROM DUAL)
+		</foreach>
+	</insert>
+	
+	
+	<!-- 修改单条配置单 -->
+	<update id="updateToolConfigByConfNo" parameterType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		UPDATE T_BS_TOOL_CONFIG
+		<set>
+			<if test="confStatus != null">
+				TOOL_STATUS = #{confStatus},
+			</if>
+			<if test="cardStyleId != null and cardStyleId != ''">
+				CARD_STYLE_ID = #{cardStyleId},
+			</if>
+			<if test="storeOutNo != null and storeOutNo != ''">
+				STORE_OUT_NO = #{storeOutNo},
+			</if>
+			<if test="description != null and description != ''">
+				CONFIG_DESCRIPTION = #{description},
+			</if>
+			<if test="whId != null and whId != ''">
+				WH_ID = #{whId},
+			</if>
+			<if test="confirmFile != null and confirmFile != ''">
+				CONFIRM_FILE = #{confirmFile},
+			</if>
+		</set>
+		WHERE CONFIG_NO = #{confNo}
+		<if test="confStatus != null">
+			<![CDATA[ AND TOOL_STATUS <> #{confStatus} ]]>
+		</if>
+	</update>
+	
+	<!-- 根据订单号修改配置单状态 -->
+	<update id="updateConfStatusByOrderNo">
+		UPDATE T_BS_TOOL_CONFIG SET TOOL_STATUS = #{confStatus}
+		WHERE ORDER_NO = #{orderNo} AND <![CDATA[ TOOL_STATUS <> #{confStatus} ]]>
+	</update>
+	
+	<!-- 发货单发货时,修改配送单为已发货 -->
+	<update id="updateToolConfigByShipping" parameterType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+        BEGIN
+		<foreach collection="confs" item="conf" separator=";">
+			UPDATE T_BS_TOOL_CONFIG 
+			<set>
+				TOOL_STATUS = 6 ,
+				SHIPPING_ID = #{conf.shippingId},
+				<if test="conf.storeOutNo != null and conf.storeOutNo != ''">
+					STORE_OUT_NO = #{conf.storeOutNo}
+				</if>
+			</set> 
+			WHERE CONFIG_NO = #{conf.confNo}
+		</foreach>
+	;END;
+	</update>
+	
+	<!-- 售后服务发货单发货时,修改配送单为已发货 -->
+	<update id="updateToolConfigByAfterShipping">
+		UPDATE T_BS_TOOL_CONFIG 
+			<set>
+				TOOL_STATUS = 6 ,
+				SHIPPING_ID = #{shippingId}
+			</set> 
+		WHERE CONFIG_NO IN
+		<foreach collection="confNo" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 发货单签收成功时,修改配置单为签收成功  -->
+	<update id="updateToolConfigBySign" parameterType="string">
+		UPDATE T_BS_TOOL_CONFIG SET TOOL_STATUS = 7 WHERE SHIPPING_ID = #{shippingId}
+	</update>
+	
+	<!-- 批量签收配置单 -->
+	<update id="batchUpdateToolConfigBySign">
+		UPDATE T_BS_TOOL_CONFIG SET 
+			TOOL_STATUS = 7 
+		WHERE  SHIPPING_ID IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 根据id查询配置单 -->
+	<select id="selectToolConfigById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.CONFIG_NO = #{confNo}
+	</select>
+	
+	<!-- 根据配置单编号和订单类型查询配置单 -->
+	<select id="selectToolConfigByIdAndType" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>
+		  FROM T_BS_ORDER O,
+		       (SELECT *
+		          FROM T_BS_TOOL_CONFIG T
+		         WHERE T.CONFIG_NO = #{confNo}) TC
+		 WHERE O.ORDER_NO = TC.ORDER_NO
+		   AND O.ORDER_TYPE IN
+		  <foreach collection="orderType" item="type" open="(" separator="," close=")">  
+            #{type}   
+    	  </foreach> 
+	</select>
+	
+	<!-- 根据id查询配置单 -->
+	<select id="selectToolConfigByIds" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.TOOL_STATUS = #{confStatus}
+		  AND TC.CONFIG_NO IN
+		  <foreach collection="confNos" index="index" item="confNo" open="(" separator="," close=")">  
+              #{confNo}   
+    	  </foreach> 
+	</select>
+	
+	<!--根据发货单编号查询配置  -->
+	<select id="selectToolConfigByShippingId" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.SHIPPING_ID = #{shippingId}
+	</select>
+	
+	<!--根据订单号查询配置  -->
+	<select id="selectToolConfigByOrderNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>	
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.ORDER_NO = #{orderNo}
+	</select>
+	
+	<!-- 查询配置单字段 -->
+	<sql id="selectToolConfigSql">
+		TC.CONFIG_NO AS confNo,
+		TC.SHIPPING_ID AS shippingId,
+		TC.CUST_ID AS hsCustId,
+		TC.HS_RES_NO AS hsResNo,
+		TC.CATEGORY_CODE AS categoryCode,
+		TC.PRODUCT_ID AS productId,
+		TC.PRODUCT_NAME AS productName,
+		TC.PRODUCT_UNIT AS unit,
+		TC.PRODUCT_PRICE AS price,
+		TC.QUANTITY AS quantity,
+		TC.TOTAL_AMOUNT AS totalAmount,
+		TC.CARD_STYLE_ID AS cardStyleId,
+		TC.CONFIRM_FILE AS confirmFile,
+		TC.ORDER_NO AS orderNo,
+		TC.TOOL_STATUS AS confStatus,
+		TC.STORE_OUT_NO AS storeOutNo,
+		TC.CONFIG_DESCRIPTION AS description,
+		TC.CONFIG_USER AS confUser,
+		TC.CONFIG_DATE AS confDate,
+		TC.CONFIG_TYPE AS confType,
+		TC.WH_ID AS whId
+	</sql>
+	
+	<!-- 查询制作和发货配置单字段 -->
+	<sql id="selectMarkOrShippConfigSql">
+		O.ORDER_NO AS orderNo,
+		O.ORDER_TYPE AS orderType,
+		O.ORDER_TIME AS orderDate,
+		TC.CONFIG_NO AS confNo,
+		TC.HS_RES_NO AS entResNo,
+		TC.CUST_ID AS entCustId,
+		O.CUST_NAME AS custName,
+		TC.CATEGORY_CODE AS categoryCode,
+		TC.QUANTITY AS quantity,
+		TC.TOOL_STATUS AS confStatus,
+		TC.CONFIG_DATE AS confDate
+	</sql>
+	
+	<!-- 查询配置单公共查询条件部分 -->
+	<sql id="selectConfigCommomIf">
+		<if test="roleId != null and roleId != ''">
+	  		AND W.WH_ROLE_ID  ${roleId}
+	  	</if>
+		<if test="startDate != null and startDate != ''">
+			AND O.ORDER_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND O.ORDER_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="hsResNo != null and hsResNo != '' ">
+			AND TC.HS_RES_NO LIKE #{hsResNo}||'%'
+		</if>
+		<if test="hsCustName != null and hsCustName != '' ">
+			AND O.CUST_NAME LIKE '%'||#{hsCustName}||'%'
+		</if>
+	</sql>
+	
+	<!-- 分页查询工具制作配置单(刷卡工具) 新增申报-->
+	<select id="selectServiceToolMarkListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO 
+			 LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID 
+		WHERE TC.CATEGORY_CODE IN ('P_POS','POINT_MCR','CONSUME_MCR','TABLET')
+		  AND TC.TOOL_STATUS = 2
+		  AND TC.CONFIG_TYPE IN (1,2)
+		<include refid="selectConfigCommomIf"/>
+		<if test="type != null and type != '' ">
+			AND TC.CATEGORY_CODE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC			
+	</select>
+	
+	<!-- 分页查询的灌秘钥工具订单  新增申报-->
+	<select id="selectSecretKeyOrderListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.SecretKeyOrderInfoPage">
+		<include refid="selectServiceToolOrderSql"/>
+			AND  TC.TOOL_STATUS = 2
+			AND TC.CATEGORY_CODE IN ('P_POS')
+			AND TC.CONFIG_TYPE IN (1,2)
+			<if test="roleId != null and roleId != ''">
+				AND W.WH_ROLE_ID  ${roleId}
+			</if>
+			<if test="hsResNo != null and hsResNo != ''">
+				AND TC.HS_RES_NO LIKE #{hsResNo}||'%'
+			</if>
+			<if test="hsCustName != null and hsCustName != ''">
+				AND O.CUST_NAME  LIKE '%'||#{hsCustName}||'%'
+			</if>
+			ORDER BY TC.CONFIG_DATE	
+	</select>
+	
+	<!-- 刷卡工具订单sql -->
+	<sql id="selectServiceToolOrderSql">
+		SELECT 
+		  TC.HS_RES_NO AS entResNo,
+		  TC.CUST_ID AS entCustId,
+		  O.CUST_NAME AS custName,
+		  O.ORDER_NO AS orderNo,
+		  TC.CONFIG_NO AS confNo,
+		  TC.CATEGORY_CODE AS categoryCode,
+		  TC.PRODUCT_NAME AS productName,
+		  NVL(DC.NUM,0) AS confedNum,
+		  TC.QUANTITY - NVL(DC.NUM,0) AS confingNum,
+		  TC.TOOL_STATUS AS status,
+		  TC.CONFIG_DATE AS confDate
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN  T_BS_ORDER O 
+		     ON TC.ORDER_NO = O.ORDER_NO
+		     LEFT JOIN (SELECT COUNT(*) NUM,CONFIG_NO FROM T_BS_TOOL_DEVICE_CONFIG WHERE IS_USE = 1 GROUP BY CONFIG_NO) DC      
+		     ON TC.CONFIG_NO = DC.CONFIG_NO
+		     LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID 
+		WHERE TC.CONFIG_TYPE IN (1,2)
+	</sql>
+	
+	<!-- 根据条件查询 灌秘钥工具订单-->
+	<select id="selectSecretKeyOrderByIf" resultType="com.gy.hsxt.bs.bean.tool.resultbean.SecretKeyOrderInfoPage">
+		<include refid="selectServiceToolOrderSql"/>
+		AND TC.CATEGORY_CODE IN ('P_POS')
+		<if test="entCustId != null and entCustId != ''">
+			AND TC.CUST_ID = #{entCustId}
+		</if>
+		<if test="confNo != null and confNo != ''">
+			AND TC.CONFIG_NO  = #{confNo}
+		</if>
+	</select>
+	
+	<!-- 根据条件查询 刷卡器工具订单 -->
+	<select id="selectMcrOrderByIf" resultType="com.gy.hsxt.bs.bean.tool.resultbean.SecretKeyOrderInfoPage">
+		<include refid="selectServiceToolOrderSql"/>
+		AND TC.CATEGORY_CODE IN ('CONSUME_MCR','POINT_MCR')
+		<if test="entCustId != null and entCustId != ''">
+			AND TC.CUST_ID = #{entCustId}
+		</if>
+		<if test="confNo != null and confNo != ''">
+			AND TC.CONFIG_NO  = #{confNo}
+		</if>
+	</select>
+	
+	<!-- 分页查询工具制作配置单(互生卡) 新增申报-->
+	<select id="selectToolConfigMarkCardListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO 
+				LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID 
+		WHERE TC.CATEGORY_CODE = 'P_CARD'
+		  AND TC.TOOL_STATUS IN (2,3,4,5,6,7)
+		  AND TC.CONFIG_TYPE IN (1,2,3)
+		<include refid="selectConfigCommomIf"/>
+		<if test="status != null">
+			AND TC.TOOL_STATUS = #{status}
+		</if>
+		<if test="type != null and type != '' ">
+			AND O.ORDER_TYPE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC		
+	</select>
+	
+	<!-- 分页查询工具配送配送单(生成发货单) 新增申购-->
+	<select id="selectToolConfigShippingAddListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+			,D.FULL_ADDR AS fullAddr
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO
+				LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID
+				LEFT JOIN T_BS_DELIVER_INFO D ON O.DELIVER_ID = D.DELIVER_ID
+		WHERE TC.TOOL_STATUS = 5 
+		<if test="orderType != null and orderType != ''">
+			AND O.ORDER_TYPE ${orderType}	
+		</if>
+		 <include refid="selectConfigCommomIf"/>
+		<if test="type != null and type != '' ">
+			AND TC.CATEGORY_CODE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC			
+	</select>
+	
+	<!-- 分页查询工具配送配送单(生成发货单) 申报申购-->
+	<select id="selectToolConfigShippingAppListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT 
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO
+				LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID  
+		WHERE TC.TOOL_STATUS = 5
+		<if test="orderType != null and orderType != ''">
+			AND O.ORDER_TYPE ${orderType}	
+		</if>
+		<include refid="selectConfigCommomIf"/>
+		<if test="type != null and type != '' ">
+			AND TC.CATEGORY_CODE = #{type}
+		</if>
+		ORDER BY TC.CONFIG_DATE DESC			
+	</select>
+	
+	<!-- 根据设备序列号查询配置详情(领用和报损除外) -->
+	<select id="selectDeviceConfigDetail" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+  			<include refid="selectToolConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.CONFIG_NO =
+		       (SELECT DC.CONFIG_NO
+		          FROM T_BS_TOOL_DEVICE_CONFIG DC, T_BS_TOOL_DEVICE_INFO DI
+		         WHERE DC.DEVICE_CUST_ID = DI.DEVICE_CUST_ID
+		           AND DI.DEVICE_SEQ_NO = #{deviceSeqNo})
+	</select>
+	
+	<!-- 分页查询工具配置单 -->
+	<select id="selectToolConfigListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			TC.CONFIG_NO AS confNo,
+			TC.CUST_ID AS hsCustId,
+			TC.HS_RES_NO AS hsResNo,
+			TC.CATEGORY_CODE AS categoryCode,
+			TC.PRODUCT_NAME AS productName,
+			TC.CONFIG_USER AS confUser,
+			TC.CONFIG_DATE AS confDate,
+			TC.CONFIG_TYPE AS confType	
+		   FROM (SELECT T.*
+		          FROM T_BS_TOOL_CONFIG T, T_BS_WAREHOUSE W
+		         WHERE T.WH_ID = W.WH_ID
+		           AND T.TOOL_STATUS = 2
+		           AND T.CATEGORY_CODE IN
+		               ('P_POS', 'POINT_MCR', 'CONSUME_MCR', 'TABLET', 'P_CARD')
+					<if test="startDate != null and startDate != ''">
+						AND T.CONFIG_DATE &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+					</if>
+					<if test="endDate != null and endDate != ''">
+						AND T.CONFIG_DATE &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+					</if>
+					<if test="hsResNo != null and hsResNo != '' ">
+						AND T.HS_RES_NO LIKE #{hsResNo}||'%'
+					</if>
+					<if test="type != null and type != '' ">
+						AND T.CATEGORY_CODE = #{type}
+					</if>
+		           	<if test="roleId != null and roleId != ''">
+		           		AND W.WH_ROLE_ID ${roleId}
+		           	</if>) TC
+		 WHERE TC.CONFIG_NO NOT IN (SELECT DISTINCT TDC.CONFIG_NO FROM T_BS_TOOL_DEVICE_CONFIG TDC)
+		 ORDER BY TC.CONFIG_DATE DESC
+	</select>
+	
+	<!-- 查询未完成的配置单不包含(已发货,已签收,已取消,已过期) -->
+	<select id="selectNoFinishConfig" resultType="int">
+		SELECT COUNT(*)
+		  FROM T_BS_TOOL_CONFIG TC, T_BS_ORDER O
+		 WHERE TC.ORDER_NO = O.ORDER_NO
+		   AND TC.TOOL_STATUS NOT IN (6, 7, 8)
+		   AND (O.ORDER_STATUS = 1 AND <![CDATA[ O.PAY_OVERTIME > SYSDATE ]]>)
+		   AND TC.CUST_ID = #{hsCustId}
+	</select>
+	
+	<!-- 根据订单号和工具类别查询配置单 -->
+	<select id="selecctToolConfigByNoAndCode" resultType="com.gy.hsxt.bs.bean.tool.ToolConfig">
+		SELECT 
+			<include refid="selectToolConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC
+		WHERE TC.ORDER_NO =  #{orderNo}	AND TC.CATEGORY_CODE = #{categoryCode}
+	</select>
+	
+	<!-- 查询已确认制作的互生卡数量 -->
+	<select id="selectConfirmMardCardCount" resultType="int">
+		SELECT SUM(TC.QUANTITY) QUANTITY
+		  FROM T_BS_TOOL_CONFIG TC
+		 WHERE TC.CATEGORY_CODE = 'P_CARD'
+		   AND TC.CUST_ID = #{entCustId}
+		   AND TC.CONFIG_TYPE IN (1, 2)
+		   AND TC.TOOL_STATUS NOT IN (0, 1, 8)
+	</select>
+
+	<!-- 分页查询刷卡工具配置单 新增申报-->
+	<select id="selectServiceToolConfigListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultType="com.gy.hsxt.bs.bean.tool.resultbean.ToolConfigPage">
+		SELECT
+			<include refid="selectMarkOrShippConfigSql"/>
+		FROM T_BS_TOOL_CONFIG TC LEFT JOIN T_BS_ORDER O ON TC.ORDER_NO = O.ORDER_NO
+		LEFT JOIN T_BS_WAREHOUSE W ON TC.WH_ID = W.WH_ID
+		WHERE TC.CATEGORY_CODE IN ('P_POS','POINT_MCR','CONSUME_MCR','TABLET')
+		  AND TC.CONFIG_TYPE IN (1,2)
+		  AND TC.TOOL_STATUS IN (2,3,4,5,6,7)
+		  <include refid="selectConfigCommomIf"/>
+		  <if test="type != null and type != '' ">
+			  AND TC.CATEGORY_CODE = #{type}
+		  </if>
+		ORDER BY TC.CONFIG_DATE DESC
+	</select>
+
+	<!-- 判断配置单是否可以转仓库-->
+	<select id="toolConfigIsUpdateWh" resultType="int">
+		SELECT
+			COUNT(*)
+		  FROM T_BS_TOOL_CONFIG TC
+		 WHERE TC.CONFIG_NO = #{confNo}
+		   AND TC.TOOL_STATUS = 2
+		   AND TC.CATEGORY_CODE IN
+			   ('P_POS', 'POINT_MCR', 'CONSUME_MCR', 'TABLET', 'P_CARD')
+		   AND TC.CONFIG_NO NOT IN (SELECT DISTINCT TDC.CONFIG_NO FROM T_BS_TOOL_DEVICE_CONFIG TDC)
+	</select>
+			
+</mapper>

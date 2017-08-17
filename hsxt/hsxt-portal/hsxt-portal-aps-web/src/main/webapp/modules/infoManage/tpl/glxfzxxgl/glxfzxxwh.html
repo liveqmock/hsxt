@@ -1,0 +1,58 @@
+<div id="glxfzxxwhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>互生卡号：</label>
+				<input type="text" name="search_belongPerResNo" id="search_belongPerResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入互生卡号" />
+			</li>
+			<li>
+				<label>单位名称：</label>
+				<input type="text" name="search_belongPerName" id="search_belongPerName" class="h28_middle w115 input-txt"  placeholder="输入姓名" />
+			</li>
+			<li>
+				<button id="qry_xfz_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="perResNo" w_tip="true" >互生卡号</th>
+		<th w_index="realName" w_tip="true" >单位名称</th>
+		<th w_render="operate" w_tip="true" >证件类型</th>
+		<th w_index="mobile" w_tip="true" >手机号码</th>
+		<th w_index="idNo" w_tip="true" >证件号码</th>
+		<th w_render="operate">消费者状态</th> 
+		<th w_render="operate" width="14%">消费者状态完成时间</th>
+		<th  w_render="operate">互生卡状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="glqyxxwh_jl" class="none view_info">
+<input type="hidden" id="belongCustId"/>
+<div class="pl5 mt20">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>修改信息：</label>
+				<input type="text" id="updateFieldName" name="updateFieldName" placeholder="输入信息" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="qry_xgjl_btn" type="button" class="btn-search">查询</button>
+			</li>
+		</ul>
+	</div>	
+	<table id="xgjl_table">
+	  	<th w_num="line" width="5%" >序号</th>
+		<th w_index="updateFieldName" w_render="">修改信息</th>
+		<th w_index="updateValueOld" w_render="operate">修改前内容</th>
+		<th w_index="updateValueNew" w_render="operate">修改后内容</th>
+		<th w_index="operName">操作员</th>
+		<th w_index="updateTime">修改日期</th>
+		<th w_index="confirmName">复核员</th>
+	</table>
+</div>
+</div>
+
+<div id="carder_detail"></div>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 企业年费计费单 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.annualfee.mapper.AnnualFeeDetailMapper">
+
+    <resultMap id="entAnnualFeeDetailResult" type="com.gy.hsxt.bs.bean.annualfee.AnnualFeeDetail">
+        <id column="ANNUAL_FEE_NO" property="annualFeeNo"/>
+        <result column="ENT_RES_NO" property="entResNo"/>
+        <result column="ENT_CUST_ID" property="entCustId"/>
+        <result column="ENT_CUST_NAME" property="entCustName"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="START_DATE" property="startDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="END_DATE" property="endDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="CURRENCY_CODE" property="currencyCode"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+        <result column="ORDER_NO" property="orderNo"/>
+    </resultMap>
+
+    <!-- 创建 企业年费计费单 -->
+    <insert id="insertAnnualFeeDetail" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeDetail">
+        INSERT INTO T_BS_ENT_ANNUAL_FEE_DETAIL (
+            ANNUAL_FEE_NO,
+            ENT_CUST_ID,
+            ENT_RES_NO,
+            ENT_CUST_NAME,
+            CUST_TYPE,
+            START_DATE,
+            END_DATE,
+            AMOUNT,
+            CURRENCY_CODE,
+            PAY_STATUS,
+            CREATED_DATE,
+            ORDER_NO
+        ) VALUES (
+            #{annualFeeNo},
+            #{entCustId},
+            #{entResNo},
+            #{entCustName},
+            #{custType},
+            #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            #{amount},
+            #{currencyCode},
+            0,
+            systimestamp,
+            #{orderNo}
+        )
+
+    </insert>
+
+    <!-- 更新 某一笔年费的计费单状态 -->
+    <update id="updateAllBeanForPaid" parameterType="string">
+        UPDATE
+            T_BS_ENT_ANNUAL_FEE_DETAIL t
+        SET
+            t.PAY_STATUS = 1
+        WHERE
+            t.PAY_STATUS = 0 AND
+            t.ORDER_NO = #{orderNo}
+
+    </update>
+
+    <!-- 查询到期的计费单和订单号 -->
+    <select id="queryExpireOrderList" resultMap="entAnnualFeeDetailResult">
+        SELECT t.*
+        FROM
+            T_BS_ENT_ANNUAL_FEE_DETAIL t
+        WHERE
+            t.PAY_STATUS = 0
+            AND
+            TO_CHAR(t.START_DATE - 1, 'YYYY-MM-DD') &gt;= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+    </select>
+
+    <!-- 根据业务订单号查询所有计费单 -->
+    <select id="selectAnnualFeeDetailList" resultMap="entAnnualFeeDetailResult" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeDetailQuery">
+        SELECT t.*
+        FROM T_BS_ENT_ANNUAL_FEE_DETAIL t
+        WHERE 1=1
+        <if test="orderNo != null and orderNo != ''">
+            AND t.ORDER_NO = #{orderNo}
+        </if>
+        <if test="entCustId !=null and entCustId != ''">
+            AND t.ENT_CUST_ID = #{entCustId}
+        </if>
+        <if test="entResNo !=null and entResNo != ''">
+            AND t.ENT_RES_NO = #{entResNo}
+        </if>
+    </select>
+
+    <!-- 获取某个企业某个状态的总记录数 -->
+    <select id="getEntAnnualFeeDetaiCount" resultType="int">
+	<![CDATA[
+        SELECT COUNT(0)
+        FROM
+            T_BS_ENT_ANNUAL_FEE_DETAIL
+        WHERE
+            ENT_CUST_ID = #{entCustId}
+            AND
+            PAY_STATUS = #{payStatus}
+        ]]>
+	</select>
+
+    <!-- 判断企业下一年计费单是否提交过 -->
+    <select id="selectOneByAnnualArea" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeDetail" resultMap="entAnnualFeeDetailResult">
+        SELECT t.*
+        FROM
+            T_BS_ENT_ANNUAL_FEE_DETAIL t
+        WHERE
+            t.ENT_CUST_ID = #{entCustId}
+            AND
+            t.START_DATE = #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+            AND
+            t.END_DATE = #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+    </select>
+
+    <!-- 查询未支付年费区间 -->
+    <select id="selectAnnualAreaForArrear" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeDetailQuery" resultMap="entAnnualFeeDetailResult">
+        SELECT
+          min(t.START_DATE) AS START_DATE,
+          max(t.END_DATE) AS END_DATE
+        FROM T_BS_ENT_ANNUAL_FEE_DETAIL t
+        WHERE 1=1
+        <if test="orderNo != null and orderNo != ''">
+            AND t.ORDER_NO = #{orderNo}
+        </if>
+        <if test="entCustId !=null and entCustId != ''">
+            AND t.ENT_CUST_ID = #{entCustId}
+        </if>
+        <if test="payStatus !=null ">
+            AND t.PAY_STATUS = #{payStatus}
+        </if>
+    </select>
+
+</mapper>

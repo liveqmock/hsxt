@@ -1,0 +1,49 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">订单号</td>
+            <td class="view_text" width="32%"><%=obj.order.orderNo%></td>
+            <td class="view_item" width="18%">企业名称</td>
+            <td class="view_text" width="32%"><%=obj.order.custName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业互生号</td>
+            <td class="view_text"><%=obj.order.hsResNo%></td>
+            <td class="view_item">申购类型</td>
+            <td class="view_text">
+            	<%if(obj.order.orderType == '109'){%>
+            	申报申购
+            	<%}else{%>
+            	新增申购
+            	<%}%>
+            </td>
+        </tr>
+   <tr>
+            <td class="view_item">订单类型</td>
+            <td class="view_text"><%=obj.type%></td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单总价</td>
+            <td class="view_text"><%=obj.orderTotal%></td>
+            <td class="view_item">订单状态</td>
+            <td class="view_text"><%=obj.status%></td>
+        </tr>
+        <tr>
+            <td class="view_item">支付方式</td>
+            <td class="view_text"><%=obj.pay%></td>
+            <td class="view_item">订单日期</td>
+            <td class="view_text"><%=obj.order.orderTime%></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单操作员</td>
+            <td class="view_text"><%=obj.order.orderOperator%></td>
+             <td class="view_item"></td>
+            <td class="view_text">
+        </tr>
+    </table>
+</div>
+	
+	
+	

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd "> 
+           
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="hsxt-uc-search" address="${dubbo.registry.address}"  default="true"/>
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}" 
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+    
+   <dubbo:service interface="com.gy.hsxt.uc.search.api.IUCUserInfoSearchService" ref="userInfoSearchService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/> 
+   <dubbo:service interface="com.gy.hsxt.uc.search.api.IUCUserRoleSearchService" ref="userRoleSearchService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/> 
+</beans>

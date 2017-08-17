@@ -1,0 +1,3 @@
+说明：
+
+    此类覆盖了apache client源码, 用于解决socket抛出异常问题。

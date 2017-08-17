@@ -1,0 +1,53 @@
+    <% var param = obj.data.objQueryResult.result;
+       var httpUrl = obj.data.httpUrl;
+       var paramObj = obj.data.objQueryResult;
+    %>
+      <div>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table" id="table1">
+      <thead>
+       <tr>
+        <th width="8%"><input id="all" type="checkbox" /><span>全选</span></th>
+        <th width="10%">送货员名称</th>
+        <th width="10%">照片</th>
+        <th width="5%">性别</th>
+        <th width="10%">联系电话</th>
+        <th width="15%">所属营业点</th>
+        <th width="20%">备注</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+        <%$.each(param,function(key,el){%>
+        <tr <%=key%2==1?"class='table-tr-c'":""%>>
+          <td><input  class="myDeviler" type="checkbox" value="<%=el.id%>"/><%if(paramObj.currentPageIndex < 1){%><%=paramObj.recordSize*(1-1)+(key+1)%><%}else{%><%=paramObj.recordSize*(paramObj.currentPageIndex-1)+(key+1)%><%}%></td>
+          <td><%=el.name%></td>
+          <td><img src="<%if(el.picUrl == 'resources/img/store_noimg.gif'){%><%=el.picUrl%><%}else{%><%=httpUrl+el.picUrl%><%}%>" width="68" height="68" class="bigImg"/></td>
+          <td><%=el.sex==0?'女':'男'%></td>
+          <td><%=el.phone%></td>
+          <td>
+          <%if(el.shopName!=null && el.shopName!=""){%>
+          	<%var nameList = el.shopName.split(",")%>
+          	<%$.each(nameList,function(k,v){%>
+          		<input class="datable_input" style="width: 220px;line-height:20px;" type="text" readonly="readonly" title="<%=v%>" value="<%=v%>"/>
+          	<%})%>
+          <%}%>
+          </td>
+          <td><%=el.remark%></td>
+          <td><%if(obj.data.shopType != 1){%><a href="javascript:void(0)" id="<%=el.id%>" class="dlg4">所属营业点</a> | <%}%><a href="javascript:void(0)" id="<%=el.id%>" class="dlg3">修改</a> | <a class="dlg1" id="<%=el.id%>" href="javascript:void(0)">删除</a></td>
+        </tr>
+        <%})%>
+      </table></div>
+		<div>
+		<div class="table-page">
+				<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+				<a href="javascript:;" class="page-nact pageOrder" page="<%=((paramObj.currentPageIndex-1)<1?'':paramObj.currentPageIndex-1)%>">上一页</a>
+				<a href="javascript:;" class="page-act pageOrder" page="<%=((paramObj.currentPageIndex+1)>paramObj.totalPage?'':paramObj.currentPageIndex+1)%>">下一页</a>
+				<a href="javascript:;" class="page-act pageOrder" page="<%=paramObj.totalPage%>">末页</a>
+				<span class="page-go">跳到</span>
+				<input type="text" class="page-txt" id="pageInput" value="<%=paramObj.currentPageIndex%>" totalPage="<%=paramObj.totalPage%>"/><span class="page-go">页/<%=paramObj.totalPage%>页</span>
+				<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=paramObj.recoredCount%>条</a>
+		</div>
+		</div>
+
+
+<!--弹出框内容及脚本结束--> 
+

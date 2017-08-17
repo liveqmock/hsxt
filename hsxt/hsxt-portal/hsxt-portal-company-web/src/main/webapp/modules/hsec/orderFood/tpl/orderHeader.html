@@ -1,0 +1,494 @@
+<div class="operationsInner" id="cyddlb">
+  <!--局部切换页签-->
+      <div class="pr">
+        <div class="tabNav"></div>
+	        <ul class="tabList clearfix">
+	          <li><a class="active" orderStatusStr="1,-3,8,2,6,7,10,11,99,-1,4,9" sortIndex="0">全部订单</a></li>
+	          <li><a class="" orderStatusStr="1,-3,8" sortIndex="1">未确认订单</a></li>
+	          <li><a class="" orderStatusStr="2,9" sortIndex="2">备餐订单</a></li>
+	          <li><a class="" orderStatusStr="6,7" sortIndex="3">已就餐订单</a></li>
+	          <li><a class="" orderStatusStr="11" sortIndex="4">已送餐订单</a></li>
+	          <li><a class="" orderStatusStr="10" sortIndex="5">取消未确认</a></li>
+	          <li><a class="" orderStatusStr="99,-1" sortIndex="6">已取消订单</a></li>
+	         </ul>
+      </div>
+      <!--局部切换页签 结束--> 
+      
+      <!--订单详情-->
+	  <div class="busibox p20 scr410 none" id="orderDetail"></div>
+	  <!-- 订单修改 -->
+	  <div class="busibox p20 scr410 none" id="orderEdit"></div> 
+	  
+	  <!-- 加菜 -->
+	  <div class="busibox p20 scr410 none" id="detailAddFood">
+   		<div class="clearfix">
+	     	<div class="mr390" id="takeOrder_selectFoods"></div> 
+	        <div class="fr" style="width: 388px" id="takeOrder_orderInfos"></div>
+    	</div>
+	  </div> 
+	     
+      <div class="searchbox p20 scr410">     
+	      <!-- 0全部订单search 开始-->
+		  <div class="toolbar-box searchBar0">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+	            <li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <div class="cont-int w100">
+	  					  <select class="input-txt" id="repastForm0">
+	  					   	 <option value="">请选择</option> 
+	  					   	 <option value="1">店内消费</option> 
+	                         <option value="2">外卖</option>                        
+	                         <option value="3">门店自提</option>  
+	                       </select>
+	                  </div>
+	            </li>
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>
+			</ul>
+	    	<ul class="cssform clearfix mt5">
+			    <li class="mr20 ml10" id="shopType">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId0">
+	                       <option value="">请选择</option>	                     
+	                     </select>
+	                </div>       
+	            </li>
+	             <li class="mr20">
+	                <label class="title-int">订单状态：</label>
+	                <div class="cont-int w100">
+	                    <select class="input-txt" id="orderStatus0">
+	                         <option value="">全部</option>
+	                      	 <option value="1,8,-3">未确认</option>
+	                      	 <option value="2">待送餐</option>
+	                      	 <option value="11">送餐中</option>                                         
+	                      	 <option value="2,9">待就餐</option>
+	                      	 <option value="2">待自提</option>
+	                      	 <option value="6">就餐中</option><!--待结账   -->
+	                      	 <option value="7"> 待结账</option>
+	                      	 <option value="10">取消未确认</option>
+	                      	 <option value="4">交易完成 </option>	  
+	                      	 <option value="99">已取消</option>
+	                     </select>
+	                </div>
+	            </li>          
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime0" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime0" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 全部订单search 结束-->
+		
+		<!-- 1未确认search 开始-->
+		  <div class="toolbar-box searchBar1 none">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+	            <li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <div class="cont-int w100">
+	  					  <select class="input-txt" id="repastForm1">
+	  					     <option value="">请选择</option>
+	  					   	 <option value="1">店内消费</option> 
+	                         <option value="2">外卖</option>                        
+	                         <option value="3">门店自提</option>  
+	                       </select>
+	                  </div>
+	            </li>
+				 <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>
+				
+			</ul>
+	    	<ul class="cssform clearfix mt5">
+		 	   <li class="mr20 ml10">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId1">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>        
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" name="textfield" id="beginTime1" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" name="textfield" id="endTime1" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 未确认search 结束-->
+		
+		 <!--2 备餐订单search 开始-->
+		  <div class="toolbar-box searchBar2 none">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+	            <li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <div class="cont-int w100">
+	  					  <select class="input-txt" id="repastForm2">
+	  					  	 <option value="">请选择</option>
+	  					   	 <option value="1">店内消费</option> 
+	                         <option value="2">外卖</option>                        
+	                         <option value="3">门店自提</option>  
+	                       </select>
+	                  </div>
+	            </li>
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>
+			</ul>
+	    	<ul class="cssform clearfix mt5">
+			    <li class="mr20 ml10">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId2">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>
+	           <!--  <li class="mr20">
+	                <label class="title-int">订单状态：</label>
+	                <div class="cont-int w100">
+	                    <select class="input-txt" id="orderStatus2">
+	                         <option value="">全部</option>	                                                
+	                     </select>
+	                </div>
+	            </li>  
+	             -->         
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime2" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime2" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 备餐订单search 结束-->
+		
+		<!-- 3已就餐订单search 开始-->
+		  <div class="toolbar-box searchBar3 none">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>	           
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>
+			</ul>
+	    	<ul class="cssform clearfix mt5">
+			    <li class="mr20 ml10">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId3">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>
+	             <li class="mr20">
+	                <label class="title-int">桌台号：</label>
+	                <div class="cont-int">
+							<input type="text" name="tableNomber" placeholder="输入桌台号" value="" class="input-txt w100">						
+					</div> 
+	            </li>          
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime3" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime3" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 已就餐订单search 结束-->
+		
+		<!-- 已送餐订单search 开始 4-->
+		  <div class="toolbar-box searchBar4 none">
+		  <ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>
+			</ul>
+	    	<ul class="cssform clearfix mt5">
+			    <li class="mr20 ml10">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId4">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>
+	            <li class="mr20">	          
+		            <label class="title-int">送餐人员： </label>
+	                <div class="cont-int w100">
+	                    <select class="input-txt" id="sendPeopleId">
+	                       <option value="">请选择</option>
+	                      <!--<option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option> 
+	                        -->  
+	                     </select>
+	                </div>       
+	            </li>    
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime4" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime4" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 已送餐订单search 结束-->
+		
+		<!-- 5取消未确认订单search 开始-->
+		  <div class="toolbar-box searchBar5 none">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+				
+				  <li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <div class="cont-int w100">
+	  					  <select class="input-txt" id="repastForm5">
+	  					  	 <option value="">请选择</option>
+	  					   	 <option value="1">店内消费</option> 
+	                         <option value="2">外卖</option>                        
+	                         <option value="3">门店自提</option>  
+	                       </select>
+	                  </div>
+	            </li>
+				
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>	
+				</ul>
+				<ul class="cssform clearfix mt5">
+			    <li class="mr20">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId5">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>         
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime5" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime5" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+		<!-- 取消未确认订单search 结束-->
+		
+		<!-- 6已取消订单search 开始-->
+		<div class="toolbar-box searchBar6 none">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" placeholder="输入订单编号" value="" class="input-txt w100">						
+					</div> 
+				</li>
+				<li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <div class="cont-int w100">
+	  					  <select class="input-txt" id="repastForm6">
+	  					  	 <option value="">请选择</option>
+	  					   	 <option value="1">店内消费</option> 
+	                         <option value="2">外卖</option>                        
+	                         <option value="3">门店自提</option>  
+	                       </select>
+	                  </div>
+	            </li>
+				
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" placeholder="" value="" class="input-txt w100">
+					</div> 
+				</li>	
+				</ul>
+				<ul class="cssform clearfix mt5">
+			    <li class="mr20">	          
+		            <label class="title-int">营业点： </label>
+	                <div class="cont-int" style="width:120px;">
+	                    <select class="input-txt" id="shopId6">
+	                       <option value="">请选择</option>
+	                       <option value="2">xxxxx2</option> 
+	                       <option value="3">xxxxxx3</option>  
+	                     </select>
+	                </div>       
+	            </li>         
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					 <div class="cont-int">
+	           			 <input type="text" id="beginTime6" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime6" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li>
+					<div class="cont-int">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+	<!-- 已取消订单search 结束-->
+	
+    <div id="tableList_ol"> </div>
+   </div>
+   <div id="dlg0" class="none">
+  	<p id="table-point"></p>
+	</div>
+    <div id="dlg1" class="none"></div>
+    <div id="dlg2" class="none"></div>
+    <!--开台-->
+   <div id="dlg12" class="none">
+	  <table class="detail-table no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <tbody>
+			    <tr>			    
+			      <td align="right" width="30%">人数：</td>
+			      <td><input class="inpt" type="text" name="tableNumber" value=""></td>
+			    </tr>
+			    <tr>
+			      <td align="right">桌台号：</td>
+			      <td><input class="inpt" type="text" name="tableNo" value=""></td>
+			    </tr>
+		   </tbody>
+	  </table>
+	</div>
+	
+	<div id="dlg3" class="none">
+	  	<table class="detail-table no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <tbody>
+		    <!-- tr>
+		      <td align="right" colspan="2" class="blue tc">温馨提示：平台收取已收定金1%商业服务费</td>
+		    </tr-->
+		    <tr>
+		      <td align="right" width="30%">取消理由：</td>
+		      <td><input class="inpt" type="text" name="cancelReason" value=""></td>
+		    </tr>
+		    <tr>
+		      <td align="right">已收定金：</td>
+		      <td class="moneyEarnest">00.00</td>
+		    </tr>
+		    <tr>
+		      <td align="right"></td>
+		      <td>
+		      	<label class="mr10"><input type="radio" name="refundType" value="1" class="mr5" checked="checked" />全额退还</label>
+		         <!--  暂时屏蔽不退还业务 2016-01-04 liangqf  ssds--> 
+		      	<!-- <label><input type="radio" name="refundType"  value="2" class="mr5" />不退还</label> -->
+		      </td>
+		    </tr>
+		   <!-- 
+		    <tr>
+		      <td align="right">退还定金：</td>
+		      <td>0.00</td>
+		    </tr>
+		     --> 
+		    </tbody>
+	  </table>
+</div>
+</div>

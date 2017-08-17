@@ -1,0 +1,38 @@
+<div class="search-toolbar">
+  <form id="scpoint_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li>
+        <label>年份：</label>
+        <input id="beginYear" name="beginYear" placeholder="" readonly="readonly"/>
+        <span class="separator-pd">-</span>
+        <input id="endYear" name="endYear" placeholder="" readonly="readonly"/>
+      </li>
+      <li>
+        <label>企业互生号：</label>
+        <input type="text" name="hsResNo" id="hsResNo" placeholder="输入企业互生号" class="h28_middle input-txt w100" />
+      </li>
+      <li>
+        <label>企业名称：</label>
+        <input type="text" name="enterpriseName" id="enterpriseName" placeholder="输入企业名称" class="h28_middle input-txt w100" />
+      </li>
+      <li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table bsgrid">
+  	<thead>
+        <tr>
+        	<th w_index="hsResNo" w_align="left">企业互生号</th>	
+          <th w_index="dividendNo" w_align="left">交易流水号</th>
+          <th w_index="dividendYear" w_align="left">分红年份</th>
+          <th w_index="totalDividend" w_align="left">投资分红金额</th>
+        </tr>
+	</thead>
+  </table>
+</div>

@@ -1,0 +1,96 @@
+<div id="fhTpl">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+				<tr>
+					<td class="view_item" width="20%">企业互生号</td>
+					<td class="view_text_2" width="30%"><%=obj.entResNo%></td>
+					<td class="view_item" width="20%">企业名称</td>
+					<td class="view_text_2" width="30%"><%=obj.entCustName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">企业地址</td>
+					<td class="view_text_2" width="30%"><%=obj.address%></td>
+					<td class="view_item" width="20%">联系人姓名</td>
+					<td class="view_text_2" width="30%"><%=obj.linkman%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">联系人手机</td>
+					<td class="view_text_2" width="30%"><%=obj.mobile%></td>
+					<td class="view_item" width="20%">企业类别</td>
+					<td class="view_text_2" width="30%"><%=obj.custTypeName%></td>
+				</tr>
+			</table>
+			<% if(obj.applyType == '2' && obj.lastApplyOptCustName!=null ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">关闭系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyOptCustName%></</td>
+					<td class="view_item" width="20%">申请关闭日期</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">关闭系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.lastApplyRemark%></td>
+				</tr>
+			</table>
+			<% } else if(obj.applyType == '1' && obj.lastApplyOptCustName!=null ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">开启系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyOptCustName%></</td>
+					<td class="view_item" width="20%">申请开启日期</td>
+					<td class="view_text_2" width="30%"><%=obj.lastApplyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">开启系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.lastApplyRemark%></td>
+				</tr>
+			</table>
+			<% } %>
+			
+			<% if(obj.applyType == '2' ){ %>
+		     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">申请开启系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.applyOptCustName%></td>
+					<td class="view_item" width="20%">申请开启系统日期</td>
+					<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">开启系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.applyRemark%></td>
+				</tr>
+			</table>
+			<% } else if(obj.applyType == '1' ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+				<tr>
+					<td class="view_item" width="20%">申请关闭系统操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.applyOptCustName%></td>
+					<td class="view_item" width="20%">申请关系统日期</td>
+					<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">关闭系统说明</td>
+					<td colspan="3" class="view_text_2" width="80%"><%=obj.applyRemark%></td>
+				</tr>
+			</table>
+			<% } %>
+			<% if(obj.status == '2' || obj.status == '3' ){ %>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10  ">
+				<tr>
+					<td class=" tl pl5 " colspan="4" style="background-color: #ffffe3" >审核信息</td> 
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">审核说明</td>
+					<td class="view_text_2" width="30%"><%=obj.apprRemark%></td>
+					<td class="view_item" width="20%">审核结果</td>
+					<td class="view_text_2" width="30%"><%=obj.statusName%></td>
+				</tr>
+				<tr>
+					<td class="view_item" width="20%">审核操作员</td>
+					<td class="view_text_2" width="30%"><%=obj.apprOptCustName%></td>
+					<td class="view_item" width="20%">审核日期</td>
+					<td class="view_text_2" width="30%"><%=obj.apprDate%></td>
+				</tr>				
+		</table>
+			<% } %> 
+	</div>

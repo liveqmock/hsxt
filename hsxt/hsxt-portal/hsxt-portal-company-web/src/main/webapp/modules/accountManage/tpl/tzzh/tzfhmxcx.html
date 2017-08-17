@@ -1,0 +1,29 @@
+<div class="search-toolbar">
+  <form id="scpoint_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li>
+        <label>年份：</label>
+        <input type="text" name="scpoint_beginDate" id="scpoint_beginDate" placeholder="开始年份" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="scpoint_endDate" id="scpoint_endDate" placeholder="结束年份" class="h28_middle input-txt w80" />
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table">
+  	<thead>
+        <tr>
+          <th w_index="dividendNo" w_align="left">交易流水号</th>
+          <th w_index="dividendYear" w_align="right">分红年份</th>
+          <th w_index="totalDividend" w_render="operate"  w_align="right">投资分红数量</th>
+          <th w_render="operate" w_align="left">详情</th>
+        </tr>
+	</thead>
+  </table>
+</div>

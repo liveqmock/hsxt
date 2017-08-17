@@ -1,0 +1,43 @@
+<div >
+  <div class="mt20">
+  	<div class="billstyle">
+        <div class="bd_dot_gray fb p10">收件地址</div>
+        <div class="p10">
+            <p id="entAddrList"></p>
+			<p class="mt10 ml20 clearfix"><a class="btn_bg viewSample_btn" id="add_address_btn">新增自定义地址</a></p>
+        </div>
+    </div>
+
+    <div class="mt20">
+      <div class="infobox2 fb p10 pd20 bg_f0 bm0">
+        <div class="md10 bc">
+          <div class="clearfix">
+            <div class="fl clearfix">
+            </div>
+            <div class="fr clearfix"> <span class="fl f16 h52_middle"><span>应付金额</span>：</span> <i class="fl ml5 pay-price mt10"></i> <span class="fl ml5 pay-text-red h52_middle fb f16" id="payAmount">2020.00</span> </div>
+          </div>
+          <div class="tr pay-text-blue">本地结算币种：<span id="currencyNameCn" class="mr15"></span>货币转换比率：<span class="mr15" id="exchangeRate"></span>折算货币金额：<span id="cashAmount"></span></div>
+        </div>
+      </div>
+      	<table id="gjsg_2_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table bsgrid">      
+          <tr>
+            <th >已勾选资源</th>
+            <th width="15%">工具单价</th>
+          </tr>
+          <% $.each(segment,function(i,itme){ %>
+				<tr>
+	                <td style="text-align:left;">
+	                	<div class="clearfix"><i class="card card_01 fl"></i>
+	                	<span class="h35_middle fl ml10"><%=itme.segmentDesc %></span></div>
+	                </td>
+	                <td><%=comm.formatMoneyNumber(itme.segmentPrice) %></td>
+	           	</tr>		
+			<%});%> 
+    	</table>
+    </div>
+    <div class="mt20 w200 bc clearfix"> 
+		<a id="btn_hsksg_syb" class="btn_bg submit mr15 fl">上一步</a>
+		<a id="btn_hsksg_ddtj" class="btn_bg submit fr">订单提交</a> 
+	</div>
+  </div>
+</div>

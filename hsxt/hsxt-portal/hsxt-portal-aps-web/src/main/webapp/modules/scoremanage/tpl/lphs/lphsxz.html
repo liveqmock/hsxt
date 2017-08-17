@@ -1,0 +1,80 @@
+<div id="lphsxzTpl">
+	<form id="add_form">
+	<div class="search-toolbar" style="background:#CCC;color:#333">
+		<ul class="cssform clearfix lh36">
+           <!--  <li>
+                <label>申请人姓名：</label>
+                <span class="mr20"><%=record.proposerName%></span>
+            </li>
+            <li>
+                <label>申请人互生卡号：</label>
+                <span class="mr20"><%=record.hsResNo%></span>
+            </li> -->
+            <li>
+                <label class="inbk w100 tr">账单时间：</label>
+				<input type="text" name="timeRange_start" id="timeRange_start" placeholder="输入起始时间" class="h28_middle input-txt w115"  />
+				<span class="separator-pd">-</span>
+				<input type="text" name="timeRange_end" id="timeRange_end" placeholder="输入结束时间" class="h28_middle input-txt w115"  />
+            </li>
+            <li class="clearfix">
+				<label class="fl h30_middle inbk w150 tr">账单区域：</label>
+				<input id="provinceNo" name="provinceNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+			 	<input id="cityNo" name="cityNo" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"/>
+				<!-- <span class="ml5"></span>
+				<input id="provinceNo"  placeholder="选择省/自治区/直辖市" />
+				<span class="ml10"></span>
+				<input id="cityNo"  placeholder="选择市" /> -->
+			</li>
+            
+            <li>
+				<button id="add_list_btn" type="button" class="btn-search ml20">增加项目</button>
+            	<button  type="button" id="save_lphs_btn" class="btn-search ml10">保存草稿</button>
+			</li>
+        </ul>
+       
+	</div>
+	
+	<table id="searchTable1" class="bsgrid">
+	  <tr>
+		<td colspan="6">
+        	<label>核算人：<span><%=record.accountPersonName%></span></label>
+            <label class="ml20">核算日期：<span><%=record.accountDate%></span></label>
+        </td>
+        <td>合计</td>
+        <td class="red" id="counting_totalAmount"></td>
+        <td></td>
+        <td class="red" id="counting_healthPayAmount" ><%=record.healthPayAmount%></td>
+        <td class="red" id="counting_personalPayAmount"><%=record.personalPayAmount%></td>
+        <td class="red" id="counting_hsPayAmount"><%=record.hsPayAmount%></td>
+        <td></td>
+        <td></td>
+	  </tr>
+	  
+      <tr>
+		<th w_num="line">编号</th>
+		<th w_index="category">类别</th>
+		<th w_index="itemName" w_tip="true">项目名称</th>
+		<th w_index="standard" w_tip="true">规格</th>
+		<th w_index="quantity">数量</th>
+		<th w_index="unit" w_render="operate">单位</th>
+        <th w_index="price" w_render="operate" w_tip="true" >单价</th>
+        <th w_index="amount"  w_render="operate" w_tip="true">金额</th>
+        <th w_render="operate">医保报销比例</th>
+        <th w_index="healthPayAmount"  w_render="operate" w_tip="true">医保支付</th>
+        <th w_index="personalPayAmount"  w_render="operate" w_tip="true">个人支付</th>
+        <th w_index="hsPayAmount"  w_render="operate" w_tip="true">互生支付</th>
+        <th w_index="explain" w_tip="true">说明</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+	
+	
+	<div class="w200 bc mt20 clearfix">
+		<a class="btn_bg submit fl" id="confirm_lphs_btn">提交核算</a>
+		<a class="btn_bg submit fr" id="cancle_lphs_btn">返　回</a>
+	</div>
+	
+	</form>
+	
+	
+</div>

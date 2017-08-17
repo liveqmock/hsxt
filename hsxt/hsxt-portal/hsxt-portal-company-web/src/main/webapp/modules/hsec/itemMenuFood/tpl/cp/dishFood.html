@@ -1,0 +1,92 @@
+<!--初始菜单-->
+<%
+var param = obj.data.result;
+var https = obj.data.httpUrl;
+var picname = "";
+var menuid = menuId;
+var menuName = menuName;
+%>
+   	<div class="search-toolbar pr">
+       <ul class="detail-tab clearfix" id="" style="top:10px;">
+         <li class="div_spill" style="max-width: 200px"><a class="cddy active" href="#"><span id="cpname" title="<%=menuName%>菜品"><%=menuName%>菜品</span></a></li>
+         <li><a class="yyd" href="#" id="yydname">营业点</a></li><!-- style="display:none;" -->
+       </ul>
+       <ul class="cssform clearfix">
+            <li style="float:right;">
+               <div class="cont-int">
+                   <button class="btn-search dycdcp" type="button" id="">设置菜品</button>
+               </div>
+             </li>
+       </ul>
+     </div>
+ <div>
+ <div style="height:348px;" class="foodlist p10 pr">
+ 	 <% try { if(param != null && param.length > 0){ $.each(param,function(key,value){ %>
+           <h1 class="mt20"><%=value.itemCustomCategoryName%>（<%=value.itemNum%>）</h1>
+           <ul class="floatlist clearfix pt20list">
+           <%$.each(value.itemInfoFoodList,function(k,v){
+		  		if(v.pics != null && v.pics != ""){
+			  		var picObj = eval(v.pics);//转换对象
+			  		try{
+			  		$.each(picObj[0].web,function(y,o){
+			  			if(o.size=="400*400"){
+			  				picname = o.name;
+			  			}
+			  		});
+			  		}catch(e){}
+		  		}
+         	%>
+           	<li class="w20p">
+               	<div class="pr delcp bc w120" data-id="<%=v.id%>" data-varshopid="<%=v.virtualShopId%>" data-menuid="<%=menuid%>">
+                   <i title="删除菜品" class="cp_close none"></i>
+                   <!-- <div class="fiximg"><img width="120" height="120" src="<%=https+picname%>">
+                   </div> -->
+                   <% if(v.ishaspv == 1){%>
+                   		<div class="fiximg"><img width="120" height="120" src="resources/img/item_df.png">  </div>
+                   <%}else {%>
+                   		<div class="fiximg"><img width="120" height="120" src="<%=https+picname%>"> </div>
+                  <% }%> 
+                   <h2 class="mt5 f12 limit_MultiLine_txt"><%=v.name%></h2>
+                   <div class="mt5">
+	                   	<span class="f12 mr5 lh12 red"><img width="16" style="vertical-align:middle;" src="resources/img/price.png">
+	                   	<%if(v.price != null && v.price != ""){%>
+	                   		<%=comm.formatMoneyNumber(v.price)%>
+	                   	<%}else{ 
+	                   		var priceArr = new Array();
+	                   			priceArr = v.priceRegion.split(",");
+	                   		if(priceArr.length>1){
+	                   	%>
+	                   		<%=comm.formatMoneyNumber(priceArr[0])%>起
+	                   	<%}else{%>
+	                   		<%=comm.formatMoneyNumber(priceArr[0])%>
+	                   	<%} }%>
+	                   	</span>
+                       <span class="f12 lh12 blue"><img width="22" style="vertical-align:middle;" src="resources/img/pv.png">
+                       <% if(v.ishaspv != 1){%>
+                       <%if(v.pv != null && v.pv != ""){%>
+                      		<%=comm.formatMoneyNumber(v.pv)%>
+                       <%}else{
+                       		var pvArr = new Array();
+                       			pvArr = v.pvRegion.split(",");
+                       		  if(pvArr.length >1){%>
+                       			<%=comm.formatMoneyNumber(pvArr[0])%>起
+                       	 	<%}else{%>
+                       		<%=comm.formatMoneyNumber(pvArr[0])%>
+                       		<%} 
+                       	 } 
+                       %>
+                       <% }else{%>
+                       	<%=comm.formatMoneyNumber(0.00)%>
+                       <%}%> 
+                       </span>
+                   </div>
+                   </div>
+               </li>
+             <%})%>
+           </ul>
+      <%}) } else {%>
+      	<br>
+      	<div align="center" class="blue">暂无关联菜品！</div>
+      <%} }catch(e){}%>
+ </div>
+</div>

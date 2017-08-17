@@ -1,0 +1,98 @@
+<div id="ffTpl">
+	<div class="mb5 fb">申请基本信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">互生卡号</td>
+			<td class="view_text_2" width="30%"><%=record.hsResNo%></td>
+			<td class="view_item" width="20%">姓名</td>
+			<td class="view_text_2" width="30%"><%=record.proposerName%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">身份证号</td>
+			<td class="view_text_2" width="30%"><%=record.proposerPapersNo%></td>
+			<td class="view_item" width="20%">积分福利申请类别</td>
+			<td class="view_text_2" width="30%"><%=record.welfareTypeStr%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">积分福利申请批准日期</td>
+			<td class="view_text_2" width="30%"><%=record.approvalDate%></td>
+			<td class="view_item" width="20%">批复金额</td>
+			<td class="view_text_2" width="30%"><%=comm.formatMoneyNumberAps(record.hsPayAmount)%></td>
+		</tr>				
+	</table>
+	<div class="mt10 mb5 fb">积分福利补贴信息</div>
+	<% if(record.welfareType == '0'){ %>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">积分福利补贴类别</td>
+			<td class="view_text_2" width="30%"><%=record.welfareTypeStr%></td>
+			<td class="view_item" width="20%">此互生号可以申请补贴余额</td>
+			<td class="view_text_2" width="30%"><%=comm.formatMoneyNumberAps(record.subsidyBalance)%></td>
+		</tr>	
+		<% if(str == '查看'){ %>
+		<tr>
+			<td class="view_item" width="20%">补贴说明</td>
+			<td class="view_text_2" width="80%" colspan="3"><%=record.description%></td>
+		</tr>
+		<% } %>		
+	</table>
+	<% }else if(record.welfareType == '1'){ %>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">积分福利补贴类别</td>
+			<td class="view_text_2" width="80%" colspan="3"><%=record.welfareTypeStr%></td>
+		</tr>	
+		<% if(str == '查看'){ %>
+		<tr>
+			<td class="view_item" width="20%">补贴说明</td>
+			<td class="view_text_2" width="80%" colspan="3"><%=record.description%></td>
+		</tr>
+		<% } %>		
+	</table>
+	<% }else if(record.welfareType == '2'){ %>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">积分福利补贴类别</td>
+			<td class="view_text_2" width="30%"><%=record.welfareTypeStr%></td>
+			<td class="view_item" width="20%">身故人互生号可以申请补贴余额</td>
+			<td class="view_text_2" width="30%"><%=comm.formatMoneyNumberAps(record.subsidyBalance)%></td>
+		</tr>
+		<% if(str == '查看'){ %>
+		<tr>
+			<td class="view_item" width="20%">补贴说明</td>
+			<td class="view_text_2" width="80%" colspan="3"><%=record.description%></td>
+		</tr>
+		<% } %>		
+	</table>
+	<% } %>
+	
+	<% if(str == '发放'){ %>
+	<div class="info_800 mt10 bc">
+		<form>
+			<ul>			
+				<li class="register_row clearfix" style="height:341px">
+					<label class="fl w115 h60_middle" style="height:340px;text-align:center;line-height:300px;">补贴说明</label>
+					<textarea name="grantRemark"  id="grantRemark" maxlength="1000"  style="width:656px;height:330px" class="fl ml5 h50 w465 rsn pt5 pb5" placeholder="请输入补贴说明，最长不超过1000个字"></textarea>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<% } %>
+	
+	<% if(str == '查看'){ %>
+	<div align="center" class="mt20"><a class="btn_bg submit" id="ck_back">返&#12288;回</a></div>
+	<% }else{ %>
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="ff_tj">提&#12288;交</a>
+		
+		<% if(record.welfareType == '0'){ %>
+		<a class="btn_bg submit fr" id="ywsh_ff_cancel">取&#12288;消</a>
+		<% }else if(record.welfareType == '1'){ %>
+		<a class="btn_bg submit fr" id="mfyl_ff_cancel">取&#12288;消</a>
+		<% }else if(record.welfareType == '2'){ %>
+		<a class="btn_bg submit fr" id="trsg_ff_cancel">取&#12288;消</a>
+		<% } %>
+	</div>
+	<% } %>
+</div>
+

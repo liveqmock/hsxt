@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.common.mapper.EntResNoMapper">
+
+	<!-- 生成服务公司下的所有互生号 -->
+	<insert id="createResNo"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+		INSERT INTO T_BS_ENT_RES
+			   (ENT_RES_NO,
+			    CUST_TYPE,
+			    RES_STATUS) 
+		VALUES (#{item.entResNo},
+		        #{item.custType},
+		        #{item.resStatus});		
+		</foreach>
+	</insert>
+	
+	<!-- 判断企业互生号是否可用 -->
+	<select id="checkValidEntResNo" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1) 
+		FROM T_BS_ENT_RES
+		WHERE ENT_RES_NO = #{resNo}
+		      AND RES_STATUS = 0
+	</select>
+	
+	<!-- 判断服务公司互生号是否可用 -->
+	<select id="checkValidServiceResNo" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1) 
+		FROM T_BS_S_RES
+		WHERE ENT_RES_NO = #{resNo}
+		      AND RES_STATUS = 0
+	</select>
+
+	<!-- 更新企业互生号状态 -->
+	<update id="updateEntResNoStatus">
+		UPDATE T_BS_ENT_RES SET
+			RES_STATUS = #{status}
+		WHERE ENT_RES_NO = #{resNo}
+		<if test="status == 2 ">
+			AND RES_STATUS = 0
+		</if>
+		<if test="status == 1">
+			AND RES_STATUS = 2
+		</if>
+	</update>
+	
+	<!-- 更新服务公司互生号使用状态  0-未使用 1-已使用 2-已占用 -->
+	<update id="updateServiceResNo">
+		UPDATE T_BS_S_RES SET
+			<if test="entCustId != null and entCustId != ''">
+				ENT_CUST_ID = #{entCustId},
+				REG_DATE = SYSDATE,
+			</if>
+			<if test="entCustName != null and entCustName != ''">
+				ENT_CUST_NAME = #{entCustName},
+			</if>
+			RES_STATUS = #{status}
+		WHERE ENT_RES_NO = #{resNo}
+		<if test="status == 2 ">
+			AND RES_STATUS = 0
+		</if>
+		<if test="status == 1">
+			AND RES_STATUS = 2
+		</if>
+	</update>
+	
+	<!-- 查询服务公司互生号列表 -->
+	<select id="getSerResNoList" resultType="string">
+		SELECT ENT_RES_NO
+		FROM T_BS_S_RES
+	    WHERE COUNTRY_NO = #{countryNo}
+		      AND PROVINCE_NO = #{provinceNo}
+		      AND CITY_NO = #{cityNo}
+		      AND RES_STATUS = #{resStatus}
+	    ORDER BY ENT_RES_NO
+	</select>
+	<!-- 获取服务公司下未使用的成员企业互生号 
+	普通资源：resType = 4， 1~8999号是
+	免费资源：resType = 5， 9000~9999号
+	-->
+	<select id="getMemResNoList" resultType="string">
+		SELECT ENT_RES_NO
+		FROM T_BS_ENT_RES
+		WHERE CUST_TYPE = 2
+		AND RES_STATUS = 0
+	  <if test="resType == 4">
+	  	<![CDATA[
+	  	AND ENT_RES_NO > #{serResNoPre}||'000000' 
+	  	AND ENT_RES_NO < #{serResNoPre}||'009000'
+	  	]]>
+	  </if>
+	  <if test="resType == 5">
+	  	<![CDATA[
+	  	AND ENT_RES_NO >= #{serResNoPre}||'009000'
+	  	AND ENT_RES_NO <= #{serResNoPre}||'009999'
+	  	]]>
+	  </if>
+		ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 获取服务公司下未使用的托管企业互生号，
+	创业资源 ：resType = 2, 1~10号是创业资源
+	全部资源与首段资源： 11~99号
+	-->
+	<select id="getTrustResNoList" resultType="string">
+		SELECT ENT_RES_NO
+		FROM T_BS_ENT_RES
+		WHERE CUST_TYPE = 3
+		  AND RES_STATUS = 0
+		  <if test="resType == 2">
+		  	<![CDATA[
+		  	AND ENT_RES_NO >  #{serResNoPre}||'000000'
+		  	AND ENT_RES_NO <= #{serResNoPre}||'100000'
+		  	]]>
+		  </if>
+		  <if test="resType == 1 or resType ==3 ">
+		  	<![CDATA[
+		  	AND ENT_RES_NO >  #{serResNoPre}||'100000'
+		  	AND ENT_RES_NO <= #{serResNoPre}||'990000'
+		  	]]>
+		  </if>
+		ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 分页获取服务公司下未使用的成员企业互生号 
+	普通资源：resType = 4， 1~8999号是
+	免费资源：resType = 5， 9000~9999号
+	-->
+	<select id="getMemResNoListPage" resultType="com.gy.hsxt.bs.bean.apply.ResNo">
+		SELECT ENT_RES_NO AS entResNo
+		FROM T_BS_ENT_RES
+		WHERE CUST_TYPE = 2
+		AND RES_STATUS = 0
+	  <if test="resType == 4">
+	  	<![CDATA[
+	  	AND ENT_RES_NO > #{serResNoPre}||'000000' 
+	  	AND ENT_RES_NO < #{serResNoPre}||'009000'
+	  	]]>
+	  </if>
+	  <if test="resType == 5">
+	  	<![CDATA[
+	  	AND ENT_RES_NO >= #{serResNoPre}||'009000'
+	  	AND ENT_RES_NO <= #{serResNoPre}||'009999'
+	  	]]>
+	  </if>
+	  <if test="resNo != null and resNo != ''">
+		AND ENT_RES_NO LIKE #{resNo}||'%'
+      </if>
+		ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 分页获取服务公司下未使用的托管企业互生号，
+	创业资源 ：resType = 2, 1~10号是创业资源
+	全部资源与首段资源： 11~99号
+	-->
+	<select id="getTrustResNoListPage" resultType="com.gy.hsxt.bs.bean.apply.ResNo">
+		SELECT ENT_RES_NO AS entResNo
+		FROM T_BS_ENT_RES
+		WHERE CUST_TYPE = 3
+		  AND RES_STATUS = 0
+		  <if test="resType == 2">
+		  	<![CDATA[
+		  	AND ENT_RES_NO >  #{serResNoPre}||'000000'
+		  	AND ENT_RES_NO <= #{serResNoPre}||'100000'
+		  	]]>
+		  </if>
+		  <if test="resType == 1 or resType ==3 ">
+		  	<![CDATA[
+		  	AND ENT_RES_NO >  #{serResNoPre}||'100000'
+		  	AND ENT_RES_NO <= #{serResNoPre}||'990000'
+		  	]]>
+		  </if>
+		  <if test="resNo != null and resNo != ''">
+		  	AND ENT_RES_NO LIKE #{resNo}||'%'
+		  </if>
+		ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 查询所有服务公司互生号 -->
+	<select id="getAllSerResNoList" resultType="string">
+		SELECT ENT_RES_NO
+		FROM T_BS_S_RES
+	    WHERE COUNTRY_NO = #{countryNo}
+		      AND PROVINCE_NO = #{provinceNo}
+	    ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 分页查询服务公司互生号列表 -->
+	<select id="getSerResNoListPage" resultType="com.gy.hsxt.bs.bean.apply.ResNo">
+		SELECT ENT_RES_NO AS entResNo
+		FROM T_BS_S_RES
+	    WHERE COUNTRY_NO = #{countryNo}
+		      AND PROVINCE_NO = #{provinceNo}
+		      AND CITY_NO = #{cityNo}
+		      AND RES_STATUS = #{resStatus}
+		      <if test="resNo != null and resNo != ''">
+		      	AND ENT_RES_NO LIKE #{resNo}||'%'
+		      </if>
+	    ORDER BY ENT_RES_NO
+	</select>
+	
+	<!-- 调用存储过程，生成服务公司下的所有托管企业和成员企业互生号 -->
+	<select id="createEntResNo" parameterType="java.util.Map" statementType="CALLABLE">
+	   <![CDATA[
+        {call P_BS_CREATE_COMPANY_OF_S(
+            #{serResNo,jdbcType=VARCHAR, mode=IN},
+            #{returnStatus,jdbcType=INTEGER, mode=OUT}
+            )
+        }
+        ]]>
+	</select>
+
+	<select id="selectUsedSerResNoByResNo" resultType="com.gy.hsxt.bs.bean.apply.ResNo">
+		SELECT
+			t.ENT_RES_NO AS entResNo,
+			t.COUNTRY_NO AS countryNo,
+			t.PROVINCE_NO AS provinceNo,
+			t.CITY_NO AS cityNo,
+			t.ENT_CUST_ID AS entCustId,
+			t.ENT_CUST_NAME AS entCustName
+		FROM T_BS_S_RES t
+		WHERE t.RES_STATUS =1 and t.ENT_RES_NO = #{resNo}
+	</select>
+</mapper>

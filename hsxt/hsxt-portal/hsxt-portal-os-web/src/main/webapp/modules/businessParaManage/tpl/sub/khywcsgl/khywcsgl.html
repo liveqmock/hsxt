@@ -1,0 +1,43 @@
+<div id="khywcsglTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>客户全局编码：</label>
+				<input type="text" id="khywcsgl_query_custId" name="" class="queryList-toolbar-text" placeholder="输入客户全局编码" />
+			</li>
+			<li>
+				<label>互生号：</label>
+				<input type="text" id="khywcsgl_query_hsh" name="" class="queryList-toolbar-text" placeholder="输入互生号" />
+			</li>
+			<li>
+				<label>参数项名称：</label>
+				<input type="text" id="khywcsgl_query_csxmc" name="" class="queryList-toolbar-text" placeholder="输入参数项名称" />
+			</li>
+			<li>
+				<label>激活状态：</label>
+				<input id="khywcsgl_query_jhzt" placeholder="选择激活状态" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="khywcsgl_query_btn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="khywcsgl_add_btn" type="button" class="queryList-toolbar-btn">新 增</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="queryList_khywcsgl">
+		<tr>
+			<th w_index="custId" w_align="left">客户全局编码</th>
+			<th w_index="custName" w_align="left">客户名称</th>
+			<th w_index="hsResNo" w_align="left">互生号</th>
+			<th w_index="sysGroupCode" w_align="left">组代码</th>
+			<th w_index="sysItemsKey" w_align="left">参数项键名</th>
+			<th w_index="sysItemsName" w_align="left">参数项名称</th>
+			<th w_index="sysItemsValue" w_align="left">参数项值</th>
+			<th w_index="isActive" w_align="left" w_render="operate">激活状态</th>
+			<th w_render="operate" width="8%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="khywcsglDlg" class="none"></div>

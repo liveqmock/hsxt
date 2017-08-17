@@ -1,0 +1,173 @@
+<div class="table_info">
+	<% if(obj.orderType == '100'){ %>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+		<tr>
+			<td width="20%" class="view_item">订单号</td>
+			<td width="30%" class="view_text"><%=obj.orderNo%></td>
+			<td width="20%" class="view_item">订单时间</td>
+			<td width="30%" class="view_text"><%=obj.orderTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item">订单类型</td>
+			<td class="view_text"><%=obj.orderTypeName%></td>
+			<td class="view_item">订单金额</td>
+			<td class="view_text"><%=obj.orderAmount%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">缴纳年费区间</td>
+			<td class="view_text"><%=obj.area%></td>
+			<td class="view_item">折合应付本币(人民币)</td>
+			<td class="view_text"><%=obj.orderCashAmount%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">支付方式</td>
+			<td class="view_text"><%=obj.payChannelName%></td>
+			<td class="view_item">订单状态</td>
+			<td class="view_text"><%=obj.orderStatusName%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">订单操作员</td>
+			<td class="view_text"><%=obj.orderOperator%></td>
+			<td class="view_item">受理方式</td>
+			<td class="view_text"><%=obj.orderChannelName%></td>
+	  	</tr>
+		<tr>
+			<td width="20%" class="view_item">备注</td>
+			<td width="80%" class="view_text" colspan="3"><%=obj.orderRemark%></td>
+	  	</tr>
+	</table>
+	
+	<% } else if(obj.orderType == '101' || obj.orderType == '107' || obj.orderType == '106'){ %>
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+		<tr>
+			<td width="20%" class="view_item">订单号</td>
+			<td width="30%" class="view_text"><%=obj.orderNo%></td>
+			<td width="20%" class="view_item">订单时间</td>
+			<td width="30%" class="view_text"><%=obj.orderTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item">订单类型</td>
+			<td class="view_text"><%=obj.orderTypeName%></td>
+			<td class="view_item">订单金额</td>
+			<td class="view_text"><%=obj.orderAmount%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">折合应付本币(人民币)</td>
+			<td class="view_text"><%=obj.orderCashAmount%></td>
+			<td class="view_item">支付方式</td>
+			<td class="view_text"><%=obj.payChannelName%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">订单状态</td>
+			<td class="view_text"><%=obj.orderStatusName%></td>
+			<td class="view_item">订单操作员</td>
+			<td class="view_text"><%=obj.orderOperator%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">受理方式</td>
+			<td class="view_text"><%=obj.orderChannelName%></td>
+			<td class="view_item"></td>
+			<td class="view_text"></td>
+	  	</tr>
+		<tr>
+			<td width="20%" class="view_item">备注</td>
+			<td width="80%" class="view_text" colspan="3"><%=obj.orderRemark%></td>
+	  	</tr>
+	</table>
+	
+	<% }else if(obj.orderType == '103'){ %>
+	<div class="p10 border_left_CCC border_top_CCC border_right_CCC td_hauto" align="center">
+		<div class="search-toolbar clearfix">
+			<ul class="cssform">
+				<li class="h30_middle fb">工具清单</li>
+			</ul>
+		</div>
+		<table id="confs_table">
+			<tr>
+				<th w_index="categoryCode" w_render="operate" >工具类别</th>
+				<th w_index="price" w_render="operate">单价</th>
+				<th w_index="quantity">数量</th>
+			</tr>
+		</table>
+	</div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+		<tr>
+			<td width="20%" class="view_item">订单号</td>
+			<td width="30%" class="view_text"><%=obj.orderNo%></td>
+			<td width="20%" class="view_item">订单时间</td>
+			<td width="30%" class="view_text"><%=obj.orderTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item">订单类型</td>
+			<td class="view_text"><%=obj.orderTypeName%></td>
+			<td class="view_item">申购类型</td>
+			<td class="view_text">新增申购</td>
+	  	</tr>
+		<tr>
+			<td class="view_item">折合应付本币(人民币)</td>
+			<td class="view_text"><%=obj.orderCashAmount%></td>
+			<td class="view_item">支付方式</td>
+			<td class="view_text"><%=obj.payChannelName%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">订单状态</td>
+			<td class="view_text"><%=obj.orderStatusName%></td>
+			<td class="view_item">订单操作员</td>
+			<td class="view_text"><%=obj.orderOperator%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">受理方式</td>
+			<td class="view_text"><%=obj.orderChannelName%></td>
+			<td class="view_item">收件人</td>
+			<td class="view_text"><%=obj.linkman%></td>
+	  	</tr>
+		<tr>
+			<td width="20%" class="view_item">收件地址</td>
+			<td width="80%" class="view_text" colspan="3"><%=obj.fullAddr%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">备注</td>
+			<td class="view_text" colspan="3"><%=obj.remark%></td>
+	  	</tr>
+	</table>
+	<% } else if(obj.orderType == '102' ||obj.orderType == '110') { %>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable">
+		<tr>
+			<td width="20%" class="view_item">订单号</td>
+			<td width="30%" class="view_text"><%=obj.orderNo%></td>
+			<td width="20%" class="view_item">订单时间</td>
+			<td width="30%" class="view_text"><%=obj.orderTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item">订单类型</td>
+			<td class="view_text"><%=obj.orderTypeName%></td>
+			<td class="view_item">订单金额</td>
+			<td class="view_text"><%=obj.orderAmount%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">折合应付本币(人民币)</td>
+			<td class="view_text"><%=obj.orderCashAmount%></td>
+			<td class="view_item">支付方式</td>
+			<td class="view_text"><%=obj.payChannelName%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">订单状态</td>
+			<td class="view_text"><%=obj.orderStatusName%></td>
+			<td class="view_item">订单操作员</td>
+			<td class="view_text"><%=obj.orderOperator%></td>
+	  	</tr>
+		<tr>
+			<td class="view_item">受理方式</td>
+			<td class="view_text"><%=obj.orderChannelName%></td>
+			<td class="view_item"></td>
+			<td class="view_text"></td>
+	  	</tr>
+		<tr>
+			<td width="20%" class="view_item">备注</td>
+			<td width="80%" class="view_text" colspan="3"><%=obj.orderRemark%></td>
+	  	</tr>
+	</table>
+	<% } %>
+</div>
+

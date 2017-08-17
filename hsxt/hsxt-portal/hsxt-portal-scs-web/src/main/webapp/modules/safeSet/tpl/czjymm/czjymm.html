@@ -1,0 +1,54 @@
+
+<!--企业状态为正常时显示内容开始-->
+<div class="page_tips_wrap">
+	<div class="page_tips_subwrap">
+		<div id="czjymm_normal">
+			<div class="page_tips bc">
+				<h1 class="f16 fb tc">温馨提示</h1>
+				<p class="f14 fb">
+					1、交易密码重置申请业务办理需要根据模板要求上传《互生系统平台业务办理申请书》；<br>
+					2、交易密码重置业务办理需要交易密码重置授权码进行重设。
+				</p>
+			</div>
+			<div class="mt20 tc">
+				<a id="aTmpDownload" class="blue">《互生系统平台业务办理申请书》模版下载</a>
+			</div>
+		</div>
+
+		<div id="czjymm_result">
+			<div class="page_tips bc">
+				<h1 class="f16 fb tc">温馨提示</h1>
+					<p class="f14 fb tc">
+						您已提交重置申请，请耐心等待处理结果，<br>核查通过平台会发送交易密码重置授权码到授权联系人手机上，可以通过交易密码重设页面进行办理。
+					</p>
+			</div>
+		</div>
+
+		<div id="tips_2" class="none bc view_info info_500 mt40 none" style="margin-left: 80px;">
+			<div class="page_tips bc">
+				<h1 class="f16 fb tc">温馨提示</h1>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		      <tr>
+		        <td class="view_item" width="30%">审批结果</td>
+		        <td class="view_text" width="70%">申请驳回</td>
+		      </tr>
+		      <tr>
+		        <td class="view_item">审批意见</td>
+		        <td class="view_text" style='word-break:break-all' id="apprRemarkMessage"></td>
+		      </tr>
+			  <tr>
+		        <td class="view_item">审批日期</td>
+		        <td class="view_text" id="apprDate"></td>
+		      </tr>
+		    </table>
+		    </div>
+		</div>
+		<div class="mt20 two_button" align="center">
+			<a id="btn_sqcz" class="btn_bg submit fl">申请重置</a>
+			<%if(obj.status!=2){%>
+				<a id="btn_csjymm" class="btn_bg submit fr">交易密码重设</a>
+			<%}%>
+		</div>
+	</div>
+</div>
+<!--企业状态为正常时显示内容结束-->

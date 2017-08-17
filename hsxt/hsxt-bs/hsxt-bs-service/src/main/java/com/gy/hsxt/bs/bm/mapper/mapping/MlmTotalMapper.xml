@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.bm.mapper.MlmTotalMapper">
+
+    <!-- 增值积分汇总实体映射 -->
+    <resultMap id="mlmTotalResult" type="com.gy.hsxt.bs.bean.bm.MlmTotal">
+        <id column="TOTAL_ID" property="totalId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="CALC_START_TIME" property="calcStartTime"/>
+        <result column="CALC_END_TIME" property="calcEndTime"/>
+        <result column="POINTS" property="points"/>
+        <result column="TOTAL_ROW" property="totalRow"/>
+        <result column="TAX_RATE" property="taxRate"/>
+        <result column="TAX" property="tax"/>
+        <result column="REMARK" property="remark"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gy.hsxt.bs.bean.bm.MlmTotal">
+        INSERT INTO T_BS_MLM_TOTAL (
+            TOTAL_ID,
+            RES_NO,
+            CUST_ID,
+            CALC_START_TIME,
+            CALC_END_TIME,
+            POINTS,
+            TOTAL_ROW,
+            TAX_RATE,
+            TAX,
+            REMARK,
+            CREATED_DATE
+        ) VALUES (
+            #{totalId},
+            #{resNo},
+            #{custId},
+            #{calcStartTime},
+            #{calcEndTime},
+            #{points},
+            #{totalRow},
+            #{taxRate},
+            #{tax},
+            #{remark},
+            systimestamp
+        )
+    </insert>
+
+    <select id="selectOneById" parameterType="java.lang.String" resultMap="mlmTotalResult">
+        SELECT *
+        FROM T_BS_MLM_TOTAL
+        WHERE TOTAL_ID = #{totalId}
+    </select>
+
+    <select id="selectMlmListPage" parameterType="com.gy.hsxt.bs.bean.bm.MlmQuery" resultMap="mlmTotalResult">
+        SELECT t.*
+        FROM T_BS_MLM_TOTAL t
+        WHERE t.CUST_ID = #{custId}
+        <if test="startDate != null and startDate != ''">
+            AND t.CREATED_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate !=null and endDate != ''">
+            AND t.CREATED_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+</mapper>

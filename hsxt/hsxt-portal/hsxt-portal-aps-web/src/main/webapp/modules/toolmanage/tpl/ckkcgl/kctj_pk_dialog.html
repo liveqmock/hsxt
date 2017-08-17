@@ -1,0 +1,45 @@
+<form id="pk_form" name="pk_form">
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+        	<td class="view_item" width="18%">工具名称</td>
+            <td width="32%" class="view_text"><%=obj.productName%></td>
+            <td class="view_item" width="18%">工具类别</td>
+            <td width="32%" class="view_text"><%=obj.categoryName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">仓库名称</td>
+			<td class="view_text"><%=obj.whName%></td>
+            <td class="view_item">盘库数量</td>
+            <td><input type="text" id="quantity" name="quantity" class="ml5 h28_middle w96pc" placeholder="输入盘库数量" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">盘库人</td>
+            <td class="view_text" colspan="3"><%=obj.operName%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml5">复核信息</span></td>
+        </tr>	
+		<tr>
+			<td class="view_item">选择验证方式</td>
+			<td colspan="3" class="pr">
+				<input id="verificationMode_pk" readonly="readonly" placeholder="" />
+				<span class="ml10 red none" id="verificationMode_prompt_pk">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+        <tr id="fhy_user_pk">
+            <td class="view_item">复核员</td>
+            <td>
+				<input type="text" id="pk_double_username" name="pk_double_username" class="ml5 h28_middle w96pc" placeholder="输入复核员用户名" />
+			</td>
+            <td class="view_item">复核员密码</td>
+            <td class="pr">
+				<input type="password" id="pk_double_password" name="pk_double_password"  class="ml5 h28_middle w96pc" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+		
+    </table>
+</div>
+</form>

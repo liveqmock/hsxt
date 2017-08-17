@@ -1,0 +1,29 @@
+      <%$.each(obj.content != null ? obj.content:'',function(k,v){%>
+      	 <%if(v.fromId == obj.num){%>
+	      <li class="hd_hslt_ltxxbox1 clearfix">
+	      <p class="hd_hslt_time tc"><%=obj.NowtimeNew(v.time)%></p>
+	      <ul>
+	      <li <%if(v.msg_code == 10){%>style="min-height: 130px"<%}%>>
+	      <div class="hd_hslt_touxiang fl">
+	      <img src="<%=v.msg_icon%>" height="30">
+	      </div>
+	      <div class="hd_hslt_xxxx mr5 fl"><%if(v.msg_code == 10){%><img src="<%=v.msg_content%>" width="150px"/><%}else{%><%=v.msg_content%><%}%></div>
+	      <div class="clearfix"></div>
+	      </li>
+	      </ul>
+	      </li>
+	      <%}else{%>
+	      <li class="hd_hslt_ltxxbox1 clearfix">
+	      <p class="hd_hslt_time tc"><%=obj.NowtimeNew(v.time)%></p>
+	      <ul>
+	      <li <%if(v.msg_code == 10){%>style="min-height: 130px"<%}%>>
+	      <div class="hd_hslt_touxiang fr">
+	      <img src="<%=v.msg_icon%>" height="30">
+	      </div>
+	      <div class="hd_hslt_xxxx mr5 fr"><%if(v.msg_code == 10){%><img src="<%=v.msg_content%>" width="150px"/><%}else{%><%=v.msg_content%><%}%></div>
+	      <div class="clearfix"></div>
+	      </li>
+	      </ul>
+	      </li>
+	      <%}%>
+      <%})%>

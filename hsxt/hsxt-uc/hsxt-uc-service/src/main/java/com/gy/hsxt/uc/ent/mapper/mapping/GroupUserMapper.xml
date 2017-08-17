@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.GroupUserMapper">
+
+	<!-- 删除用户跟用户组关联关系 -->
+	<delete id="deleteGroupUser" parameterType="java.util.Map">
+		delete from T_ENT_GROUP_USER
+		where GROUP_ID = #{groupId,jdbcType=DECIMAL}
+		and OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 清除用户组下的所有用户 -->
+	<delete id="clearAllGroupUser" parameterType="java.util.Map">
+		delete from T_ENT_GROUP_USER
+		where GROUP_ID = #{groupId,jdbcType=DECIMAL}
+	</delete>
+	
+	<!-- 删除用户跟用户组关联关系 -->
+	<delete id="removeUserGroup" parameterType="java.util.Map">
+		delete from T_ENT_GROUP_USER
+		where OPER_CUST_ID = #{operCustId,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 插入用户跟用户组关联关系 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.ent.bean.GroupUser">
+		insert into T_ENT_GROUP_USER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="operCustId != null">
+				OPER_CUST_ID,
+			</if>
+			<if test="groupId != null">
+				GROUP_ID,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="operCustId != null">
+				#{operCustId,jdbcType=VARCHAR},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

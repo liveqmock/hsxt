@@ -1,0 +1,12 @@
+javapid=$(ps -ef|grep key-server-3.0.0-SNAPSHOT.jar|grep -v 'grep'|awk '{print $2}')
+if [ ! -n "$javapid" ]; then 
+  echo "progress not up" 
+else 
+  kill -15 $javapid
+fi  
+rm -rf key-server-3.0.0-SNAPSHOT
+unzip key-server-3.0.0-SNAPSHOT-bin.zip
+cd key-server-3.0.0-SNAPSHOT
+chmod 755 *.sh
+/usr/jdk1.7.0_72/bin/java -jar -Dlog.level=all lib/key-server-3.0.0-SNAPSHOT.jar &
+exit

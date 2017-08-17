@@ -1,0 +1,24 @@
+
+<div class="h120 lh200 clearfix">
+<div class="fl ml10 tl w" >
+<span><b>时　　　间：</b><%=obj.createTime%></span></br>
+<span><b>订 单  编 号：</b><%=obj.odId%></span></br>
+<span><b>企业互生号：</b><%=obj.companyResourceNo%></span></br>
+<span><b>企 业  名 称：</b><%=obj.vShopName%></span></br>
+	</div>
+       <div class="fl ml50">
+       <%var orderDetailList = obj.orderDetailList; $.each(orderDetailList,function(index,item){%>
+       <div class="fl w">
+       <div class="fl"><a href="#"><img height="80px" data-src="<%=item.picUrl%>" class="imgSrc"/></a></div>
+       <div class="fl ml10 tl w200">
+       <span class="lh24 div_spill" title="<%=item.itemName%>"><b>商 品  名 称：</b><%=item.itemName%></span></br>
+       <span><b>单价<img src="resources/img/price.png" width="20" style="vertical-align:middle;">：</b><span class="red"><%=comm.formatMoneyNumber(item.price)%></span></span></br>
+       <span><b>数		  量：</b><span class="red"><%=item.quantity%></span></span></br>
+    </div>
+    </div>
+   <%})%>
+    </div>
+  </div>
+           
+
+

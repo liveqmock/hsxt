@@ -1,0 +1,46 @@
+<div id="lzcxTpl">
+	<div class="search-toolbar">
+		<form id="search_form" autocomplete="off" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>付款时间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>付款企业：</label>
+					<input type="text" name="search_payEntCustName" id="search_payEntCustName" placeholder="输入付款企业名称" class="h28_middle input-txt w115" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">收款账户：</label>
+					<input type="text" name="search_accountName" id="search_accountName" placeholder="输入收款账户名称" class="h28_middle input-txt w115"  />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">临账状态：</label>
+					<input id="search_debitStatus" readonly="readonly" placeholder="选择临账状态" />
+				</li>
+				<li>
+					<button id="querylz" type="button" class="btn-search">查询</button>
+				</li>
+			</ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="receiveAccountName" w_tip="true" w_length='30' w_align="left">收款账户</th>
+		<th w_index="payEntCustName" w_tip="true" w_length='30' w_align="left">付款企业</th>
+		<th w_render="operate" w_tip="true" w_length='30' w_align="left">付款用途</th>
+		<th w_index="payTime" w_align="center">付款时间</th>
+		<th w_render="operate" w_align="right">付款金额</th>
+		<!-- <th w_index="useEntCustName">拟用企业互生号</th> -->
+		<th w_index="linkAmount" w_render="operate" w_align="right">已关联金额</th>
+		<th w_index="debitStatus" w_render="operate" w_align="left">临账状态</th>
+		<th w_render="operate" width="15%;">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="lzcx_operation_tpl" class="none">
+
+</div>

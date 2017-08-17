@@ -1,0 +1,30 @@
+<div id="qykfpcxTpl">
+	<div class="search-toolbar">
+	<form id="qykfpcx_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_resNo" id="search_resNo" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="search_companyName" id="search_companyName" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+			    <input type="hidden" name="search_bizType" id="search_bizType" value="CP101"/>
+			    <input type="hidden" name="search_invoiceMaker" id="search_invoiceMaker" value="1"/>
+			</li>
+			<li>
+				<button id="qykfpcx_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate" w_align="left">企业互生号</th>
+		<th w_index="custName" w_align="left">企业名称</th>
+		<th w_render="operate" w_index="openedAmount" w_align="left">已开票总金额</th>
+		<th w_render="operate" w_index="remainAmount" w_align="left">未开票总金额</th>
+	  </tr>
+	</table>
+</div>
+<div id="ckqyxxTpl" class="none ovh"></div>

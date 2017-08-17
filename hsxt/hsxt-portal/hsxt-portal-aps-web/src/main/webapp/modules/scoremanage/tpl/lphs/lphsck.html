@@ -1,0 +1,64 @@
+<div id="lphsckTpl" class="none">
+
+	<div class="search-toolbar" style="background:#CCC;color:#333">
+		
+		 
+		<ul class="cssform clearfix lh36">
+            <li>
+                <label>申请人姓名：</label>
+                <span class="mr20"><%=record.proposerName%></span>
+            </li>
+            <li>
+                <label>申请人互生卡号：</label>
+                <span class="mr20"><%=record.hsResNo%></span>
+            </li>
+            <li>
+                <label>账单时间：</label>
+                <span class="mr20"><%=record.billsStartDate%> ~ <%=record.billsEndDate%></span>
+            </li>
+            <li>
+                <label>账单区域：</label>
+                <span class="mr20"><%=cacheUtil.getRegionByCode(null, record.provinceNo, record.cityNo, "").data%></span>
+            </li>
+            <li>
+		</li>
+        </ul>
+       
+	</div>
+	<table id="searchTable2">
+	  <tr>
+		<td colspan="6">
+        	<label>核算人：<span><%=record.accountPersonName%></span></label>
+            <label class="ml20">核算日期：<span><%=record.accountDate%></span></label>
+        </td>
+        <td>合计</td>
+        <td class="red" id="counting_totalAmount"></td>
+        <td></td>
+        <td class="red" id="counting_healthPayAmount" ><%=record.healthPayAmount%></td>
+        <td class="red" id="counting_personalPayAmount"><%=record.personalPayAmount%></td>
+        <td class="red" id="counting_hsPayAmount"><%=record.hsPayAmount%></td>
+        <td></td>
+	  </tr>
+	  
+      <tr>
+		<th w_num="line">编号</th>
+		<th w_index="category">类别</th>
+		<th w_index="itemName">项目名称</th>
+		<th w_index="standard">规格</th>
+		<th w_index="quantity">数量</th>
+		<th w_index="unit" w_render="operate">单位</th>
+        <th w_index="price" w_render="operate">单价</th>
+        <th w_index="amount" w_render="operate">金额</th>
+        <th w_render="operate" >医保赔付比例</th>
+        <th w_index="healthPayAmount" w_render="operate">医保支付</th>
+        <th w_index="personalPayAmount" w_render="operate">个人支付</th>
+        <th w_index="hsPayAmount" w_render="operate">互生支付</th>
+        <th w_index="explain">说明</th>
+	  </tr>
+	</table>
+	
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="btn_back_lphsck">返 回</a>
+	</div>
+	
+</div>

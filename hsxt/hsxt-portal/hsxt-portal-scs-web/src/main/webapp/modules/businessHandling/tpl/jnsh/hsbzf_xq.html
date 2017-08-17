@@ -1,0 +1,60 @@
+<p class="autowidth">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单号：</td>
+    <td><%=obj.order.orderNo%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单时间：</td>
+    <td><%=obj.order.orderTime%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单类型：</td>
+    <td><%=obj.orderType%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单金额：</td>
+    <td><%=comm.formatMoney(obj.order.orderOriginalAmount)%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">缴纳年费区间：</td>
+    <td><%=obj.areaStartDate %> ~ <%=obj.areaEndDate %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">实付金额：</td>
+    <td><%=comm.formatMoney(obj.order.orderHsbAmount) %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">结算币种：</td>
+    <td>人民币</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">支付方式：</td>
+    <td><%=obj.payChannel%></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单状态：</td>
+    <td><%=obj.orderStatus %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">订单操作员：</td>
+    <td><%=obj.order.orderOperator %></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">受理方式：</td>
+    <td><%=obj.orderChannel%></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="gray">备注：</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td align="right" class="gray"></td>
+    <td></td>
+  </tr>
+</tbody></table>
+</p>

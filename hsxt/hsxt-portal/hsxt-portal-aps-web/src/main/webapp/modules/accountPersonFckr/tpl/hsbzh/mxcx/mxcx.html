@@ -1,0 +1,55 @@
+<div class="search-toolbar">
+  <form id="scpoint_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix pr">
+        <label class="fl h30_middle">快捷日期：</label>
+        <input type="text" id="quickDate" readonly="readonly" placeholder=""/>
+      </li>
+      <li>
+        <label>日期：</label>
+        <input type="text" name="search_startDate" id="search_startDate" placeholder="开始日期" class="h28_middle input-txt w80" readonly="readonly"/>
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80" readonly="readonly"/>
+      </li>
+      <li>
+        <label>手机号码：</label>
+        <input type="text" name="mobile" id="mobile" placeholder="输入手机号码" class="h28_middle input-txt w100" />
+      </li>
+      <li>
+        <label>姓名：</label>
+        <input type="text" name="perName" id="perName" placeholder="输入姓名" class="h28_middle input-txt w100" />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">业务类别：</label>
+		<input type="text" id="scpoint_subject" name="scpoint_subject" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+ 
+  <table id="scpoint_result_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table bsgrid">
+  	<thead>
+        <tr>
+          <th w_index="mobile" w_align="left" w_tip="true">手机号码</th>	
+          <th w_index="sourceTransNo" w_align="left" w_tip="true">交易流水号</th>
+          <th w_render="operate" w_align="left" w_tip="true">交易时间</th>
+          <th w_index="transType" w_render="operate" w_align="left">交易类型</th>
+          <th w_index="businessType" w_render="operate" w_align="left">业务类别</th>
+          <th w_index="amount" w_render="operate" w_align="left">发生金额</th>
+          <th w_index="accBalanceNew" w_render="operate" w_align="left">交易后账户余额</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="hsbzh-mxcx-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

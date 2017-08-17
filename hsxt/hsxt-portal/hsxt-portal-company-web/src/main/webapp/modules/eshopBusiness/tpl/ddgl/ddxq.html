@@ -1,0 +1,87 @@
+﻿<div class="p20">
+    <h1 class="fb f14 h22_middle">订单详情</h1>
+    <div class="cutline mb5"></div>
+    <table class="detail-table2" width="900" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="25%">订单号：<%=obj.ddbh%></td>
+          <td width="25%">交易时间：<%=obj.ddsj%></td>
+          <td width="25%">状态：<%=obj.jyzt%></td>
+          <td width="25%">商城名称：<%=obj.scmc%></td>
+        </tr>
+        <tr>
+          <td width="25%">企业互生号：<%=obj.qyhsh%></td>
+          <td width="25%">营业点名称：<%=obj.yyd%></td>
+          <td width="25%">消费者：<%=obj.xfz%></td>
+          <td width="25%"></td>
+        </tr>
+    </table>
+    <h1 class="fb f14 h22_middle">收货人信息</h1>
+    <div class="cutline mb5"></div>
+    <table class="detail-table2" width="900" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="25%">收货人：<%=obj.shr%></td>
+          <td width="25%">手机号码：<%=obj.sjhm%></td>
+          <td width="35%">地址：<%=obj.dz%></td>
+          <td width="15%">邮编：<%=obj.yb%></td>
+        </tr>
+     </table>
+    <h1 class="fb f14 h22_middle">支付及配送方式</h1>
+    <div class="cutline mb5"></div>
+    <table class="detail-table2" width="900" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="25%">配送方式：<%=obj.sffs%></td>
+          <td width="25%">配送营业点：<%=obj.yyd%></td>
+          <td width="25%"></td>
+          <td width="25%"></td>
+        </tr>
+        <tr>
+          <td width="25%">支付方式：<%=obj.zffs%></td>
+          <td width="25%"></td>
+          <td width="25%"></td>
+          <td width="25%"></td>
+        </tr>
+        <tr>
+          <td colspan="4">买家备注：<%=obj.mjbz%></td>
+        </tr>
+     </table>
+    <div class="cutline mb5"></div>
+    <div class="mb20"><b>发票信息</b><span class="ml30">发票抬头：<%=obj.fptt%></span><span class="ml30">发票内容：<%=obj.fpnr%></span></div>
+    <table id="ddgl_splb_table">
+      <thead>
+          <tr>
+            <th w_render="operate" w_align="left">商品</th>
+            <th w_render="operate" w_align="left"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/>单价</th>
+            <th w_index="sl" w_align="left">数量</th>
+            <th w_render="operate" w_align="left"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/>实付款</th>
+            <th w_render="operate" w_align="left"><img src="resources/img/pv.png" width="25" height="14" style="vertical-align:middle;"/>消费积分</th>
+          </tr>
+      </thead>
+    </table>
+    <div class="pr30 mt5">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+              <td class="tr">消费总积分：</td>
+              <td class="tr" width="120"><span class="blue">PV<%=obj.xfzjf%></span></td>
+          </tr>
+          <tr>
+              <td class="tr">运费：</td>
+              <td class="tr"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/><em class="red fb"><%=obj.yf%></em></td>
+          </tr>
+          <tr>
+              <td class="tr">商品合计：</td>
+              <td class="tr"><img src="resources/img/price.png" width="18" height="18" style="vertical-align:middle;"/><em class="red fb"><%=obj.sphj%></em></td>
+          </tr>
+          <tr>
+              <td class="tr">10元抵扣券*3张：</td>
+              <td class="tr">30元</td>
+          </tr>
+          <tr>
+              <td class="tr">实付款(含运费)：</td>
+              <td class="tr"><img src="resources/img/price.png" width="18" height="18"/><b class="red f20"><%=obj.sfk%></b></td>
+          </tr>
+    </table>
+    </div>
+    <div class="cutline mb5"></div>
+    <div class="mt20 tc"><a href="javascript:;" id="btn_ddgl_xq_fh" class="btn_bg submit">返&#12288;回</a></div>
+    <div class="mt30">&nbsp;</div>
+</div>

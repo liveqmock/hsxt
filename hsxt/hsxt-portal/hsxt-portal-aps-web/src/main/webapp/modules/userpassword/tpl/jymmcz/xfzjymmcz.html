@@ -1,0 +1,29 @@
+<div id="xfzjymmczTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+		<li>
+			<label>互生卡号：</label>
+			<input type="text" name="textfield" id="perResNo" maxlength="11" placeholder="输入互生卡号" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>姓名：</label>
+			<input type="text" name="textfield" id="realName"  placeholder="输入姓名" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="btnQuery" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="consumerTable" class="bsgrid">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="perResNo">互生卡号</th>
+		<th w_index="realName" w_tip=true>姓名</th>
+		<th w_index="mobile">手机号码</th>
+		<th w_index="cardStatus" w_render="operate">互生卡状态</th>
+		<th w_index="realnameRegDate">注册日期</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

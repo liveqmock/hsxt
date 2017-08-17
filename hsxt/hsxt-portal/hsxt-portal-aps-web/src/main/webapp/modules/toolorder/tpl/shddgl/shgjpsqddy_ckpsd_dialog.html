@@ -1,0 +1,84 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">企业基本信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="9%">企业互生号</td>
+            <td class="view_text" width="16%" id="entResNo"></td>
+            <td class="view_item" width="9%">企业名称</td>
+            <td class="view_text" width="41%" id="entCustName"></td>
+            <td class="view_item" width="9%">联系人</td>
+            <td class="view_text" width="16%" id="contactPerson"></td>
+            
+        </tr>
+        <tr>
+            <td class="view_item">联系电话</td>
+            <td class="view_text" id="contactPhone"></td>
+            <td class="view_item">联系地址</td>
+            <td class="view_text" id="contactAddr"></td>
+            <td class="view_item">邮编</td>
+            <td class="view_text" id="postCode"></td>
+        </tr> 
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">收件信息</span></td>
+        </tr>
+        <tr>
+            <td colspan="6" valign="top">
+            	<div class="p10">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table fixtd">
+					  <tr>
+						<th class="nobd"></th>
+						<th>姓名</th>
+						<th>手机号码</th>
+						<th>收件地址</th>
+						<th>邮编</th>
+					  </tr>
+					  <tr>
+						<td class="nobd"><input type="radio" name="addr" id="lxrdd" checked="checked" class="mr5" /><label for="lxrdd">[联系地址]</label></td>
+						<td><%=obj.receiver%></td>
+						<td><%=obj.mobile%></td>
+						<td><%=obj.receiverAddr%></td>
+						<td><%=obj.postCode%></td>
+					  </tr>
+					</table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">配送物品清单</span></td>
+        </tr>
+        <tr>
+            <td colspan="6" valign="top">
+            	<div class="p10 td_hauto">
+					<table id="searchTable_1" class="bsgrid">
+						<tr>
+							<th w_index="productName">工具名称</th>
+							<th w_index="terminalNo">终端编号</th>
+							<th w_index="newDeviceSeqNo">机器码/序列号</th>
+						</tr>
+					</table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">邮寄信息</span></td>
+        </tr>
+        <tr>
+            <!--<td class="view_item">物流公司名称</td>
+            <td class="view_text">顺丰速递</td>
+            <td class="view_item">业务联系人</td>
+            <td class="view_text">李四</td>
+            <td class="view_item" width="9%">手机号码</td>
+            <td class="view_text" width="16%">18888888888</td>-->
+            <td class="view_item">配送方式</td>
+            <td class="view_text"><%=obj.smName%></td>
+        <!--</tr> 
+        <tr>-->
+            <td class="view_item">货运单号</td>
+            <td class="view_text"><%=obj.trackingNo%></td>
+            <td class="view_item">运费</td>
+            <td class="view_text"><%=comm.formatMoneyNumber(obj.shippingFee)%></td>
+        </tr> 
+    </table>
+</div>

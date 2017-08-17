@@ -1,0 +1,10 @@
+<%$.each(obj.stationList.stationList,function(k,v){%>
+<%if(obj.stationId == v.oneNum){%>
+<li class="hd_left_cur" station-id = "<%=obj.stationId%>">
+	<p class="classtext"><%=v.stationInfo.msg_subject%></p>
+	<i>
+	<img src="resources/img/order/hslt_i.gif" width="6" height="6">
+	</i>
+</li>
+<%}%>
+<%})%>

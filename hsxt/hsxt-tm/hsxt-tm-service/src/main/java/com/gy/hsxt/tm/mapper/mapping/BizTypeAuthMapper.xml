@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.BizTypeAuthMapper">
+	<!-- 新增授权记录 -->
+	<insert id="insertBizTypeAuth" parameterType="com.gy.hsxt.tm.bean.BizTypeAuth">
+		INSERT INTO
+		T_TM_BIZ_TYPE_AUTH
+		(
+		BIZ_TYPE,
+		OPT_CUST_ID
+		)
+		VALUES
+		(
+		#{bizType},
+		#{optCustId}
+		)
+	</insert>
+
+	<!-- 删除值班员授权 -->
+	<delete id="deleteOptCustAuth">
+		DELETE
+		FROM
+		T_TM_BIZ_TYPE_AUTH
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+		AND
+		BIZ_TYPE 
+		<foreach collection="bizTypeCodes" item="code" open="in("
+			close=")" separator=",">
+			#{code}
+		</foreach>
+	</delete>
+	
+	<!-- 删除值班员授权 -->
+	<delete id="deleteOptAuthList">
+		DELETE
+		FROM
+		T_TM_BIZ_TYPE_AUTH
+		WHERE
+		OPT_CUST_ID not in 
+		<foreach collection="optCustIds" item="code" open="("
+			close=")" separator=",">
+			#{code}
+		</foreach>
+	</delete>
+	
+	<!-- 删除授权 -->
+	<delete id="deleteAuth">
+		delete from t_tm_biz_type_auth ta 
+		where 
+		ta.opt_cust_id = #{optCustId}
+	</delete>
+	
+	<!-- 删除值班员授权 -->
+	<delete id="deleteOptAuth">
+		delete 
+		from 
+		t_tm_biz_type_auth ta 
+		where 
+		ta.opt_cust_id = (
+		select 
+		o.opt_cust_id 
+		from 
+		t_tm_operator o
+		where 
+		o.group_id = #{groupId}
+		and o.opt_cust_id = #{optCustId}
+		)
+	</delete>
+
+	<!-- 查询值班员授权列表 -->
+	<select id="findOptCustAuthList" resultType="com.gy.hsxt.tm.bean.BizTypeAuth">
+		SELECT
+		tauth.BIZ_TYPE AS bizType,
+		OPT_CUST_ID AS optCustId,
+		btype.BIZ_TYPE_NAME AS bizTypeName
+		FROM
+		T_TM_BIZ_TYPE_AUTH tauth,T_TM_BIZ_TYPE btype
+		WHERE
+		tauth.BIZ_TYPE = btype.BIZ_TYPE
+		AND OPT_CUST_ID = #{optCustId}
+	</select>
+	<!-- 查询值班员是否已授权 -->
+	<select id="findOptCustAuth" resultType="com.gy.hsxt.tm.bean.BizTypeAuth">
+		SELECT
+		tauth.BIZ_TYPE AS bizType,
+		OPT_CUST_ID AS optCustId
+		FROM
+		T_TM_BIZ_TYPE_AUTH tauth
+		WHERE
+		tauth.BIZ_TYPE = #{bizType}
+		AND OPT_CUST_ID = #{optCustId}
+	</select>
+</mapper>

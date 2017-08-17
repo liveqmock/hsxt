@@ -1,0 +1,113 @@
+<div class="view_info mt10">
+<form id="hskzz_zzdzc_dialog">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<%if(obj.card.orderType=='105'){%>
+			<tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">消费者信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">消费者互生号</td>
+            <td class="view_text" width="32%"><%=obj.preInfo.baseInfo.perResNo %></td>
+            <td class="view_item" width="18%">消费者名称</td>
+            <td class="view_text" width="32%"><%=obj.hsCustName %></td>
+        </tr>
+        <tr>
+            <td class="view_item">联系电话</td>
+            <td class="view_text"><%=obj.preInfo.baseInfo.mobile %></td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+        </tr>
+		<%}else{%> 
+			<tr>
+	            <td class="tab_trbg" colspan="4"><span class="ml10">企业基本信息</span></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="18%">企业互生号</td>
+	            <td class="view_text" width="32%"><%=obj.entinfo.entResNo %></td>
+	            <td class="view_item" width="18%">企业名称</td>
+	            <td class="view_text" width="32%"><%=obj.entinfo.entName%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item">联系人</td>
+	            <td class="view_text"><%=obj.entinfo.contactPerson %></td>
+	            <td class="view_item">联系电话</td>
+	            <td class="view_text"><%=obj.entinfo.contactPhone %></td>
+	        </tr> 
+		<%}%> 
+        
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">订单信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单类型</td>
+            <td class="view_text"><%=obj.type%></td>
+            <td class="view_item">互生卡订单数量</td>
+            <td class="view_text"><%=obj.quantity%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">起始卡号</td>
+            <td class="view_text"><%=obj.card.minPerResNo%></td>
+            <td class="view_item">结束卡号</td>
+            <td class="view_text"><%=obj.card.maxPerResNo%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">申购类别</td>
+            <td class="view_text">
+            	<%if(obj.card.orderType == '109'){%>
+            		申报申购
+            	<%}else{%>
+            		新增申购
+            	<%}%>
+            </td>
+            <td class="view_item">互生卡图片样式</td>
+            <td class="view_text"><span id="carstyle"></span></td>
+        </tr>
+        <tr>
+            <td class="" colspan="4">
+            	<div class="p10 clearfix">
+                	<div class="fl">
+                    	<img id="carstyleView" src="xxx.png" width="120" height="90" />
+                    </div>
+                    <div class="fl ml10">
+                    	<h1 class="f12 fb">互生卡样</h1>
+                        <div class="mt10 mb10"><span class="mr10">修改互生卡图样</span>
+						<input id="hskty" name="hskty" readonly="readonly" placeholder="选择互生卡图样" />
+                        <!-- <button id="" type="button" class="btn-search ml10">确定</button> -->
+                        </div>
+                        <a class="btn_bg viewSample_btn mr10" id="downloadSource">源文件下载</a>
+                        <a class="btn_bg viewSample_btn" id="zzksjxz">制作卡数据下载</a>
+                    </div>
+                    <%if(obj.card.orderType!='105'){%>
+						<div class="fl ml30 lh200 mt20">
+							企业上传的卡样确认书下载：<br />
+							<a class="blue" id="downConfirmFile">个性卡样确认书.docx</a>  
+						</div>
+					<%}%>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">供应商信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">供应商</td>
+            <td>
+			<input id="gys" name="gys" readonly="readonly" placeholder="选择供应商"/>
+            </td>
+            <td class="view_item">批次号</td>
+            <td class="view_text"><%=obj.card.batchNo %></td>
+        </tr> 
+        <tr>
+            <td class="view_item">业务联系人</td>
+            <td class="view_text"><span id="sulinkman"></span></td>
+            <td class="view_item">手机号码</td>
+            <td class="view_text"><span id="sumobile"></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">办公电话</td>
+            <td class="view_text"><span id="suphone"></span></td>
+            <td class="view_text" colspan="2"></td>
+        </tr> 
+    </table>
+   </form>
+</div>

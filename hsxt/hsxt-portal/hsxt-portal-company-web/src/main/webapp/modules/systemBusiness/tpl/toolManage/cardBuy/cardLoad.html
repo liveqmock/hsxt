@@ -1,0 +1,63 @@
+<%if (obj.status == '5') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业已注销,没有交易权限！</p>
+    </div>
+</div>
+<%}else if(obj.status == '6') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您已 提交了停止积分活动申请，目前正在处理中，处理需要15个工作日，请耐心等待！</p>
+    </div>
+</div>
+<%}else if(obj.status == '7') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业已停止积分活动,没有交易权限！</p>
+    </div>
+</div>
+<%}else if(obj.status != '8'){%>
+<div id="hsksg_1">
+    <div class="order_arrow_list w700 bc">
+      <ul class="clearfix">
+        <li class="clearfix">
+          <div class="order_arrow_text_blue fl"><span class="arrow_number">1</span> <span class="arrow_text">填写核对订单</span></div>
+          <i class="order_arrow order_arrow_02 fr"></i>
+        </li>
+        <li class="clearfix">
+          <div class="order_arrow_text_white fl"><span class="arrow_number">2</span> <span class="arrow_text">成功提交订单</span></div>
+          <i class="order_arrow order_arrow_03 fr"></i>
+        </li>
+        <li class="clearfix">
+          <div class="order_arrow_text_white fl"><span class="arrow_number">3</span> <span class="arrow_text">选择支付方式</span></div>
+          <i class="order_arrow order_arrow_03 fr"></i>
+        </li>
+        <li class="clearfix">
+          <div class="order_arrow_text_white fl"><span class="arrow_number">4</span> <span class="arrow_text">完成付款</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="mt20">
+    <form id="gjsg_1_form" name="gjsg_1_form" method="post">
+      <ul class="tool-ul clearfix" id="toolUl"></ul>
+      <div class="mt20 tc"><a href="javascript:;" id="btn_hsksg_xyb" class="btn_bg submit">下一步</a></div>
+    </form>
+    </div>
+</div>
+<div id="hsksg_2" class="none">
+</div>
+<%}else{%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+ <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业注销申请中,没有交易权限！</p>
+ </div>
+</div>
+<%}%>

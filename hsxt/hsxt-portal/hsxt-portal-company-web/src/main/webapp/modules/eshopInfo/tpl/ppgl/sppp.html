@@ -1,0 +1,39 @@
+﻿<div class="search-toolbar">
+<form id="ppgl_form" name="ppgl_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix">
+        <label class="fl h30_middle">品牌名称：</label>
+		<input type="text" class="h28_middle input-txt w100" placeholder="输入品牌名称"/>
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">类目：</label>
+		<input type="text" id="ppgl_lm" name="ppgl_lm" readonly="readonly" placeholder="请选择" optionValue=""/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_cx" class="btn-search mr30" type="button">查询</button>
+        </div>
+      </li>
+      <li class="fr">
+        <div class="cont-int">
+          <button id="btn_ppgl_add" class="btn-search" type="button">添加</button>
+        </div>
+      </li>
+    </ul>
+</form>
+</div>
+<div class="search-cont">
+  <table id="ppgl_table">
+  	<thead>
+        <tr>
+          <th w_render="renderImg" w_align="center" width="90"></th>
+          <th w_index="ppzwmc" w_align="left">品牌中文名称</th>
+          <th w_index="ppywmc" w_align="left">品牌英文名称</th>
+          <th w_index="lm" w_align="left">类目</th>
+          <th w_index="ppgs" w_align="left">品牌故事</th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+<div id="ppgl-dialog" class="none"><p></p></div>

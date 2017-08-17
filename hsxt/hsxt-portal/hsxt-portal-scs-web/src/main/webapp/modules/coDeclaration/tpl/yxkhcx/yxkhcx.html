@@ -1,0 +1,62 @@
+							<!-- 修改资料开始 -->
+                            <div class="searchbox p20">
+                 	<div class="search-toolbar">
+                 		<form id="search_form" name="search_form">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">日期：</label>
+                                <div class="cont-int">
+                                	<input type="text" id="search_startDate" name="search_startDate" placeholder="--请选择--" value="" class="input-txt w100"><span class="separator-pd">-</span><input type="text" placeholder="--请选择--" name="search_endDate" id="search_endDate" value="" class="input-txt w100">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">申请类别：</label>
+                                <div class="cont-chk setdiy100"> 
+                                      	
+                                      	 <input id='search_appType' name="search_appType" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"  />
+										 
+                                      
+                                      </div>
+                                      </li>
+                            <li class="mr20">
+                                <label class="title-int">企业名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_entCustName" id="search_entCustName" placeholder="输入申请企业名称"   class="input-txt input_gray w100">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">处理状态：</label>
+                                <div class="cont-chk setdiy100"> 
+                                      
+                                       <input id='search_status' name="search_status" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"  />
+                                      
+                                      </div>
+                                      </li>
+                            <li>
+                                <div class="cont-int">
+                                	<button id="queryBtn" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                         </form>
+                    </div>
+                    <div class="search-cont">
+                     		 <table id="tableDetail" class="bsgrid">   
+							    <tr>  
+							        <th w_index="entCustName" w_length="18"  w_tip="true">企业名称</th>
+							        <th w_index="entAddress" w_length="18"  w_tip="true">企业地址</th>
+							        <th w_index="linkman" w_length="10"  w_tip="true">联系人姓名</th>
+							        <th w_index="mobile">联系人手机</th>
+							        <th w_index="countryNo" w_render="operate">所在地区</th>
+							        <th w_index="appType" w_render="operate">申请类别</th>        
+							        <th w_index="status" w_render="operate">处理状态</th>  
+							        <th w_render="operate" >操作</th> 
+							    </tr>            
+							</table> 
+                    </div>
+                 </div>
+							<!-- 修改资料结束 -->
+
+
+<div id="yxkhcx_dialog" class="none" title="意向客户详情"><p class="autowidth"></p></div>
+							

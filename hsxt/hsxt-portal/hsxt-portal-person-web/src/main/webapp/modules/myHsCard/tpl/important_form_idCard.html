@@ -1,0 +1,65 @@
+<form id="impInfoChange_ID_form" name="impInfoChange_ID_form">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" style="table-layout:fixed">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">变更前内容</td>
+			<td class="table_title" width="40%">变更后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">姓名</td>
+			<td class="table_text" width="40%" id="impInfoChange_userName2_1"></td>
+			<td class="table_text" width="40%"><input id="userName" class="isChange" name="userName"/></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">性别</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldSex2_1"></td>
+			<td class="table_text" width="40%"><select id="sex" class="isChange" name="sex"><option value="">请选择</option><option value="1">男</option><option value="0">女</option></select></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">国籍</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldCountry2_1"></td>
+			<td class="table_text" width="40%"><div class="selectDiv"><select id="nationality" name="nationality"></select></div></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件类型</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldCerType2_1"></td>
+			<td class="table_text" width="40%"><input type="text" id="impInfoChange_newCerType2_1" name="impInfoChange_newCerType2_1" value="" disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件号码</td>
+			<td class="table_text" width="40%">
+			<%if(obj.cerNo.length >= 18){%>
+			<%=comm.plusXing(obj.cerNo,4,4,false)%>
+			<%}else{%>
+			<%=comm.plusXing(obj.cerNo,1,2,false)%>
+			<%}%>
+			</td>
+			<td class="table_text" width="40%"><input type="text" id="cerNo" class="isChange" name="cerNo" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件有效期</td>
+			<td class="table_text" width="40%"><%=obj.validDate%></td>
+			<td class="table_text" width="40%"><div class="pr"><input type="text" id="validDate" name="validDate" readonly="readonly" class="jqp-datepicker"/><div class="hint tl lh30"><input id="impInfoChange_limitDateChk_1" type="checkbox" style="height:14px;width:14px;">长期</div></div></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">发证机关</td>
+			<td class="table_text" width="40%"><%=obj.issuingOrg%></td>
+			<td class="table_text" width="40%"><input type="text" id="issuingOrg" class="isChange" name="issuingOrg" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">户籍地址</td>
+			<td class="table_text td-table-dt" width="40%"><%=obj.birthAddress%></td>
+			<td class="table_text" width="40%"><input type="text" id="birthAddress" class="isChange" name="birthAddress" /></td>
+		</tr>
+		<!-- <tr>
+			<td class="table_item" width="20%">职业</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldProfession_1"><%=obj.job%></td>
+			<td class="table_text" width="40%"><input type="text" id="job" class="isChange" name="job" /></td>
+		</tr> -->
+	</table>
+	<div class="tc clearfix mt20 mb10 h40">
+		<a id="impInfoChange_nextBtn_1" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="zyxxbg2">下一步</a>
+		<div id="impInfoChange_Apptext"></div>
+	</div>
+</form>
+	

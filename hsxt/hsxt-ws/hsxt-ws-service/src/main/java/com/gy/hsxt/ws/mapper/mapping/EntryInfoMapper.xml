@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.EntryInfoMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.EntryInfo">
+		<id column="ENTRY_NO" property="entryNo" jdbcType="VARCHAR" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="HS_RES_NO" property="hsResNo" jdbcType="CHAR" />
+		<result column="ACC_TYPE" property="accType" jdbcType="CHAR" />
+		<result column="ADD_AMOUNT" property="addAmount" jdbcType="DECIMAL" />
+		<result column="SUB_AMOUNT" property="subAmount" jdbcType="DECIMAL" />
+		<result column="WRITE_BACK" property="writeBack" jdbcType="CHAR" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="CHAR" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="GRANT_ID" property="grantId" jdbcType="VARCHAR" />
+		<result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询列 -->
+	<sql id="Base_Column_List">
+	   ENTRY_NO,
+       CUST_ID,
+       HS_RES_NO,
+       ACC_TYPE,
+       ADD_AMOUNT,
+       SUB_AMOUNT,
+       WRITE_BACK,
+       TRANS_TYPE,
+       BATCH_NO,
+       GRANT_ID,
+       CUST_TYPE,
+       ISACTIVE,
+       CREATED_DATE,
+       CREATED_BY,
+       UPDATED_DATE,
+       UPDATED_BY
+	</sql>
+
+	<!-- 通过分录编号查询分录信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_WS_ENTRY
+		where ENTRY_NO = #{entryNo,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 新增分类信息 -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.EntryInfo">
+		insert into T_WS_ENTRY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="entryNo != null">
+				ENTRY_NO,
+			</if>
+			<if test="custId != null">
+				CUST_ID,
+			</if>
+			<if test="hsResNo != null">
+				HS_RES_NO,
+			</if>
+			<if test="accType != null">
+				ACC_TYPE,
+			</if>
+			<if test="addAmount != null">
+				ADD_AMOUNT,
+			</if>
+			<if test="subAmount != null">
+				SUB_AMOUNT,
+			</if>
+			<if test="writeBack != null">
+				WRITE_BACK,
+			</if>
+			<if test="transType != null">
+				TRANS_TYPE,
+			</if>
+			<if test="batchNo != null">
+				BATCH_NO,
+			</if>
+			<if test="grantId != null">
+				GRANT_ID,
+			</if>
+			<if test="custType != null">
+				CUST_TYPE,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY,
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE,
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="entryNo != null">
+				#{entryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="hsResNo != null">
+				#{hsResNo,jdbcType=CHAR},
+			</if>
+			<if test="accType != null">
+				#{accType,jdbcType=CHAR},
+			</if>
+			<if test="addAmount != null">
+				#{addAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="subAmount != null">
+				#{subAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="writeBack != null">
+				#{writeBack,jdbcType=CHAR},
+			</if>
+			<if test="transType != null">
+				#{transType,jdbcType=CHAR},
+			</if>
+			<if test="batchNo != null">
+				#{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="grantId != null">
+				#{grantId,jdbcType=VARCHAR},
+			</if>
+			<if test="custType != null">
+				#{custType,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				#{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				#{updatedBy,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改分录信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.EntryInfo">
+		update T_WS_ENTRY
+		<set>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="hsResNo != null">
+				HS_RES_NO = #{hsResNo,jdbcType=CHAR},
+			</if>
+			<if test="accType != null">
+				ACC_TYPE = #{accType,jdbcType=CHAR},
+			</if>
+			<if test="addAmount != null">
+				ADD_AMOUNT = #{addAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="subAmount != null">
+				SUB_AMOUNT = #{subAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="writeBack != null">
+				WRITE_BACK = #{writeBack,jdbcType=CHAR},
+			</if>
+			<if test="transType != null">
+				TRANS_TYPE = #{transType,jdbcType=CHAR},
+			</if>
+			<if test="batchNo != null">
+				BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="grantId != null">
+				GRANT_ID = #{grantId,jdbcType=VARCHAR},
+			</if>
+			<if test="custType != null">
+				CUST_TYPE = #{custType,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdBy != null">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updatedDate != null">
+				UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedBy != null">
+				UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ENTRY_NO = #{entryNo,jdbcType=VARCHAR}
+	</update>
+
+
+</mapper>

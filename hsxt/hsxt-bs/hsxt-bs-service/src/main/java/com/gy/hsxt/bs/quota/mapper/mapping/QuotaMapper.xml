@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.quota.mapper.QuotaMapper">
+
+
+	<!-- 一级区域配额分配申请(管理公司列表) -->
+	<select id="selectPlatAppManageList" resultType="com.gy.hsxt.bs.bean.quota.result.PlatAppManage">
+			SELECT 
+			   MT.ENT_RES_NO AS entResNo,
+		       MT.ENT_CUST_NAME AS entCustName,
+		       MT.TOTAL_NUM AS totalNum,
+		       NVL(TT.RES_NUM, 0) AS allotedNum,
+		       MT.TOTAL_NUM - (NVL(T.W_APPR_NUM, 0) + NVL(TT.RES_NUM, 0)) AS mayAppNum,
+		       NVL(T.W_APPR_NUM, 0) AS wApprNum
+		  FROM T_BS_PLAT_M_QUOTA_TOTAL MT
+		  LEFT JOIN (SELECT L1.ENT_RES_NO,
+		                    SUM(DECODE(L1.STATUS, 0, L1.APPLY_NUM, 0)) W_APPR_NUM
+		               FROM T_BS_L1_RES_QUOTA_APP L1
+		              WHERE L1.STATUS = 1
+		                AND L1.APPLY_TYPE IN (1, 2)
+		              GROUP BY L1.ENT_RES_NO) T
+		    ON MT.ENT_RES_NO = T.ENT_RES_NO
+		  LEFT JOIN (SELECT ENT_RES_NO, COUNT(*) RES_NUM
+		               FROM (SELECT SUBSTR(SR.ENT_RES_NO, 0, 2) || '000000000' ENT_RES_NO
+		                       FROM T_BS_S_RES SR)
+		              GROUP BY ENT_RES_NO) TT
+		    ON MT.ENT_RES_NO = TT.ENT_RES_NO	
+		   WHERE 1 = 1 	   		   
+		   <if test="mEntResNo != null and mEntResNo != ''">
+		   		AND MT.ENT_RES_NO = #{mEntResNo}
+		   </if>
+		   ORDER BY MT.ENT_RES_NO 
+	</select>
+	
+	<!-- 查询管理公司的二级分配详情 -->
+	<select id="selectManageAppProvinceDetail" resultType="com.gy.hsxt.bs.bean.quota.result.PlatAppManage">		
+		SELECT 
+		     MT.ENT_RES_NO AS entResNo,
+		     MT.ENT_CUST_NAME AS entCustName,
+		     MT.TOTAL_NUM AS totalNum,
+		     NVL(TT.RES_NUM, 0) AS allotedNum,
+		     MT.TOTAL_NUM - (NVL(T.W_APPR_NUM, 0) + NVL(TT.RES_NUM, 0)) AS mayAppNum,
+		     NVL(T.W_APPR_NUM, 0) AS wApprNum
+		  FROM T_BS_PLAT_M_QUOTA_TOTAL MT
+		  LEFT JOIN (SELECT L2.ENT_RES_NO, 
+		         SUM(DECODE(L2.STATUS, 0, L2.APPLY_NUM, 0)) W_APPR_NUM
+		      FROM T_BS_L2_RES_QUOTA_APP L2
+		     WHERE L2.STATUS = 1 AND L2.ENT_RES_NO = #{mEntResNo}
+		       AND L2.APPLY_TYPE IN (1, 2)
+		     GROUP BY L2.ENT_RES_NO) T
+		  ON MT.ENT_RES_NO = T.ENT_RES_NO
+		  LEFT JOIN(SELECT T.ENT_RES_NO, 
+		           SUM(T.PROVINCE_NO) RES_NUM
+		      FROM (SELECT 
+		                  SUBSTR(SR.ENT_RES_NO, 0, 2) || '000000000' ENT_RES_NO,
+		                  DECODE(SR.PROVINCE_NO ,NULL,0,1) PROVINCE_NO
+		              FROM T_BS_S_RES SR
+		             WHERE SR.ENT_RES_NO LIKE SUBSTR(#{mEntResNo}, 0, 2) || '%') T
+		     GROUP BY T.ENT_RES_NO) TT
+		  ON  MT.ENT_RES_NO = TT.ENT_RES_NO  
+		  WHERE MT.ENT_RES_NO = #{mEntResNo}				
+	</select>
+	
+	<!-- 插入一级区域配额申请 -->
+	<insert id="applyPlatQuota" parameterType="com.gy.hsxt.bs.bean.quota.PlatQuotaApp">
+		INSERT INTO T_BS_L1_RES_QUOTA_APP
+			(
+				APPLY_ID,
+				ENT_RES_NO,
+				ENT_CUST_NAME,
+				PLAT_NO,
+				APPLY_TYPE,
+				APPLY_NUM,
+				APPR_NUM,
+				RESNO_LIST,
+				STATUS,
+				REQ_OPERATOR,
+				REQ_TIME,
+				REQ_REMARK
+			) 
+		VALUES
+			(
+				#{applyId},
+				#{entResNo},
+				#{entCustName},
+				#{platNo},
+				#{applyType},
+				#{applyNum},
+				#{apprNum},
+				#{resNoList},
+				#{status},
+				#{reqOperator},
+				SYSDATE,
+				#{reqRemark}
+			)
+	</insert>
+	
+	<!-- 根据id查询一级区域配额申请 -->
+	<select id="getPlatQuotaById" parameterType="string"  resultType="com.gy.hsxt.bs.bean.quota.PlatQuotaApp">
+		select 
+			APPLY_ID 		as applyId,
+			ENT_RES_NO 		as entResNo,
+			ENT_CUST_NAME 	as entCustName,
+			PLAT_NO 		as platNo,
+			APPLY_TYPE 		as applyType,
+			APPLY_NUM 		as applyNum,
+			APPR_NUM 		as apprNum,
+			RESNO_LIST 		as resNoList,
+			STATUS 			as status,
+			REQ_OPERATOR 	as reqOperator,
+			REQ_REMARK 		as reqRemark,
+			APPR_OPERATOR 	as apprOperator, 
+			APPR_REMARK 	as apprRemark,
+			REQ_TIME 		as reqTime,
+			APPR_TIME 		as apprTime
+		from 
+			T_BS_L1_RES_QUOTA_APP t
+		where 
+			t.APPLY_ID=#{applyId}
+	</select>
+	
+	<!-- 分页查询一级区域配额申请 -->
+	<select id="queryPlatQuotaListPage"  resultType="com.gy.hsxt.bs.bean.quota.PlatQuotaApp">
+		select 
+			L.APPLY_ID 			as applyId,
+			L.ENT_RES_NO 		as entResNo,
+			L.ENT_CUST_NAME 	as entCustName,
+			L.APPLY_TYPE 		as applyType,
+			L.APPLY_NUM 		as applyNum,
+			L.APPR_NUM 			as apprNum,
+			L.STATUS 			as status,
+			L.REQ_OPERATOR 		as reqOperator,
+			L.REQ_TIME 			as reqTime
+		from 
+			T_BS_L1_RES_QUOTA_APP L
+		where 1 = 1
+			<if	test="entResNo != null and entResNo != ''">
+				and L.ENT_RES_NO=#{entResNo}
+			</if>
+			<if	test="entCustName != null and entCustName !='' ">
+				and L.ENT_CUST_NAME like '%'||#{entCustName}||'%'
+			</if>
+			ORDER BY L.REQ_TIME DESC
+	</select>   
+	
+	<!-- 一级区域配额申请审批 -->
+    <update id="apprPlatQuota" parameterType="com.gy.hsxt.bs.bean.quota.PlatQuotaApp">
+    	update 
+    		T_BS_L1_RES_QUOTA_APP t 
+		set	
+			STATUS = #{status},
+			APPR_NUM = #{apprNum},
+			RESNO_LIST = #{resNoList},
+			APPR_OPERATOR = #{apprOperator}, 
+			APPR_TIME = SYSDATE,
+			APPR_REMARK = #{apprRemark}  
+		where 
+			t.APPLY_ID=#{applyId}
+    </update>
+
+	<!-- 插入二级区域配额申请 -->
+    <insert id="applyProvinceQuota" parameterType="com.gy.hsxt.bs.bean.quota.ProvinceQuotaApp">
+		INSERT INTO T_BS_L2_RES_QUOTA_APP
+			(
+				APPLY_ID,
+				ENT_RES_NO,
+				COUNTRY_NO,
+				PROVINCE_NO,
+				APPLY_TYPE,
+				APPLY_NUM,
+				STATUS,
+				REQ_OPERATOR,
+				REQ_TIME,
+				REQ_REMARK
+			) 
+		VALUES
+			(
+				#{applyId},
+				#{entResNo},
+				#{countryNo},
+				#{provinceNo},
+				#{applyType},
+				#{applyNum},
+				#{status},
+				#{reqOperator},
+				SYSDATE,
+				#{reqRemark}
+			)
+	</insert>
+
+	<!-- 根据id查询二级区域配额申请 -->
+    <select id="getProvinceQuotaById" parameterType="string" resultType="com.gy.hsxt.bs.bean.quota.ProvinceQuotaApp">
+		select 
+			APPLY_ID 		as applyId,
+			ENT_RES_NO 		as entResNo,
+			COUNTRY_NO 		as countryNo,
+			PROVINCE_NO 	as provinceNo,
+			APPLY_TYPE 		as applyType,
+			APPLY_NUM 		as applyNum,
+			APPR_NUM 		as apprNum,
+			RESNO_LIST 		as resNoList,
+			STATUS 			as status,
+			REQ_OPERATOR 	as reqOperator,
+			REQ_REMARK 		as reqRemark,
+			APPR_OPERATOR 	as apprOperator, 
+			APPR_REMARK 	as apprRemark,
+			REQ_TIME		as reqTime,
+			APPR_TIME		as apprTime
+		from 
+			T_BS_L2_RES_QUOTA_APP t
+		where 
+			t.APPLY_ID=#{applyId}
+	</select>
+	
+	<!-- 判断省份是否已进行首次配置 -->
+	<select id="isProvinceFristAllot" parameterType="string" resultType="int">
+		select 
+			count(*)
+		from 
+			T_BS_L2_RES_QUOTA_APP t
+		where 
+			t.PROVINCE_NO = #{provinceNo}
+		and t.APPLY_TYPE = 1
+	</select>
+	
+	<!-- 判断城市是否已进行首次配置 -->
+	<select id="isCityFristAllot" parameterType="string" resultType="int">
+		select 
+			count(*)
+		from 
+			T_BS_L3_RES_QUOTA_APP t
+		where 
+			t.CITY_NO = #{cityNo}
+		and t.APPLY_TYPE = 1
+	</select>
+	
+	<!-- 二级区域配额申请申请 -->
+    <update id="apprProvinceQuota" parameterType="com.gy.hsxt.bs.bean.quota.ProvinceQuotaApp">
+    	update 
+    		T_BS_L2_RES_QUOTA_APP t 
+		set	
+			STATUS = #{status},
+			APPR_NUM = #{apprNum},
+			RESNO_LIST = #{resNoList},
+			APPR_OPERATOR = #{apprOperator}, 
+			APPR_TIME = SYSDATE,
+			APPR_REMARK = #{apprRemark}  
+		where 
+			t.APPLY_ID=#{applyId}
+    </update>
+
+	<!-- 分页查询二级区域配额申请 -->
+    <select id="queryProvinceQuotaListPage"  resultType="com.gy.hsxt.bs.bean.quota.ProvinceQuotaApp">
+		select 
+			L.APPLY_ID 			as applyId,
+			L.ENT_RES_NO 		as entResNo,
+			L.PROVINCE_NO 		as provinceNo,
+			L.APPLY_TYPE 		as applyType,
+			L.APPLY_NUM 		as applyNum,
+			L.APPR_NUM 			as apprNum,
+			L.STATUS 			as status,
+			L.REQ_OPERATOR 		as reqOperator,
+			L.REQ_TIME			as reqTime
+		from
+			T_BS_L2_RES_QUOTA_APP L
+		<choose>
+	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when>
+	    </choose>
+		where 1 = 1
+			<if test="exeCustId != null and exeCustId != ''">
+				AND L.APPLY_ID = T.BIZ_NO
+				AND T.STATUS = 2
+				AND T.EXE_CUST_ID = #{exeCustId}
+			</if>
+			<if test="proviceNo != null and proviceNo != ''">
+				and L.PROVINCE_NO = #{proviceNo}
+			</if>
+			<if test="applyType != null ">
+				and L.APPLY_TYPE = #{applyType}
+			</if>
+			<if test="status != null ">
+				and L.STATUS = #{status}
+			</if>
+			ORDER BY L.REQ_TIME DESC
+	</select>
+
+	<!-- 插入三级区域配额申请 -->
+    <insert id="applyCityQuota" parameterType="com.gy.hsxt.bs.bean.quota.CityQuotaApp">
+		INSERT INTO T_BS_L3_RES_QUOTA_APP
+			(
+				APPLY_ID,
+				ENT_RES_NO,
+				COUNTRY_NO,
+				PROVINCE_NO,
+				CITY_NO,
+				CITY_NAME,
+				APPLY_TYPE,
+				APPLY_NUM,
+				POPULATION,
+				APPLY_REASON,
+				OTHER_REASON,
+				STATUS,
+				REQ_OPERATOR,
+				REQ_TIME,
+				REQ_REMARK
+			) 
+		VALUES
+			(
+				#{applyId},
+				#{entResNo},
+				#{countryNo},
+				#{provinceNo},
+				#{cityNo},
+				#{cityName},
+				#{applyType},
+				#{applyNum},
+				#{population},
+				#{applyReason},
+				#{otherReason},
+				#{status},
+				#{reqOperator},
+				SYSDATE,
+				#{reqRemark}
+			)
+	</insert>
+
+	<!-- 根据id查询三级区域配额申请 -->
+     <select id="getCityQuotaById" parameterType="string" resultType="com.gy.hsxt.bs.bean.quota.CityQuotaApp">
+		select 
+			APPLY_ID 		as applyId,
+			ENT_RES_NO 		as entResNo,
+			COUNTRY_NO 		as countryNo,
+			PROVINCE_NO 	as provinceNo,
+			CITY_NO 		as cityNo,
+			CITY_NAME		as cityName,
+			POPULATION 		as population,
+			APPLY_REASON 	as applyReason,
+			OTHER_REASON 	as otherReason,
+			APPLY_TYPE 		as applyType,
+			APPLY_NUM 		as applyNum,
+			APPR_NUM 		as apprNum,
+			RESNO_LIST 		as resNoList,
+			STATUS 			as status,
+			REQ_OPERATOR 	as reqOperator,
+			REQ_REMARK 		as reqRemark,
+			APPR_OPERATOR 	as apprOperator, 
+			APPR_REMARK 	as apprRemark,
+			REQ_TIME 		as reqTime,
+			APPR_TIME 		as apprTime
+		from 
+			T_BS_L3_RES_QUOTA_APP t
+		where 
+			t.APPLY_ID = #{applyId}
+	</select>
+
+	<!-- 三级区域配额申请审批 -->
+    <update id="apprCityQuota" parameterType="com.gy.hsxt.bs.bean.quota.CityQuotaApp">
+    	update 
+    		T_BS_L3_RES_QUOTA_APP t 
+		set	
+			STATUS = #{status},
+			APPR_NUM = #{apprNum},
+			RESNO_LIST = #{resNoList},
+			APPR_OPERATOR = #{apprOperator}, 
+			APPR_TIME = sysdate,
+			APPR_REMARK = #{apprRemark}  
+		where 
+			t.APPLY_ID = #{applyId}
+    </update>
+    
+    <!-- 插入城市人口数 -->
+    <insert id="insertCityPopulation" parameterType="com.gy.hsxt.bs.bean.quota.CityPopulation">
+    	INSERT INTO T_BS_CITY_POPULATION
+    	(
+    		COUNTRY_NO,
+    		PROVINCE_NO,
+    		CITY_NO,
+    		POPULATION
+    	)
+    	VALUES
+    	(
+    		#{countryNo},
+    		#{provinceNo},
+    		#{cityNo},
+    		#{population}
+    	)
+    </insert>
+
+	<!-- 分页查询三级区域配额申请 -->
+	<select id="queryCityQuotaListPage"  resultType="com.gy.hsxt.bs.bean.quota.CityQuotaApp" parameterType="com.gy.hsxt.bs.bean.quota.CityQuotaQueryParam">
+		select 
+			L.APPLY_ID 			as applyId,
+			L.ENT_RES_NO 		as entResNo,
+			L.PROVINCE_NO 		as provinceNo,
+			L.CITY_NO 			as cityNo,
+			L.CITY_NAME			as cityName,
+			L.APPLY_TYPE 		as applyType,
+			L.APPLY_NUM 		as applyNum,
+			L.APPR_NUM 			as apprNum,
+			L.STATUS 			as status,
+			L.REQ_OPERATOR 		as reqOperator,
+			L.REQ_TIME			as reqTime,
+		L.APPLY_REASON as applyReason,
+		L.OTHER_REASON as otherReason
+		from 
+			T_BS_L3_RES_QUOTA_APP L
+		<choose>
+	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when>
+	    </choose>
+		where 1 = 1
+			<if test="exeCustId != null and exeCustId != ''">
+				AND L.APPLY_ID = T.BIZ_NO
+				AND T.STATUS = 2
+				AND T.EXE_CUST_ID = #{exeCustId}
+			</if>
+			<if test=" startDate != null and startDate != ''">
+				and L.REQ_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+			</if>
+			<if test=" endDate != null and endDate != ''">
+				and L.REQ_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+			</if>
+			<if test=" cityNo != null and cityNo != ''">
+				and L.CITY_NO = #{cityNo}
+			</if>
+			<if test=" cityName != null and cityName != ''">
+				and L.CITY_NAME LIKE '%'||#{cityName}||'%' 
+			</if>
+			<if test=" applyType != null">
+				and L.APPLY_TYPE = #{applyType}
+			</if>
+			<if test="status != null">
+				and L.STATUS = #{status}
+			</if>
+			ORDER BY L.REQ_TIME DESC
+	</select>  
+	
+	<!-- 城市(三级区域)下的资源列表 -->
+    <select id="listResInfoOfCity"  resultType="com.gy.hsxt.bs.bean.quota.result.ResInfo">
+		select 
+			ENT_RES_NO 		as entResNo,
+			ENT_CUST_NAME 	as entCustName,
+			REG_DATE 		as regDate 
+		from 
+			T_BS_S_RES t 
+		where 
+			t.CITY_NO = #{cityNo}
+			<if test="status != null">
+				and t.RES_STATUS IN
+				<foreach collection="status" index="index" item="item" open="(" separator="," close=")">  
+		             #{item}   
+		    	</foreach> 
+			</if>
+		ORDER BY ENT_RES_NO
+	</select>  
+
+	<!-- 根据管理公司互生号查询已分配下级服务资源配额的二级区域 -->
+    <select id="selectProvinceNoForAllot"  parameterType="string" resultType="string">
+		select 
+			distinct t.PROVINCE_NO   
+		from 
+			T_BS_S_RES t 
+		where 
+			ENT_RES_NO like substr(#{mEntResNo},0,2)||'%'
+			and t.PROVINCE_NO is not null
+	</select>  
+	
+	<!-- 查询已经分配其它管理公司资源配额的二级区域（省、直辖市）,不包含指定管理公司的管辖区域 -->
+	<select id="queryProvinceNoForAllotExcludeM" parameterType="string" resultType="string">
+		select 
+			distinct t.PROVINCE_NO   
+		from 
+			T_BS_S_RES t 
+		where 
+			ENT_RES_NO not like substr(#{mEntResNo},0,2)||'%'
+			and t.PROVINCE_NO is not null
+	</select> 
+	
+	<!-- 查询二级区域（省）的总配额数量 -->
+    <select id="countProvinceQuota"  parameterType="string" resultType="int">
+		select 
+			count(*)  
+		from 
+			T_BS_S_RES t   
+		where 
+			t.PROVINCE_NO = #{provinceNo}
+	</select>  
+
+	<!-- 查询三级区域（城市）的总配额数量 -->
+    <select id="countCityQuota"  parameterType="string" resultType="int">
+		select 
+			count(*)  
+		from 
+			T_BS_S_RES t   
+		where 
+			CITY_NO = #{cityNo}
+	</select>  
+	
+	<!-- 统计未分配到二级区域(省)的资源配额数量 -->
+	<select id="countFreePlatQuota"  resultType="int">
+		select 
+			count(*)  
+		from 
+			T_BS_S_RES t   
+		where 
+			t.PROVINCE_NO IS NULL
+	</select>
+	
+    <!-- 统计管理公司下级服务资源中空闲的平台资源配额，即未分配到二级区域的服务资源号数量(包括待审批) -->
+    <select id="countFreePlatQuotaOfManager" parameterType="string" resultType="int">
+		SELECT 
+			RES_NUM + DECODE(TT.W_APPR_NUM, NULL, 0, TT.W_APPR_NUM) MAY_NUM
+		  FROM (SELECT #{mEntResNo} ENT_RES_NO, COUNT(*) RES_NUM
+		          FROM T_BS_S_RES T
+		         WHERE T.ENT_RES_NO LIKE SUBSTR(#{mEntResNo}, 0, 2) || '%'
+		           AND T.PROVINCE_NO IS NULL) T
+		  LEFT JOIN (SELECT L.ENT_RES_NO,
+		                    SUM(DECODE(L.APPLY_NUM, NULL, 0, L.APPLY_NUM)) W_APPR_NUM
+		               FROM T_BS_L2_RES_QUOTA_APP L
+		              WHERE L.ENT_RES_NO = #{mEntResNo}
+		                AND L.STATUS = 0
+		                AND L.APPLY_TYPE IN (1, 2)
+		              GROUP BY L.ENT_RES_NO) TT
+		    ON T.ENT_RES_NO = TT.ENT_RES_NO
+	</select>
+
+	<!-- 二级区域全部资源中未分配到三级区域的资源数量 -->
+    <select id="countFreeProvinceQuota"  parameterType="string" resultType="int">			
+		SELECT 
+			COUNT(*)
+         FROM T_BS_S_RES T
+        WHERE T.PROVINCE_NO = #{provinceNo}
+          AND T.CITY_NO IS NULL
+	</select>
+	
+	<!-- 二级区域全部资源中未分配到三级区域的资源数量(包括三级申请待审批数量) -->
+	<select id="countFreeProvinceQuotaAndW"  parameterType="string" resultType="int">	
+		SELECT 
+      RES_NUM + DECODE(TT.W_APPR_NUM, NULL, 0, TT.W_APPR_NUM) MAY_NUM
+      FROM (SELECT #{provinceNo} PROVINCE_NO, COUNT(*) RES_NUM
+              FROM T_BS_S_RES T
+             WHERE T.PROVINCE_NO = #{provinceNo}
+               AND T.CITY_NO IS NULL) T
+      LEFT JOIN (SELECT L.PROVINCE_NO,
+                        SUM(DECODE(L.APPLY_NUM, NULL, 0, L.APPLY_NUM)) W_APPR_NUM
+                   FROM T_BS_L3_RES_QUOTA_APP L
+                  WHERE L.PROVINCE_NO = #{provinceNo}
+                    AND L.STATUS = 0
+                    AND L.APPLY_TYPE IN (1, 2)
+                  GROUP BY L.PROVINCE_NO) TT
+        ON T.PROVINCE_NO = TT.PROVINCE_NO
+	</select>
+
+	<!-- 查询城市下未申报的配额数量 城市配额中既没有被使用，也没有被占用的资源号数量 -->
+	<select id="countFreeCityQuota"  parameterType="string" resultType="int">
+		select 
+			count(*)  
+		from 
+			T_BS_S_RES t   
+		where 
+			t.CITY_NO = #{cityNo}
+			and t.RES_STATUS=0
+	</select>  
+	
+	
+	
+	<!-- 统计管理公司下的资源数据,计划城市配额是累计分配到城市的配额 -->
+	<select id="statResDetailOfManager"  parameterType="string" resultType="com.gy.hsxt.bs.bean.quota.result.QuotaStatOfManager">				
+		 SELECT 
+			   MT.ENT_RES_NO AS mEntResNo,
+		       MT.ENT_CUST_NAME AS mCustName,
+		       MT.TOTAL_NUM AS sResNum,
+		       T2.PLAN_NUM AS planNum,
+		       MT.TOTAL_NUM - T2.PLAN_NUM AS notPlanNum,
+		       T2.USE_NUM AS useNum,
+			   T2.PLAN_NUM - T2.USE_NUM AS usableNum
+		 FROM (SELECT #{mEntResNo} AS ENT_RES_NO,
+		               SUM(DECODE(T.CITY_NO, NULL, 0, 1)) AS PLAN_NUM,
+		               SUM(DECODE(T.RES_STATUS, 1, 1, 0)) AS USE_NUM 
+		         FROM T_BS_S_RES T
+		         WHERE ENT_RES_NO LIKE SUBSTR(#{mEntResNo}, 0, 2) || '%') T2,
+		       T_BS_PLAT_M_QUOTA_TOTAL MT
+		 WHERE T2.ENT_RES_NO = MT.ENT_RES_NO
+	</select> 
+	
+    <!-- 分组统计管理公司下各省份资源配额情况,计划城市配额是累计分配到城市的配额 -->
+    <select id="listQuotaStatGroupByProvince"  parameterType="string" resultType="com.gy.hsxt.bs.bean.quota.result.QuotaStatOfProvince">
+	   	SELECT 
+		    PROVINCE_NO AS provinceNo,
+	        COUNTRY_NO AS currencyNo,
+	        SUM(PLAN_NUM) AS planSResNum,
+	        SUM(USESRESNUM) AS useSResNum
+	   	FROM (SELECT COUNTRY_NO,
+	                PROVINCE_NO,
+	                DECODE(T.CITY_NO, NULL, 0, 1) AS PLAN_NUM,
+	                DECODE(T.RES_STATUS, 1, 1, 0) AS USESRESNUM
+	           FROM T_BS_S_RES T
+	          WHERE ENT_RES_NO LIKE SUBSTR(#{mEntResNo}, 0, 2) || '%'
+	            AND PROVINCE_NO IS NOT NULL)
+	  	GROUP BY PROVINCE_NO, COUNTRY_NO	
+	</select>   
+	
+	<!-- 统计省级(二级区域)下的资源数据 -->
+    <select id="statResDetailOfProvince"  parameterType="string" resultType="com.gy.hsxt.bs.bean.quota.result.QuotaDetailOfProvince">		
+		SELECT #{provinceNo} AS provinceNo,
+		       NVL(SUM(DECODE(CITY_NO, NULL, 0, 1)),0) AS cityNum,
+		       NVL(SUM(SRES_NUM),0) AS sResNum,
+		       NVL(SUM(USED_NUM),0) AS useSResNum
+		  FROM (SELECT #{provinceNo},
+		               CITY_NO,
+		               COUNT(*) AS SRES_NUM,
+		               SUM(USED_NUM) AS USED_NUM
+		          FROM (SELECT PROVINCE_NO,
+		                       CITY_NO,
+		                       DECODE(T.RES_STATUS, 1, 1, 0) AS USED_NUM
+		                  FROM T_BS_S_RES T
+		                 WHERE PROVINCE_NO = #{provinceNo} AND CITY_NO IS NOT NULL )
+		         GROUP BY CITY_NO)		
+	</select>  
+	
+    <!-- 分组统计省下面各城市资源配额情况 -->
+    <select id="listQuotaStatGroupByCity"  resultType="com.gy.hsxt.bs.bean.quota.result.QuotaStatOfCity">
+		select 
+			cityNo,
+			population,
+			count(*)			as totalNum,
+			sum(usedNum)		as usedNum,
+			sum(usableNum)		as usableNum,
+			sum(unUseNum)		as unUseNum,
+			sum(usingNum)		as usingNum,
+			1					as isInit 
+		from (	
+				select 
+					t.CITY_NO 	                as cityNo,
+					NVL(p.POPULATION,0)         as population,
+					DECODE(t.RES_STATUS,1,1,0)	as usedNum,
+					DECODE(t.RES_STATUS,1,0,1)	as usableNum,
+					DECODE(t.RES_STATUS,0,1,0)	as unUseNum,
+					DECODE(t.RES_STATUS,2,1,0)	as usingNum
+				from 
+					T_BS_S_RES t, 
+					T_BS_CITY_POPULATION p 
+				where 
+					t.COUNTRY_NO = p.COUNTRY_NO(+)
+					and t.PROVINCE_NO = p.PROVINCE_NO(+) 
+					and t.CITY_NO = p.CITY_NO(+) 
+	        		and t.CITY_NO is not null 
+	        		<if test="provinceNo != null and provinceNo != ''">
+						and t.PROVINCE_NO = #{provinceNo}
+					</if>
+					<if test="cityNo != null and cityNo != ''">
+						and t.CITY_NO = #{cityNo}
+					</if>
+			 )  
+		group by cityNo, population     
+	</select> 
+	
+    
+	<!-- 查询地区平台空闲的服务资源号，没有分配到二级区域的资源号可以被释放(平台减少配额时用) -->
+	<select id="queryFreeQuotaOfPlat" resultType="string">
+		SELECT ENT_RES_NO
+		  FROM (SELECT T.ENT_RES_NO
+		          FROM T_BS_S_RES T
+		         WHERE T.PROVINCE_NO IS NULL
+		         ORDER BY T.ENT_RES_NO DESC)
+		 WHERE <![CDATA[ ROWNUM <= #{apprNum} ]]> 
+	</select>
+	
+	<!-- 查询管理公司下可分配到二级区域的服务资源号(二级区域增加配额时用) -->
+	<select id="queryFreeQuotaOfManager" resultType="string">
+		SELECT
+		ENT_RES_NO
+		FROM(SELECT T.ENT_RES_NO
+		  FROM T_BS_S_RES T
+		 WHERE T.ENT_RES_NO LIKE SUBSTR(#{mEntResNo}, 0, 2) || '%'
+		   AND T.PROVINCE_NO IS NULL
+		 ORDER BY T.ENT_RES_NO ASC)
+		 WHERE <![CDATA[ ROWNUM <= #{apprNum} ]]> 
+	</select>
+    
+    <!-- 查询二级区域下未分配到三级区域(城市)的服务资源(二级区域减少配额或者三级区域增加配额时用) -->
+    <select id="queryFreeQuotaOfProvince" resultType="string">
+		SELECT ENT_RES_NO
+		  FROM (SELECT T.ENT_RES_NO
+		          FROM T_BS_S_RES T
+		         WHERE T.PROVINCE_NO = #{provinceNo}
+		           AND T.CITY_NO IS NULL
+		         ORDER BY T.ENT_RES_NO  
+		         <choose>
+		         	<when test=" isDesc == true ">DESC</when>
+		         	<when test="isDesc == false">ASC</when>
+		         </choose>)
+		 WHERE <![CDATA[ ROWNUM <= #{apprNum} ]]> 
+	</select>
+	<!-- 查询三级区域可下可释放的资源号，未使用的资源号可以被释放(减少配额) -->
+    <select id="queryFreeQuotaOfCity" resultType="string">
+		SELECT ENT_RES_NO
+		   FROM (SELECT T.ENT_RES_NO
+		           FROM T_BS_S_RES T
+		          WHERE T.CITY_NO = #{cityNo}
+		            AND T.RES_STATUS = 0
+		          ORDER BY T.ENT_RES_NO DESC)
+		  WHERE <![CDATA[ ROWNUM <= #{apprNum} ]]> 
+	</select>
+    
+    <!-- 释放(减少配额)当前平台的指定服务资源号 -->
+    <delete id="releaseFromPlat" parameterType="string">
+    	delete 
+    	from 
+    		T_BS_S_RES t
+    	where 
+    		t.ENT_RES_NO = #{resNo}
+    		and t.PROVINCE_NO is null
+    </delete>
+    
+    <!-- 分配服务资源号到指定二级区域（省） -->
+    <update id="allotToProvince">
+    	update 
+    		T_BS_S_RES t 
+    	set 
+    		t.PROVINCE_NO = #{provinceNo} 
+    	where 
+    		t.ENT_RES_NO IN
+	    	<foreach collection="resNos" index="index" item="resNo" open="("
+				separator="," close=")">
+				#{resNo}
+			</foreach>	
+			and t.PROVINCE_NO is null 	  
+    </update>
+    
+    <!-- 从指定二级区域的资源配额中释放(减少配额)指定的服务资源号 -->
+    <update id="releaseFromProvince">
+    	update 
+    		T_BS_S_RES t 
+    	set 
+    		t.PROVINCE_NO = null 
+    	where 
+    		t.ENT_RES_NO IN 
+    		<foreach collection="resNos" index="index" item="resNo" 
+    			open="(" separator="," close=")">
+				#{resNo}
+			</foreach>
+			and t.PROVINCE_NO = #{provinceNo}
+    </update>
+    
+    <!-- 分配服务资源号到指定三级区域（城市） -->
+    <update id="allotToCity">
+    	update 
+    		T_BS_S_RES t 
+    	set 
+    		t.CITY_NO = #{cityNo} 
+    	where 
+    		t.ENT_RES_NO IN
+    		<foreach collection="resNos" index="index" item="resNo" open="("
+				separator="," close=")">
+				#{resNo}
+			</foreach>
+    		and t.CITY_NO is null   
+    </update>
+    
+    <!-- 从指定三级区域(城市)的未使用服务资源中释放(减少配额)指定的服务资源号  -->
+    <update id="releaseFromCity">
+    	update 
+    		T_BS_S_RES t 
+    	set 
+    		t.CITY_NO = null 
+    	where 
+    		t.ENT_RES_NO IN
+    		<foreach collection="resNos" index="index" item="resNo" 
+    			open="(" separator="," close=")">
+				#{resNo}
+			</foreach>
+    		and t.CITY_NO = #{cityNo}  
+    		and t.RES_STATUS = 0 
+    </update>
+    
+    <!-- 一级区域(平台)资源配额分配时插入服务资源号  -->
+    <insert id="insertPlatQuota">
+    	insert into T_BS_S_RES
+    		(
+	    		ENT_RES_NO,
+				COUNTRY_NO,
+	    		RES_STATUS
+    		) 
+    		<foreach collection="resNos" item="resNo" separator="union all">
+    			(
+				SELECT
+				#{resNo},
+				#{countryNo},
+				0
+				FROM DUAL
+				)
+    		</foreach>
+    </insert>
+
+    <!-- 释放一级区域(平台)资源配额时地区平台需要删除服务资源号，总平台需要取消该资源号与平台的关联  -->
+    <delete id="deletePlatQuota">
+    	delete 
+    	from 
+    		T_BS_S_RES t 
+    	where 
+    		t.ENT_RES_NO IN
+    		<foreach collection="list" index="index" item="item" 
+    			open="(" separator="," close=")">
+				#{item}
+			</foreach>
+    		and t.PROVINCE_NO is null
+    </delete>
+    
+    <!-- 查询地区平台分配了配额的省 -->
+    <select id="selectAllotProvinceList" resultType="com.gy.hsxt.bs.bean.quota.result.AllotProvince">
+    	SELECT 
+    		T.ENT_RES_NO AS mEntResNo, 
+    		T.PROVINCE_NO AS provinceNo 
+		  FROM (SELECT SUBSTR(R.ENT_RES_NO, 0, 2) || '000000000' ENT_RES_NO,
+		               R.PROVINCE_NO
+		          FROM T_BS_S_RES R
+		         WHERE R.PROVINCE_NO IS NOT NULL) T
+		 GROUP BY T.PROVINCE_NO, T.ENT_RES_NO
+    </select>
+    
+    <!-- 查询申请中的省编号 -->
+    <select id="selectApplyingProvince" resultType="string">
+    	select 
+			L.PROVINCE_NO
+		from 
+			T_BS_L2_RES_QUOTA_APP L
+		where L.STATUS = 0 
+			<if test="mEntResNo !=null and mEntResNo !='' ">
+				and L.ENT_RES_NO = #{mEntResNo}
+			</if>
+			<if test="provinceNo != null and provinceNo != '' ">
+				and L.PROVINCE_NO = #{provinceNo}
+			</if>
+    </select>
+    
+    <!-- 查询申请中的城市编号 -->
+    <select id="selectApplyingCity" resultType="string">
+    	select 
+			L.CITY_NO
+		from 
+			T_BS_L3_RES_QUOTA_APP L
+		where L.STATUS = 0
+			and L.PROVINCE_NO = #{provinceNo}
+			<if test="cityNo != null and cityNo != '' ">
+				and L.CITY_NO = #{cityNo}
+			</if>
+    </select>
+    
+    <!-- 统计管理公司下的企业资源 -->
+    <select id="statResCompanyResM" resultType="com.gy.hsxt.bs.bean.quota.result.CompanyRes">
+		SELECT 
+		  M.ENT_RES_NO AS mEntResNo,
+		  M.TOTAL_NUM * 99 AS totalNumT,
+		  M.TOTAL_NUM * 9999 AS totalNumB,
+		  EEE.USE_NUM_B AS usedNumB,
+		  EEE.MAYUSE_NUM_B AS mayUseNumB,
+		  EEE.USE_NUM_T AS usedNumT,
+		  EEE.MAYUSE_NUM_T  AS mayUseNumT
+		FROM(SELECT 
+		       EE.ENT_RES_NO, 
+		       SUM(EE.USE_NUM_B) USE_NUM_B,
+		       SUM(EE.MAYUSE_NUM_B) MAYUSE_NUM_B,
+		       SUM(EE.USE_NUM_T) USE_NUM_T,
+		       SUM(EE.MAYUSE_NUM_T) MAYUSE_NUM_T
+		    FROM (SELECT 
+		            SUBSTR(E.ENT_RES_NO,0,2) ||'000000000' ENT_RES_NO,
+		            DECODE(E.CUST_TYPE,2,DECODE(E.RES_STATUS,1,1,0),0) USE_NUM_B,
+		            DECODE(E.CUST_TYPE,2,DECODE(E.RES_STATUS,1,0,1),0) MAYUSE_NUM_B,
+		            DECODE(E.CUST_TYPE,3,DECODE(E.RES_STATUS,1,1,0),0) USE_NUM_T,
+		            DECODE(E.CUST_TYPE,3,DECODE(E.RES_STATUS,1,0,1),0) MAYUSE_NUM_T
+		          FROM T_BS_ENT_RES E ) EE 
+		          WHERE EE.ENT_RES_NO = #{mEntResNo}
+		          GROUP BY EE.ENT_RES_NO) EEE, T_BS_PLAT_M_QUOTA_TOTAL M
+		WHERE EEE.ENT_RES_NO = M.ENT_RES_NO
+    </select>
+    
+    <!-- 分页分组统计服务公司的企业资源 -->
+    <select id="queryCompanyResMByListPage" resultType="com.gy.hsxt.bs.bean.quota.result.CompanyResS">
+    	SELECT 
+		  S.ENT_RES_NO AS entResNo,
+		  S.ENT_CUST_NAME AS entCustName,
+		  EEE.USE_NUM_B AS totalNumB,
+		  EEE.USE_NUM_T AS totalNumT
+		FROM (SELECT 
+		       EE.ENT_RES_NO, 
+		       SUM(EE.USE_NUM_B) USE_NUM_B,
+		       SUM(EE.USE_NUM_T) USE_NUM_T
+		      FROM (SELECT 
+		            SUBSTR(E.ENT_RES_NO,0,5) ||'000000' ENT_RES_NO,
+		            DECODE(E.CUST_TYPE,2,DECODE(E.RES_STATUS,1,1,0),0) USE_NUM_B,
+		            DECODE(E.CUST_TYPE,3,DECODE(E.RES_STATUS,1,1,0),0) USE_NUM_T
+		          FROM T_BS_ENT_RES E ) EE 
+		     WHERE EE.ENT_RES_NO LIKE SUBSTR(#{mEntResNo},0,2) || '%'
+		     GROUP BY EE.ENT_RES_NO) EEE ,T_BS_S_RES S
+		WHERE EEE.ENT_RES_NO = S.ENT_RES_NO
+    </select>
+    
+    <!-- 初始化管理公司最大配额 -->
+    <insert id="initManageQuota">
+    	INSERT INTO T_BS_PLAT_M_QUOTA_TOTAL
+    		   (ENT_RES_NO,
+    		   	ENT_CUST_NAME,
+    		   	TOTAL_NUM,
+    		   	CREATED_DATE)
+    	    VALUES
+			   (#{entResNo},
+				#{entCustName},
+				#{totalNum},
+				SYSDATE)
+    </insert>
+    
+    <!-- 查询管理公司初始化最大配额记录是否存在，count数大于0，则存在 -->
+    <select id="existInitManageQuota" parameterType="string" resultType="int">
+    	SELECT  
+    		count(*)  
+    	FROM 
+    		T_BS_PLAT_M_QUOTA_TOTAL 
+    	WHERE
+    		ENT_RES_NO = #{entResNo}
+    </select>
+    
+    <!-- 更新管理公司初始化最大配额 -->
+    <update id="updateInitManageQuota">
+    	update T_BS_PLAT_M_QUOTA_TOTAL
+    		<set>
+    			ENT_CUST_NAME = #{entCustName},
+    			TOTAL_NUM = #{totalNum},
+    			UPDATED_DATE = SYSDATE
+    		</set>
+		where 
+			ENT_RES_NO = #{entResNo}
+    </update>
+    
+    <!-- 统计城市资源配额分配使用情况 -->
+    <select id="statQuotaByCity" resultType="com.gy.hsxt.bs.bean.quota.result.QuotaStatOfCity">
+  		SELECT
+			CITY_NO AS cityNo,
+			COUNT(*)						 AS totalNum,
+			SUM(DECODE(RES_STATUS, 1, 1, 0)) AS usedNum,
+			SUM(DECODE(RES_STATUS, 1, 0, 1)) AS usableNum,
+			SUM(DECODE(RES_STATUS, 0, 1, 0)) AS unUseNum,
+			SUM(DECODE(RES_STATUS, 2, 1, 0)) AS usingNum
+		FROM
+			T_BS_S_RES t
+		WHERE
+		   PROVINCE_NO = #{provinceNo}
+		AND CITY_NO = #{cityNo}
+		GROUP BY
+			CITY_NO
+    </select>
+</mapper>

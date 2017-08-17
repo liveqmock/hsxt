@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.WarehouseMapper">
+	
+	<!-- 仓库Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.tool.Warehouse" id="whMap">  
+        <id column="WH_ID" property="whId"/>  
+        <result column="WH_NAME" property="whName"/>  
+        <result column="WH_ROLE_ID" property="whRoleId"/>       
+        <result column="MOBILE" property="mobile"/>       
+        <result column="PHONE" property="phone"/>       
+        <result column="WH_ADDRESS" property="whAddr"/>       
+        <result column="REMARK" property="remark"/>     
+        <result column="ISACTIVE" property="isActive"/>     
+        <result column="IS_DEFAULT" property="isDefault"/>     
+        <result column="CREATED_DATE" property="createdDate"/>     
+        <result column="CREATEDBY" property="createdBy"/>     
+        <collection property="whArea" ofType="com.gy.hsxt.bs.bean.tool.WhArea" 
+        	select="selectWhAreaByWhId" column="whId = WH_ID">  
+        </collection>  
+    </resultMap>  
+	
+	<!-- 插入仓库 -->
+	<insert id="insertWarehouse" parameterType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		INSERT INTO 
+		T_BS_WAREHOUSE(
+			WH_ID,
+			WH_NAME,
+			MOBILE,
+			PHONE,
+			WH_ADDRESS,
+			REMARK,
+			IS_DEFAULT,
+			WH_ROLE_ID,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEDBY) 
+		VALUES (
+			#{whId},
+			#{whName},
+			#{mobile},
+			#{phone,jdbcType=VARCHAR},
+			#{whAddr},
+			#{remark,jdbcType=VARCHAR},
+			#{isDefault},
+			#{whRoleId},
+			'Y',
+			SYSDATE,
+			#{createdBy},
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 修改仓库 -->
+	<update id="updateWarehouse" parameterType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		UPDATE T_BS_WAREHOUSE 
+		<set>
+			UPDATED_DATE = SYSDATE,
+			<if test="whName != null and whName != '' ">
+				WH_NAME = #{whName},
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				MOBILE = #{mobile},
+			</if>
+			<if test="phone != null and phone != '' ">
+				PHONE = #{phone},
+			</if>
+			<if test="whAddr != null and whAddr != '' ">
+				WH_ADDRESS = #{whAddr},
+			</if>
+			<if test="whRoleId != null and whRoleId != '' ">
+				WH_ROLE_ID = #{whRoleId},
+			</if>
+			<if test="isDefault != null ">
+				IS_DEFAULT = #{isDefault},
+			</if>
+			<if test="remark != null and remark != '' ">
+				REMARK = #{remark},
+			</if>
+			<if test="updatedBy != null and updatedBy != '' ">
+				UPDATEDBY = #{updatedBy} 
+			</if>
+		</set>
+		WHERE WH_ID = #{whId}
+	</update>
+	
+	<!-- 将默认仓库修改成非默认 -->
+	<update id="updateDefaultToNotDefault">
+		UPDATE T_BS_WAREHOUSE SET IS_DEFAULT = 0 WHERE IS_DEFAULT = 1
+	</update>
+	
+	<!-- 删除仓库 -->
+	<delete id="deleteWarehouseById" parameterType="string">
+		DELETE FROM T_BS_WAREHOUSE WHERE WH_ID = #{whId} AND IS_DEFAULT = 0
+	</delete>
+	
+	<!-- 仓库所有知道 -->
+	<sql id="warehouseAllField">
+		WH_ID AS whId,
+		WH_NAME AS whName,
+		MOBILE AS mobile,
+		PHONE AS phone,
+		WH_ADDRESS AS whAddr,
+		REMARK AS remark,
+		IS_DEFAULT AS isDefault,
+		WH_ROLE_ID AS whRoleId,
+		ISACTIVE AS isActive,
+		CREATED_DATE AS createdDate,
+		CREATEDBY AS createdBy,
+		UPDATED_DATE AS updatedDate,
+		UPDATEDBY AS updateBy 
+	</sql>
+	
+	<!-- 根据id查询仓库 -->
+	<select id="selectWarehouseById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		SELECT 
+			<include refid="warehouseAllField"/>
+		FROM T_BS_WAREHOUSE 
+		WHERE WH_ID = #{whId}
+	</select>
+	
+	<!-- 分页查询仓库 -->
+	<select id="selectWarehouseListPage" parameterType="string" resultMap="whMap">
+		SELECT 
+			WH_ID,
+			WH_NAME,
+			MOBILE,
+			PHONE,
+			WH_ADDRESS,
+			IS_DEFAULT,
+			ISACTIVE,
+			WH_ROLE_ID,
+			CREATED_DATE,
+			CREATEDBY
+		FROM T_BS_WAREHOUSE 
+		WHERE 1=1
+		<if test="whName != null and whName != '' ">
+			AND WH_NAME = #{whName}
+		</if>
+		ORDER BY CREATED_DATE DESC
+	</select>
+	
+	<!-- 查询所有的仓库 -->
+	<select id="selectWarehouseAll" resultType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		SELECT 
+			<include refid="warehouseAllField"/>
+		FROM T_BS_WAREHOUSE 
+	</select>
+	
+	<!-- 根据省编号查询仓库 -->
+	<select id="selectWarehouseByNo" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		SELECT 
+			<include refid="warehouseAllField"/>
+		FROM T_BS_WAREHOUSE W
+		WHERE W.WH_ID = (SELECT WH_ID FROM T_BS_WH_AREA WHERE PROVINCE_NO = #{provinceNo})
+	</select>
+	
+	<!-- 插入仓库配送区域 -->
+	<insert id="insertWhArea">
+		INSERT INTO 
+		T_BS_WH_AREA(
+			WH_ID,
+			COUNTRY_NO,
+			PROVINCE_NO) 
+		<foreach collection="areas" item="area" index="index" separator="union all">
+			(SELECT
+			#{whId},
+			#{area.countryNo},
+			#{area.provinceNo}
+			FROM DUAL)
+		</foreach>
+	</insert>
+	
+	<!-- 删除仓库时,同时删除配送区域 -->
+	<delete id="deleteWhAreaByWhId" parameterType="string">
+		DELETE FROM T_BS_WH_AREA WHERE WH_ID = #{whId}
+	</delete>
+	
+	<!-- 根据id查询仓库配送区域 -->
+	<select id="selectWhAreaByWhId" resultType="com.gy.hsxt.bs.bean.tool.WhArea">
+		SELECT 
+			WH_ID AS whId,
+			COUNTRY_NO AS countryNo,
+			PROVINCE_NO AS provinceNo
+		FROM T_BS_WH_AREA WA
+		WHERE WA.WH_ID = #{whId}
+	</select>
+	
+	<!-- 查询默认仓库 -->
+	<select id="selectWarehouseByDefault" resultType="com.gy.hsxt.bs.bean.tool.Warehouse">
+		SELECT 
+			<include refid="warehouseAllField"/>
+		FROM T_BS_WAREHOUSE 
+		WHERE IS_DEFAULT = 1
+	</select>
+	
+	<!-- 根据省代码查询仓库区域 -->
+	<select id="selectCountWhAreaByNos" resultType="int">
+		SELECT COUNT(*) FROM T_BS_WH_AREA WA WHERE WA.PROVINCE_NO IN (${provinceNos})
+	</select>
+	
+</mapper>

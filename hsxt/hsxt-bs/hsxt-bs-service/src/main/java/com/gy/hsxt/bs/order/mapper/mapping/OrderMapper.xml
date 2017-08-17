@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.OrderMapper">
+	<!-- 插入订单 -->
+	<insert id="insertOrder" parameterType="com.gy.hsxt.bs.bean.order.Order">
+		insert into T_BS_ORDER
+		(
+		ORDER_NO,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		BIZ_NO,
+		ORDER_TYPE,
+		IS_PROXY,
+		QUANTITY,
+		ORDER_UNIT,
+		ORDER_ORIGINAL_AMOUNT,
+		ORDER_DERATE_AMOUNT,
+		ORDER_CASH_AMOUNT,
+		CURRENCY_CODE,
+		ORDER_HSB_AMOUNT,
+		EXCHANGE_RATE,
+		ORDER_REMARK,
+		ORDER_TIME,
+		DELIVER_ID,
+		ORDER_CHANNEL,
+		ORDER_OPERATOR,
+		PAY_OVERTIME,
+		ORDER_STATUS,
+		PAY_STATUS,
+		PAY_CHANNEL,
+		PAY_TIME,
+		IS_NEED_INVOICE,
+		IS_INVOICED
+		)
+		values
+		(
+		#{orderNo},
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{bizNo},
+		#{orderType},
+		#{isProxy},
+		#{quantity},
+		#{orderUnit},
+		#{orderOriginalAmount},
+		<if test="orderDerateAmount==null">
+			0,
+		</if>
+		<if test="orderDerateAmount!=null">
+			#{orderDerateAmount},
+		</if>
+		<!-- #{orderCashAmount}, 订单货币金额，实收等于原始金额减去减免金额 -->
+		#{orderCashAmount},
+		#{currencyCode},
+		#{orderHsbAmount},
+		#{exchangeRate},
+		#{orderRemark},
+		SYSDATE,
+		#{deliverId},
+		#{orderChannel},
+		#{orderOperator},
+		to_date(#{payOvertime},'yyyy-mm-dd hh24:mi:ss'),
+		<if test="orderStatus==null">
+			1,
+		</if>
+		<if test="orderStatus!=null">
+			#{orderStatus},
+		</if>
+		<if test="payStatus == null">
+			0,
+		</if>
+		<if test="payStatus != null">
+			#{payStatus},
+		</if>
+		#{payChannel},
+		to_date(#{payTime},'yyyy-mm-dd hh24:mi:ss'),
+		<if test="isNeedInvoice==null">
+			0,
+		</if>
+		<if test="isNeedInvoice!=null">
+			#{isNeedInvoice},
+		</if>
+		<if test="isInvoiced==null">
+			1
+		</if>
+		<if test="isInvoiced!=null">
+			#{isInvoiced}
+		</if>
+		)
+	</insert>
+
+	<!-- 更新订单支付状态 -->
+	<update id="updateOrderPayStat">
+		update T_BS_ORDER
+		<set>
+			<if test="payStatus != null and payStatus != ''">
+				PAY_STATUS = #{payStatus},
+			</if>
+			PAY_TIME = SYSDATE
+		</set>
+		where ORDER_NO = #{orderNo}
+	</update>
+
+	<!-- 更新订单状态 -->
+	<update id="updateOrderStatus">
+		update T_BS_ORDER
+		SET ORDER_STATUS = #{orderStatus}
+		where
+		ORDER_NO = #{orderNo}
+	</update>
+
+	<!-- 修改支付方式 -->
+	<update id="updateOrderPayChannel">
+		update T_BS_ORDER SET
+		PAY_CHANNEL = #{payChannel}
+		where
+		ORDER_NO = #{orderNo}
+	</update>
+
+	<!-- 修改订单支付成功 -->
+	<update id="updateOrderPaySuccess">
+		UPDATE T_BS_ORDER SET
+			<if test="bankTransNo != null and bankTransNo != '' ">
+				BANK_TRANS_NO = #{bankTransNo},
+			</if>
+			PAY_STATUS = 2,
+			PAY_TIME = SYSDATE,
+			ORDER_STATUS = 6
+		where
+			ORDER_NO = #{orderNo}
+	</update>
+	
+	<!-- 修改非确认工具订单支付成功 -->
+	<update id="updateNoConfirmOrderPaySuccess">
+		UPDATE T_BS_ORDER SET
+			<if test="bankTransNo != null and bankTransNo != '' ">
+				BANK_TRANS_NO = #{bankTransNo},
+			</if>
+			PAY_STATUS = 2,
+			PAY_TIME = SYSDATE,
+			<if test="orderStatus != null and orderStatus == 3">
+				FINISHED_DATE = SYSDATE,
+			</if>
+			ORDER_STATUS = #{orderStatus}
+		where
+			ORDER_NO = #{orderNo}
+	</update>
+
+	<!-- 更新资源费免单订单 -->
+    <update id="updateResFeeOrder">
+        update T_BS_ORDER
+        set
+        ORDER_DERATE_AMOUNT = ORDER_ORIGINAL_AMOUNT,
+        ORDER_CASH_AMOUNT = 0,
+        ORDER_STATUS = 3,
+        FINISHED_DATE = SYSDATE,
+        PAY_STATUS = 2
+        where ORDER_NO = #{orderNo}
+    </update>
+
+	<!-- 更新订单所有状态 -->
+	<update id="updateOrderAllStatus" parameterType="com.gy.hsxt.bs.bean.order.Order">
+		update T_BS_ORDER
+		<set>
+			<if test="payStatus != null and payStatus !=''">
+				PAY_STATUS = #{payStatus},
+				PAY_TIME = SYSDATE,
+			</if>
+			<if test="payChannel != null and payChannel !=''">
+				PAY_CHANNEL = #{payChannel},
+			</if>
+			<if test="custId != null and custId !=''">
+				CUST_ID = #{custId},
+			</if>
+			<if test="orderStatus != null and orderStatus !=''">
+				ORDER_STATUS = #{orderStatus},
+			</if>
+			<if test="orderStatus != null and orderStatus == 3">
+				FINISHED_DATE = SYSDATE,
+			</if>
+			<if test="bankTransNo != null and bankTransNo!=''">
+				BANK_TRANS_NO = #{bankTransNo}
+			</if>
+		</set>
+		where
+		ORDER_NO = #{orderNo}
+	</update>
+
+    <!-- 更新订单免单金额 -->
+    <update id="updateOrderDerateAmount">
+        update T_BS_ORDER
+        set
+        ORDER_DERATE_AMOUNT = #{orderOriginalAmount},
+        ORDER_CASH_AMOUNT = ORDER_ORIGINAL_AMOUNT-#{orderOriginalAmount}
+        where 
+        ORDER_NO = #{orderNo}
+    </update>
+
+	<!-- 根据订单号查询订单 -->
+	<select id="findOrderByOrderNo" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.OrderCustom">
+		select
+		<include refid="base_column_list" />
+		from 
+		T_BS_ORDER 
+		where 
+		ORDER_NO=#{orderNo}
+	</select>
+
+	<!-- 根据订单号查询订单 -->
+	<select id="findOrderByNo" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.Order">
+		select
+		<include refid="base_column_list" />
+		from T_BS_ORDER where ORDER_NO=#{orderNo}
+	</select>
+	
+	<!-- 查询未可支付订单 -->
+	<select id="findUnPayOrder" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.Order">
+		select
+		<include refid="base_column_list" />
+		from 
+		T_BS_ORDER 
+		where 
+		ORDER_NO=#{orderNo}
+		and ORDER_STATUS = 1
+		and PAY_STATUS in (0,3)
+	</select>
+
+	<!-- 查询工具订单 -->
+	<select id="findToolOrderByNo"
+		resultType="com.gy.hsxt.bs.bean.order.Order">
+		SELECT
+			<include refid="base_column_list" />
+		FROM T_BS_ORDER
+		WHERE ORDER_NO = #{orderNo}
+		  AND ORDER_TYPE IN
+		  <foreach collection="orderType" item="type" open="(" separator="," close=")">
+          	#{type}
+    	  </foreach>
+	</select>
+
+	<!-- 查询工具订单 -->
+	<select id="selectOrderHsCustId"
+		resultType="com.gy.hsxt.bs.bean.order.Order">
+		SELECT
+			<include refid="base_column_list" />
+		FROM T_BS_ORDER
+		WHERE CUST_ID = #{hsCustId}
+		  AND ORDER_TYPE IN
+		  <foreach collection="orderType" item="type" open="(" separator="," close=")">
+          	#{type}
+    	  </foreach>
+	</select>
+
+	<!-- 条件查询订单列表 -->
+	<select id="findOrderListPage" parameterType="com.gy.hsxt.bs.bean.order.OrderQueryParam"
+		resultType="com.gy.hsxt.bs.bean.order.OrderCustom">
+		select
+		<include refid="base_column_list" />
+		from T_BS_ORDER
+		where
+		1 = 1
+		<if test="startDate!=null and startDate!=''">
+            and ORDER_TIME &gt;=
+            to_date(#{startDate},'yyyy-MM-dd HH24:mi:ss')
+        </if>
+        <if test="endDate!=null and endDate!=''">
+            and ORDER_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+        </if>
+		<if test="orderType!=null and orderType!=''">
+			and ORDER_TYPE IN (${orderType})
+		</if>
+		<if test="payChannel!=null and payChannel!=''">
+			and PAY_CHANNEL = #{payChannel}
+		</if>
+		<if test="payStatus!=null">
+			<if test="payStatus==0">
+				and ORDER_STATUS = 1
+			</if>
+			<if test="payStatus!=0">
+				and PAY_STATUS = #{payStatus}
+			</if>
+		</if>
+		<if test="hsCustId!=null and hsCustId!=''">
+			and CUST_ID = #{hsCustId}
+		</if>
+		<if test="hsResNo!=null and hsResNo!=''">
+			and HS_RES_NO like '%${hsResNo}%'
+		</if>
+		<if test="custName!=null and custName!=''">
+			and CUST_NAME like '%${custName}%'
+		</if>
+		<if test="status!=null">
+			and ORDER_STATUS = #{status}
+		</if>
+		order by ORDER_TIME desc
+	</select>
+	<!-- 条件查询订单列表 -->
+	<select id="findOrders" parameterType="com.gy.hsxt.bs.bean.order.OrderQueryParam"
+		resultType="com.gy.hsxt.bs.bean.order.OrderCustom">
+		select
+		<include refid="base_column_list" />
+		from T_BS_ORDER
+		where
+		1 = 1
+		<if test="startDate!=null and startDate!=''">
+			and ORDER_TIME &gt;=
+			to_date(#{startDate},'yyyy-MM-dd HH24:mi:ss')
+		</if>
+		<if test="endDate!=null and endDate!=''">
+			and ORDER_TIME &lt;= to_date(#{endDate},'yyyy-MM-dd HH24:mi:ss')
+		</if>
+		<if test="orderType!=null and orderType!=''">
+			and ORDER_TYPE = #{orderType}
+		</if>
+		<if test="payChannel!=null and payChannel!=''">
+			and PAY_CHANNEL = #{payChannel}
+		</if>
+		<if test="payStatus!=null and payStatus!=''">
+			and PAY_STATUS = #{payStatus}
+		</if>
+		<if test="hsResNo!=null and hsResNo!=''">
+			and HS_RES_NO = #{hsResNo}
+		</if>
+		<if test="custName!=null and custName!=''">
+			and CUST_NAME = #{custName}
+		</if>
+		order by ORDER_TIME desc
+	</select>
+
+	<!--查询支付系统对账数据  业务订单号｜订单货币金额｜订单时间｜支付状态 -->
+	<select id="selectListForGPByQuery" parameterType="com.gy.hsxt.bs.bean.order.OrderQueryParam" resultType="com.gy.hsxt.bs.bean.order.Order">
+		(SELECT
+			 t.ORDER_NO          AS orderNo,
+			 t.ORDER_CASH_AMOUNT AS orderCashAmount,
+			 t.ORDER_TIME        AS orderTime,
+			 t.PAY_STATUS        AS payStatus
+		 FROM T_BS_ORDER t
+		 WHERE t.PAY_CHANNEL = 100
+			   AND t.PAYING_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+			   AND t.PAYING_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+		)
+		UNION ALL
+		(SELECT
+			 t.ORDER_NO          AS orderNo,
+			 t.ORDER_CASH_AMOUNT AS orderCashAmount,
+			 t.ORDER_TIME        AS orderTime,
+			 t.PAY_STATUS        AS payStatus
+		 FROM T_BS_ORDER t
+		 WHERE t.PAY_CHANNEL = 101
+			   AND t.PAYING_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+			   AND t.PAYING_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+		)
+		UNION ALL
+		(SELECT
+			 t.ORDER_NO          AS orderNo,
+			 t.ORDER_CASH_AMOUNT AS orderCashAmount,
+			 t.ORDER_TIME        AS orderTime,
+			 t.PAY_STATUS        AS payStatus
+		 FROM T_BS_ORDER t
+		 WHERE t.PAY_CHANNEL = 102
+			   AND t.PAYING_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+			   AND t.PAYING_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler}
+		)
+	</select>
+	
+	<!-- 更新订单支付中时间 -->
+	<update id="updatePayingTime">
+		update T_BS_ORDER set PAYING_TIME = to_date(#{payingTime},'yyyy-mm-dd hh24:mi:ss') where ORDER_NO = #{orderNo}
+	</update>
+	
+	<!-- 订单字段片段 -->
+	<sql id="base_column_list">
+		ORDER_NO AS orderNo,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CUST_TYPE AS custType,
+		BIZ_NO AS bizNo,
+		ORDER_TYPE AS orderType,
+		IS_PROXY AS isProxy,
+		QUANTITY AS quantity,
+		ORDER_UNIT AS orderUnit,
+		ORDER_ORIGINAL_AMOUNT AS orderOriginalAmount,
+		ORDER_DERATE_AMOUNT AS orderDerateAmount,
+		ORDER_CASH_AMOUNT AS
+		orderCashAmount,
+		CURRENCY_CODE AS currencyCode,
+		ORDER_HSB_AMOUNT AS
+		orderHsbAmount,
+		EXCHANGE_RATE AS exchangeRate,
+		ORDER_REMARK AS
+		orderRemark,
+		to_char(ORDER_TIME,'yyyy-MM-dd hh24:mi:ss') AS orderTime,
+		DELIVER_ID AS deliverId,
+		ORDER_CHANNEL AS orderChannel,
+		ORDER_OPERATOR AS orderOperator,
+		PAY_OVERTIME AS payOvertime,
+		ORDER_STATUS AS orderStatus,
+		PAY_STATUS AS
+		payStatus,
+		PAY_CHANNEL AS payChannel,
+		to_char(PAY_TIME,'yyyy-MM-dd hh24:mi:ss') AS payTime,
+		IS_NEED_INVOICE AS isNeedInvoice,
+		IS_INVOICED AS isInvoiced,
+		FINISHED_DATE AS finishedDate,
+		BANK_TRANS_NO AS bankTransNo,
+		to_char(PAYING_TIME,'yyyy-MM-dd hh24:mi:ss') AS payingTime
+	</sql>
+
+	<!-- 查询订单条件sql片段 -->
+	<sql id="query_order_where">
+		<where>
+			<if test="startDate!=null and startDate!=''">
+				and ORDER_TIME &gt;=
+				to_date(#{startDate},'yyyy-mm-dd
+				hh24:mi:ss')
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				and ORDER_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd
+				hh24:mi:ss')
+			</if>
+			<if test="orderType!=null and orderType!=''">
+				and ORDER_TYPE = #{orderType}
+			</if>
+			<if test="payChannel!=null and payChannel!=''">
+				and PAY_CHANNEL = #{payChannel}
+			</if>
+			<if test="payStatus!=null and payStatus!=''">
+				and PAY_STATUS = #{payStatus}
+			</if>
+			<if test="hsResNo!=null and hsResNo!=''">
+				and HS_RES_NO = #{hsResNo}
+			</if>
+			<if test="custName!=null and custName!=''">
+				and CUST_NAME = #{custName}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 查询客户未完成的订单 -->
+	<select id="selectCustNoPayFinishOrder" resultType="com.gy.hsxt.bs.bean.order.Order">
+		SELECT 
+			<include refid="base_column_list"/>
+		    FROM (SELECT *
+		            FROM T_BS_ORDER O
+		           WHERE O.ORDER_TYPE = #{orderType}
+		             AND O.CUST_ID = #{hsCustId}
+		             AND O.ORDER_STATUS = 1 AND <![CDATA[ O.PAY_OVERTIME > SYSDATE ]]>
+		           ORDER BY O.ORDER_TIME DESC)
+		   WHERE ROWNUM = 1	
+	</select>
+</mapper>

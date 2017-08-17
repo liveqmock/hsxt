@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.ent.mapper.EntTaxRateMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.ent.bean.EntTaxRate" >
+    <!-- 企业未生效税率信息 resultMap -->
+    <id column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ENT_TAX_RATE" property="entTaxRate" jdbcType="DECIMAL" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="ACTIVE_DATE" property="activeDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+  </resultMap>
+  
+  <!-- 查询列信息 -->
+  <sql id="Base_Column_List" >
+    ENT_CUST_ID, 
+    ENT_TAX_RATE, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY, 
+    ACTIVE_DATE, 
+    ENT_RES_NO
+  </sql>
+  
+  <!-- 根据企业客户号查询企业税率信息  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ENT_TAXRATE
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据企业客户号查询企业税率信息记录数  -->
+  <select id="selectCounts" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select 
+    count(*)
+    from T_ENT_TAXRATE
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据企业客户号删除企业税率信息 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ENT_TAXRATE
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 新增企业税率信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.ent.bean.EntTaxRate" >
+    insert into T_ENT_TAXRATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="entTaxRate != null" >
+        ENT_TAX_RATE,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="activeDate != null" >
+        ACTIVE_DATE,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="entTaxRate != null" >
+        #{entTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="activeDate != null" >
+        #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据企业客户号更新企业税率信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.ent.bean.EntTaxRate" >
+    update T_ENT_TAXRATE
+    <set >
+      <if test="entTaxRate != null" >
+        ENT_TAX_RATE = #{entTaxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="activeDate != null" >
+        ACTIVE_DATE = #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+    </set>
+    where ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

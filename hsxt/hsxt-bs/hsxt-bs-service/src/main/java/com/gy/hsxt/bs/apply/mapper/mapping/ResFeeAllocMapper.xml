@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.ResFeeAllocMapper">
+	<resultMap id="resFeeAllocResult" type="com.gy.hsxt.bs.bean.apply.ResFeeAlloc">
+        <id column="DETAIL_ID" property="detailId"/>
+        <result column="TOTAL_ID" property="totalId"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_NAME" property="custName"/> 
+        <result column="ALLOC_AMT" property="allocAmt" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="CURRENCY_CODE" property="currencyCode"/>
+        <result column="NEED_TAX" property="needTax"/>
+        <result column="TAX_RATE" property="taxRate" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="TAX_AMOUNT" property="taxAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="ALLOC_DATE" property="allocDate"/>
+        <result column="EXCHANGE_RATE" property="exChangeRate" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="ALLOC_TYPE" property="allocType"/>
+        <result column="ALLOCATED" property="allocated" javaType="boolean"/>
+    </resultMap>
+
+    <!-- 批量保存资源费分配记录 -->
+	<insert id="batchSaveResFeeAlloc" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close="end;">
+			INSERT INTO T_BS_RES_FEE_ALLOC
+			  (DETAIL_ID,
+			   TOTAL_ID,
+			   CUST_ID,
+			   CUST_TYPE,
+			   RES_NO,
+			   CUST_NAME,
+			   ALLOC_AMT,
+			   CURRENCY_CODE,
+			   NEED_TAX,
+			   TAX_RATE,
+			   TAX_AMOUNT,
+			   EXCHANGE_RATE,
+			   ALLOC_DATE,
+			   ALLOC_TYPE,
+			   ALLOCATED)
+			VALUES
+			  (#{item.detailId},
+			   #{item.totalId},
+			   #{item.custId},
+			   #{item.custType},
+			   #{item.resNo},
+			   #{item.custName},
+			   #{item.allocAmt},
+			   #{item.currencyCode},
+			   #{item.needTax},
+			   #{item.taxRate},
+			   #{item.taxAmount},
+			   #{item.exChangeRate},
+			   SYSDATE,
+			   #{item.allocType},
+			   #{item.allocated});        	
+		</foreach>
+	</insert>
+	
+	<!-- 根据Id查询资源费分配记录 -->
+	<select id="queryResFeeAllocById" parameterType="string" resultMap="resFeeAllocResult">
+		SELECT *
+		  FROM T_BS_RES_FEE_ALLOC
+		 WHERE DETAIL_ID = #{detailId}
+	</select>
+	
+	<!-- 根据申报单编号查询分配记录 -->
+	<select id="queryResFeeAllocByApplyId" parameterType="string" resultMap="resFeeAllocResult">
+		SELECT *
+		  FROM T_BS_RES_FEE_ALLOC
+		 WHERE TOTAL_ID = #{applyId} 
+		  
+	</select>
+	
+	<!--查询所有未完成资源费分配记账的申报单号(今天以前未分配) -->
+	<select id="queryUnAllocApplyIds" resultType="string">
+		SELECT distinct TOTAL_ID 
+		  FROM T_BS_RES_FEE_ALLOC
+		 WHERE ALLOCATED = 0
+		 <![CDATA[
+		 AND ALLOC_DATE < TRUNC(SYSDATE)
+		 ]]>
+	</select>
+	
+	<!-- 根据申报单编号查询待分配的记录(今天以前未分配) -->
+	<select id="queryUnAllocByApplyId" parameterType="string" resultMap="resFeeAllocResult">
+		SELECT *
+		  FROM T_BS_RES_FEE_ALLOC
+		 WHERE ALLOCATED = 0
+		 AND TOTAL_ID = #{applyId}
+		 <![CDATA[
+		 AND ALLOC_DATE < TRUNC(SYSDATE)
+		 ]]>
+	</select>
+	<!--查询所有待分配的记录(今天以前未分配) -->
+	<select id="queryUnAllocAll" resultMap="resFeeAllocResult">
+		SELECT *
+		  FROM T_BS_RES_FEE_ALLOC
+		 WHERE ALLOCATED = 0
+		 <![CDATA[
+		 AND ALLOC_DATE < TRUNC(SYSDATE)
+		 ]]>
+		 ORDER BY TOTAL_ID 
+	</select>
+	
+	<!--按申报单编号将资源费分配标识为已分配 -->
+	<update id="updateAllocFlag" parameterType="string">
+		update T_BS_RES_FEE_ALLOC
+		 set ALLOCATED = 1
+		 where ALLOCATED = 0 and TOTAL_ID = #{applyId}
+	</update>
+	
+	<!-- 批量更新资源费分配记录的分配标识 -->
+	<update id="batchUpdateAllocFlag"  parameterType="java.util.List">
+		update T_BS_RES_FEE_ALLOC
+		 set ALLOCATED = 1
+		 where ALLOCATED = 0 
+		 AND DETAIL_ID in
+        <foreach collection="list" item= "item" index ="index" open= "(" close =")" separator=",">
+            #{item.detailId}
+     	</foreach >
+    </update>
+</mapper>

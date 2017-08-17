@@ -1,0 +1,46 @@
+<!-- 操作台切换标签结束 -->
+  <!--内容添加开始-->
+  <div>
+    <!--列表内容开始-->
+    <div class="search-toolbar">
+      <ul class="cssform clearfix">
+      <li class="mr10">
+          <label class="title-int">企业互生号：</label>
+          <div class="cont-int">
+          <input type="text" name="textfield" id="companyResourceNO" placeholder="企业互生号" class="input-txt" maxlength="11"/>
+          </div>
+        </li>
+        <li class="mr20">
+          <label class="title-int">菜单名称：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="itemName" placeholder="菜单名称" class="input-txt" />
+          </div>
+        </li>
+        <li>
+          <div class="cont-int">
+            <button id="btnQueryItem" class="btn-search ml10">查询</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="shopebox">
+    <!-- content -->
+    <table id="itemData" >
+    	<tr>
+			<th w_index="companyResourceNo" w_algin="center" width="10%">企业互生号</th>
+			<th w_index="companyName" w_algin="center" width="25%">企业名称</th>
+			<th w_index="virtualShopId" w_algin="center" width="10%">商城编号</th>
+			<th w_render="operate" w_algin="center" width="10%">名称</th>
+			<th w_index="remark" w_algin="center" width="35%">备注</th>
+			<!-- <th w_render="operate" w_algin="center" width="10%">状态</th> -->
+		</tr>
+    </table>
+    </div>
+<!--内容添加end-->
+</div>
+<!-- 操作台切换标签end -->
+
+<!--弹出框内容及脚本结束-->
+<div id="dlg0" class="none">
+  <p id="table-point" align="center"></p>
+</div>

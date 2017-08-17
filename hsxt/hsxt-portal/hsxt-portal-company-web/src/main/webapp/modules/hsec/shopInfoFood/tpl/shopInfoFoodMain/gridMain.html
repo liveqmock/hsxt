@@ -1,0 +1,95 @@
+<!-- <% var param = obj.data; %> -->
+<div class="operationsInner" id="stdlb">
+<!-- 操作台切换标签结束 -->
+<!--内容添加开始-->
+<div class="searchbox">
+    <div class="search-toolbar">
+        <ul class="cssform clearfix">
+            <li class="mr20">
+                <label class="title-int">营业点名称：</label>
+                <div class="cont-int">
+                    <input name="shopName" id="shopName" placeholder="输入营业点名称" value="" class="input-txt w100" type="text">
+                </div>
+            </li>
+            <li class="mr20">
+            	<label class="title-int">营业点类型：</label>
+	            <input id="shopType" placeholder="全部" readonly="readonly" optionvalue=""  /> 
+                <!-- <label class="title-int">营业点类型：</label>
+                <div class="cont-int">
+                    <select class="input-txt w100" style="height:30px;padding:0" id="shopType">
+						<option value="">全部</option>
+                        <option value="2">餐饮</option>
+						<option value="1">零售</option>
+					</select>
+                </div>  -->
+            </li>
+            <li class="mr20">
+            	<label class="title-int">区域：</label>
+            	<input id="areaId" placeholder="全部" readonly="readonly" optionvalue=""  /> 
+               <!--  <label class="title-int">区域：</label>
+                <div class="cont-int">
+                    <select class="input-txt w100" style="height:30px;padding:0" id="areaId">
+						<option value="">全部</option>
+						<%$.each(param,function(key,value){%>
+			              <option value="<%=value.areaCode%>"><%=value.areaName%></option>
+			             <%})%>
+					</select>
+                </div> -->
+            </li>
+            <li class="mr20 none">
+                <label class="title-int" style="display:none">商圈：</label>
+                <div class="cont-int none">
+                    <input name="businessArea" id="businessArea" placeholder="输入商圈" value="" class="input-txt w100 none" type="text">
+                </div>
+            </li>
+            <li class="mr20">
+                <div class="cont-int">
+                    <button id="btnSearch" type="button" class="btn-search">查询</button>
+                </div> 
+            </li>
+            <li class="mr20">
+                <div class="cont-int">
+                    <button id="btnAdd" type="button" class="btn-search stdbj">新增营业点</button>
+                </div> 
+            </li>
+           <!--  <li class="mr20">
+                <div class="cont-int">
+                    <button id="batchCounterDeletData"  type="button" class="btn-search">批量删除</button>
+                </div> 
+            </li>
+            <li class="mr20">
+                <div class="cont-int">
+                    <button id="batchSttingsDish"  type="button" class="btn-search">批量设置菜单</button>
+                </div> 
+            </li> -->
+         </ul>
+    </div>
+    <table id="shopinfoGridMain">
+    	<tr>
+          <th w_render="operate" w_align="left" width="4%;"><!-- <input name="chkAll" id="chkAll" value="" type="checkbox"> --></th>
+          <th w_render="operate" w_align="left" width="10%;">营业点名称</th>
+          <th w_render="operate" w_align="left" width="8%;">营业点类型</th>
+          <th w_render="operate" w_align="left" width="30%;">营业点地址</th>
+          <th w_render="operate" w_align="left" width="10%;">商圈</th>
+          <th w_render="operate" w_align="left" width="10%;">状态</th>
+          <th w_render="operate" w_align="left" width="10%;">设置菜单名称</th>
+          <th w_render="operate" w_align="center" width="20%;">操作</th>
+      </tr>
+    </table>
+    <div id="itemInfoData"></div>
+  </div>
+</div>
+<!-- 添加弹出框 -->
+<div id="addAlert" class="none"></div>
+<!--弹出框内容及脚本开始{分页提示信息}-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>
+<div id="dlg99" class="none">
+  <p class="table-del"></p>
+</div>
+<div id="dlgSetFoodMenuItem" class="none ovh">
+</div>  

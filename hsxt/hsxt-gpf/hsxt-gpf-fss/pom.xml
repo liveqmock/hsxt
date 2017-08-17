@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gy.hsxt</groupId>
+        <artifactId>hsxt-gpf</artifactId>
+        <version>3.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>hsxt-gpf-fss</artifactId>
+    <packaging>pom</packaging>
+    <description>文件同步系统</description>
+
+    <modules>
+        <module>hsxt-gpf-fss-api</module>
+        <module>hsxt-gpf-fss-service</module>
+    </modules>
+</project>

@@ -1,0 +1,51 @@
+<div id="yhzhxxTpl">
+	<!--银行卡列表开始-->
+	<ul class="bank_content">
+	
+	  <%if (obj.list!=null) {%>
+			<%$.each(obj.list, function(k, v) {%>
+				<li class="bank_bg pr">
+					<%if (v.isDefault=='1') {%>
+						<i class="default_bank"></i>
+					<%}%>
+					<div class="bank_row bank_row_margin_1 clearfix">
+						<div class="fl"><!--<i class="bank_logo"></i> --><span class="f14"><%=v.bankName%></span></div>
+					</div>
+					<div class="bank_row bank_row_margin_2 tc">
+						<span class="bank_number"><%=v.bankAccNo.substring(0,4)%>*****<%=v.bankAccNo.substring(v.bankAccNo.length-4,v.bankAccNo.length) %></span>
+					</div>
+					<div class="bank_row bank_row_margin_2 clearfix">
+						<div class="fl"><span class="gray">结算币种：</span><span ><%=obj.platform_currency%></span></div>
+						<input type="hidden" name="bankAccounId"/>
+						<div class="fr">
+							<%=v.isDefault==='1' ? '<span class="gray">删除</span>' : '<a data-id="' + v.accId + '" class="deleteBt_yinghang">删除</a>'%> | <a data-id="<%=v.accId%>" class="info_btn">详情</a>
+						</div>
+					</div>
+				</li>
+			<%})%>
+		<%}%>
+			
+		<%if (obj.list!=null) {%>
+			<%if (6 - obj.list.length>0) {%>
+				<li class="addBank_bg">
+					<div class="addBank_content clearfix">
+					<i class="icon add_icon fl addAccount_btn"></i>
+					<div class="fl fb addBank_content_text_1 addAccount_btn"><a id="tj_btn">添加银行账户</a></div>
+					</div>
+					<div class="tc gray f13">还可以添加<%=6 - obj.list.length%>个银行账户</div>
+				</li>
+			<%}%>
+		<%}else{%>
+			<li class="addBank_bg">
+				<div class="addBank_content clearfix">
+				<i class="icon add_icon fl addAccount_btn"></i>
+				<div class="fl fb addBank_content_text_1 addAccount_btn"><a id="tj_btn">添加银行账户</a></div>
+				</div>
+				<div class="tc gray f13">还可以添加6个银行账户</div>
+			</li>
+		<%}%>
+	
+	</ul>
+	<!--银行卡列结束-->
+</div>
+<div id="yhzhxxTpl_xq" class="none"></div>

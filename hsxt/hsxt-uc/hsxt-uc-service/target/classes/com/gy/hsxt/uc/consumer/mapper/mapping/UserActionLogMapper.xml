@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.consumer.mapper.UserActionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.consumer.bean.UserActionLog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="ACTION" property="action" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    LOG_ID, CUST_ID, ACTION, REMARK, CREATE_DATE, CREATEDBY
+  </sql>
+  
+  <!-- 查询消费者挂失、解挂记录 -->
+   <resultMap id="UserActionResultMap" type="com.gy.hsxt.uc.as.bean.consumer.AsUserActionLog" >
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="ACTION" property="action" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询消费者挂失、解挂列信息 -->
+	<sql id="Consumer_Action_List">
+		T.LOG_ID,
+		T.CUST_ID,
+		T.ACTION,
+		T.REMARK,
+		TO_CHAR(T.CREATE_DATE, 'yyyy-mm-dd hh24:mi:ss') CREATE_DATE,
+		T.CREATEDBY
+	</sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_USER_ACTION_LOG
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_USER_ACTION_LOG
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.consumer.bean.UserActionLog" >
+    insert into T_USER_ACTION_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="action != null" >
+        ACTION,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.consumer.bean.UserActionLog" >
+    update T_USER_ACTION_LOG
+    <set >
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        ACTION = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  <!-- 分页查询挂失解挂记录 -->
+	<select id="pageUserActionInfo" resultMap="UserActionResultMap" parameterType="java.util.Map">
+		<include refid="PaginationPrefix" />
+		select
+		<include refid="Consumer_Action_List" />
+		FROM T_USER_ACTION_LOG T WHERE 1 = 1
+		<include refid="Where_Condition" />
+		order by CREATE_DATE desc
+		<include refid="PaginationSuffix" />
+	</select>
+	
+	<select id="countAsUserActionLog" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(1)
+		FROM T_USER_ACTION_LOG T WHERE 1 = 1
+		<include refid="Where_Condition" />
+	</select>
+	
+	
+	<!--分页查询条件 -->
+	<sql id="Where_Condition">
+		<if test="custId != null and  custId != '' ">
+			AND T.CUST_ID = #{custId}
+		</if>
+		<if test="action != null and  action != '' ">
+			And T.ACTION = #{action}
+		</if>
+		<if test="beginDate != null and  beginDate != '' ">
+			<![CDATA[  And T.CREATE_DATE >= to_date(#{beginDate},'yyyy-mm-dd') ]]>
+		</if>
+		<if test="endDate != null and  endDate != '' ">
+			<![CDATA[  And T.CREATE_DATE < (to_date(#{endDate},'yyyy-mm-dd')+1) ]]>
+		</if>
+	</sql>
+  
+  
+  <!-- 分页查询前缀 -->
+	<sql id="PaginationPrefix">
+		select * from ( select row_.*, rownum rownum_ from (
+	</sql>
+  
+	<!-- 分页查询后缀 -->
+	<sql id="PaginationSuffix">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.curPage} * #{page.pageSize} - #{page.pageSize} and rownum_ <=  #{page.curPage} * #{page.pageSize} ]]>
+	</sql>
+</mapper>

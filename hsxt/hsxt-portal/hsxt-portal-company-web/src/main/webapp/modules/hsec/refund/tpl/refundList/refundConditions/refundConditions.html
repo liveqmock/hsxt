@@ -1,0 +1,59 @@
+    <%var param = obj.data%>
+    <div>
+      <table id="table1">  
+      	<thead>
+      	<tr>
+    	  <th width="5%">序号</th>
+          <th width="15%">订单编号</th>
+          <th width="15%">营业点</th>
+          <th width="10%">买家昵称/互生卡号/手机号码</th>
+          <th width="10%">申请类型</th>
+          <th width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">退款金额</th>
+          <th width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">退积分</th>
+          <th width="10%">申请时间</th>
+          <th width="5%">状态</th>
+          <th>操作</th>
+        </tr>
+      	</thead>
+            <%if(param!=null && param!=''){%>
+                <%$.each(param.result,function(key,el){%>
+                <tr class="<%=key%2==0?'tc':'table-tr-c'%>">
+                  <td><%=param.recordSize*(param.currentPageIndex-1)+(key+1)%></td>
+                  <td><%=el.ordId%></td>
+                  <td>
+                   <%=el.shopName%>
+                  </td>
+                  <td>
+                  	<%=(el.nickName!=null && el.nickName!="" ? el.nickName:el.buyerAccountNo)%>
+                  </td>
+                  <td width="60">
+                      <% if(el.refundType=="1"){%>
+                                                          退款退货
+                      <%}else if(el.refundType=="2"){%>
+                                                         仅退款
+                      <%}else{%>
+                                                         换货
+                      <%}%>
+                   </td>
+                  <td><span class="fb red"><%=comm.formatMoneyNumber(el.price)%></span></td>
+                  <td><span class="fb blue"><%=comm.formatMoneyNumber(el.points)%></span></td>
+                  <td><%=el.createTime%></td>
+                  <td class="refundStatusRow" width="90"><%=el.statusName%></td>
+                  <td>
+                  <a class="checkRefundInfo" oId="<%=el.ordId%>" rId="<%=el.refundId%>" uId="<%=el.userId%>">查看详情</a><%if(el.status==0 || el.status==4 || el.status==8){%><br/><a class="afterDeal" oId="<%=el.ordId%>" rId="<%=el.refundId%>" uId="<%=el.userId%>">处理申请</a><%}%>
+                  </td>
+                </tr>
+                <%})%>
+				<%}%>
+      </table></div>
+      <div class=" clearfix">
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=param.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/><span class="page-go">页/<%=param.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.recoredCount%>条</a>
+</div>
+                        </div>

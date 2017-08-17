@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.rp.mapper.ReportsSystemResourceMapper"><!-- map的类 -->
+
+
+    <resultMap type="com.gy.hsxt.rp.bean.ReportsEnterprisResource" id="reportsEnterprisResource">
+     <!-- 企业资源对象-->
+        <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+        <result column="ENT_REG_ADDR" property="entRegAddr" jdbcType="VARCHAR" />
+        <result column="CONTACT_PERSON" property="contactPerson" jdbcType="VARCHAR" />
+        <result column="CONTACT_PHONE" property="contactPhone" jdbcType="VARCHAR" />
+        <result column="OPEN_DATE" property="openDate" jdbcType="VARCHAR" />
+        <result column="REALNAME_AUTH" property="realnameAuth" jdbcType="INTEGER" />
+        <result column="PARTICIPATION_SCORE" property="participationScore" jdbcType="INTEGER" />
+        <result column="BASE_STATUS" property="baseStatus" jdbcType="INTEGER" />
+        <result column="ENABLED_CARDHOLDER_NUMBER" property="enabledCardholderNumber" jdbcType="INTEGER" />
+        <result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+        <result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+        <result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+        <result column="APPLY_ENT_RES_NO" property="applyEntResNo" jdbcType="VARCHAR" />
+        <result column="SERVICE_ENT_RES_NO" property="serviceEntResNo" jdbcType="VARCHAR" />
+        <result column="ADMIN_ENT_RES_NO" property="adminEntResNo" jdbcType="VARCHAR" />
+        <result column="PLATFORM_ENT_RES_NO" property="platformEntResNo" jdbcType="VARCHAR" />
+        <result column="RES_FEE_CHARGE_MODE" property="resFeeChargeMode" jdbcType="INTEGER" />
+        <result column="ART_RES_TYPEST" property="artResType" jdbcType="INTEGER" />
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" />
+        <result column="EXPORT_ART_RES_TYPEST" property="exportArtResType" jdbcType="VARCHAR" />
+        <result column="EXPORT_BUSINESS_TYPE" property="exportBusinessType" jdbcType="VARCHAR" />
+        <result column="EXPORT_REALNAME_AUTH" property="exportRealnameAuth" jdbcType="VARCHAR" />
+        <result column="EXPORT_BASE_STATUS" property="exportBaseStatus" jdbcType="VARCHAR" />
+        <result column="EXPORT_RES_FEE_CHARGE_MODE" property="exportResFeeChargeMode" jdbcType="VARCHAR" />
+        
+    </resultMap>
+    <resultMap type="com.gy.hsxt.rp.bean.ReportsCardholderResource" id="reportsCardholderResource">
+     <!-- 消费者资源对象-->
+        <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="PER_NAME" property="perName" jdbcType="VARCHAR" />
+        <result column="ID_TYPE" property="idType" jdbcType="INTEGER" />
+        <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
+        <result column="COUNTRY_NAME" property="countryName" jdbcType="VARCHAR" />
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    	<result column="RESIDENT_ADDR" property="residentAddr" jdbcType="VARCHAR" />
+        <result column="REALNAME_AUTH" property="realnameAuth" jdbcType="INTEGER" />
+        <result column="REALNAME_AUTH_DATE" property="realnameAuthDate" jdbcType="VARCHAR" />
+        <result column="BASE_STATUS" property="baseStatus" jdbcType="INTEGER" />
+        <result column="ENT_RES_NO" property="entResNo" jdbcType="VARCHAR" />
+        <result column="SERVICE_ENT_RES_NO" property="serviceEntResNo" jdbcType="VARCHAR" />
+        <result column="ADMIN_ENT_RES_NO" property="adminEntResNo" jdbcType="VARCHAR" />
+        <result column="PLATFORM_ENT_RES_NO" property="platformEntResNo" jdbcType="VARCHAR" />
+        <result column="EXPORT_REALNAME_AUTH" property="exportRealnameAuth" jdbcType="VARCHAR" />
+        <result column="EXPORT_BASE_STATUS" property="exportBaseStatus" jdbcType="VARCHAR" />
+        <result column="EXPORT_ID_TYPE" property="exportIdType" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap type="com.gy.hsxt.rp.bean.ReportsResourceStatistics" id="reportsResourceStatistics">
+     <!-- 资源统计对象-->
+        <id column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+        <result column="HS_RES_NO" property="hsResNo" jdbcType="VARCHAR" />
+        <result column="CUST_TYPE" property="custType" jdbcType="INTEGER" />
+        <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+        <result column="SYSTEM_RESOURCE_USAGE_NUMBER" property="systemResourceUsageNumber" jdbcType="VARCHAR" />
+        <result column="REGISTRATION_AUTH_NUMBER" property="registrationAuthNumber" jdbcType="INTEGER" />
+        <result column="REALNAME_AUTH_NUMBER" property="realnameAuthNumber" jdbcType="INTEGER" />
+        <result column="ACTIVATION_NUMBER" property="activationNumber" jdbcType="INTEGER" />
+        <result column="ACTIVE_NUMBER" property="activeNumber" jdbcType="INTEGER" />
+        <result column="SERVICE_ENT_RES_NO" property="serviceEntResNo" jdbcType="VARCHAR" />
+        <result column="ADMIN_ENT_RES_NO" property="adminEntResNo" jdbcType="VARCHAR" />
+        <result column="PLATFORM_ENT_RES_NO" property="platformEntResNo" jdbcType="VARCHAR" />
+    </resultMap>
+<!-- @author 作者 : weixz -->
+
+<!-- 多个企业资源对象查询 
+<select id="searchEnterprisResource" resultMap="reportsEnterprisResource" parameterType="ReportsEnterprisResource">
+        SELECT  CUST_ID,
+                HS_RES_NO,
+                CUST_TYPE,
+                ENT_CUST_NAME, 
+                ENT_REG_ADDR,
+                CONTACT_PERSON,
+                CONTACT_PHONE,
+                OPEN_DATE,
+                REALNAME_AUTH,
+                PARTICIPATION_SCORE,
+                BASE_STATUS,
+                ENABLED_CARDHOLDER_NUMBER,
+                COUNTRY_NO,
+                PROVINCE_NO,
+                CITY_NO,
+                APPLY_ENT_RES_NO,
+                SERVICE_ENT_RES_NO,
+                ADMIN_ENT_RES_NO, 
+                PLATFORM_ENT_RES_NO 
+          FROM  T_RP_ENTERPRIS_RESOURCE T  
+         WHERE  1 = 1 
+         <if test="custId != null and custId != ''">
+                 AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND HS_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND ENT_CUST_NAME LIKE '%'||#{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="entRegAddr != null and entRegAddr != '' ">
+                 AND ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="contactPerson != null and contactPerson != '' ">
+                 AND CONTACT_PERSON LIKE '%'||#{contactPerson,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="contactPhone != null and contactPhone != '' ">
+                 AND CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' ">
+                 AND REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="participationScore != null and participationScore != '' ">
+                 AND PARTICIPATION_SCORE = #{participationScore,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="countryNo != null and countryNo != '' ">
+                 AND COUNTRY_NO = #{countryNo,jdbcType=VARCHAR}
+         </if>
+          <if test="provinceNo != null and provinceNo != '' ">
+                 AND PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR}
+         </if>
+          <if test="cityNo != null and cityNo != '' ">
+                 AND CITY_NO = #{cityNo,jdbcType=VARCHAR}
+         </if>
+         <if test="applyEntResNo != null and applyEntResNo != '' ">
+                 AND APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SERVICE_ENT_RES_NO = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND ADMIN_ENT_RES_NO = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="platformEntResNo != null and platformEntResNo != '' ">
+                 AND PLATFORM_ENT_RES_NO = #{platformEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND OPEN_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND OPEN_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY OPEN_DATE DESC
+</select>-->
+
+<!-- 多个企业资源对象查询 -->
+<select id="searchEnterprisResource" resultMap="reportsEnterprisResource" parameterType="ReportsEnterprisResource">
+	  SELECT STATUS.ENT_CUST_ID CUST_ID,
+             STATUS.ENT_RES_NO HS_RES_NO,
+             STATUS.CUST_TYPE,
+             EXTEND.ENT_CUST_NAME,
+             EXTEND.ENT_REG_ADDR,
+             EXTEND.CONTACT_PERSON,
+             EXTEND.CONTACT_PHONE,
+             STATUS.OPEN_DATE,
+             STATUS.IS_REALNAME_AUTH REALNAME_AUTH,
+             DECODE(STATUS.BASE_STATUS, 7, 1, 5, 1, 2) PARTICIPATION_SCORE,
+             STATUS.BASE_STATUS,
+             STATUS.COUNT_BUY_CARDS ENABLED_CARDHOLDER_NUMBER,
+             EXTEND.COUNTRY_NO,
+             EXTEND.PROVINCE_NO,
+             EXTEND.CITY_NO,
+             EXTEND.APPLY_ENT_RES_NO,
+             DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) SERVICE_ENT_RES_NO,
+             SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO,
+             DECLAR.RES_FEE_CHARGE_MODE,
+             EXTEND.ART_RES_TYPEST,
+             EXTEND.BUSINESS_TYPE
+        FROM DBUC01.T_ENT_STATUS STATUS,
+             DBUC01.T_ENT_EXTEND EXTEND,
+             DBBS01.T_BS_DECLARE_ENT DECLAR
+	   WHERE STATUS.ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND DECLAR.TO_ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND STATUS.CUST_TYPE IN (2, 3, 4)
+         AND DECLAR.APP_STATUS = 9
+         <if test="custId != null and custId != ''">
+                 AND STATUS.ENT_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND STATUS.ENT_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND STATUS.CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND EXTEND.ENT_CUST_NAME LIKE '%'||#{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="entRegAddr != null and entRegAddr != '' ">
+                 AND EXTEND.ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="contactPerson != null and contactPerson != '' ">
+                 AND EXTEND.CONTACT_PERSON LIKE '%'||#{contactPerson,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="contactPhone != null and contactPhone != '' ">
+                 AND EXTEND.CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' ">
+                 AND STATUS.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="participationScore != null and participationScore != '' ">
+                 AND DECODE(STATUS.BASE_STATUS, 7, 1, 5, 1, 2) = #{participationScore,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND STATUS.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="countryNo != null and countryNo != '' ">
+                 AND EXTEND.COUNTRY_NO = #{countryNo,jdbcType=VARCHAR}
+         </if>
+          <if test="provinceNo != null and provinceNo != '' ">
+                 AND EXTEND.PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR}
+         </if>
+          <if test="cityNo != null and cityNo != '' ">
+                 AND EXTEND.CITY_NO = #{cityNo,jdbcType=VARCHAR}
+         </if>
+         <if test="applyEntResNo != null and applyEntResNo != '' ">
+                 AND EXTEND.APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND STATUS.OPEN_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND STATUS.OPEN_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY STATUS.OPEN_DATE DESC
+</select>
+
+<!-- 多个企业资源对象分页查询 -->
+<select id="searchEnterprisResourceListPage" resultMap="reportsEnterprisResource" parameterType="ReportsEnterprisResource">
+      SELECT STATUS.ENT_CUST_ID CUST_ID,
+             STATUS.ENT_RES_NO HS_RES_NO,
+             STATUS.CUST_TYPE,
+             EXTEND.ENT_CUST_NAME,
+             EXTEND.ENT_REG_ADDR,
+             EXTEND.CONTACT_PERSON,
+             EXTEND.CONTACT_PHONE,
+             STATUS.OPEN_DATE,
+             STATUS.IS_REALNAME_AUTH REALNAME_AUTH,
+             DECODE(STATUS.BASE_STATUS, 7, 1, 5, 1, 2) PARTICIPATION_SCORE,
+             STATUS.BASE_STATUS,
+             STATUS.COUNT_BUY_CARDS ENABLED_CARDHOLDER_NUMBER,
+             EXTEND.COUNTRY_NO,
+             EXTEND.PROVINCE_NO,
+             EXTEND.CITY_NO,
+             EXTEND.APPLY_ENT_RES_NO,
+             DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) SERVICE_ENT_RES_NO,
+             SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO,
+             DECLAR.RES_FEE_CHARGE_MODE,
+             EXTEND.ART_RES_TYPEST,
+             EXTEND.BUSINESS_TYPE
+        FROM DBUC01.T_ENT_STATUS STATUS,
+             DBUC01.T_ENT_EXTEND EXTEND,
+             DBBS01.T_BS_DECLARE_ENT DECLAR
+	   WHERE STATUS.ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND DECLAR.TO_ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND STATUS.CUST_TYPE IN (2, 3, 4)
+         AND DECLAR.APP_STATUS = 9
+         <if test="custId != null and custId != ''">
+                 AND STATUS.ENT_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND STATUS.ENT_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND STATUS.CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND EXTEND.ENT_CUST_NAME LIKE '%'||#{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="entRegAddr != null and entRegAddr != '' ">
+                 AND EXTEND.ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="contactPerson != null and contactPerson != '' ">
+                 AND EXTEND.CONTACT_PERSON LIKE '%'||#{contactPerson,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="contactPhone != null and contactPhone != '' ">
+                 AND EXTEND.CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' ">
+                 AND STATUS.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="participationScore != null and participationScore != '' ">
+                 AND DECODE(STATUS.BASE_STATUS, 7, 1, 5, 1, 2) = #{participationScore,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND STATUS.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="countryNo != null and countryNo != '' ">
+                 AND EXTEND.COUNTRY_NO = #{countryNo,jdbcType=VARCHAR}
+         </if>
+          <if test="provinceNo != null and provinceNo != '' ">
+                 AND EXTEND.PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR}
+         </if>
+          <if test="cityNo != null and cityNo != '' ">
+                 AND EXTEND.CITY_NO = #{cityNo,jdbcType=VARCHAR}
+         </if>
+         <if test="applyEntResNo != null and applyEntResNo != '' ">
+                 AND EXTEND.APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND STATUS.OPEN_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND STATUS.OPEN_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY STATUS.OPEN_DATE DESC
+</select>
+
+<!-- 多个消费者资源对象查询 -->
+<select id="searchCardholderResource" resultMap="reportsCardholderResource" parameterType="ReportsCardholderResource">
+      SELECT CARDHOLDER.PER_CUST_ID CUST_ID,
+             CARDHOLDER.PER_RES_NO HS_RES_NO,
+             1 CUST_TYPE,
+             CUSTINFO.ID_TYPE,
+             CUSTINFO.ID_NO,
+             CUSTINFO.PER_NAME,
+             CUSTINFO.COUNTRY_NAME,
+             CARDHOLDER.MOBILE,
+             CUSTINFO.RESIDENT_ADDR,
+             CARDHOLDER.IS_REALNAME_AUTH REALNAME_AUTH,
+             DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) REALNAME_AUTH_DATE,
+             CARDHOLDER.BASE_STATUS,
+             CARDHOLDER.ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' SERVICE_ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO
+        FROM DBUC01.T_CUST_CARDHOLDER CARDHOLDER,
+             DBUC01.T_CUST_ID_INFO    CUSTINFO
+       WHERE CARDHOLDER.PER_CUST_ID = CUSTINFO.PER_CUST_ID(+)
+         <if test="custId != null and custId != ''">
+                 AND CARDHOLDER.PER_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND CARDHOLDER.PER_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="beginCard != null and beginCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &gt;= #{beginCard,jdbcType=VARCHAR}
+         </if>
+         <if test="endCard != null and endCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &lt;= #{endCard,jdbcType=VARCHAR}
+         </if>
+         <if test="perName != null and perName != '' ">
+                 AND CUSTINFO.PER_NAME LIKE #{perName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="countryName != null and countryName != '' ">
+                 AND CUSTINFO.COUNTRY_NAME = #{countryName,jdbcType=VARCHAR}
+         </if>
+         <if test="mobile != null and mobile != '' ">
+                 AND CARDHOLDER.MOBILE = #{mobile,jdbcType=VARCHAR}
+         </if>
+         <if test="residentAddr != null and residentAddr != '' ">
+                 AND CUSTINFO.RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth == 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth != 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH &gt;= #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND CARDHOLDER.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="entResNo != null and entResNo != '' ">
+                 AND CARDHOLDER.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthDateBeginTim != null and realnameAuthDateBeginTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &gt;= #{realnameAuthDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="realnameAuthDateEndTim != null and realnameAuthDateEndTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &lt;= #{realnameAuthDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY CARDHOLDER.PER_RES_NO
+</select>
+
+
+
+<!-- 多个企业资源对象报表导出查询 -->
+<select id="searchEntResourceExport" resultMap="reportsEnterprisResource" parameterType="ReportsEnterprisResource">
+	  SELECT STATUS.ENT_CUST_ID CUST_ID,
+             STATUS.ENT_RES_NO HS_RES_NO,
+             STATUS.CUST_TYPE,
+             EXTEND.ENT_CUST_NAME,
+             EXTEND.ENT_REG_ADDR,
+             EXTEND.CONTACT_PERSON,
+             EXTEND.CONTACT_PHONE,
+             STATUS.OPEN_DATE,
+             DECODE(STATUS.IS_REALNAME_AUTH,1,'已认证',0,'未认证','') EXPORT_REALNAME_AUTH,
+             DECODE(STATUS.BASE_STATUS,1,'正常',2,'预警',3,'休眠',4,'长眠',5,'已注销',6,'申请停止积分活动中',7,'停止积分活动',8,'注销申请中','') EXPORT_BASE_STATUS,
+             STATUS.BASE_STATUS,
+             STATUS.COUNT_BUY_CARDS ENABLED_CARDHOLDER_NUMBER,
+             EXTEND.COUNTRY_NO,
+             EXTEND.PROVINCE_NO,
+             EXTEND.CITY_NO,
+             EXTEND.APPLY_ENT_RES_NO,
+             DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) SERVICE_ENT_RES_NO,
+             SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO,
+             DECODE(DECLAR.RES_FEE_CHARGE_MODE,1,'正常开启系统',2,'免费开启系统',3,'欠费开启系统','') EXPORT_RES_FEE_CHARGE_MODE,
+             DECODE(EXTEND.ART_RES_TYPEST,1,'首段资源',2,'创业资源',3,'全部资源',4,'正常成员企业',5,'免费成员企业','') EXPORT_ART_RES_TYPEST,
+             DECODE(EXTEND.BUSINESS_TYPE,1,'连锁企业',0,'普通企业','') EXPORT_BUSINESS_TYPE 
+        FROM DBUC01.T_ENT_STATUS STATUS,
+             DBUC01.T_ENT_EXTEND EXTEND,
+             DBBS01.T_BS_DECLARE_ENT DECLAR
+	   WHERE STATUS.ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND DECLAR.TO_ENT_CUST_ID = EXTEND.ENT_CUST_ID
+         AND STATUS.CUST_TYPE IN (2, 3, 4)
+         AND DECLAR.APP_STATUS = 9
+         <if test="custId != null and custId != ''">
+                 AND STATUS.ENT_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND STATUS.ENT_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND STATUS.CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND EXTEND.ENT_CUST_NAME LIKE '%'||#{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="entRegAddr != null and entRegAddr != '' ">
+                 AND EXTEND.ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="contactPerson != null and contactPerson != '' ">
+                 AND EXTEND.CONTACT_PERSON LIKE '%'||#{contactPerson,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="contactPhone != null and contactPhone != '' ">
+                 AND EXTEND.CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' ">
+                 AND STATUS.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="participationScore != null and participationScore != '' ">
+                 AND DECODE(STATUS.BASE_STATUS, 7, 1, 5, 1, 2) = #{participationScore,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND STATUS.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="countryNo != null and countryNo != '' ">
+                 AND EXTEND.COUNTRY_NO = #{countryNo,jdbcType=VARCHAR}
+         </if>
+          <if test="provinceNo != null and provinceNo != '' ">
+                 AND EXTEND.PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR}
+         </if>
+          <if test="cityNo != null and cityNo != '' ">
+                 AND EXTEND.CITY_NO = #{cityNo,jdbcType=VARCHAR}
+         </if>
+         <if test="applyEntResNo != null and applyEntResNo != '' ">
+                 AND EXTEND.APPLY_ENT_RES_NO = #{applyEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND DECODE(STATUS.CUST_TYPE, 4, null, EXTEND.SUPER_ENT_RES_NO) = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(STATUS.ENT_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND STATUS.OPEN_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND STATUS.OPEN_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY STATUS.OPEN_DATE DESC
+</select>
+
+<!-- 报表消费者资源对象查询总数 -->
+<select id="searchCardholderResourceCount" resultType="int" parameterType="ReportsCardholderResource">
+      SELECT count(1) 
+        FROM DBUC01.T_CUST_CARDHOLDER CARDHOLDER,
+             DBUC01.T_CUST_ID_INFO    CUSTINFO
+       WHERE CARDHOLDER.PER_CUST_ID = CUSTINFO.PER_CUST_ID(+)
+         <if test="custId != null and custId != ''">
+                 AND CARDHOLDER.PER_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND CARDHOLDER.PER_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="beginCard != null and beginCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &gt;= #{beginCard,jdbcType=VARCHAR}
+         </if>
+         <if test="endCard != null and endCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &lt;= #{endCard,jdbcType=VARCHAR}
+         </if>
+         <if test="perName != null and perName != '' ">
+                 AND CUSTINFO.PER_NAME LIKE #{perName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="countryName != null and countryName != '' ">
+                 AND CUSTINFO.COUNTRY_NAME = #{countryName,jdbcType=VARCHAR}
+         </if>
+         <if test="mobile != null and mobile != '' ">
+                 AND CARDHOLDER.MOBILE = #{mobile,jdbcType=VARCHAR}
+         </if>
+         <if test="residentAddr != null and residentAddr != '' ">
+                 AND CUSTINFO.RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth == 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth != 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH &gt;= #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND CARDHOLDER.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="entResNo != null and entResNo != '' ">
+                 AND CARDHOLDER.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthDateBeginTim != null and realnameAuthDateBeginTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &gt;= #{realnameAuthDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="realnameAuthDateEndTim != null and realnameAuthDateEndTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &lt;= #{realnameAuthDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+        
+</select>
+
+
+<!-- 报表消费者资源对象查询 -->
+<select id="searchCardholderResourceExport" resultMap="reportsCardholderResource" parameterType="ReportsCardholderResource">
+      SELECT CARDHOLDER.PER_CUST_ID CUST_ID,
+             CARDHOLDER.PER_RES_NO HS_RES_NO,
+             1 CUST_TYPE,
+             DECODE(CUSTINFO.ID_TYPE,1,'身份证',2,'护照',3,'已实名认证','') EXPORT_ID_TYPE,
+             CUSTINFO.ID_NO,
+             CUSTINFO.PER_NAME,
+             CUSTINFO.COUNTRY_NAME,
+             CARDHOLDER.MOBILE,
+             CUSTINFO.RESIDENT_ADDR,
+             DECODE(CARDHOLDER.IS_REALNAME_AUTH,1,'未实名注册',2,'已实名注册',3,'已实名认证','') EXPORT_REALNAME_AUTH,
+             DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) REALNAME_AUTH_DATE,
+             DECODE(CARDHOLDER.BASE_STATUS,1,'不活跃',2,'活跃',3,'休眠',4,'沉淀','') EXPORT_BASE_STATUS,
+             CARDHOLDER.ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' SERVICE_ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO
+        FROM DBUC01.T_CUST_CARDHOLDER CARDHOLDER,
+             DBUC01.T_CUST_ID_INFO    CUSTINFO
+       WHERE CARDHOLDER.PER_CUST_ID = CUSTINFO.PER_CUST_ID(+)
+         <if test="custId != null and custId != ''">
+                 AND CARDHOLDER.PER_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND CARDHOLDER.PER_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="beginCard != null and beginCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &gt;= #{beginCard,jdbcType=VARCHAR}
+         </if>
+         <if test="endCard != null and endCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &lt;= #{endCard,jdbcType=VARCHAR}
+         </if>
+         <if test="perName != null and perName != '' ">
+                 AND CUSTINFO.PER_NAME LIKE #{perName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="countryName != null and countryName != '' ">
+                 AND CUSTINFO.COUNTRY_NAME = #{countryName,jdbcType=VARCHAR}
+         </if>
+         <if test="mobile != null and mobile != '' ">
+                 AND CARDHOLDER.MOBILE = #{mobile,jdbcType=VARCHAR}
+         </if>
+         <if test="residentAddr != null and residentAddr != '' ">
+                 AND CUSTINFO.RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != ''">
+                 AND CARDHOLDER.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+        <!--  <if test="realnameAuth != null and realnameAuth != '' and realnameAuth != 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH &gt;= #{realnameAuth,jdbcType=INTEGER}
+         </if> -->
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND CARDHOLDER.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="entResNo != null and entResNo != '' ">
+                 AND CARDHOLDER.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthDateBeginTim != null and realnameAuthDateBeginTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &gt;= #{realnameAuthDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="realnameAuthDateEndTim != null and realnameAuthDateEndTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &lt;= #{realnameAuthDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY CARDHOLDER.PER_RES_NO
+        
+</select>
+
+<!-- 多个消费者资源对象分页查询 -->
+<select id="searchCardholderResourceListPage" resultMap="reportsCardholderResource" parameterType="ReportsCardholderResource">
+      SELECT CARDHOLDER.PER_CUST_ID CUST_ID,
+             CARDHOLDER.PER_RES_NO HS_RES_NO,
+             1 CUST_TYPE,
+             CUSTINFO.ID_TYPE,
+             CUSTINFO.ID_NO,
+             CUSTINFO.PER_NAME,
+             CUSTINFO.COUNTRY_NAME,
+             CARDHOLDER.MOBILE,
+             CUSTINFO.RESIDENT_ADDR,
+             CARDHOLDER.IS_REALNAME_AUTH REALNAME_AUTH,
+             DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) REALNAME_AUTH_DATE,
+             CARDHOLDER.BASE_STATUS,
+             CARDHOLDER.ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' SERVICE_ENT_RES_NO,
+             SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' ADMIN_ENT_RES_NO
+        FROM DBUC01.T_CUST_CARDHOLDER CARDHOLDER,
+             DBUC01.T_CUST_ID_INFO    CUSTINFO
+       WHERE CARDHOLDER.PER_CUST_ID = CUSTINFO.PER_CUST_ID(+)
+         <if test="custId != null and custId != ''">
+                 AND CARDHOLDER.PER_CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND CARDHOLDER.PER_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="beginCard != null and beginCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &gt;= #{beginCard,jdbcType=VARCHAR}
+         </if>
+         <if test="endCard != null and endCard != '' ">
+                 AND CARDHOLDER.PER_RES_NO &lt;= #{endCard,jdbcType=VARCHAR}
+         </if>
+         <if test="perName != null and perName != '' ">
+                 AND CUSTINFO.PER_NAME LIKE #{perName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="countryName != null and countryName != '' ">
+                 AND CUSTINFO.COUNTRY_NAME = #{countryName,jdbcType=VARCHAR}
+         </if>
+         <if test="mobile != null and mobile != '' ">
+                 AND CARDHOLDER.MOBILE = #{mobile,jdbcType=VARCHAR}
+         </if>
+         <if test="residentAddr != null and residentAddr != '' ">
+                 AND CUSTINFO.RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' ">
+                 AND CARDHOLDER.IS_REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+        <!--  <if test="realnameAuth != null and realnameAuth != '' and realnameAuth != 1">
+                 AND CARDHOLDER.IS_REALNAME_AUTH &gt;= #{realnameAuth,jdbcType=INTEGER}
+         </if> -->
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND CARDHOLDER.BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="entResNo != null and entResNo != '' ">
+                 AND CARDHOLDER.ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 5) || '000000' = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND SUBSTR(CARDHOLDER.PER_RES_NO, 1, 2) || '000000000' = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthDateBeginTim != null and realnameAuthDateBeginTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &gt;= #{realnameAuthDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="realnameAuthDateEndTim != null and realnameAuthDateEndTim != '' ">
+                 AND DECODE(CARDHOLDER.REALNAME_AUTH_DATE,
+                    NULL,
+                    DECODE(CARDHOLDER.REALNAME_REG_DATE,NULL,CARDHOLDER.CREATE_DATE,CARDHOLDER.REALNAME_REG_DATE),
+                    CARDHOLDER.REALNAME_AUTH_DATE) &lt;= #{realnameAuthDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY CARDHOLDER.PER_RES_NO
+</select>
+
+
+<!-- 多个消费者资源对象分页查询    查询的是RP表-->
+<select id="searchPerResListPage" resultMap="reportsCardholderResource" parameterType="ReportsCardholderResource">
+        SELECT  CUST_ID,
+                HS_RES_NO,
+                CUST_TYPE,
+                PER_NAME, 
+                ID_TYPE,
+                ID_NO,
+                COUNTRY_NAME,
+                MOBILE,
+                RESIDENT_ADDR,
+                REALNAME_AUTH,
+                REALNAME_AUTH_DATE,
+                BASE_STATUS,
+                ENT_RES_NO,
+                SERVICE_ENT_RES_NO,
+                ADMIN_ENT_RES_NO, 
+                PLATFORM_ENT_RES_NO 
+          FROM  T_RP_CARDHOLDER_RESOURCE T  
+         WHERE  1 = 1 
+         <if test="custId != null and custId != ''">
+                 AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND HS_RES_NO = #{hsResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="beginCard != null and beginCard != '' ">
+                 AND HS_RES_NO &gt;= #{beginCard,jdbcType=VARCHAR}
+         </if>
+         <if test="endCard != null and endCard != '' ">
+                 AND HS_RES_NO &lt;= #{endCard,jdbcType=VARCHAR}
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="perName != null and perName != '' ">
+                 AND PER_NAME = #{perName,jdbcType=VARCHAR}
+         </if>
+         <if test="countryName != null and countryName != '' ">
+                 AND COUNTRY_NAME = #{countryName,jdbcType=VARCHAR}
+         </if>
+         <if test="mobile != null and mobile != '' ">
+                 AND MOBILE = #{mobile,jdbcType=VARCHAR}
+         </if>
+         <if test="residentAddr != null and residentAddr != '' ">
+                 AND RESIDENT_ADDR = #{residentAddr,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth == 1">
+                 AND REALNAME_AUTH = #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="realnameAuth != null and realnameAuth != '' and realnameAuth != 1">
+                 AND REALNAME_AUTH &gt;= #{realnameAuth,jdbcType=INTEGER}
+         </if>
+         <if test="baseStatus != null and baseStatus != '' ">
+                 AND BASE_STATUS = #{baseStatus,jdbcType=INTEGER}
+         </if>
+         <if test="entResNo != null and entResNo != '' ">
+                 AND ENT_RES_NO = #{entResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SERVICE_ENT_RES_NO = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND ADMIN_ENT_RES_NO = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="platformEntResNo != null and platformEntResNo != '' ">
+                 AND PLATFORM_ENT_RES_NO = #{platformEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthDateBeginTim != null and realnameAuthDateBeginTim != '' ">
+                 AND REALNAME_AUTH_DATE &gt;= #{realnameAuthDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="realnameAuthDateEndTim != null and realnameAuthDateEndTim != '' ">
+                 AND REALNAME_AUTH_DATE &lt;= #{realnameAuthDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY HS_RES_NO
+</select>
+
+<!-- 多个资源统计对象查询 -->
+<select id="searchResourceStatistics" resultMap="reportsResourceStatistics" parameterType="ReportsResourceStatistics">
+        SELECT  CUST_ID,
+                HS_RES_NO,
+                CUST_TYPE,
+                ENT_CUST_NAME,
+                SYSTEM_RESOURCE_USAGE_NUMBER,
+                REGISTRATION_AUTH_NUMBER,
+                REALNAME_AUTH_NUMBER,
+                ACTIVATION_NUMBER,
+                ACTIVE_NUMBER,
+                SERVICE_ENT_RES_NO,
+                ADMIN_ENT_RES_NO, 
+                PLATFORM_ENT_RES_NO 
+          FROM  T_RP_RESOURCE_STATISTICS T  
+         WHERE  1 = 1 
+         <if test="custId != null and custId != ''">
+                 AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND HS_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND ENT_CUST_NAME LIKE #{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="registrationAuthNumber != null and registrationAuthNumber != '' ">
+                 AND REGISTRATION_AUTH_NUMBER = #{registrationAuthNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthNumber != null and realnameAuthNumber != '' ">
+                 AND REALNAME_AUTH_NUMBER = #{realnameAuthNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="activationNumber != null and activationNumber != '' ">
+                 AND ACTIVATION_NUMBER = #{activationNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="activeNumber != null and activeNumber != '' ">
+                 AND ACTIVE_NUMBER = #{activeNumber,jdbcType=INTEGER}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SERVICE_ENT_RES_NO = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND ADMIN_ENT_RES_NO = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="platformEntResNo != null and platformEntResNo != '' ">
+                 AND PLATFORM_ENT_RES_NO = #{platformEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND CREATED_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND CREATED_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY HS_RES_NO
+</select>
+
+<!-- 多个资源统计对象分页查询 -->
+<select id="searchResourceStatisticsListPage" resultMap="reportsResourceStatistics" parameterType="ReportsResourceStatistics">
+        SELECT  CUST_ID,
+                HS_RES_NO,
+                CUST_TYPE,
+                ENT_CUST_NAME,
+                SYSTEM_RESOURCE_USAGE_NUMBER,
+                REGISTRATION_AUTH_NUMBER,
+                REALNAME_AUTH_NUMBER,
+                ACTIVATION_NUMBER,
+                ACTIVE_NUMBER,
+                SERVICE_ENT_RES_NO,
+                ADMIN_ENT_RES_NO, 
+                PLATFORM_ENT_RES_NO 
+          FROM  T_RP_RESOURCE_STATISTICS T  
+         WHERE  1 = 1 
+         <if test="custId != null and custId != ''">
+                 AND CUST_ID = #{custId,jdbcType=VARCHAR}
+         </if>
+         <if test="hsResNo != null and hsResNo != '' ">
+                 AND HS_RES_NO LIKE #{hsResNo,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="custType != null and custType != '' ">
+                 AND CUST_TYPE = #{custType,jdbcType=INTEGER}
+         </if>
+         <if test="entCustName != null and entCustName != '' ">
+                 AND ENT_CUST_NAME LIKE #{entCustName,jdbcType=VARCHAR}||'%'
+         </if>
+         <if test="registrationAuthNumber != null and registrationAuthNumber != '' ">
+                 AND REGISTRATION_AUTH_NUMBER = #{registrationAuthNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="realnameAuthNumber != null and realnameAuthNumber != '' ">
+                 AND REALNAME_AUTH_NUMBER = #{realnameAuthNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="activationNumber != null and activationNumber != '' ">
+                 AND ACTIVATION_NUMBER = #{activationNumber,jdbcType=VARCHAR}
+         </if>
+         <if test="activeNumber != null and activeNumber != '' ">
+                 AND ACTIVE_NUMBER = #{activeNumber,jdbcType=INTEGER}
+         </if>
+         <if test="serviceEntResNo != null and serviceEntResNo != '' ">
+                 AND SERVICE_ENT_RES_NO = #{serviceEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="adminEntResNo != null and adminEntResNo != '' ">
+                 AND ADMIN_ENT_RES_NO = #{adminEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="platformEntResNo != null and platformEntResNo != '' ">
+                 AND PLATFORM_ENT_RES_NO = #{platformEntResNo,jdbcType=VARCHAR}
+         </if>
+         <if test="openDateBeginTim != null and openDateBeginTim != '' ">
+                 AND CREATED_DATE &gt;= #{openDateBeginTim,jdbcType=TIMESTAMP}
+         </if>
+         <if test="openDateEndTim != null and openDateEndTim != '' ">
+                 AND CREATED_DATE &lt;= #{openDateEndTim,jdbcType=TIMESTAMP}
+         </if>
+         ORDER BY HS_RES_NO
+</select>
+
+<!-- 生成系统资源数据 -->
+<select id="generateResourceStatistics">
+	{call pkg_rp_sys_resource_admin.p_rp_sys_resource_gen}
+</select>
+
+<select id="searchWelfareScoreCount" resultType="int" parameterType="map">
+	select count(1)
+	  from (select custId,
+	               hsResNo,
+	               perName,
+	               sum(consumeScore) consumeScore,
+	               sum(investScore) investScore
+	          from (select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       SUM(ACENTRY.ADD_AMOUNT) consumeScore,
+	                       0 investScore
+	                  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 WHERE ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                   AND ACENTRY.TRANS_SYS = 'PS'
+	                   AND ACENTRY.ACC_TYPE = '10110'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND ACENTRY.ADD_AMOUNT &gt; 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   AND CARDHOLDER.REALNAME_REG_DATE &lt;= ACENTRY.FISCAL_DATE
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME
+	                
+	                UNION ALL
+	                
+	                select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       0 - SUM(ACENTRY.SUB_AMOUNT) consumeScore,
+	                       0 investScore
+	                  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                  	   <!-- DBAC01.T_AC_ACCOUNT_ENTRY ACENTRYR, -->
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 WHERE ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                  <!--  AND ACENTRY.REL_SYSENTRY_NO = ACENTRYR.SYSENTRY_NO -->
+	                   AND ACENTRY.TRANS_SYS = 'PS'
+	                   AND ACENTRY.ACC_TYPE = '10110'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND ACENTRY.SUB_AMOUNT &gt; 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   AND CARDHOLDER.REALNAME_REG_DATE &lt;= ACENTRY.FISCAL_DATE
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME
+	                
+	                UNION ALL
+	                
+	                select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       0 consumeScore,
+	                       SUM(ACENTRY.ADD_AMOUNT) investScore
+	                  from DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 where ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                   AND ACENTRY.ACC_TYPE = '10410'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME)
+	         group by custId, hsResNo, perName)
+</select>
+
+<select id="searchWelfareScoreListPage" resultType="ReportsWelfareScore" parameterType="map">
+			select custId,
+	               hsResNo,
+	               perName,
+	               sum(consumeScore) consumeScore,
+	               sum(investScore) investScore
+	          from (select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       SUM(ACENTRY.ADD_AMOUNT) consumeScore,
+	                       0 investScore
+	                  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 WHERE ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                   AND ACENTRY.TRANS_SYS = 'PS'
+	                   AND ACENTRY.ACC_TYPE = '10110'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND ACENTRY.ADD_AMOUNT &gt; 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   AND CARDHOLDER.REALNAME_REG_DATE &lt;= ACENTRY.FISCAL_DATE
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME
+	                
+	                UNION ALL
+	                
+	                select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       0 - SUM(ACENTRY.SUB_AMOUNT) consumeScore,
+	                       0 investScore
+	                  FROM DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                  	   DBAC01.T_AC_ACCOUNT_ENTRY ACENTRYR,
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 WHERE ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                   AND ACENTRY.REL_SYSENTRY_NO = ACENTRYR.SYSENTRY_NO
+	                   AND ACENTRY.ACC_TYPE = ACENTRYR.ACC_TYPE
+	                   AND ACENTRY.TRANS_SYS = 'PS'
+	                   AND ACENTRY.ACC_TYPE = '10110'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND ACENTRY.SUB_AMOUNT &gt; 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   AND CARDHOLDER.REALNAME_REG_DATE &lt;= ACENTRYR.FISCAL_DATE 
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME
+	                
+	                UNION ALL
+	                
+	                select CARDHOLDER.PER_CUST_ID custId,
+	                       CARDHOLDER.PER_RES_NO hsResNo,
+	                       CUSTINFO.PER_NAME perName,
+	                       0 consumeScore,
+	                       SUM(ACENTRY.ADD_AMOUNT) investScore
+	                  from DBAC01.T_AC_ACCOUNT_ENTRY ACENTRY,
+	                       DBUC01.T_CUST_CARDHOLDER  CARDHOLDER,
+	                       DBUC01.T_CUST_ID_INFO     CUSTINFO
+	                 where ACENTRY.CUST_ID = CUSTINFO.PER_CUST_ID
+	                   AND ACENTRY.CUST_ID = CARDHOLDER.PER_CUST_ID
+	                   AND ACENTRY.ACC_TYPE = '10410'
+	                   AND ACENTRY.WRITE_BACK = 0
+	                   AND CUSTINFO.ID_TYPE != 3
+	                   AND CARDHOLDER.REALNAME_REG_DATE &lt;= ACENTRY.FISCAL_DATE
+	                   <if test="beginDate != null and beginDate != '' ">
+				       		AND ACENTRY.FISCAL_DATE &gt;= #{beginDate,jdbcType=TIMESTAMP}
+				       </if>
+				       <if test="endDate != null and endDate != '' ">
+		               		AND ACENTRY.FISCAL_DATE &lt;= #{endDate,jdbcType=TIMESTAMP}
+				       </if>
+	                 GROUP BY CARDHOLDER.PER_CUST_ID,
+	                          CARDHOLDER.PER_RES_NO,
+	                          CUSTINFO.PER_NAME)
+	         group by custId, hsResNo, perName
+</select>
+
+
+</mapper>

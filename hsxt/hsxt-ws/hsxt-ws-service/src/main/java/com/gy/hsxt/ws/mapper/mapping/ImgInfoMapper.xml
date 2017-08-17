@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.ImgInfoMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.ImgInfo">
+		<result column="IMG_PATH" property="imgPath" jdbcType="VARCHAR" />
+		<result column="IMG_ID" property="imgId" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询图片信息 -->
+	<select id="listImgByImgIds" resultMap="BaseResultMap" parameterType="java.util.List">
+		select
+		IMG_PATH,
+		IMG_ID
+		from T_WS_IMG
+		where IMG_ID in
+		<foreach item="item" collection="list" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<!-- 批量插入图片信息 -->
+	<insert id="batchInsertImgs" parameterType="java.util.List">
+		INSERT /*+APPEND*/ INTO T_WS_IMG (
+		IMG_PATH,
+		IMG_ID
+		)
+		<foreach collection="list" item="item" index="index" separator="union all">
+			(SELECT
+			#{item.imgPath,jdbcType=VARCHAR},
+			#{item.imgId,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>
+
+</mapper>

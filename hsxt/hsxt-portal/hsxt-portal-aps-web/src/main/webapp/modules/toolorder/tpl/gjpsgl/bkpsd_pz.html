@@ -1,0 +1,138 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+	      <td class="tab_trbg" colspan="6"><span class="ml10">持卡人信息</span></td>
+	    </tr>
+	    <tr>
+	      <td class="view_item" width="9%">互生号</td>
+	      <td class="view_text" width="16%"><%=obj.entinfo.baseInfo.perResNo%></td>
+	      <td class="view_item" width="9%">名称</td>
+	      <td class="view_text" width="41%"><%=obj.entinfo.authInfo.userName%></td>
+	      <td class="view_item"></td>
+	      <td class="view_text"></td>
+	    </tr>
+	    <tr>
+	      <td class="view_item">联系电话</td>
+	      <td class="view_text"><%=obj.entinfo.baseInfo.mobile%></td>
+	      <td class="view_item"></td>
+	      <td class="view_text"></td>
+	      <td class="view_item"></td>
+	      <td class="view_text"></td>
+	    </tr>
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">收件信息</span></td>
+        </tr>
+        <tr>
+            <td colspan="6" valign="top">
+            	<!-- <div class="p10">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table fixtd">
+						<tr>
+							<th class="nobd"></th>
+							<th>姓名</th>
+							<th>手机号码</th>
+							<th>收件地址</th>
+							<th>邮编</th>
+						</tr>
+					</table>
+                </div> -->
+                <div class="td_hauto">
+                   	<table id="searchTable_addr" >
+						<tr>
+							<th w_render="operate" width="10%;"></th>
+							<th w_index="linkman" width="25%;" w_tip="true">姓名</th>
+							<th w_index="mobile" width="15%;">手机号码</th>
+							<th w_index="fullAddr" w_tip="true" width="40%;">收件地址</th>
+							<th w_index="zipCode" width="10%;">邮编</th>
+						</tr>
+					</table>
+               </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">配送物品清单</span></td>
+        </tr>
+        <tr>
+            <td colspan="6" valign="top">
+            	<div class="p10">
+            		<form id="addtool" name="addtool">
+						<div class="search-toolbar">
+	                    	<ul class="cssform clearfix">
+	                            <li class="clearfix" style="width:225px;">
+	                                <label class="fl h30_middle">配送物品类型：</label>
+									<input id="goodsType_2" name="goodsType_2" readonly placeholder="选择配送物品类型" optionvalue=""/>
+	                            </li>
+	                            <li class="clearfix">
+	                                <label class="fl h30_middle">工具名称：</label>
+									<input id="toolName_2" name="toolName_2" readonly placeholder="选择工具名称" optionvalue=""/>
+	                            </li>
+	                            <li>
+	                                <label>库存数量：</label>
+	                                <input type="text" id="toolNum" name="toolNum" value="0" class="h28_middle w30 input-txt" readonly="readonly" />
+	                            </li>
+	                            <li>
+	                                <label>配送数量：</label>
+	                                <input type="text" name="psNum" id="psNum" placeholder="输入配送数量" class="h28_middle w80 input-txt" />
+	                            </li>
+	                            <li>
+	                                <button id="addToolBtn" type="button" class="btn-search">添加</button>
+	                            </li>
+	                         </ul>
+	                    </div>
+                    </form>
+                    <div class="td_hauto">
+                    	<table id="searchTable_2" >
+							<tr>
+								<th w_index="productName">工具名称</th>
+								<th w_index="quantity">数量</th>
+								<th w_render="operate">操作</th>
+							</tr>
+						</table>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">邮寄信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="9%">配送方式</td>
+            <td class="view_input"  width="41%"><input id="psfs_2" name="psfs_2" readonly placeholder="选择配送方式" /></td>
+            <td class="view_item" width="9%">货运单号</td>
+            <td class="view_input"  width="41%"><input type="text" id="trackingNo" name="trackingNo" maxlength="18" class="ml5 h28_middle w115" placeholder="输入货运单号" /></td>
+            <td class="view_item" width="9%">运费</td>
+            <td class="view_input"  width="41%"><input type="text" id="shippingFee" name="shippingFee" maxlength="10" class="ml5 h28_middle w115" placeholder="输入运费" /></td>
+        </tr> 
+        <tr>
+            <td class="tab_trbg" colspan="6"><span class="ml10">复核信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">复核意见</td>
+            <td class="view_input" colspan="5"><textarea class="ml5 h50 w98pc rsn pt5 pb5" id="remark" placeholder="输入复核意见,字数不超过300个字" ></textarea></td>
+        </tr>
+        <!-- <tr>
+			<td class="view_item">复核员</td>
+			<td class="view_input" colspan="3"><input type="text" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+			<td class="view_item">复核员密码</td>
+			<td class="view_input" colspan="3"><input type="password" class="ml5 h30_middle w115" placeholder="输入复核员密码" /></td>
+		</tr>  -->
+		<tr>
+            <td class="view_item">选择验证方式</td>
+            <td colspan="5" class="pr">
+				<input id="verificationMode_pzpsd_2" readonly="readonly"/>
+				<span class="ml10 red none" id="verificationMode_prompt_pzpsd_2">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+        <tr id="fhyPwd_pzpsd_2">
+            <td class="view_item">复核员</td>
+            <td colspan="2"><input type="text" class="ml5 h30_middle w115" id="userName" name="userName" placeholder="输入复核员用户名" /></td>
+            <td class="view_item">复核员密码</td>
+            <td colspan="2" class="pr">
+				<input type="password" class="ml5 h30_middle w115" id="password" name="password" placeholder="输入复核员登录密码" />
+			</td>
+        </tr>
+    </table>
+
+</div>

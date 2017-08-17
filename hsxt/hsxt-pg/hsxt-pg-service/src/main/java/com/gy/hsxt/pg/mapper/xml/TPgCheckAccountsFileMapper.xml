@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgCheckAccountsFileMapper">
+
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.pg.mapper.vo.TPgCheckAccountsFile">
+		<id column="FILE_ID" property="fileId" jdbcType="INTEGER" />
+		<result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="FILE_SAVE_PATH" property="fileSavePath" jdbcType="VARCHAR" />
+		<result column="FILE_STATUS" property="fileStatus" jdbcType="INTEGER" />
+		<result column="CHECK_TYPE" property="checkType" jdbcType="INTEGER" />
+		<result column="CHECK_DATE" property="checkDate" jdbcType="DATE" />
+		<result column="OWNER_NODE" property="ownerNode" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		FILE_ID, FILE_NAME, FILE_SAVE_PATH, FILE_STATUS,
+		CHECK_TYPE, CHECK_DATE, OWNER_NODE,
+		CREATED_DATE, UPDATED_DATE
+	</sql>
+	
+	<insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgCheckAccountsFile">
+		insert into
+		T_PG_CHECK_ACCOUNTS_FILE (FILE_ID, FILE_NAME,
+		FILE_SAVE_PATH,
+		FILE_STATUS, CHECK_TYPE, CHECK_DATE,
+		OWNER_NODE, CREATED_DATE, UPDATED_DATE
+		)
+		values (#{fileId,jdbcType=INTEGER},
+		#{fileName,jdbcType=VARCHAR},
+		#{fileSavePath,jdbcType=VARCHAR},
+		#{fileStatus,jdbcType=INTEGER}, #{checkType,jdbcType=INTEGER},
+		#{checkDate,jdbcType=DATE},
+		#{ownerNode,jdbcType=VARCHAR},
+		SYSDATE(),
+		#{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<update id="updateByFileName" parameterType="com.gy.hsxt.pg.mapper.vo.TPgCheckAccountsFile">
+		update
+		T_PG_CHECK_ACCOUNTS_FILE
+		set
+		FILE_STATUS = #{fileStatus,jdbcType=INTEGER},
+		UPDATED_DATE = SYSDATE()
+		where FILE_NAME = #{fileName,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="deleteByFileName" parameterType="java.lang.String">
+		delete from 
+		T_PG_CHECK_ACCOUNTS_FILE
+		where FILE_NAME = #{fileName,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByFileName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_CHECK_ACCOUNTS_FILE
+		where FILE_NAME = #{fileName,jdbcType=VARCHAR}
+	</select>
+</mapper>

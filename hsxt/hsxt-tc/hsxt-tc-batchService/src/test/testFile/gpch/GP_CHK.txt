@@ -1,0 +1,4 @@
+2
+GP_DET_01.txt|2
+GP_DET_02.txt|1
+end

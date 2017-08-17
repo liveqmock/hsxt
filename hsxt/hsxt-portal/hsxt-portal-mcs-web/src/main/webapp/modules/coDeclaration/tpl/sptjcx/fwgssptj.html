@@ -1,0 +1,43 @@
+<form id="cx_search_form" name="cx_search_form">
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li class="clearfix">
+			<label class="title-int">快捷日期：</label>
+			<input id="quickDate" readonly="readonly" placeholder="选择快捷日期" optionvalue=""/>
+		</li>
+		<li>
+			<label class="title-int">申报日期：</label>
+			<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围"  class="input-txt w90" readonly="readonly" />
+			<span class="separator-pd">-</span>
+			<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围"  class="input-txt w90" readonly="readonly"/>
+		</li>
+		<li>
+			<label class="ml20 title-int">企业互生号：</label>
+			<input type="text" name="search_resNo" id="search_resNo" class="input-txt w90" placeholder="输入企业互生号" />
+		</li>
+		<li>
+			<label class="ml20 title-int">企业名称：</label>
+			<input type="text" name="search_entName" id="search_entName" class="input-txt w90" placeholder="输入企业名称" />
+		</li>
+		<li class="clearfix">
+			<label class="title-int">申报状态：</label>
+			<input id="search_status" name="search_status" style="margin-top:3px;" readonly="readonly"/>
+		</li>
+		<li>
+			<button id="queryBtn" type="button"  class="ml20 btn-search" style="margin-top:3px;">查询</button>
+		</li>
+	 </ul>
+</div>
+</form>
+<table id="tableDetail" class="bsgrid">
+	<tr>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="entName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="linkman" w_tip="true" w_length='20'>联系人姓名</th>
+		<th w_index="linkmanMobile">联系人手机</th>
+		<th w_index="declareDate">申报日期</th>
+		<th w_index="status" w_render="operate">申报状态</th>
+		<th w_index="apprDate" w_render="operate">状态日期</th>
+		<th w_render="operate">操作</th>
+	</tr>
+</table> 

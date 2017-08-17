@@ -1,0 +1,41 @@
+<div>
+	<div class="prompt w"><i class="icon_tips tips_i_s"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+    <ul class="img-exp-list clearfix mt10" id="exp-images">
+        <%for (var i=0;i<record.length;i++){%>
+			<li>
+		     	<div class="img-exp-list-cont clearfix">
+		         	<a href="javascript:void(0);" class="img-exp-box"><img src="<%=record[i].src%>" alt="示例图片" width="136" height="102"/></a>
+		             <span class="img-exp-info">
+		             	<h1>示例图片名称：</h1>
+		                 <h2 class="blue"><%=record[i].docName%></h2>
+		                 <h2 class="gray"><%=record[i].remark%></h2>
+		                 <h2>状态：<span class="red"><%=record[i].statusText%></span></h2>
+		                 <p class="img-exp-btn">
+		                 	 <%if(record[i].status == 1 || record[i].status == 3){%>
+		                 	 <input type="button" value="发布" id="sub_<%=i%>" class="sub" />
+		                     <input type="button" value="编辑" id="edt_<%=i%>" />
+		                     <input type="button" value="删除" id="del_<%=i%>" class="del" />
+							 <input type="button" value="版本" id="ver_<%=i%>" />
+							 <%}%>
+							 <%if(record[i].status == 2){%>
+		                 	 <input type="button" value="停用" id="sto_<%=i%>"class="sto" />
+							 <input type="button" value="版本" id="ver_<%=i%>"/>
+							 <%}%>
+		                 </p>
+		             </span>
+		         </div>
+		     </li>
+		<%}%>
+        <li>
+        	<div class="img-exp-list-cont tc">
+            	<a href="javascript:void(0);" class="img-exp-add">+新增示例图片</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="sltpgl-edit-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

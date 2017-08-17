@@ -1,0 +1,47 @@
+<div class="clearfix mt10 mb20">
+	<span class="fl input-txt w200 h28_middle pr">
+		<a class="input-file btn_bg upload_btn" style="float:none;">上传<input type="file" id="seqFile" name="seqFile"></a>
+	</span>
+	<div class="fl pr ml10">
+		<a class="btn_bg upload_btn" id="upload_btn" >提交</a>
+		<a class="btn_bg viewSample_btn ml10" id="mb_download" download="POSSeqNoTemplet.txt" href="resources/template/POSSeqNoTemplet.txt">模板下载</a>
+	</div>
+</div>
+
+<table id="jqm_table" class="bsgrid">
+  <tr>
+  	<th w_num="line" width="5%;">序号</th>
+  	<th w_index="entResNo">企业互生号</th>
+    <th w_index="deviceSeqNo">机器码/序列号</th>
+    <th w_index="terminalNo">终端编码</th>
+    <th w_index="deviceFalg" w_render="operate">状态</th>
+  </tr>
+</table>
+
+<div class="view_info mt10 bc">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="20%">备注</td>
+            <td width="80%" colspan="3"><textarea id="remark" name="remark" class="fl ml5 h50 w98pc rsn pt5 pb5" placeholder="输入备注，最长不超过300个字"></textarea></td>
+        </tr>		
+		<tr>
+            <td class="view_item">选择验证方式</td>
+            <td colspan="3" class="pr">
+				<input id="validType" readonly="readonly" placeholder="选择验证方式" />
+				<span class="ml10 red none" id="verificationMode_prompt_plcxgl">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+        <tr id="fhyPwd_plcxgl" class="none">
+            <td class="view_item">复核员</td>
+            <td><input type="text" id="optUserId" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /></td>
+            <td class="view_item">复核员密码</td>
+            <td class="pr">
+				<input type="password" id="pwd" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+		
+		
+    </table>
+</div>

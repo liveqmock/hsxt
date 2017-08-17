@@ -1,0 +1,75 @@
+<div id="ejqypepzsqTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">选择管理公司：</label>
+				<span class="pr">
+					<input id="company" readonly="readonly" placeholder="选择管理公司" />
+				</span>
+			</li>
+		 </ul>
+	</div>
+	
+	<div class="billstyle p10">
+		<h1 class="billnl fb" id="hglgsmc">管理公司名称：</h1>
+		<ul class="cssform clearfix">
+			<li class="col8">
+				<label class="fl h30_middle">可用资源配额总数：</label>
+				<span class="fl ml5 h30_middle" id="skyzypezs"></span> 
+			</li>
+			<li class="col8">
+				<label class="fl h30_middle">已分配配额数：</label>
+				<span class="fl ml5 h30_middle" id="syfppes"></span> 
+			</li>
+			<li class="col8">
+				<label class="fl h30_middle">申请中配额数：</label>
+				<span class="fl ml5 h30_middle" id="ssqzpes"></span> 
+			</li>
+			<li class="col8">
+				<label class="fl h30_middle">可申请配额数：</label>
+				<span class="fl ml5 h30_middle" id="sksqpes"></span> 
+			</li>
+		 </ul>
+	</div>
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li class="clearfix">
+				<label class="fl h30_middle">申请配额二级区域名称：</label>
+				<span class="pr">
+					<input id="area" readonly="readonly" placeholder="选择二级区域" optionvalue=""/>
+				</span>
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">配置类型：</label>
+				<span class="pr">
+					<input id="type" readonly="readonly" placeholder="选择配置类型" optionvalue="" />
+				</span>
+			</li>
+			<li>
+				<label>申请配额数：</label>
+				<input id="txtApplyNum" type="text" name="textfield" placeholder="输入配额数" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="tj_btn" type="button" class="btn-search">添加</button>
+			</li>
+		 </ul>
+	</div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab-xfz">
+		<tr>
+			<td class="bg_grey red" width="25%">管理公司编号：<span id="ssqglgsh"></span></td>
+			<td class="bg_grey" width="25%">已申请增加配额数：<span id="ssqysqzjpes">0</span></td>
+			<td class="bg_grey" width="25%">已申请减少配额数：<span id="ssqysqjspes">0</span></td>
+			<td class="bg_grey" width="25%">可申请配额数：<span id="ssqksqpes">0</span></td>
+		</tr>
+	</table>
+	<table id="searchTable_1">
+		<tr>
+			<th w_index="provinceName">省/州/直辖市</th>
+			<th w_index="applyTypeName">配置类型</th>
+			<th w_index="applyNum">申请配额数</th>
+			<th w_index="reqRemark" width="20%;">备注</th>
+		</tr>
+	</table>												
+	<div class="mt20" align="center"><a class="btn_bg submit" id="tjsq_btn">提交申请</a></div>				
+</div>
+<div id="dialogBox" class="none"></div>

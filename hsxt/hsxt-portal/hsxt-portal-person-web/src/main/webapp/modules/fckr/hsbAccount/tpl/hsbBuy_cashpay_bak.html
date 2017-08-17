@@ -1,0 +1,40 @@
+﻿<div class="busibox p20 none" id="hsbBuy_cashpay">
+	<div class="view_info mt40 info_500">
+	<form id="hb_appForm_qr" autocomplete="off" name="hb_appForm_qr" action="" method="post">
+		<input class="ml5" type="hidden" name="hb_cash_radioVal" id="hb_cash_radioVal" value=""/>
+		<table class="view_table" width="100%" border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="view_item" width="20%">兑换互生币数量</td>
+				<td class="view_text" width="30%" id="qr_hb_cash_buyNum"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">折合货币金额</td>
+				<td class="view_text" width="30%" id="qr_hb_cash_convertAppMoney"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">支付账户</td>
+				<td class="view_text" width="30%">货币账户</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">应支付金额</td>
+				<td class="view_text" width="30%" id="qr_hb_cash_realMoney"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">交易密码</td>
+				<td class="view_input" width="30%"><input type="password" name="hb_dealPwd" id="hb_dealPwd" maxlength="8"></td>
+			</tr>
+		</table>
+		<div class="tc two_button clearfix mt20"><a href="javascript:;" id="hb_cash_return" class="hs_btn mr10 myhs_ajax_btn" data-id="zhgl_hsbzh_ghsb">修&#12288;改</a><a href="javascript:;" id="hb_cash_paymentSubmit" class="hs_btn Thick_btn">确定</a></div>
+	</form>
+	</div>
+</div>
+
+<!--弹出框内容-->         
+<div class="jqp-dialog" id="hb_cash_dialog" style="display:none;">
+	<div class="content">
+		<table width="230" border="0" cellspacing="0" cellpadding="0">
+			<tr><td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i><span class="fl fb f14 ml10 pt9">兑换互生币成功！</span></div></td></tr>
+			<tr><td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn" id="hb_cash_cg_sure">确定</a></td></tr>
+		</table>
+	</div>
+</div>

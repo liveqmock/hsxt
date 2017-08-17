@@ -1,0 +1,44 @@
+<%if(obj.status == '5'){%>
+    <div class="mt20">&nbsp;</div>
+    <div class="bc mt50">
+     <div class="page_tips bc">
+          <h1 class="f16 fb tc">温馨提示</h1>
+          <p class="f14 fb tc">企业已注销,不可以代购！</p>
+     </div>
+    </div>
+<%}else if(obj.status == '6'){%>
+    <div class="mt20">&nbsp;</div>
+    <div class="bc mt50">
+        <div class="page_tips bc">
+            <h1 class="f16 fb tc">温馨提示</h1>
+            <p class="f14 fb tc">企业已提交了停止积分活动申请,不可以代购！</p>
+        </div>
+    </div>
+<%}else if(obj.status == '7'){%>
+    <div class="mt20">&nbsp;</div>
+    <div class="bc mt50">
+        <div class="page_tips bc">
+            <h1 class="f16 fb tc">温馨提示</h1>
+            <p class="f14 fb tc">企业已停止积分活动,不可以代购！</p>
+        </div>
+    </div>
+<%}else if(obj.status != '8'){%>
+    <div class="mt20" id="gjsg_1">
+        <form id="gjlbForm" name="gjlbForm" method="post">
+            <ul class="tool-ul clearfix" id = "toolUl">
+            </ul>
+            <div class="mt20 w200 bc clearfix">
+                <a id="gjlb_last_btn" class="btn_bg submit fl">上一步</a>
+                <a id="gjlb_next_btn" class="btn_bg submit fr">下一步</a>
+            </div>
+        </form>
+    </div>
+<%}else{%>
+    <div class="mt20">&nbsp;</div>
+    <div class="bc mt50">
+        <div class="page_tips bc">
+            <h1 class="f16 fb tc">温馨提示</h1>
+            <p class="f14 fb tc">企业注销申请中,不可以代购！！</p>
+        </div>
+    </div>
+<%}%>

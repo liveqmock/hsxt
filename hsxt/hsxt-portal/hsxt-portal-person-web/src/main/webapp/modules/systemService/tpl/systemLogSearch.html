@@ -1,0 +1,64 @@
+<!--系统日志查询-->
+<div class="searchbox p20">
+	<div class="search-toolbar">
+	<form id="systemLogSearch_form" name="systemLogSearch_form">
+		<ul class="cssform clearfix">
+			<li>
+				<label class="title-int">快捷日期：</label>
+				<div class="cont-chk setdiy100">
+				<select id="quickDate" name="quickDate">
+					<option value="">--请选择--</option>
+					<option value="today">今天</option>
+					<option value="month">最近一月</option>
+					<option value="3month">最近三月</option>
+					<option value="6month">最近半年</option>
+					<option value="1year">最近一年</option>
+				</select>
+				</div>
+			</li>
+			<li class="ml20 mr20">
+				<label class="title-int">日期范围：</label>
+				<div class="cont-int">
+				<input type="text" name="search_startDate" id="search_startDate" class="input-txt w100 jqp-datepicker" readonly="readonly"/>
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" class="input-txt w100 jqp-datepicker" readonly="readonly"/>
+				</div>
+			</li>
+			<li>
+				<label class="title-int">业务类型：</label>
+				<div class="cont-chk setdiy100">
+				<select id="search_methodName" name="search_methodName">
+					<option value="findTruenameregList" data-code="2">实名注册</option>
+					<option value="findTruenameaugList" data-code="5">实名认证</option>
+					<option value="findImptinfochangeList" data-code="6">重要信息变更</option>
+					<option value="findCardapplyList" data-code="7">互生卡补办</option>
+					<option value="findCardlossList" data-code="3">互生卡挂失</option>
+					<option value="findCarddislossList" data-code="4">互生卡解挂</option>
+				</select>
+				</div>
+			</li>
+			<li>
+				<div class="cont-int">
+				<button id="queryBtn" type="button" class="btn-search ml10">立即查询</button>
+				</div>
+			</li>
+		</ul>
+	</form>
+	</div>
+	<div class="search-cont myhs_dataTable">
+		<table id="systemLogTable" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+			<tr>
+				<th class="nobd" w_index="no">业务流水号</th>
+				<th w_index="bsDate">日期</th>
+				<th w_index="bsType" w_render="operate">业务类型</th>
+				<th w_index="bsResult" w_render="operate">受理结果</th>
+				<th w_render="operate">备注</th>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!--弹出框-->
+<div class="jqp-dialog">
+   <div id="dlg1" class="none"><p id="dlg1_reason"></p></div>
+</div>

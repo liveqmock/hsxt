@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.invoice.mapper.InvoiceListMapper">
+
+    <resultMap id="invoiceListResult" type="com.gy.hsxt.bs.bean.invoice.InvoiceList">
+        <id column="LIST_ID" property="listId"/>
+        <result column="INVOICE_ID" property="invoiceId"/>
+        <result column="INVOICE_NO" property="invoiceNo"/>
+        <result column="INVOICE_CODE" property="invoiceCode"/>
+        <result column="INVOICE_AMOUNT" property="invoiceAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+    </resultMap>
+    <!-- 插入发票清单 -->
+    <insert id="insertInvoiceList" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceList">
+        INSERT INTO T_BS_INVOICE_LIST (
+            LIST_ID,
+            INVOICE_ID,
+            INVOICE_NO,
+            INVOICE_CODE,
+            INVOICE_AMOUNT
+        ) VALUES (
+            #{listId},
+            #{invoiceId},
+            #{invoiceNo},
+            #{invoiceCode},
+            #{invoiceAmount}
+        )
+    </insert>
+    <!-- 查询发票清单列表 -->
+    <select id="selectListByQuery" parameterType="com.gy.hsxt.bs.bean.invoice.InvoiceListQuery" resultMap="invoiceListResult">
+        SELECT t.*
+        FROM T_BS_INVOICE_LIST t
+        WHERE 1=1
+        <if test="invoiceId != null and invoiceId != ''">
+            AND t.INVOICE_ID = #{invoiceId}
+        </if>
+        <if test="invoiceNo != null and invoiceNo != ''">
+            AND t.INVOICE_NO LIKE '%'||#{invoiceNo}||'%'
+        </if>
+        <if test="invoiceCode != null and invoiceCode != ''">
+            AND t.INVOICE_CODE LIKE '%'||#{invoiceCode}||'%'
+        </if>
+    </select>
+
+</mapper>

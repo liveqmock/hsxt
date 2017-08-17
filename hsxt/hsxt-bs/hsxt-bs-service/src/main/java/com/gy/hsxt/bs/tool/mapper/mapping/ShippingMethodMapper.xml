@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ShippingMethodMapper">
+	
+	<!-- 插入配送方式 -->	
+	<insert id="insertShippingMethod" parameterType="com.gy.hsxt.bs.bean.tool.ShippingMethod">
+		INSERT INTO 
+		T_BS_SHIPPING_METHOD(
+			SM_ID,
+			SM_NAME,
+			ICO,SORT,
+			SM_DESC,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEDBY)
+		VALUES (
+			#{smId},
+			#{smName},
+			#{ico,jdbcType=CHAR},
+			#{sort},
+			#{smDesc,jdbcType=VARCHAR},
+			#{isActive},
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 修改配送方式 -->
+	<update id="updateShippingMethodById" parameterType="com.gy.hsxt.bs.bean.tool.ShippingMethod">
+		UPDATE T_BS_SHIPPING_METHOD 
+		<set>
+			UPDATED_DATE = SYSDATE,
+			<if test="smName != null and smName != '' ">
+				SM_NAME = #{smName},
+			</if>
+	 		<if test="ico != null and ico != '' ">
+				ICO = #{ico,jdbcType=CHAR},
+			</if>
+	 		<if test="sort != null ">
+				SORT = #{sort},
+			</if>
+	 		<if test="isActive != null and isActive != ''">
+				ISACTIVE = #{isActive},
+			</if>
+	 		SM_DESC = #{smDesc},
+	 		UPDATEDBY = #{updatedBy} 
+		</set>
+		WHERE SM_ID = #{smId}
+	</update>
+	
+	<!-- 删除配送方式 -->
+	<delete id="deleteShippingMethodById" parameterType="string">
+		 DELETE FROM T_BS_SHIPPING_METHOD WHERE SM_ID = #{smId}
+	</delete>
+	
+	<!-- 根据id查询配送方式 -->
+	<select id="selectShippingMeghodById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ShippingMethod">
+		SELECT 
+			SM_ID AS smId,SM_NAME AS smName,ICO AS ico,SORT AS sort,SM_DESC AS smDesc,
+			ISACTIVE AS isActive,CREATED_DATE AS createdDate,CREATEDBY AS createdBy,
+			UPDATED_DATE AS updatedDate,UPDATEDBY AS updatedBy 
+		FROM T_BS_SHIPPING_METHOD 
+		WHERE SM_ID = #{smId}
+	</select>
+	
+	<!-- 分成查询配送方式 -->
+	<select id="selectShippingMethodListPage" resultType="com.gy.hsxt.bs.bean.tool.ShippingMethod">
+		SELECT 
+			SM_ID AS smId,
+			SM_NAME AS smName,
+			ICO AS ico,
+			SORT AS sort,
+			ISACTIVE AS isActive,
+			SM_DESC AS smDesc,
+			CREATED_DATE AS createdDate,
+			CREATEDBY AS createdBy
+		FROM T_BS_SHIPPING_METHOD
+		WHERE 1=1
+		<if test="smName != null and smName != '' ">
+			AND SM_NAME LIKE #{smName}||'%'
+		</if>
+		ORDER BY SORT DESC
+	</select>
+	
+	<!-- 查询所有的配送方式 -->
+	<select id="selectShippingMethodAll" resultType="com.gy.hsxt.bs.bean.tool.ShippingMethod">
+		SELECT 
+			SM_ID AS smId,
+			SM_NAME AS smName,
+			ICO AS ico,
+			SORT AS sort
+		FROM T_BS_SHIPPING_METHOD 
+		WHERE ISACTIVE = 'Y'
+	</select>
+	
+</mapper>

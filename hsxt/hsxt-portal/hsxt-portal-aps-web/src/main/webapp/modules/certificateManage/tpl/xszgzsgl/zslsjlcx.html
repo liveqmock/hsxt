@@ -1,0 +1,47 @@
+<div id="zslsjlcxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="textfield" id="entResNo" maxlength="11" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>证书唯一识别码：</label>
+				<input type="text" name="textfield" id="certificateNo" placeholder="输入证书唯一识别码" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="textfield" id="entCustName" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">盖章状态：</label>
+				<input id="sealStatus" readonly="readonly" placeholder="选择盖章状态"/>
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">打印状态：</label>
+				<input id="printStatus" readonly="readonly" placeholder="选择打印状态"/>
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">证书发放状态：</label>
+				<input id="sendStatus" readonly="readonly" placeholder="选择证书发放状态"/>
+			</li>
+			<li>
+				<button id="qry_sell_certificate_his_btn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="entResNo"  w_tip=true>企业互生号</th>
+		<th w_index="certificateNo"  w_render="operate" w_tip=true>证书唯一识别码</th>
+		<th w_index="entCustName" w_tip=true>企业名称</th>
+		<th w_index="linkman" w_tip=true>企业联系人</th>
+		<th w_index="mobile"  w_tip=true>联系电话</th>
+		<th w_index="sealStatus" w_render="operate">盖章状态</th>
+		<th w_index="isPrint" w_render="operate">打印状态</th>
+		<th w_index="printDate"  w_tip=true>打印时间</th>
+		<th w_index="isSend" w_render="operate">证书发放状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>

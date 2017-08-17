@@ -1,0 +1,32 @@
+<div id="qyyhzhxx_xqTpl">
+	<div class="view_info info_500">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="30%">企业名称</td>
+				<td class="view_text" width="70%"><span id="entCustName"></span></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">结算币种</td>
+				<td class="view_text" width="70%"><%=obj.currencyName%></td>
+			</tr>
+	 
+			<tr>
+				<td class="view_item" width="30%">开户银行</td>
+				<td class="view_text" width="70%"><%=obj.bankName%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">开户地区</td>
+				<td class="view_text" width="70%"><span id="addressInfo"></span></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">银行账号</td>
+				<td class="view_text" width="70%"><%=obj.bankAccNo%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="30%">默认银行账号</td>
+				<td class="view_text" width="70%"><% if(obj.isDefaultAccount == '0'){ %>否<% }else{%>是<%} %></td>
+			</tr>
+		</table>
+		<div class="mt20" align="center"><a class="btn_bg submit" id="qyyhzhxx_xq_back">返&#12288;回</a></div>
+	</div>
+</div>

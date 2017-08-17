@@ -1,0 +1,72 @@
+<div class="w900 bc clearfix">
+	<ul class="inputForm-ul fl w400">
+		<li>
+			<label class="inputForm-label">申请日期</label>
+			<input id="tzsqfh_opt_sqrq" name="tzsqfh_opt_sqrq" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">互生号</label>
+			<input id="tzsqfh_opt_hsh" name="tzsqfh_opt_hsh" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">单位名称</label>
+			<input id="tzsqfh_opt_dwmc" name="tzsqfh_opt_dwmc" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">账户类型</label>
+			<input id="tzsqfh_opt_zhlx" name="tzsqfh_opt_zhlx" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+	</ul>
+	<ul class="inputForm-ul fr w400">
+		<li>
+			<label class="inputForm-label">增减项</label>
+			<input id="tzsqfh_opt_zjx" name="tzsqfh_opt_zjx" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">调账金额</label>
+			<input id="tzsqfh_opt_tzje" name="tzsqfh_opt_tzje" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">调账日期</label>
+			<input id="tzsqfh_opt_tzrq" name="tzsqfh_opt_tzrq" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+		<li>
+			<label class="inputForm-label">状态</label>
+			<input id="tzsqfh_opt_zt" name="tzsqfh_opt_zt" type="text" class="inputForm-text" readonly="readonly" />
+		</li>
+	</ul>
+</div>
+<table border="1" cellspacing="0" cellpadding="0" class="mt5 w900 bd_1_CCC" align="center">
+	<tr>
+		<td align="right" class="inputForm-label-autoHeight" valign="middle">调账原因</td>
+		<td align="left" class="p10"><span id="tzsqfh_opt_tzyy"></span></td>
+	</tr>
+</table>
+<div class="mt10 clearfix none" id="tzsqfh_ckspjl_div">
+	<span class="fl f14 mt3">查看审批记录</span>
+	<span class="fl ml5 down_btn" id="tzsqfh_spjl_ck_btn"></span>
+</div>
+<div id="tzsqfh_spjl_div" class="none mt10">
+	<table id="tzsqfh_spjl_talbe">
+		<tr>
+			<th w_index="checkDateString" w_align="left">日期</th>
+			<th w_index="resultType"  w_render="operate" w_align="left">操作</th>
+			<th w_index="checker" w_align="left">操作员</th>
+			<th w_index="remark" w_align="left">备注/意见</th>
+		</tr>
+	</table>
+</div>
+<ul class="inputForm-ul none w900 bc" id="tzsqfh_fhyj">
+	<li class="clearfix">
+		<label class="inputForm-label-h60 fl">复核意见</label>
+		<input type="hidden" id="checkBalanceId" value="" /> 
+		<textarea id="tzsqfh_opt_fhyj" name="tzsqfh_opt_fhyj" class="inputForm-textarea fl ml5" placeholder="输入复核意见,字数不超过300个字"></textarea>
+	</li>
+	<li>
+		<label class="inputForm-label">复核结果</label>
+		<span>
+			<input type="radio" name="tzsqfh_opt_fhjg" value="1" class="input_radio mr5" />通过
+			<input type="radio" name="tzsqfh_opt_fhjg" value="0" class="input_radio ml10 mr5" checked />驳回
+		</span>
+	</li>
+</ul>

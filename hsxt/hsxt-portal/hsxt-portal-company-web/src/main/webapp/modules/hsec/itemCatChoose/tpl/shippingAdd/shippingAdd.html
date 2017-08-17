@@ -1,0 +1,36 @@
+<form class="shippingForm" id="shippingForm">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right" width="30%">物流名称：</td>
+      <td><select name="logisticId" id="logisticId">
+      		<%
+      		$.each(obj.data,function(key,data){ 
+			%>
+      		<option value="<%=data.id%>" ><%=data.name%></option>
+      		<%})%>
+      	</select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">模板名称：<span class="red">*</span></td>
+      <td><input type="text" name="name" id="shippingItem"/></td>
+    </tr>
+    <tr>
+      <td align="right">类型：</td>
+      <td><input type="checkbox" id="cbox" value="0" name="type" /><span>包邮</span>
+      </td>
+    </tr>
+    <tr id="postageId" style="display: none;">
+      <td align="right" class="red">消费满</td>
+      <td><input type="text" name="charge" id="charge"/><span class="red">包邮！</span></td>
+    </tr>
+    <tr>
+      <td align="right">运费：<span class="red">*</span></td>
+      <td><input type="text" id="chargeId" name="postage" maxlength="11"/></td>
+    </tr>
+    <tr>
+      <td align="right">描述：</td>
+      <td><textarea rows="3" cols="5" name="remark"></textarea></td>
+    </tr>
+  </table>
+  </form>

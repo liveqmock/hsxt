@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.entstatus.mapper.CloseOpenEntMapper">
+
+    <!-- 判断是否存在正在审批的开关系统申请 -->
+	<select id="existApplying" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1) 
+		FROM T_BS_CLOSE_OPEN_ENT 
+		WHERE ENT_CUST_ID = #{entCustId}
+			  AND STATUS = 1
+	</select>
+	
+	<!-- 创建关闭/开启系统申请 -->
+	<insert id="createCloseOpenEnt" parameterType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEnt">
+		INSERT INTO T_BS_CLOSE_OPEN_ENT
+		  (APPLY_ID,
+		   ENT_CUST_ID,
+		   ENT_RES_NO,
+		   ENT_CUST_NAME,
+		   CUST_TYPE,
+		   ADDRESS,
+		   LINKMAN,
+		   MOBILE,
+		   APPLY_TYPE,
+		   REQ_REMARK,
+		   REQ_TIME,
+		   REQ_OPT_CUST_ID,
+		   REQ_OPT_CUST_NAME,
+		   STATUS)
+		SELECT #{applyId},
+			   #{entCustId},
+			   #{entResNo},
+			   #{entCustName},
+			   #{custType},
+			   #{address},
+			   #{linkman},
+			   #{mobile},
+			   #{applyType},
+			   #{reqRemark},
+			   SYSDATE,
+			   #{reqOptCustId},
+			   #{reqOptCustName},
+			   1
+		FROM dual
+		WHERE NOT EXISTS( SELECT * FROM T_BS_CLOSE_OPEN_ENT  
+	      				WHERE ENT_CUST_ID = #{entCustId} AND STATUS = 1
+			  			)  
+	</insert>
+
+	<!-- 查询关开系统复核 -->
+	<select id="queryCloseOpenEnt4ApprListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEntQueryParam"
+			resultType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEnt">
+		SELECT t1.APPLY_ID           AS applyId,
+		       t1.ENT_CUST_ID        AS entCustId,
+		       t1.ENT_RES_NO         AS entResNo,
+		       t1.ENT_CUST_NAME      AS entCustName,
+		       t1.CUST_TYPE          AS custType,
+		       t1.ADDRESS            AS address,
+		       t1.LINKMAN            AS linkman,
+		       t1.MOBILE             AS mobile,
+		       t1.APPLY_TYPE         AS applyType,
+		       t1.REQ_REMARK         AS reqRemark,
+		       TO_CHAR(t1.REQ_TIME,'yyyy-MM-dd HH24:mi:ss') AS reqTime,
+		       t1.REQ_OPT_CUST_ID    AS reqOptCustId,
+		       t1.REQ_OPT_CUST_NAME  AS reqOptCustName,
+		       t1.STATUS             AS status,
+		       t1.APPR_REMARK        AS apprRemark,
+		       TO_CHAR(t1.APPR_TIME,'yyyy-MM-dd HH24:mi:ss') AS apprTime,
+		       t1.APPR_OPT_CUST_ID   AS apprOptCustId,
+		       t1.APPR_OPT_CUST_NAME AS apprOptCustName
+	    FROM T_BS_CLOSE_OPEN_ENT t1,T_BS_TASK t2
+	    WHERE  t1.STATUS = 1
+	           AND t1.APPLY_ID = t2.BIZ_NO
+			   AND t2.STATUS = 2
+			   AND t2.EXE_CUST_ID = #{optCustId}
+	  	    <if test="entResNo !=null and entResNo !=''">
+	  	    	AND t1.ENT_RES_NO like #{entResNo}||'%' 
+	  	    </if>
+	  	    <if test="entCustName !=null and entCustName !=''">
+	  	    	AND UPPER(t1.ENT_CUST_NAME) LIKE UPPER('%'||#{entCustName}||'%')
+	  	    </if>
+	  	    <if test="linkman !=null and linkman !=''">
+	  	    	AND UPPER(t1.LINKMAN) LIKE UPPER('%'||#{linkman}||'%') 
+	  	    </if>
+	  	    <if test="custType !=null">
+	  	    	AND t1.CUST_TYPE = #{custType}
+	  	    </if>
+	  	    <if test="applyType !=null">
+	  	    	AND t1.APPLY_TYPE = #{applyType}
+	  	    </if>
+	  	  ORDER BY t1.REQ_TIME DESC
+	</select>
+	
+	
+	<!-- 查询关闭/开启系统申请 -->
+	<select id="queryCloseOpenEntListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEntQueryParam"
+			resultType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEnt">
+		SELECT t1.APPLY_ID           AS applyId,
+		       t1.ENT_CUST_ID        AS entCustId,
+		       t1.ENT_RES_NO         AS entResNo,
+		       t1.ENT_CUST_NAME      AS entCustName,
+		       t1.CUST_TYPE          AS custType,
+		       t1.ADDRESS            AS address,
+		       t1.LINKMAN            AS linkman,
+		       t1.MOBILE             AS mobile,
+		       t1.APPLY_TYPE         AS applyType,
+		       t1.REQ_REMARK         AS reqRemark,
+		       TO_CHAR(t1.REQ_TIME,'yyyy-MM-dd HH24:mi:ss') AS reqTime,
+		       t1.REQ_OPT_CUST_ID    AS reqOptCustId,
+		       t1.REQ_OPT_CUST_NAME  AS reqOptCustName,
+		       t1.STATUS             AS status,
+		       t1.APPR_REMARK        AS apprRemark,
+		       TO_CHAR(t1.APPR_TIME,'yyyy-MM-dd HH24:mi:ss') AS apprTime,
+		       t1.APPR_OPT_CUST_ID   AS apprOptCustId,
+		       t1.APPR_OPT_CUST_NAME AS apprOptCustName
+	    FROM T_BS_CLOSE_OPEN_ENT t1
+	    WHERE 1=1
+	  	    <if test="entResNo !=null and entResNo !=''">
+	  	    	AND ENT_RES_NO like #{entResNo}||'%'
+	  	    </if>
+	  	    <if test="entCustName !=null and entCustName !=''">
+	  	    	AND UPPER(ENT_CUST_NAME) LIKE UPPER('%'||#{entCustName}||'%')
+	  	    </if>
+	  	    <if test="linkman !=null and linkman !=''">
+	  	    	AND UPPER(LINKMAN) LIKE UPPER('%'||#{linkman}||'%')
+	  	    </if>
+	  	    <if test="custType !=null">
+	  	    	AND CUST_TYPE = #{custType}
+	  	    </if>
+	  	    <if test="applyType !=null">
+	  	    	AND APPLY_TYPE = #{applyType}
+	  	    </if>
+	  	 ORDER BY REQ_TIME DESC
+	</select>
+	
+	<!-- 查询关闭/开启系统申请详情 -->
+	<select id="queryCloseOpenEntDetail" parameterType="string" resultType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEntDetail">
+		SELECT APPLY_ID           AS applyId,
+		       ENT_RES_NO         AS entResNo,
+		       ENT_CUST_ID        AS entCustId,
+		       ENT_CUST_NAME      AS entCustName,
+		       CUST_TYPE          AS custType,
+		       APPLY_TYPE         AS applyType,
+		       ADDRESS            AS address,
+		       LINKMAN            AS linkman,
+		       MOBILE             AS mobile,
+		       REQ_OPT_CUST_ID    AS applyOptCustId,
+		       REQ_OPT_CUST_NAME  AS applyOptCustName,
+		       REQ_REMARK         AS applyRemark,
+		       REQ_TIME           AS applyDate,
+		       STATUS             AS status,
+		       APPR_OPT_CUST_ID   AS apprOptCustId,
+		       APPR_OPT_CUST_NAME AS apprOptCustName,
+		       APPR_REMARK        AS apprRemark,
+		       APPR_TIME          AS apprDate
+		FROM T_BS_CLOSE_OPEN_ENT
+		WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 审批关闭/开启系统申请 -->
+	<update id="apprCloseOpenEnt">
+		UPDATE T_BS_CLOSE_OPEN_ENT
+		<set>
+			STATUS             = #{status},
+       		APPR_REMARK        = #{apprRemark},
+       		APPR_TIME          = SYSDATE,
+            APPR_OPT_CUST_ID   = #{apprOptCustId},
+            APPR_OPT_CUST_NAME = #{apprOptCustName}
+		</set>
+		<where>
+			APPLY_ID = #{applyId}
+		</where>
+	</update>
+	
+	<!-- 查询最近一次开启关闭系统信息（上一次） -->
+	<select id="queryLastCloseOpenEntInfo" resultType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEntInfo">
+		SELECT * FROM
+			(SELECT ROWNUM,
+			       APPLY_ID           AS applyId,
+			       APPLY_TYPE         AS applyType,
+			       REQ_OPT_CUST_ID    AS applyOptCustId,
+			       REQ_OPT_CUST_NAME  AS applyOptCustName,	
+			       REQ_REMARK         AS applyRemark,
+			       TO_CHAR(REQ_TIME,'yyyy-MM-dd HH24:mi:ss') AS applyDate
+			FROM T_BS_CLOSE_OPEN_ENT
+			WHERE STATUS = 2
+			      AND ENT_CUST_ID = #{entCustId}
+				  AND APPLY_TYPE = #{applyType}
+				  <![CDATA[ AND REQ_TIME < to_date(#{thisApplyDate},'yyyy-MM-dd HH24:mi:ss') ]]>
+	        ORDER BY REQ_TIME DESC)
+	    WHERE ROWNUM = 1
+	</select>
+	
+	<select id="queryCloseEntById" resultType="com.gy.hsxt.bs.bean.entstatus.CloseOpenEnt">
+		SELECT APPLY_ID           AS applyId,
+		       ENT_CUST_ID        AS entCustId,
+		       ENT_RES_NO         AS entResNo,
+		       ENT_CUST_NAME      AS entCustName,
+		       CUST_TYPE          AS custType,
+		       ADDRESS            AS address,
+		       LINKMAN            AS linkman,
+		       MOBILE             AS mobile,
+		       APPLY_TYPE         AS applyType,
+		       REQ_REMARK         AS reqRemark,
+		       REQ_TIME           AS reqTime,
+		       REQ_OPT_CUST_ID    AS reqOptCustId,
+		       REQ_OPT_CUST_NAME  AS reqOptCustName,
+		       STATUS             AS status,
+		       APPR_REMARK        AS apprRemark,
+		       APPR_TIME          AS apprTime,
+		       APPR_OPT_CUST_ID   AS apprOptCustId,
+		       APPR_OPT_CUST_NAME AS apprOptCustName
+		  FROM T_BS_CLOSE_OPEN_ENT
+		 WHERE APPLY_ID = #{applyId}
+	</select>
+</mapper>

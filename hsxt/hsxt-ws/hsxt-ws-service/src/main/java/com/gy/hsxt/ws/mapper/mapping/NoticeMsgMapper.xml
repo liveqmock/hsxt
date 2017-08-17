@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ws.mapper.NoticeMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.ws.bean.NoticeMsg" >
+    <id column="MSG_ID" property="msgId" jdbcType="VARCHAR" />
+    <result column="WELFARE_ID" property="welfareId" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="RES_NO" property="resNo" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="SEND_STATUS" property="sendStatus" jdbcType="DECIMAL" />
+    <result column="MSG_TYPE" property="msgType" jdbcType="DECIMAL" />
+    <result column="BIZ_TYPE" property="bizType" jdbcType="DECIMAL" />
+    <result column="FAIL_MSG" property="failMsg" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MSG_ID, WELFARE_ID, CUST_ID, RES_NO, CUST_NAME, MOBILE, SEND_STATUS, MSG_TYPE, BIZ_TYPE, 
+    FAIL_MSG, CREATE_DATE, UPDATE_DATE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WS_SEND_MSG
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryNotice" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WS_SEND_MSG
+    where 1 = 1
+     <if test="msgType != null" >
+        and MSG_TYPE = #{msgType}
+     </if>
+     <if test="sendStatus != null" >
+        and SEND_STATUS = #{sendStatus}
+     </if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.gy.hsxt.ws.bean.NoticeMsg" >
+    insert into T_WS_SEND_MSG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        MSG_ID,
+      </if>
+      <if test="welfareId != null" >
+        WELFARE_ID,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="resNo != null" >
+        RES_NO,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS,
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE,
+      </if>
+      <if test="bizType != null" >
+        BIZ_TYPE,
+      </if>
+      <if test="failMsg != null" >
+        FAIL_MSG,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="welfareId != null" >
+        #{welfareId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="resNo != null" >
+        #{resNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        #{sendStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="msgType != null" >
+        #{msgType,jdbcType=DECIMAL},
+      </if>
+      <if test="bizType != null" >
+        #{bizType,jdbcType=DECIMAL},
+      </if>
+      <if test="failMsg != null" >
+        #{failMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.ws.bean.NoticeMsg" >
+    update T_WS_SEND_MSG
+    <set >
+      <if test="welfareId != null" >
+        WELFARE_ID = #{welfareId,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="resNo != null" >
+        RES_NO = #{resNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS = #{sendStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE = #{msgType,jdbcType=DECIMAL},
+      </if>
+      <if test="bizType != null" >
+        BIZ_TYPE = #{bizType,jdbcType=DECIMAL},
+      </if>
+      <if test="failMsg != null" >
+        FAIL_MSG = #{failMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATE_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MSG_ID = #{msgId,jdbcType=VARCHAR}
+  </update>
+  
+
+	<select id="handSendMsg" statementType="CALLABLE" parameterType="java.util.Map">  
+		<![CDATA[  
+   	 		{
+   	 		  call PRO_HAND_SEND_MSG ()
+             }  
+		]]>
+	</select>
+  
+</mapper>

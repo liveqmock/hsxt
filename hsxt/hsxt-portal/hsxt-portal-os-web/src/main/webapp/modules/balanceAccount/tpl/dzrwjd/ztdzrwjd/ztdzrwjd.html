@@ -1,0 +1,35 @@
+<div id="ztdzrwjdTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>对账日期：</label>
+				<input type="text" name="dz_beginDate" id="dz_beginDate" placeholder="开始日期" class="queryList-toolbar-text" readonly="readonly">
+        <span class="separator-pd">-</span>
+        <input type="text" name="dz_endDate" id="dz_endDate" placeholder="截止日期" class="queryList-toolbar-text" readonly="readonly">
+			</li>
+			<li>
+				<label class="queryList-toolbar-label-select">对账系统：</label>
+				<input id="ztdzrwjd_tb_dzxt" name="ztdzrwjd_tb_dzxt" placeholder="选择对账系统" readonly="readonly"/>
+			</li>
+            <li>
+				<label class="queryList-toolbar-label-select">对账状态：</label>
+				<input id="ztdzrwjd_tb_dzzt" name="ztdzrwjd_tb_dzzt" placeholder="选择对账状态" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="ztdzrwjd_tb_queryBtn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="ztdzrwjd_ql">
+		<tr>
+			<th w_num="line" width="5%">行号</th>
+			<th w_index="dsys" w_align="left">对账系统</th>
+			<th w_index="ddate" w_align="left">对账日期</th>
+			<th w_index="drate" w_align="left">对账进度</th>
+			<th w_index="dstat" w_align="left">对账状态</th>
+			<th w_index="dinfo" w_align="left">详细说明</th>
+		</tr>
+	</table>
+</div>
+
+<div id="ztdzrwjd_dlg" class="none ovh"></div>

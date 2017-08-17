@@ -1,0 +1,52 @@
+<div id="lxxx_xgTpl">
+	<div class="bc info_800">
+		<form id="qylxxx_form" name="qylxxx_form">
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix pr cannotEdit-bg">
+						<label class="fl w115 h30_middle">联系人姓名</label>
+						<input type="text" id="contactPerson" name="contactPerson" readonly="readonly"   value="<%=obj.contactPerson%>"  class="fl w185 h30_middle ml5 cannotEdit-bg" placeholder="输入联系人姓名" />
+						<span class="required-left330">*</span>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">联系地址</label>
+						<input id="contactAddr" name="contactAddr" value="<%=obj.contactAddr%>" type="text" class="fl w185 h30_middle ml5" placeholder="输入联系地址" />
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">企业安全邮箱</label>
+						<input id="contactEmail" name="contactEmail" value="<%=obj.contactEmail%>" type="text" class="fl w185 h30_middle ml5" placeholder="输入企业安全邮箱" /><!--<a href="#" class="dlgEmail btn_bg submit_btn" style="margin-top:2px;">验证</a>-->
+					</li>
+				</ul>
+				<ul class="fr info_320" style="width:340px;" >
+					<li class="register_row clearfix pr cannotEdit-bg" >
+						<label class="fl w115 h30_middle">联系人手机</label>
+						<input type="text" id="contactPhone" name="contactPhone" readonly="readonly"  value="<%=obj.contactPhone%>" class="fl w185 h30_middle ml5 cannotEdit-bg" placeholder="输入联系人手机" />
+						<span class="required-left330">*</span>
+					</li>
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">邮政编码</label>
+						<input id="postCode" name="postCode" value="<%=obj.postCode%>" type="text" class="fl w185 h30_middle ml5" placeholder="输入邮政编码" />
+					</li>
+				</ul>
+			</div>
+			<!--
+			<ul>
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h60_middle" for="name">联系人授权委托书</label>
+					<span id="bimg" class="fl sample_img" style="margin-top:2px;"><img id="img-2" src="resources/img/noImg.gif" width="81" height="60"></span>
+               		<div class="fl mt15 ml10">
+	               		<a href="javascript:void(0);" id="upload_btn" class="input-file btn_bg upload_btn">上传
+	               		<input id="certificate" name="certificate" type="file"></a>
+	               		<a id="certificateFileId" class="btn_bg viewSample_btn" style="margin-left: 10px;">模板下载</a>
+               		</div>
+               		<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">
+				</li>
+			</ul>
+			-->
+			<div class="w200 bc mt20">
+				<a class="btn_bg submit fl" id="tj_btn">提&#12288;交</a>
+				<a class="btn_bg submit fr" id="cancel_btn">取&#12288;消</a>
+				</div>
+		</form>
+	</div>
+</div>

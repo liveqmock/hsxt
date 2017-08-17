@@ -1,0 +1,38 @@
+<div id="tsxxmbTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>模版名称：</label>
+				<input type="text" id="search_tplName" name="search_tplName" placeholder="输入模版名称" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clefrfix">
+				<label class="fl h30_middle">适用类别：</label>
+				<input id="search_useCustType" name="search_useCustType" readonly="readonly" placeholder="选择适用类别" />
+			</li>
+			<li class="clefrfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="search_tplStatus" name="search_tplStatus" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="xzmb_btn" type="button" class="btn-search">新增模版</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+	  <tr>
+		<th w_index="tempName" width="25%" w_tip="true" w_align="left">模版名称</th>
+		<th w_index="custType" w_render="operate" width="10%" w_align="left">适用类别</th>
+		<th w_index="buyResType" w_render="operate" width="10%" w_align="left">启用资源类型</th>
+		<th w_render="operate"  w_align="left" width="15%">适用业务类型</th>
+		<th w_index="status" w_render="operate" width="10%" w_align="left">状态</th>
+		<th w_index="statusTime" w_align="left">状态时间</th>
+		<th w_render="operate" w_align="left">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="xzmbTpl" class="none"></div>
+<div id="xgmbTpl" class="none"></div>
+<div id="ck_dialog" class="none"></div>

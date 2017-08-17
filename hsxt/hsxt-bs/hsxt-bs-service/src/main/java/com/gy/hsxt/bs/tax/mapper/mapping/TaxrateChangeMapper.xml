@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tax.mapper.TaxrateChangeMapper">
+    <!-- 企业税率调整申请 -->
+    <resultMap id="taxrateChangeResult" type="com.gy.hsxt.bs.bean.tax.TaxrateChange">
+        <id column="APPLY_ID" property="applyId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="LINKMAN" property="linkman"/>
+        <result column="TELEPHONE" property="telephone"/>
+        <result column="TAXPAYER_TYPE" property="taxpayerType"/>
+        <result column="CURR_TAXRATE" property="currTaxrate" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="APPLY_TAXRATE" property="applyTaxrate" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="PROVE_MATERIAL_FILE" property="proveMaterialFile"/>
+        <result column="APPLY_REASON" property="applyReason"/>
+        <result column="STATUS" property="status"/>
+        <result column="ENABLE_DATE" property="enableDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="DISABLE_DATE" property="disableDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="ISACTIVE" property="isActive"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdBy"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+        <result column="CREATED_NAME" property="createdName"/>
+        <result column="UPDATED_NAME" property="updatedName"/>
+    </resultMap>
+
+    <!-- 创建企业税率调整申请 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChange">
+        INSERT INTO T_BS_TAXRATE_CHANGE (
+            APPLY_ID,
+            RES_NO,
+            CUST_ID,
+            CUST_NAME,
+            LINKMAN,
+            TELEPHONE,
+            CUST_TYPE,
+            TAXPAYER_TYPE,
+            CURR_TAXRATE,
+            APPLY_TAXRATE,
+            PROVE_MATERIAL_FILE,
+            APPLY_REASON,
+            STATUS,
+            ISACTIVE,
+            CREATED_DATE,
+            CREATEDBY,
+            CREATED_NAME
+        ) VALUES (
+            #{applyId},
+            #{resNo},
+            #{custId},
+            #{custName},
+            #{linkman},
+            #{telephone},
+            #{custType},
+            #{taxpayerType},
+            #{currTaxrate},
+            #{applyTaxrate},
+            #{proveMaterialFile},
+            #{applyReason},
+            0,
+            'Y',
+            systimestamp,
+            #{createdBy},
+            #{createdName}
+        )
+    </insert>
+
+    <!-- 分页查询企业税率调整申请列表 -->
+    <select id="selectBeanListPage" resultMap="taxrateChangeResult" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChangeQuery">
+        SELECT
+        t.*
+        FROM
+        T_BS_TAXRATE_CHANGE t
+        WHERE
+        t.ISACTIVE = 'Y'
+        <if test="startDate != null and startDate != '' ">
+            AND t.CREATED_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND t.CREATED_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custId != null and custId != '' ">
+            AND t.CUST_ID =  #{custId}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <if test="status != null">
+            AND t.STATUS = #{status}
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+
+    <!-- 分页查询企业税率调整审批/复核列表 -->
+    <select id="selectTaskListPage" resultMap="taxrateChangeResult" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChangeQuery">
+        SELECT t.*
+        FROM
+            T_BS_TAXRATE_CHANGE t
+            JOIN T_BS_TASK k ON t.APPLY_ID = k.BIZ_NO
+        WHERE
+            t.ISACTIVE = 'Y'
+            AND k.BIZ_TYPE = #{taskType}
+            AND t.STATUS = #{status}
+            AND k.STATUS = #{taskStatus}
+            AND k.EXE_CUST_ID = #{optCustId}
+        <if test="startDate != null and startDate != '' ">
+            AND t.CREATED_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+
+        <if test="endDate != null and endDate != '' ">
+            AND t.CREATED_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custId != null and custId != '' ">
+            AND t.CUST_ID =  #{custId}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+    <!-- 查询某一条申请记录 -->
+    <select id="selectBeanById" resultMap="taxrateChangeResult" parameterType="string">
+        SELECT t.*
+        FROM
+            T_BS_TAXRATE_CHANGE t
+        WHERE
+            t.APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 审批/复核税率调整申请 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChange">
+        UPDATE
+        T_BS_TAXRATE_CHANGE
+        SET
+        STATUS = #{status},
+        UPDATEDBY = #{updatedBy},
+        UPDATED_NAME = #{updatedName},
+        UPDATED_DATE=systimestamp
+        <if test="enableDate != null and enableDate != '' ">
+            ,ENABLE_DATE=#{enableDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler }
+        </if>
+        WHERE
+        APPLY_ID=#{applyId}
+    </update>
+
+    <!-- 停用之前的 税率调整申请 -->
+    <update id="disableTaxrateChange" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChange">
+        UPDATE
+            T_BS_TAXRATE_CHANGE
+        SET
+            UPDATEDBY    = #{updatedBy},
+            UPDATED_NAME    = #{updatedName},
+            UPDATED_DATE = systimestamp,
+            DISABLE_DATE = #{disableDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler }
+        WHERE
+            CUST_ID = #{custId}
+            AND STATUS = #{status}
+            AND DISABLE_DATE IS NULL
+    </update>
+
+    <!-- 判断某企业是否存在待审核的申请记录 -->
+    <select id="selectPendingBeanByCustId" resultType="String">
+        SELECT t.APPLY_ID
+        FROM
+            T_BS_TAXRATE_CHANGE t
+        WHERE
+            t.STATUS &lt;= 1
+            AND
+            t.CUST_ID = #{custId}
+    </select>
+
+    <!-- 批量获取企业最新申请记录 -->
+    <select id="selectEnableBeanListByQuery" resultMap="taxrateChangeResult" parameterType="com.gy.hsxt.bs.bean.tax.TaxrateChangeQuery">
+        SELECT t.*
+        FROM
+            T_BS_TAXRATE_CHANGE t
+        WHERE
+            t.STATUS = 2
+            AND t.DISABLE_DATE IS NULL
+        <if test="startDate != null and startDate !=''">
+            AND t.UPDATED_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate !=''">
+            AND t.UPDATED_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+    </select>
+    <!-- 查询企业税率调整的最新申请 -->
+    <select id="selectLastBeanByCustId" resultMap="taxrateChangeResult">
+        SELECT a.*
+        FROM
+            T_BS_TAXRATE_CHANGE a
+        WHERE
+            a.APPLY_ID = (
+                SELECT max(t.apply_id)
+                FROM T_BS_TAXRATE_CHANGE t
+                WHERE t.CUST_ID = #{custId}
+                <if test="status != null and status !=''">
+                    AND t.STATUS = #{status}
+                </if>
+            )
+    </select>
+</mapper>

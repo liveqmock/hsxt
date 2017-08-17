@@ -1,0 +1,51 @@
+<% var list = obj.SalerShopList %>
+<% var account = obj.account %>
+<% var shopId =  account.shopId%>
+<div>            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+            	<tbody><tr>
+                  <th width="15px"><!--<input type="checkbox" id="allshop">全选-->所属</th>
+                  <th width="32px"><!--<input type="checkbox" id="allshop">全选-->类型</th>
+                  <th width="250px">营业点</th>
+                </tr>
+            </tbody></table>
+</div>
+<div style="max-height:300px; overflow:auto;">
+<table class="search-table" width="100%" border="0" cellspacing="0" cellpadding="0" style="word-break:break-all;word-wrap:break-word;">
+<tbody>
+             	<% $.each(list,function(i,shop){ %>
+             	<%
+             	var area = "";
+             	if(''!=shop.area&&null!=shop.area){
+             		try{
+             		area = eval(shop.area)[1];
+             		}catch(e){
+             		area = shop.area;
+             		}
+             	}
+             	%>
+			    <tr <%=i%2==1?"class='table-tr-c'":""%>>
+			      <td width="18px" style="text-align: center;"><input class="popup_ckb" name="shop" type="radio"
+			      <%if(shopId == shop.id){%>
+			       	checked 
+			       <%}%>
+			       value="<%=shop.id%>" valueType="<%=shop.type%>" valueName="
+	<%if(shop.name !=null && shop.name != ""){%>
+		<%=shop.name%>
+	<%}else{%>
+		<%=shop.province%><%=shop.city%><%=area%><%=shop.addr%>
+	<%}%>
+"/></td>
+	<td width="37px"><%if(shop.type == 1){%>
+						零售
+					 <%}else if(shop.type == 2){%>
+					 	餐饮
+					 <%}%></td>
+			      <td width="266px" class="tl">
+			      	<p><%=shop.name%></p>
+			      	<input class="pt5 inpt <%=i%2==1?"datable_input":""%>" style="width: 200px;line-height:0px;" type="text" disabled="disabled" title="<%=shop.province%><%=shop.city%><%=area%><%=shop.addr%>" value="<%=shop.province%><%=shop.city%><%=area%><%=shop.addr%>"/></td>
+			    </tr>
+			    <% }) %>
+</tbody>
+</table>
+</div>

@@ -1,0 +1,53 @@
+<div class="bc mt20 w400">
+<form id="jbhsk_form" name="jbhsk_form" action="" method="post">
+    <ul class="cssform2 clearfix">
+        <li class="b0">
+            <div class="p10 tab_trbg bd_dot_orange">
+                <i class="icon_tips tips_1"></i>
+                <span class="red ml5">特别提示：</span>
+                <span class="gray"> 请输入管理员登录密码确认解除绑定！</span>
+            </div>
+        </li>
+        <li class="clearfix">
+        	<input type="hidden" id="input_operCustId" value="<%=obj.operCustId%>">
+            <label class="title-txt w115">登录用户名</label><div class="cont-chk tbox"><span id="input_userName" class="ml10"><%=obj.userName%></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">姓名</label>
+            <div class="cont-chk tbox" ><span id="input_realName" class="ml10"><%=obj.realName%></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">互生卡号</label><div class="cont-chk tbox"><span class="ml10" id="input_operResNo"><%=obj.operResNo%></span></div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115">管理员登录密码</label><input id="loginPwd" name="loginPwd" maxlength="6" class="fl w185 h30_middle ml5" type="password" placeholder="输入管理员登录密码"/><div class="hint red" style="left:400px">*</div>
+        </li>
+    </ul>
+    <div class="mt20 tc">
+        <a href="javascript:;" id="btn_jbhsk_cx" class="btn_bg submit mr30">取&#12288;消</a><a href="javascript:;" id="btn_jbhsk_tj" class="btn_bg submit">确&#12288;认</a>
+    </div>
+</form>
+</div>
+
+<div id="hskjb_dialog" class="none" title="互生卡解除绑定成功！">
+	<p class="autowidth">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="50%" align="right" class="gray"></td>
+    <td width="50%"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">登录用户名：</td>
+    <td id="userNameTd"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">姓名：</td>
+    <td id="realNameTd"></td>
+  </tr>
+  <tr>
+    <td align="right" class="gray">互生卡号：</td>
+    <td id="hskhTd"></td>
+  </tr>
+</tbody></table>
+</p>
+</div> 

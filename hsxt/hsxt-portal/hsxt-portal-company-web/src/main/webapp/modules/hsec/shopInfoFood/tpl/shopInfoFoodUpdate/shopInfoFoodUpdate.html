@@ -1,0 +1,1234 @@
+
+<%	
+	//初始化信息参数start
+	var param = obj.MainPageCategory;
+	var address = obj.vShop;
+	var quyu = obj.Area;
+	var shoptime = obj.shoptime;
+	var model = obj.model;
+	var shopType = obj.shopType;
+	var teseList = obj.teseList;
+	var supplyList = obj.supplyList;
+	var priceMinMax = obj.priceMinMax;
+	var location = obj.Location;
+	//初始化信息参数end
+	//实体对象
+	var sssobj = obj.salerShopStore;
+	var sssXq = obj.salerShopStore.salerShopStoreDetail;
+	var tfs = obj.httpUrl;
+	//开通服务状态
+	var serviceStatus = obj.serviceStatus;
+%>
+
+<div class="operationsInner" id="stdbj"> 
+  <!--内容添加开始-->
+  <div class="searchbox mallStore">
+    <div class="search-toolbar pr h30">
+      <ul id="xinxiMain" class="tabList clearfix">
+      	<li><a href="#" class="jbxx active">基本信息</a></li>
+        <li><a href="#" class="mjfw">卖家服务</a></li>
+      </ul>
+    </div>
+    <div class="search-cont" style="margin-top:0;height:392px;" id="shopPanel" shopId="<%=sssobj.id%>">
+      <table id="cy-jbxx" class="detail" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <td width="150" align="right">营业点类型<span class="red">*</span></td>
+          <td width="180"><div class="cont-int">
+            <select class="w300">
+              <option value="2" selected="selected">餐饮</option>
+            </select>
+          </div></td>
+          <td align="left" width="200">&nbsp;</td>
+        </tr>
+            <tr>
+          <td align="right">营业点名称<span class="red">*</span></td>
+          <td><input class="inpt" id="shopName" value="<%=sssobj.name%>" type="text" maxlength="35" style="width: 282px;"/></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+          <tr>
+          <td align="right">详细地址<span class="red">*</span></td>
+          <td colspan="2"><input type="hidden" id="zuobiaodiqu" value="<%=address.province==address.city?address.city:address.province+address.city%>"><input class="inpt w-left" type="text" value="<%=address.province==address.city?address.country+address.city:address.country+address.province+address.city%>" readonly="readonly" style="width:auto;">
+          <%var chengshiID = "";%>
+                <select class="ml5 mr5" style="padding-top:7px;" id="quyu" name="quyu">
+                      <option value="">选择区域</option>
+                      <%try {$.each(quyu,function(key,el){%>
+                      <%chengshiID = el.parentCode;%>
+                      <option 	<%if(sssobj.areaCode != null && sssobj.areaCode !=""){%>
+	                  		<%=(sssobj.areaCode==el.areaCode?'selected':'')%>
+	                  	<%}%> value="<%=el.areaCode%>" ><%=el.areaName%></option>
+                      <%}) }catch(e){}%>
+                    </select>
+                    <input id="chengshiId" value="<%=chengshiID%>" type="hidden"/>
+        <input class="inpt" id="addr" type="text" value="<%=sssobj.addr%>" placeholder="如：xx路xx号" maxlength="50"/>
+        &nbsp;<span class="red redError "></span>
+        </td>
+        </tr>
+
+    <tr>
+          <td align="right">经纬度<span class="red">*</span></td>
+          <td><input class="inpt w-left" id="xyMap" type="text" value="<%=sssobj.landmark%>" readonly="readonly" style="width:auto;" yw-city="<%=address.city%>"><input type="button" id="addPosition" class="inpt dw" value="选择地图坐标点"></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+                     <tr>
+                  <td align="right">所属商圈</td>
+                  <td>
+                  <%try{ if(sssobj.areaCode != null && sssobj.areaCode != ""){%>
+                  <%if(sssobj.sectionCode != null && sssobj.sectionCode != ""){%>
+                  <select class="w300" name="shangquan" id="section">
+						<option value="">所属商圈</option>
+						 <%$.each(location,function(key,el){%>
+						 <%if(sssobj.areaCode == el.areaCode){%>
+                      <option <%=(sssobj.sectionCode==el.id?'selected':'')%> value="<%=el.id%>"><%=el.locationName%></option>
+                      	<%}%>
+                      <%})%>
+                    </select>
+                    <%}else{%>
+                    <select class="w300" name="shangquan" id="section">
+						<option value="">所属商圈</option>
+						 <%$.each(location,function(key,el){%>
+						 <%if(sssobj.areaCode == el.areaCode){%>
+                      <option value="<%=el.id%>"><%=el.locationName%></option>
+                      	<%}%>
+                      <%})%>
+                    </select>
+                    <%}%>
+                    <%}else{%>
+                      <select class="w300" name="shangquan" id="section">
+						<option value="">所属商圈</option>
+                    	</select>
+                    <%} } catch(e){}%>
+                    </td>
+                  <td align="left"><span class="red redError "></span></td>
+                </tr>
+                
+              <tr>
+          <td align="right">营业点照片<span class="red">*</span></td>
+            <td colspan="2">
+                
+               <ul id="shopImgList" class="pImgList clearfix" style="width: 700px">
+               <%if(sssobj.pics != null && sssobj.pics != null){%>
+                    		<%var pics = eval(sssobj.pics);%>
+                    	  	<%try { $.each(pics,function(k,v){%>
+                <li class="pr <%if(k==0){%>shopImgZhu<%}%>" style="background: url(<%if(k==0){%>resources/img/store_main_img_1.gif<%}else{%>resources/img/store_noimg_1.gif<%}%>) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto<%=k%>" class="shop_inputFile" id="shopPhoto<%=k%>" />
+                        <img src="<%=tfs+v.web[0].name%>" width="100" height="100" class="imgShow"/>
+                        <span class="none imgObj"><%=JSON.stringify(v)%></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <%}) }catch(e){}%>
+                <%for(var i = pics.length;i<5;i++){%>
+                <li class="pr <%if(i==0){%>shopImgZhu<%}%>" style="background: url(<%if(i==0){%>resources/img/store_main_img_1.gif<%}else{%>resources/img/store_noimg_1.gif<%}%>) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto<%=i%>" class="shop_inputFile" id="shopPhoto<%=i%>">
+                        <img src="" class="none imgShow" width="100" height="100">
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            	<%}%>
+            	<%}%>
+            </ul>
+                
+                
+                <span class="red redError "></span>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：
+</div>
+              <div class="fl">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传5张图片。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">证件图片<span class="red">*</span></td>
+          <td><ul class="pImgList clearfix" id="imgUploadUl">
+          		
+          		<%if(sssobj.licensePic != null && sssobj.licensePic != ""){%>
+          				<%
+          				var imgPic = new Array();
+          				var paramPic = {};
+          				 paramPic["pic"] = "卫生许可证";
+          				 paramPic["id"] = "zhengJianImg";
+          				imgPic.push(paramPic);
+          				paramPic = {};
+          				 paramPic["pic"] = "餐饮服务许可证";
+          				 paramPic["id"] = "zhengJianImg1";	
+          				imgPic.push(paramPic); 
+          				paramPic = {};
+          				 paramPic["pic"] = "营业执照";
+          				 paramPic["id"] = "zhengJianImg2";	
+          				imgPic.push(paramPic); 
+          				%>
+                    		<%var licensePic = eval(sssobj.licensePic);%>
+                    	  	<%try{ $.each(licensePic,function(k,v){%>	
+                    	  		<%if(k == 0){
+                    	  			//imgPic.remove(0);
+                    	  			imgPic.splice(0,k);
+                    	  		%>
+			                    <li class="pr addpImgBox_style">
+				                    <span class="pr addpImgBox_style">
+				                        <input type="file" class="fileZhengjian" name="zhengJianImg" id="zhengJianImg"/>
+				                        
+				                         <img src="<%=tfs+v.web[0].name%>" class="zhengjianList" width="100" height="100">	
+				                          <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">卫生许可证<br>800x800</div></div>
+				                         <span class="none imgObj"><%=JSON.stringify(v)%></span>
+				                    </span>
+				                </li>
+                    	  		<%}%>
+                    	  		<%if(k == 1){
+                    	  			//imgPic.remove(0);
+                    	  			imgPic.splice(0,k);
+                    	  		%>
+                    	  			    <li class="pr addpImgBox_style">
+				                    <span class="pr addpImgBox_style">
+				                        <input type="file" class="fileZhengjian" name="zhengJianImg1" id="zhengJianImg1"/>
+				                        
+				                         <img src="<%=tfs+v.web[0].name%>" class="zhengjianList" width="100" height="100">	
+				                          <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">餐饮服务许可证<br>800x800</div></div>
+				                         <span class="none imgObj"><%=JSON.stringify(v)%></span>
+				                    </span>
+				                </li>
+                    	  		<%}%>
+                    	  		<%if(k == 2){
+                    	  			//imgPic.remove(0);
+                    	  			imgPic.splice(0,k);
+                    	  		%>
+                    	  			    <li class="pr addpImgBox_style">
+				                    <span class="pr addpImgBox_style">
+				                        <input type="file" class="fileZhengjian" name="zhengJianImg2" id="zhengJianImg2"/>
+				                        
+				                         <img src="<%=tfs+v.web[0].name%>" class="zhengjianList" width="100" height="100">	
+				                          <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">营业执照<br>800x800</div></div>
+				                         <span class="none imgObj"><%=JSON.stringify(v)%></span>
+				                    </span>
+				                </li>
+                    	  		<%}%>
+                    	  	<%}) }catch(e){} %>
+                    	  	<%try{$.each(imgPic,function(k,v){%>
+                    	  		    <li class="pr addpImgBox_style">
+						                    <span class="pr addpImgBox_style">
+						                        <input type="file" class="fileZhengjian" name="<%=v.id%>" id="<%=v.id%>"/>
+						                         <img src="" width="100" height="100" class="zhengjianList none"/>
+						                         <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30"><%=v.pic%><br>800x800</div></div>
+									 <span class="none imgObj"></span>
+						                    </span>
+						                </li>
+                    	  	<%}) }catch(e){}%>
+                    	  	<%}%>	            
+            </ul>
+            </td>
+            <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">餐厅分类<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopTypes">
+          		<ul class="clearfix">
+          		<%try{%>
+          		<%
+          			var foodType = null;
+          			foodType = eval("("+sssXq.foodType+")");
+          		%>
+          		<%$.each(shopType,function(k,v){%>
+          			<li><label><input type="checkbox"
+          							'<%
+          			if(sssXq.foodType != null && sssXq.foodType != ""){
+	          			$.each(foodType,function(k1,v1){
+	          				if(v.id == v1.id){
+	          				%>
+	          				<%="checked"%>
+	          				<%
+	          				foodType.splice(0,k1);//modifly by zhanghh 2016-05-06
+	          				return false;
+	          				}})}%>
+          			 value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%})}catch(e){%>
+          		
+          		 <%$.each(shopType,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		 <%})%>
+          		
+          		<%}%>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;<span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">经营特色<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopTeSe">
+          		<ul class="clearfix">
+          		<%try{%>
+          		<%
+          			var businessType = null;
+          			businessType = eval("("+sssXq.businessType+")");
+          		%>
+                <%$.each(teseList,function(k,v){%>
+          			<li><label><input type="checkbox" 
+          					<%
+          			if(sssXq.foodType != null && sssXq.foodType != ""){
+	          			$.each(businessType,function(k1,v1){
+	          				if(v.id == v1.id){
+	          				%>
+	          				<%="checked"%>
+	          				<%
+	          				businessType.splice(0,k1);//modifly by zhanghh 2016-05-06
+	          				return false;
+	          				}})}%>
+          			value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%
+          		})
+          		}catch(e){%>
+          		
+          		<%$.each(teseList,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%})%>
+          		<%}%>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;<span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">供餐类别<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopMealType">
+          		<ul class="clearfix">
+          		<%try{%>
+          			<%
+          			var mealType = null;
+          			mealType = eval("("+sssXq.mealType+")");
+          			%>
+          		
+                <%$.each(supplyList,function(k,v){%>
+          			<li><label><input type="checkbox"
+          					<%
+          			if(sssXq.foodType != null && sssXq.foodType != ""){
+	          			$.each(mealType,function(k1,v1){
+	          				if(v.id == v1.id){
+	          				%>
+	          				<%="checked"%>
+	          				<%
+	          				mealType.splice(0,k1);//modifly by zhanghh 2016-05-06
+	          				return false;
+	          				}})}%>
+          			 value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%
+          		})
+          		}catch(e){%>
+          		
+          		<%$.each(supplyList,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%})%>
+          		<%}%>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;<span class="red red redError  "></span></td>
+        </tr>
+        <tr>
+          <td align="right">经营模式<span class="red">*</span></td>
+          <td><select class="w300" id="managementModel">
+          	  <option value="">请选择</option>
+                <%try{%>
+                <%$.each(model,function(k,v){%>
+          			 <option <%=sssobj.managementModel == v.id?"selected='selected'":''%> value="<%=v.id%>"><%=v.name%></option>
+          		<%}) }catch(e){} %>
+            </select></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+         <tr>
+          <td align="right">品牌</td>
+          <td><input class="inpt" type="text" id="brand" value="<%=sssobj.brand%>" maxlength="50" style="width: 282px;"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="录入项，多个品牌中间用英文符号'，'分开,长度不超过50."></td>
+        </tr>
+        <%var timejson = eval(sssobj.openingHours)%>
+        
+       <tr class="time1">
+                  <td align="right">营业时间<span class="red">*</span></td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                  	 	   <%if(timejson.length > 1){%>
+                  	     <%$.each(shoptime,function(k,v){%>
+	                      <option <%=(timejson[0].value==v.value?'selected':'')%> <%=(timejson[1].value==v.value?'disabled':'')%> value="<%=v.value%>"><%=v.name%></option>
+	                     <%})%>
+                       <%}else{%>
+                        <%$.each(shoptime,function(k,v){%>
+	                      <option <%=(timejson[0].value==v.value?'selected':'')%> value="<%=v.value%>"><%=v.name%></option>
+	                     <%})%>
+                       <%}%>
+                    </select>
+                  
+                   <span class="timeSpan1">
+                    <select class="timesec">
+                      <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[0].timeList0 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		             <select class="timesec">
+                      <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[0].timeList1 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+                      <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[0].timeList2 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		           <select class="timesec">
+                      <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[0].timeList3 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>
+                     </span>
+                    </td>
+                  <td align="left" id="data_add" class="<%=timejson[0].value=='1,2,3,4,5'?'':'none'%>"><input type="button" class="date_add" style="border:1px solid #CCC;padding:0 3px;font-size:20px;color:#CCC;<%if(timejson.length > 1){%>display: none;<%}%>" value="+"><span class="ml10 red">最多设置2个.</span>&nbsp;&nbsp;<span class="red redError "></span></td>
+                </tr>
+                <%if(timejson.length > 1){%>
+                <tr class="time2">
+                  <td align="right">&nbsp;</td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                        <%$.each(shoptime,function(k,v){%>
+	                      <option <%=(timejson[1].value==v.value?'selected':'')%> <%=(timejson[0].value==v.value?'disabled':'')%> value="<%=v.value%>"><%=v.name%></option>
+	                     <%})%>
+                    </select>
+                  <span class="timeSpan2">
+                    <select class="timesec">
+                      <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[1].timeList0 == timestr){%>selected<%}%>><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		             <select class="timesec">
+                      <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[1].timeList1 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+                      <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[1].timeList2 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		           <select class="timesec">
+                      <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timejson[1].timeList3 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>
+                     </span>
+                    </td>
+                  <td align="left"><input type="button"  class="btn-search time_del delTime" value="删除"><span class="red redError "></span></td>
+                </tr>
+                 <%}else{%>
+                   <tr class="time2" style="display: none;">
+                  <td align="right">&nbsp;</td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                      <%$.each(shoptime,function(k,v){%>
+                      <option <%=(timejson[0].value==v.value||'1,2,3,4,5,6'==v.value||'1,2,3,4,5,6,7'==v.value?'disabled':'')%> value="<%=v.value%>"><%=v.name%></option>
+                      <%})%>
+                    </select>
+                     <span class="timeSpan2 none">
+                       <select class="timesec"><option></option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec"><option></option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec"><option></option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec"><option></option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+                    </span>
+                    </td>
+                  <td align="left"><input type="button"  class="btn-search time_del delTime" value="删除"><span class="red redError "></span></td>
+                </tr>
+                <%}%>
+                <tr>
+		          <td align="right">营业时间备注</td>
+		          <td><textarea rows="3" id="openingHoursRemark" name="openingHoursRemark" maxlength="50" style="resize:none;"><%=sssobj.openingHoursRemark%></textarea></td>
+		          <td align="left">还能输入<span class="red">50</span>个字</td>
+			</tr>
+			<%
+			try{
+			var timeXq = eval("("+sssXq.orderHours+")")
+			%>
+       		<tr>
+                  <td align="right">接单时间<span class="red">*</span></td>
+                  <td>
+                  <span id="orderHours">
+                  <select class="timesec">
+                       <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timeXq.timeList0 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		                <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timeXq.timeList1 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+		                 <%for(var i = 0;i<24;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timeXq.timeList2 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		                   <%for(var i = 0;i<60;i++){%>
+                      <%
+                      var timestr = "00";
+                      
+                      if(i<10){
+                      	timestr="0"+i;
+                      	}else{
+                      	timestr=i;
+                      	}
+                       %>
+		              <option  <%if(timeXq.timeList3 == timestr){%>selected<%}%> ><%=timestr%></option>
+		              <%}%>
+		            </select>
+		            </span>
+                    </td>
+                  <td align="left"><span class="red redError"></span></td>
+                </tr>
+                <%}catch(e){%>
+       			<tr>
+                  <td align="right">接单时间<span class="red">*</span></td>
+                  <td>
+                  <span id="orderHours">
+                  <select class="timesec">
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+		            </span>
+                    </td>
+                  <td align="left"><span class="red redError"></span></td>
+                </tr>
+                <%}%>
+        <tr>
+          <td align="right">服务热线<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="hotLine"  value="<%=sssobj.hotLine%>" style="width: 282px;" maxlength="50" placeholder="示例：13800000000，010-12345678"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="最多可输入50个字，多个号码用逗号分隔"><span class="red redError "></span></td>
+        </tr>
+        <%try{%>
+        <tr>
+          <td align="right">订餐电话<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="reservePhoneNo"  value="<%=sssXq.reservePhoneNo%>" style="width: 282px;" maxlength="50" placeholder="示例：13800000000，010-12345678"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="最多可输入50个字，多个号码用逗号分隔"><span class="red redError "></span></td>
+        </tr>
+        <%}catch(e){%>
+         <tr>
+          <td align="right">订餐电话<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="reservePhoneNo" style="width: 282px;" maxlength="50" placeholder="示例：13800000000，010-12345678"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="最多可输入50个字，多个号码用逗号分隔"><span class="red redError "></span></td>
+        </tr>
+        <%}%>
+        <%try{%>
+         <%var costAvgStr = eval("("+sssXq.costAvgStr+")")%>
+         <tr>
+          <td align="right">人均消费<span class="red">*</span></td>
+          <td class="">
+          <select class="w300" id="costAvg">
+              <option value="">请选择</option>
+              <%try{%>
+                <%$.each(priceMinMax,function(k,v){%>
+          			 <option <%=costAvgStr.id == v.value?"selected='selected'":''%> value="<%=v.value%>"><%=v.name%></option>
+          		<%}) }catch(e){} %>
+            </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}catch(e){%>
+                 <tr>
+          <td align="right">人均消费<span class="red">*</span></td>
+          <td class="">
+          <select class="w300" id="costAvg">
+              <option value="">请选择</option>
+              <%try{%>
+                <%$.each(priceMinMax,function(k,v){%>
+          			 <option value="<%=v.value%>"><%=v.name%></option>
+          		<%}) }catch(e){} %>
+            </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}%>
+        <%try{%>
+        <%var decorateStyle = eval("("+sssXq.decorateStyle+")")%>
+        <tr>
+          <td align="right">装修风格</td>
+          <td class="pr">
+          	<select class="w300" id="decorateStyle">
+						<option value="">请选择</option>
+						<option <%=decorateStyle.id=="1"?"selected='selected'":""%> value="1">中式</option>
+						<option <%=decorateStyle.id=="2"?"selected='selected'":""%> value="2">韩式</option>
+						<option <%=decorateStyle.id=="3"?"selected='selected'":""%> value="3">欧式</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}catch(e){%>
+              <tr>
+          <td align="right">装修风格</td>
+          <td class="pr">
+          	<select class="w300" id="decorateStyle">
+						<option value="">请选择</option>
+						<option  value="1">中式</option>
+						<option  value="2">韩式</option>
+						<option  value="3">欧式</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}%>
+        <%try{%>
+         <%var areaSize = eval("("+sssXq.areaSize+")")%>
+        <tr>
+          <td align="right">面积</td>
+          <td class="pr"> 	
+          			<select class="w300" id="areaSize">
+						<option value="">请选择</option>
+						<option <%=areaSize.id=="1"?"selected='selected'":""%> value="1">1000平方米以下</option>
+						<option <%=areaSize.id=="2"?"selected='selected'":""%> value="2">1000-2000平方米</option>
+						<option <%=areaSize.id=="3"?"selected='selected'":""%> value="3">2000-3000平方米</option>
+						<option <%=areaSize.id=="4"?"selected='selected'":""%> value="4">3000平方米以上</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}catch(e){%>
+          <tr>
+          <td align="right">面积</td>
+          <td class="pr"> 	
+          			<select class="w300" id="areaSize">
+						<option value="">请选择</option>
+						<option  value="1">1000平方米以下</option>
+						<option  value="2">1000-2000平方米</option>
+						<option  value="3">2000-3000平方米</option>
+						<option  value="4">3000平方米以上</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}%>
+        <!--tr>
+          <td align="right">座位类型及数量</td>
+          <td class="pr"><input id="feellist" readonly="readonly" class="inpt" type="text" value="4人桌，40"><i class="goodsC_arrow" id="gArrow1" title="点击选择周边环境"></i>
+          <div class="feellist none">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox">4人桌，40</label></li>
+                    <li><label><input type="checkbox">5人桌，20</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left">多选项</td>
+        </tr>
+        <tr>
+          <td align="right">包间类型及数量</td>
+          <td class="pr"><input id="feellist" readonly="readonly" class="inpt" type="text" value="大包间（50-80）人，5个"><i class="goodsC_arrow" id="gArrow1" title="点击选择周边环境"></i>
+          <div class="feellist none">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox">大包间（50-80）人，5个</label></li>
+                    <li><label><input type="checkbox">中包间（20-50）人，10个</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left">多选项</td>
+        </tr-->
+        <%try{%>
+        <%var aroundInfo = eval("("+sssobj.aroundInfo+")")%>
+        <tr id="zhoubian">
+          <td align="right">周边环境</td>
+          <%
+          	var aroundstr = "";
+          	var aroundInt = "";
+          	$.each(aroundInfo,function(k,v){
+				    aroundstr += v.value+" "; 
+				    aroundInt +=v.id+",";     	
+          	})
+          %>
+          
+          <td class="pr"><input readonly="readonly" class="inpt zhoubianInput" value="<%=aroundstr%>" type="text" style="width: 282px;"/>
+			<i class="goodsC_arrow" id="gArrow" title="点击选择周边环境" style="right: 57px;"></i>
+          <div id="zhoubianDiv" class="feellist none" style="width: 290px;height:30px;">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox" value="0" <%=aroundInt.indexOf("0") > -1 ?"checked='checked'":""%> valueName="停车场"/>停车场</label></li>
+                    <li><label><input type="checkbox" value="1" <%=aroundInt.indexOf("1") > -1 ?"checked='checked'":""%> valueName="购物中心"/>购物中心</label></li>
+                    <li><label><input type="checkbox" value="2" <%=aroundInt.indexOf("2") > -1 ?"checked='checked'":""%> valueName="洗浴中心"/>洗浴中心</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}catch(e){%>
+               <tr id="zhoubian">
+          <td align="right">周边环境</td>
+          <td class="pr"><input readonly="readonly" class="inpt zhoubianInput" type="text" style="width: 282px;"/>
+		  <i class="goodsC_arrow" id="gArrow" title="点击选择周边环境" style="right: 57px"></i>
+          <div id="zhoubianDiv" class="feellist none" style="width: 290px;height:30px;">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox" value="0" valueName="停车场"/>停车场</label></li>
+                    <li><label><input type="checkbox" value="1" valueName="购物中心"/>购物中心</label></li>
+                    <li><label><input type="checkbox" value="2" valueName="洗浴中心"/>洗浴中心</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <%}%>
+        <tr>
+          <td align="right">简介</td>
+          <td><textarea rows="3" id="introduce" maxlength="200" style="resize:none;"><%=sssobj.introduce%></textarea></td>
+          <td align="left">还能输入<span class="red">200</span>个字</td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit xiaBu">下一步</button></td>
+        </tr>
+      </tbody></table>
+      <%
+      		var sService,svInfo;
+      	if(sssobj.supportService != null && sssobj.supportService != ""){
+      		sService = eval("("+sssobj.supportService+")");
+      	 	svInfo = eval("("+sssobj.specialServiceRemak+")");
+      %>
+      <!-- 卖家服务 -->
+      <table id="cy-mjfw" class="detail none" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+         <!-- zhanghh add @date:201510201434 -->
+        <%if(serviceStatus == '0' || serviceStatus == '2') { %>
+        <tr>
+          <td colspan="3" style="background:#FFF;">
+          	<div class="tc cy-tips f14 red">温馨提示：您还未开通外卖服务，<a href="javascript:void(0);" class="ktff yw-shopService">开通</a>服务后才能选择支持外卖送餐。</div>
+          </td>
+        </tr>
+        <% } %>
+        <!-- zhanghh add @date:201510201434 -->
+        <% var dikou = sService["10"]%>
+        <%if(dikou != null && dikou != "" && dikou != "undefined"){%>
+        <%dikou = eval(svInfo["10"])%>
+        <tr>
+          <td width="500" align="right"><b class="green">支持使用互生消费抵扣券</b></td>
+          <td width="310"><p>
+              <input class="inpt mr5" id="diKou" checked="checked" type="checkbox" name=""><img src="resources/img/icon-shopcs-dkq.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left" style="width:200px;">&nbsp;</td>
+        </tr>
+        <tr id="diKou1">
+          <td align="right">&nbsp;</td>
+          <td>每消费满<input class="inpt ml5 mr5" type="text" value="<%=dikou.diKou%>" id="diKouValue" placeholder="" style="width:50px;">使用1张</td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr>
+        <%}else{%>
+               <tr>
+          <td width="500" align="right"><b class="green">支持使用互生消费抵扣券</b></td>
+          <td width="310"><p>
+              <input class="inpt mr5" id="diKou" type="checkbox" name=""><img src="resources/img/icon-shopcs-dkq.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left" style="width:200px;">&nbsp;</td>
+        </tr>
+        <tr id="diKou1" class="none">
+          <td align="right">&nbsp;</td>
+          <td>每消费满<input class="inpt ml5 mr5" type="text" id="diKouValue" placeholder="" style="width:50px;">使用1张</td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr>
+        <%}%>
+         <% var waimai = sService["12"]%>
+        <%if(waimai != null && waimai != "" && waimai != "undefined"){%>
+        <%waimai = eval(svInfo["12"])%>
+        <tr>
+          <td align="right"><b class="green">可预约</b></td>
+          <td><p>
+              <input class="inpt mr5" id="yuyue" type="checkbox" checked="checked" name=""><img src="resources/img/icon-shopcs-yy.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <!-- <tr id="yuyue1" class="yuyueChildren">
+          <td align="right">预定金额比例<span class="red">*</span></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="<%=waimai.baiFenBi%>"></td>
+          <td align="left">单笔预定金额，0%-100%  单位：百分比&nbsp;<span class="red redError"></span></td>
+        </tr> -->
+        <tr id="yuyue1" class="yuyueChildren">
+          <td></td>
+          <td align="left">
+          <%if(waimai.baiFenBi != null && waimai.baiFenBi != '' && waimai.baiFenBi != 'undefined'){%>
+          <input class="inpt mr5" id="dingJinSeZi" type="checkbox" name="" checked="checked">
+          <%}else{%>
+          <input class="inpt mr5" id="dingJinSeZi" type="checkbox" name="">
+          <%}%>配置预付定金金额</td>
+          <td></td>
+        </tr>
+        <tr class="displayYuYue <%if(waimai.baiFenBi == null || waimai.baiFenBi == '' || waimai.baiFenBi == 'undefined'){%>none<%}%>">
+          <td></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="<%=waimai.baiFenBi%>" /></td>
+          <td>单笔预定金额区间100-5000，100的整数倍&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        
+         <tr id="yuyue2" class="yuyueChildren">
+          <td align="right">可预定天数<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="yuyueDay" value="<%=waimai.yuyueDay%>"></td>
+          <td align="left">支持可预定的天数&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <%}else{%>
+          <tr>
+          <td align="right"><b class="green">可预约</b></td>
+          <td><p>
+              <input class="inpt mr5" id="yuyue" type="checkbox" name=""><img src="resources/img/icon-shopcs-yy.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <!-- <tr id="yuyue1" class="none yuyueChildren">
+          <td align="right">预定金额比例<span class="red">*</span></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value=""></td>
+          <td align="left">单笔预定金额，0%-100%  单位：百分比&nbsp;<span class="red redError"></span></td>
+        </tr> -->
+        <tr id="yuyue1" class="none yuyueChildren">
+          <td></td>
+          <td align="left">
+          <input class="inpt mr5" id="dingJinSeZi" type="checkbox" name="" >配置预付定金金额</td>
+          <td></td>
+        </tr>
+        <tr class="displayYuYue none">
+          <td></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="" /></td>
+          <td>单笔预定金额区间100-5000，100的整数倍&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        
+        <tr id="yuyue2" class="none yuyueChildren">
+          <td align="right">可预定天数<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="yuyueDay" value=""></td>
+          <td align="left">支持可预定的天数&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <%}%>
+        <%var waimai = sService["11"]%>
+        <%if(waimai != null && waimai != "" && waimai != "undefined"){%>
+        <%waimai = eval(svInfo["11"])%>
+        <tr>
+          <td align="right"><b class="green">支持外卖送餐</b>（仅支持货到付款）</td>
+          <td><p>
+              <input class="inpt mr5" id="waimai" <%if(serviceStatus=='0' || serviceStatus=='2') {%>disabled="disabled"<%}else{%>checked="checked"<%}%>  type="checkbox" name=""><img src="resources/img/icon-shopcs-wm.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="waimai1 <%if(serviceStatus == '0' || serviceStatus=='2') {%>none<%}%>">
+          <td align="right">送餐距离（半径）<span class="red">*</span></td>
+          <td><input class="inpt" id="range" type="text" value="<%=waimai.range%>"></td>
+          <td align="left">单位：公里   <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 <%if(serviceStatus == '0' || serviceStatus=='2') {%>none<%}%>">
+          <td align="right">预计送餐时长<span class="red">*</span></td>
+          <td><input class="inpt" id="waiMaiTime" type="text" value="<%=waimai.waiMaiTime%>"></td>
+          <td align="left">单位：分钟    <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 <%if(serviceStatus == '0' || serviceStatus=='2') {%>none<%}%>">
+          <td align="right">起送价<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="qiSongPrice" value="<%=waimai.qiSongPrice%>"></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔最低起送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 <%if(serviceStatus == '0' || serviceStatus=='2') {%>none<%}%>">
+          <td align="right">配送费<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="peiSongPrice" value="<%=waimai.peiSongPrice%>"></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔固定配送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+         <tr class="waimai1 <%if(serviceStatus == '0' || serviceStatus=='2') {%>none<%}%>">
+          <td align="right">&nbsp;</td>
+          <td>订单满<input class="inpt ml5 mr5" type="text" placeholder="" value="<%=waimai.manPirce%>" id="manPirce" style="width:50px;">减<input id="jianPrice" value="<%=waimai.jianPrice%>" class="inpt ml5 mr5" type="text" placeholder="" style="width:50px;">配送费<img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔订单买满多少减多少，不限制为0" class="ml10"></td>
+          <td align="left">&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <%}else{%>
+                <tr>
+          <td align="right"><b class="green">支持外卖送餐</b>（仅支持货到付款）</td>
+          <td><p>
+          	  <%if(serviceStatus == '0' || serviceStatus=='2'){ %>
+              <input class="inpt mr5" id="waimai" type="checkbox" name="" disabled="disabled">
+              <% } else {%>
+              <input class="inpt mr5" id="waimai" type="checkbox" name="">
+              <% }%>
+              <img src="resources/img/icon-shopcs-wm.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">送餐距离（半径）<span class="red">*</span></td>
+          <td><input class="inpt" id="range" type="text" value=""></td>
+          <td align="left">单位：公里   <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">预计送餐时长<span class="red">*</span></td>
+          <td><input class="inpt" id="waiMaiTime" type="text" value=""></td>
+          <td align="left">单位：分钟    <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">起送价<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="qiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔最低起送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">配送费<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="peiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔固定配送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+         <tr class="waimai1 none">
+          <td align="right">&nbsp;</td>
+          <td>订单满<input class="inpt ml5 mr5" type="text" placeholder="" id="manPirce" style="width:50px;">减<input id="jianPrice" class="inpt ml5 mr5" type="text" placeholder="" style="width:50px;">配送费<img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔订单买满多少减多少，不限制为0" class="ml10"></td>
+          <td align="left">&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <!--tr class="waimai1 none">
+          <td align="right">货到付款</td>
+          <td><p>
+              <input class="inpt" type="radio" name="foodDaoPirce">
+              <label class="ml5">是</label>
+              <input class="inpt ml20" type="radio" name="foodDaoPirce">
+              <label class="ml5">否</label>
+              </p></td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr-->
+        <%}%>
+         <%var waimai = sService["15"]%>
+         <%if(waimai != null && waimai != "" && waimai != "undefined"){%>
+         <%waimai = svInfo["15"]%>
+          <tr>
+          <td align="right"><b class="green">门店自提</b>（仅支持货到付款）</td>
+          <td><p>
+              <input class="inpt mr5" type="checkbox" name="" id="ziti" checked="checked"/><img src="resources/img/icon-shopcs-zt.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+         <%}else{%>
+            <tr>
+          <td align="right"><b class="green">门店自提</b>（仅支持货到付款）</td>
+          <td><p>
+          	  <input class="inpt mr5" type="checkbox" name="" id="ziti" />
+              <img src="resources/img/icon-shopcs-zt.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <%}%>
+        <%var waimai = sService["13"]%>
+        <%if(waimai != null && waimai != "" && waimai != "undefined"){%>
+        <%waimai = svInfo["13"]%>
+        <tr>
+          <td align="right"><b class="green">支持停车</b></td>
+          <td><p>
+              <input class="inpt mr5" id="tingChe" checked="checked" type="checkbox" name=""><img src="resources/img/icon-shopcs-tc.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+         <%}else{%>
+              <tr>
+          <td align="right"><b class="green">支持停车</b></td>
+          <td><p>
+              <input class="inpt mr5" id="tingChe" type="checkbox" name=""><img src="resources/img/icon-shopcs-tc.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <%}%>
+        
+        <% var waimai = svInfo["14"]%>
+        <%if(waimai != null && waimai != "" && waimai != "undefined"){%>
+        <tr>
+          <td align="right"><b class="green">其他服务</b></td>
+          <td><p>
+              <input class="inpt" type="checkbox" name="" checked="checked" id="qita">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr id="qita1">
+          <td align="right">描述</td>
+          <td><textarea rows="3" id="qiTaStr" maxlength="50" style="resize:none;width: 303px"><%=waimai.qiTa%></textarea></td>
+          <td align="left">还可输入<span class="red inp"></span>个字&nbsp;<span class="red redError"></span></td>
+        </tr>
+         <%}else{%>
+            <tr>
+          <td align="right"><b class="green">其他服务</b></td>
+          <td><p>
+              <input class="inpt" type="checkbox" name="" id="qita">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr id="qita1" class="none">
+          <td align="right">描述</td>
+          <td><textarea rows="3" id="qiTaStr" maxlength="50" style="resize:none;width: 303px"></textarea></td>
+          <td align="left">还能输入<span class="red inp">50</span>个字&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <%}%>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit shangBu">上一步</button><button class="btn_bg submit" id="submit" style="margin:0 5px;">保&nbsp;&nbsp;存</button></td>
+        </tr>
+      </tbody></table>
+      <%}else{%>
+      <!-- 卖家服务sssobj.supportService == null && sssobj.supportService == "" -->
+		<table id="cy-mjfw" class="detail none" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+         <!-- zhanghh add @date:201510201434 -->
+        <%if(serviceStatus == 0) { %>
+        <tr>
+          <td colspan="3" style="background:#FFF;">
+          	<div class="tc cy-tips f14 red">温馨提示：您还未开通外卖服务，<a href="javascript:void(0);" class="ktff yw-shopService">开通</a>服务后才能选择支持外卖送餐。</div>
+          </td>
+        </tr>
+        <% } %>
+        <!-- zhanghh add @date:201510201434 -->
+        <tr>
+          <td width="500" align="right"><b class="green">支持使用互生消费抵扣券</b></td>
+          <td width="310"><p>
+              <input class="inpt mr5" id="diKou" type="checkbox" name=""><img src="resources/img/icon-shopcs-dkq.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left" style="width:200px;">&nbsp;</td>
+        </tr>
+        <tr id="diKou1" class="none">
+          <td align="right">&nbsp;</td>
+          <td>每消费满<input class="inpt ml5 mr5" type="text" id="diKouValue" placeholder="" style="width:50px;">使用1张</td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr>
+             <tr>
+          <td align="right"><b class="green">可预约</b></td>
+          <td><p>
+              <input class="inpt mr5" id="yuyue" type="checkbox" name=""><img src="resources/img/icon-shopcs-yy.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <!-- <tr id="yuyue1" class="none yuyueChildren">
+          <td align="right">预定金额比例<span class="red">*</span></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="" /></td>
+          <td align="left">单笔预定金额，0%-100%  单位：百分比&nbsp;<span class="red redError"></span></td>
+        </tr> -->
+        <tr id="yuyue1" class="none yuyueChildren">
+          <td></td>
+          <td align="left">
+          <input class="inpt mr5" id="dingJinSeZi" type="checkbox" name="" >配置预付定金金额</td>
+          <td></td>
+        </tr>
+        <tr class="displayYuYue none">
+          <td></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="" /></td>
+          <td>单笔预定金额区间100-5000，100的整数倍&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        
+        <tr id="yuyue2" class="none yuyueChildren">
+          <td align="right">可预定天数<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="yuyueDay" value=""/></td>
+          <td align="left">支持可预定的天数&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">支持外卖送餐</b></td>
+          <td><p>
+              <%if(serviceStatus==0) { %>
+              <input class="inpt mr5" id="waimai" type="checkbox" name="" disabled="disabled">
+              <% } else {%>
+              <input class="inpt mr5" id="waimai" type="checkbox" name="">
+              <% } %>
+              <img src="resources/img/icon-shopcs-wm.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">送餐距离（半径）<span class="red">*</span></td>
+          <td><input class="inpt" id="range" type="text" value=""></td>
+          <td align="left">单位：公里   <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">预计送餐时长<span class="red">*</span></td>
+          <td><input class="inpt" id="waiMaiTime" type="text" value=""></td>
+          <td align="left">单位：分钟    <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">起送价<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="qiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔最低起送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">配送费<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="peiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔固定配送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">&nbsp;</td>
+          <td>订单满<input class="inpt ml5 mr5" type="text" placeholder="" id="manPirce" style="width:50px;">减<input id="jianPrice" class="inpt ml5 mr5" type="text" placeholder="" style="width:50px;">配送费<img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔订单买满多少减多少，不限制为0" class="ml10"></td>
+          <td align="left">&nbsp;<span class="red redError"></span></td>
+        </tr>
+       <!-- <tr class="waimai1 none">
+          <td align="right">货到付款</td>
+          <td><p>
+              <input class="inpt" type="radio" value="1" name="foodDaoPirce">
+              <label class="ml5">是</label>
+              <input class="inpt ml20" type="radio" value="0" name="foodDaoPirce">
+              <label class="ml5">否</label>
+              </p></td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr> -->
+   
+        <tr>
+          <td align="right"><b class="green">门店自提</b>（仅支持货到付款）</td>
+          <td><p>
+          	  <input class="inpt mr5" type="checkbox" name="" id="ziti" />
+              <img src="resources/img/icon-shopcs-zt.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">支持停车</b></td>
+          <td><p>
+              <input class="inpt mr5" id="tingChe" type="checkbox" name=""><img src="resources/img/icon-shopcs-tc.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">其他服务</b></td>
+          <td><p>
+              <input class="inpt" type="checkbox" name="" id="qita">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr id="qita1" class="none">
+          <td align="right">描述</td>
+          <td><textarea rows="3" id="qiTaStr" maxlength="50" style="resize:none;width: 303px"></textarea></td>
+          <td align="left">还能输入<span class="red inp">50</span>个字&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit shangBu">上一步</button><button class="btn_bg submit" id="submit" style="margin:0 5px;">保&nbsp;&nbsp;存</button></td>
+        </tr>
+      </tbody></table>
+      <%}%>
+    </div>
+    
+    <!---->
+    
+  </div>
+  <!--内容添加结束--> 
+</div>
+ <div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">是否发布？</p>
+</div>
+<div id="dlg2" class="none">
+</div>  

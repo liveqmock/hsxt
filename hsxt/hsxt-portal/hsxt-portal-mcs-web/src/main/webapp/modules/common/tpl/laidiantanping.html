@@ -1,0 +1,545 @@
+	<div class="operationsInner none" id="laidiantanping" style="width:97% !important;">
+							
+							<!-- id值：contentWidth_4：宽度为700px用此id; -->
+                            <div>
+								<div>
+									<div class="pb20 border_bottom_gray">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0" class="view-table">
+										<tr>
+											<td class="view_item bd-bottom" width="11%">来电号码</td>
+											<td class="view_text bd-bottom" width="22%" id="phoneNoTd"></td>
+											<td class="view_item bd-bottom" width="11%" >系统资源号</td>
+											<td class="view_text bd-bottom" width="22%" id="resNoTd"></td>
+											<td class="view_item bd-bottom" width="11%">名称</td>
+											<td class="view_text bd-bottom bd-right" width="22%" id="NameTd">/td>
+										</tr>
+									</table>
+									</div>
+									<!-- 基本信息开始 -->
+									<div  id="popup_div_A">
+									<div class="pt20 border_bottom_gray h90">
+										<div class="fb mb10">基本信息</div>
+										<ul class="callPop-up clearfix">
+											<li>
+											<a class="btn_bg submit" id="autonymBinding_A">实名绑定</a>
+											<div class="tc ml20 none" id="autonym_Div"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="emailBinding_A">邮箱绑定</a>
+											<div class="tc ml20 none" id="email_Div">zs@163.com</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="phoneBinding_A">手机绑定</a>
+											<div class="tc ml20 none" id="phone_Div">13900889009</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="bankBinding_A">银行卡绑定</a>
+											<div class="tc ml20 none" id="bank_Div">66005000007878</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="certification_A">实名认证</a>
+											<div class="tc ml20 none" id="certification_Div"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="businessStatus_A">业务办理状态</a>
+											<div class="tc ml20 none" id="businessStatus_Div">已验证</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="particulars_A">详情</a>
+											</li>
+										</ul>
+									</div>
+									<!-- 基本信息结束 -->
+									
+									<!-- 消费者   帐户信息开始 -->
+									<div class="pt20 border_bottom_gray h160" id="account_Div1">
+										 <div class="fb mb10">
+											<span>账户信息(消费者)</span><!-- <span class="ml20 red">显示信息有权限控制</span> -->
+										</div> 
+										<ul class="callPop-up clearfix">
+											<li class="pr">
+											<a class="btn_bg submit" id="integralAccount_A1">积分账户</a>
+											<div class="none ml20" id="integralAccount_Div1" style="position:absolute;top:33px;left:0;width:300px;">
+										</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="cashAccount_A1">货币账户</a>
+											<div class="none ml20" id="cashAccount_Div1" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="investAccount_A1">投资账户</a>
+											<div class="none ml20" id="investAccount_Div1" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li>
+												<li>
+											<a class="btn_bg submit" id="alternateCurrency_A1">互生币账户</a>
+											<div class="none ml20" id="alternateCurrency_Div1" style="position:absolute;top:33px;left:0;width:300px;">
+										</div>
+											</li>
+											<!-- <li>
+											<a class="btn_bg submit" id="alternationWallet_A1">互生钱包</a>
+											<div class="none ml20" id="alternationWallet_Div1" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li> -->
+										</ul>
+									</div>
+									<!-- 帐户信息结束 -->
+									<!--  托管企业  帐户信息开始 -->
+									<div class="pt20 border_bottom_gray h160 " id="account_Div2">
+										<div class="fb mb10">
+											<span>账户信息 (托管企业)</span><!-- <span class="ml20 red">显示信息有权限控制</span> -->
+										</div>
+										<ul class="callPop-up clearfix">
+											<li>
+											<a class="btn_bg submit" id="integralAccount_A2">积分账户</a>
+											<div class="none ml20" id="integralAccount_Div2" style="position:absolute;top:40px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="cashAccount_A2">货币账户</a>
+											<div class="none ml20" id="cashAccount_Div2" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="investAccount_A2">投资账户</a>
+											<div class="none ml20" id="investAccount_Div2" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="advanceAccount_A2">积分预付款账户</a>
+											<div class="none ml20" id="advanceAccount_Div2" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="alternateCurrency_A2">互生币账户</a>
+											<div class="none ml20" id="alternateCurrency_Div2" style="position:absolute;top:40px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="commercialService_A2">城市税收对接账户</a>
+											<div class="none ml20" id="commercialService_Div2" style="position:absolute;top:40px;left:0;width:300px;"> </div>
+											</li>
+										<!-- 	<li>
+											<a class="btn_bg submit" id="salesRevenue_A2">销售收入账户</a>
+											<div class="none ml20" id="salesRevenue_Div2" style="position:absolute;top:40px;left:0;width:300px;"> </div>
+											</li>
+											<li>
+											<a class="btn_bg submit_long" id="commercialService_A2">商业账户</a>
+											<div class="none ml20" id="commercialService_Div2" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li> -->
+										</ul>
+									</div>
+									<!-- 帐户信息结束 -->
+										<!--  成员企业  帐户信息开始 -->
+									<div class="pt20 border_bottom_gray h160 " id="account_Div4">
+										<div class="fb mb10">
+											<span>账户信息 (成员企业)</span><!-- <span class="ml20 red">显示信息有权限控制</span> -->
+										</div>
+										<ul class="callPop-up clearfix">
+											<li>
+											<a class="btn_bg submit" id="integralAccount_A4">积分账户</a>
+											<div class="none ml20" id="integralAccount_Div4" style="position:absolute;top:40px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="cashAccount_A4">货币账户</a>
+											<div class="none ml20" id="cashAccount_Div4" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="alternateCurrency_A4">互生币账户</a>
+											<div class="none ml20" id="alternateCurrency_Div4" style="position:absolute;top:40px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="advanceAccount_A4">积分预付款账户</a>
+											<div class="none ml20" id="advanceAccount_Div4" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="commercialService_A4">城市税收对接账户</a>
+											<div class="none ml20" id="commercialService_Div4" style="position:absolute;top:40px;left:0;width:300px;"> </div>
+											</li>
+										<!-- 	<li>
+											<a class="btn_bg submit" id="salesRevenue_A2">销售收入账户</a>
+											<div class="none ml20" id="salesRevenue_Div2" style="position:absolute;top:40px;left:0;width:300px;"> </div>
+											</li>
+											<li>
+											<a class="btn_bg submit_long" id="commercialService_A2">商业账户</a>
+											<div class="none ml20" id="commercialService_Div2" style="position:absolute;top:40px;left:0;width:300px;"></div>
+											</li> -->
+										</ul>
+									</div>
+									<!-- 成员企业 信息 结束 -->
+									<!-- 服务公司   帐户信息开始 -->
+									<div class="pt20 border_bottom_gray h160" id="account_Div3">
+										 <div class="fb mb10">
+											<span>账户信息(服务公司)</span><!-- <span class="ml20 red">显示信息有权限控制</span> -->
+										</div> 
+										<ul class="callPop-up clearfix">
+											<li class="pr">
+											<a class="btn_bg submit" id="integralAccount_A3">积分账户</a>
+											<div class="none ml20 pb" id="integralAccount_Div3" style="position:absolute;top:33px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="cashAccount_A3">货币账户</a>
+											<div class="none ml20" id="cashAccount_Div3" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="investAccount_A3">投资账户</a>
+											<div class="none ml20" id="investAccount_Div3" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="alternateCurrency_A3">互生币账户</a>
+											<div class="none ml20" id="alternateCurrency_Div3" style="position:absolute;top:33px;left:0;width:300px;">
+											</div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="businessAccount_A3">城市税收对接账户</a>
+											<div class="none ml20" id="businessAccount_Div3" style="position:absolute;top:40px;left:0;width:300px;"> </div>
+											</li>
+										<!-- 	<li>
+											<a class="btn_bg submit_long" id="commercialService_A3">商业服务收入账户</a>
+											<div class="none ml20" id="commercialService_Div3" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li>
+											<li>
+											<a class="btn_bg submit" id="businessAccount_A3">商业账户</a>
+											<div class="none ml20" id="businessAccount_Div3" style="position:absolute;top:33px;left:0;width:300px;"></div>
+											</li> -->
+										</ul>
+									</div>
+									</div>
+									<!-- 帐户信息结束 -->
+									
+									
+									<!-- 通话历史记录开始 -->
+									<div class="mt20 pb20 border_bottom_gray">
+									<div class="search-toolbar">通话历史记录</div>
+									<div class="search-cont">
+									<table id="callHistory_Tab" width="100%" border="0" cellspacing="0"
+												cellpadding="0" class="search-table">
+												<thead>
+													<tr>
+														<th class="nobd">通话日期</th>
+														<th>用户</th>
+														<th>来电内容</th>
+														<th>业务类型</th>
+														<th>类型</th>
+														<th>处理状态</th>
+														<th>优先级</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+						
+											</table>
+										</div>
+								 	</div>
+									<!-- 通话历史记录结束 -->
+									
+									<!-- 通话记录开始 -->
+									<div class="register_info">
+										<form id="callHistoryFrom">
+											<fieldset>
+											<div class="fb mt10">通话记录</div>
+											<div class="clearfix">
+												<ul class="fl">
+													<li class="register_row  clearfix" style="width: 350px;"><label for="name">用户名</label><input type="text" id="callHistoryName" value="输入用户名" class="input_gray" onfocus="comm.setFocus(this,'输入用户名')" onblur="comm.setBlur(this,'输入用户名')" /><!-- <div class="hint" style="left: 360px;">提示</div> --></li>
+													<li class="register_row clearfix" style="width: 350px;">
+														<label for="name" class="title-txt">类型</label>
+													<div class="cont-int text_middle tc">
+													<input type="radio" name="callHistoryType" class="radio_input" value="0" checked="checked" style="float:none;"/>运维类<input type="radio" name="callHistoryType" class="radio_input ml5" value="1"  style="float:none;" />商务类<input type="radio" name="callHistoryType" class="radio_input ml5" value="2"  style="float:none;" />诉建类</div><div class="hint" style="left: 360px"><!--提示--></div>
+													</li>
+													<li class="register_row_2" style="width:350px;"><div class="remarksDiv"><label for="name">备注</label>
+													<textarea id="callHistoryRemark" class="textareaStyle input_gray" onfocus="comm.setFocus(this,'输入备注信息，不超过300字')" onblur="comm.setBlur(this,'输入备注信息，不超过300字')" style="width:212px;">输入备注信息，不超过300字</textarea>
+													</div></li>
+													<li class="register_row  clearfix" style="width: 350px;"><label for="name" class="title-txt">优先级</label><div class="cont-int text_middle tc setdiy190">
+													<input type="radio" name="callHistoryRank" class="radio_input" value="0" checked="checked" style="float:none;"/>高&nbsp;&nbsp;<input type="radio" name="callHistoryRank" class="radio_input ml20" value="1"  style="float:none;" />低&nbsp;</div></li>
+													
+												</ul>
+											</div>
+											 <div class="mt20" align="center"><a class="btn_bg submit" id="callHistorySave_A">保&#12288;存</a></div>
+											</fieldset>
+										</form>
+									</div>
+									<!-- 通话记录结束 -->
+								</div>
+							</div>
+							
+                            </div>
+                        
+                        <!-- 消费者 弹框页面 -->
+        				<div id="xiaofeizhe" class="operationsInner none">
+							
+							<!-- id值：contentWidth_3：宽度为800px用此id; -->
+                            <div id="contentWidth_3">
+							
+							<div class="mt20 pl30 pr30">
+								
+									<!-- 记录列表开始 -->
+									<div class="searchbox">
+									<div class="search-toolbar">
+										消费者信息
+									</div>
+									<div class="search-cont">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+										  <tr>
+											<th class="nobd">姓名</th>
+											<th>性别</th>
+											<th>国籍</th>
+											<th>证件类型</th>
+											<th>证件号码</th>
+											<th>所在地</th>
+											<th>是否实名验证</th>
+											<th>绑定邮箱</th>
+											<th>邮箱是否验证</th>
+										  </tr>
+										  <tr id="consumer_Tr">
+								
+										  </tr>
+										</table>
+									</div>
+									
+									<div class="mt20">
+										<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+							<td align="left" width="50%" class="pr10" valign="top">
+								<div class="search-toolbar">消费者信息</div>
+								<div class="search-cont">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0"
+										class="search-table">
+										<tr>
+											<th class="nobd">名称</th>
+											<th>地址</th>
+											<th>负责人</th>
+											<th>联系电话</th>
+										</tr>
+										<tr id="consumer_Info">
+
+										</tr>
+									</table>
+								</div>
+							</td>
+							<td align="right" width="50%" class="pl10" valign="top">
+															<!-- <div align="left" class="search-toolbar">
+										所属托管企业
+									</div>
+									<div class="search-cont">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+										  <tr>
+											<th class="nobd">名称</th>
+											<th>地址</th>
+											<th>负责人</th>
+											<th>联系电话</th>
+										  </tr>
+										  <tr id="enterprise_Info">
+											<td align="center" class="nobd">张三</td>
+											<td align="center">深圳福田华强北</td>
+											<td align="center">lin zong</td>
+											<td align="center">0755-88310785</td>
+										  </tr>
+										</table>
+									</div>
+														</td>
+							</tr>
+</table>
+										
+										
+									</div> -->
+									
+										<div class="search-toolbar">
+										  近期福利信息
+									</div>
+									<div class="search-cont">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+										  <tr>
+											<th class="nobd">达到条件日期</th>
+											<th>保障单号</th>
+											<th>保障有效期</th>
+											<th>不能享受保障日</th>
+											<th>操作</th>
+										  </tr>
+										  <tr id="weal_Info">
+								
+										  </tr>
+										</table>
+									</div>
+				
+									
+								 </div>
+								 <!-- 消费者  结束 -->
+								 <!-- 企业开始 -->
+								<div id="qiye" class="operationsInner none">
+
+									<!-- id值：contentWidth_3：宽度为800px用此id; -->
+									<div id="contentWidth_3">
+
+										<div class="mt20 pl30 pr30">
+
+											<!-- 记录列表开始 -->
+											<div class="searchbox">
+												<div class="search-toolbar">企业基本信息</div>
+												<div class="search-cont">
+													<table width="100%" border="0" cellspacing="0"
+														cellpadding="0" class="search-table">
+														<tr>
+															<th class="nobd">企业名称</th>
+															<th>企业地址</th>
+															<th>联系人姓名</th>
+															<th>联系人手机号码</th>
+															<!-- <th>密码是否修改</th> -->
+															<th>资源类型</th>
+														</tr>
+														<tr id="undertaking_Tr">
+											
+														</tr>
+													</table>
+												</div>
+
+												<div class="mt20">
+													<table width="100%" border="0" cellpadding="0"
+														cellspacing="0">
+														<tr>
+															<td align="left" width="50%" class="pr10" valign="top">
+																<div class="search-toolbar">所属服务公司</div>
+																<div class="search-cont">
+																	<table width="100%" border="0" cellspacing="0"
+																		cellpadding="0" class="search-table">
+																		<tr>
+																			<th class="nobd">名称</th>
+																			<th>地址</th>
+																			<th>负责人</th>
+																			<th>联系电话</th>
+																		</tr>
+																		<tr id="service_Tr">
+																	</tr>
+																	</table>
+																</div>
+															</td>
+															<td align="right" width="50%" class="pl10"  valign="top">
+																<div align="left" class="search-toolbar">所属管理企业</div>
+																<div class="search-cont">
+																	<table width="100%" border="0" cellspacing="0"
+																		cellpadding="0" class="search-table">
+																		<tr>
+																			<th class="nobd">名称</th>
+																			<th>地址</th>
+																			<th>负责人</th>
+																			<th>联系电话</th>
+																		</tr>
+																		<tr id="corporation_Info">
+																	</tr>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</table>
+
+
+												</div>
+
+												<div class="search-toolbar mt20">POS机信息</div>
+												<div class="search-cont">
+													<table width="100%" border="0" cellspacing="0"
+														cellpadding="0" class="search-table">
+														<tr>
+															<th class="nobd">现有POS机数量</th>
+															<th>可申购POS机数量</th>
+															<th>未付款订单中的POS机数量</th>
+														</tr>
+														<tr id="pos_Tr">
+															<td align="center" class="nobd">99</td>
+															<td align="center">0</td>
+															<td align="center">0</td>
+														</tr>
+													</table>
+												</div>
+												<div class="search-toolbar mt20">手机刷卡器信息</div>
+												<div class="search-cont">
+													<table width="100%" border="0" cellspacing="0"
+														cellpadding="0" class="search-table">
+														<tr>
+															<th class="nobd">现有刷卡器数量</th>
+															<th>可申购刷卡器数量</th>
+															<th>未付款订单中的刷卡器数量</th>
+														</tr>
+														<tr id="brush_Card">
+															<td align="center" class="nobd">999</td>
+															<td align="center">0</td>
+															<td align="center">0</td>
+														</tr>
+													</table>
+												</div>
+												<div class="search-toolbar mt20">积分卡信息</div>
+												<div class="search-cont">
+													<table width="100%" border="0" cellspacing="0"
+														cellpadding="0" class="search-table">
+														<tr>
+															<th class="nobd">已启用消费者资源数</th>
+															<th>已注册消费者数量</th>
+															<th>活跃消费者数量</th>
+															<th>可申购积分卡数量</th>
+															<th>未付款订单中的积分卡数量</th>
+														</tr>
+														<tr id="integralCard">
+															<td align="center" class="nobd">8999</td>
+															<td align="center">0</td>
+															<td align="center">0</td>
+															<td align="center">1000</td>
+															<td align="center">0</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> <!-- 企业结束 -->
+								
+								 <!-- 服务公司开始 -->
+								<div id="service_Cust" class="operationsInner none">
+
+									<!-- id值：contentWidth_3：宽度为800px用此id; -->
+									<div id="contentWidth_3">
+
+										<div class="mt20 pl30 pr30">
+
+											<!-- 记录列表开始 -->
+											<div class="searchbox">
+												<div class="search-toolbar">企业基本信息</div>
+												<div class="search-cont">
+													<table width="100%" border="0" cellspacing="0"
+														cellpadding="0" class="search-table">
+														<tr>
+															<th class="nobd">企业名称</th>
+															<th>企业地址</th>
+															<th>联系人姓名</th>
+															<th>联系人手机号码</th>
+															<!-- <th>密码是否修改</th> -->
+															<th>资源类型</th>
+														</tr>
+														<tr id="services_Tr">
+											
+														</tr>
+													</table>
+												</div>
+
+												<div class="mt20">
+													<table width="100%" border="0" cellpadding="0"
+														cellspacing="0">
+														<tr>
+															<td align="right" width="50%" class="pl10"  valign="top">
+																<div align="left" class="search-toolbar">所属管理企业</div>
+																<div class="search-cont">
+																	<table width="100%" border="0" cellspacing="0"
+																		cellpadding="0" class="search-table">
+																		<tr>
+																			<th class="nobd">名称</th>
+																			<th>地址</th>
+																			<th>负责人</th>
+																			<th>联系电话</th>
+																		</tr>
+																		<tr id="service_Info">
+																	</tr>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</table>
+												</div>
+										</div>
+									</div>
+								</div> <!-- 服务公司结束 -->

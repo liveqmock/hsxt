@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.BizRouteMapper">
+	<!--插入-->
+	<insert id="addBizRoute" parameterType="com.gy.hsxt.gpf.gcs.bean.BizRoute" >
+		<![CDATA[
+		INSERT INTO T_GCS_BIZ_ROUTE (
+			BIZ_CODE,
+			SUBSYS_CODE,
+			BIZ_NAME_CN,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+			(
+				#{bizCode,jdbcType=VARCHAR},
+				#{subSysCode,jdbcType=VARCHAR},
+				#{bizNameCn,jdbcType=VARCHAR},
+				#{delFlag,jdbcType=TINYINT},
+				#{version,jdbcType=BIGINT}
+			);
+		]]> 
+	</insert>
+	<!--逻辑删除-->
+	<update id="deleteBizRoute" parameterType="com.gy.hsxt.gpf.gcs.bean.BizRoute">
+		UPDATE T_GCS_BIZ_ROUTE
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updateBizRoute" parameterType="com.gy.hsxt.gpf.gcs.bean.BizRoute">
+		UPDATE T_GCS_BIZ_ROUTE
+			<set>
+				<![CDATA[
+		          SUBSYS_CODE = #{subSysCode,jdbcType=VARCHAR},
+		          BIZ_NAME_CN = #{bizNameCn,jdbcType=VARCHAR},
+		          DEL_FLAG =  #{delFlag,jdbcType=TINYINT},
+				  VERSION = #{version,jdbcType=BIGINT}
+				]]> 
+			</set>
+		WHERE  
+		      BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existBizRoute" resultType="string">
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_BIZ_ROUTE
+		WHERE
+			BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	
+	<!--主键查询-->
+	<select id="queryBizRouteWithPK" resultType="com.gy.hsxt.gpf.gcs.bean.BizRoute">
+		SELECT
+			BIZ_CODE bizCode,
+			SUBSYS_CODE subSysCode,
+			BIZ_NAME_CN bizNameCn,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_BIZ_ROUTE
+		WHERE
+			BIZ_CODE = #{bizCode,jdbcType=VARCHAR}
+	</select>
+	
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryBizRouteListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.BizRoute" resultType="com.gy.hsxt.gpf.gcs.bean.BizRoute">
+			SELECT
+				BIZ_CODE bizCode,
+				SUBSYS_CODE subSysCode,
+				BIZ_NAME_CN bizNameCn,
+				VERSION version,
+				DEL_FLAG delFlag
+			FROM
+				T_GCS_BIZ_ROUTE
+			WHERE
+				TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if> 
+			<if test="bizCode != null and bizCode != '' "> 
+				<![CDATA[ AND BIZ_CODE = #{bizCode,jdbcType=VARCHAR} ]]>
+			</if>  
+			<if test="subSysCode != null and subSysCode != '' "> 
+				<![CDATA[ AND SUBSYS_CODE = #{subSysCode,jdbcType=VARCHAR} ]]>
+			</if> 
+			<if test="bizNameCn != null and bizNameCn != '' "> 
+				<![CDATA[ AND BIZ_NAME_CN like CONCAT('%',#{bizNameCn},'%') escape '/' ]]>
+			</if>
+			  ORDER BY BIZ_CODE
+	</select>
+	
+    <!--获取版本号大于传入的version数据-->
+	<select id="queryBizRoute4SyncData" resultType="com.gy.hsxt.gpf.gcs.bean.BizRoute">
+		SELECT
+			BIZ_CODE bizCode,
+			SUBSYS_CODE subSysCode,
+			BIZ_NAME_CN bizNameCn,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_BIZ_ROUTE
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT}
+		ORDER BY
+			BIZ_CODE
+	</select>
+	
+</mapper>

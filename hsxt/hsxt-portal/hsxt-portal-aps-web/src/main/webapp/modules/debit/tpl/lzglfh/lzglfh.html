@@ -1,0 +1,47 @@
+<div id="lzglfhTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>订单时间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>企业互生号：</label>
+					<input type="text" name="hsResNo" id="hsResNo" value="" placeholder="输入企业互生号" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>企业名称：</label>
+					<input type="text" name="companyName"  id="companyName" value="" placeholder="输入企业名称" class="h28_middle input-txt w115" />
+				</li>
+				
+				<li class="clearfix">
+					<label class="fl h30_middle">订单类型：</label>
+					<input id="orderType" readonly="readonly" placeholder="选择订单类型"/>
+				</li>
+				<li>
+					<button id="lzglfh_query" type="button" class="btn-search">查询</button>
+				</li>
+			</ul>
+		 </form>
+	</div>	
+	<table id="lzglfh_searchTable" class="bsgrid">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="hsResNo" w_tip="true">企业互生号</th>
+		<th w_index="custName" w_tip="true" w_length='30'>企业名称</th>
+		<th w_index="orderNo" w_tip="true" w_length='20'>订单号</th>
+		<th w_index="orderType" w_render="operate">订单类型</th>
+		<th w_index="orderAmount" w_render="operate">订单金额</th>
+		<th w_index="orderCashAmount" w_render="operate">折合应付本币</th>
+		<th w_index="orderTime" w_tip="true">订单时间</th>
+		<th w_render="operate">复核 </th>
+		<th w_render="operate">工单操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="lzglfh_operation_tpl" class="none"></div>
+<div id="gdcz_gq_jjsl_dlg" class="none"></div>

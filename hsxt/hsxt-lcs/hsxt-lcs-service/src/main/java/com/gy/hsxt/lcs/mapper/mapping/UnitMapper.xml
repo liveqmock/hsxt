@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.lcs.mapper.UnitMapper">
+	<!--是否已存在相同-->
+	<select id="existUnit" resultType="string" parameterType="com.gy.hsxt.lcs.bean.Unit">
+		SELECT
+			1
+		FROM
+		   	T_LCS_UNIT
+		WHERE
+		    LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryUnitWithPK"  resultType="com.gy.hsxt.lcs.bean.Unit">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_UNIT
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="queryUnitByLanguage"  resultType="com.gy.hsxt.lcs.bean.Unit">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_LCS_UNIT
+		WHERE
+			DEL_FLAG = FALSE
+		AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">  
+	  	INSERT INTO T_LCS_UNIT (
+			LANGUAGE_CODE,
+			UNIT_CODE,
+			UNIT_NAME,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	        (#{item.languageCode},
+			#{item.unitCode},
+			#{item.unitName},
+			#{item.delFlag},
+			#{item.version})
+	    </foreach>  
+    </insert>
+    
+    <update id="batchUpdate"  parameterType="java.util.List">
+       	 <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+         	UPDATE T_LCS_UNIT
+		 	<set>
+				UNIT_NAME = #{item.unitName},
+				DEL_FLAG = #{item.delFlag},
+				VERSION = #{item.version}
+			</set>
+		 	WHERE  
+		    	LANGUAGE_CODE = #{item.languageCode}
+		    	AND UNIT_CODE = #{item.unitCode}
+		</foreach>
+    </update>  
+	    
+</mapper>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ToolProductMapper">
+	
+	<!-- 产品工具Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.tool.ToolProduct" id="toolProductMap">
+		<result column="PRODUCT_ID" property="productId"/>
+		<result column="CATEGORY_CODE" property="categoryCode"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="MICRO_PIC" property="microPic"/>
+		<result column="PRICE" property="price"/>
+		<result column="UNIT" property="unit"/>
+		<result column="WARNING_VALUE" property="warningValue"/>
+		<result column="DESCRIPTION" property="description"/>
+		<result column="ENABLE_STATUS" property="enableStatus"/>
+		<result column="STATUS" property="status"/>
+		<result column="LAST_STATUS_TIME" property="lastStatusTime"/>
+		<result column="LAST_APPLY_ID" property="lastApplyId"/>
+	</resultMap>
+	
+	<!-- 插入工具产品 -->
+	<insert id="insertToolProduct" parameterType="com.gy.hsxt.bs.bean.tool.ToolProduct">
+		INSERT INTO 
+		T_BS_TOOL_PRODUCT(
+			PRODUCT_ID,
+			CATEGORY_CODE,
+			PRODUCT_NAME,
+			MICRO_PIC,
+			PRICE,
+			UNIT,
+			WARNING_VALUE,
+			DESCRIPTION,
+			ENABLE_STATUS,
+			STATUS,
+			LAST_STATUS_TIME,
+			LAST_APPLY_ID
+		)VALUES (
+			#{productId},
+			#{categoryCode},
+			#{productName},
+			#{microPic,jdbcType=CHAR},
+			#{price},
+			#{unit,jdbcType=VARCHAR},
+			#{warningValue},
+			#{description,jdbcType=VARCHAR},
+			0,
+			0,
+			SYSDATE,
+			#{lastApplyId})
+	</insert>
+	
+	<!-- 查询最大工具最大id -->
+	<select id="selectMaxProductId" resultType="string">
+		SELECT MAX(TO_NUMBER(P.PRODUCT_ID)) FROM T_BS_TOOL_PRODUCT P
+	</select>
+	
+	<!-- 工具价格或状态修改 -->
+	<update id="updateToolProduct">
+		UPDATE T_BS_TOOL_PRODUCT
+		<set>
+			<if test="price!=null and price!='' ">
+				PRICE = #{price},
+			</if>
+			<if test="enableStatus!=null and enableStatus!='' ">
+				ENABLE_STATUS = #{enableStatus},
+			</if>
+			<if test="lastApplyId!=null and lastApplyId!=''">
+				LAST_APPLY_ID = #{lastApplyId},
+			</if>
+			STATUS = #{status},
+			LAST_STATUS_TIME = sysdate
+		</set>
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+
+	<!-- 根据工具编号修改工具 -->
+	<update id="updateToolProductById" parameterType="com.gy.hsxt.bs.bean.tool.ToolProduct">
+		UPDATE T_BS_TOOL_PRODUCT
+		<set>
+			<if test="productName!=null and productName!='' ">
+				PRODUCT_NAME = #{productName},
+			</if>
+			<if test="microPic!=null and microPic!='' ">
+				MICRO_PIC = #{microPic},
+			</if>
+			<if test="warningValue!=null">
+				WARNING_VALUE = #{warningValue},
+			</if>
+			<if test="description!=null and description!=''">
+				DESCRIPTION = #{description},
+			</if>
+		</set>
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<!-- 查询所有的工具类别 -->
+	<select id="selectToolCategoryAll" resultType="com.gy.hsxt.bs.bean.tool.ToolCategory">
+		SELECT 
+			C.CATEGORY_CODE AS categoryCode,
+			C.CATEGORY_NAME AS categoryName,
+			C.RESTRICTION_RULES AS buyRules,
+			C.TOTAL_LIMIT AS totalLimit,
+			C.IS_NEED_CONFIG AS isNeedConfig,
+			C.REMARK AS remark 
+		FROM T_BS_TOOL_CATEGORY C
+	</select>
+	
+	<!-- 工具产品所有字段 -->
+	<sql id="toolProductAllField">
+		P.PRODUCT_ID,
+		P.CATEGORY_CODE,
+		P.PRODUCT_NAME,
+		P.MICRO_PIC,
+		P.PRICE,UNIT,
+		P.WARNING_VALUE,
+		P.DESCRIPTION,
+		P.ENABLE_STATUS,
+		P.STATUS,
+		P.LAST_STATUS_TIME,
+		P.LAST_APPLY_ID
+	</sql>
+	
+	<!-- 根据id查询工具产品 -->
+	<select id="selectToolProductById" parameterType="string" resultMap="toolProductMap">
+		SELECT 
+		  *
+		FROM T_BS_TOOL_PRODUCT P 
+		WHERE P.PRODUCT_ID = #{productId}
+	</select>
+
+
+	<!-- 根据工具名称查询工具 -->
+	<select id="queryToolProductByName" parameterType="string" resultMap="toolProductMap">
+		SELECT
+		  *
+		FROM T_BS_TOOL_PRODUCT P
+		WHERE P.PRODUCT_NAME = #{productName}
+	</select>
+	
+	<!-- 分页查询工具 -->
+	<select id="selectToolProductListPage" resultMap="toolProductMap" parameterType="com.gy.hsxt.bs.bean.tool.pageparam.ToolProductVo">
+		SELECT 
+			* 
+		  FROM T_BS_TOOL_PRODUCT P
+		 WHERE 1 = 1
+		<if test="productName != null and productName != '' ">
+			AND P.PRODUCT_NAME LIKE '%'||#{productName}||'%'
+		</if>	
+		<if test="categoryCode != null and categoryCode != '' ">
+			AND P.CATEGORY_CODE=#{categoryCode}
+		</if>
+		<if test="enableStatus != null">
+			AND P.ENABLE_STATUS=#{enableStatus}
+		</if>
+		<if test="status != null">
+			AND P.STATUS=#{status}
+		</if>
+		ORDER BY P.LAST_STATUS_TIME DESC
+	</select>
+
+	
+	<!-- 查询所有工具或根据类别查询工具 -->
+	<select id="selectToolProduct" parameterType="string" resultMap="toolProductMap">
+		SELECT 
+			*   
+		FROM T_BS_TOOL_PRODUCT P 
+		WHERE P.ENABLE_STATUS = 1
+		<if test="categoryCode != null and categoryCode != '' ">
+			AND P.CATEGORY_CODE = #{categoryCode}
+		</if>
+	</select>
+
+
+
+	<!-- 根据工具类别查询工具，不管工具的状态 -->
+	<select id="selectToolProductNotByStatus" parameterType="string" resultMap="toolProductMap">
+		SELECT
+			*
+		FROM T_BS_TOOL_PRODUCT P
+		WHERE 1 = 1
+		<if test="categoryCode != null and categoryCode != '' ">
+			AND P.CATEGORY_CODE = #{categoryCode}
+		</if>
+	</select>
+	
+	<!-- 根据类别代码查询工具 -->
+	<select id="selectToolProductByCode" resultMap="toolProductMap">
+		SELECT 
+			*  
+		FROM T_BS_TOOL_PRODUCT P
+		WHERE P.ENABLE_STATUS = 1
+		  AND P.CATEGORY_CODE IN
+		  <foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+            #{item}   
+    	</foreach> 
+	</select>
+	
+	<!-- 查询可以购买的工具 -->
+	<select id="selectMayBuyToolProduct" resultMap="toolProductMap">
+		SELECT 
+			<include refid="toolProductAllField"/>  
+		FROM T_BS_TOOL_PRODUCT P,T_BS_TOOL_CATEGORY C
+		WHERE P.CATEGORY_CODE = C.CATEGORY_CODE 
+			AND C.RESTRICTION_RULES > 0 AND P.ENABLE_STATUS = 1
+			<if test="custType == 2">
+				AND C.RESTRICTION_RULES IN (1,3,4) 
+			</if>
+			<if test="custType == 3">
+				AND C.RESTRICTION_RULES IN (2,3,4) 
+			</if>
+			<if test="categoryCode != null and categoryCode != ''">
+				AND C.CATEGORY_CODE ${categoryCode}
+			</if>
+	</select>
+	
+	<!-- 查询申报时需要配置的工具 -->
+	<select id="selectApplyToolProduct" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ToolProduct">
+		SELECT 
+			P.PRODUCT_ID AS productId,
+			P.CATEGORY_CODE AS categoryCode,
+			P.PRODUCT_NAME AS productName,
+			P.PRICE AS price,
+			P.UNIT AS unit,
+			T.QUANTITY AS quantity
+		FROM T_BS_TOOL_PRODUCT P,
+			(SELECT R.* 
+				FROM T_BS_RES_FEE_TOOL R
+				WHERE R.RES_FEE_ID = #{resFeeId}) T
+		WHERE P.PRODUCT_ID = T.PRODUCT_ID
+	</select>
+	
+	<!-- 测试查询申报时需要配置的工具 -->
+	<select id="selectApplyToolProductTest" resultType="com.gy.hsxt.bs.bean.tool.ToolProduct">
+		SELECT 
+	      	P.PRODUCT_ID AS productId,
+	      	P.CATEGORY_CODE AS categoryCode,
+	      	P.PRODUCT_NAME AS productName,
+		    P.PRICE AS price,
+		    P.UNIT AS unit,
+		    (CASE
+		      WHEN P.CATEGORY_CODE = 'P_POS' THEN 1
+		      WHEN P.CATEGORY_CODE = 'POINT_MCR' THEN 1
+		      WHEN P.CATEGORY_CODE = 'CONSUME_MCR' THEN 1
+		      ELSE 2000 END) AS quantity
+	    FROM T_BS_TOOL_PRODUCT P
+	    WHERE P.CATEGORY_CODE IN ('P_POS','CONSUME_MCR','POINT_MCR','P_CARD') AND P.ENABLE_STATUS = 1
+	</select>
+	
+	<!-- 查询可以购买的数量 -->
+	<select id="selectMayBuyToolNum" resultType="java.lang.Integer">					   		   
+		SELECT 
+			SUM( C.TOTAL_LIMIT - DECODE(TT.QUANTITY, NULL, 0, TT.QUANTITY)) TOTAL_LIMIT
+		  FROM T_BS_TOOL_CATEGORY C
+		  LEFT JOIN (SELECT T.CATEGORY_CODE, SUM(T.QUANTITY) QUANTITY
+		               FROM (SELECT TC.CUST_ID,
+		                            DECODE(TC.CATEGORY_CODE,
+		                                   'POINT_MCR',
+		                                   'CONSUME_MCR',
+		                                   TC.CATEGORY_CODE) CATEGORY_CODE,
+		                            TC.QUANTITY
+		                       FROM T_BS_TOOL_CONFIG TC
+		                       LEFT JOIN T_BS_ORDER O
+		                         ON TC.ORDER_NO = O.ORDER_NO
+		                      WHERE TC.CONFIG_TYPE IN (1, 2)
+		                        AND  <![CDATA[ TC.TOOL_STATUS <> 8  ]]> 
+		                        AND TC.CUST_ID = #{entCustId}
+		                        AND TC.CATEGORY_CODE IN (${categoryCode})) T
+		              GROUP BY T.CATEGORY_CODE) TT
+		    ON C.CATEGORY_CODE = TT.CATEGORY_CODE
+		 WHERE C.CATEGORY_CODE IN ('P_POS', 'TABLET', 'POINT_MCR', 'CONSUME_MCR','P_CARD')
+		   AND C.CATEGORY_CODE IN (${categoryCode})		 		   
+	</select>
+
+	<!-- 查询企业资源段购买 -->
+	<select id="selectResourceSegmentBuy" resultType="java.lang.Integer">
+		SELECT
+			SUM(TC.QUANTITY) QUANTITY
+		  FROM T_BS_TOOL_CONFIG TC
+		 WHERE TC.CUST_ID = #{entCustId}
+		   AND TC.CATEGORY_CODE = 'P_CARD'
+		   AND TC.TOOL_STATUS IN
+			<foreach collection="confStatus" item="status" open="(" separator="," close=")">
+				#{status}
+			</foreach>
+	</select>
+	
+</mapper>

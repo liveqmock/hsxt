@@ -1,0 +1,58 @@
+<div id="lxxxTpl">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+	        <tbody><tr>
+					<td class="view_item" width="20%">联系人姓名</td>
+					<td class="view_text" width="30%"><%=obj.contactPerson%></td>
+					<td class="view_item" width="20%">联系人手机</td>
+					<td class="view_text" width="30%"><%=obj.contactPhone%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%">联系地址</td>
+					<td class="view_text" width="30%"><%=obj.contactAddr%></td>
+					<td class="view_item" width="20%">邮政编码</td>
+					<td class="view_text" width="30%"><%=obj.postCode%></td>
+	        </tr>
+	        <tr>
+					<td class="view_item" width="20%">企业网址</td>
+					<td class="view_text" width="30%"><%=obj.webSite%></td>
+					<td class="view_item" width="20%">企业安全邮箱</td>
+					<td class="view_text pr" width="30%">
+						<span id="companyMail"><%=obj.contactEmail%></span>
+						<span class="pa" style="top:6px;right:6px;">
+							<a id="btn_lxxx_yz" class="btn_bg submit_btn">验证</a>
+						</span>
+					</td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%">办公电话</td>
+					<td class="view_text" width="30%"><%=obj.officeTel%></td>
+					<td class="view_item" width="20%">传真号码</td>
+					<td class="view_text" width="30%"><%=obj.officeFax%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%">联系人职务</td>
+					<td class="view_text" width="30%"><%=obj.contactDuty%></td>
+					<td class="view_item" width="20%">企业联系QQ</td>
+					<td class="view_text" width="30%"><%=obj.officeQq%></td>
+	        </tr>
+	        <tr>
+	            <td class="view_item" width="20%" height="60">联系人授权委托书</td>
+	            <td colspan="3" class="view_text pt5 pb5">
+	            <a >
+	            	<img id="grant_permission_i" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片">
+	            </a>
+	            </td>
+	            </tr>
+	    </tbody>
+	</table>
+    <div class="clearfix mt20" align="center"><a   class="btn_bg submit" id="xg_btn">修　改</a></div>
+</div>
+<div id="dlgEmail_content" class="none">
+	<p class="autowidth">
+		<div class="tc lh200">
+		系统已发送验证邮件到******@hsxt.com，<br>请及时登录邮箱完成绑定。
+		</div>
+	</p>
+</div>    
+
+

@@ -1,0 +1,28 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>坐席号：</label>
+			<input id="zzth_zx_input" type="text" name="textfield" placeholder="输入坐席号" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="zzth_search_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable">
+	<tr>
+<!--		CallingNum	主叫号码/来电号码
+		Agent_Num	座席号
+		Agent_Name	座席人员姓名
+		Start_Time	开始通话时间：格式yyyy-mm-dd HH:MM:SS -->
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="CallingNum">主叫号码</th>
+		<!--<th w_index="th_2">被叫号码</th>-->
+		<th w_index="Agent_Num">座席号</th>
+		<th w_index="Agent_Name">座席姓名</th>
+		<th w_index="th_5">来电状态</th>
+		<th w_index="Start_Time">开始时间</th>
+		<th w_index="th_7">录音时长</th>
+		<th w_render="operate">操作</th>
+	</tr>
+</table>

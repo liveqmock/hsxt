@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ResSegmentMapper">
+
+    <!-- 批量插入资源段 -->
+    <insert id="batchInsertResSegment" parameterType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        INSERT INTO
+        T_BS_RES_SEGMENT(
+            SEGMENT_ID,
+            ENT_CUST_ID,
+            PROXY_ORDER_NO,
+            CONFIG_NO,
+            SEGMENT_COUNT,
+            SEGMENT_DESC,
+            STATUS,
+            SEMENT_PRICE,
+            CARD_COUNT,
+            START_RES_NO,
+            END_RES_NO)
+        <foreach collection="resSegments" item="resSegment" separator="union all">
+            (
+            SELECT
+            #{resSegment.segmentId},
+            #{resSegment.entCustId},
+            #{resSegment.proxyOrderNo,jdbcType=VARCHAR},
+            #{resSegment.confNo,jdbcType=VARCHAR},
+            #{resSegment.segmentCount},
+            #{resSegment.segmentDesc},
+            #{resSegment.status},
+            #{resSegment.segmentPrice},
+            #{resSegment.cardCount},
+            #{resSegment.startResNo},
+            #{resSegment.endResNo}
+            FROM DUAL)
+        </foreach>
+    </insert>
+
+    <!-- 插入资源段 -->
+    <insert id="insertResSegment" parameterType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        INSERT INTO
+        T_BS_RES_SEGMENT(
+            SEGMENT_ID,
+            ENT_CUST_ID,
+            PROXY_ORDER_NO,
+            CONFIG_NO,
+            SEGMENT_COUNT,
+            SEGMENT_DESC,
+            STATUS,
+            SEMENT_PRICE,
+            CARD_COUNT,
+            START_RES_NO,
+            END_RES_NO
+        ) VALUES(
+            #{segmentId},
+            #{entCustId},
+            #{proxyOrderNo,jdbcType=VARCHAR},
+            #{confNo,jdbcType=VARCHAR},
+            #{segmentCount},
+            #{segmentDesc},
+            #{status},
+            #{segmentPrice},
+            #{cardCount},
+            #{startResNo},
+            #{endResNo})
+    </insert>
+
+    <!-- 批量修改资源段-->
+    <update id="batchUpdateResSegment" parameterType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        BEGIN
+        <foreach collection="resSegments" item="resSegment" separator=";">
+            UPDATE T_BS_RES_SEGMENT
+            <set>
+                <if test="resSegment.proxyOrderNo != null and resSegment.proxyOrderNo != ''">
+                    PROXY_ORDER_NO = #{resSegment.proxyOrderNo},
+                </if>
+                <if test="resSegment.confNo != null and resSegment.confNo != ''">
+                    CONFIG_NO = #{resSegment.confNo},
+                </if>
+                <if test="resSegment.status != null and resSegment.status != ''">
+                    STATUS = #{resSegment.status}
+                </if>
+            </set>
+            WHERE SEGMENT_ID = #{resSegment.segmentId}
+        </foreach>
+        ;END;
+    </update>
+
+    <!--修改资源段-->
+    <update id="updateResSegment" parameterType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        UPDATE T_BS_RES_SEGMENT
+        <set>
+            <if test="proxyOrderNo != null and proxyOrderNo != ''">
+                PROXY_ORDER_NO = #{proxyOrderNo},
+            </if>
+            <if test="confNo != null and confNo != ''">
+                CONFIG_NO = #{confNo},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status}
+            </if>
+        </set>
+        WHERE SEGMENT_ID = #{segmentId}
+    </update>
+
+    <!--查询资源段字段-->
+    <sql id="selectResSegmentSql">
+        SEGMENT_ID AS segmentId,
+        ENT_CUST_ID AS entCustId,
+        PROXY_ORDER_NO AS proxyOrderNo,
+        CONFIG_NO AS confNo,
+        SEGMENT_COUNT AS segmentCount,
+        SEGMENT_DESC AS segmentDesc,
+        STATUS AS status,
+        SEMENT_PRICE AS segmentPrice,
+        CARD_COUNT AS cardCount,
+        START_RES_NO AS startResNo,
+        END_RES_NO  AS endResNo
+    </sql>
+
+    <!--根据id查询资源段-->
+    <select id="selectResSegmentById" resultType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        SELECT
+          <include refid="selectResSegmentSql"/>
+            FROM T_BS_RES_SEGMENT
+        WHERE SEGMENT_ID = #{segmentId}
+    </select>
+
+    <!--根据客户号、配置单号、代购订单号查询资源段-->
+    <select id="selectResSegmentByIf" resultType="com.gy.hsxt.bs.bean.tool.ResSegment">
+        SELECT
+          <include refid="selectResSegmentSql"/>
+            FROM T_BS_RES_SEGMENT
+        WHERE 1 = 1
+        <if test="proxyOrderNo != null and proxyOrderNo != ''">
+            AND PROXY_ORDER_NO = #{proxyOrderNo}
+        </if>
+        <if test="confNo != null and confNo != ''">
+            AND CONFIG_NO = #{confNo}
+        </if>
+        <if test="entCustId != null and entCustId != ''">
+            AND ENT_CUST_ID = #{entCustId}
+        </if>
+        ORDER BY SEGMENT_COUNT
+    </select>
+
+
+    <!--根据订单号修改资源段的状态 -->
+    <update id="updateResSegmentStatusByOrderNo">
+        UPDATE T_BS_RES_SEGMENT
+        <set>
+            STATUS = #{status}
+        </set>
+        WHERE CONFIG_NO = (SELECT TC.CONFIG_NO FROM T_BS_TOOL_CONFIG TC WHERE TC.ORDER_NO = #{orderNo} AND TC.CATEGORY_CODE = 'P_CARD')
+    </update>
+
+    <!--根据配置单号修改资源段的状态 -->
+    <update id="updateResSegmentStatusByConfNo">
+        UPDATE T_BS_RES_SEGMENT
+        <set>
+            STATUS = #{status}
+        </set>
+        WHERE CONFIG_NO = #{confNo}
+    </update>
+
+    <!--验证资源段是否可以下单-->
+    <select id="valiResSegmentIsOrder" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM T_BS_RES_SEGMENT
+        WHERE 1 = 1
+          AND STATUS = '3'
+          AND SEGMENT_ID IN
+        <foreach collection="segmentIds" index="index" item="segmentId" open="(" separator="," close=")">
+            #{segmentId}
+        </foreach>
+    </select>
+
+    <!-- 根据id集合修改资源段-->
+    <update id="updateResSegmentByIds">
+        UPDATE T_BS_RES_SEGMENT
+        <set>
+            <if test="proxyOrderNo != null and proxyOrderNo != ''">
+                PROXY_ORDER_NO = #{proxyOrderNo},
+            </if>
+            <if test="confNo != null and confNo != ''">
+                CONFIG_NO = #{confNo},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status}
+            </if>
+        </set>
+        WHERE SEGMENT_ID IN
+        <foreach collection="segmentIds" index="index" item="segmentId" open="(" separator="," close=")">
+            #{segmentId}
+        </foreach>
+    </update>
+
+
+    <!--根据客户号、配置单号、代购订单号查询资源段Id-->
+    <select id="selectSegmentIdByIf" resultType="string">
+        SELECT
+            SEGMENT_ID
+          FROM T_BS_RES_SEGMENT
+        WHERE 1 = 1
+        <if test="proxyOrderNo != null and proxyOrderNo != ''">
+            AND PROXY_ORDER_NO = #{proxyOrderNo}
+        </if>
+        <if test="confNo != null and confNo != ''">
+            AND CONFIG_NO = #{confNo}
+        </if>
+        <if test="entCustId != null and entCustId != ''">
+            AND ENT_CUST_ID = #{entCustId}
+        </if>
+    </select>
+
+    <!--查询配置资源段-->
+    <select id="selectConfigSegmentByNo" resultType="com.gy.hsxt.bs.tool.bean.ConfigSegment">
+        SELECT
+            SUM(SEMENT_PRICE) AS amount,
+            SUM(CARD_COUNT) AS count
+          FROM T_BS_RES_SEGMENT
+        WHERE SEGMENT_ID IN
+          <foreach collection="segmentIds" index="index" item="segmentId" open="(" separator="," close=")">
+            #{segmentId}
+          </foreach>
+    </select>
+
+    <!--查询企业开始购买的段数-->
+    <select id="selectStartBuySegmentByCust" resultType="int">
+        SELECT
+            MIN(SEGMENT_COUNT)
+          FROM T_BS_RES_SEGMENT
+        WHERE ENT_CUST_ID = #{entCustId} AND STATUS = 3
+    </select>
+
+    <!--验证资源段列表中是否有已经代购-->
+    <select id="validResSegmentIsProxy" resultType="int">
+        SELECT COUNT(*)
+          FROM T_BS_PROXY_TOOL_ORDER PTO
+         WHERE PTO.STATUS = 0
+           AND PTO.PROXY_ORDER_NO IN
+               (SELECT RS.PROXY_ORDER_NO
+                  FROM T_BS_RES_SEGMENT RS
+                 WHERE RS.STATUS = 3
+                   AND RS.PROXY_ORDER_NO IS NOT NULL
+                   AND RS.SEGMENT_ID IN
+                   <foreach collection="segmentIds" index="index" item="segmentId" open="(" separator="," close=")">
+                      #{segmentId}
+                   </foreach>)
+
+    </select>
+
+    <!--验证订单关联资源段是否可以关闭-->
+    <select id="vaildOrderReleRegmentIsClose" resultType="int">
+        SELECT
+            COUNT(*)
+          FROM T_BS_RES_SEGMENT RS
+         WHERE RS.ENT_CUST_ID = #{entCustId}
+           AND RS.STATUS = 2
+           AND RS.SEGMENT_COUNT = (SELECT MAX(SEGMENT_COUNT)
+                                     FROM T_BS_RES_SEGMENT
+                                    WHERE ENT_CUST_ID = #{entCustId}
+                                      AND STATUS = 2)
+           AND RS.CONFIG_NO =
+               (SELECT TC.CONFIG_NO
+                  FROM T_BS_TOOL_CONFIG TC
+                 WHERE TC.ORDER_NO = #{orderNo})
+    </select>
+
+</mapper>

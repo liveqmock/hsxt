@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.DeliverInfoMapper">
+	<!-- 插入收货信息 -->
+	<insert id="insertDeliverInfo" parameterType="com.gy.hsxt.bs.bean.order.DeliverInfo">
+		insert into
+		T_BS_DELIVER_INFO
+		(
+		DELIVER_ID, HS_CUST_ID, STREET_ADDR,
+		FULL_ADDR,
+		LINKMAN, MOBILE,
+		PHONE, ZIP_CODE, ISACTIVE,
+		CREATED_DATE, CREATEDBY,
+		UPDATED_DATE,UPDATEBY
+		)
+		values
+		(
+		#{deliverId},#{hsCustId},#{streetAddr},
+		#{fullAddr}, #{linkman},#{mobile},
+		#{phone},#{zipCode},'Y',
+		sysdate, #{createdby},
+		to_timestamp(#{updatedDate},'yyyy-mm-dd
+		hh24:mi:ss.ff'), #{updateby}
+		)
+	</insert>
+
+	<!-- 查询收货信息列表 -->
+	<select id="findDeliverInfoPageList" resultType="com.gy.hsxt.bs.bean.order.DeliverInfo">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM T_BS_DELIVER_INFO
+	</select>
+
+    <!-- 根据收货ID查询收货信息 -->
+	<select id="findDeliverByDeliverId" parameterType="java.lang.String"
+		resultType="com.gy.hsxt.bs.bean.order.DeliverInfo">
+		SELECT
+		<include refid="base_column_list"></include>
+		FROM T_BS_DELIVER_INFO where DELIVER_ID=#{deliverId}
+	</select>
+
+	<sql id="base_column_list">
+		DELIVER_ID AS deliverId,
+		HS_CUST_ID AS hsCustId,
+		STREET_ADDR
+		AS streetAddr,
+		FULL_ADDR AS fullAddr,
+		LINKMAN AS linkman,
+		MOBILE AS
+		mobile,
+		PHONE AS phone,
+		ZIP_CODE AS zipCode,
+		ISACTIVE AS isactive,
+		to_char(CREATED_DATE,'yyyy-mm-dd hh24:mi:ss') AS createdDate,
+		CREATEDBY AS createdby,
+		UPDATED_DATE AS
+		updatedDate,
+		UPDATEBY AS updateby
+	</sql>
+</mapper>

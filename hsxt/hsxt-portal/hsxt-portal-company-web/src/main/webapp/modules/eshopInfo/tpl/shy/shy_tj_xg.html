@@ -1,0 +1,25 @@
+﻿<form id="shy_tj_xg_form" name="shy_tj_xg_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="right">送货人姓名：</td>
+      <td><input type="text" id="shy_shrxm" name="shy_shrxm" value="<%=obj.shrmc%>" class="w200 p5 infobox2" placeholder="输入送货人姓名"><span class="ml5 red">*</span></td>
+    </tr>
+    <tr>
+      <td align="right">联系电话：</td>
+      <td><input type="text" id="shy_lxdh" name="shy_lxdh" value="<%=obj.lxdh%>" class="w200 p5 infobox2" placeholder="输入联系电话"><span class="ml5 red">*</span></td>
+    </tr>
+    <tr>
+      <td align="right">照片：</td>
+      <td><span class="ml5 fl"><img src="<%=obj.zp || 'resources/img/store_noimg.gif'%>" width="70" height="50"></span><a class="input-file btn_bg upload_btn ml10 mr10 mt15">上传<input type="file" id="shy_sczp"></a></td>
+    </tr>
+    <tr>
+      <td align="right">性别：</td>
+      <td><label><input type="radio" name="shy_xb" class="m03vm"<%= obj.xb === '男' ? ' checked="checked"' : ''%>>男</label><label class="ml10"><input type="radio" name="shy_xb" class="m03vm"<%= obj.xb === '女' ? ' checked="checked"' : ''%>>女</label><span class="ml15 red">*</span></td>
+    </tr>
+    <tr>
+      <td align="right">备注：</td>
+      <td><div class="w200"><textarea class="infobox2 attxta w h50" id="shy_bz" name="shy_bz" placeholder="输入备注"><%= obj.bz%></textarea></div></td>
+    </tr>
+</table>
+</form>

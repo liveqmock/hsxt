@@ -1,0 +1,144 @@
+﻿<div id="qyxtzcxxTpl" class="bc info_800">
+	<div class="view_info">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">申报类别</td>
+				<td class="view_text" width="30%" id="view-toCustType"></td>
+				<td class="view_item" width="20%" id="view-toBuyResRangeText">启用资源类型</td>
+				<td class="view_text" width="30%" id="view-toBuyResRange"></td>
+			</tr>
+			<tr>
+				<td class="view_item">企业名称</td>
+				<td class="view_text" colspan="3"><%=obj.toEntCustName%></td>
+				<!-- <td class="view_item">企业英文名称</td>
+				<td class="view_text"><%=obj.toEntEnName%></td> -->
+			</tr>
+			<tr>
+				<td class="view_item">所属地区</td>
+				<td class="view_text" id="view-placeName"></td>
+				<td class="view_item" id="view-availQuotaText"></td>
+				<td class="view_text" id="view-availQuota"></td>
+			</tr>
+			<tr>
+				<td class="view_item" id="view-spreadEntResNoText"></td>
+				<td class="view_text" id="view-spreadEntResNo"></td>
+				<td class="view_item" id="view-spreadEntNameText"></td>
+				<td class="view_text" id="view-spreadEntName"></td>
+			</tr>
+			<tr id="view-qyxtzcxx_sbTr">
+				<td class="view_item">申报单位互生号</td>
+				<td class="view_text" id="view-fw_spreadEntResNo"></td>
+				<td class="view_item">申报单位名称</td>
+				<td class="view_text" id="view-fw_spreadEntCustName"></td>
+			</tr>
+			<tr id="view-qyxtzcxx_nyqyhshTr">
+				<td class="view_item">拟用企业互生号</td>
+				<td class="view_text" colspan="3"><%=obj.toEntResNo%></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<div class="search-toolbar clearfix mt5">
+			<ul class="cssform fl">
+				<li class="h30_middle fb">积分增值点设置</li>
+			</ul>
+			<ul class="cssform clearfix fr">
+				<li class="mr20">
+					<label>企业互生号：</label>
+					<input type="text" name="view-zzdqyglh" id="view-zzdqyglh" maxlength="11" readonly="readonly" class="cannotEdit-bg h28_middle w140 input-txt"/>
+				</li>
+			</ul>
+		</div>
+		<div id="view-comboxDiv">
+			<table id="view-increment-3-table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+				  <tbody><tr align="center">
+				    <th colspan="4" class="wbd-bt">1增值分配点</th>
+				    <th colspan="4" class="wbd-bt">2增值分配点</th>
+				    <th colspan="4" class="wbd-bt">3增值分配点</th>
+				  </tr>
+				  <tr align="center">
+				    <th colspan="2" class="wbd-bt">左增值区</th>
+				    <th colspan="2" class="wbd-bt">右增值区</th>
+				    <th colspan="2" class="wbd-bt">左增值区</th>
+				    <th colspan="2" class="wbd-bt">右增值区</th>
+				    <th colspan="2" class="wbd-bt">左增值区</th>
+				    <th colspan="2" class="wbd-bt">右增值区</th>
+				    </tr>
+				  <tr align="center">
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    </tr>
+				  <tr>
+				    <td id="view-increment-1-lP"></td>
+				    <td id="view-increment-1-lCount"></td>
+				    <td id="view-increment-1-rP"></td>
+				    <td id="view-increment-1-rCount"></td>
+				    <td id="view-increment-2-lP"></td>
+				    <td id="view-increment-2-lCount"></td>
+				    <td id="view-increment-2-rP"></td>
+				    <td id="view-increment-2-rCount"></td>
+				    <td id="view-increment-3-lP"></td>
+				    <td id="view-increment-3-lCount"></td>
+				    <td id="view-increment-3-rP"></td>
+				    <td id="view-increment-3-rCount"></td>
+				  </tr>
+				  <tr class="table-tr-c">
+				    <td colspan="2" align="center">&nbsp;</td>
+				    <td colspan="2" align="center">&nbsp;</td>
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="2-L" id="view-increment-2-l"></td>
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="2-R" id="view-increment-2-r"></td>
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="3-L" id="view-increment-3-l"></td>
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="3-R" id="view-increment-3-r"></td>
+				    </tr>
+				</tbody>
+			</table>
+			
+			<table id="view-increment-1-table" width="100%" border="0" cellspacing="0" cellpadding="0" class="none search-table">
+				  <tbody><tr align="center">
+				    <th colspan="4" class="wbd-bt">1增值分配点</th>
+				  </tr>
+				  <tr align="center">
+				    <th colspan="2" class="wbd-bt">左增值区</th>
+				    <th colspan="2" class="wbd-bt">右增值区</th>
+				    </tr>
+				  <tr align="center">
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    <th>积点数</th>
+				    <th>增值点</th>
+				    </tr>
+				  <tr>
+				    <td id="view-increment-lP"></td>
+				    <td id="view-increment-lCount"></td>
+				    <td id="view-increment-rP"></td>
+				    <td id="view-increment-rCount"></td>
+				  </tr>
+				  <tr class="table-tr-c">
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="1-L" id="view-increment-1-l"></td>
+				    <td colspan="2" align="center"><input type="radio" disabled="disabled" name="view-increment" value="1-R" id="view-increment-1-r"></td>
+				  </tr>
+				</tbody>
+			</table>
+		</div>
+	</div>	
+	<div class="w200 bc mt20 clearfix">
+		<a class="btn_bg submit fl" id="view-qyxtzcxx_xg_btn">修&#12288;改</a>
+		<a class="btn_bg submit fr" id="view-qyxtzcxx_qx_btn">取&#12288;消</a>
+	</div>
+</div>
+
+<div id="qyxtzcxx_xgTpl" class="none"></div>
+<div id="qyxtzcxx_tj_dialog" class="none" title="企业系统注册信息修改确认">
+	<p class="autowidth"></p>
+</div>

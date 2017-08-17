@@ -1,0 +1,63 @@
+<div>
+	<form action="" id="upLoadFild">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tbody>
+				<tr>
+					<td class="view_item h50" width="20%">卡样浏览图</td>
+					<td class="view_text" width="80%">
+						<a class="input-file btn_bg upload_btn f1" style="float:none;">
+						上传<input type="file" id="microPic" name="microPic"></a>
+						<img id='microPicImg' width="58" height="30" class='ml10 none'>
+						<span class="ml5 mt5 red">最大上传2MB图片</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="view_item h50" width="20%">
+						卡样设计源文件</br>
+						<span class="f12">文件格式:zip、rar、cdr</span>
+					</td>
+					<td class="view_text" width="80%">
+						<a class="input-file btn_bg upload_btn f1" style="float:none;">
+						上传<input type="file" id="sourceFile" name="sourceFile"/></a>
+						<a id="sourceFileShow" class="ml10 blue none" >下载</a>
+						<span class="ml5 mt5 red">最大上传12MB源文件</span>
+					</td>
+				</tr>
+			    <tr>
+					<td class="view_item h50" width="20%">
+						个性互生卡制作确认单</br>
+						<span class="f12">文件格式:doc、docx</span>
+					</td>
+					<td class="view_text" width="80%">
+						<a class="input-file btn_bg upload_btn f1" style="float:none;">
+						上传<input type="file" id="confirmFile" name="confirmFile"/></a>
+						<a id="confirmFileShow" class="ml10 blue none" >下载</a>
+						<span class="ml5 mt5 red">最大上传4MB文件</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable mt15">
+		<tbody>
+			<tr>
+				<td width="20%" valign="top" class="view_item pt20">设计要求说明</td>
+				<td class="view_text p20" width="80%" style="padding:17px 10px; line-height:25px;">
+					<span><%=orderRemark ||''%></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="sample_btn mt10 clearfix">
+		<span >附件：</span>
+		<a id="markAccessory" class="mr10 blue" >附件</a>
+	</div>
+	<input type="hidden" id="microPic_hidden"/>
+	<input type="hidden" id="sourceFile_hidden"/>
+	<input type="hidden" id="confirmFile_hidden"/>
+</div>
+<div id="viewMicroPic" class="none">
+	<p></p>
+</div>
+

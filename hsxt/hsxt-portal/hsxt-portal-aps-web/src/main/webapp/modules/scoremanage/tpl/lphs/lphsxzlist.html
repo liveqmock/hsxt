@@ -1,0 +1,50 @@
+<div id="lphsxzlist" class="none">
+	<div class="view_info">
+	<form  id="accountingForm">
+	
+	<table width="100%" border="" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">类别</td>
+            <td width="32%">
+				<span class="ml5 pr">
+                	<input id="leibie" name="category" id="category" readonly placeholder="输入类别" />
+                </span>
+			</td>
+            <td class="view_item" width="18%">项目名称</td>
+            <td width="32%"><input class="ml5 w96pc h28_middle" name="itemName" id="itemName" maxlength="30"  placeholder="输入项目名称" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">规格</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="standard" id="standard" maxlength="20"  placeholder="输入规格" /></td>
+            <td class="view_item">数量</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="quantity" id="quantity" maxlength="3"  placeholder="输入数量" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">单位</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="unit" id="unit"   placeholder="输入单位" /></td>
+            <td class="view_item">单价</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="price" id="price" maxlength="5"  placeholder="输入单价" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">金额</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="amount" id="amount" readonly="readonly"  placeholder=" 数量*单位 " /></td>
+            <td class="view_item">医保报销比例</td>
+            <td><input type="text" class="ml5  h28_middle"  name="proportion" id="proportion"  placeholder="输入比例，比例范围 0-100" /> <span>%</span> </td>
+        </tr>
+        <tr>
+            <td class="view_item">医保支付</td>
+            <td><input type="text" class="ml5 w96pc h28_middle"  name="healthPayAmount" id="healthPayAmount" readonly="readonly"  placeholder="金额*医保报销比例" /></td>
+            <td class="view_item">个人支付</td>
+            <td><input type="text" class="ml5 w96pc h28_middle" name="personalPayAmount" id="personalPayAmount" readonly="readonly"  /></td>
+        </tr>
+        <tr>
+            <td class="view_item">说明</td>
+            <td colspan="3">
+				<textarea class="ml5 h50 w98pc rsn pt5 pb5" maxlength="300"  name="explain" id="explain"  placeholder="输入说明,字数不超过300个字"></textarea>
+				<input type="reset" value="" id="lphs_form_rest_btn"/>
+			</td>
+        </tr>
+    </table>
+    </form>
+</div>
+</div>

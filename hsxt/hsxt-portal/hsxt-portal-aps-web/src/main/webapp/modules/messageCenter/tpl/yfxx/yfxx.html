@@ -1,0 +1,26 @@
+<div id="yfxxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>标题：</label>
+				<input type="text" name="textfield" id="msgTitle" placeholder="输入标题" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="qry_msg_btn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="del_btn" type="button" class="btn-search">删除</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+		  <tr>
+			<th w_index="msgId" w_check="true" width="5%;"></th>
+			<th w_index="receiptor" w_render="operate">接收单位</th>
+			<th w_index="level" w_render="operate">重要级别</th>
+			<th w_index="title" w_tip="true">标题</th>
+			<th w_index="sendTime">发送日期</th>
+			<th w_render="operate">操作</th>
+		  </tr>
+	</table>
+</div>

@@ -1,0 +1,76 @@
+<div class="" id="sdlb"> 
+  <!-- 操作台切换标签开始 -->
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div class="show_order" style="height: 410px">
+    <div class="search-toolbar">
+      <ul class="cssform clearfix">
+        <li class="mr20">
+          <label class="title-int">订单编号：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="orderId" value="" class="input-txt" maxlength="17"/>
+          </div>
+        </li>
+        <li>
+          <label class="title-int">商品名称：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="itemName" value="" class="input-txt" />
+          </div>
+        </li>
+        <li>
+          <label class="title-int">昵称：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="userName" value="" class="input-txt" />
+          </div>
+        </li>
+         <li>
+          <label class="title-int">心得：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="cnt" value="" class="input-txt" />
+          </div>
+        </li>
+        </ul>
+        <ul class="cssform clearfix">
+       
+            <li class="mr20">
+          <label class="title-int">价格区间：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="beginPrice" value="" class="input-txt" />
+            <span class="white"> - </span>
+            <input type="text" name="textfield" id="endPrice" value="" class="input-txt" />
+          </div>
+        </li>
+        <li style="margin-right: 44px;">
+          <label class="title-int">晒单时间：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="beginTime" value="" class="input-txt" />
+            <span class="white"> - </span>
+            <input type="text" name="textfield" id="endTime" value="" class="input-txt" />
+          </div>
+        </li>
+        <li>
+          <div class="cont-int">
+            <button id="btnSearch" type="button" class="btn-search ml10">查询</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+     <!-- BsGrid表头 -->
+    <table id="shareGridMain">
+    	<tr>
+    		<th w_render="operate" w_align="left" w_length="50" width="30%">标题</th>
+    		<th w_index="cnt" w_align="left" w_length="50" width="30%">心得</th>
+    		<th w_index="shareTime" w_align="center" w_length="50" width="30%">时间</th>
+    		<th w_render="operate" w_align="left" w_length="50" width="30%">商品信息</th>
+    	</tr>
+    </table>
+    <div class="mt0" id="tableList">
+		
+    </div>
+  </div>
+  <!--内容添加结束--> 
+</div>
+
+<div id="dlg0" class="none">
+  <p id="table-point">输入范围错误!请再次输入!</p>
+</div>

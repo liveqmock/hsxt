@@ -1,0 +1,35 @@
+<div class="billstyle">
+	<div class="bd_dot_gray fb p10">收件地址</div>
+	<div class="p10">
+	<p id="entAddrList"></p>
+	<p class="mt10 ml20 clearfix"><a class="btn_bg viewSample_btn" id="add_address_btn">新增自定义地址</a></p>
+	</div>
+</div>
+
+<div class="mt20">
+	<div class="infobox2 fb p10 bg_f0 bm0">工具清单</div>
+	<table id="" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table bsgrid">
+		<thead>
+			<tr>
+				<th width="35%">工具名称/内容</th>
+				<th width="15%">工具单价</th>
+				<th width="15%">申购数量</th>
+				<th width="15%">订单总价</th>
+			</tr>
+		</thead>
+			<% $.each(confs,function(i,itme){ %>
+				<tr>
+	                <td><%=itme.productName %></td>
+	                <td><%=comm.formatMoneyNumberAps(itme.price) %></td>
+	                <td><%=itme.quanilty %></td>
+	                <td><%=comm.formatMoneyNumberAps(itme.totalPrice) %></td>
+            	</tr>		
+			<%});%>           
+		
+	</table>
+</div>
+<div class="mt20 clearfix">
+	<a id="ddtj_btn" class="btn_bg submit fr">订单提交</a>
+	<a id="syb_btn" class="btn_bg submit mr15 fr">上一步</a>
+	<span class="f14 mr15 fr mt10">应付互生币金额：<b class="red" id="amountPayable"></b></span>
+</div>

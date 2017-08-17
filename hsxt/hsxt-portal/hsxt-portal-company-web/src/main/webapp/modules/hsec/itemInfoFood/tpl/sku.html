@@ -1,0 +1,55 @@
+<%
+	
+    function setDigit(price,auction){
+    	var param = {};
+    	param["price"] = price;
+    	param["auction"] = auction;
+    	
+		if(price!=null && auction!=null){
+	    	var auctionScale = (auction / price * 2 * 100).toFixed(2);
+			var deductAuction = (Number(auction)*2).toFixed(2);
+			var gainAuction = Number(auction).toFixed(2);
+			
+			if(isNaN(auctionScale)){
+				auctionScale = "";
+			}
+			if(isNaN(deductAuction)){
+				deductAuction = "";
+			}
+			if(isNaN(gainAuction)){
+				gainAuction = "";
+			}
+			param["auctionScale"] = auctionScale;
+			param["deductAuction"] = deductAuction;
+			param["gainAuction"] = gainAuction;
+	    }
+	    return param;
+	}
+   if(obj!=0){
+   $.each(obj,function(j,o){
+    var param = setDigit(o.price,o.auction);
+    var pVId = o.pVId;
+   
+%>
+<tr class="tc bg_lvse sku_tr" data-id="<%=pVId %>">
+  <%
+  	if(pVId){
+  %>	
+  <td height="34" class="bd_r propVal" data-id="<%=pVId %>"><%=o.pVName %></td>
+  <%}%>
+  <td><input class="price sku" type="text" value="<%=param.price %>" maxlength="9"></td>
+  <td><input class="auction sku" type="text" value="<%=param.auction %>" maxlength="9"></td>
+  <td><input class="auctionScale sku" type="text" value="<%=param.auctionScale %>" maxlength="9"></td>
+  <td class="deductAuction"><%=param.deductAuction %></td>
+  <td class="gainAuction" height="32"><%=param.gainAuction %></td>
+</tr>
+<%});
+  }else{%>
+<tr class="tc bg_lvse sku_tr">
+  <td><input class="price sku" type="text" value="" maxlength="9"></td>
+  <td><input class="auction sku" type="text" value="" maxlength="9"></td>
+  <td><input class="auctionScale sku" type="text" value="" maxlength="9"></td>
+  <td class="deductAuction"></td>
+  <td class="gainAuction" height="32"></td>
+</tr>  
+<%}%>  

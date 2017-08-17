@@ -1,0 +1,6 @@
+﻿<%if (!obj.zt) {%>
+	<div class="fl ml15"><img src="resources/img/dlmm1.gif" width="14" height="14" style="vertical-align:middle;"/><b class="ml10">设置商城信息完成后开通网上商城</b></div>
+<%}%>
+<div class="fr mr15">
+	综合评分：<%= !obj.zt && !obj.zhpf ? '<span class="gray_b4">暂无评分</span>' : ('<b class="red">' + obj.zhpf + '</b>分') %><span class="ml10 mr10 input_gray">|</span>描述评分：<%= !obj.zt && !obj.mspf ? '<span class="gray_b4">暂无评分</span>' : ('<b class="red">' + obj.mspf + '</b>分') %>，服务评分：<%= !obj.zt && !obj.fwpf ? '<span class="gray_b4">暂无评分</span>' : ('<b class="red">' + obj.fwpf + '</b>分') %>，时效评分：<%= !obj.zt && !obj.sxpf ? '<span class="gray_b4">暂无评分</span>' : ('<b class="red">' + obj.sxpf + '</b>分') %>
+</div>

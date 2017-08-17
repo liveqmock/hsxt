@@ -1,0 +1,49 @@
+<!-- 操作台切换标签开始 -->
+<!-- <div class="pr">
+	<div class="tabNav"></div>
+	<ul class="tabList clearfix">
+        <li><a data-id="1" class="active">零售分类</a></li>
+        <li><a data-id="2" class="">餐饮分类</a></li>
+	</ul>
+</div> -->
+<!-- 操作台切换标签结束 -->
+
+<!-- <div class="busibox operations_content" id="busibox"></div> -->
+
+<div class="operationsInner" id="catalog">
+<form>
+  <!-- 操作台切换标签开始 -->
+  <div class="pr">
+    <div class="tabNav"></div>
+    <ul class="tabList clearfix ">
+        <li><a data-id="1" id="retailAssortment" class="active">零售分类</a></li>
+        <li><a data-id="2" id="foodCategory" class="">餐饮分类</a></li>
+    </ul>
+  </div>
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div id="cgbox1" class="shopbox p20" style="height: 410px; overflow-y: auto; display: block;"> </div>
+  <div id="cgbox2" class="shopbox p20 pr none" style="height:410px;overflow-y:auto;"></div>
+  <div id="cgbox3" class="shopbox p20 pr none" style="height:410px;overflow-y:auto;"></div>
+  <!--关联菜品  -->
+  <div id="cgbox5" class="shopbox p20 pr none" style="height:410px;overflow-y:auto;"></div>
+  <!-- 新增关联菜品 -->
+  <div id="cgbox6" class="shopbox p20 pr none" style="height:410px;overflow-y:auto;"></div>
+  </form>
+  </div>
+  
+  
+<!--弹出框内容及脚本开始-->
+<div id="dlg0" class="none">
+<p id="table-point"></p>
+</div>
+
+<div id="dlg1" class="none">
+  <p class="table-del">
+  	<i class="icon_tips tips_ques"></i>
+    <span class="fl f16 fb ml5 lh32">是否确认将其变为一级目录？</span>
+  </p>
+</div>
+<div id="dlg2" class="none"></div>
+<div id="dlg3" class="none"></div>
+<!--弹出框内容及脚本结束-->

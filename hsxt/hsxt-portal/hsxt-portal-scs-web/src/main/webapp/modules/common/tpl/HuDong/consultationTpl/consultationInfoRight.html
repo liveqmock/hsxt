@@ -1,0 +1,89 @@
+  <div class="hd_msg_content" style="display:block;min-width:600px;">
+      <div id="hd_msg_top"><div class="hd_msg_topTags">
+      <ul class="hd_box_hslt_cd">
+      <li class="hd_box_hslt_cdtx fl">
+      <span class="span_img">
+      <img src="<%=obj.picHead%>" height="30"></span>
+      <span class="hd_span_name">
+      <%=obj.num%></span>
+      <span></span></li><li class="hd_box_hslt_cdgbk fr"><span></span> <span></span>
+      <span class="gbck"><img src="resources/img/hslt_03.gif" width="16" height="16"></span>
+      </li>
+      </ul>
+      </div>
+      </div>
+      <div class="hd_box_hslt1_right"><div class="hd_rightxx mt10 ml10">
+      <ul><li class=" lh30"></li><li class=" lh30">
+      <div class="hd_hslt_rightcp">
+      <img src="<%=obj.picHead%>" height="111">
+      </div> 
+      </li><li class=" lh30"> </li><li class=" lh30"></li>
+      <li class=" lh30"><span class="tcr_red"></span> </li>
+      <li class=" lh30"><span class="tcr_red"></span> </li>
+      </ul></div>
+      </div>
+      <div class="clearfix hd_chat_content">
+      <div id="hd_liaot">
+      <div class="hd_hslt_tsxx clearfix">
+      <div class="hd_hslt_tsxximg">
+      <img src="resources/img/dlmm1.gif" class="mr10 mt5"></div>
+      <div class="hd_hslt_tsxx1">请勿轻信账号监管，付不了款等信息。</div>
+      </div>
+      <div class="hd_hslt_ltxxbox" id="txjilu"> 
+      <ul>
+      <%$.each(obj.content != null ? obj.content.content:'',function(k,v){%>
+      	 <%if(v.fromId == obj.num){%>
+	      <li class="hd_hslt_ltxxbox1 clearfix">
+	      <p class="hd_hslt_time tc"><%=obj.NowtimeNew(v.time)%></p>
+	      <ul>
+	      <li <%if(v.msg_code == 10){%>style="min-height: 130px"<%}%>>
+	      <div class="hd_hslt_touxiang fl">
+	      <img src="<%=v.msg_icon%>" height="30" width="30">
+	      </div>
+	      <div class="hd_hslt_xxxx mr5 fl"><%if(v.msg_code == 10){%><img src="<%=v.msg_content%>" width="150px"/><%}else{%><%=v.msg_content%><%}%></div>
+	      <div class="clearfix"></div>
+	      </li>
+	      </ul>
+	      </li>
+	      <%}else{%>
+	      <li class="hd_hslt_ltxxbox1 clearfix">
+	      <p class="hd_hslt_time tc"><%=obj.NowtimeNew(v.time)%></p>
+	      <ul>
+	      <li <%if(v.msg_code == 10){%>style="min-height: 130px"<%}%>>
+	      <div class="hd_hslt_touxiang fr">
+	      <img src="<%=v.msg_icon%>" height="30" width="30">
+	      </div>
+	      <div class="hd_hslt_xxxx mr5 fr"><%if(v.msg_code == 10){%><img src="<%=v.msg_content%>" width="150px"/><%}else{%><%=v.msg_content%><%}%></div>
+	      <div class="clearfix"></div>
+	      </li>
+	      </ul>
+	      </li>
+	      <%}%>
+      <%})%>
+      </ul>
+      <div class="clearfix"></div>
+      </div> 
+      </div> <div class="hd_hslt_bqk clearfix" style="position: relative;">
+	  <div class="biaoqing_box" id="biaoqing_box">
+      <%for(var i = 1;i <= 60; i++){%>
+      <i class="i_biaoqing" imgId="<%=i%>">
+      <img src="resources/img/biaoqing/<%=i%>.png"></i>
+      <%}%>
+  	 </div>
+		<ul style="overflow:hidden">
+      
+      <li class="fl w50 tc" id="biaoqingLi">
+      <div class="tool_talkbar"><a href="javascript:;" class="biaoqing_btn"><i class="i_ico i_biaoqing"></i></a></div></li>
+           <li class="fl w50 tc">
+	<div class="tool_talkbar" id="imgUploadDiv">
+	<a href="javascript:void(0);"> 
+	<i class="i_ico i_sendImg">
+	<input id="imgHuDong" class="w30 h30 hd_inputFile cp" name="file" value="" title="发送图片" type="file">
+	</i></a>
+	</div>
+	</li> <li class="fl w50  tc mt5"></li> <li class="fl w50  mt5"></li>
+	<!-- <li class="fr"><div class=" hd_hslt_mgbox1 mr50" style="display: none;"><a href="javascript:void(0);" class="talk_history_cl" dataid="qyide_06186010000_6661">聊天记录</a></div></li> -->
+	 </ul></div> <div class="hd_hslt_textarea" data-content="">
+      <textarea id="inputStr" maxlength="500" class="textarea"></textarea></div><div class="hd_hslt_fsxxk1"> <div class="hd_hslt1_fsxx1">
+      <img src="resources/img/shope_01.gif" width="9" height="5"></div><div class="hd_hslt1_fsxx2">
+      <a href="javascript:void(0);" class="goto_btn" id="goto_btn" data-id="<%=obj.num%>">发送消息</a></div></div><div class="clearfix"> </div></div></div>

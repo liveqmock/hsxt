@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uf.mapper.TUfPacketLogMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uf.mapper.vo.TUfPacketLog" >
+    <id column="LOG_ID" property="logId" jdbcType="BIGINT" />
+    <result column="PACKET_ID" property="packetId" jdbcType="VARCHAR" />
+    <result column="SRC_PLATFORM_ID" property="srcPlatformId" jdbcType="VARCHAR" />
+    <result column="SRC_SUBSYS_ID" property="srcSubsysId" jdbcType="VARCHAR" />
+    <result column="DEST_PLATFORM_ID" property="destPlatformId" jdbcType="VARCHAR" />
+    <result column="DEST_SUBSYS_ID" property="destSubsysId" jdbcType="VARCHAR" />
+    <result column="DEST_BIZ_CODE" property="destBizCode" jdbcType="VARCHAR" />
+    <result column="PACKET_OPT_TYPE" property="packetOptType" jdbcType="INTEGER" />
+    <result column="PACKET_OPT_STATUS" property="packetOptStatus" jdbcType="INTEGER" />
+    <result column="REQ_PACKET_SIZE" property="reqPacketSize" jdbcType="BIGINT" />
+    <result column="RESP_PACKET_SIZE" property="respPacketSize" jdbcType="BIGINT" />
+    <result column="TOTAL_RESP_TIME" property="totalRespTime" jdbcType="REAL" />
+    <result column="LOG_ERR_DESC" property="logErrDesc" jdbcType="VARCHAR" />
+    <result column="LOG_STACK_TRACE_ID" property="logStackTraceId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LOG_ID, PACKET_ID, SRC_PLATFORM_ID, SRC_SUBSYS_ID, DEST_PLATFORM_ID, DEST_SUBSYS_ID, 
+    DEST_BIZ_CODE, PACKET_OPT_TYPE, PACKET_OPT_STATUS, REQ_PACKET_SIZE, RESP_PACKET_SIZE, 
+    TOTAL_RESP_TIME, LOG_ERR_DESC, LOG_STACK_TRACE_ID, CREATE_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_UF_PACKET_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_UF_PACKET_LOG
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_UF_PACKET_LOG
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogExample" >
+    delete from T_UF_PACKET_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLog" >
+    insert into T_UF_PACKET_LOG (LOG_ID, PACKET_ID, SRC_PLATFORM_ID, 
+      SRC_SUBSYS_ID, DEST_PLATFORM_ID, DEST_SUBSYS_ID, 
+      DEST_BIZ_CODE, PACKET_OPT_TYPE, PACKET_OPT_STATUS, 
+      REQ_PACKET_SIZE, RESP_PACKET_SIZE, TOTAL_RESP_TIME, 
+      LOG_ERR_DESC, LOG_STACK_TRACE_ID, CREATE_DATE
+      )
+    values (#{logId,jdbcType=BIGINT}, #{packetId,jdbcType=VARCHAR}, #{srcPlatformId,jdbcType=VARCHAR}, 
+      #{srcSubsysId,jdbcType=VARCHAR}, #{destPlatformId,jdbcType=VARCHAR}, #{destSubsysId,jdbcType=VARCHAR}, 
+      #{destBizCode,jdbcType=VARCHAR}, #{packetOptType,jdbcType=INTEGER}, #{packetOptStatus,jdbcType=INTEGER}, 
+      #{reqPacketSize,jdbcType=BIGINT}, #{respPacketSize,jdbcType=BIGINT}, #{totalRespTime,jdbcType=REAL}, 
+      #{logErrDesc,jdbcType=VARCHAR}, #{logStackTraceId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLog" >
+    insert into T_UF_PACKET_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="packetId != null" >
+        PACKET_ID,
+      </if>
+      <if test="srcPlatformId != null" >
+        SRC_PLATFORM_ID,
+      </if>
+      <if test="srcSubsysId != null" >
+        SRC_SUBSYS_ID,
+      </if>
+      <if test="destPlatformId != null" >
+        DEST_PLATFORM_ID,
+      </if>
+      <if test="destSubsysId != null" >
+        DEST_SUBSYS_ID,
+      </if>
+      <if test="destBizCode != null" >
+        DEST_BIZ_CODE,
+      </if>
+      <if test="packetOptType != null" >
+        PACKET_OPT_TYPE,
+      </if>
+      <if test="packetOptStatus != null" >
+        PACKET_OPT_STATUS,
+      </if>
+      <if test="reqPacketSize != null" >
+        REQ_PACKET_SIZE,
+      </if>
+      <if test="respPacketSize != null" >
+        RESP_PACKET_SIZE,
+      </if>
+      <if test="totalRespTime != null" >
+        TOTAL_RESP_TIME,
+      </if>
+      <if test="logErrDesc != null" >
+        LOG_ERR_DESC,
+      </if>
+      <if test="logStackTraceId != null" >
+        LOG_STACK_TRACE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=BIGINT},
+      </if>
+      <if test="packetId != null" >
+        #{packetId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcPlatformId != null" >
+        #{srcPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcSubsysId != null" >
+        #{srcSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="destPlatformId != null" >
+        #{destPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="destSubsysId != null" >
+        #{destSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="destBizCode != null" >
+        #{destBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="packetOptType != null" >
+        #{packetOptType,jdbcType=INTEGER},
+      </if>
+      <if test="packetOptStatus != null" >
+        #{packetOptStatus,jdbcType=INTEGER},
+      </if>
+      <if test="reqPacketSize != null" >
+        #{reqPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="respPacketSize != null" >
+        #{respPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="totalRespTime != null" >
+        #{totalRespTime,jdbcType=REAL},
+      </if>
+      <if test="logErrDesc != null" >
+        #{logErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logStackTraceId != null" >
+        #{logStackTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogExample" resultType="java.lang.Integer" >
+    select count(*) from T_UF_PACKET_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_UF_PACKET_LOG
+    <set >
+      <if test="record.logId != null" >
+        LOG_ID = #{record.logId,jdbcType=BIGINT},
+      </if>
+      <if test="record.packetId != null" >
+        PACKET_ID = #{record.packetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcPlatformId != null" >
+        SRC_PLATFORM_ID = #{record.srcPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcSubsysId != null" >
+        SRC_SUBSYS_ID = #{record.srcSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destPlatformId != null" >
+        DEST_PLATFORM_ID = #{record.destPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destSubsysId != null" >
+        DEST_SUBSYS_ID = #{record.destSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destBizCode != null" >
+        DEST_BIZ_CODE = #{record.destBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packetOptType != null" >
+        PACKET_OPT_TYPE = #{record.packetOptType,jdbcType=INTEGER},
+      </if>
+      <if test="record.packetOptStatus != null" >
+        PACKET_OPT_STATUS = #{record.packetOptStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.reqPacketSize != null" >
+        REQ_PACKET_SIZE = #{record.reqPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.respPacketSize != null" >
+        RESP_PACKET_SIZE = #{record.respPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalRespTime != null" >
+        TOTAL_RESP_TIME = #{record.totalRespTime,jdbcType=REAL},
+      </if>
+      <if test="record.logErrDesc != null" >
+        LOG_ERR_DESC = #{record.logErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logStackTraceId != null" >
+        LOG_STACK_TRACE_ID = #{record.logStackTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_UF_PACKET_LOG
+    set LOG_ID = #{record.logId,jdbcType=BIGINT},
+      PACKET_ID = #{record.packetId,jdbcType=VARCHAR},
+      SRC_PLATFORM_ID = #{record.srcPlatformId,jdbcType=VARCHAR},
+      SRC_SUBSYS_ID = #{record.srcSubsysId,jdbcType=VARCHAR},
+      DEST_PLATFORM_ID = #{record.destPlatformId,jdbcType=VARCHAR},
+      DEST_SUBSYS_ID = #{record.destSubsysId,jdbcType=VARCHAR},
+      DEST_BIZ_CODE = #{record.destBizCode,jdbcType=VARCHAR},
+      PACKET_OPT_TYPE = #{record.packetOptType,jdbcType=INTEGER},
+      PACKET_OPT_STATUS = #{record.packetOptStatus,jdbcType=INTEGER},
+      REQ_PACKET_SIZE = #{record.reqPacketSize,jdbcType=BIGINT},
+      RESP_PACKET_SIZE = #{record.respPacketSize,jdbcType=BIGINT},
+      TOTAL_RESP_TIME = #{record.totalRespTime,jdbcType=REAL},
+      LOG_ERR_DESC = #{record.logErrDesc,jdbcType=VARCHAR},
+      LOG_STACK_TRACE_ID = #{record.logStackTraceId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLog" >
+    update T_UF_PACKET_LOG
+    <set >
+      <if test="packetId != null" >
+        PACKET_ID = #{packetId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcPlatformId != null" >
+        SRC_PLATFORM_ID = #{srcPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="srcSubsysId != null" >
+        SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="destPlatformId != null" >
+        DEST_PLATFORM_ID = #{destPlatformId,jdbcType=VARCHAR},
+      </if>
+      <if test="destSubsysId != null" >
+        DEST_SUBSYS_ID = #{destSubsysId,jdbcType=VARCHAR},
+      </if>
+      <if test="destBizCode != null" >
+        DEST_BIZ_CODE = #{destBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="packetOptType != null" >
+        PACKET_OPT_TYPE = #{packetOptType,jdbcType=INTEGER},
+      </if>
+      <if test="packetOptStatus != null" >
+        PACKET_OPT_STATUS = #{packetOptStatus,jdbcType=INTEGER},
+      </if>
+      <if test="reqPacketSize != null" >
+        REQ_PACKET_SIZE = #{reqPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="respPacketSize != null" >
+        RESP_PACKET_SIZE = #{respPacketSize,jdbcType=BIGINT},
+      </if>
+      <if test="totalRespTime != null" >
+        TOTAL_RESP_TIME = #{totalRespTime,jdbcType=REAL},
+      </if>
+      <if test="logErrDesc != null" >
+        LOG_ERR_DESC = #{logErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logStackTraceId != null" >
+        LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLog" >
+    update T_UF_PACKET_LOG
+    set PACKET_ID = #{packetId,jdbcType=VARCHAR},
+      SRC_PLATFORM_ID = #{srcPlatformId,jdbcType=VARCHAR},
+      SRC_SUBSYS_ID = #{srcSubsysId,jdbcType=VARCHAR},
+      DEST_PLATFORM_ID = #{destPlatformId,jdbcType=VARCHAR},
+      DEST_SUBSYS_ID = #{destSubsysId,jdbcType=VARCHAR},
+      DEST_BIZ_CODE = #{destBizCode,jdbcType=VARCHAR},
+      PACKET_OPT_TYPE = #{packetOptType,jdbcType=INTEGER},
+      PACKET_OPT_STATUS = #{packetOptStatus,jdbcType=INTEGER},
+      REQ_PACKET_SIZE = #{reqPacketSize,jdbcType=BIGINT},
+      RESP_PACKET_SIZE = #{respPacketSize,jdbcType=BIGINT},
+      TOTAL_RESP_TIME = #{totalRespTime,jdbcType=REAL},
+      LOG_ERR_DESC = #{logErrDesc,jdbcType=VARCHAR},
+      LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where LOG_ID = #{logId,jdbcType=BIGINT}
+  </update>
+</mapper>

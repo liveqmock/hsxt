@@ -1,0 +1,86 @@
+﻿<div id="qygsdjxxTpl2" class="none">
+	<div class="view_info info_800">
+		<form id="qygsdjxx_form" name="qygsdjxx_form">
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">企业名称</label>
+						<input id="entCustName" name="entCustName" value="<%=obj.entCustName%>" type="text" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业名称" />
+						<span class="required-left330">*</span>
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">法人代表</label>
+						<input type="text" id="legalPerson" name="legalPerson" value="<%=obj.legalPerson%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入法人代表" />
+						<span class="required-left330">*</span>
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">营业执照注册号</label>
+						<input id="busiLicenseNo" name="busiLicenseNo" value="<%=obj.busiLicenseNo%>" type="text" class="fl w185 h30_middle ml5 isChange" placeholder="输入营业执照号" />
+						<span class="required-left330">*</span>
+					</li>
+					
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">营业期限</label>
+						<input id="endDate" name="endDate" value="<%=obj.endDate%>" type="text" class="fl w185 h30_middle ml5 isChange" id="" placeholder="输入营业期限，不超过50字" />
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">企业地址</label>
+						<input id="entRegAddr" name="entRegAddr" value="<%=obj.entRegAddr%>" type="text" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业地址" />
+						<span class="required-left330">*</span>
+					</li>
+					
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">企业类型</label>
+						<input id="nature" name="nature" value="<%=obj.nature%>" type="text" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业类型" />
+					</li>
+					
+					<li class="register_row clearfix">
+						<label class="fl w115 h30_middle">成立日期</label>
+						<input type="text"  id="buildDate" name=buildDate value="<%=obj.buildDate%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入成立日期" />
+					</li>
+				</ul>
+			</div>
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">经营范围</label>
+					<textarea id="businessScope" name="businessScope" class="fl ml5 h50 w660 rsn pt5 pb5 isChange" placeholder="输入经营范围"><%=obj.businessScope%></textarea>
+				</li>
+			</ul>
+			
+			
+				
+			<ul>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">营业执照扫描件</label>
+				<span id="bimg" class="fl ml5 mt5 sample_img"><img id="busi_license_img2" src="resources/img/noImg.gif" width="81" height="52" /></span>
+			
+				<div class="fl pr mt15 ml10">
+					<input type="hidden" id="busiLicenseImg" name="busiLicenseImg" value="<%=obj.busiLicenseImg%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传
+					<input type="file" id="certificate" name="certificate"></a>
+                	<a href="#" id="case-fileId-3" class="btn_bg viewSample_btn ml10">查看示例图片</a>
+                </div>
+                <!--
+                <div>	
+               	 <span class="required-right-15" style="top:25px;">*</span>
+				</div>
+				-->
+			</li>
+		</ul>
+		
+	
+			
+			<div class="w200 bc mt20 clearfix">
+				<a class="btn_bg submit fl" id="qygsdjxx_xg_btn">保&#12288;存</a>
+				<a class="btn_bg submit fr" id="back_qygsdjxx">取&#12288;消</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div id="qygsdjxx_dialog" class="none" title="工商登记信息修改确认">
+	<p class="autowidth"></p>
+</div>
+<!-- <div id="dialogBox" class="none"></div> -->

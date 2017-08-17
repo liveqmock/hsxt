@@ -1,0 +1,45 @@
+<div class="sideBarBox" id="sideBarBox">
+	<h3 class="sideBarTab bg_blue">业务</h3>
+	<div>
+		<i id="sideBarBtn_up_1" class="sideBar_icon icon_sideBar_up"></i>
+		<div class="sideBar_menu sideBar_menu_h2 pr">
+			<ul id="sideBarMenu_1" class="sideBar_menu_inner pa">
+				<li id="Nav_6"><i class="sideBar_menu_icon icon_sideBar_13"></i><span class="f13">企业系统信息</span></li>
+                <li id="Nav_7"><i class="sideBar_menu_icon icon_sideBar_02"></i><span class="f13">系统安全设置</span></li>
+                <li id="Nav_8"><i class="sideBar_menu_icon icon_sideBar_09"></i><span class="f13">系统用户管理</span></li>
+                <li id="Nav_9"><i class="sideBar_menu_icon icon_sideBar_11"></i><span class="f13">消息中心</span></li>
+			</ul>
+		</div>
+		<i id="sideBarBtn_down_1" class="sideBar_icon icon_sideBar_down"></i>
+	</div>
+	<h3 class="sideBarTab bg_red">知识库</h3>
+	<div>
+		<i id="sideBarBtn_up_2" class="sideBar_icon icon_sideBar_up"></i>
+		<div class="sideBar_menu sideBar_menu_h2 pr">
+			<ul id="sideBarMenu_2" class="sideBar_menu_inner pa">
+				<li><i class="sideBar_menu_icon icon_sideBar_01"></i><span class="f14">交易管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_02"></i><span class="f14">网上商城</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_03"></i><span class="f14">实体店</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_04"></i><span class="f14">商城</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_05"></i><span class="f14">员工</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_06"></i><span class="f14">售后服务</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_07"></i><span class="f14">统计分析</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_08"></i><span class="f14">账户管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_09"></i><span class="f14">我的设备</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_10"></i><span class="f14">任务管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_11"></i><span class="f14">消息中心</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_12"></i><span class="f14">系统管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_13"></i><span class="f14">用户管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_14"></i><span class="f14">信息管理</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_15"></i><span class="f14">投诉建议</span></li>
+				<li><i class="sideBar_menu_icon icon_sideBar_16"></i><span class="f14">安全中心</span></li>
+			</ul>
+		</div>
+		<i id="sideBarBtn_down_2" class="sideBar_icon icon_sideBar_down"></i>
+	</div>
+</div>
+
+
+
+
+   

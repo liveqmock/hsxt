@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpCustidBankcardnoMappingMapper">
+	<resultMap id="BaseResultMap"
+		type="com.gy.hsxt.gp.mapper.vo.TGpCustidBankcardnoMapping">
+		 <id column="MAPPING_ID" property="mappingId" jdbcType="BIGINT" />
+		 <result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		 <result column="BANK_CARD_NO" property="bankCardNo" jdbcType="VARCHAR" />
+		 <result column="BANK_CARD_TYPE" property="bankCardType" jdbcType="INTEGER" />
+		 <result column="BANK_ID" property="bankId" jdbcType="VARCHAR" />
+		 <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		 <result column="BINDING_OK" property="bindingOk" jdbcType="BIT" />
+		 <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		 <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		MAPPING_ID, CUST_ID, BANK_ORDER_NO, BANK_CARD_NO,BANK_CARD_TYPE, BANK_ID, BINDING_OK, CREATED_DATE, UPDATED_DATE
+	</sql>
+	
+	<select id="selectByBankcardnoBankorderno" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_CUSTID_BANKCARDNO_MAPPING
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+		and BANK_CARD_NO=#{bankCardNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByBankcardno" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_CUSTID_BANKCARDNO_MAPPING
+		where BANK_CARD_NO=#{bankCardNo,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpCustidBankcardnoMapping">
+		insert into
+		T_GP_CUSTID_BANKCARDNO_MAPPING (MAPPING_ID, CUST_ID,
+		BANK_ORDER_NO,
+		BANK_CARD_NO, BANK_CARD_TYPE, BANK_ID, BINDING_OK, CREATED_DATE,
+		UPDATED_DATE
+		)
+		values (#{mappingId,jdbcType=BIGINT},
+		#{custId,jdbcType=VARCHAR},
+		#{bankOrderNo,jdbcType=VARCHAR},
+		#{bankCardNo,jdbcType=VARCHAR},#{bankCardType,jdbcType=INTEGER},
+		#{bankId,jdbcType=VARCHAR}, #{bindingOk,jdbcType=BIT},
+		#{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<update id="updateBindingOK">
+		update T_GP_CUSTID_BANKCARDNO_MAPPING
+		set BINDING_OK = #{bindingOk,jdbcType=BIT}
+		where BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR}
+	</update>
+</mapper>

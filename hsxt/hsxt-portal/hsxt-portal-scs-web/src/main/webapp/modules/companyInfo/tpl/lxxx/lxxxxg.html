@@ -1,0 +1,36 @@
+
+							
+		<!-- 资料修改开始 -->
+		<div class="register_info mt40 info_800">
+        	<form id="qylxxx_form" name="qylxxx_form">
+			 
+				<div class="clearfix h280" >
+					<ul class="fl">
+						<li class="register_row info_320 clearfix bg_ef"><label for="name">联系人姓名</label><input type="text" id="name" class="bg_ef" value="<%=obj.contactPerson%>" readonly="readonly"></li>
+						<li class="register_row info_320 clearfix"><label for="name">联系地址</label><input type="text" id="contactAddr" name="contactAddr" value="<%=obj.contactAddr%>" placeholder="输入联系地址" maxlength="100"  ><div class="hint"><!--提示--></div></li>
+						<!--<li class="register_row info_320 clearfix"><label for="name">企业网址</label><input type="text" id="name"  placeholder="输入企业网址" ></li>
+						<li class="register_row info_320 clearfix"><label for="name">办公电话</label><input type="text" id="name"  placeholder="输入办公电话"  ></li>
+						<li class="register_row info_320 clearfix"><label for="name">联系人职务</label><input type="text" id="name"  placeholder="输入联系人职务"  ></li>-->
+						<li class="register_row info_320 clearfix"><label for="name">企业安全邮箱</label><input type="text" id="contactEmail" name="contactEmail" value="<%=obj.contactEmail%>" placeholder="输入企业安全邮箱"  ><!--<a  class="dlgEmail btn_bg submit_btn" style="margin-top:2px;">验证</a>--><div class="hint"><!--提示--></div></li>
+						<!-- <li class="input_item_upload_1 info_320 clearfix mt5 w400">
+						<label for="name">联系人授权委托书</label>
+						<span id="bimg" class="spanfl sample_img"><img id="img-2" src="resources/img/noImg.gif" width="81" height="52"></span>
+                		<a href="javascript:void(0);" id="upload_btn" class="input-file btn_bg upload_btn">上传<input id="certificate" name="certificate" type="file"></a><a href="#" id="certificateFileId" class="btn_bg viewSample_btn">模板下载</a>
+						</li> -->
+					</ul>
+					<ul class="fr">
+						<li class="register_row info_320 clearfix bg_ef"><label for="name">联系人手机</label><input type="text" id="contactPhone" name="contactPhone" class="bg_ef" readonly="readonly" value="<%=obj.contactPhone%>"></li>
+						<li class="register_row info_320 clearfix"><label for="name">邮政编码</label><input type="text" id="postCode" name="postCode" value="<%=obj.postCode%>" placeholder="输入邮政编码"  ><div class="hint"><!--提示--></div></li>
+						
+						<!--<li class="register_row info_320 clearfix"><label for="name">传真号码</label><input type="text" id="name"  placeholder="输入传真号码"  ></li>
+						<li class="register_row info_320 clearfix"><label for="name">企业联系QQ</label><input type="text" id="name"  placeholder="输入企业联系QQ"  ></li>-->
+						
+					</ul>
+				</div>
+                <div class="two_button mt20" align="center"><a  class="btn_bg submit fr" id="backBt_qiyelianxi">取　消</a><a  class="btn_bg submit fl" id="submitBt_qiyelianxi">提　交</a></div>
+			 	<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>">
+			</form>
+        </div>
+		
+		<!-- 资料修改结束 -->
+		

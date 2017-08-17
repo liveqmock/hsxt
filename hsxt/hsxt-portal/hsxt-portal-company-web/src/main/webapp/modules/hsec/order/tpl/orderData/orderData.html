@@ -1,0 +1,223 @@
+<%var param = obj.data.queryResult;
+  var httpUrl = obj.data.httpUrl;
+  var orderStatusList = [98,99,5,4,-1];
+%>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="tableTimeClock" class="table-sale-list">
+          <thead>
+          <tr>
+            <th width="22%" align="left"><div class="pl10 fl">订单信息</div></th>
+            <th width="10%">单价</th>
+            <th width="7%">数量</th>
+            <th width="10%">实付款</th>
+            <th width="8%">消费积分</th>
+			<th width="13%">配送方式</th>
+			<th width="10%">支付方式</th>
+            <th width="10%">交易状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+<%if(null==param && param.length < 0){%>
+    <tr  class="tc">
+        <td colspan="9">没有找到符合条件的数据 </td>
+    </tr>
+<%}else{ try{ $.each(param.result,function(key,el){%>
+          <tr class="orderTr" shopId="<%=el.shopId%>" orderId="<%=el.odId%>" userId="<%=el.userId%>">
+          	<td colspan="9">
+            	<div class="ddlb_ddh">
+                 <ul class="clearfix">
+                   <li class="ddlb_ddhli"><%=el.createTime%></li>
+                   <li class="ddlb_ddhli">订单编号:<%=el.odId%></li>
+                   <li class="ddlb_ddhli"><span class="fb blue">
+		   <%try{%>
+          <%if(el.isCardCustomer == 0){%>
+          		<%if(el.nickName!=null && el.nickName!=""){%>
+		          			<%var allName = el.nickName;%>
+		          			<%if(el.buyerAccountNo!=null && el.buyerAccountNo!=""){%>
+		          				<%=allName+"（"+el.buyerAccountNo.substring(0,3)+"****"+el.buyerAccountNo.substring(7,11)+"）"%>
+		          			<%}else{%>
+		          				<%=allName%>
+		          			<%}%>
+          		<%}else{%>
+          					<%if(el.buyerAccountNo!=null && el.buyerAccountNo!=""){%>
+          						<%=el.buyerAccountNo.substring(0,3)+"****"+el.buyerAccountNo.substring(7,11)%>
+          					<%}%>	
+          		<%}%>
+          <%}else{%>
+          		<%if(el.nickName!=null && el.nickName!=""){%>
+		          			<%var allName = el.nickName;%>
+		          			<%if(el.buyerAccountNo!=null && el.buyerAccountNo!=""){%>
+		          				<%=allName+"（"+el.buyerAccountNo+"）"%>
+		          			<%}else{%>
+		          				<%=allName%>
+		          			<%}%>
+          		<%}else{%>
+          					<%if(el.buyerAccountNo!=null && el.buyerAccountNo!=""){%>
+          						<%=el.buyerAccountNo%>
+          					<%}%>	
+          		<%}%>
+          <%}%>
+          <%}catch(e){}%>
+	  </span></li>
+                   <li class="ddlb_ddhli" title="<%=el.shopName%>"><%=el.shopName%></li>
+                     <%if(el.orderStatus == 3 || el.orderStatus == 10){%>
+   <li class="ddlb_ddhli" id="time<%=key%>">
+	   <div class="box" >
+			<%if(el.orderStatus == 3){%>待收货确认：<%}%><%if(el.orderStatus == 10){%>待确认：<%}%><span class="time_d red"></span>天<span class="time_h red"></span>时<span class="time_m red"></span>分<span class="time_s red"></span>秒
+			<%if(el.orderStatus == 3){%>
+			<%if((el.delayDeliverCount == null || el.delayDeliverCount == "") || (el.delayDeliverCount < obj.data.orderDelayCount)){%>
+			<a href="javascript:;" class="yanchiTime" orderDelayTime = "<%=obj.data.orderDelayTime%>">延迟收货</a>
+			<%}%>
+			<%}%>
+		</div>
+	</li>
+	<%}%>
+	<%if(el.shopDelStatus == 0){%>
+	<%$.each(orderStatusList,function(sk,sv){%>
+	<%if(sv == el.orderStatus){%>
+	<li style="float: right;"><a class="fir_class orderDelete" style="vertical-align:middle;">删除订单</a></li>
+	<%}%>
+	<%})%>
+	<%}%>
+	<%if(el.shopDelStatus == 1){%>
+	<%$.each(orderStatusList,function(sk,sv){%>
+	<%if(sv == el.orderStatus){%>
+	<li style="float: right;"><a class="fir_class orderReturn" style="vertical-align:middle;">订单还原</a>&nbsp;&nbsp;&nbsp;<a class="fir_class orderLongDelete" style="vertical-align:middle;">永久删除</a></li>
+	<%}%>
+	<%})%>
+	<%}%>
+                 </ul>
+                </div>
+                <table style="overflow:hidden;" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table myTable">
+                	<tbody>
+			  <%$.each(el.orderDetailList,function(detKey,detailObj){ %>
+  
+       <% 
+	    var picBig;
+	    try{
+        	var picObj =JSON.parse(detailObj.picUrl)
+         	picBig=httpUrl+picObj["68x68"]
+        }catch(e){
+         	picBig = "";
+        }
+        
+         %>
+			<tr>
+                      <td width="22%">
+                      <div class="clearfix">
+                          <div class="fl mr10"><a href="#"><img src="<%=picBig%>" height="40" class="orderImg"/></a></div>
+                          <div class="fl">
+                              <ul class="tl">
+                              	<li class="w136 eps" title="<%=detailObj.itemName%>"><%=detailObj.itemName%></li>
+                               
+				<%var skus = detailObj.skus.split(",")%>
+			      	<%$.each(skus,function(k,vl){%>
+			       		<li class="mt5"><%=vl%></li>
+			       	<%})%>
+                              </ul>
+                          </div>
+                      </div>
+                      </td>
+                      <td width="10%" align="center"><span class="ico-hsb-18 f12"><%=comm.formatMoneyNumber(detailObj.price)%></span></td>
+                      <td width="7%" align="center"><%=detailObj.quantity%></td>
+			<% if(detKey==0){ %>
+                      <td width="10%" align="center"><span class="ico-hsb-18 f12"><%=comm.formatMoneyNumber(el.actuallyAmount)%></span>
+                        <p>含运费（<%=comm.formatMoneyNumber(el.postAge)%>）</p></td>
+                      <td width="8%" align="center"><span class="ico-pv-14 f12"><%=comm.formatMoneyNumber(el.totalPoints)%></span></td>
+                      <td width="13%" align="center"><% if(el.deliveryType==1){%>
+           快递
+         <%}else if(el.deliveryType==2){%>
+           营业点自提
+        <%}else if(el.deliveryType==3){%>
+            送货上门
+        <%}%> </td>
+                      <td width="10%" align="center"> <% if(el.payType==1){%>
+	         现金
+	      <%}else if(el.payType==3){%>
+             互生币
+          <%}else if(el.payType==4){%>
+             网银
+          <%}%></td>
+                      <td width="10%" align="center">	<%if(el.orderStatus == 3){%>
+    		发货时间:<%=el.sendTime%>
+    		<br/>
+    		<%}%>
+         	<%=el.orderStatusName%>
+         	<%if(el.orderStatus == 1){%>
+         	<br/>
+    		<%=el.paidTime%>
+    		<%}else if(el.orderStatus == 4){%>
+    		<br/>
+    		<%=el.endTime%>	
+    		<%}%></td>
+                      <td id="orderDetail" width="10%" align="center">
+                           	<p><a href="javascript:;" class="orderInfo">查看详情</a></p>
+    	   <% if(el.deliveryType==3 && (el.orderStatus==3 || el.orderStatus==8)){%>
+    	   	 
+	          <br/><p><a class="ddlb_fh printSendOrder" >打印送货单</a></p>
+	      <%}%>
+         <%if(obj.orderStatusStr!=''){%>
+          <% if(el.orderStatus==0 && el.deliveryType!=2){%>
+	      <br/><p><a oldPostage="<%=el.postAge%>" class="ddlb_fh fixDeliverFee" >修改运费</a></p>
+	      <%}%>
+	       <% if(el.orderStatus==1 || el.orderStatus==9){%>
+	         <br/><p><a class="ddlb_fh stocking" >备货</a></p>
+	      <%}%>
+	      <%if(el.orderStatus==2 || el.orderStatus==7){%>
+	      	 <%if(el.deliveryType == 1){%>
+	         <br/><p><a class="ddlb_fh deliverItem" >发货</a></p>
+	         <%}%>
+	         <%if(el.deliveryType == 3){%>
+	         <br/><p><a class="ddlb_fh sendItem" >送货</a></p>
+	         <%}%>
+	      <%}%>
+	       <%if(el.orderStatus==10){%>
+	         <br/><p><a  class="ddlb_fh yesOrder" >确定</a></p>
+	      <%}%>
+	      <% if(el.orderStatus==6){%>
+	           <% if(el.isPayOnDelivery == 1){ %>
+	           <br/><p><a class="ddlb_fh confirmPay" >确定已支付</a></p>
+	           <%}%>
+	           <%if(el.deliveryType == 2 && ("1,3,4").indexOf(el.payType) > -1 && obj.takeCode != -1){%>
+	            <br/><p><a class="ddlb_fh deliveryYes" takeCode ="<%=obj.takeCode%>">确认自提</a></p>
+	          <%}%>
+	      <%}%>
+	      
+	      <% if(el.orderStatus==8){%>
+	          <br/><p><a class="ddlb_fh confirmPay" >确定已支付</a></p>
+	      <%}%>	   
+	      <%}%>
+                      </td>
+<%}%>
+                    </tr>
+<%})%>
+                </tbody></table>
+            </td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+          </tr> 
+	  <% }) }catch(e){} } %>  
+          </tbody>
+          </table>
+<%if(null!=param){%>
+                 <div class="splb_sc">
+<div class=" clearfix">
+<div class="table-page">
+		<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+		<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-act pageOrder" page="<%=param.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/><span class="page-go">页/<%=param.totalPage%>页</span>
+		<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.recoredCount%>条</a>
+</div>
+                        </div>
+        			</div>
+<%}%>
+

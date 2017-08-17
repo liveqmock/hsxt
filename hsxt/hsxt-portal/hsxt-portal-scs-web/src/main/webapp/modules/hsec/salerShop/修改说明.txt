@@ -1,0 +1,5 @@
+1,增加了tab.js,tab.html,
+2,用到原有的html：salerShopList.html,baiduMap.html,其他html根据实际需要修改。
+3,用到原有的js:salerShop.js,map.js
+4,在js中修改了路径：text!hsec_salerShopTpl,hsec_salerShopDat
+5,在common目录下：reqConfig.setLocalPath("tablePoint","hsec");添加了后面的hsec

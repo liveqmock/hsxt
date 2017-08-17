@@ -1,0 +1,87 @@
+<% 
+   var responseState = obj.responseState;
+%>
+<div class="search-cont">
+  <table id="shopMainList" class="search-table" border="0" cellpadding="0" cellspacing="0" width="100%">
+     <thead>
+     <tr>
+          <th class="nobd" width="1%"></th>
+          <th width="15%">营业点名称</th>
+          <th width="9%">营业点类型</th>
+          <th width="35%">营业点地址</th>
+          <th width="10%">商圈</th>
+          <th width="10%">状态</th>
+          <th width="10%">设置菜单名称</th>
+          <th width="20%">操作</th>
+      </tr>
+      </thead>
+  <% 
+  	var param = obj.data;
+  	var menuObj=obj.msg;
+  	if(param != null && param.result != null) {
+  	$.each(param.result,function(key,value){
+  %>  
+     <tr class="<%=key%2!=1?'table-tr-c':''%>" stroeid="<%=value.salerShopStore.id%>">
+       <td class="nobd"><input class="mr5 myDeviler" name="itemInfoChkb" type="checkbox" chkid="<%=value.salerShopStore.id%>" vshopids="<%=value.salerShopStore.vShopId%>" data-type="<%=value.salerShopStore.type%>"></td>
+       <td><%if(value.salerShopStore.type==2) { %> <%=value.salerShopStore.name%>  <%}%></td>
+       <td><%if(value.salerShopStore.type==2) { %> 餐饮  <%} else {%> 零售 <% } %></td>
+       <td><span class="map"><%=value.salerShopStore.addr%></span></td>
+       <td><%
+       var shanquan = null;
+       try{
+      	  shanquan = eval("("+value.salerShopStore.section+")")[1]
+       }catch(e){
+       	  shanquan = value.salerShopStore.section;
+       }
+       %><%=shanquan%></td>
+       <td><%if(value.salerShopStore.status==6) { %> 禁用 <%} else {%> 启用 <% } %></td>
+       <td>   
+   		<%if(value.salerShopStore.type==1) { }else {%>  		
+ 		<%
+          var menu = "";
+          try{
+          	menu = menuObj[value.menuIds[0]];
+          }catch(e){}
+         %>
+   		 <% } %>       
+       	<%=menu !="all"?menu:"全部" %>
+       </td>
+       <td>
+       <!-- 判断商城状态 2015/12/14 wangte  -->
+       <%if(responseState != 600){%>
+       <div  value="<%=value.salerShopStore.id%>" vshopId="<%=value.salerShopStore.vShopId%>" class="caozuo lh24 updateCounterById"><a href="javascript:;" class="<%if(value.salerShopStore.type==2) { %> modefiy <%} else {%> modefiyls <% } %>">修改</a></div>
+       <div  value="<%=value.salerShopStore.id%>" vshopId="<%=value.salerShopStore.vShopId%>" class="caozuo lh24 delCounterById"><a href="javascript:;">删除</a></div>
+	    <%if(value.salerShopStore.type==2) { %> 
+        	<div  value="<%=value.salerShopStore.id%>" vshopId="<%=value.salerShopStore.vShopId%>" class="caozuo lh24 settingsMenu"><a href="javascript:;">设置菜单</a></div>
+       <%}%>
+       <%}%>
+       <!-- 增加详情页面 2015/12/14 wangte -->
+       <div  value="<%=value.salerShopStore.id%>" vshopId="<%=value.salerShopStore.vShopId%>" class="caozuo lh24 lookShopInfo" type="<%=value.salerShopStore.type%>"><a href="javascript:;">查看详情</a></div>  
+       </td>
+     </tr>
+  <% }) } else {%>
+  	<tr align="center"><td colspan="7"><span class="modefiy">暂无数据</span></td></tr>
+  <% } %>
+  </table>
+ </div>
+<% if(param) { %>
+  <div class="mt10 clearfix">
+  <!-- 判断商城状态 2015/12/14 wangte  --> 
+   <%if(responseState != 600){%>
+      	<div id="" class="splb_sclb"><input name="chkAll" id="chkAll" value="" type="checkbox">全选</div>
+		<div id="batchCounterDeletData" class="splb_sclb"><a style='margin-top: 4px;display: block;' href="javascript:;">批量删除</a></div>
+		<div id="batchSttingsDish" class="splb_sclb"><a style='margin-top: 4px;display: block;' href="javascript:;">批量设置菜单</a></div>
+   <%}%>
+  	  <div class="table-page">
+		<a href="javascript:;" class="page-nact" page="1">首页</a>
+		<a href="javascript:;" class="page-nact" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+		<a href="javascript:;" class="page-nact" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+		<a href="javascript:;" class="page-nact" page="<%=param.totalPage%>">末页</a>
+		<span class="page-go">跳到</span>
+		<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/>
+		<span class="page-go">页/<%=param.totalPage%>页</span>
+		<a href="javascript:;" class="page-act" style="cursor:default">共<%=param.recoredCount%>条</a>
+	</div>
+  </div>
+ <% } %>
+    

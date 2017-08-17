@@ -1,0 +1,58 @@
+<div class="search-toolbar">
+  	<ul class="cssform clearfix">
+          <li class="mr20">
+              <label class="title-int">登录用户名：</label>
+              <div class="cont-int">
+              	<input type="text" name="textfield" id="userName" value="" class="input-txt w100">
+              </div> 
+          </li>
+          <li class="mr20">
+              <label class="title-int">姓名：</label>
+              <div class="cont-int">
+              	<input type="text" name="textfield" id="realName" value="" class="input-txt w100">
+              </div> 
+          </li>
+          <li class="mr20">
+              <div class="cont-int">
+              	<button id="searchBtn" type="button" class="btn-search">查询</button>
+              </div>
+          </li>
+          <li class="mr20">
+              <div class="cont-int">
+              	<button id="btn_xzczy" type="button" class="btn-search"  >新增操作员</button>
+              </div>
+          </li>
+       </ul>
+</div>
+<div class="search-cont">
+	<table id="detailTable">
+	    <tr>
+	    <th w_num="line" width="5%">序号</th>
+	    <th w_index="userName" w_tip="true" width="10%">登录用户名</th>
+	    <th w_index="realName" w_tip="true" width="10%">姓名</th>
+	    <th w_index="operDuty" w_tip="true" width="15%">职务</th>
+	    <th w_render="operate" w_tip="true" width="20%">角色</th>
+	    <th w_render="operate" w_tip="true" width="15%">所属用户组</th>
+	    <th w_render="operate" w_tip="true" width="10%">状态</th>
+	    <th w_render="operate" w_tip="true" width="15%">操作</th>
+	    </tr>
+	</table> 
+</div>
+ 
+
+
+
+<div id="jssz_dialog" class="none" title="角色设置" >
+	<p class="autowidth">
+	<table class="bsgrid" id="czygl_rolesTable">
+		<tr>
+			<th w_check="true" w_index="roleId" width="5%"></th>
+			<th  w_render="operate">角色名称</th>
+        	<th w_index="roleDesc">角色描述</th>
+		</tr>
+	</table>
+	</p>
+</div>
+	
+</div>   
+

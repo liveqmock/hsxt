@@ -1,0 +1,67 @@
+<div class="mt40 info_800 bc">
+	<form id="qygsdjxx_form" name="qygsdjxx_form">
+	 
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">企业名称</label>
+					<input type="text" id="entCustName" name="entCustName" readonly="readonly" placeholder="输入企业名称"  maxlength="80" style="width:190px;" class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.entCustName%>" >
+					<span class="must">*</span>
+				</li>
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">法人代表</label>
+					<input type="text" id="legalPerson" name="legalPerson" readonly="readonly" placeholder="输入法人代表"   class="fl w185 h30_middle ml5 bg_ef"  value="<%=obj.legalPerson%>">
+					<span class="must">*</span>
+				</li>
+				
+				
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">营业执照注册号</label>
+					<input type="text" id="busiLicenseNo" name="busiLicenseNo" readonly="readonly" placeholder="输入营业执照号"  class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.busiLicenseNo%>" >
+					<span class="must">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">营业期限</label>
+					<input type="text" id="endDate" name="endDate" maxlength="50" value="<%=obj.endDate%>" style="width:190px;" class="fl w185 h30_middle ml5" placeholder="输入营业期限结束日期"  >
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix bg_ef">
+					<label class="fl w115 h30_middle">企业地址</label>
+					<input type="text" id="entRegAddr" name="entRegAddr" readonly="readonly" placeholder="输入企业地址"  style="width:190px;"  class="fl w185 h30_middle ml5 bg_ef" value="<%=obj.entRegAddr%>" >
+					<span class="must">*</span>
+				</li>
+				
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">企业类型</label>
+					<input type="text" id="nature" name="nature" style="width:190px;" class="fl w185 h30_middle ml5" maxlength="20" value="<%=obj.nature%>" placeholder="输入企业类型"  >
+					<span class="must">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">成立日期</label>
+					<input type="text" id="buildDate" name="buildDate"   class="fl w185 h30_middle ml5" value="<%=obj.buildDate%>" placeholder="输入成立日期"  >
+					<span class="must">*</span>
+				</li>
+			</ul>
+		</div>
+			<ul>
+				<li class="register_row clearfix" style="height:60px;">
+					<label class="fl w115 h60_middle">经营范围</label>
+					<textarea id="businessScope" class="fl ml5 h50 w660 rsn pt5 pb5"  maxlength="300" name="businessScope" placeholder="输入经营范围" ><%=obj.businessScope%></textarea>
+				</li>
+				<!--
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h60_middle">营业执照扫描件</label>
+					<span class="fl ml5 mt5" id="gsdjxxxg_busi_license_span"><img id="gsdjxxxg_busi_license_img" src="resources/img/noImg.gif" width="81" height="52"></span>
+					<div class="fl mt15 ml10">
+						<a class="input-file btn_bg upload_btn">上传
+						<input id="gsdjxxxg_busi_license_file" name="gsdjxxxg_busi_license_file" type="file"></a> 
+					</div>
+					<span class="required-right-15" style="top:25px;"></span> 
+				</li>
+				-->
+			</ul>
+		<div class="two_button mt20" align="center"><a  class="btn_bg submit fr" id="backBt_gongshang">取　消</a><a  class="btn_bg submit fl" id="submitBt_gongshang">保　存</a></div>
+ 		<input type="hidden" id="busiLicenseImg" name="busiLicenseImg" value="<%=obj.busiLicenseImg%>">
+	</form>
+</div>

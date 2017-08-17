@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:util="http://www.springframework.org/schema/util"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xsi:schemaLocation="
+						http://www.springframework.org/schema/beans		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+						http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						http://www.springframework.org/schema/mvc 		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+						http://www.springframework.org/schema/aop 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+						http://www.springframework.org/schema/util		http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+						>
+      
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->  
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+	
+	<!-- 因为spring的context是父子容器，所以会产生冲突，Controller会先进行扫描装配， 而此时的Service还没有进行事务的增强处理，得到的将是原样的Service（没有经过事务加强处理，故而没有事务处理能力） 
+		最后才是applicationContext.xml中的扫描配置进行事务处理 -->
+	<context:component-scan base-package="com.gy.hsxt.*"/>
+	
+	<!-- 不进行拦截的 -->  
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="tld/**" location="tld/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	
+	
+	
+	
+	
+	<!-- 属性配置 -->
+	<bean id="propertyConfigurer"
+		class="com.gy.hsi.ds.param.HsPropertiesConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+		    <list>
+			  	<value>file:${user.dir}/conf/hsxt-access-web-person/hsi-lc.properties</value>
+				<value>file:${user.dir}/conf/hsxt-access-web-person/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsxt-access-web-person/hsi-fs.properties</value>
+				<value>file:${user.dir}/conf/hsxt-access-web-person/redis.properties</value>
+				<value>file:${user.dir}/conf/hsxt-access-web-person/hsxt-access-web-person.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<!-- SpringMVC上传文件时,需配置MultipartResolver处理器 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- 指定所上传文件的总大小不能超过5*4M......注意maxUploadSize属性的限制不是针对单个文件,而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="20971520"/>  
+    </bean>
+    
+    <!-- 初始化文件系统 -->
+	<bean class="com.gy.hsi.fs.client.FS" init-method="init"></bean>
+    
+	<!-- SpringMVC在超出上传文件限制时,会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->  
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的,而且此时还没有进入到Controller方法中 -->  
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+        <property name="exceptionMappings">  
+            <props>  
+                <!-- 遇到MaxUploadSizeExceededException异常时,自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->  
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>  
+            </props>  
+        </property>  
+    </bean>  
+
+	<!-- spring json -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	   <property name="messageConverters">
+		   <list>
+			   <ref bean="jsonConverter" />
+		   </list>
+	   </property>
+	</bean>
+
+	<bean id="jsonConverter"  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	   <property name="supportedMediaTypes" value="application/json" />
+	   <!-- 为null字段时不显示 -->
+       <!-- <property name="serializationInclusion">
+           <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+       </property>  -->
+	</bean>
+	
+	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"  
+        p:ignoreDefaultModelOnRedirect="true" >  
+            <property name="messageConverters">  
+                <list>  
+                    <ref bean="jsonConverter" />
+                </list>  
+            </property>  
+      </bean> 
+	
+	<!--配置拦截器, 多个拦截器,顺序执行 --> 
+	<mvc:interceptors>  
+		<mvc:interceptor>  
+			<!-- 所有文件夹及里面的子文件夹 -->
+			<mvc:mapping path="/**"/>
+			<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+			<bean class="com.gy.hsxt.access.web.person.interceptor.TokenInterceptor"></bean>  
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+        
+        
+	<!-- 日志请求参数一处理 -->
+	<aop:aspectj-autoproxy />
+	<bean id="requestParamLogAspect" class="com.gy.hsxt.access.web.person.aop.RequestParamLogAspect"/>
+	 
+     <!-- <context:property-placeholder location="file:${user.dir}/conf/hsxt-ac-config.properties" ignore-unresolvable="true"/> -->
+
+	 <import resource="classpath:spring/spring-consumer.xml" />
+	 <import resource="classpath:spring/hsxt-redis-spring.xml" />
+	   
+	 <bean id="lcsClient" class="com.gy.hsxt.lcs.client.LcsClient">
+		<property name="redisUtil" ref="fixRedisUtil" /><!--注入redis缓存工具类-->
+		<property name="baseDataService" ref="lcsBaseDataService" /><!--注入LCS dubbo服务-->
+	</bean>
+	<bean id="personConfigService"
+		class="com.gy.hsxt.access.web.person.services.common.PersonConfigService">
+		<property name="imgCodeFixed" value="${img.code.isFixed}" />
+	</bean>
+</beans>
+ 

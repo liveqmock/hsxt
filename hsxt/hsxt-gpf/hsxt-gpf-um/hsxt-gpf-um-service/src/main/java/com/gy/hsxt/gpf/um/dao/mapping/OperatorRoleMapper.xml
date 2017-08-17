@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IOperatorRoleMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="operatorRoleResult" type="com.gy.hsxt.gpf.um.bean.OperatorRole">
+        <id property="operatorId" column="OPERATOR_ID"/>
+        <id property="roleId" column="ROLE_ID"/>
+    </resultMap>
+
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.OperatorRole">
+        INSERT INTO T_UM_OPERATOR_ROLE (
+            OPERATOR_ID,
+            ROLE_ID
+        ) VALUES (
+            #{operatorId},
+            #{roleId}
+        )
+    </insert>
+    <!--  批量数据插入 -->
+    <insert id="batchInsertForOperator" parameterType="com.gy.hsxt.gpf.um.bean.OperatorRole">
+        INSERT INTO T_UM_OPERATOR_ROLE (
+            OPERATOR_ID,
+            ROLE_ID
+        ) VALUES
+        <foreach collection="addRoleIds" item="roleId" separator=",">
+            (
+            #{operatorId},
+            #{roleId}
+            )
+        </foreach>
+    </insert>
+    <!--  批量数据删除 -->
+    <delete id="batchDeleteForOperator" parameterType="com.gy.hsxt.gpf.um.bean.OperatorRole">
+        DELETE FROM T_UM_OPERATOR_ROLE WHERE OPERATOR_ID = #{operatorId} AND ROLE_ID IN (
+        <foreach collection="delRoleIds" item="roleId" separator=",">
+            #{roleId}
+        </foreach>
+        )
+    </delete>
+    <!--  批量数据删除 -->
+    <delete id="batchDeleteByOperatorId" parameterType="string">
+        DELETE FROM T_UM_OPERATOR_ROLE WHERE OPERATOR_ID = #{operatorId}
+    </delete>
+    <!--  批量数据删除 -->
+    <delete id="batchDeleteByRoleId" parameterType="string">
+        DELETE FROM T_UM_OPERATOR_ROLE WHERE ROLE_ID = #{roleId}
+    </delete>
+
+    <!-- 根据查询实体查询操作员角色关系列表 -->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.gpf.um.bean.OperatorRoleQuery" resultMap="operatorRoleResult">
+        SELECT t.*
+        FROM T_UM_OPERATOR_ROLE t
+        WHERE 1 = 1
+        <if test="operatorId != null and operatorId != ''">
+            AND t.OPERATOR_ID = #{operatorId}
+        </if>
+        <if test="roleId != null and roleId != ''">
+            AND t.ROLE_ID = #{roleId}
+        </if>
+    </select>
+    <!-- 根据查询实体查询操作员角色名称列表 -->
+    <select id="selectRoleNamesByQuery" parameterType="com.gy.hsxt.gpf.um.bean.OperatorRoleQuery" resultType="string">
+        SELECT r.ROLE_NAME
+        FROM T_UM_OPERATOR_ROLE t
+        JOIN T_UM_ROLE r ON r.ROLE_ID = t.ROLE_ID
+        WHERE  t.OPERATOR_ID = #{operatorId}
+    </select>
+
+</mapper>

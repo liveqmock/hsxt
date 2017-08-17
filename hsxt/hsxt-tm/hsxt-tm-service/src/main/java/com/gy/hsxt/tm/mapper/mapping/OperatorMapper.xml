@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.OperatorMapper">
+	<!-- 基础map -->
+	<resultMap type="com.gy.hsxt.tm.bean.CustomOperator" id="BaseOperatorResultMap">
+		<id column="OPT_CUST_ID" property="optCustId" />
+		<result column="operator_name" property="operatorName" />
+		<result column="OPT_WORK_NO" property="optWorkNo" />
+		<result column="group_name" property="groupName" />
+		<result column="GROUP_TYPE" property="groupType" />
+		<result column="WORK_TYPE" property="workType" />
+	</resultMap>
+	<resultMap type="com.gy.hsxt.tm.bean.Operator" id="operatorResultMap">
+		<id column="OPT_CUST_ID" property="optCustId" />
+		<result column="GROUP_ID" property="groupId" />
+		<result column="OPT_WORK_NO" property="optWorkNo" />
+		<result column="NAME" property="operatorName" />
+	</resultMap>
+
+	<!-- 查询值班员及排班计划map -->
+	<resultMap type="com.gy.hsxt.tm.bean.Operator" id="OperatorsAndScheduleOptsResultMap">
+		<id column="OPT_CUST_ID" property="optCustId" />
+		<result column="GROUP_ID" property="groupId" />
+		<result column="OPT_WORK_NO" property="optWorkNo" />
+		<result column="NAME" property="operatorName" />
+
+		<collection property="scheduleOpts" ofType="com.gy.hsxt.tm.bean.ScheduleOpt">
+			<id column="SCHEDULE_ID" property="scheduleId" />
+			<id column="OPT_CUST_ID" property="optCustId" />
+			<id column="PLAN_DATE" property="planDate" />
+			<result column="WORK_TYPE" property="workType" />
+			<result column="WORK_TYPE_TEMP" property="workTypeTemp" />
+		</collection>
+	</resultMap>
+	<!-- 操作员详细信息map -->
+	<resultMap type="com.gy.hsxt.tm.bean.CustomOperator" id="OperatorDetailResultMap">
+		<id column="OPT_CUST_ID" property="optCustId" />
+		<result column="operator_name" property="operatorName" />
+		<result column="OPT_WORK_NO" property="optWorkNo" />
+		<result column="group_name" property="groupName" />
+		<result column="GROUP_TYPE" property="groupType" />
+		<result column="WORK_TYPE" property="workType" />
+		<!-- 关联查询出组下面的业务类型 -->
+		<collection property="bizTypes" ofType="com.gy.hsxt.tm.bean.BizType">
+			<id column="BIZ_TYPE" property="bizType" />
+			<result column="BIZ_TYPE_NAME" property="bizTypeName" />
+		</collection>
+		<!-- 关联查询出组下面的业务类型 -->
+		<collection property="scheduleOpts" ofType="com.gy.hsxt.tm.bean.ScheduleOpt">
+			<id column="SCHEDULE_ID" property="scheduleId" />
+			<id column="OPT_CUST_ID" property="optCustId" />
+			<id column="PLAN_DATE" property="planDate" />
+			<result column="WORK_TYPE" property="workType" />
+			<result column="WORK_TYPE_TEMP" property="workTypeTemp" />
+		</collection>
+	</resultMap>
+
+	<!-- 保存值班员 -->
+	<insert id="insertOperator" parameterType="com.gy.hsxt.tm.bean.Operator">
+		INSERT INTO
+		T_TM_OPERATOR
+		(
+		OPT_CUST_ID,
+		GROUP_ID,
+		OPT_WORK_NO,
+		NAME,
+		CHIEF
+		)
+		VALUES
+		(
+		#{optCustId},
+		#{groupId},
+		#{optWorkNo},
+		#{operatorName},
+		<if test="chief == null">
+			0
+		</if>
+		<if test="chief != null">
+			#{chief}
+		</if>
+		)
+	</insert>
+
+	<!-- 修改值班员 -->
+	<update id="updateOperator" parameterType="com.gy.hsxt.tm.bean.Operator">
+		UPDATE
+		T_TM_OPERATOR
+		SET
+		GROUP_ID = #{groupId},
+		OPT_WORK_NO = #{optWorkNo},
+		NAME =
+		#{operatorName},
+		CHIEF = #{chief}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+	</update>
+
+	<!-- 修改值班员的值班组 -->
+	<update id="updateOperatorGroup">
+		UPDATE
+		T_TM_OPERATOR
+		SET
+		CHIEF = #{isChief}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+		and GROUP_ID = #{groupId}
+	</update>
+
+	<!-- 重置值班员的值班组 -->
+	<update id="resetOperatorGroup">
+		UPDATE
+		T_TM_OPERATOR
+		SET
+		GROUP_ID = '',
+		CHIEF = 0
+		WHERE
+		GROUP_ID = #{groupId}
+	</update>
+
+	<!-- 修改值班组主任 -->
+	<update id="updateChief">
+		UPDATE
+		T_TM_OPERATOR
+		SET
+		CHIEF = #{chief}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+	</update>
+
+	<!-- 修改操作员名称 -->
+	<update id="updateOperatorName">
+		UPDATE
+		T_TM_OPERATOR
+		SET
+		NAME = #{optName}
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+	</update>
+
+	<!-- 查询值班员列表 -->
+	<select id="findOperatorList" resultType="com.gy.hsxt.tm.bean.Operator">
+		SELECT
+		OPT_CUST_ID AS
+		optCustId,
+		GROUP_ID AS groupId,
+		OPT_WORK_NO AS optWorkNo,
+		NAME AS
+		operatorName,
+		CHIEF AS chief
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		GROUP_ID = #{groupId}
+	</select>
+
+	<!-- 查询值班员列表 -->
+	<select id="findOperatorListByEntCustId" resultType="com.gy.hsxt.tm.bean.Operator">
+		select o.OPT_CUST_ID AS optCustId,
+		o.OPT_WORK_NO AS optWorkNo,
+		o.NAME AS
+		operatorName
+		from (
+		select t.OPT_CUST_ID
+		from T_TM_BIZ_TYPE_AUTH t
+		where
+		t.BIZ_TYPE in
+		<foreach collection="bizTypeList" item="bizType" open="("
+			separator="," close=")">
+			#{bizType}
+		</foreach>
+		group by t.OPT_CUST_ID
+		having count(*) = #{bizTypeCount}) t3,
+		t_tm_operator o,
+		T_TM_GROUP g,
+		t_tm_schedule ts,
+		T_TM_SCHEDULE_OPT tso,
+		t_Tm_Work_Type wt
+		where 1 = 1
+		and t3.opt_cust_id = o.opt_cust_id
+		and o.group_id = g.group_id
+		and ts.group_id = g.group_id
+		and tso.schedule_id = ts.schedule_id
+		and o.opt_cust_id = tso.opt_cust_id
+		and tso.work_type = wt.work_type
+		and wt.work_type in (1, 2)
+		and to_char(tso.plan_date, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+		and to_char(sysdate, 'hh24mi') &lt;= to_char(wt.work_off_time, 'hh24mi')
+		and to_char(sysdate, 'hh24mi') >= to_char(wt.work_on_time, 'hh24mi')
+		and g.opened = 1
+		and ts.status = 2
+		AND g.ent_cust_id = #{entCustId}
+		group by o.OPT_CUST_ID,
+		o.OPT_WORK_NO, o.NAME
+	</select>
+
+	<!-- 查询值班员信息 -->
+	<select id="findOperatorInfo" resultType="com.gy.hsxt.tm.bean.Operator">
+		SELECT
+		OPT_CUST_ID AS
+		optCustId,
+		GROUP_ID AS groupId,
+		OPT_WORK_NO AS optWorkNo,
+		NAME AS
+		operatorName,
+		CHIEF AS chief
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		OPT_CUST_ID =
+		#{optCustId}
+		and rownum=1
+	</select>
+	
+	<!-- 查询值班员信息 -->
+	<select id="findOperatorById" resultType="int">
+		SELECT
+		count(*)
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		OPT_CUST_ID = #{optCustId}
+	</select>
+
+	<!-- 查询值班员信息 -->
+	<select id="findGroupOperatorInfo" resultType="com.gy.hsxt.tm.bean.Operator">
+		SELECT
+		OPT_CUST_ID
+		AS optCustId,
+		GROUP_ID AS groupId,
+		OPT_WORK_NO AS optWorkNo,
+		NAME AS
+		operatorName,
+		CHIEF AS chief
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		OPT_CUST_ID = #{
+		optCustId }
+		AND GROUP_ID = #{ groupId }
+	</select>
+
+	<!-- 查询值班员信息 -->
+	<select id="findOperator" resultType="com.gy.hsxt.tm.bean.CustomOperator">
+		SELECT
+		op.opt_cust_id as
+		optCustId,
+		op.OPT_WORK_NO as optWorkNo,
+		op.name as operatorName,
+		gr.name
+		as groupName,
+		gr.GROUP_TYPE as groupType
+		FROM
+		T_TM_OPERATOR op,
+		T_TM_GROUP gr
+		WHERE
+		op.GROUP_ID = gr.GROUP_ID
+		and gr.GROUP_ID =
+		#{groupId}
+		AND op.OPT_CUST_ID =
+		#{optCustId}
+	</select>
+
+	<!-- 查询值班员信息 -->
+	<select id="findOperatorInfoResMap" resultMap="OperatorDetailResultMap">
+		SELECT
+		op.*,
+		gr.*,
+		sc.*,
+		bt.*
+		FROM
+		T_TM_OPERATOR op,
+		T_TM_GROUP gr,
+		T_TM_SCHEDULE_OPT sc,
+		T_TM_BIZ_TYPE_AUTH ta,
+		T_TM_BIZ_TYPE bt
+		WHERE
+		op.GROUP_ID = gr.GROUP_ID
+		AND op.OPT_CUST_ID = sc.OPT_CUST_ID
+		AND op.OPT_CUST_ID =
+		ta.OPT_CUST_ID
+		AND ta.BIZ_TYPE = bt.BIZ_TYPE
+		AND op.OPT_CUST_ID =
+		#{optCustId}
+	</select>
+
+	<!-- 查询值班员信息及排班信息 -->
+	<select id="findOperatorsAndScheduleOptsResMap" resultMap="OperatorsAndScheduleOptsResultMap">
+		select
+		opt.OPT_CUST_ID,
+		opt.NAME,
+		to_char(tso.plan_date,'dd') as
+		plan_date,
+		tso.*
+		from
+		T_TM_OPERATOR opt
+		left JOIN
+		T_TM_SCHEDULE ts
+		on
+		opt.group_id = ts.group_id
+		left join
+		T_TM_SCHEDULE_OPT tso
+		on
+		ts.schedule_id = tso.schedule_id
+		<where>
+			and opt.GROUP_ID = #{groupId}
+			<if test="planYear!=null and planYear!=''">
+				and ts.PLAN_YEAR = #{planYear}
+			</if>
+			<if test="planMonth!=null and planMonth!=''">
+				and ts.PLAN_MONTH = #{planMonth}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询值班员信息无排班信息 -->
+	<select id="findOperatorsNoScheduleOpts" resultMap="operatorResultMap">
+		select
+		opt.GROUP_ID,
+		opt.OPT_CUST_ID,
+		opt.NAME
+		from
+		T_TM_OPERATOR opt
+		left JOIN
+		T_TM_SCHEDULE ts
+		on opt.group_id = ts.group_id
+		left join
+		T_TM_SCHEDULE_OPT tso
+		on
+		ts.schedule_id = tso.schedule_id
+		where
+		opt.GROUP_ID = #{groupId}
+		group by opt.GROUP_ID,
+		opt.OPT_CUST_ID
+	</select>
+
+	<!-- 获取当前值班员 -->
+	<select id="findOnLineOperator" resultType="com.gy.hsxt.tm.bean.Operator">
+		SELECT
+		o. NAME AS
+		operatorName,
+		o.OPT_CUST_ID AS optCustId
+		FROM
+		T_TM_OPERATOR o,
+		T_TM_GROUP
+		tg,
+		T_TM_SCHEDULE ts,
+		T_TM_SCHEDULE_OPT so,
+		T_TM_WORK_TYPE wt
+		WHERE
+		tg.ENT_CUST_ID = #{entCustId}
+		AND tg.OPENED = 1
+		AND tg.GROUP_ID =
+		ts.GROUP_ID
+		AND ts.
+		STATUS = 2
+		AND ts.SCHEDULE_ID = so.SCHEDULE_ID
+		AND
+		so.PLAN_DATE = to_char(sysdate,'yyyy-MM-dd')
+		AND so.WORK_TYPE =
+		wt.WORK_TYPE
+		AND so.WORK_TYPE = #{workType}
+		GROUP BY
+		o. NAME,
+		o.OPT_CUST_ID
+	</select>
+
+	<!-- 根据企业客户号查询当前值班员列表 -->
+	<select id="findWorkOnOperatorByEntCustId" resultType="string">
+		select
+		o.OPT_CUST_ID
+		from 
+		t_tm_operator o,
+    	T_TM_GROUP g,
+		t_tm_schedule ts,
+		T_TM_SCHEDULE_OPT tso,
+		t_Tm_Work_Type wt
+		where 1 = 1
+		and o.group_id = g.group_id
+		and ts.group_id = g.group_id
+		and tso.schedule_id = ts.schedule_id
+		and o.opt_cust_id = tso.opt_cust_id
+		and tso.work_type = wt.work_type
+		and wt.work_type in (1, 2)
+		and to_char(tso.plan_date, 'yyyyMMdd') = to_char(sysdate, 'yyyyMMdd')
+		and to_char(sysdate, 'hh24mi') &lt;= to_char(wt.work_off_time, 'hh24mi')
+		and to_char(sysdate, 'hh24mi') >= to_char(wt.work_on_time, 'hh24mi')
+		and g.opened = 1
+		and ts.status = 2
+		and g.ent_cust_id = #{entCustId}
+		group by o.OPT_CUST_ID
+	</select>
+
+	<!-- 获取当前授权值班员列表 -->
+	<select id="findAuthOperator" resultType="com.gy.hsxt.tm.bean.Operator">
+		SELECT
+		o.OPT_CUST_ID AS
+		optCustId
+		FROM
+		T_TM_OPERATOR o,
+		T_TM_BIZ_TYPE_AUTH ta
+		WHERE
+		o.opt_cust_id =
+		ta.opt_cust_id
+		AND ta.biz_type = #{bizType}
+		AND o.opt_cust_id =
+		#{optCustId}
+		and rownum = 1
+	</select>
+
+	<!-- 删除值班组员 -->
+	<delete id="deleteOperator">
+		DELETE
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		OPT_CUST_ID =
+		#{optCustId}
+		AND GROUP_ID = #{groupId}
+	</delete>
+
+	<!-- 删除值班组员 -->
+	<delete id="deleteOperatorById">
+		DELETE
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		OPT_CUST_ID =
+		#{optCustId}
+	</delete>
+
+	<!-- 根据操作员编号删除值班员 -->
+	<delete id="deleteOperatorByOptCustId">
+		DELETE
+		FROM
+		T_TM_OPERATOR
+		WHERE
+		GROUP_ID = #{groupId}
+		AND OPT_CUST_ID
+		<foreach collection="optCustIds" item="custId" open="not in("
+			close=")" separator=",">
+			#{custId}
+		</foreach>
+	</delete>
+
+	<!-- 查询操作员是否是值班主任 -->
+	<select id="findOperatorIsChief" resultType="int">
+		select count(*) from
+		T_TM_OPERATOR t,t_tm_group g where t.group_id = g.group_id and
+		g.opened=1 and t.OPT_CUST_ID=#{optCustId} and t.CHIEF = 1 and rownum
+		=1
+	</select>
+	
+	<select id="findOperatorInGroupIsChief" resultType="int">
+		select count(*) from
+		T_TM_OPERATOR t,t_tm_group g 
+		where 
+		t.group_id = g.group_id 
+		and g.opened=1 
+		and t.CHIEF = 1
+	    and g.group_id = #{groupId}
+		and t.OPT_CUST_ID=#{optCustId} 
+		and rownum =1
+	</select>
+</mapper>

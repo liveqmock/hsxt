@@ -1,0 +1,126 @@
+ 
+
+
+
+
+<div class="register_info w600" id="cyqyzgzx_1" >
+<form id="upload_form" name="upload_form">
+ 
+	<ul>
+	<li class="register_row clearfix bg_ef" style="width:450px;"><label for="name">企业名称</label><div class="cont-chk tbox2" id="entName-1">
+		
+	</div></li>
+ 
+	
+	<li class="input_item_upload_1 clearfix mt5 pr " style="float:none;width:450px;height:120px;">
+			<label for="name"  style="height:120px;">附件上传</label>
+			<table style="width:325px;">
+				<tr>
+					<td width="33%" align="center">其它附件</td>
+					<td width="33%" align="center"><div class="p5">企业实地考察报告</div></td>
+					<td width="33%" align="center"><div class="p5">企业双方声明文件</div></td>
+				</tr>
+				<tr>
+					<td>
+						<span id="preview-1" class="spanfl sample_img">
+							<img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						</span>
+					</td>
+					<td>
+						<span id="preview-2" class="spanfl sample_img">
+							<img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						</span>
+					</td>
+					<td>
+						<span id="preview-3" class="spanfl sample_img">
+							<img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5">
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td><a class="input-file btn_bg upload_btn" style="margin-top: 5px;">上传<input type="file" id="otherFile" name="otherFile" class="width:60px;"></a></td>
+					<td><a class="input-file btn_bg upload_btn" style="margin-top: 5px;">上传<input type="file" id="reportFile" name="reportFile" class="width:60px;"></a></td>
+					<td><a class="input-file btn_bg upload_btn" style="margin-top: 5px;">上传<input type="file" id="statementFile" name="statementFile" class="width:60px;"></a></td>
+				</tr>
+			</table>
+			
+			<!--div class="sample_img inline-block h100"><img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5"><br>
+				<a class="input-file btn_bg upload_btn">上传<input type="file"></a>
+			</div-->  
+			 
+	</li>
+	<li class="register_row clearfix pr" style="height:60px;width:450px;">
+		<label for="name" style="width:115px;height:60px;">申请原因</label>
+		<textarea class="w300 input_gray" style="width:315px;" id="applyReason" name="applyReason" placeholder="请输入申请原因，不超过300字"></textarea>
+		<div class="hint red mt15" style="left:1010px;margin-top: 40px;">* </div>
+	</li>
+	</ul>
+ 
+</form>
+
+ <div class="warmTips" style="width: 600px; margin: 10px auto;">
+    	<div class="red">温馨提示：</div>
+        <ul style="width:680px;">       
+            <li style="border:solid 0px;height: 20px;">1、此业务办理仅用于因企业自身关停而无法面向消费者经营时使用；</li>
+            <li style="border:solid 0px;height: 20px;">2、此业务办理一旦提交成功互生成员企业资格将被注销、原签定成员企业系统购买合同作废；</li>
+            <li style="border:solid 0px;height: 20px;">3、此业务一经提交办理成功，将永不得撤回，请慎重！</li>
+            <li style="border:solid 0px;height: 20px;">4、此业务提交后将由服务公司实地考核以及平台审核，在此期间所有互生消费积分终端、网上商城将停止使用；</li>
+            <li  style="border:solid 0px;height: 20px;">5、此业务办理成功后，互生系统所有账户现有的余额将自动转入您指定的银行账户<!--，但已投入慈善救助金和已投资的积分及其未来分红不可取回-->；</li>
+            <li  style="border:solid 0px;height: 20px;">6、此业务办理需要根据模板要求上传业务办理申请书；</li>
+            <li  style="border:solid 0px;height: 20px;">7、此业务申请办理的处理时间约为15个工作日。</li>
+        </ul>
+    </div>
+    <div class="mt10 mb10 tc"><a  id="btn_cyqyzgzx_xyb" class="btn_bg submit">下一步</a></div>
+</div>
+
+</div> 
+
+
+
+
+<form id="bank_form" name="bank_form">
+<div class="view_info bc info_500 none mt30" id="cyqyzgzx_2">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable"> 
+    <tbody><tr>
+        <td class="view_item" width="30%">银行账户</td>
+        <td class="view_text pr" width="70%" style="background: #fff;">
+		 	<div class="cont-chk tbox2 combobox_style cyqyzg_bank_select" >
+				 <select id="cyqyzg_bank" name="cyqyzg_bank" ></select>
+			</div>
+			<span class="red pa" style="left:355px;top:15px;">*</span>
+		</td>
+    </tr>
+    <tr>
+        <td class="view_item">账户名称</td>
+        <td class="view_text" id="entName-2"></td>
+    </tr>
+    <tr>
+        <td class="view_item">开户银行</td>
+        <td class="view_text" id="bankName"></td>
+    </tr>
+    <tr>
+        <td class="view_item">开户地区</td>
+        <td class="view_text" id="placeName"></td>
+    </tr>
+    <tr>
+        <td class="view_item">银行账号</td>
+        <td class="view_text red" id="bankAcct"></td>
+    </tr>
+    <tr>
+        <td class="view_item">结算币种</td>
+        <td class="view_text"><span class="red" id="currencyText"></span></td>
+    </tr>
+</tbody></table>
+
+<div class="mt20 tc"><a  id="btn_cyqyzgzx_syb" class="btn_bg submit w250 mr30 inline-block">上一步</a><a id="btn_cyqyzgzx_tj" class="btn_bg submit w250 inline-block">提　交</a>
+	
+</div>
+</div>
+
+</form>
+
+<input id="acctId" type="hidden"/><!-- 银行ID -->
+<input id="file_id_1" type="hidden"/><!-- 其它附件 -->
+<input id="file_id_2" type="hidden"/><!-- 企业实地考察报告 -->
+<input id="file_id_3" type="hidden"/><!-- 企业双方声明文件 -->
+

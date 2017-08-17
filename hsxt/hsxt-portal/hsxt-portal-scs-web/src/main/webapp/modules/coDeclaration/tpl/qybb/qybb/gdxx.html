@@ -1,0 +1,64 @@
+ 
+   <div class="billstyle p10">
+   <form id="gd_form" name="gd_form">
+	<h1 class="billnl fb">添加股东</h1>
+    <ul class="cssform clearfix mt10">
+        <li class="mr10">
+            <label class="title-int">股东名称/姓名：</label>
+            <div class="cont-int">
+            	<input type="text" name="shName" id="shName" placeholder="输入股东名称/姓名" class="input-txt input_gray w100">
+            	<input type="hidden" name="filingShId" id="filingShId" value="">
+            </div> 
+        </li>
+        <li class="mr10">
+            <label class="title-int">股东性质：</label>
+            <div class="cont-chk w120">
+                  <input id='shType' name="shType" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"  />
+            </div> 
+        </li>
+        <li class="mr10">
+            <label class="title-int">证件类型：</label>
+            <div class="cont-chk w90">
+                  <input id="idType" name="idType" placeholder="--请选择--" options="[]" optionValue=""  readonly="readonly"  />
+            </div> 
+        </li>
+        <li class="mr10">
+            <label class="title-int">证件号码：</label>
+            <div class="cont-int">
+            	<input type="text" name="idNo" id="idNo" placeholder="输入证件号码"   class="input-txt input_gray w80">
+            </div> 
+        </li>
+        <li class="mr10">
+            <label class="title-int">联系电话：</label>
+            <div class="cont-int">
+            	<input type="text" name="phone" id="phone" placeholder="输入联系电话"  class="input-txt input_gray w80">
+            </div> 
+        </li>
+        <li>
+            <div class="cont-int">
+            	<button id="saveBtn" type="button" class="btn-search">添加</button>
+            </div>
+        </li>
+     </ul>
+     </form>
+</div>
+
+			<div class="search-toolbar">
+	<span class="f12">股东信息列表</span>
+</div>
+<div class="search-cont">
+	<table id="tableDetail2" class="bsgrid">
+		 <tr>
+		    <th w_index="xh" w_render="operate">序号</th>
+		    <th w_index="shName">股东名称/姓名</th>
+		    <th w_index="shType" w_render="operate">股东性质</th>
+		    <th w_index="idType" w_render="operate">证件类型</th>
+		    <th w_index="idNo">证件号码</th>
+		    <th w_index="phone">联系电话</th>
+		    <th w_render="operate">操作</th>
+		  </tr>
+   </table>
+ 
+
+</div>
+ 

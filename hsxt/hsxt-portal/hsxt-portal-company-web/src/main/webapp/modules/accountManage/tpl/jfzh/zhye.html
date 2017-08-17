@@ -1,0 +1,31 @@
+﻿<div class="acct-ct h220">
+	<h1 class="acct-tips bc" style="width:320px;text-align:left;">
+        <span class="tcr_blue fb">温馨提示：</span><br/>
+        1、可用积分数 = 积分账户余数 - <span><%=obj.baodi%></span>（保底积分数）；<br/>2、保底积分用于确保消费积分撤单、退货交易的顺利进行。
+    </h1>
+    <p class="acct-line"></p>
+	<ul class="acctno-box w472 bc pt20">
+        <li class="clearfix">
+            <i class="acctno-icon icon-jfzh"></i>
+            <div class="acctno-dd tc">
+                <h1 class="f16 fb gray">积分账户余数</h1>
+                <span class="f24 red fari"><%=obj.pointAcct||0%></span>
+            </div>
+            <div class="acctno-detail">
+            	<table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin-top:14px;">
+					<tr>
+						<td align="left" height="30">可用积分数</td>
+						<td align="right"><%=obj.usablePointNum||0%></td>
+					</tr>
+					<tr>
+						<td align="left" height="30">昨日积分数</td>
+						<td align="right"><%=obj.yesterdayNewPoint||0%></td>
+					</tr>
+				</table>
+<!--                 <h1 class="f12 ml10 lh150 mt24">可用积分数<span class="ml5"><%=obj.usablePointNum||0%></span></h1> -->
+<!--                 <h2 class="f12 ml10 lh150">昨日积分数<span class="ml5"><%=obj.yesterdayNewPoint||0%></span></h2> -->
+            </div>
+        </li>
+    </ul>
+</div>   
+<div class="mt20 tc"><a id="pointFlush" href="javascript:;" class="btn_bg submit">刷&#12288;新</a></div>

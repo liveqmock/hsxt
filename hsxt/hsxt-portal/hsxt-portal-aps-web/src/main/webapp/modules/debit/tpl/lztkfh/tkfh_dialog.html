@@ -1,0 +1,19 @@
+<div class="info_320 bc">
+	<form id="tkfh_form" autocomplete="off">
+		<ul>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">复核信息</label>
+				<textarea maxlength="300" name="apprRemark" class="fl ml5 h50 w185 rsn pt5 pb5" placeholder="输入复核信息，不超过300字"></textarea>
+				<span class="required-left330" style="top:25px;">*</span>
+			</li>
+			<li class="register_row clearfix">
+			<label class="fl w115 h30_middle">复核结果</label>
+			<div class="fl h30_middle">
+				<input type="radio" name="status" value="1" class="ml20" checked="checked"> 通过
+				<input type="radio" name="status" value="2" class="ml20"> 驳回
+				<input type="hidden" name="debitId" value="<%=obj.debitId%>" class="ml20">
+			</div>
+		</li>
+		</ul>
+	</form>
+</div>

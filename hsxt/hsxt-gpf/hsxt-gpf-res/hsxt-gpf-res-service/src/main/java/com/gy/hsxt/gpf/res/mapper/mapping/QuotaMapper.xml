@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.res.mapper.QuotaMapper">
+
+	<!-- 初始化服务公司资源配额 -->
+	<insert id="initQuota" parameterType="java.util.List">  
+	    INSERT INTO T_RES_QUOTA 
+	    	(S_RES_NO,
+			 STATUS)
+		VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	       	(#{item},
+             1)
+	    </foreach>  
+    </insert>
+
+	<!-- 添加配额申请 -->
+	<insert id="addQuotaApp" parameterType="com.gy.hsxt.gpf.res.bean.QuotaApp">
+		INSERT INTO T_RES_QUOTA_ALLOT
+			(APPLY_ID,
+			 M_RES_NO,
+			 M_ENT_CUST_NAME,
+			 PLAT_NO,
+			 APPLY_TYPE,
+			 APPLY_NUM,
+			 APPLY_LIST,
+			 APPLY_RANGE,
+			 REQ_REMARK,
+			 REQ_OPT_ID,
+			 REQ_OPT_NAME,
+			 REQ_TIME,
+			 STATUS)
+	     VALUES
+	     	(#{applyId},
+	     	 #{entResNo},
+	     	 #{entCustName},
+	     	 #{platNo},
+	     	 #{applyType},
+	     	 #{applyNum},
+	     	 #{applyList},
+	     	 #{applyRange},
+	     	 #{reqRemark},
+	     	 #{reqOptId},
+	     	 #{reqOptName},
+	     	 NOW(),
+	     	 0)
+	</insert>
+	
+	<!-- 添加配额申请:地区平台同步时用 -->
+	<insert id="addQuotaApp4Region" parameterType="com.gy.hsxt.gpf.res.bean.QuotaApp">
+		INSERT INTO T_RES_QUOTA_ALLOT
+			(APPLY_ID,
+			 M_RES_NO,
+			 M_ENT_CUST_NAME,
+			 PLAT_NO,
+			 APPLY_TYPE,
+			 APPLY_NUM,
+			 REQ_REMARK,
+			 REQ_OPT_ID,
+			 REQ_OPT_NAME,
+			 REQ_TIME,
+			 STATUS)
+	     VALUES
+	     	(#{applyId},
+	     	 #{entResNo},
+	     	 #{entCustName},
+	     	 #{platNo},
+	     	 #{applyType},
+	     	 #{applyNum},
+	     	 #{reqRemark},
+	     	 #{reqOptId},
+	     	 #{reqOptName},
+	     	 NOW(),
+	     	 0)
+	</insert>
+	
+	<!-- 分页查询配额申请 -->
+	<select id="queryQuotaAppListPage" parameterType="com.gy.hsxt.gpf.res.bean.QuotaAppParam" 
+			resultType="com.gy.hsxt.gpf.res.bean.QuotaAppBaseInfo">
+		SELECT t1.APPLY_ID        AS applyId,
+		       t2.PLAT_NO         AS platNo,
+		       t2.ENT_CUST_NAME   AS platName,
+		       t1.M_RES_NO        AS entResNo,
+		       t1.M_ENT_CUST_NAME AS entCustName,
+		       t1.APPLY_NUM       AS applyNum,
+		       date_format(t1.REQ_TIME,'%Y-%m-%d %T') AS reqTime,
+		       t1.STATUS          AS status,
+		       t1.ROUTE_SYNC      AS routeSync,
+		       t1.ALLOT_SYNC      AS allotSync
+		FROM T_RES_QUOTA_ALLOT t1, T_RES_PLAT_INFO t2
+		WHERE
+		     t1.PLAT_NO = t2.PLAT_NO
+		     <if test="startDate != null and startDate != ''">
+		     	<![CDATA[ AND t1.REQ_TIME >= str_to_date(#{startDate},'%Y-%m-%d') ]]>
+		     </if>
+		     <if test="endDate != null and endDate != ''">
+		     	<![CDATA[ AND t1.REQ_TIME < str_to_date(#{endDate},'%Y-%m-%d')+1 ]]>
+		     </if>
+		     <if test="platNo != null and platNo != ''">
+		     	AND t2.PLAT_NO = #{platNo}
+		     </if>
+		     <if test="entCustName != null and entCustName != ''">
+		     	AND t1.M_ENT_CUST_NAME LIKE CONCAT('%',#{entCustName},'%')
+		     </if>	
+		     <if test="status != null">
+		     	AND t1.STATUS = #{status}
+		     </if>
+		ORDER BY t1.REQ_TIME DESC
+	</select>
+	
+	<!-- 审批配额申请 -->
+	<update id="apprQuotaApp" parameterType="com.gy.hsxt.gpf.res.bean.ApprParam">
+		UPDATE T_RES_QUOTA_ALLOT SET
+			   STATUS        = #{status},
+		       APPR_NUM      = #{apprNum},
+		       APPR_LIST     = #{resNoList},
+		       APPR_OPT_ID   = #{apprOptId},
+		       APPR_OPT_NAME = #{apprOptName},
+		       APPR_REMARK   = #{apprRemark},
+		<if test="apprRange != null and apprRange !=''">
+			APPR_RANGE = #{apprRange},
+		</if>
+		       APPR_TIME     = now()
+		WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 通过Id查询配额申请 -->
+	<select id="queryQuotaAppById" parameterType="string" resultType="com.gy.hsxt.gpf.res.bean.QuotaApp">
+		SELECT APPLY_ID        AS applyId,
+		       PLAT_NO         AS platNo,
+		       M_RES_NO        AS entResNo,
+		       M_ENT_CUST_NAME AS entCustName,
+		       APPLY_TYPE      AS applyType,
+		       APPLY_NUM       AS applyNum,
+		       APPLY_LIST      AS applyList,
+		       REQ_REMARK      AS reqRemark,
+		       REQ_OPT_ID      AS reqOptId,
+		       REQ_OPT_NAME    AS reqOptName,
+		       date_format(REQ_TIME,'%Y-%m-%d %T') AS reqTime,
+		       STATUS          AS status,
+		       APPR_NUM        AS apprNum,
+		       APPR_LIST       AS resNoList,
+		       APPR_OPT_ID     AS apprOptId,
+		       APPR_OPT_NAME   AS apprOptName,
+		       APPR_REMARK     AS apprRemark,
+		       date_format(APPR_TIME,'%Y-%m-%d %T') AS apprTime,
+		       ROUTE_SYNC      AS routeSync,
+		       ALLOT_SYNC      AS allotSync
+		FROM T_RES_QUOTA_ALLOT
+		WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 更新路由数据同步标识和配额分配同步标识 -->
+	<update id="updateQuotaAllotSyncFlag">
+		UPDATE T_RES_QUOTA_ALLOT
+		<set>
+			 <if test="routeSync == true">
+			   ROUTE_SYNC = 1,
+			 </if>
+			 <if test="allotSync == true">
+		       ALLOT_SYNC = 1,
+		     </if>
+		     REQ_OPT_ID = REQ_OPT_ID
+		</set>
+		WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 通过申请编号查询申请配额清单 -->
+	<select id="queryApplyListById" parameterType="string" resultType="string">
+		SELECT APPLY_LIST
+		FROM T_RES_QUOTA_ALLOT
+		WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 释放互生号 -->
+	<update id="releaseResNo" parameterType="string">
+		UPDATE T_RES_QUOTA
+		<set>
+		    PLAT_NO = NULL,
+			APPLY_ID = NULL,
+			STATUS = 1 
+		</set>
+	    WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 更新资源配额状态 -->
+	<update id="updateResNoStatus">
+		UPDATE T_RES_QUOTA
+		<set>
+		    PLAT_NO = #{platNo},
+			APPLY_ID = #{applyId},
+			STATUS = #{status} 
+		</set>
+	    WHERE S_RES_NO IN
+	    <foreach collection="resNoList" item="item" index="index" open="(" separator="," close=")">  
+	       	#{item}
+	    </foreach>  	
+	</update>
+	
+	<!-- 查询管理公司配额统计 -->
+	<select id="queryQuotaStatOfMentListPage" resultType="com.gy.hsxt.gpf.res.bean.QuotaStatOfMent">
+		SELECT
+		        t1.ENT_RES_NO    AS entResNo,
+		        t1.ENT_CUST_NAME AS entCustName,
+		        (select SUM(t.INIT_QUOTA) from T_RES_PLAT_M_ENT t where t.ENT_RES_NO = t1.ENT_RES_NO) AS initQuota,
+				SUM(CASE WHEN t2.STATUS = 1 THEN  1 ELSE 0 END) AS available,
+				SUM(CASE WHEN t2.STATUS = 2 THEN  1 ELSE 0 END) AS approving,
+				SUM(CASE WHEN t2.STATUS = 3 THEN  1 ELSE 0 END) AS assigned
+			FROM T_RES_M_ENT_INFO t1, T_RES_QUOTA t2
+			WHERE  t1.ENT_RES_NO = CONCAT(SUBSTR(t2.S_RES_NO,1,2),'000000000')
+		        <if test="entResNo != null and entResNo != ''">
+					AND t1.ENT_RES_NO LIKE CONCAT(#{entResNo},'%')
+				</if>
+				<if test="entCustName != null and entCustName != ''">
+					AND t1.ENT_CUST_NAME LIKE CONCAT('%',#{entCustName},'%')
+				</if>
+	    GROUP BY t1.ENT_RES_NO
+	    ORDER BY t1.ENT_RES_NO
+	</select>
+	
+    <!-- 查询管理公司在地区平台上的配额统计 -->
+	<select id="queryQuotaStatOfPlatListPage" resultType="com.gy.hsxt.gpf.res.bean.QuotaStatOfPlat">
+	  <![CDATA[ 
+		  SELECT T1.ENT_RES_NO AS entResNo,
+		         T1.PLAT_NO    AS platNo,
+			 	 T1.INIT_QUOTA AS initQuota,
+			     T2.APPROVING  AS approving,
+			     T2.ASSIGNED   AS assigned,
+			     (SELECT T.ENT_CUST_NAME FROM T_RES_PLAT_INFO T WHERE T.PLAT_NO = T1.PLAT_NO) AS platName
+		  FROM T_RES_PLAT_M_ENT T1 LEFT JOIN
+				(SELECT  PLAT_NO,
+						 S_RES_NO,
+						 SUM(CASE WHEN STATUS = 2 THEN  1 ELSE 0 END) AS APPROVING,
+						 SUM(CASE WHEN STATUS = 3 THEN  1 ELSE 0 END) AS ASSIGNED
+				FROM  T_RES_QUOTA
+				WHERE CONCAT(SUBSTR(S_RES_NO,1,2),'000000000') = #{entResNo}
+				GROUP BY PLAT_NO
+				) T2
+		   ON T1.PLAT_NO = T2.PLAT_NO
+		   AND T1.ENT_RES_NO =CONCAT(SUBSTR(T2.S_RES_NO,1,2),'000000000')
+		   WHERE T1.ENT_RES_NO = #{entResNo}
+       ]]>
+	</select>
+	
+	<select id="queryIdTyp" parameterType="string" resultType="com.gy.hsxt.gpf.res.bean.IdType">
+		SELECT
+			SUBSTR(S_RES_NO,3,3) AS id,
+  			CASE WHEN STATUS = 1 THEN 0 
+  			     WHEN STATUS = 2 AND APPLY_ID=#{applyId} THEN 1
+  				 ELSE plat_no 
+  		    END AS type,
+  			(SELECT ENT_CUST_NAME FROM T_RES_PLAT_INFO WHERE PLAT_NO = t.PLAT_NO) AS platName 
+		FROM T_RES_QUOTA t
+		WHERE S_RES_NO LIKE CONCAT(#{entResNoPre},'%')
+	</select>
+	
+	<!-- 检查互生号是否被占用或已使用 -->
+	<select id="resNoIsUsed" resultType="boolean">
+		SELECT CASE WHEN COUNT(1) = 0 THEN 0  ELSE 1 END
+		FROM   T_RES_QUOTA
+		WHERE 
+			<![CDATA[ STATUS <> 1 ]]>
+			AND S_RES_NO IN
+		    <foreach collection="resNoList" item="item" index="index" open="(" separator="," close=")">  
+		       	#{item}
+		    </foreach>
+	</select>
+	
+	<!-- 查询管理公司已分配的配额数 -->
+	<select id="queryMentApprQuota" resultType="int">
+		SELECT COUNT(1)
+		FROM   T_RES_QUOTA
+		WHERE S_RES_NO LIKE CONCAT(SUBSTR(#{entResNo},1,2),'%')
+			  AND PLAT_NO = #{platNo}
+			  AND STATUS = 3
+	</select>
+	
+	<select id="queryQuotaAppInfo" resultType="com.gy.hsxt.gpf.res.bean.QuotaAppInfo">
+		SELECT APPLY_ID AS applyId,
+		PLAT_NO AS platNo,
+		(SELECT T3.ENT_CUST_NAME FROM T_RES_PLAT_INFO T3 WHERE T3.PLAT_NO = T.PLAT_NO) AS platName,
+		M_RES_NO AS entResNo,
+		M_ENT_CUST_NAME AS entCustName,
+		STATUS AS status,
+		APPLY_TYPE AS applyType,
+		APPLY_NUM AS applyNum,
+		APPLY_RANGE AS applyRange,
+		REQ_REMARK AS reqRemark,
+		REQ_OPT_ID AS reqOptId,
+		REQ_OPT_NAME AS reqOptName,
+		date_format(REQ_TIME,'%Y-%m-%d %T') AS reqTime,
+		APPR_NUM AS apprNum,
+		APPR_RANGE AS apprRange,
+		APPR_REMARK AS apprRemark,
+		APPR_OPT_ID AS apprOptId,
+		APPR_OPT_NAME AS apprOptName,
+		date_format(APPR_TIME,'%Y-%m-%d %T') AS apprTime,
+		(SELECT INIT_QUOTA FROM T_RES_PLAT_M_ENT T1 WHERE T1.PLAT_NO = T.PLAT_NO AND T1.ENT_RES_NO = T.M_RES_NO) AS initQuota,
+		(SELECT SUM(CASE WHEN T2.STATUS = 3 THEN 1 ELSE 0 END)
+		FROM T_RES_QUOTA T2
+		WHERE T2.PLAT_NO = T.PLAT_NO AND CONCAT(SUBSTR(T2.S_RES_NO,1,2),'000000000')=T.M_RES_NO ) AS assigned
+		FROM T_RES_QUOTA_ALLOT T
+		WHERE APPLY_ID = #{applyId}
+	</select>
+</mapper>

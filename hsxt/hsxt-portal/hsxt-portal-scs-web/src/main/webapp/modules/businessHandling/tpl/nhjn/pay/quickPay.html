@@ -1,0 +1,92 @@
+<div id="quickPayTpl">
+	 
+	
+    
+	<div id="pay_selected" class="pay-selected-box clearfix">
+		<ul class="fl clearfix pay-ul">
+		<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+		<li class="ml15 mt5 mr30 fb f14">银行卡</li>
+		<li class="w380 ml20">
+			<div id="cardList" class="bank_card_select"></div>				
+	    </li>
+		<li style="margin-top:8px;"><a id="openQuickPay_btn">添加新的银行卡</a></li>
+	 </ul>	
+	 <div class="fr f14 mt5">
+		支付金额：<span class="pay-text-red fb f16"><%=comm.formatMoney(obj.hbAmount)%></span> 元
+	</div>
+	</div>    
+	 
+		
+<!--</div>-->
+ 
+	
+	<div id="pay_pwd_area" class="mt30 mb20">		
+		<!--<div class="clearfix"><i class="fl icon_tips tips_yes_s"></i><span class="fl ml5">您在安全的环境中，请放心使用！</span></div>-->
+		<form id="pwdForm">
+		
+			<ul>
+<!-- 				<li> -->
+<!-- 					<span class="pay-form-left f14">支付密码</span> -->
+<!-- 					<span class="pay-form-middle"> -->
+<!-- 						<input type="password" name="pay_pwd" id="pay_pwd" class="pay-pwd-input" maxlength="8" placeholder="输入8位数字支付密码"/> -->
+<!-- 						<p class="mt5 pay-hint-gray pay-form-hint">请输入8位数字支付密码(互生系统支付密码)</p> -->
+<!-- 					</span> -->
+<!-- 					<span class="pay-form-require">*</span> -->
+<!-- 					<span class="pay-form-right"><a class="f13" id="forgetPwd_qPay">忘记密码？</a></span> -->
+<!-- 				</li> -->
+				<li class="pay-mt100">
+					<span class="pay-form-left f14">短信验证码</span>
+					<span class="pay-form-middle">
+						<input type="password" name="pay_SMScode" id="pay_SMScode" class="pay-pwd-input" maxlength="8" placeholder="输入短信验证码"/>
+						<p class="mt5 pay-text-blue pay-form-hint">填写银行预留手机号码获取的短信验证码</p>
+					</span>
+					<span class="pay-form-require">*</span>
+					<span class="pay-form-right">
+						<a class="pay-pwd-getCode f13" id="getCode_qPay">获取验证码？</a>
+					    <a class="getsnscode ongsd f13" style="display: none;" id="getCode_countdown"></a></span>
+				</li>
+			</ul>
+			
+			<!--<p class="pay-pwd-text f14 mt30">支付密码：</p>
+			<div class="mt5 clearfix">
+				<input type="password" name="pay_pwd" id="pay_pwd" class="pay-pwd-input fl" maxlength="8"/>
+				<span class="fl mt10 ml5" style="color:red;">*</span>
+				<a class="fl ml10 pay-pwd-forget f13" id="forgetPwd_qPay">忘记密码？</a>
+			</div>
+			<p class="mt5 pay-hint-gray">请输入8位数字支付密码(互生系统支付密码)</p>
+			
+			<p class="pay-pwd-text f14 mt10">银行注册手机号码：</p>
+			<div class="mt5 clearfix">
+				<input type="text" name="pay_phnoeNo" id="pay_phnoeNo" class="pay-pwd-input fl" maxlength="11"/>
+				<span class="fl mt10 ml5" style="color:red;">*</span>
+				<a class="fl ml10 pay-pwd-forget f13">获取验证码</a>
+			</div>
+			<p class="pay-pwd-text f14 mt10">输入短信验证码：</p>
+			<div class="mt5 clearfix">
+				<input type="text" name="pay_SMScode" id="pay_SMScode" class="pay-pwd-input fl" />
+				<span class="fl mt10 ml5" style="color:red;">*</span>
+			</div>-->
+			<a id="comfirmPay_btn" class="pay-btn pay-mt50">确认付款</a>
+		</form>
+	</div>
+
+	
+</div>
+
+<div id="openQuickPay_step1" class="none"></div>
+<div id="openQuickPay_step2" class="none"></div>
+
+
+
+<!--<div id="otherPayment_btn" class="otherPayment-btn mt10">选择其它银行/支付方式</div>-->
+
+<!--<div class="mt10"><a class="f13 link-otherPay-btn" id="openQuickPay_btn">开通其它快捷支付</a></div>-->
+
+
+
+
+<div class="otherPayment-btn mt30">
+选择其它支付方式<a class="ml10 mr10" id="aPay_btn">互生币支付</a>|<a class="ml10" id="bPay_btn">网银支付</a>
+</div>
+<!--<div id="select_dialog" class="none"></div>
+<div id="success_dialog" class="none"></div>-->

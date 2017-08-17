@@ -1,0 +1,39 @@
+<div class="pay-selected-box clearfix">
+	<form id="selectedForm">
+		<ul class="fl clearfix pay-ul">
+			<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+			<li class="ml15 mt5 fb f14">货币账户余额</li>
+			<li class="ml10 clearfix">
+				<i class="fl ml5 pay-price"></i>
+				<span class="fl ml5 fb f14 mt5" id="hsbAmount"></span>
+			</li>
+		</ul>
+		<div class="fr f14 mt5">
+			支付：<span class="pay-text-red fb f16"><%=obj.paymentAmount%></span> 元
+		</div>
+	</form>
+	<input id="hbpay_randomToken" type="hidden"></input>
+</div>
+
+<div id="pay_pwd_area" class="mt30 mb20">		
+		<form id="pwdForm">
+			<ul>
+				<li>
+					<span class="pay-form-left f14">交易密码</span>
+					<span class="pay-form-middle">
+						<input type="password" name="huobi_pay_pwd" id="huobi_pay_pwd" class="pay-pwd-input" maxlength="8" placeholder="输入8位数字交易密码" />
+						<!-- <p class="mt5 pay-hint-gray pay-form-hint">请输入8位数字交易密码</p> -->
+					</span>
+					<span class="pay-form-require">*</span>
+					<span class="pay-form-right"><a class="f13" id="forgetPwd_hbzh">忘记密码？</a></span>
+				</li>
+			</ul>
+			<a id="comfirmPay_btn" class="pay-btn pay-mt50">确认付款</a>
+		</form>
+</div>
+<div class="otherPayment-btn">
+选择其它支付方式
+<!-- <a class="ml10 mr10 pay-text-blue" id="qPay_btn">快捷支付</a>| -->
+<a class="ml10 pay-text-blue" id="bPay_btn">网银支付</a>
+</div>
+

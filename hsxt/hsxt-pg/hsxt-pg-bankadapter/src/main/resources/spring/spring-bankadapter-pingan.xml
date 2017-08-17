@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- ========================= 银行接口bean配置 开始 ======================= -->
+
+	<!-- 平安银行: b2b/b2c网银支付 -->
+	<bean id="pinganB2cFacade" class="com.gy.hsxt.pg.bankadapter.pingan.b2c.PinganB2cFacade"
+		init-method="init">
+
+		<!-- b2c网银支付 -->
+		<property name="b2cPaymentWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.b2c.worker.PinganB2cPaymentWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+				<property name="commonPaymentUrl" value="${pabank.payment.common.paymentUrl}" />
+				<property name="b2bPaymentUrl" value="${pabank.payment.b2b.paymentUrl}" />
+				<property name="b2cPaymentUrl" value="${pabank.payment.b2c.paymentUrl}" />
+			</bean>
+		</property>
+
+		<!-- b2c网银退款 -->
+		<property name="b2cRefundWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.b2c.worker.PinganB2cRefundWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+
+		<!-- b2c网银状态查询 -->
+		<property name="b2cOrderstateWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.b2c.worker.PinganB2cOrderstateWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 平安银行: 快捷支付 -->
+	<bean id="pinganUnionFacade"
+		class="com.gy.hsxt.pg.bankadapter.pingan.union.PinganUnionFacade"
+		init-method="init">
+		<property name="bindingWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.union.worker.CardBindingWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+		<property name="smsCodeWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.union.worker.SmsCodeRequestWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+		<property name="paymentWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.union.worker.QuickPaymentWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+		<property name="refundWorker">
+			<bean class="com.gy.hsxt.pg.bankadapter.pingan.union.worker.RefundWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+		<property name="orderStatesWorker">
+			<bean
+				class="com.gy.hsxt.pg.bankadapter.pingan.union.worker.OrderStatesWorker">
+				<property name="mechantNo" value="${pabank.payment.mechantNo}" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 中国平安银行: 银企直连 -->
+	<bean id="pinganB2eFacade" class="com.gy.hsxt.pg.bankadapter.pingan.b2e.PinganB2eFacade">
+		<property name="companyCode" value="${pabank.b2e.companyCode}" />
+		<property name="remoteCaller">
+			<bean class="com.gy.hsxt.pg.bankadapter.pingan.b2e.protocol.BioCaller">
+				<property name="servAddress" value="${pabank.b2e.scp.ip}" />
+				<property name="port" value="${pabank.b2e.scp.port}" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ========================= 银行接口bean配置 结束 ======================= -->
+</beans>

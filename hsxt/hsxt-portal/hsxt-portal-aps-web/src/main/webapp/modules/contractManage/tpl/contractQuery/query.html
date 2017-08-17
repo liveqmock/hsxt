@@ -1,0 +1,34 @@
+﻿<div id="hgtcxTpl">
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>企业互生号：</label>
+			<input type="text" name="entResNo" id="entResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入企业互生号" />
+		</li>
+		<li>
+			<label>企业名称：</label>
+			<input type="text" name="entCustName"  id="entCustName" class="h28_middle w115 input-txt" placeholder="输入企业名称" />
+		</li>
+		<li>
+			<label>联系人姓名：</label>
+			<input type="text" name="linkMan" id="linkMan" class="h28_middle w115 input-txt" placeholder="输入联系人姓名" />
+		</li>
+		<li>
+			<button id="search_contract_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="search_contract_table" class="bsgrid">
+	<tr>
+		<th w_index="entResNo" w_tip="true">企业互生号</th>
+		<th w_index="entCustName" w_tip="true">企业名称</th>
+		<th w_index="linkman" w_tip="true">联系人姓名</th>
+		<th w_index="mobile" w_tip="true">联系人手机</th>
+		<th w_index="custType" w_render="operate">申报类别</th>
+		<th w_index="regDate" w_tip="true">系统开启日期</th>
+		<th w_index="sendCount" w_render="operate">打印状态</th>
+		<th w_render="operate">操作</th>
+	</tr>
+</table>
+</div>
+<div id="dialogBox" class="none"></div>

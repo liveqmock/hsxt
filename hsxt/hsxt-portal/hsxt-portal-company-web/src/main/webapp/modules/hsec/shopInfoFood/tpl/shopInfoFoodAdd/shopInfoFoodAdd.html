@@ -1,0 +1,563 @@
+ <%var param = obj.MainPageCategory%>
+<%var address = obj.vShop%>
+<%var quyu = obj.Area%>
+<%var shoptime = obj.shoptime%>
+<%var model = obj.model%>
+<%var shopType = obj.shopType%>
+<%var teseList = obj.teseList%>
+<%var priceMinMax = obj.priceMinMax%>
+<%var supplyList = obj.supplyList%>
+<%var serviceStatus = obj.serviceStatus%>
+<div class="operationsInner" id="stdbj"> 
+  <!--内容添加开始-->
+  <div class="searchbox mallStore">
+    <div class="search-toolbar pr h30">
+      <ul id="xinxiMain" class="tabList clearfix" style="top:4px;">
+      	<li><a href="#" class="jbxx active">基本信息</a></li>
+        <li><a href="#" class="mjfw">卖家服务</a></li>
+      </ul>
+    </div>
+    <div class="search-cont" style="margin-top:0;height:430px;" id="shopPanel">
+     <!-- 基本信息 -->
+      <table id="cy-jbxx" class="detail" width="100%" border="0" cellspacing="0" cellpadding="0" style="display: block;">
+        <tbody>
+        <tr>
+          <td width="550" align="right">营业点类型<span class="red">*</span></td>
+          <td width="350"><div class="cont-int" id="drop-down">
+            <select id="shopType" class="w300 yydtype">
+              <option value="0" selected="selected">餐饮</option>
+              <option value="1">零售</option>
+            </select>
+          </div></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">营业点名称<span class="red">*</span></td>
+          <td><input class="inpt" id="shopName" type="text" maxlength="35" style="width: 282px;"/></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">详细地址<span class="red">*</span></td>
+          <td colspan="2"><input type="hidden" id="zuobiaodiqu" value="<%=address.province==address.city?address.city:address.province+address.city%>"><input class="inpt w-left" type="text" value="<%=address.province==address.city?address.country+address.city:address.country+address.province+address.city%>" readonly="readonly" style="width:auto;">
+          <%var chengshiID = "";%>
+                <select class="ml5 mr5" style="padding-top:7px;" id="quyu" name="quyu">
+                      <option value="">选择区域</option>
+                      <%$.each(quyu,function(key,el){%>
+                      <%chengshiID = el.parentCode;%>
+                      <option value="<%=el.areaCode%>" ><%=el.areaName%></option>
+                      <%})%>
+                    </select>
+                    <input id="chengshiId" value="<%=chengshiID%>" type="hidden"/>
+        <input class="inpt" id="addr" type="text" placeholder="如：xx路xx号" maxlength="50"/>
+        &nbsp;<span class="red redError "></span>
+        </td>
+        </tr>
+        <tr>
+          <td align="right">经纬度<span class="red">*</span></td>
+          <td><input class="inpt w-left" id="xyMap" type="text" readonly="readonly" style="width:auto;" yw-city="<%=address.city%>"><input type="button" id="addPosition" class="inpt dw" value="选择地图坐标点"></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <!--<tr>
+          <td align="right">营业点法人</td>
+          <td ><input class="inpt" type="text"></td>
+          <td align="left">&nbsp;</td>
+        </tr>-->
+             <tr>
+                  <td align="right">所属商圈</td>
+                  <td><select class="w300"  id="section" name="shangquan">
+						<option value="">所属商圈</option>
+                    </select></td>
+                  <td align="left"><span class="red redError "></span></td>
+                </tr>
+        <tr>
+          <td align="right">营业点照片<span class="red">*</span></td>
+            <td colspan="2">
+			<ul id="shopImgList" class="pImgList clearfix" style="width: 700px">
+                <li class="pr shopImgZhu" style="background: url(resources/img/store_main_img_1.gif) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto0" class="shop_inputFile" id="shopPhoto0" />
+                        <img src="" width="100" height="100" class="none imgShow"/>
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li class="pr" style="background: url(resources/img/store_noimg_1.gif) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto1" class="shop_inputFile" id="shopPhoto1">
+                        <img src="" class="none imgShow" width="100" height="100">
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li class="pr" style="background: url(resources/img/store_noimg_1.gif) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto2" class="shop_inputFile" id="shopPhoto2">
+                        <img src="" class="none imgShow" width="100" height="100">
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li class="pr" style="background: url(resources/img/store_noimg_1.gif) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto3" class="shop_inputFile" id="shopPhoto3">
+                        <img src="" class="none imgShow" width="100" height="100">
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li class="pr" style="background: url(resources/img/store_noimg_1.gif) 50% 0 repeat-y;">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" name="shopPhoto4" class="shop_inputFile" id="shopPhoto4">
+                        <img src="" class="none imgShow" width="100" height="100">
+                        <span class="none imgObj"></span>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            </ul>
+					
+                <span class="red redError "></span>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传5张图片。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        
+        <tr>
+          <td align="right">证件图片<span class="red">*</span></td>
+          <td><ul class="pImgList clearfix" id="imgUploadUl">
+                <li class="pr">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" class="fileZhengjian" name="zhengJianImg" id="zhengJianImg"/>
+                        <img src="" width="100" height="100" class="zhengjianList none"/>
+                        <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">卫生许可证<br>800x800</div></div>
+                        <span class="none imgObj"></span>
+                    </span>
+                </li>
+                <li class="pr">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" class="fileZhengjian" name="zhengJianImg1" id="zhengJianImg1"/>
+                        <img src="" width="100" height="100" class="zhengjianList none" />
+                        <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">餐饮服务许可证<br>800x800</div></div>
+                        <span class="none imgObj"></span>
+                    </span>
+                </li>
+                <li class="pr">
+                    <span class="pr addpImgBox_style">
+                        <input type="file" class="fileZhengjian" name="zhengJianImg2" id="zhengJianImg2"/>
+                        <img src="" width="100" height="100" class="zhengjianList none"/>
+                        <div class="tc" style="width:100px;height:100px;background:#FFF"><div class="pt30">营业执照<br>800x800</div></div>
+                        <span class="none imgObj"></span>
+                    </span>
+                </li>
+            </ul>
+            </td>
+            <td align="left"><span class="red redError "></span></td>
+        </tr>
+        
+        <tr>
+          <td align="right">餐厅分类<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopTypes">
+          		<ul class="clearfix">
+          		<%try{%>
+          		<%$.each(shopType,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%}) }catch(e){} %>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td align="right">经营特色<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopTeSe">
+          		<ul class="clearfix">
+          		<%try{%>
+                <%$.each(teseList,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%}) }catch(e){} %>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td align="right">供餐类别<span class="red">*</span></td>
+          <td><div class="sectchk" id="shopMealType">
+          		<ul class="clearfix">
+          		<%try{%>
+                <%$.each(supplyList,function(k,v){%>
+          			<li><label><input type="checkbox" value="<%=v.id%>" valueName="<%=v.name%>"><%=v.name%></label></li>
+          		<%
+          		})
+          		}catch(e){}
+          		%>
+                </ul>
+          </div></td>
+          <td align="left">多选&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td align="right">经营模式<span class="red">*</span></td>
+          <td><select class="w300" id="managementModel">
+          	  <option value="">请选择</option>
+          	  	<%try{%>
+                <%$.each(model,function(k,v){%>
+          			 <option value="<%=v.id%>"><%=v.name%></option>
+          		<%}) }catch(e){} %>
+            </select></td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">品牌</td>
+          <td><input class="inpt" type="text" id="brand" maxlength="50" style="width: 282px;"  maxlength="50"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="录入项，多个品牌中间用英文符号'，'分开,长度不超过50."/></td>
+        </tr>
+       <tr class="time1">
+                  <td align="right">营业时间<span class="red">*</span></td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                  	  <%$.each(shoptime,function(k,v){%>
+                      <option value="<%=v.value%>"><%=v.name%></option>
+                      <%})%>
+                    </select>
+                   <span class="timeSpan1 none">
+                    <select class="timesec">
+                      <option> </option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+                      <option> </option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+                     </span>
+                    </td>
+                  <td align="left" id="data_add"><input type="button" class="date_add" style="border:1px solid #CCC;padding:0 3px;font-size:20px;color:#CCC" value="+"><span class="ml10">最多设置2个.</span>&nbsp;&nbsp;<span class="red redError "></span></td>
+                </tr>
+                <tr class="time2" style="display: none;">
+                  <td align="right">&nbsp;</td>
+                  <td><select style="width: 96px" class="w97 timeXiaLa timeSelect">
+                  	  <option value="">请选择</option>
+                      <%$.each(shoptime,function(k,v){%>
+                      <option value="<%=v.value%>"><%=v.name%></option>
+                      <%})%>
+                    </select>
+                    <span class="timeSpan2 none">
+                       <select class="timesec">
+                       <option> </option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+                      <option> </option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+                    </span>
+                    </td>
+                  <td align="left"><input type="button"  class="btn-search time_del delTime" value="删除"><span class="red redError"></span></td>
+                </tr>
+                <tr>
+		          <td align="right">营业时间备注</td>
+		          <td><textarea rows="3" id="openingHoursRemark" name="openingHoursRemark" maxlength="50" style="resize:none;"></textarea></td>
+		          <td align="left">还能输入<span class="red">50</span>个字</td>
+			</tr>
+        <tr class="time3">
+                  <td align="right">接单时间<span class="red">*</span></td>
+                  <td>
+                  <span id="orderHours">
+                  <select class="timesec">
+                      <option> </option>
+                      <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>至
+                    <select class="timesec">
+                      <option> </option>
+		              <%for(var i = 0;i<24;i++){%>
+		              <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>:
+		            <select class="timesec">
+		              <option> </option>
+		              <%for(var i = 0;i<60;i++){%>
+		               <option><%if(i<10){%>0<%}%><%=i%></option>
+		              <%}%>
+		            </select>
+		            </span>
+                    </td>
+                  <td align="left"><span class="red redError"></span></td>
+                </tr>
+        <tr>
+          <td align="right">服务热线<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="hotLine"  style="width: 282px;" maxlength="50" placeholder="示例：13800000000，010-12345678"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="最多可输入50个字，多个号码用逗号分隔"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">订餐电话<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="reservePhoneNo"  style="width: 282px;" maxlength="50" placeholder="示例：13800000000，010-12345678"/></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="最多可输入50个字，多个号码用逗号分隔"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">人均消费<span class="red">*</span></td>
+          <td class=""><select class="w300" id="costAvg">
+              <option value="">请选择</option>
+             	  	<%try{%>
+                <%$.each(priceMinMax,function(k,v){%>
+          			 <option value="<%=v.value%>"><%=v.name%></option>
+          		<%}) }catch(e){} %>
+            </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">装修风格</td>
+          <td class="pr">
+          	<select class="w300" id="decorateStyle">
+						<option value="">请选择</option>
+						<option value="1">中式</option>
+						<option value="2">韩式</option>
+						<option value="3">欧式</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">面积</td>
+          <td class="pr"> 	
+          			<select class="w300" id="areaSize">
+						  <option value="">请选择</option>
+						  <option value="1">1000平方米以下</option>
+			              <option value="2">1000-2000平方米</option>
+			              <option value="3">2000-3000平方米</option>
+			              <option value="4">3000平方米以上</option>
+                    </select>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <!--tr>
+          <td align="right">座位类型及数量</td>
+          <td class="pr"><input id="feellist" readonly="readonly" class="inpt" type="text" value="4人桌，40"><i class="goodsC_arrow" id="gArrow1" title="点击选择周边环境"></i>
+          <div class="feellist none">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox">4人桌，40</label></li>
+                    <li><label><input type="checkbox">5人桌，20</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left">多选项</td>
+        </tr>
+        <tr>
+          <td align="right">包间类型及数量</td>
+          <td class="pr"><input id="feellist" readonly="readonly" class="inpt" type="text" value="大包间（50-80）人，5个"><i class="goodsC_arrow" id="gArrow1" title="点击选择周边环境"></i>
+          <div class="feellist none">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox">大包间（50-80）人，5个</label></li>
+                    <li><label><input type="checkbox">中包间（20-50）人，10个</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left">多选项</td>
+        </tr-->
+        <tr id="zhoubian">
+          <td align="right">周边环境</td>
+          <td class="pr"><input readonly="readonly" class="inpt zhoubianInput" type="text" style="width: 282px;"/>
+		  <i class="goodsC_arrow" id="gArrow" title="点击选择周边环境" style="right: 57px"></i>
+          <div id="zhoubianDiv" class="feellist none" style="width: 290px;height:30px;">
+          		<ul class="clearfix">
+                	<li><label><input type="checkbox" value="0" valueName="停车场"/>停车场</label></li>
+                    <li><label><input type="checkbox" value="1" valueName="购物中心"/>购物中心</label></li>
+                    <li><label><input type="checkbox" value="2" valueName="洗浴中心"/>洗浴中心</label></li>
+                </ul>
+          </div>
+          </td>
+          <td align="left"><span class="red redError "></span></td>
+        </tr>
+        <tr>
+          <td align="right">简介</td>
+          <td><textarea rows="3" id="introduce" maxlength="200" style="resize:none;"></textarea></td>
+          <td align="left">还能输入<span class="red">200</span>个字</td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center"><button class="btn_bg submit xiaBu">下一步</button></td>
+        </tr>
+      </tbody></table>
+      <!-- 卖家服务 -->
+      <table id="cy-mjfw" class="detail none" width="100%" border="0" cellspacing="0" cellpadding="0"  style="margin-top:20px"  >
+        <tbody>
+        <!-- zhanghh add @date:201510201434 -->
+        <%if(serviceStatus == '0' || serviceStatus == '2') { %>
+        <tr>
+          <td colspan="3" style="background:#FFF;">
+          	<div class="tc cy-tips f14 red">温馨提示：您还未开通外卖服务，<a href="javascript:void(0);" class="ktff yw-shopService">开通</a>服务后才能选择支持外卖送餐。</div>
+          </td>
+        </tr>
+        <% } %>
+        <!-- zhanghh add @date:201510201434 -->
+        <tr>
+          <td width="550" align="right"><b class="green">支持使用互生消费抵扣券</b></td>
+          <td width="310"><p>
+              <input class="inpt mr5" id="diKou" type="checkbox" name=""><img src="resources/img/icon-shopcs-dkq.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left" style="width:200px;">&nbsp;</td>
+        </tr>
+        <tr id="diKou1" class="none">
+          <td align="right">&nbsp;</td>
+          <td>每消费满<input class="inpt ml5 mr5" type="text" id="diKouValue" placeholder="" style="width:50px;">使用1张</td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr>
+         <tr>
+          <td align="right"><b class="green">可预约</b></td>
+          <td><p>
+              <input class="inpt mr5" id="yuyue" type="checkbox" name=""><img src="resources/img/icon-shopcs-yy.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <!-- <tr id="yuyue1" class="none yuyueChildren">
+          <td align="right">预定金额比例<span class="red">*</span></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="" /></td>
+          <td align="left">单笔预定金额，0%-100%  单位：百分比&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr> -->
+        <tr id="yuyue1" class="none yuyueChildren">
+          <td></td>
+          <td align="left"><input class="inpt mr5" id="dingJinSeZi" type="checkbox" name="">配置预付定金金额</td>
+          <td></td>
+        </tr>
+        <tr class="none displayYuYue">
+          <td></td>
+          <td><input class="inpt" id="yuyueBaiFenBi" type="text" value="" /></td>
+          <td>单笔预定金额区间100-5000，100的整数倍&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr id="yuyue2" class="none yuyueChildren">
+          <td align="right">可预定天数<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="yuyueDay" value=""></td>
+          <td align="left">支持可预定的天数&nbsp;&nbsp;<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">支持外卖送餐</b>（仅支持货到付款）</td>
+          <td><p><%if(serviceStatus == '0' || serviceStatus == '2') { %><input class="inpt mr5" id="waimai" type="checkbox" name="" disabled="disabled"><% } else {%><input class="inpt mr5" id="waimai" type="checkbox" name=""><% } %><img src="resources/img/icon-shopcs-wm.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">送餐距离（半径）<span class="red">*</span></td>
+          <td><input class="inpt" id="range" type="text" value=""></td>
+          <td align="left">单位：公里   <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">预计送餐时长<span class="red">*</span></td>
+          <td><input class="inpt" id="waiMaiTime" type="text" value=""></td>
+          <td align="left">单位：分钟    <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">起送价<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="qiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔最低起送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">配送费<span class="red">*</span></td>
+          <td><input class="inpt" type="text" id="peiSongPrice" value=""></td>
+          <td align="left"><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔固定配送金额，不限制为0"> <span class="red redError"></span></td>
+        </tr>
+        <tr class="waimai1 none">
+          <td align="right">&nbsp;</td>
+          <td>订单满<input class="inpt ml5 mr5" type="text" placeholder="" id="manPirce" style="width:50px;">减<input id="jianPrice" class="inpt ml5 mr5" type="text" placeholder="" style="width:50px;">配送费<img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="单笔订单买满多少减多少，不限制为0" class="ml10"></td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr>
+       <!-- <tr class="waimai1 none">
+          <td align="right">货到付款</td>
+          <td><p>
+              <input class="inpt" type="radio" value="1" name="foodDaoPirce">
+              <label class="ml5">是</label>
+              <input class="inpt ml20" type="radio" value="0" name="foodDaoPirce">
+              <label class="ml5">否</label>
+              </p></td>
+          <td align="left"><span class="red redError"></span></td>
+        </tr> -->
+        <tr>
+          <td align="right"><b class="green">门店自提</b>（仅支持货到付款）</td>
+          <td><p>
+          <input class="inpt mr5" type="checkbox" name="" id="ziti"/><img src="resources/img/icon-shopcs-zt.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">支持停车</b></td>
+          <td><p>
+              <input class="inpt mr5" id="tingChe" type="checkbox" name=""><img src="resources/img/icon-shopcs-tc.png" width="28" style="vertical-align:middle;" title="">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"><b class="green">其他服务</b></td>
+          <td><p>
+              <input class="inpt" type="checkbox" name="" id="qita">
+              </p></td>
+          <td align="left">&nbsp;</td>
+        </tr>
+        <tr id="qita1" class="none">
+          <td align="right">描述</td>
+          <td><textarea rows="3" id="qiTaStr" maxlength="50" style="resize:none;width: 303px"></textarea></td>
+          <td align="left">还能输入<span class="red inp">50</span>个字<span class="red redError"></span></td>
+        </tr>
+        <tr>
+          <td colspan="3" align="center" style="padding: 20px;"  ><button class="btn_bg submit shangBu ">上一步</button><button class="btn_bg submit " id="submit" style="margin:0 5px;">保&nbsp;&nbsp;存</button></td>
+        </tr>
+      </tbody></table>
+    </div>
+    <!---->
+    
+  </div>
+  <!--内容添加结束--> 
+</div>
+ <div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">是否发布？</p>
+</div>
+<div id="dlg2" class="none">
+</div>  

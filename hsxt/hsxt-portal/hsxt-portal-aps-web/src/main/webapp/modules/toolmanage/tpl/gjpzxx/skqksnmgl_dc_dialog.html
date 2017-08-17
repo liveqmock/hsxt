@@ -1,0 +1,42 @@
+<div class="view_info">
+<form id="form_three" name="form_three">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+            <td width="30%" style="border:0;height:0;"></td>
+            <td style="border:0;height:0;"></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="2"><span class="ml10">内容</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">导出说明</td>
+            <td>
+				<textarea id="exp_remark" name="exp_remark" maxlength="300" class="ml5 h50 w96pc rsn pt5 pb5" placeholder="输入说明内容,字数不超过300个字"></textarea>
+			</td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="2"><span class="ml10">复核信息</span></td>
+        </tr>
+		<!--<tr>
+            <td class="view_item">复核意见</td>
+            <td><textarea class="ml5 h50 w96pc rsn pt5 pb5" placeholder="输入复核意见,字数不超过300个字"></textarea></td>
+        </tr> -->	
+		<tr>
+			<td class="view_item">选择验证方式</td>
+			<td class="pr">
+				<input id="verificationMode_dc" readonly="readonly" placeholder="" />
+				<span class="ml10 red none" id="verificationMode_prompt_dc">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		 </tr>
+		 <tr id="fhy_userName_dc">
+			<td class="view_item">复核员用户名</td>
+			<td class="pr"><input type="text" id="exp_pk_double_username" name="exp_pk_double_username" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /><span class="required-right-10">*</span></td>
+		 </tr>
+		 <tr id="fhy_password_dc">
+			<td class="view_item">复核员登录密码</td>
+			<td class="pr"><input type="password" id="exp_pk_double_password" name="exp_pk_double_password" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /><span class="required-right-10">*</span></td>
+		</tr>
+    </table>
+</form>
+</div>

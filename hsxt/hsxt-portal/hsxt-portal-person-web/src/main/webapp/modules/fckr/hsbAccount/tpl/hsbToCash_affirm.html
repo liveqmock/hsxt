@@ -1,0 +1,53 @@
+<div class="busibox p20 none" id="hsbToCash_affirm">
+	<div class="view_info mt40 info_500">
+	<form id="htc_appform_qr" autocomplete="off" name="htc_appform_qr" action="" method="post">
+		<input name="qr_htc_randomToken" id="qr_htc_randomToken" type="hidden"/>
+		<input name="bizhong" id="bizhong" type="hidden"/>
+		<input name="cashAmount" id="cashAmount" type="hidden"/>
+		<table class="view_table" borderColor="#cccccc" width="100%" border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="view_item" width="20%">转出数量</td>
+				<td class="view_text" width="30%" id="qr_htc_toCashHsbNum"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">转入账户</td>
+				<td class="view_text" width="30%">货币账户</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">货币转换费(<span class="htc_fee red" id="htc_fee_cost_rate"></span>%)</td>
+				<td class="view_text" width="30%"><span class="htc_toFee" id="htc_fee_cost"></span></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">实际转入数量</td>
+				<td class="view_text" width="30%" id="qr_htc_realToCashNum"></td>
+			</tr>
+			
+			
+			<tr>
+				<td class="view_item" width="20%">当地结算货币</td>
+				<td class="view_text" width="30%" id="bizhongName"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">货币转换比率</td>
+				<td class="view_text" width="30%" id="qr_htc_rate"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">转入货币金额</td>
+				<td class="view_text" width="30%" id="qr_htc_toCashNum"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">交易密码</td>
+				<td class="view_input" width="30%"><input class="ml5" type="password" id="htc_dealPwd" name="htc_dealPwd" maxlength="8"/></td>
+			</tr>
+		</table>
+		<div class="tc two_button clearfix mt20"><a href="javascript:;" id="htc_return" class="hs_btn mr10 myhs_ajax_btn" data-id="zhgl_hsbzh_hsbzx">修&#12288;改</a><a href="javascript:;" id="htc_appComit" class="hs_btn Thick_btn">确&#12288;认</a></div>
+	</form>
+	</div>
+</div>
+
+<div class="jqp-dialog" id="htc_dialog" style="display:none;">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr><td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i><span class="fl fb f14 ml10 pt9"> 互生币转货币操作成功 </span></div></td></tr>
+		<tr><td  height="50"><a class="hs_btn ml50 jfzx_tjcg_btn" id="htc_cg_sure">确&#12288;定</a></td></tr>
+	</table>
+</div>

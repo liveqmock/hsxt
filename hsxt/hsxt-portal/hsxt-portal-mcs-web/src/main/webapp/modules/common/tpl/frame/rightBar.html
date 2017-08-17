@@ -1,0 +1,1136 @@
+<!-- 内部、服务、企业、消费者开始 -->
+<div>
+    <div class="serviceNav">
+        <ul class="clearfix top_tab" id="serviceNav_1">
+            <li class="nav_bt_hover" style="width:123px;">服务公司</li>
+            <!--20150325 add-->
+            <li class="nav_line"></li>
+            <li class="nav_bt" style="width:123px;">企业</li>
+            <!--<li class="nav_line"></li>
+            <li class="nav_bt">消费者</li>-->
+        </ul>
+    </div>
+    <!-- 呼叫中心插件注册 -->
+    <!--    <object classid="clsid:548D2F7B-0192-4B42-A99D-57080F625AE1" name="Test" style="display:none;"
+                Width="300"
+                height="40">
+        </object>-->
+    <input type="hidden" title="报送单位" id="apply_org_no"/> <!-- 用于报送单位赋值 -->
+    <!-- 服务公司选项内容开始 -->
+    <div id="serviceContent_1_0" class="h155">
+        <div class="mt10 mb10">
+            <div class="service_search w200 bc">
+                <div class="fl"><input name="" type="text" class="search_input" maxlength="11" id="intpu_search_scs"
+                                       value=""/></div>
+                <i class="fr service_icon service_icon_search" id="search_scs"></i>
+            </div>
+        </div>
+        <div id="scs_panel" class="none">
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <i class="service_icon service_icon_mobil mr5 fl"></i>
+                    <span class="fb orange mr10 fl" id="scs_mobile"></span>
+                    <span class="gray fl" id="scs_contact"></span>
+		<span class="fr">
+			<a class="service_icon service_icon_microphone fr ml10"></a>
+			<a class="service_icon service_icon_email_1 fr"></a>
+		</span>
+                </div>
+            </div>
+            <!--<div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <i class="service_icon service_icon_phone mr5 fl"></i>
+                    <span class="fb orange mr10 fl" id="scs_tel"></span>
+                    <a class="service_icon service_icon_microphone fl"></a>
+                </div>
+            </div>-->
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <span class="fb" id="scs_resNo"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="gray" id="scs_type"></span>
+                </div>
+            </div>
+            <div class="h28">
+                <div class="w200 bc clearfix">
+                    <span class="gray fl" id="scs_entCustName"></span>
+		<span class="fr">
+			<a id="fwgsDetail_btn" class="service_icon service_icon_other fr"></a>
+			<!--<a class="service_icon service_icon_voice fr ml5 mr5"></a>
+			<a class="service_icon service_icon_email_2 fr"></a>-->
+		</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 服务公司选项内容结束 -->
+
+    <!-- 企业选项内容开始 -->
+    <div id="serviceContent_1_2" class="none h155">
+        <div class="mt10 mb10">
+            <div class="service_search w200 bc">
+                <div class="fl"><input name="" type="text" class="search_input" maxlength="11" id="intpu_search_company"
+                                       value=""/></div>
+                <i class="fr service_icon service_icon_search" id="search_company"></i>
+            </div>
+        </div>
+        <div id="company_panel" class="none">
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <i class="service_icon service_icon_mobil mr5 fl"></i>
+                    <span class="fb orange mr10 fl" id="company_mobile"></span>
+                    <span class="gray fl" id="company_contact"></span>
+		<span class="fr">
+			<a class="service_icon service_icon_microphone fr ml10"></a>
+			<a class="service_icon service_icon_email_1 fr"></a>
+		</span>
+                </div>
+            </div>
+            <!--<div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <i class="service_icon service_icon_phone mr5 fl"></i>
+                    <span class="fb orange mr10 fl" id="company_tel"></span>
+                    <a class="service_icon service_icon_microphone fl"></a>
+                </div>
+            </div>-->
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <span class="fb" id="company_resNo"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="gray" id="company_type"></span>
+                </div>
+            </div>
+            <div class="h28">
+                <div class="w200 bc clearfix">
+                    <span class="gray fl" id="company_entCustName"></span>
+		<span class="fr">
+			<a id="qyDetail_btn" class="service_icon service_icon_other fr"></a>
+			<!--<a class="service_icon service_icon_voice fr ml5 mr5"></a>
+			<a class="service_icon service_icon_email_2 fr"></a>-->
+		</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 企业选项内容结束 -->
+
+    <!-- 消费者选项内容开始 -->
+    <div id="serviceContent_1_4" class="none h155">
+        <div class="mt10 mb10">
+            <div class="service_search w200 bc">
+                <div class="fl"><input name="" type="text" class="search_input" maxlength="11" id="intpu_search_person"
+                                       value=""/></div>
+                <i class="fr service_icon service_icon_search" id="search_person"></i>
+            </div>
+        </div>
+        <div id="person_panel" class="none">
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <i class="service_icon service_icon_mobil mr5 fl"></i>
+                    <span class="fb orange mr10 fl" id="p_mobile"></span>
+                    <span class="gray fl" id="p_username"></span>
+		<span class="fr">
+			<a class="service_icon service_icon_microphone fr ml10"></a>
+			<a class="service_icon service_icon_email_1 fr"></a>
+		</span>
+                </div>
+            </div>
+            <!--<div class="h28 border_bottom_gray">
+            <div class="w200 bc clearfix">
+                <i class="service_icon service_icon_phone mr5 fl"></i>
+                <span class="fb orange mr10 fl">0755-88888888</span>
+                <a class="service_icon service_icon_microphone fl"></a>
+            </div>
+            </div>-->
+            <div class="h28 border_bottom_gray">
+                <div class="w200 bc clearfix">
+                    <span class="fb fl" id="p_resNo"></span>
+                    <i class="fl service_icon service_icon_zc_disable ml5" title="未实名注册" id="p_real_reg"></i>
+                    <i class="fl service_icon service_icon_rz_disable ml5" title="未实名认证" id="p_real_iden"></i>
+                    <span class="gray ml20 fl" id="p_cardStatus"></span>
+                </div>
+            </div>
+            <div class="h28">
+                <div class="w200 bc clearfix">
+                    <span class="gray fl" id="p_username1"></span>
+		<span class="fr">
+			<a id="xfzDetail_btn" class="service_icon service_icon_other fr"></a>
+			<!--<a class="service_icon service_icon_voice fr ml5 mr5"></a>
+			<a class="service_icon service_icon_email_2 fr"></a>-->
+		</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 消费者项内容结束 -->
+
+</div>
+<!-- 内部、服务、企业、消费者结束 -->
+
+<!-- 拨号、坐席、消息、消费者开始 -->
+<div class="ovh h457">
+    <div class="serviceNav">
+        <ul class="clearfix" id="serviceNav_2">
+            <li class="nav_bt_hover">拨号</li>
+            <li class="nav_line"></li>
+            <li class="nav_bt" id="rightBar_group">坐席<span id="sategroup_count"></span></li>
+            <li class="nav_line"></li>
+            <li class="nav_bt" id="li_chat">企业通讯录</li>
+        </ul>
+    </div>
+
+    <!-- 拨号选项内容开始 -->
+    <div id="serviceContent_2_0">
+        <div class="serviceSubNav">
+            <ul class="clearfix" id="serviceSubNavBt">
+                <li><a class="serviceSubNav_bt" id="login">签入</a></li>
+                <li><a class="serviceSubNav_bt" id="logout">签出</a></li>
+                <li><a class="serviceSubNav_bt" id="setuserbusy">置忙</a></li>
+                <li><a class="serviceSubNav_bt" id="trunktransferuser">转内</a></li>
+                <li><a class="serviceSubNav_bt" id="trunkcalltrunk">转外</a></li>
+                <li><a class="serviceSubNav_bt" id="setuserquiet">静音</a></li>
+            </ul>
+        </div>
+        <div class="mt10">
+            <div class="w220 bc">
+                <div class="dial_show">
+                    <input name="dial_input" id="dial_input" type="text" class="dial_input"/>
+                </div>
+
+                <div class="mt10 mb5">
+                    <ul class="dial_panel clearfix" id="dialPanel">
+                        <li class="dial_1" data="1"></li>
+                        <li class="dial_2" data="2"></li>
+                        <li class="dial_3" data="3"></li>
+                        <li class="dial_4" data="4"></li>
+                        <li class="dial_5" data="5"></li>
+                        <li class="dial_6" data="6"></li>
+                        <li class="dial_7" data="7"></li>
+                        <li class="dial_8" data="8"></li>
+                        <li class="dial_9" data="9"></li>
+                        <li class="dial_asterisk" data="asterisk"></li>
+                        <li class="dial_0" data="0"></li>
+                        <li class="dial_other" data="other"></li>
+                        <li class="dial_answer" data="answer"></li>
+                        <li class="dial_c" data="c"></li>
+                        <li class="dial_hangup" data="hangup"></li>
+                    </ul>
+                </div>
+                <div class="record_list listScroll" id="callHistoryList">
+                    <ul id="recordList">
+                        <!--<li><a>13800138000 张三 06186010001</a></li>
+                        <li><a>13800138000 张三 06186010001</a></li>
+                        <li><a>13800138000 张三 06186010001</a></li>
+                        <li><a>13800138000 张三 06186010001</a></li>-->
+                    </ul>
+                    <!--<div>
+                        <a id="xfz">消费者</a>
+                        <a id="cyqy">成员企业</a>
+                        <a id="tgqy">托管企业</a>
+                        <a id="fwgs">服务公司</a>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- 拨号选项内容结束 -->
+
+    <!-- 坐席选项内容开始 -->
+    <div id="serviceContent_2_2" class="none">
+
+    </div>
+    <!-- 坐席选项内容结束 -->
+
+    <!-- 消息选项内容开始 -->
+    <div id="serviceContent_2_4" class="none">
+    </div>
+    <!-- 消息选项内容结束 -->
+
+</div>
+<!-- 拨号、坐席、消息、消费者结束 -->
+
+<!--详细资料弹出窗口内容开始-->
+
+<!--服务公司弹出窗口内容开始-->
+<div id="fwgsDetail_content" class="none">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+        <tr>
+            <td class="view_item" width="10%">企业互生号</td>
+            <td class="view_text_2" width="20%" id="fwgs_ResNo"></td>
+            <td class="view_item" width="10%">企业名称</td>
+            <td class="view_text_2" width="30%" id="fwgs_Name"></td>
+            <td class="view_item" width="10%">企业状态</td>
+            <td class="view_text_2" width="20%" id="fwgs_status"></td>
+        </tr>
+    </table>
+    <!-- 操作台切换标签开始 -->
+    <div class="jqp-tabs_1 mt10">
+        <ul>
+            <li><a href="#jqp-tabs_1-1">系统登记信息</a></li>
+            <li><a href="#jqp-tabs_1-2">工商登记信息</a></li>
+            <li><a href="#jqp-tabs_1-3">联系信息</a></li>
+            <li><a href="#jqp-tabs_1-4">银行账户信息</a></li>
+			<li><a href="#jqp-tabs_1-5">快捷卡</a></li>
+			<li><a href="#jqp-tabs_1-6">业务操作许可</a></li>
+            <li><a href="#jqp-tabs_1-7">账户信息</a></li>
+            <li><a href="#jqp-tabs_1-8">报送服务公司信息</a></li>
+        </ul>
+        <!-- 操作台切换标签结束 -->
+
+        <div id="jqp-tabs_1-1" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">企业互生号</td>
+                        <td class="view_text" width="30%" id="fwgsResNo">></td>
+                        <td class="view_item" width="20%">系统开启日期</td>
+                        <td class="view_text" width="30%" id="fwgsCreateDate"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">企业名称</td>
+                        <td class="view_text" width="30%" id="fwgsCompanyNameCN"></td>
+                        <td class="view_item" width="20%">所属地区</td>
+                        <td class="view_text" width="30%" id="fwgsArea"></td>
+                    </tr>
+                    <tr>
+                        
+                        <td class="view_item" width="20%">结算币种</td>
+                        <td class="view_text" width="30%"><span class="red" id="fwgsCurrency"></span></td>
+                        <td class="view_item" width="20%">经营类型</td>
+						<td class="view_text" width="30%" id="businessType"></td>
+					</tr>
+					
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_1-2" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">企业名称</td>
+                        <td class="view_text" width="30%" id="fwgs_firmName"></td>
+                        <td class="view_item" width="20%">企业地址</td>
+                        <td class="view_text" width="30%" id="fwgs_address"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">法人代表</td>
+                        <td class="view_text" width="30%" id="fwgs_frdb_name"></td>
+                        <td class="view_item" width="20%">企业类型</td>
+                        <td class="view_text" width="30%" id="fwgs_type"></td>
+					</tr>
+					
+                    <tr>
+                        <td class="view_item" width="20%">营业执照注册号</td>
+                        <td class="view_text" width="30%" id="fwgs_license"></td>
+                        <td class="view_item" width="20%">成立日期</td>
+                        <td class="view_text" width="30%" id="fwgs_createDate"></td>
+                    </tr>
+                   
+                    <tr>
+                        <td class="view_item" width="20%">营业期限</td>
+                        <td class="view_text" width="30%" id="fwgs_operating_end"></td>
+                        <td class="view_item" width="20%"></td>
+                        <td colspan="3" class="view_text"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="view_item_2" width="20%">经营范围</td>
+                        <td colspan="3" class="view_text" id="fwgs_business_scope"></td>
+                    </tr>
+                    <tr>
+				<td class="view_item" width="20%" height="60">营业执照扫描件</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<span id="scs_busi_license_span" class="fl ml5 mt5 sample_img">
+				<a ><img id="scs_busi_license_img" src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" /></a>
+				</span>
+				</td>
+			</tr>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_1-3" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">联系人姓名</td>
+                        <td class="view_text" width="30%" id="cont_name"></td>
+                        <td class="view_item" width="20%">联系人手机</td>
+                        <td class="view_text" width="30%" id="cont_mobile"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">联系地址</td>
+                        <td class="view_text" width="30%" id="cont_address"></td>
+                        <td class="view_item" width="20%">邮政编码</td>
+                        <td class="view_text" width="30%" id="cont_post"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">企业安全邮箱</td>
+                        <td class="view_text" width="30%" id="scs_email"></td>
+                        <td class="view_item" width="20%"><!--企业网址--></td>
+                        <td class="view_text" width="30%" id="webSite"></td>
+                    </tr>
+                   <!-- <tr>
+                        <td class="view_item" width="20%">办公电话</td>
+                        <td class="view_text" width="30%" id="off_tel"></td>
+                        <td class="view_item" width="20%">传真号码</td>
+                        <td class="view_text" width="30%" id="off_fax"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">联系人职务</td>
+                        <td class="view_text" width="30%" cont_tudy></td>
+                        <td class="view_item" width="20%">企业联系QQ</td>
+                        <td class="view_text" width="30%" id="cont_qq"></td>
+                    </tr>-->
+                    <tr>
+                        <td class="view_item" width="20%">联系人授权委托书</td>
+						<td class="view_text p5" width="30%" colspan='3'> <span id="scs_contactProxy_span" class="fl ml5 mt5 sample_img"><a><img id="scs_contactProxy_img" src="" width="81" height="52"></a> </span></td>
+                    </tr>
+                    
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_1-4" class="tabsContent_1">
+            <ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="jqp-tabs_1-5" class="tabsContent_1">
+            <ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="jqp-tabs_1-6" class="tabsContent_1">
+            <div class="view_info mt40 info_500">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                	<tr>
+						<td class="view_item_th" width="30%">业务名称</td>
+						<td class="view_item_th" width="20%">业务状态</td>
+						<td class="view_item_th" width="50%">备注</td>
+					</tr>
+                    <tr>
+                        <td class="view_item">积分转互生币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">积分投资</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">兑换互生币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币转货币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币转银行</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        <div id="jqp-tabs_1-7" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">积分账户</td>
+                        <td class="view_text_3" width="80%">
+                            <div style="padding-bottom:3px;border-bottom:1px solid #CCC;">积分账户余数：<span
+                                    id="scs_point_balance"></span></div>
+                            <div style="padding-top:3px;">
+                                <span style="letter-spacing:0.2em;margin-right:-0.2em;">可用积分数</span>：<span
+                                    id="scs_point_balance_usable"></span>
+                                <span class="ml10">昨日积分数</span>：<span id="scs_point_yestday"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">投资账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5">积分投资总数：<span id="scs_invest_sum"></span></div>
+                            <div style="border:1px solid #CCC;padding:3px;background-color:#EFEFEF;">
+                                <div style="padding-bottom:3px;border-bottom:1px solid #CCC;"><span
+                                        id="scs_invest_income"></span></div>
+                                <div style="padding-top:3px;">其中流通币：<span id="scs_invest_income_ltb"></span><span
+                                        class="ml10">其中慈善救助基金</span>：<span id="scs_invest_income_csjz"></span></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币账户</td>
+                        <td class="view_text_3">
+                            货币账户余额：<span id="scs_currency_balance"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5"><span style="letter-spacing:1.5em;margin-right:-1.5em;">流通币</span>：<span
+                                    id="scs_hsb_ltb"></span>
+                            </div>
+                            <div>慈善救助基金：<span id="scs_hsb_csjz"></span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">城市税收对接账户</td>
+                        <td class="view_text_3">
+                            积分税收金额总数：<span id="scs_point_tax"></span>
+                            互生币税收金额总数：<span id="scs_hsb_tax"></span>
+                            货币(人民币)税收金额总数：<span id="scs_currency_tax"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_1-8" class="tabsContent_1">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+                <tr>
+                    <td class="view_item" width="20%">企业互生号</td>
+                    <td class="view_text_2" width="30%" id="apply_ent_resNo"></td>
+                    <td class="view_item" width="20%">企业名称</td>
+                    <td class="view_text_2" width="30%" id="apply_ent_name"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">联系人姓名</td>
+                    <td class="view_text_2" width="30%" id="apply_ent_cont_name"></td>
+                    <td class="view_item" width="20%">联系人手机</td>
+                    <td class="view_text_2" width="30%" id="apply_ent_cont_mobile"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">联系地址</td>
+                    <td class="view_text_2" width="80%" colspan="3" id="apply_ent_cont_address"></td>
+                </tr>
+            </table>
+        </div>
+	</div>
+</div>
+<!--服务公司弹出窗口内容结束-->
+
+<!--企业弹出窗口内容开始-->
+<div id="qyDetail_content" class="none">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+        <tr>
+            <td class="view_item" width="10%">企业互生号</td>
+            <td class="view_text_2" width="20%" id="ent_res_no"></td>
+            <td class="view_item" width="10%">企业名称</td>
+            <td class="view_text_2" width="30%" id="company_name"></td>
+            <td class="view_item" width="10%">企业状态</td>
+            <td class="view_text_2" width="20%" id="company_baseStatus"></td>
+        </tr>
+    </table>
+    <!-- 操作台切换标签开始 -->
+    <div class="jqp-tabs_2 mt10">
+        <ul>
+            <li><a href="#jqp-tabs_2-1">系统登记信息</a></li>
+            <li><a href="#jqp-tabs_2-2">工商登记信息</a></li>
+            <li><a href="#jqp-tabs_2-3">联系信息</a></li>
+            <li><a href="#jqp-tabs_2-4">银行账户信息</a></li>
+			<li><a href="#jqp-tabs_2-5">快捷卡</a></li>
+			<li><a href="#jqp-tabs_2-6">业务操作许可</a></li>
+            <li><a href="#jqp-tabs_2-7">账户信息</a></li>
+            <li><a href="#jqp-tabs_2-8">报送服务公司信息</a></li>
+        </ul>
+        <!-- 操作台切换标签结束 -->
+
+        <div id="jqp-tabs_2-1" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">企业互生号</td>
+                        <td class="view_text" width="30%" id="company_resNo_1"></td>
+                        <td class="view_item" width="20%">系统开启日期</td>
+                        <td class="view_text" width="30%" id="company_reg_date_1"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">企业名称</td>
+                        <td class="view_text" width="30%" id="company_ent_name_cn"></td>
+                        <td class="view_item" width="20%">所属地区</td>
+                        <td class="view_text" width="30%" id="company_ent_area"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">结算币种</td>
+                        <td class="view_text" width="30%"><span class="red" id="company_ent_currency"></span></td>
+                        <td class="view_item" width="20%">启用资源类型</td>
+						<td class="view_text" width="30%" id="company_start_res_type">首段资源</td>
+					</tr>
+					
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_2-2" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">企业名称</td>
+                        <td class="view_text" width="30%" id="company_ent_name_2"></td>
+                        <td class="view_item" width="20%">企业地址</td>
+                        <td class="view_text" width="30%" id="company_ent_address_2"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">法人代表</td>
+                        <td class="view_text" width="30%" id="company_cer_name"></td>
+                        <td class="view_item" width="20%">企业类型</td>
+                        <td class="view_text" width="30%" id="ent_type"></td>
+					</tr>
+                    <tr>
+                        
+                        <td class="view_item" width="20%">营业执照注册号</td>
+                        <td class="view_text" width="30%" id="company_license"></td>
+                        <td class="view_item" width="20%">成立日期</td>
+                        <td class="view_text" width="30%" id="company_createDate"></td>
+                    </tr>
+                    <tr>
+                        
+                        <td class="view_item" width="20%">营业期限</td>
+                        <td class="view_text" width="30%" id="company_end_date"></td>
+                        <td class="view_item" width="20%"></td>
+                        <td class="view_text" width="30%"></td>
+                    </tr>
+                    
+                     <tr>
+                        
+                        <td class="view_item_2" width="20%">经营范围</td>
+                        <td class="view_text" width="30%" colspan="3"  id="company_bussiness_scope"></td>
+                    </tr>
+                    
+                   
+					     <tr>
+				<td class="view_item" width="20%" height="60">营业执照扫描件</td>
+				<td colspan="3" class="view_text pt5 pb5">
+					<span id="company_busi_license_span" class="fl ml5 mt5 sample_img">
+					<a ><img id="company_busi_license_img" src="resources/img/noImg.gif"width="81" 
+					height="52"  title="点击查看图片" /></a>
+					</span>
+				</td>
+			</tr>
+                    
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_2-3" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">联系人姓名</td>
+                        <td class="view_text" width="30%" id="company_cont_name"></td>
+                        <td class="view_item" width="20%">联系人手机</td>
+                        <td class="view_text" width="30%" id="company_cont_mobile"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">联系地址</td>
+                        <td class="view_text" width="30%" id="company_cont_address"></td>
+                        <td class="view_item" width="20%">邮政编码</td>
+                        <td class="view_text" width="30%" id="company_cont_post"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">企业安全邮箱</td>
+                        <td class="view_text" width="30%" id="company_cont_email"></td>
+                        <td class="view_item" width="20%"><!--企业网址--></td>
+                        <td class="view_text" width="30%"></td>
+                    </tr>
+                   <!-- <tr>
+                        <td class="view_item" width="20%">办公电话</td>
+                        <td class="view_text" width="30%" id="company_off_tel"></td>
+                        <td class="view_item" width="20%">传真号码</td>
+                        <td class="view_text" width="30%" id="company_off_fax"></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">联系人职务</td>
+                        <td class="view_text" width="30%" id="company_cont_duty"></td>
+                        <td class="view_item" width="20%">企业联系QQ</td>
+                        <td class="view_text" width="30%" id="company_cont_qq"></td>
+                    </tr>-->
+                    <tr>
+                        <td class="view_item" width="20%">联系人授权委托书</td>
+                        <td class="view_text p5" width="30%" colspan='3'> <span id="company_contactProxy_span" class="fl ml5 mt5 sample_img"><a><img id="company_contactProxy_img" src="" width="81" height="52"></a> </span></td>
+                    </tr>
+                    <tr>
+            			<td class="view_item" width="20%">创业帮扶协议</td>
+            			<td class="view_text p5" width="30%" colspan='3'> <span id="company_helpAgreement_span" class="fl ml5 mt5 sample_img"><a ><img id="company_helpAgreement_img" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a></span></td>
+            		</tr>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_2-4" class="tabsContent_1">
+			<ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+			</ul>
+		</div>
+        <div id="jqp-tabs_2-5" class="tabsContent_1">
+            <ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="jqp-tabs_2-6" class="tabsContent_1">
+            <div class="view_info mt40 info_500">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+						<td class="view_item_th" width="30%">业务名称</td>
+						<td class="view_item_th" width="20%">业务状态</td>
+						<td class="view_item_th" width="50%">备注</td>
+					</tr>
+                    <tr>
+                        <td class="view_item">积分转互生币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">积分投资</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">兑换互生币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币转货币</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币转银行</td>
+                        <td class="view_text"><span>开启</span></td>
+                        <td class="view_text"><span></span></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <div id="jqp-tabs_2-7" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">积分账户</td>
+                        <td class="view_text_3" width="80%">
+                            <div style="padding-bottom:3px;border-bottom:1px solid #CCC;">积分账户余数：<span
+                                    id="company_point_balance"></span></div>
+                            <div style="padding-top:3px;">
+                                <span style="letter-spacing:0.2em;margin-right:-0.2em;">可用积分数</span>：<span
+                                    id="company_point_balance_usable"></span>
+                                <span class="ml10">昨日积分数</span>：<span id="company_point_yestday"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">投资账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5">积分投资总数：<span id="company_invest_sum"></span></div>
+                            <div style="border:1px solid #CCC;padding:3px;background-color:#EFEFEF;">
+                                <div style="padding-bottom:3px;border-bottom:1px solid #CCC;"><span
+                                        id="company_invest_income"></span></div>
+                                <div style="padding-top:3px;">其中流通币：<span id="company_invest_income_ltb"></span><span
+                                        class="ml10">其中慈善救助基金</span>：<span id="company_invest_income_csjz"></span></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币账户</td>
+                        <td class="view_text_3">
+                            货币账户余额：<span id="company_currency_balance"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5"><span style="letter-spacing:1.5em;margin-right:-1.5em;">流通币</span>：<span
+                                    id="company_hsb_ltb"></span>
+                            </div>
+                            <div>慈善救助基金：<span id="company_hsb_csjz"></span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">城市税收对接账户</td>
+                        <td class="view_text_3">
+                            积分税收金额总数：<span id="company_point_tax"></span>
+                            互生币税收金额总数：<span id="company_hsb_tax"></span>
+                            货币(人民币)税收金额总数：<span id="company_currency_tax"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_2-8" class="tabsContent_1">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+                <tr>
+                    <td class="view_item" width="20%">企业互生号</td>
+                    <td class="view_text_2" width="30%" id="apply_company_resNo"></td>
+                    <td class="view_item" width="20%">企业名称</td>
+                    <td class="view_text_2" width="30%" id="apply_company_entName"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">联系人姓名</td>
+                    <td class="view_text_2" width="30%" id="apply_company_cont_name"></td>
+                    <td class="view_item" width="20%">联系人手机</td>
+                    <td class="view_text_2" width="30%" id="apply_company_cont_mobile"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">联系地址</td>
+                    <td class="view_text_2" width="80%" colspan="3" id="apply_company_cont_address"></td>
+                </tr>
+            </table>
+        </div>
+
+	</div>
+</div>
+<!--企业弹出窗口内容结束-->
+
+<!--消费者弹出窗口内容开始-->
+<div id="xfzDetail_content" class="none">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+        <tr>
+            <td class="view_item" width="20%">互生卡号</td>
+            <td class="view_text_2" width="30%" id="p_res_no"></td>
+            <td class="view_item" width="20%">卡身份状态</td>
+            <td class="view_text_2" width="30%">
+                <div class="clearfix mt5 mb5">
+                    <i class="fl service_icon service_icon_Bzc_disable ml10" title="未实名注册" id="p_real_reg1"></i>
+                    <i class="fl service_icon service_icon_Brz_disable ml10" title="未实名认证" id="p_real_auth1"></i>
+
+                    <div class="fl ml10 mt5">卡行为标识：<span id="p_card_status">启用</span></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- 操作台切换标签开始 -->
+    <div class="jqp-tabs_3 mt10">
+        <ul>
+			<!--<li><a href="#jqp-tabs_3-1">互生卡身份信息</a></li>
+			<li><a href="#jqp-tabs_3-2">账户信息</a></li>
+			<li><a href="#jqp-tabs_3-3">积分福利信息</a></li>
+			<li><a href="#jqp-tabs_3-4">积分福利申请信息</a></li>
+			<li><a href="#jqp-tabs_3-5">互生卡补办记录信息</a></li>-->
+            <li><a href="#jqp-tabs_3-1">消费者信息</a></li>
+            <li><a href="#jqp-tabs_3-2">手机</a></li>
+            <li><a href="#jqp-tabs_3-3">邮箱</a></li>
+            <li><a href="#jqp-tabs_3-4">银行卡</a></li>
+            <li><a href="#jqp-tabs_3-5">快捷卡</a></li>
+            <li><a href="#jqp-tabs_3-6">业务操作许可</a></li>
+			<li><a href="#jqp-tabs_3-7">账户信息</a></li>
+			<li><a href="#jqp-tabs_3-8">积分福利信息</a></li>
+			<li><a href="#jqp-tabs_3-9">积分福利申请信息</a></li>
+			<li><a href="#jqp-tabs_3-10">互生卡补办记录信息</a></li>
+        </ul>
+
+        <!-- 操作台切换标签结束 -->
+		<div id="jqp-tabs_3-1" class="tabsContent_1">
+            <!--<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+                <tr>
+                    <td class="view_item" width="20%">互生卡号</td>
+                    <td class="view_text_2" width="30%" id="p_person_resNo"></td>
+                    <td class="view_item" width="20%">姓名</td>
+                    <td class="view_text_2" width="30%" id="p_person_name"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">证件类型</td>
+                    <td class="view_text_2" width="30%" id="p_person_cre_type"></td>
+                    <td class="view_item" width="20%">国籍</td>
+                    <td class="view_text_2" width="30%" id="p_nationality"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">证件号码</td>
+                    <td class="view_text_2" width="30%" id="p_cre_no"></td>
+                    <td class="view_item" width="20%">性别</td>
+                    <td class="view_text_2" width="30%" id="p_gender"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">证件有效期</td>
+                    <td class="view_text_2" width="30%" id="p_cre_end"></td>
+                    <td class="view_item" width="20%">户籍地址</td>
+                    <td class="view_text_2" width="30%" id="p_cre_address"></td>
+                </tr>
+                <tr>
+                    <td class="view_item" width="20%">发证机关</td>
+                    <td class="view_text_2" width="30%" id="p_cre_gov"></td>
+                    <td class="view_item" width="20%"></td>
+                    <td class="view_text_2" width="30%"></td>
+                </tr>
+            </table>-->
+            <div  class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tbody><tr>
+                        <td class="view_item" width="20%">互生卡号</td>
+                        <td class="view_text" width="30%"><span class="hskh_txt" id="p_person_resNo">01001010001</span></td>
+                        <td class="view_item" width="20%">姓名</td>
+                        <td class="view_text" width="30%"><span class="mc_txt" id="p_person_name"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">国籍</td>
+                        <td class="view_text"><span class="gj_txt" id="p_nationality"></span></td>
+                        <td class="view_item">证件类型</td>
+                        <td class="view_text"><span class="zjlx_txt1" id="p_person_cre_type"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">证件号码</td>
+                        <td class="view_text"><span class="zjhm_txt" id="p_cre_no"></span></td>
+                        <td class="view_item">性别</td>
+                        <td class="view_text"><span class="xb_txt" id="p_gender"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">职业</td>
+                        <td class="view_text"><span class="zy_txt" id="p_job"></span></td>
+                        <td class="view_item">证件有效期</td>
+                        <td class="view_text"><span class="zjyxq_txt"  id="p_cre_end"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">发证机关</td>
+                        <td class="view_text"><span class="fzjg_txt" id="p_cre_gov"></span></td>
+                        <td class="view_item">户籍地址</td>
+                        <td class="view_text"><span class="hjdz_txt" id="p_cre_address"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item" width="20%">证件图片</td>
+                        <td colspan="3" class="view_text"><span id="p_cre_img"></span></td>
+                    </tr>
+                    </tbody></table>
+            </div>
+        </div>
+        <div id="jqp-tabs_3-2" class="tabsContent_1">
+            <div class="view_info mt40 info_500">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tbody>
+                    <tr>
+                        <td class="view_item" width="30%">手机号码</td>
+                        <td class="view_text" width="70%"><span class="blue mr20"></span>  <span class="blue"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_3-3" class="tabsContent_1">
+            <div class="view_info mt40 info_500">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tbody>
+                    <tr>
+                        <td class="view_item" width="30%">邮箱</td>
+                        <td class="view_text" width="70%"><span class="blue mr20"></span>  <span class="blue"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_3-4" class="tabsContent_1">
+            <ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="jqp-tabs_3-5" class="tabsContent_1">
+            <ul class="bank_content" style="border:0;">
+                <li class="bank_bg pr">
+                    <div class="bank_row bank_row_margin_1 clearfix">
+                        <div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+
+                    </div>
+                    <div class="bank_row bank_row_margin_2 tc">
+                        <span class="bank_number"></span>
+                    </div>
+                    <div class="bank_row bank_row_margin_2 clearfix">
+                        <div class="fl"><span class="gray"></span></div>
+                        <div class="fr"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="jqp-tabs_3-6" class="tabsContent_1">
+            <div class="view_info mt40 info_500">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tbody>
+                    <tr>
+                        <td class="view_item" width="30%">积分转互生币</td>
+                        <td class="view_text" width="70%"><span class="blue">开启</span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">积分投资</td>
+                        <td class="view_text "><span class="blue">开启</span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">兑换互生币</td>
+                        <td class="view_text"><span class="blue">开启</span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币转货币</td>
+                        <td class="view_text"><span class="blue">开启</span></td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币转银行</td>
+                        <td class="view_text"><span class="blue">开启</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="jqp-tabs_3-7" class="tabsContent_1">
+            <div class="view_info">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+                    <tr>
+                        <td class="view_item" width="20%">积分账户</td>
+                        <td class="view_text_3" width="80%">
+                            <div style="padding-bottom:3px;border-bottom:1px solid #CCC;">积分账户余数：<span
+                                    id="p_point_balance"></span></div>
+                            <div style="padding-top:3px;">
+                                <div>可用积分数：<span id="p_point_usable"></span><span class="ml10">今日积分数</span>：<span
+                                        id="p_point_today"></span></div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">互生币账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5"><span style="letter-spacing:1em;margin-right:-1em;">流通币</span>：<span
+                                    id="p_hsb_ltb"></span></div>
+                            <div>定向消费币：<span id="p_hsb_dxxf"></span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">货币账户</td>
+                        <td class="view_text_3">
+                            货币账户余额：<span id="p_currency_balance"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="view_item">投资账户</td>
+                        <td class="view_text_3">
+                            <div class="mb5">累计积分投资总数：<span id="p_invest_sum"></span></div>
+                            <div style="border:1px solid #CCC;padding:3px;background-color:#EFEFEF;">
+                                <div style="padding-bottom:3px;border-bottom:1px solid #CCC;"><span
+                                        id="p_invest_income_sum"></span></div>
+                                <div style="padding-top:3px;">其中流通币：<span id="p_invest_income_ltb"></span><span
+                                        class="ml10">其中定向消费币</span>：<span id="p_invest_income_dxxf"></span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+		<div id="jqp-tabs_3-8" class="tabsContent_1">
+            <table id="searchTable_xfz_jfflxx">
+                <tr>
+                    <th w_index="effectDate">达到条件日期</th>
+                    <th w_index="welfareId">保障单号</th>
+                    <th w_index="failureDate">保障单有效期</th>
+                    <th w_index="allFailureDateList">不能享受保障日</th>
+                </tr>
+            </table>
+        </div>
+        <div id="jqp-tabs_3-9" class="tabsContent_1">
+            <div class="search-toolbar">
+                <ul class="cssform clearfix" style=" background-color:#6CB058;border:0;">
+                    <li>
+                        <label class="fl h30_middle">申请福利类别：</label>
+                        <input id="sqfllb" readonly="readonly" placeholder="选择申请福利类别"/>
+                    </li>
+                    <li>
+                        <button id="qry_btn" type="button" class="btn-search">查询</button>
+                    </li>
+                </ul>
+            </div>
+            <table id="searchTable_xfz_jffl">
+                <tr>
+                    <th w_index="applyWelfareNo">申请单号</th>
+                    <th w_index="applyDate">申请时间</th>
+                    <th w_index="welfareType" w_render="operate">申请福利类别</th>
+                    <th w_index="approvalStatus" w_render="operate">审核结果</th>
+                    <th w_index="approvalAmount">批复金额</th>
+                </tr>
+            </table>
+        </div>
+		<div id="jqp-tabs_3-10" class="tabsContent_1">
+            <table id="searchTable_xfz_hskbb">
+                <tr>
+                    <th w_num="line" width="5%;">序号</th>
+                    <th w_index="orderNo">业务流水号</th>
+                    <th w_index="orderTime">日期</th>
+                    <th w_index="orderStatus" w_render="operate">受理结果</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--消费者弹出窗口内容结束-->
+
+<!--详细资料弹出窗口内容结束-->
+<!--来电弹屏-->
+<!--
+<div id="ldtp_div" class="none"></div>-->
+<div id="ldtp_dlg" class="none bc"></div>
+
+<!--互动聊天窗口-->
+<div id="mcsChatBox_div"></div>
+<!--消费者证件图片预览-->
+<div id="viewConfirmCardStyle" class="none">
+    <p></p>
+</div>
+
+<!--音频文件-->
+<a id="playMedia" style="width:0px; height:0px;"></a>

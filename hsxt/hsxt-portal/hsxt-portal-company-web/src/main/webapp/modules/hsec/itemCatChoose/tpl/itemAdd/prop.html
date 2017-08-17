@@ -1,0 +1,84 @@
+<%
+	var data = obj.data;
+	var lstItemOfKeyProps = data.lstItemOfKeyProps;
+	var lstItemOfSaleProps = data.lstItemOfSaleProps;
+	var lstItemOfOtherProps = data.lstItemOfOtherProps;
+	var pinpaiList = data.lstItemBrands;
+%>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="itemspu">
+   <tr>
+          <td align="right" width="60px">品牌</td>
+          <td style="width: 310px">
+            <input id="itemPinpai" class="inpt cp"  valueId="" type="text" value="" placeholder="无品牌可不填" maxlength="30"/>
+          	<i class="goodsC_arrow cp" id="itemPinpaiSelect" title="点击选择商品品牌" style="right: 11px"></i>
+			<ul class="bank_ul" id="itemPinpaiList" style="display: none;width: 319px">
+				    <%try{ $.each(pinpaiList,function(key,el){ %>
+                     <li data-code="<%=el.id%>" style="line-height:25px;" title="<%=el.cnName%>"><%=el.cnName%></li>
+                     <% }) }catch(e){} %>
+				</ul>
+          </td>
+          <td align="left"></td>
+        </tr>
+ <%
+ 	try { $.each(lstItemOfKeyProps,function(key,kp){ %>
+ 	<tr class="spu" valueId="<%=kp.id%>" valueName="<%=kp.attrName%>">
+	   <td align="right"><%=kp.attrName%></td>
+	   <td style="width: 200px"><input class="inpt remain" type="text" maxlength="50" value=""></td>
+	   <td align="left">还能输入<span class="red">50</span>字</td>
+	 </tr>
+ <%	}) }catch(e){};
+ %>
+  <tr>
+     <td width="60" align="right">商品属性</td>
+     <td width="310" colspan="2">
+     <div id="skuMain">
+     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="updmg editval">
+     <%
+     	var imgbool = 0;
+     try{$.each(lstItemOfSaleProps,function(key,sp){
+     	 if(sp.isColorProp == 1){imgbool = 1;}
+     %>
+     	<tr class="nav-block Father_Item<%=key%>">
+	     	<td width="70" height="34" align="right" items="<%=sp.id%>&<%=sp.attrName%>" isColor="<%=sp.isColorProp%>"><%=sp.attrName%>：</td>
+	        <td height="34">
+	         	<ul class="ed1 clearfix">
+	         		<%
+	         		try { $.each(sp.propValues,function(key1,pv){ %>
+	         		<li class="clearfix pb5">
+	         			<span class="fl skuName">
+	         				<input type="checkbox" class="sku" value="<%=pv.id%>&<%=pv.value%>" isColor="<%=sp.isColorProp%>"/>
+	         				<label for="cb_<%=pv.id%>"><%=pv.value%></label>
+	         			</span>
+	         			<!-- a class="fl editval-del" title="删除"><i></i></a-->
+	         		</li>
+	         		<%}) }catch(e){};
+	         		%>
+	             </ul>
+	        </td>
+	       	<td width="30"> <%if(sp.valueCount > sp.propValues.length){%><a class="fr editval-add" maxCount="<%=sp.valueCount%>" title="新增"><i></i></a><%}%></td>
+     	</tr>
+     <%	}) }catch(e){};
+ 	 %>
+      </table>
+      <div id="createTable"></div>
+        <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+              <h6>图片上传</h6>
+              <ul id="imgLoad">
+    
+             </ul>
+       </div>
+       <div class="clearfix lh150 <%if(imgbool != 1){%>none<%}%>" >
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl" style="">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传6张图片。</li>
+				</ul>
+              </div>
+            </div>
+       </div>
+     </td>
+   </tr>
+</table>
+<div id="dlg3" class="none">
+</div>

@@ -1,0 +1,32 @@
+<form id="psfsxxxg_form" name="psfsxxxg_form">
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="25%">配送方式名称</td>
+            <td>
+            	<input type="hidden" id="smId" name="smId" value="<%=obj.smId%>" />
+				<input type="text" id="smName" name="smName" class="ml5 h28_middle w96pc"  maxlength="21"  placeholder="输入配送方式名称" value="<%=obj.smName%>" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">排序值</td>
+            <td>
+				<input type="text" id="sort" name="sort" class="ml5 h28_middle w96pc" maxlength="5" placeholder="输入排序值，值越大越靠后显示" value="<%=obj.sort%>" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">状态</td>
+            <td>
+				<input type="radio" name="isActive" id="isActive_Y" value="Y" class="ml5"/><label for="isActive_Y" class="ml5 mr10">启用</label>
+				<input type="radio" name="isActive" id="isActive_N" value="N"/><label for="isActive_N" class="ml5">禁用</label>
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">配送说明</td>
+            <td>
+				<textarea id="smDesc" name="smDesc" class="ml5 h50 w98pc rsn pt5 pb5" maxlength="300" placeholder="输入配送说明,字数不超过300个字"><%=obj.smDesc%></textarea>
+			</td>
+        </tr>
+    </table>
+</div>
+</form>

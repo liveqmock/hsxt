@@ -1,0 +1,18 @@
+<%
+	var picUrl;
+    try{
+       	var objc =JSON.parse(picList[0].webPicUrl)
+        	picUrl=picList[0].picUrl+objc["68x68"]
+       }catch(e){
+        	picUrl = "";
+       }
+%>
+<div class="clearfix">
+  <div class="std_jbxximg"><img width="80" height="80" src="<%=picUrl%>"></div>
+  <div class="fl tl">
+    <ul class="w200">
+      <li class="lh24" style="white-space:nowrap;"><%=obj.categoryName%></li> 
+	  <li class="lh24 div_spill" style="white-space:nowrap;" title="<%=obj.name%>"><%=obj.name%></li>          
+    </ul>
+  </div>
+ </div>

@@ -1,0 +1,218 @@
+﻿<div class="none" id="glqysbzzdwh_xgTpl">
+	<div class="bc info_800">
+		<form>
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row  bg_grey">
+						<label class="fl w115 h30_middle">申报类别</label>
+						<input type="text" id="toCustType" class="w185 h30_middle ml5  bg_grey"  readonly="readonly" />
+					</li>
+					<li class="register_row clearfix bg_grey">
+						<label class="fl w115 h30_middle">企业名称</label>
+						<input type="text" id="toEntCustName" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" maxlength="64"/>
+					</li>
+					<li class="register_row clearfix bg_grey">
+						<label class="fl w115 h30_middle">所属地区</label>
+						<input type="text" id="placeName" class="fl w185 h30_middle ml5 bg_grey" readonly="readonly"/>
+					</li>
+					<li class="register_row clearfix bg_grey">
+						<label class="fl w115 h30_middle" id="glqysbzzdwh_hsh_name"></label>
+						<input type="text" id="fwgshsh" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix bg_grey" id="glqy_sbdwhsh">
+						<label class="fl w115 h30_middle">申报单位互生号</label>
+						<input type="text" id="sbdwhsh" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" >
+					</li>
+				</ul>
+				<ul class="fr info_320">
+					<li id="glqy_qyzylx" class="register_row clearfix bg_grey" >
+						<label id="toBuyResRangeText" class="fl w115 h30_middle">启用资源类型</label>
+						<input type="text" id="toBuyResRange" class="w185 h30_middle ml5  bg_grey" readonly="readonly" />
+					</li>
+					<!-- <li class="register_row clearfix  bg_grey">
+						<label class="fl w115 h30_middle">企业英文名称</label>
+						<input type="text" id="toEntEnName" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" />
+					</li> -->
+					<li class="register_row clearfix  bg_grey">
+						<label class="fl w115 h30_middle" id="glqysbzzdwh_kype_name"></label>
+						<input type="text" id="availableQuota" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix bg_grey">
+						<label class="fl w115 h30_middle" id="glqysbzzdwh_ssmc_name"></label>
+						<input type="text" id="ssfwgsmc" class="fl w185 h30_middle ml5 bg_grey" readonly="readonly" />
+					</li>
+					<li class="register_row clearfix bg_grey" id="glqy_sbdwmc">
+						<label class="fl w115 h30_middle">申报单位名称</label>
+						<input type="text" id="sbdwmc" class="fl w185 h30_middle ml5  bg_grey" readonly="readonly" />
+					</li>
+				</ul>
+			</div>
+			<ul id="glqysbzzdwh_nyqyhsh_ul">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">拟用企业互生号</label>
+					<div class="fl h30_middle" id="qyhsh_raido_tgqy">
+						<input type="radio" id="sxxp1" name="qyhsh_tgqy" value="0" class="mr5 input_radio" checked="checked" disabled="true"/>顺序选配
+						<input type="radio" id="rgxp1" name="qyhsh_tgqy" value="1" class="ml20 mr5 input_radio"  disabled="true"/>人工选配
+					</div>
+					<div class="fl ml10 combobox_style qyhsh-select none" id="qyhsh_select_tgqy">
+					</div>
+				</li>
+			</ul>
+			
+			<div class="search-toolbar clearfix mt5">
+				<ul class="cssform fl">
+					<li class="h30_middle fb">积分增值点设置</li>
+				</ul>
+				<ul class="cssform clearfix fr">
+					<li class="mr20">
+						<label>企业互生号：</label>
+						 <input type="text" name="zzdqyglh" id="zzdqyglh" maxlength="11" placeholder="输入企业互生号" class="input-txt h28_middle w115" />
+					</li>
+					<li>
+						<button id="refincrement" type="button" class="btn-search">刷新增值点数据</button>
+					</li>
+					</ul>
+			</div>
+			
+			<div id="comboxDiv">
+			<table id="increment-3-table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+				<tbody>
+					  <tr align="center">
+					    <th colspan="4" class="wbd-bt">1增值分配点</th>
+					    <th colspan="4" class="wbd-bt">2增值分配点</th>
+					    <th colspan="4" class="wbd-bt">3增值分配点</th>
+					  </tr>
+					  <tr align="center">
+					    <th colspan="2" class="wbd-bt">左增值区</th>
+					    <th colspan="2" class="wbd-bt">右增值区</th>
+					    <th colspan="2" class="wbd-bt">左增值区</th>
+					    <th colspan="2" class="wbd-bt">右增值区</th>
+					    <th colspan="2" class="wbd-bt">左增值区</th>
+					    <th colspan="2" class="wbd-bt">右增值区</th>
+					    </tr>
+					  <tr align="center">
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    </tr>
+					  <tr>
+					    <td id="increment-1-lP"></td>
+					    <td id="increment-1-lCount"></td>
+					    <td id="increment-1-rP"></td>
+					    <td id="increment-1-rCount"></td>
+					    <td id="increment-2-lP"></td>
+					    <td id="increment-2-lCount"></td>
+					    <td id="increment-2-rP"></td>
+					    <td id="increment-2-rCount"></td>
+					    <td id="increment-3-lP"></td>
+					    <td id="increment-3-lCount"></td>
+					    <td id="increment-3-rP"></td>
+					    <td id="increment-3-rCount"></td>
+					  </tr>
+					  <tr class="table-tr-c">
+					    <td colspan="2" align="center">&nbsp;</td>
+					    <td colspan="2" align="center">&nbsp;</td>
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="2-L" id="increment-2-l"></td>
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="2-R" id="increment-2-r"></td>
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="3-L" id="increment-3-l"></td>
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="3-R" id="increment-3-r"></td>
+					    </tr>
+					</tbody>
+				</table>
+				
+				<table id="increment-1-table" width="100%" border="0" cellspacing="0" cellpadding="0" class="none search-table">
+					  <tbody><tr align="center">
+					    <th colspan="4" class="wbd-bt">1增值分配点</th>
+					  </tr>
+					  <tr align="center">
+					    <th colspan="2" class="wbd-bt">左增值区</th>
+					    <th colspan="2" class="wbd-bt">右增值区</th>
+					    </tr>
+					  <tr align="center">
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    <th>积点数</th>
+					    <th>增值点</th>
+					    </tr>
+					  <tr>
+					    <td id="increment-lP"></td>
+					    <td id="increment-lCount"></td>
+					    <td id="increment-rP"></td>
+					    <td id="increment-rCount"></td>
+					  </tr>
+					  <tr class="table-tr-c">
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="1-L" id="increment-1-l"></td>
+					    <td colspan="2" align="center"><input type="radio" name="increment" value="1-R" id="increment-1-r"></td>
+					  </tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="tj_btn">保&#12288;存</a>
+				<a class="btn_bg submit fr" id="cancel_btn">取&#12288;消</a>
+			</div>
+		</form>
+	</div>
+</div>
+   
+<div id="tj_content" class="none">
+<form id="qysbzzdwh_dialog_form" name="qysbzzdwh_dialog_form">
+	<div class="view_info mt10">
+		<div class="mb5 fb">企业互生号 ： <span id="toEntResNo_"></span> 企业名称 ：<span id="toEntCustName_"></span></div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td width="20%" align="center" class="table_title">信息</td>
+				<td width="40%" align="center" class="table_title">修改前内容</td>
+				<td width="40%" align="center" class="table_title">修改后内容</td>
+			</tr>
+			<tr>
+				<td class="view_item">增值系统位置企业互生号</td>
+				<td class="view_text" id="old_zzdqyglh"></td>
+				<td class="view_text" id="new_zzdqyglh"></td>
+			</tr>
+			<tr>
+				<td class="view_item">增值分配点</td>
+				<td class="view_text" id="old_toInodeResNo"></td>
+				<td class="view_text" id="new_toInodeResNo"></td>
+			</tr>
+			<tr>
+				<td class="view_item">增值区</td>
+				<td class="view_text" id="old_toInodeLorR"></td>
+				<td class="view_text" id="new_toInodeLorR"></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">备注</td>
+				<td class="view_input" colspan="2"><textarea id="name" class="rsn h100 w98pc ml5" placeholder="输入备注,字数不超过300个字" maxlength="300"></textarea></td>
+			 </tr>
+			 <tr>
+				<td class="view_item" width="20%">选择验证方式</td>
+				<td colspan="2" class="pr">
+					<input id="verificationMode" readonly="readonly" placeholder="选择验证方式" />
+					<span class="ml10 red none" id="verificationMode_prompt">当前版本暂时不支持这种验证方式</span>
+					<span class="required-right-10">*</span>
+				</td>
+			 </tr>
+			 <tr id="fhy_userName">
+				<td class="view_item" width="20%">复核员用户名</td>
+				<td colspan="2" class="pr"><input type="text" id="doubleUserName" name="doubleUserName" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /><span class="required-right-10">*</span></td>
+			 </tr>
+			 <tr id="fhy_password">
+				<td class="view_item" width="20%">复核员登录密码</td>
+				<td colspan="2" class="pr"><input type="password" id="doublePassword" name="doublePassword" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /><span class="required-right-10">*</span></td>
+			</tr>
+		</table>
+		
+		<input type="hidden" id="toPnodeCustId"><!-- 被申报增值节点父节点客户号 -->
+		<input type="hidden" id="toPnodeResNo"><!-- 被申报增值节点父节点资源号 -->
+	</div>
+</form>
+</div>

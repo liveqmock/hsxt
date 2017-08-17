@@ -1,0 +1,59 @@
+<form id="impInfoChange_passport_form" name="impInfoChange_passport_form">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" style="table-layout:fixed">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">变更前内容</td>
+			<td class="table_title" width="40%">变更后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">姓名</td>
+			<td class="table_text" width="40%" id="impInfoChange_userName2_2"></td>
+			<td class="table_text" width="40%"><input id="userName" class="isChange" name="userName" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">性别</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldSex2_2"></td>
+			<td class="table_text" width="40%"><select id="sex" class="isChange" name="sex"><option value="">请选择</option><option value="1">男</option><option value="0">女</option></select></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">国籍</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldCountry2_2"></td>
+			<td class="table_text" width="40%"><div class="selectDiv"><select id="nationality" name="nationality"></select></div></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件类型</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldCerType2_2"></td>
+			<td class="table_text" width="40%"><input type="text" id="impInfoChange_newCerType2_2" name="impInfoChange_newCerType2_2" disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件号码</td>
+			<td class="table_text" width="40%"><%=comm.plusXing(obj.cerNo,3,2,false)%></td>
+			<td class="table_text" width="40%"><input type="text" id="cerNo" class="isChange" name="cerNo" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件有效期</td>
+			<td class="table_text" width="40%"><%=obj.validDate%></td>
+			<td class="table_text" width="40%"><div class="pr"><input type="text" id="validDate" name="validDate" readonly="readonly" class="jqp-datepicker"/></div></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">出生地点</td>
+			<td class="table_text" width="40%"><%=obj.birthPlace%></td>
+			<td class="table_text" width="40%"><input type="text" id="birthPlace" class="isChange" name="birthPlace"/></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">签发地点</td>
+			<td class="table_text td-table-dt" width="40%"><%=obj.issuePlace%></td>
+			<td class="table_text" width="40%"><input type="text" id="issuePlace" class="isChange" name="issuePlace" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">签发机关</td>
+			<td class="table_text" width="40%"><%=obj.issuingOrg%></td>
+			<td class="table_text" width="40%"><input type="text" id="issuingOrg" class="isChange" name="issuingOrg" /></td>
+		</tr>
+	</table>
+	<div class="tc clearfix mt20 mb10 h40">
+		<a id="impInfoChange_nextBtn_2" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="zyxxbg2">下一步</a>
+		<div id="impInfoChange_Apptext"></div>
+	</div>
+</form>
+	

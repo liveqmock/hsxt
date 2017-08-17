@@ -1,0 +1,44 @@
+<div id="jnxtsynf">
+    <div class="acct-ct mb20">
+    	<div class="acct-tips">
+			<div class="clearfix bc" style="width:570px;">
+				<span class="tcr_blue fb fl">温馨提示：</span>
+				<div class="fl ml5 tl lh150">
+					1. 系统开启日的前两个月为下一年度系统使用年费的缴纳期！<br />
+					<%if(obj.isOwe == 1){%>
+					2. 贵企业已欠年费<%=obj.payFee %>，请及时缴纳，欠年费期间将暂停货币转银行、积分投资和代兑互生币业务！
+					<%}%>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="bc info_320">
+    <form id="jnxtsynf_form" name="jnxtsynf_form" action="" method="post">
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w115">互生币可用数量</label><div class="cont-chk tbox"><span class="ml10 red"><%=obj.availablePointNum %></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">系统使用年费</label><div class="cont-chk tbox"><span class="ml10"><%=obj.price %></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">需缴纳年费</label><div class="cont-chk tbox"><span class="ml10"><%=obj.payFee %></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">目前年费有效期</label><div class="cont-chk tbox"><span class="ml10"><%=obj.availableTime %></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">缴纳年费区间</label><div class="cont-chk tbox"><span class="ml10"><%=obj.payTime %></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">结算币种</label><div class="cont-chk tbox"><span class="ml10">互生币</span></div>
+            </li>
+        </ul>
+        <%if(obj.isInTime == "1"){%>
+        <div class="mt20 tc"><a href="javascript:;" id="btn_jnxtsynf_tj" class="btn_bg submit">去付款</a></div>
+        <%}%>
+    </form>
+    </div>
+</div>
+<div id="jnxtsynf_1" class="none"></div>
+<div id="jnxtsynf-dialog" class="none"><p></p></div>

@@ -1,0 +1,39 @@
+<div class="view_info mt40 info_500 none" id="cpointPrepay_cashpay">
+<form id="acpoint_appForm_qr" autocomplete="off" name="acpoint_appForm_qr" action="" method="post">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="20%">应支付金额</td>
+			<td class="view_text" width="30%" id="qr_acpoint_cash_appBuyCpointNum"></td>
+		</tr>
+		<tr>
+			<td class="view_item">折合预付积分数</td>
+			<td class="view_text" id="qr_acpoint_cash_converPointNum"></td>
+		</tr>
+		<tr>
+			<td class="view_item">支付账户</td>
+			<td class="view_text">互生币账户</td>
+		</tr>
+		<tr>
+			<td class="view_item">结算币种</td>
+			<td class="view_text">互生币</td>
+		</tr>
+		<tr>
+			<td class="view_item">货币转换比率</td>
+			<td class="view_text" id="qr_acpoint_cash_rate"></td>
+		</tr>
+		<tr>
+			<td class="view_item">支付互生币数量</td>
+			<td class="view_text" id="qr_acpoint_cash_converHsbNum"></td>
+		</tr>
+
+		<tr>
+			<td class="view_item">交易密码</td>
+			<td class="view_input">
+			<input class="ml5" type="hidden" name="acpoint_cash_radioVal" id="acpoint_cash_radioVal" value=""/>
+			<input class="ml5" type="password" name="acpoint_dealPwd" id="acpoint_dealPwd" maxlength="8" placeholder="输入8位交易密码"/>
+			</td>
+		</tr>
+	</table>
+	<div class="clearfix mt20 tc"><a href="javascript:;" id="acpoint_cash_return" class="btn_bg submit mr30">修&#12288;改</a><a href="javascript:;" id="acpoint_cash_paymentSubmit" class="btn_bg submit">确&#12288;认</a></div>
+</form>
+</div>

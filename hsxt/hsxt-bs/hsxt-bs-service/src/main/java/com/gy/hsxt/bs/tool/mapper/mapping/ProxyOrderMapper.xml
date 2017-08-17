@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.ProxyOrderMapper">
+
+	<!-- 审批基础Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.base.ApprBase" id="apprBaseMap">
+		<result column="REQ_OPERATOR" property="reqOperator"/>
+		<result column="REQ_TIME" property="reqTime"/>
+		<result column="REQ_REMARK" property="reqRemark"/>
+		<result column="APPR_OPERATOR" property="apprOperator"/>
+		<result column="APPR_TIME" property="apprTime"/>
+		<result column="APPR_REMARK" property="apprRemark"/>
+	</resultMap>
+	
+	<!-- 平台代购Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.tool.ProxyOrder" id="proxyOrderMap" extends="apprBaseMap">
+		<result column="PROXY_ORDER_NO" property="proxyOrderNo"/>
+		<result column="ENT_CUST_ID" property="entCustId"/>
+		<result column="ENT_RES_NO" property="entResNo"/>
+		<result column="ENT_CUST_NAME" property="entCustName"/>
+		<result column="CUST_TYPE" property="custType"/>
+		<result column="ORDER_AMOUNT" property="orderAmount"/>
+		<result column="CURRENCY_CODE" property="currencyCode"/>
+		<result column="ORDER_REMARK" property="orderRemark"/>
+		<result column="DELIVER_ID" property="deliverId"/>
+		<result column="STATUS" property="status"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+	</resultMap>
+	
+	<!-- 插入平台代购 -->
+	<insert id="insertProxyOrder" parameterType="com.gy.hsxt.bs.bean.tool.ProxyOrder">
+		INSERT INTO 
+		T_BS_PROXY_TOOL_ORDER(
+			PROXY_ORDER_NO,
+			ENT_CUST_ID,
+			ENT_RES_NO,
+			ENT_CUST_NAME,
+			CUST_TYPE,
+			ORDER_TYPE,
+			ORDER_AMOUNT,
+			CURRENCY_CODE,
+			ORDER_REMARK,
+			DELIVER_ID,
+			STATUS,
+			REQ_TIME,
+			REQ_OPERATOR,
+			REQ_REMARK,
+			APPR_TIME,
+			APPR_OPERATOR,
+			APPR_REMARK) 
+		VALUES (
+			#{proxyOrderNo},
+			#{entCustId},
+			#{entResNo},
+			#{entCustName},
+			#{custType},
+			#{orderType},
+			#{orderAmount},
+			#{currencyCode},
+			#{orderRemark,jdbcType=VARCHAR},
+			#{deliverId},
+			#{status},
+			SYSDATE,
+			#{reqOperator},
+			#{reqRemark,jdbcType=VARCHAR},
+			NULL,
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 平台代购订单审批 -->
+	<update id="proxyOrderAppr" parameterType="com.gy.hsxt.bs.bean.tool.ProxyOrder">
+		UPDATE T_BS_PROXY_TOOL_ORDER 
+		<set>
+			APPR_TIME = SYSDATE,
+			<if test="status != null">
+				STATUS = #{status},	
+			</if>	
+			<if test="apprOperator != null and apprOperator != ''">
+				APPR_OPERATOR = #{apprOperator},	
+			</if>	
+			<if test="apprRemark != null and apprRemark != ''">
+				APPR_REMARK = #{apprRemark,jdbcType=VARCHAR},	
+			</if>	
+		</set> 
+		WHERE PROXY_ORDER_NO = #{proxyOrderNo}	
+	</update>
+	
+	<!-- 根据id查询平台代购订单 -->
+	<select id="selectProxyOrderById" parameterType="string" resultMap="proxyOrderMap">
+		SELECT 
+			PROXY_ORDER_NO,ENT_CUST_ID,ENT_RES_NO,ENT_CUST_NAME,CUST_TYPE,ORDER_TYPE,ORDER_AMOUNT,
+			CURRENCY_CODE,ORDER_REMARK,DELIVER_ID,STATUS,REQ_TIME,REQ_OPERATOR,
+			REQ_REMARK,APPR_TIME,APPR_OPERATOR,APPR_REMARK 
+		FROM T_BS_PROXY_TOOL_ORDER 
+		WHERE PROXY_ORDER_NO = #{proxyOrderNo}
+	</select>
+		
+	<!-- 分页查询平台代购订单 -->
+	<select id="selectProxyOrderListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultMap="proxyOrderMap">
+		SELECT 
+			O.PROXY_ORDER_NO AS proxyOrderNo,
+			O.ENT_RES_NO AS entResNo,
+			O.ENT_CUST_NAME AS entCustName,
+			O.ORDER_TYPE AS orderType,
+			O.ORDER_AMOUNT AS orderAmount,
+			O.STATUS AS status,
+			O.REQ_TIME AS reqTime
+		FROM T_BS_PROXY_TOOL_ORDER O
+		<choose>
+	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when>
+	    </choose>
+		WHERE 1 = 1 
+		<if test="exeCustId != null and exeCustId != ''">
+			AND O.PROXY_ORDER_NO = T.BIZ_NO
+			AND T.STATUS = 2
+			AND T.EXE_CUST_ID = #{exeCustId}
+		</if>
+		<if test="hsCustName != null and hsCustName != ''">
+			AND O.ENT_CUST_NAME LIKE #{hsCustName}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != ''">
+			AND O.ENT_RES_NO LIKE #{hsResNo}||'%'
+		</if>
+		<if test="status != null">
+			AND O.STATUS = #{status}
+		</if>
+		ORDER BY O.REQ_TIME DESC
+	</select>
+	
+	<!-- 插入平台代购清单 -->
+	<insert id="insertProxyOrderList">
+		INSERT INTO 
+		T_BS_PROXY_TOOL_LIST(
+			PROXY_ORDER_NO,
+			PRODUCT_ID,
+			CATEGORY_CODE,
+			PRODUCT_NAME,
+			PRODUCT_UNIT,
+			PRODUCT_PRICE,
+			QUANTITY,
+			TOTAL_AMOUNT,
+			CARD_STYLE_ID) 
+		<foreach collection="details" item="detail" index="index" separator="union all">
+			(SELECT
+			#{proxyOrderNo},
+			#{detail.productId},
+			#{detail.categoryCode},
+			#{detail.productName},
+			#{detail.unit,jdbcType=VARCHAR},
+			#{detail.price},
+			#{detail.quantity},
+			#{detail.totalAmount},
+			#{detail.cardStyleId,jdbcType=VARCHAR}
+			FROM DUAL)
+		</foreach>
+	</insert>	
+	
+	<!-- 根据id查询平台代购清单 -->
+	<select id="selectProxyOrderDetailById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.ProxyOrderDetail">
+		SELECT 
+			PROXY_ORDER_NO AS proxyOrderNo,
+			PRODUCT_ID AS productId,
+			CATEGORY_CODE AS categoryCode,
+			PRODUCT_NAME AS productName,
+			PRODUCT_UNIT AS unit,
+			PRODUCT_PRICE AS price,
+			QUANTITY AS quantity,
+			TOTAL_AMOUNT AS totalAmount,
+			CARD_STYLE_ID AS cardStyleId
+		FROM T_BS_PROXY_TOOL_LIST 
+		WHERE PROXY_ORDER_NO = #{proxyOrderNo}
+	</select>
+	
+	<!-- 分页查询平台代购订单记录 -->
+	<select id="selectPlatProxyOrderRecordListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam" resultMap="proxyOrderMap">
+		SELECT 
+			O.PROXY_ORDER_NO AS proxyOrderNo,
+			O.ENT_RES_NO AS entResNo,
+			O.ENT_CUST_NAME AS entCustName,
+			O.ORDER_TYPE AS orderType,
+			O.ORDER_AMOUNT AS orderAmount,
+			O.STATUS AS status,
+			O.REQ_TIME AS reqTime
+		FROM T_BS_PROXY_TOOL_ORDER O
+		WHERE 1 = 1 
+		<if test="startDate != null and startDate != ''">
+			AND O.REQ_TIME &gt;= to_date(#{startDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND O.REQ_TIME &lt;= to_date(#{endDate},'yyyy-mm-dd,hh24:mi:ss')
+		</if>
+		<if test="hsCustName != null and hsCustName != ''">
+			AND O.ENT_CUST_NAME LIKE #{hsCustName}||'%'
+		</if>
+		<if test="hsResNo != null and hsResNo != ''">
+			AND O.ENT_RES_NO LIKE #{hsResNo}||'%'
+		</if>
+		<if test="type != null and type != '' ">
+			AND O.ORDER_TYPE = #{type}
+		</if>
+		<if test="status != null">
+			AND O.STATUS = #{status}
+		</if>
+		ORDER BY O.REQ_TIME DESC
+	</select>
+</mapper>

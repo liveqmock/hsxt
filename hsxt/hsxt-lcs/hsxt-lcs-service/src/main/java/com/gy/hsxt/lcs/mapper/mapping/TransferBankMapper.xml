@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.lcs.mapper.BankMapper">
+
+	<select id="getBankName" parameterType="string" resultType="string">
+		SELECT
+			BANK_NAME
+		FROM
+			T_LCS_TRANSFER_BANK
+		WHERE
+			BANK_NO = #{bankNo}
+	</select> 
+
+
+	<!-- 读取某个银行名称记录 -->
+	<select id="getBankList" parameterType="string" resultType="com.gy.hsxt.lcs.bean.Bank">
+		SELECT
+			BANK_NO AS bankNo,
+			BANK_NAME AS bankName
+		FROM
+			T_LCS_TRANSFER_BANK
+		WHERE
+			DEL_FLAG = 0
+		ORDER BY
+			BANK_NO
+	</select>
+</mapper>

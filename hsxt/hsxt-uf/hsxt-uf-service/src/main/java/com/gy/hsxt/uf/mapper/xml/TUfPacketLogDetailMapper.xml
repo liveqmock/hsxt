@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uf.mapper.TUfPacketLogDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    <id column="LOG_STACK_TRACE_ID" property="logStackTraceId" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" extends="BaseResultMap" >
+    <result column="LOG_STACK_TRACE_DETAIL" property="logStackTraceDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LOG_STACK_TRACE_ID, CREATE_DATE
+  </sql>
+  <sql id="Blob_Column_List" >
+    LOG_STACK_TRACE_DETAIL
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_UF_PACKET_LOG_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_UF_PACKET_LOG_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_UF_PACKET_LOG_DETAIL
+    where LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_UF_PACKET_LOG_DETAIL
+    where LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetailExample" >
+    delete from T_UF_PACKET_LOG_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    insert into T_UF_PACKET_LOG_DETAIL (LOG_STACK_TRACE_ID, CREATE_DATE, LOG_STACK_TRACE_DETAIL
+      )
+    values (#{logStackTraceId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{logStackTraceDetail,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    insert into T_UF_PACKET_LOG_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logStackTraceId != null" >
+        LOG_STACK_TRACE_ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="logStackTraceDetail != null" >
+        LOG_STACK_TRACE_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logStackTraceId != null" >
+        #{logStackTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logStackTraceDetail != null" >
+        #{logStackTraceDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetailExample" resultType="java.lang.Integer" >
+    select count(*) from T_UF_PACKET_LOG_DETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_UF_PACKET_LOG_DETAIL
+    <set >
+      <if test="record.logStackTraceId != null" >
+        LOG_STACK_TRACE_ID = #{record.logStackTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logStackTraceDetail != null" >
+        LOG_STACK_TRACE_DETAIL = #{record.logStackTraceDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update T_UF_PACKET_LOG_DETAIL
+    set LOG_STACK_TRACE_ID = #{record.logStackTraceId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      LOG_STACK_TRACE_DETAIL = #{record.logStackTraceDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_UF_PACKET_LOG_DETAIL
+    set LOG_STACK_TRACE_ID = #{record.logStackTraceId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    update T_UF_PACKET_LOG_DETAIL
+    <set >
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logStackTraceDetail != null" >
+        LOG_STACK_TRACE_DETAIL = #{logStackTraceDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    update T_UF_PACKET_LOG_DETAIL
+    set CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      LOG_STACK_TRACE_DETAIL = #{logStackTraceDetail,jdbcType=LONGVARCHAR}
+    where LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uf.mapper.vo.TUfPacketLogDetail" >
+    update T_UF_PACKET_LOG_DETAIL
+    set CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where LOG_STACK_TRACE_ID = #{logStackTraceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

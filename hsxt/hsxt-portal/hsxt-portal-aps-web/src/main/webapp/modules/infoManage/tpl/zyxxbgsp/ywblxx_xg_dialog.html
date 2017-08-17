@@ -1,0 +1,114 @@
+<form id="ywblxx_xg_dialog">
+<% if(obj.num == 'xfz'){ %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="75%" valign="top" style="border-bottom:1px solid #CCC;">
+			<table id="personTab" width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td width="20%" align="center" class="table_title">信息</td>
+					<td width="40%" align="center" class="table_title">修改前内容</td>
+					<td width="40%" align="center" class="table_title">修改后内容</td>
+					
+				</tr>
+				
+				<tr>
+					<td class="view_item" width="14%">备注</td>
+					<td class="view_input" colspan="2"><textarea id="optRemark" name="optRemark" class="rsn h100 w96pc ml5" maxlength="300" placeholder="输入备注,字数不超过300个字"></textarea></td>
+				</tr>
+				<!--除地区平台外，其余不需要使用输入账户密码确认-->
+				<tr>
+					<td class="view_item" width="20%">选择验证方式</td>
+					<td colspan="2" class="pr">
+						<input id="verificationMode" name="verificationMode" readonly="readonly" placeholder="选择验证方式" />
+						<span class="ml10 red none" id="verificationMode_prompt">当前版本暂时不支持这种验证方式</span>
+						<span class="required-right-10">*</span>
+					</td>
+				 </tr>
+				<tr id="fhy_userName" class="none">
+					<td class="view_item" width="14%">复核员用户名</td>
+					<td colspan="2" class="pr"><input id="doubleUserName" name="doubleUserName" type="text" maxlength="4" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /><span class="required-right-10">*</span></td>
+				</tr>
+				<tr id="fhy_password" class="none">
+					<td class="view_item" width="14%" style="border-bottom:0 none;">复核员登录密码</td>
+					<td colspan="2" style="border-bottom:0 none;" class="pr"><input type="password" id="doublePassword" name="doublePassword" maxlength="6" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /><span class="required-right-10">*</span></td>
+				</tr>
+				
+			</table>
+		</td>
+		<td width="25%" valign="top" style="border-bottom:1px solid #CCC;border-right:1px solid #CCC;" class="table_text">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable" style="border-left:0 none;">
+				<tr>
+					<td align="center" class="table_title" style="border-left:0 none;border-right:0 none;">关联附件</td>
+				</tr>
+				<tr>
+					<td valign="top"  align="center" class="lh180" style="border-left:0 none;border-right:0 none;border-bottom:0 none;">
+						<a class="blue" id="dialog_creFacePicOld" target="_blank">证件正面</a><br />
+						<%if(obj.creTypeNew == '1'){%>
+						<a class="blue" id="dialog_creBackPicOld" target="_blank">证件反面</a><br />
+						<%}%>
+						<a class="blue" id="dialog_creHoldPicOld" target="_blank">手持证件照</a><br/>
+						<%if(obj.creTypeNew == '1'){%>
+						<a class="blue" id="dialog_registorAddressPicOld" target="_blank">户籍变更证明</a><br/>
+						<%}%>
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<% }else{ %>
+<table  width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="75%" valign="top" style="border-bottom:1px solid #CCC;">
+			<table width="100%" id="entTab" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+				<tr>
+					<td width="20%" align="center" class="table_title">信息</td>
+					<td width="40%" align="center" class="table_title">修改前内容</td>
+					<td width="40%" align="center" class="table_title">修改后内容</td>
+					
+				</tr>
+				
+				<tr>
+					<td class="view_item" width="14%">备注</td>
+					<td class="view_input" colspan="2"><textarea id="optRemark" name="optRemark" maxlength="300" class="rsn h100 w96pc ml5" placeholder="输入备注,字数不超过300个字"></textarea></td>
+				</tr>
+				<!--除地区平台外，其余不需要使用输入账户密码确认-->
+				<tr>
+					<td class="view_item" width="20%">选择验证方式</td>
+					<td colspan="2" class="pr">
+						<input id="verificationMode" name="verificationMode" readonly="readonly" placeholder="选择验证方式" />
+						<span class="ml10 red none" id="verificationMode_prompt">当前版本暂时不支持这种验证方式</span>
+						<span class="required-right-10">*</span>
+					</td>
+				 </tr>
+				<tr id="fhy_userName" class="none">
+					<td class="view_item" width="14%">复核员用户名</td>
+					<td colspan="2" class="pr"><input id="doubleUserName" name="doubleUserName" type="text" maxlength="4" class="ml5 h30_middle w115" placeholder="输入复核员用户名" /><span class="required-right-10">*</span></td>
+				</tr>
+				<tr id="fhy_password" class="none">
+					<td class="view_item" width="14%" style="border-bottom:0 none;">复核员登录密码</td>
+					<td colspan="2" style="border-bottom:0 none;" class="pr"><input type="password" id="doublePassword" name="doublePassword" maxlength="6" class="ml5 h30_middle w115" placeholder="输入复核员登录密码" /><span class="required-right-10">*</span></td>
+				</tr>
+				
+			</table>
+		</td>
+		<td width="25%" valign="top" style="border-bottom:1px solid #CCC;border-right:1px solid #CCC;" class="table_text">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="fixtable" style="border-left:0 none;">
+				<tr>
+					<td align="center" class="table_title" style="border-left:0 none;border-right:0 none;">关联附件</td>
+				</tr>
+				<tr>
+					<td valign="top"  align="center" class="lh180" style="border-left:0 none;border-right:0 none;border-bottom:0 none;">
+						<a class="blue" id="dialog_bizLicenseCrePicNew" target="_blank">营业执照</a><br />
+						<a class="blue" id="dialog_linkAuthorizePicNew" target="_blank">联系人授权委托书</a><br />
+						<a class="blue" id="dialog_imptappPic" target="_blank">重要信息变更业务办理申请书</a>
+					</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<% } %>
+</form>

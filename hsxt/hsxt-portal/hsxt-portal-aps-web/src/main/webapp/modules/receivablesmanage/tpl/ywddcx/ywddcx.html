@@ -1,0 +1,53 @@
+<div class="search-toolbar">
+	<form id="search_form" autocomplete="off" name="search_form">
+		<ul class="cssform clearfix">
+			<li>
+				<label>订单日期：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">订单类型：</label>
+				<input id="transaction_type" readonly="readonly" placeholder="选择订单类型" optionvalue="" />
+			</li>
+			<li>
+				<label>互生号/手机号：</label>
+				<input id="txtHsResNo" type="text" name="textfield" placeholder="输入企互生号/手机号" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<label>单位名称：</label>
+				<input id="txtCustName" type="text" name="textfield" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">支付状态：</label>
+				<input id="payment_state" readonly="readonly" placeholder="选择支付状态" optionvalue=""/>
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">支付方式：</label>
+				<input id="payment_method" readonly="readonly" placeholder="选择支付方式" optionvalue="" />
+			</li>
+			<li>
+				<button id="btnQuery" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</form>
+</div>
+<table id="searchTable" class="bsgrid">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="hsResNo" w_tip="true">互生号/手机号</th>
+	<th  w_render="operate"  w_length="25" w_tip="true">单位名称</th>
+	<th w_index="orderNo" w_length="30"  w_tip="true">订单号</th>
+	<th w_index="orderTime"  w_length="30"  w_tip="true">订单日期</th>
+	<th w_render="operate">订单类型</th>
+	<th w_render="operate">金额</th>
+	<!-- <th w_index="currencyCode">结算币种</th> -->
+	<th w_render="operate">折合应付本币(人民币)</th>
+	<th w_render="operate">支付方式</th>
+	<th w_index="bankTransNo" w_tip="true">银行流水号</th>
+	<th w_render="operate">支付状态</th>
+	<th w_index="payTime" w_length="25"  w_tip="true">付款日期</th> 
+	
+  </tr>
+</table>

@@ -1,0 +1,40 @@
+<div>
+	<ul>
+		<form id="addForm">
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">所在地区<span class="pay-text-red">*</span></label>
+				<span class="fl"><input id="province_slt_add" name="province_slt_add" readonly="readonly" placeholder="选择省" /></span>
+				<span class="fl ml10"><input id="city_slt_add" name="city_slt_add" readonly="readonly" placeholder="选择市" /></span>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">详细地址<span class="pay-text-red">*</span></label>
+				<textarea placeholder="输入详细地址" name="fullAddress_add" id="fullAddress_add" class="pay-textarea-input"></textarea>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">邮政编码</label>
+				<input type="text" name="provinceCode" id="provinceCode" value="" class="fl qpay-text-input" placeholder="输入邮政编码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">收货人姓名<span class="pay-text-red">*</span></label>
+				<input type="text" name="consigneeName_add" id="consigneeName_add" value="" maxlength="20" class="fl qpay-text-input" placeholder="输入收货人姓名" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">手机号码<span class="pay-text-red">*</span></label>
+				<input type="text" name="phone" id="phone" value="" class="fl qpay-text-input" placeholder="输入手机号码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label">电话号码</label>
+				<input type="text" name="fixedTelephone" id="fixedTelephone" value="" class="fl qpay-text-input" placeholder="输入电话号码" />
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label"></label>
+				<input type="checkbox" name="isDefault" id="isDefault" value="" class="fl" checked="checked" />
+				<span class="fl ml5">设置为默认收货地址</span>
+			</li>
+			<li class="clearfix mt15">
+				<label class="fl qPay-label"></label>
+				<a class="fl address-btn-bg save-address-btn" id="saveAddress_btn_add">保&#12288;存</a>
+			</li>
+		</form>
+	</ul>
+</div>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.PointAssignRuleMapper">
+	<!--插入-->
+	<insert id="addPointAssignRule" parameterType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule" >
+		INSERT INTO T_GCS_POINT_ASSIGN_RULE (
+			TARGET_TYPE,
+			ACT_TYPE,
+			ASSIGN_RATE,
+			ASSIGN_METHOD,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+			(
+				#{targetType,jdbcType=CHAR},
+				#{actType,jdbcType=VARCHAR},
+				#{assignRate,jdbcType=DECIMAL},
+				#{assignMethod,jdbcType=VARCHAR},
+				#{delFlag,jdbcType=TINYINT},
+				#{version,jdbcType=BIGINT}
+			);
+	</insert>
+	<!--逻辑删除-->
+	<update id="deletePointAssignRule" parameterType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule">
+		UPDATE T_GCS_POINT_ASSIGN_RULE
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+	    WHERE  
+		      TARGET_TYPE = #{targetType,jdbcType=CHAR}
+		      AND ACT_TYPE = #{actType,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updatePointAssignRule" parameterType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule">
+		UPDATE T_GCS_POINT_ASSIGN_RULE
+			<set>
+	          ASSIGN_RATE = #{assignRate,jdbcType=DECIMAL},
+	          ASSIGN_METHOD = #{assignMethod,jdbcType=VARCHAR},
+	          DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+	    WHERE  
+		      TARGET_TYPE = #{targetType,jdbcType=CHAR}
+		      AND ACT_TYPE = #{actType,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existAssignRule" resultType="string">
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_POINT_ASSIGN_RULE
+		WHERE
+			TARGET_TYPE = #{targetType,jdbcType=CHAR}
+		AND ACT_TYPE = #{actType,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryPointAssignRuleListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule" resultType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule">
+		SELECT
+			TARGET_TYPE targetType,
+			ACT_TYPE actType,
+			ASSIGN_RATE assignRate,
+			ASSIGN_METHOD assignMethod,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_POINT_ASSIGN_RULE
+		WHERE
+			TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if>
+			<if test="targetType != null and targetType != '' "> 
+				AND TARGET_TYPE = #{targetType,jdbcType=VARCHAR} 
+			</if>
+			<if test="actType != null and actType != '' "> 
+				AND ACT_TYPE = #{actType,jdbcType=VARCHAR} 
+			</if>  
+			<if test="assignMethod != null and assignMethod != '' "> 
+				<![CDATA[  AND ASSIGN_METHOD like CONCAT('%',#{assignMethod},'%')   escape '/' ]]>
+			</if>
+			 ORDER BY TARGET_TYPE,ACT_TYPE
+	</select>
+	
+	<select id="queryPointAssignRuleWithPK"  resultType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule">
+		<![CDATA[
+	SELECT
+		TARGET_TYPE targetType,
+		ACT_TYPE actType,
+		ASSIGN_RATE assignRate,
+		ASSIGN_METHOD assignMethod,
+		VERSION version,
+		DEL_FLAG delFlag
+	FROM
+		T_GCS_POINT_ASSIGN_RULE
+	WHERE
+		TARGET_TYPE = #{targetType,jdbcType=CHAR}
+	AND ACT_TYPE = #{actType,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	
+	
+	<select id="queryPointAssignRule4SyncData"  resultType="com.gy.hsxt.gpf.gcs.bean.PointAssignRule">
+		<![CDATA[
+		SELECT
+			TARGET_TYPE targetType,
+			ACT_TYPE actType,
+			ASSIGN_RATE assignRate,
+			ASSIGN_METHOD assignMethod,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_POINT_ASSIGN_RULE
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT} 
+		ORDER BY
+			TARGET_TYPE,
+			ACT_TYPE
+		]]> 
+	</select>
+</mapper>

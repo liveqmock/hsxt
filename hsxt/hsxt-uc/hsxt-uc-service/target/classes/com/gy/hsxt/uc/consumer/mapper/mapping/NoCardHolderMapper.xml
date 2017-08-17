@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.consumer.mapper.NoCardHolderMapper" >
+<!-- 非持卡人信息 -->
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.consumer.bean.NoCardHolder" >
+    <id column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="FINGERPRINT" property="fingerprint" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN" property="pwdLogin" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN_VER" property="pwdLoginVer" jdbcType="VARCHAR" />
+    <result column="PWD_LOGIN_SALT_VALUE" property="pwdLoginSaltValue" jdbcType="VARCHAR" />
+    <result column="IS_AUTH_EMAIL" property="isAuthEmail" jdbcType="DECIMAL" />
+    <result column="ENSURE_INFO" property="ensureInfo" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_DATE" property="lastLoginDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="PWD_TRANS" property="pwdTrans" jdbcType="VARCHAR" />
+    <result column="PWD_TRANS_VER" property="pwdTransVer" jdbcType="VARCHAR" />
+    <result column="PWD_TRANS_SALT_VALUE" property="pwdTransSaltValue" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="IS_REALNAME_AUTH" property="isRealnameAuth" jdbcType="DECIMAL" />
+    <result column="IS_KEYINFO_CHANGED" property="isKeyinfoChanged" jdbcType="DECIMAL" />
+    <result column="REALNAME_REG_DATE" property="realnameRegDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="REALNAME_AUTH_DATE" property="realnameAuthDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="IS_BIND_BANK" property="isBindBank" jdbcType="DECIMAL" />
+  </resultMap>
+  
+    <!-- 查询列 -->
+  <sql id="Base_Column_List" >
+    PER_CUST_ID, 
+    MOBILE, EMAIL, 
+    FINGERPRINT, 
+    PWD_LOGIN, 
+    PWD_LOGIN_VER, 
+    PWD_LOGIN_SALT_VALUE, 
+    IS_AUTH_EMAIL, 
+    ENSURE_INFO, 
+    LAST_LOGIN_DATE, 
+    LAST_LOGIN_IP, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY, 
+    PWD_TRANS, 
+    PWD_TRANS_VER, 
+    PWD_TRANS_SALT_VALUE, 
+    ENT_RES_NO, 
+    IS_REALNAME_AUTH, 
+    IS_KEYINFO_CHANGED, 
+    REALNAME_REG_DATE, 
+    REALNAME_AUTH_DATE,
+    IS_BIND_BANK
+  </sql>
+  
+    <!-- 根据客户号查询非持卡人信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CUST_NONCARDHOLDER
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- 根据手机号码查询客户号 -->
+  <select id="findCustIdByMobile" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+   		PER_CUST_ID
+    from T_CUST_NONCARDHOLDER
+    where MOBILE = #{mobile,jdbcType=VARCHAR} and ISACTIVE = #{isactive,jdbcType=CHAR}
+  </select>
+  
+    <!-- 插入非持卡人信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.consumer.bean.NoCardHolder" >
+    insert into T_CUST_NONCARDHOLDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        PER_CUST_ID,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="fingerprint != null" >
+        FINGERPRINT,
+      </if>
+      <if test="pwdLogin != null" >
+        PWD_LOGIN,
+      </if>
+      <if test="pwdLoginVer != null" >
+        PWD_LOGIN_VER,
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        PWD_LOGIN_SALT_VALUE,
+      </if>
+      <if test="isAuthEmail != null" >
+        IS_AUTH_EMAIL,
+      </if>
+      <if test="ensureInfo != null" >
+        ENSURE_INFO,
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE,
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="pwdTrans != null" >
+        PWD_TRANS,
+      </if>
+      <if test="pwdTransVer != null" >
+        PWD_TRANS_VER,
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        PWD_TRANS_SALT_VALUE,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="isRealnameAuth != null" >
+        IS_REALNAME_AUTH,
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        IS_KEYINFO_CHANGED,
+      </if>
+      <if test="realnameRegDate != null" >
+        REALNAME_REG_DATE,
+      </if>
+      <if test="realnameAuthDate != null" >
+        REALNAME_AUTH_DATE,
+      </if>
+      <if test="isBindBank != null" >
+        IS_BIND_BANK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perCustId != null" >
+        #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprint != null" >
+        #{fingerprint,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLogin != null" >
+        #{pwdLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginVer != null" >
+        #{pwdLoginVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        #{pwdLoginSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthEmail != null" >
+        #{isAuthEmail,jdbcType=DECIMAL},
+      </if>
+      <if test="ensureInfo != null" >
+        #{ensureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTrans != null" >
+        #{pwdTrans,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransVer != null" >
+        #{pwdTransVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        #{pwdTransSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="isRealnameAuth != null" >
+        #{isRealnameAuth,jdbcType=DECIMAL},
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        #{isKeyinfoChanged,jdbcType=DECIMAL},
+      </if>
+      <if test="realnameRegDate != null" >
+        #{realnameRegDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realnameAuthDate != null" >
+        #{realnameAuthDate,jdbcType=TIMESTAMP},
+        <if test="isBindBank != null" >
+        #{isBindBank,jdbcType=DECIMAL},
+      </if>
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新非持卡人信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.consumer.bean.NoCardHolder" >
+    update T_CUST_NONCARDHOLDER
+    <set >
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fingerprint != null" >
+        FINGERPRINT = #{fingerprint,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLogin != null" >
+        PWD_LOGIN = #{pwdLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginVer != null" >
+        PWD_LOGIN_VER = #{pwdLoginVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdLoginSaltValue != null" >
+        PWD_LOGIN_SALT_VALUE = #{pwdLoginSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="isAuthEmail != null" >
+        IS_AUTH_EMAIL = #{isAuthEmail,jdbcType=DECIMAL},
+      </if>
+      <if test="ensureInfo != null" >
+        ENSURE_INFO = #{ensureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginDate != null" >
+        LAST_LOGIN_DATE = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTrans != null" >
+        PWD_TRANS = #{pwdTrans,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransVer != null" >
+        PWD_TRANS_VER = #{pwdTransVer,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdTransSaltValue != null" >
+        PWD_TRANS_SALT_VALUE = #{pwdTransSaltValue,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="isRealnameAuth != null" >
+        IS_REALNAME_AUTH = #{isRealnameAuth,jdbcType=DECIMAL},
+      </if>
+      <if test="isKeyinfoChanged != null" >
+        IS_KEYINFO_CHANGED = #{isKeyinfoChanged,jdbcType=DECIMAL},
+      </if>
+      <if test="realnameRegDate != null" >
+        REALNAME_REG_DATE = #{realnameRegDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realnameAuthDate != null" >
+        REALNAME_AUTH_DATE = #{realnameAuthDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isBindBank != null" >
+        IS_BIND_BANK = #{isBindBank,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+  </update>
+
+<!-- 批量查询持卡人的实名状态 -->
+	<select id="listAuthStatus" resultMap="BaseResultMap" parameterType="java.util.List">
+		SELECT
+		PER_CUST_ID,IS_REALNAME_AUTH
+		from T_CUST_NONCARDHOLDER
+		where PER_CUST_ID IN
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			'${item}'
+		</foreach>
+	</select>
+
+</mapper>

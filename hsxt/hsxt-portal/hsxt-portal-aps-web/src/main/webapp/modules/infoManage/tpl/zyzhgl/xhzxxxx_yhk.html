@@ -1,0 +1,47 @@
+<div id="xhzxxxx_yhkTpl">
+	<ul class="bank_content clearfix">
+	
+	
+	    <%for (var i=0;i<record.length;i++){%>
+	    
+	    	<li class="bank_bg pr">
+			<%if(record[i].isDefaultAccount==1){%>
+				<i class="default_bank"></i>
+			<%}%>
+		    <div class="bank_row bank_row_margin_1 clearfix">
+				<span class="ml5 f13">尾号<%=record[i].bankAccNo%></span>
+			</div>
+			<div class="bank_row tc"><i class="large-bank-logo large-bank-card-<%=record[i].bankCode%>"></i></div>
+			<div class="bank_row bank_row_margin_2 clearfix">
+				<div class="fl"><span class="gray">结算币种：</span>人民币</div>
+				<div class="fr"></div>
+			</div>
+			</li>
+	    
+	    <%}%>
+	    
+	   
+		 <%if(record.length<1){%>
+	       <li class="bank_bg pr">
+			<div class="bank_row bank_row_margin_1 clearfix">
+				<div class="fl"><!--<i class="bank_logo bank_zhaoShang"></i> --><span class="f14">未设置</span></div>
+				
+			</div>
+			<div class="bank_row bank_row_margin_2 tc">
+				<span class="bank_number"></span>
+			</div>
+			<div class="bank_row bank_row_margin_2 clearfix">
+				<div class="fl"><span class="gray"></div>
+				<div class="fr"></div>
+			</div>
+			</li>
+	    <%}%>
+	    
+		
+	</ul>
+	<div class="mt20" align="center">
+	
+	<a class="btn_bg submit" id="back_xfzzy">返　回</a>
+	
+	</div>
+</div>

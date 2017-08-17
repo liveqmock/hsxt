@@ -1,0 +1,45 @@
+﻿<div id="gjliebxxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>工具名称：</label>
+				<input type="text" name="search_productName" id="search_productName" placeholder="输入工具名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>工具类别：</label>
+				<input type="text" name="search_categoryCode" id="search_categoryCode" placeholder="输入工具类别" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">工具状态：</label>
+				<input id="statues" readonly="readonly" placeholder="选择工具状态" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">审批状态：</label>
+				<input id="ratifyStatues" readonly="readonly" placeholder="选择审批状态" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="tjgj_btn" type="button" class="btn-search">添加工具</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid"> 
+	  <tr>
+		<th w_index="productName" w_tip=true>工具名称</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="price" w_render="operate">工具价格</th>
+		<th w_index="enableStatus" w_render="operate">工具状态</th>		
+		<th w_index="status" w_render="operate">审批状态</th>
+		<th w_index="lastStatusTime">状态时间</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_tjgj" class="none ovh"></div>
+<div id="dialogBox_gjxq" class="none ovh"></div>
+<div id="dialogBox_xjsp" class="none ovh"></div>
+<div id="dialogBox_xj" class="none ovh"></div>
+<div id="dialogBox_xg" class="none ovh"></div>
+<div id="dialogBox_gtxg" class="none ovh"></div>

@@ -1,0 +1,12 @@
+      <li class="hd_hslt_ltxxbox1 clearfix">
+	      <p class="hd_hslt_time tc"><%=obj.NowtimeNew(obj.time)%></p>
+	      <ul>
+	      <li <%if(obj.msg_code == 10){%>style="min-height: 130px"<%}%>>
+	      <div class="hd_hslt_touxiang fl">
+	      <img src="<%=obj.msg_icon%>" height="30" width="30">
+	      </div>
+	      <div class="hd_hslt_xxxx mr5 fl"><%if(obj.msg_code == 10){%><img src="<%=obj.msg_content%>" width="150px"/><%}else{%><%=obj.msg_content%><%}%></div>
+	      <div class="clearfix"></div>
+	      </li>
+	      </ul>
+	      </li>

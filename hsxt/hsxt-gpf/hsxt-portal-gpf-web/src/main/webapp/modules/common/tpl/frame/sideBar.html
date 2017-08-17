@@ -1,0 +1,22 @@
+<% $.each(menuList, function(key,menu){ %>
+<h1 class="menu-one menu-one-haveSub"><%=menu.menuName %><a class="menu-arrow"></a></h1>
+<div class="none" data-first="<%=menu.menuCode %>">
+    <%
+    if(menu.childList){
+        $.each(menu.childList, function(index,child ){ %>
+        <h2 data-tabid="<%= child.menuNo %>" data-second="<%=child.menuCode %>" class="menu-two menu-two-haveSub"><%= child.menuName%></h2>
+        <ul class="none" data-second="<%=child.menuNo %>">
+            <%
+            if(child.childList){
+                $.each(child.childList, function(subKey,subChild ){ %>
+                <li data-third="<%=subChild.menuCode%>" data-file="" data-tabid="<%=subChild.menuNo %>" class="menu-three"><%=subChild.menuName%></li>
+                <% });
+             }
+            %>
+        </ul>
+        <%
+        });
+    }
+    %>
+</div>
+<% }); %>

@@ -1,0 +1,87 @@
+<!--列表内容开始-->
+    <div class="search-toolbar">
+      <ul class="cssform clearfix">
+        <li class="mr20">
+          <label class="title-int">商城名称：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="shopName" placeholder="商城名称" class="input-txt" />
+          </div>
+        </li>
+        <li class="mr20">
+          <label class="title-int">企业互生号：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="resourceNo" placeholder="企业互生号" class="input-txt" maxlength="11"/>
+          </div>
+        </li>
+        <li class="mr20">
+          <label class="title-int">消费者：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="userName" placeholder="消费者" class="input-txt" />
+          </div>
+        </li>
+        <li class="mr20">
+          <label class="title-int">投诉类型：</label>
+          <div class="cont-int">
+            <input type="text" name="textfield" id="complaintType" placeholder="投诉类型" class="input-txt" />
+          </div>
+        </li>
+        <li class="mr10">
+          <label class="title-int">状态：</label>
+          <input id="status" placeholder="请选择" readonly="readonly" optionvalue="" /> 
+          <!-- <div class="cont-int">
+            <select class="select_radius" style="width:140px" name="" id="status">
+              <option value="1">处理中</option>
+              <option value="2">已处理</option>
+            </select>
+          </div> -->
+        </li>
+        <li>
+          <div class="cont-int">
+            <button id="btnQueryComplain" class="btn-search ml10">查询</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  <!-- 表格开始 -->
+ <div class="shopebox">
+      <table id="complaint_grid">
+        <tr>
+          <th w_index="virtualShopName" w_algin="center" width="10%">商城名称</th>
+          <th w_index="shopResourceNo" w_algin="center" width="10%">企业互生号</th>
+          <th w_index="complainType" w_algin="center" width="10%">投诉类型</th>
+          <th w_index="userName" w_algin="center" width="10%">消费者</th>
+          <th w_index="content" w_algin="center" width="20%">投诉内容</th>
+          <th w_index="createTime" w_algin="center" width="10%">投诉时间</th>
+          <th w_index="remark" w_algin="center" width="10%">处理结果</th>
+          <th w_render="operate" w_algin="center" width="5%">处理状态</th>
+          <th w_render="operate" w_algin="center" width="15%">操作</th>
+        </tr>
+      </table>
+    </div>
+    <!--内容添加结束--> 
+
+<!--弹出框内容及脚本开始-->
+<div id="porpDiv" style="display:none;">
+<table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	    <td align="right">处理类型：</td>
+		<td>
+			<div class="cont-chk">
+				<select id="txtProcessType" style="width:200px">
+					<option value="">-请选择-</option>
+				</select>
+			</div>
+		</td>
+  </tr>
+  <tr>
+    <td align="right">处理说明：</td>
+    <td><textarea id="content" placeholder="请输入"></textarea></td>
+  </tr>
+</table>
+</div>
+<div id="porpDivMsg" style="display:none;"></div>
+<!--弹出框内容及脚本结束-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="porpDetail" style="display:none;"></div>

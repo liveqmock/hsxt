@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 企业年费计费单 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.annualfee.mapper.AnnualFeeOrderMapper">
+
+    <!-- 业务订单映射 -->
+    <resultMap id="orderResult" type="com.gy.hsxt.bs.bean.order.Order">
+        <id column="ORDER_NO" property="orderNo"/>
+        <result column="CUST_ID" property="custId"/>
+        <result column="HS_RES_NO" property="hsResNo"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="BIZ_NO" property="bizNo"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="IS_PROXY" property="isProxy"/>
+        <result column="QUANTITY" property="quantity"/>
+        <result column="ORDER_UNIT" property="orderUnit"/>
+        <result column="ORDER_ORIGINAL_AMOUNT" property="orderOriginalAmount"/>
+        <result column="ORDER_DERATE_AMOUNT" property="orderDerateAmount"/>
+        <result column="ORDER_CASH_AMOUNT" property="orderCashAmount"/>
+        <result column="CURRENCY_CODE" property="currencyCode"/>
+        <result column="ORDER_HSB_AMOUNT" property="orderHsbAmount"/>
+        <result column="EXCHANGE_RATE" property="exchangeRate"/>
+        <result column="ORDER_REMARK" property="orderRemark"/>
+        <result column="ORDER_TIME" property="orderTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="DELIVER_ID" property="deliverId"/>
+        <result column="ORDER_CHANNEL" property="orderChannel"/>
+        <result column="ORDER_OPERATOR" property="orderOperator"/>
+        <result column="PAY_OVERTIME" property="payOvertime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+        <result column="PAY_CHANNEL" property="payChannel"/>
+        <result column="PAY_TIME" property="payTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="IS_NEED_INVOICE" property="isNeedInvoice"/>
+        <result column="IS_INVOICED" property="isInvoiced"/>
+    </resultMap>
+
+    <insert id="insertAnnualFeeOrder" parameterType="com.gy.hsxt.bs.bean.order.Order">
+        INSERT INTO T_BS_ORDER (
+            ORDER_NO,
+            CUST_ID,
+            HS_RES_NO,
+            CUST_NAME,
+            CUST_TYPE,
+            BIZ_NO,
+            ORDER_TYPE,
+            IS_PROXY,
+            QUANTITY,
+            ORDER_UNIT,
+            ORDER_ORIGINAL_AMOUNT,
+            ORDER_DERATE_AMOUNT,
+            ORDER_CASH_AMOUNT,
+            CURRENCY_CODE,
+            ORDER_HSB_AMOUNT,
+            EXCHANGE_RATE,
+            ORDER_REMARK,
+            ORDER_TIME,
+            ORDER_CHANNEL,
+            ORDER_OPERATOR,
+            PAY_OVERTIME,
+            ORDER_STATUS,
+            PAY_STATUS,
+            PAY_CHANNEL,
+            PAY_TIME,
+            IS_NEED_INVOICE,
+            IS_INVOICED
+        ) VALUES (
+            #{orderNo},
+            #{custId},
+            #{hsResNo},
+            #{custName},
+            #{custType},
+            #{bizNo},
+            #{orderType},
+            #{isProxy},
+            #{quantity},
+            #{orderUnit},
+            #{orderOriginalAmount},
+            #{orderDerateAmount},
+            #{orderCashAmount},
+            #{currencyCode},
+            #{orderHsbAmount},
+            #{exchangeRate},
+            #{orderRemark},
+            sysdate,
+            #{orderChannel},
+            #{orderOperator},
+            #{payOvertime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{orderStatus},
+            0,
+            #{payChannel},
+            NULL,
+            #{isNeedInvoice},
+            #{isInvoiced}
+        )
+    </insert>
+    <!-- 查询某客户未付款的年费业务订单 -->
+    <select id="selectOrderForWaitPay" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeOrderQuery" resultMap="orderResult">
+        SELECT t.*
+        FROM
+            T_BS_ORDER t
+        WHERE t.ORDER_TYPE = #{orderType}
+              AND t.PAY_STATUS = #{payStatus}
+              AND t.ORDER_STATUS = #{orderStatus}
+              AND t.CUST_ID = #{custId}
+    </select>
+    <!-- 根据订单编号查询订单 -->
+    <select id="selectBeanById" parameterType="string" resultMap="orderResult">
+        SELECT t.*
+        FROM T_BS_ORDER t
+        WHERE t.ORDER_NO = #{orderNo}
+    </select>
+    <!-- 分页查询年费业务订单 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeOrderQuery" resultMap="orderResult">
+        SELECT t.*
+        FROM T_BS_ORDER t
+        WHERE
+        t.ORDER_TYPE = #{orderType} AND
+        exists(
+            SELECT d.ORDER_NO FROM T_BS_ENT_ANNUAL_FEE_DETAIL d WHERE t.ORDER_NO=d.ORDER_NO
+            <if test="startDate != null and startDate != ''">
+                AND d.START_DATE &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                AND d.END_DATE &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+            </if>
+        )
+        <if test="custId != null and custId != ''">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="custName != null and custName != ''">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t.HS_RES_NO LIKE '%'||#{resNo}||'%'
+        </if>
+        <if test="orderStatus != null ">
+            AND t.ORDER_STATUS = #{orderStatus}
+        </if>
+        <if test="payStatus != null ">
+            AND t.PAY_STATUS = #{payStatus}
+        </if>
+        ORDER BY t.ORDER_TIME DESC
+    </select>
+
+    <!-- 条件查询年费业务订单列表 -->
+    <select id="selectListByQuery" parameterType="com.gy.hsxt.bs.bean.annualfee.AnnualFeeOrderQuery" resultMap="orderResult">
+        SELECT t.*
+        FROM T_BS_ORDER t
+        WHERE
+        t.ORDER_TYPE = #{orderType}
+        <if test="startDate != null and startDate != ''">
+            AND t.ORDER_TIME &gt;= #{startDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            AND t.ORDER_TIME &lt; #{endDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler}
+        </if>
+        <if test="custName != null and custName != ''">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t.HS_RES_NO LIKE '%'||#{resNo}||'%'
+        </if>
+        <if test="orderStatus != null ">
+            AND t.ORDER_STATUS = #{orderStatus}
+        </if>
+        <if test="payStatus != null ">
+            AND t.PAY_STATUS = #{payStatus}
+        </if>
+        ORDER BY t.ORDER_TIME DESC
+    </select>
+
+    <!-- 更新 订单金额和时间 -->
+    <update id="updateAnnualFeeOrderForAmount" parameterType="com.gy.hsxt.bs.bean.order.Order">
+        UPDATE
+            T_BS_ORDER o
+        SET
+            o.ORDER_OPERATOR        = #{orderOperator},
+            o.ORDER_ORIGINAL_AMOUNT = #{orderOriginalAmount},
+            o.CURRENCY_CODE         = #{currencyCode},
+            o.ORDER_HSB_AMOUNT      = #{orderHsbAmount},
+            o.ORDER_CASH_AMOUNT     = #{orderCashAmount},
+            o.QUANTITY              = #{quantity},
+            o.ORDER_DERATE_AMOUNT   = #{orderDerateAmount}
+        WHERE
+            o.ORDER_NO = #{orderNo}
+    </update>
+    <!-- 支付完成后修改年费业务单 -->
+    <update id="updateBeanForPaid" parameterType="com.gy.hsxt.bs.bean.order.Order">
+        UPDATE
+        T_BS_ORDER o
+        SET o.PAY_TIME = sysdate
+        <if test="orderStatus != null and orderStatus > 1">
+            ,o.ORDER_STATUS = #{orderStatus}
+        </if>
+        <if test="payStatus != null and payStatus > 0">
+            ,o.PAY_STATUS = #{payStatus}
+        </if>
+        <if test="payChannel != null and payChannel > 0">
+            ,o.PAY_CHANNEL = #{payChannel}
+        </if>
+        WHERE
+        o.ORDER_NO = #{orderNo}
+    </update>
+</mapper>

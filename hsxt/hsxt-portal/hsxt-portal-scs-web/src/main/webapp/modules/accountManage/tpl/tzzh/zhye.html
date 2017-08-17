@@ -1,0 +1,34 @@
+	<div class="acct-ct h200">
+    	<h1 class="acct-tips f20"><span class="tcr_blue fb" style="font-family: 'Microsoft YaHei', 'New York', serif;"><%=obj.dividendYear%>年度分红回报率：</span><span class="fb red"><%=(obj.dividendsRate * 100).toFixed(2) %>%</span></h1>
+        <p class="acct-line"></p>
+        <ul class="acctno-box bc pt30" style="width:704px;">
+          <li class="clearfix"> <i class="acctno-icon icon-tzzh"></i>
+            <div class="acctno-detail tc">
+              <h1 class="f16 fb gray pt20">积分投资总数</h1>
+              <span class="f24 red fari"><%=obj.investmentTotal%></span> </div>
+          </li>
+          <li class="clearfix ml50"> <i class="acctno-icon icon-hsbzh"></i>
+            <div class="acctno-detail tc" style="width:280px;">
+              <div class="f14 gray pt10 pb10 tl pl10"><span style="width:160px; display:inline-block;"><%=obj.dividendYear%>年度投资分红互生币</span><span class="red fari pl10"><%=obj.dividendsHsb%></span></div>
+              <div class="cutline"></div>
+              <div class="f14 gray tl pl10 mt5"><span style="width:160px; display:inline-block;">其中流通币</span><span class="red fari pl10"><%=obj.circulationHsb%></span></div>
+              <div class="f14 gray pb10 tl pl10"><span style="width:160px; display:inline-block;">其中慈善救助基金</span><span class="red fari pl10"><%=obj.directionalHsb%></span></div>
+            </div>
+          </li>
+        </ul>
+        <!--<ul class="acctno-box w472 bc pt50">
+        	<li class="clearfix">
+            	<i class="acctno-icon"></i>
+                <div class="acctno-dd tc">
+                	<h1 class="f16 fb gray">积分投资总数</h1>
+                    <span class="f24 red fari">8,200.00</span>
+                </div>
+                <div class="acctno-detail">
+                    <h1 class="f12 ml10 lh150 mt15">本年度投资分红<span class="f16 fari red ml5">8,000.00</span></h1>
+                    <h2 class="f12 ml10 lh150">其中流通币<span class="ml5">5,000.00</span></h2>
+                    <h2 class="f12 ml10 lh150">其中慈善救助基金<span class="ml5">3,000.00</span></h2>
+                </div>
+            </li>
+        </ul>-->
+    </div>   
+<div align="center" class="mt20"><a id="refreshBtn"  class="btn_bg submit">刷　新</a></div>   

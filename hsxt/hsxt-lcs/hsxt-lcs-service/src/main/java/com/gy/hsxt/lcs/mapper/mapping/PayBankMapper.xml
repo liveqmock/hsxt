@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.PayBankMapper">
+	<!-- 获取所有记录 -->
+	<select id="queryPayBankAll"  resultType="com.gy.hsxt.lcs.bean.PayBank">
+		SELECT
+			g.BANK_CODE AS bankCode,
+			g.BANK_NAME AS bankName,
+			g.SUPPORT_CARD AS supportCard,
+			g.SUPPORT_DEBIT AS supportDebit,
+			g.SUPPORT_CREDIT AS supportCredit
+		FROM
+			T_LCS_PAY_BANK g
+	</select>
+	
+		<!-- 获取某个条记录 -->
+	<select id="queryPayBankByCode" parameterType="string" resultType="com.gy.hsxt.lcs.bean.PayBank">
+		SELECT
+			g.BANK_CODE AS bankCode,
+			g.BANK_NAME AS bankName,
+			g.SUPPORT_CARD AS supportCard,
+			g.SUPPORT_DEBIT AS supportDebit,
+			g.SUPPORT_CREDIT AS supportCredit
+		FROM
+			T_LCS_PAY_BANK g
+		WHERE
+			g.BANK_CODE = #{bankCode}
+	</select>
+</mapper>

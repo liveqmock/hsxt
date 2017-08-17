@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpBankAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpBankAccount" >
+    <id column="BANK_ACC_ID" property="bankAccId" jdbcType="INTEGER" />
+    <result column="BANK_ACC_NO" property="bankAccNo" jdbcType="VARCHAR" />
+    <result column="BANK_ACC_NAME" property="bankAccName" jdbcType="VARCHAR" />
+    <result column="BANK_ACC_TYPE" property="bankAccType" jdbcType="INTEGER" />
+    <result column="BANK_ACC_CITY_NAME" property="bankAccCityName" jdbcType="VARCHAR" />
+    <result column="BANK_ACC_CITY_CODE" property="bankAccCityCode" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="CURRENCY_CODE" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="INTEGER" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BANK_ACC_ID, BANK_ACC_NO, BANK_ACC_NAME, BANK_ACC_TYPE, BANK_ACC_CITY_NAME, BANK_ACC_CITY_CODE, 
+    BANK_CODE, CURRENCY_CODE, ISACTIVE, CREATED_DATE, UPDATED_DATE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_GP_BANK_ACCOUNT
+    where BANK_ACC_ID = #{bankAccId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByBankAccType" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_GP_BANK_ACCOUNT
+    where BANK_ACC_TYPE = #{bankAccType,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_GP_BANK_ACCOUNT
+    where BANK_ACC_ID = #{bankAccId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpBankAccount" >
+    insert into T_GP_BANK_ACCOUNT (BANK_ACC_ID, BANK_ACC_NO, BANK_ACC_NAME, 
+      BANK_ACC_TYPE, BANK_ACC_CITY_NAME, BANK_ACC_CITY_CODE, 
+      BANK_CODE, CURRENCY_CODE, ISACTIVE, 
+      CREATED_DATE, UPDATED_DATE)
+    values (#{bankAccId,jdbcType=INTEGER}, #{bankAccNo,jdbcType=VARCHAR}, #{bankAccName,jdbcType=VARCHAR}, 
+      #{bankAccType,jdbcType=INTEGER}, #{bankAccCityName,jdbcType=VARCHAR}, #{bankAccCityCode,jdbcType=VARCHAR}, 
+      #{bankCode,jdbcType=VARCHAR}, #{currencyCode,jdbcType=VARCHAR}, #{isactive,jdbcType=INTEGER}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.gy.hsxt.gp.mapper.vo.TGpBankAccount" >
+    insert into T_GP_BANK_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankAccId != null" >
+        BANK_ACC_ID,
+      </if>
+      <if test="bankAccNo != null" >
+        BANK_ACC_NO,
+      </if>
+      <if test="bankAccName != null" >
+        BANK_ACC_NAME,
+      </if>
+      <if test="bankAccType != null" >
+        BANK_ACC_TYPE,
+      </if>
+      <if test="bankAccCityName != null" >
+        BANK_ACC_CITY_NAME,
+      </if>
+      <if test="bankAccCityCode != null" >
+        BANK_ACC_CITY_CODE,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="currencyCode != null" >
+        CURRENCY_CODE,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankAccId != null" >
+        #{bankAccId,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccNo != null" >
+        #{bankAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccName != null" >
+        #{bankAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccType != null" >
+        #{bankAccType,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccCityName != null" >
+        #{bankAccCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccCityCode != null" >
+        #{bankAccCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyCode != null" >
+        #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.gp.mapper.vo.TGpBankAccount" >
+    update T_GP_BANK_ACCOUNT
+    <set >
+      <if test="bankAccNo != null" >
+        BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccName != null" >
+        BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccType != null" >
+        BANK_ACC_TYPE = #{bankAccType,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccCityName != null" >
+        BANK_ACC_CITY_NAME = #{bankAccCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccCityCode != null" >
+        BANK_ACC_CITY_CODE = #{bankAccCityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="currencyCode != null" >
+        CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BANK_ACC_ID = #{bankAccId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.gp.mapper.vo.TGpBankAccount" >
+    update T_GP_BANK_ACCOUNT
+    set BANK_ACC_NO = #{bankAccNo,jdbcType=VARCHAR},
+      BANK_ACC_NAME = #{bankAccName,jdbcType=VARCHAR},
+      BANK_ACC_TYPE = #{bankAccType,jdbcType=INTEGER},
+      BANK_ACC_CITY_NAME = #{bankAccCityName,jdbcType=VARCHAR},
+      BANK_ACC_CITY_CODE = #{bankAccCityCode,jdbcType=VARCHAR},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      CURRENCY_CODE = #{currencyCode,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=INTEGER},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+    where BANK_ACC_ID = #{bankAccId,jdbcType=INTEGER}
+  </update>
+</mapper>

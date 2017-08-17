@@ -1,0 +1,230 @@
+
+<%
+var param = obj.data.orderFood;
+var queryIndex=obj.queryIndex;
+%>
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+          <thead>
+              <tr>
+                <th width="" style="text-align: left;"> 
+                 <% if(queryIndex=='1'){%>
+	                <input type="checkbox"  style="width: 14px;height: 14px;" name="batcheSelectAll" class="mr5">
+	             <%}%>
+	                         订单编号
+	            </th>	            
+	            <% if(!(queryIndex=='3'||queryIndex=='4')){%>
+	              <th width="70px">订单类型</th>
+	            <%}%>                                
+                <th width="80px">交易时间</th>
+                <th width="">订单金额</th>
+                <th width="">消费积分</th>
+                <th width="">联系电话</th>     
+                <th width="220px"></th>
+                <% if(!(queryIndex=='1'||queryIndex=='3'||queryIndex=='4'||queryIndex=='5'||queryIndex=='6')){%>
+	            <th width="80px">状态</th>
+	            <%}%>                  
+                <th width="">操作</th>            
+              </tr>
+          </thead>
+          <tbody>
+          <%if(null==param||null==param.result||param.recoredCount==0){%>       
+			    <tr  class="tc">
+			        <td colspan="10">没有找到符合条件的数据 </td>
+			    </tr>	
+		  <%}else{ $.each(param.result,function(key,el){ %>
+		      <tr <%=key%2==1?"class='table-tr-c'":""%>  id="orderList<%=el.orderId%>"   
+		      	orderId="<%=el.orderId%>" userId="<%=el.userId%>"  repastForm="<%=el.repastForm%>"  shopId="<%=el.shopId%>" >			
+	                <td><% if(queryIndex=='1'){%><input type="checkbox" name="batcheSelect" style="width: 13px;height: 14px;" class="mr5"><%}%><%=el.orderId%></td>
+	                <% if(!(queryIndex=='3'||queryIndex=='4')){%>
+	           		<td>
+	                  	<% if(el.repastForm=='1'){%>
+	                  		店内消费
+                	  	<%} else if(el.repastForm=='2') {%>
+		   					外卖
+		   				 <%} else if(el.repastForm=='3') {%>
+		   				 	门店自提
+		   				 <%}%>  			               
+	                </td>
+	                <%}%>  
+	                
+	                <td>  <%=el.createTime%>  </td>
+	                <td>
+	                <% if(el.repastForm=='2'){%>
+	                	 <%=comm.formatMoneyNumber(el.amountTotal+el.amountLogistic)%>
+	                <% }else {%>
+	                	 <%=comm.formatMoneyNumber(el.amountTotal)%>
+	                <% }%>
+	                
+	                <% if(el.repastForm=='1'){%>
+	                	<br/>(已付定金:<%=comm.formatMoneyNumber(el.moneyEarnest)%>)
+	                	<br/>(服务费:<%=comm.formatMoneyNumber(el.amountOther)%>)
+	                <% }else if(el.repastForm=='2'){%>
+	                	<br/>(含配送费:<%=comm.formatMoneyNumber(el.amountLogistic)%>)
+	                <% }%>
+	                
+	                </td>
+	                <td><%=comm.formatMoneyNumber(el.pointsTotal)%></td>
+	                <td><%=el.receiverContact%></td>
+	             
+					<td class="tl">
+	                	<% if(el.repastForm=='2'){
+	                		if(el.orderStatus=='4'){
+	                	%>
+	                	  <p>时间：<%= comm.formatDate(el.deliverTime,'yyyy-MM-dd hh:mm') 	%> </p>	
+	                	<%	}else{ %>
+	                	  <p>时间：<%= comm.formatDate(el.planTime,'yyyy-MM-dd hh:mm') 	%> </p>	
+	                	<%}%>	                		
+	                	  <p>地址：<%=el.receiverAddr%></p>
+	                	<%}else if(el.repastForm=='1'){%>
+	                	  <p>人数：<% if(comm.isEmpty(el.tableNumber)){%>
+ 										<%=el.personCount%>
+							   		<%}else{%>
+							   			 <%=el.tableNumber%>
+							   		<%}%> </p>
+	                	  <p>时间：<%=el.planTime%></p>
+	                	<%}else if(el.repastForm=='3'){%>
+	                	  <p>时间：<%=el.planTime%></p>
+	                	<%}%>  		
+	                </td>
+	                <% if(!(queryIndex=='1'||queryIndex=='3'||queryIndex=='4'||queryIndex=='5'||queryIndex=='6')){%>
+	                <td>
+	                	<!-- 店内就餐 -->
+	                	<% if(el.repastForm=='1'){%>	                	
+	                		<% if(el.orderStatus=='1'||el.orderStatus=='-3'||el.orderStatus=='8'){%>
+					 			未确认
+					   		<%} else if(el.orderStatus=='2' || el.orderStatus=='9') {%>
+					   			待就餐
+					   		<%} else if(el.orderStatus=='6') {%>
+					   			就餐中
+					   		<%} else if(el.orderStatus=='7') {%>
+					   			待结账
+					   		<%} else if(el.orderStatus=='4') {%>
+					   			交易完成
+					   		<%} else if(el.orderStatus=='10') {%>
+								取消未确认						
+							<%} else if(el.orderStatus=='99'||el.orderStatus=='-1'){%>
+								已取消
+					   		<%}%>  					   		       	   		       
+	                	<% }%>
+	                	
+	                	
+	                	<!-- 外卖货到付款，没有在线支付(不显示 -4 0 1 3的状态)-->
+	                	<% if(el.repastForm=='2'){%>   		                	
+		                	<% if(el.orderStatus=='8'){%>
+					 			未确认
+					   		<%} else if(el.orderStatus=='2' ) {%>
+					   			待送餐
+					   		<%} else if(el.orderStatus=='11') {%>
+					   			送餐中				   				   		
+					   		<%} else if(el.orderStatus=='4') {%>
+					   			交易完成
+					   		<%} else if(el.orderStatus=='10') {%>
+								取消未确认
+							<%} else if(el.orderStatus=='99'||el.orderStatus=='-1'){%>
+								已取消							
+					   		<%}%>  
+				   		       
+	                	<% }%> 
+	                	
+	                	 <!-- 自提：只有有货到付款-->		
+	                	<% if(el.repastForm=='3'){%>	            															   		  		
+		                	<%  if(el.orderStatus=='8'){%>
+					 			未确认
+					   		<%} else if(el.orderStatus=='2') {%>
+					   			待自提				   	
+					   		<%} else if(el.orderStatus=='4') {%>
+					   			交易完成				   	
+					   		<%} else if(el.orderStatus=='10') {%>
+								取消未确认											   		
+				   		    <%} else if(el.orderStatus=='99'||el.orderStatus=='-1'){%>
+								已取消									
+					   		<%}%>     
+	                	<% }%> 	                	 
+	                </td>	                
+	             	<% }%>	          
+	                
+	              
+	                <td orderId="<%=el.orderId%>" userId="<%=el.userId%>" shopId="<%=el.shopId%>" 
+	                   repastForm="<%=el.repastForm%>" orderStatus="<%=el.orderStatus%>"
+	                   moneyEarnest="<%=el.moneyEarnest%>" personCount="<%=el.personCount%>"> 
+	                <a href="#" class="orderOprate" >                
+	                	<!-- 店内就餐 -->   	                        
+	                	<% if(queryIndex!='0'){
+	                		if(el.repastForm=='1'){%>
+		                	<% if(el.orderStatus=='1'||el.orderStatus=='-3'){%>
+					 			确认接单
+					   		<%} else if(el.orderStatus=='2' || el.orderStatus=='9') {%>
+					   			<span style="float:left;padding-left: 8px;">开台</span>
+					   		<%} else if(el.orderStatus=='6'|| el.orderStatus=='7') {%>
+					   			修改					   	
+					   		<%} else if(el.orderStatus=='10') {%>
+								确认取消订单											   	
+					   		<%}%>  				   		       
+	                	<% }%>
+	                	
+	                	<!-- 外卖-->
+	                	<% if(el.repastForm=='2'){%>	                	
+		                	<% if(el.orderStatus=='8') {%>
+					 			确认接单
+					   		<%} else if(el.orderStatus=='2') {%>
+					   			<span style="float:left;padding-left: 8px;">送餐</span>
+					   		<%} else if(el.orderStatus=='11') {%>
+					   			现金收款   
+					   		<%} else if(el.orderStatus=='10') {%>
+								确认取消订单					  	
+					   		<%}%>  	       
+	                	<% }%> 
+	                	
+	                	 <!-- 自提-->		
+	                	<% if(el.repastForm=='3'){%>
+	                		<%  if(el.orderStatus=='-4') {%>
+								未支付
+	                		<% } else if(el.orderStatus=='0') {%>
+								付款中	
+	                		<% } else if(el.orderStatus=='8') {%>
+	                			确认接单
+					   		<%} else if(el.orderStatus=='2') {%>
+					   			现金收款
+					   		 <%} else if(el.orderStatus=='10') {%>
+								确认取消订单					  	
+					   		<%}%>  	       
+	                	<% }%> 
+	                	</a>
+	                	 
+	                 <% if(el.repastForm=='1'){%>
+		                	<% if(el.orderStatus=='2'||el.orderStatus=='9'){%>
+					 			&nbsp;<a href="#" class="confirmCancelInOrder">取消预约</a>&nbsp;			   	
+					   		<%}%>  				   		       
+	                <% }}%>		                	                
+	                  <a href="#" class="xqdd">详情</a> </td>
+	              </tr>          
+	              		
+         <% }) }%>                       
+          </tbody> 
+        </table>
+        <%if(null!=param){%>
+             <div class="splb_sc">
+				 <div class=" clearfix">
+				 	<div class="fl">
+				 	  <% if(queryIndex=='1'){%>
+	              		<a href="#" class="mr10 btn-model add-sccg  batchAccept">批量确认</a>
+	                  <%}%>
+	                  <% if(queryIndex=='2'){%>
+	              		<!--a href="#" class="mr10 btn-model add-sccg batchSend">批量送餐</a-->    
+	                  <%}%>					 		              		        
+	                   <% if(queryIndex=='5'){%>
+	              		<!--<a href="#" class="mr10 btn-model add-sccg batchCancel">批量确认</a>  -->
+	                  <%}%>
+				 	</div>
+					 <div class="table-page">
+						<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+						<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+						<a href="javascript:;" class="page-act pageOrder" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+						<a href="javascript:;" class="page-act pageOrder" page="<%=param.totalPage%>">末页</a>
+					<span class="page-go">跳到</span>
+					<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/><span class="page-go">页/<%=param.totalPage%>页</span>
+					<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.recoredCount%>条</a>
+					</div>
+	              </div>
+        	</div>
+	<%}%>

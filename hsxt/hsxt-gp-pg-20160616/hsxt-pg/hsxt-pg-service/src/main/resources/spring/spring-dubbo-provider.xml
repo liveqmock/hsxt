@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- dubbo 基本配置 -->
+	<dubbo:application name="${dubbo.application.name}" />
+
+	<dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"
+		threadpool="${dubbo.protocol.threadpool.type}" threads="${dubbo.protocol.threadpool.threads}"
+		accepts="${dubbo.protocol.accepts}" />
+
+	<!-- 互生注册中心：reg-hsxt -->
+	<dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"
+		default="true" />
+
+	<!-- <dubbo:monitor protocol="registry" /> -->
+
+	<!-- 发布服务 -->
+	<!-- 对账文件调度接口[仅能注册到互生] -->
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+		ref="pgChPayAccountingFileDSBatchService" group="HSXT_PG_CH_PAY_ACCOUNTING_FILE"
+		timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}"
+		version="1.0.0">
+	</dubbo:service>
+
+	<!-- [互生]中国银联支付接口1.0.0 -->
+	<dubbo:service interface="com.gy.hsxt.pg.api.IPGPaymentService"
+		ref="pgPaymentService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+
+	<!-- [互生]平安银行提现转账接口1.0.0 -->
+	<dubbo:service interface="com.gy.hsxt.pg.api.IPGTransCashService"
+		ref="pgTransCashService" timeout="${dubbo.service.timeout15000}"
+		actives="${dubbo.service.actives}" version="1.0.0" />
+
+</beans>

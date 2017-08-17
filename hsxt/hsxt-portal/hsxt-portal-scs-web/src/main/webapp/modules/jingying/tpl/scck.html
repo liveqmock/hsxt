@@ -1,0 +1,283 @@
+<div class="operationsInner mallStore restart"> 
+          <!-- 操作台切换标签开始 -->
+          <div class="pr">
+            <div class="tabNav"></div>
+            <ul class="tabList clearfix">
+              <li><a class="stdsh">实体店审核</a></li>
+              <li><span class="active">网上商城审核</span></li>
+              <li><a class="spsh">商品审核</a></li>
+              
+            </ul> 
+          </div>
+          <!-- 操作台切换标签结束 --> 
+          <!--内容添加开始-->
+          <div class="searchbox p20">
+            <div class="tabs">
+            <ul>
+            	<li class="cur">申请重开</li>
+                <li>申请暂停</li>
+                <li>积分暂停</li>
+                <li>已关闭</li>
+                <li>正常</li>
+                <li>全部</li>
+            </ul>
+                        
+                    </div>
+            <div class="search-toolbar">
+            	    
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">企业资源号：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="textfield" id="" value="" class="input-txt w50" />
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">地区：</label>
+                                <div class="cont-chk"> 
+                                     <input id='sel_sf' placeholder="--省--"
+options="[{name:'广东省',value:'1'},{name:'江西省',value:'2'},{name:'湖南省',value:'3'}]" optionValue=""  readonly="readonly"  />
+                  
+                  
+                                    
+                                </div>
+                                <div class="cont-chk ml20">
+                                	<input id='sel_cs' placeholder="--市--"
+options="[{name:'深圳市',value:'1'},{name:'广州市',value:'2'},{name:'东莞市',value:'3'}]" optionValue=""  readonly="readonly"  />
+                  
+                                </div>
+                                <div class="cont-chk ml20">
+										<input id='sel_qy' placeholder="--县/区--"
+options="[{name:'龙华新区',value:'1'},{name:'福田区',value:'2'},{name:'罗湖区',value:'3'}]" optionValue=""  readonly="readonly"  />
+                  
+                                </div>
+                            </li>
+                            <li>
+                            	<label class="title-int">企业类型：</label>
+                                <div class="cont-chk">
+											<input id='sel_qylx' placeholder=""
+options="[{name:'私营',value:'1'},{name:'国企',value:'2'}]" optionValue=""  readonly="readonly"  />
+                  
+                                </div>
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">企业名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="textfield" id="" value="" class="input-txt w50" />
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">商城名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="textfield" id="" value="" class="input-txt w50" />
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                
+                                <div class="cont-int">
+                                	<input type="checkbox" name="textfield" id="" value="" class="input-txt" />
+                                    <label class="title-int w50">有实体店</label>
+                                </div> 
+                            </li>
+                            <li class="last">
+                                <div class="cont-int">
+                                	<button id="" type="button" class="btn-search ml10">查询</button>
+                                    <button id="" type="button" class="btn-search ml10 dlg4">查看详情</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    
+            <div class="search-cont">
+              <table id="tableDetail">   
+			    <tr>   
+			    	<th w_check="true"  w_index="sn" ></th>
+			    	<th w_index="scjbxx" w_render="renderImg" >商城基本信息</th>
+			        <th w_render="renderImg" >营业执照</th>
+			        <th w_index="qylx" >企业类型</th>
+			        <th w_index="stdsl">实体店数量</th>
+			        <th w_index="ccrq">创建日期</th>
+			        <th w_index="sqsj" >申请时间</th>
+			        <th w_index="zt" >状态</th>  
+			        <th w_render="operate" >操作</th>
+			    </tr>            
+			</table> 	
+            	
+
+            
+            </div>
+            
+          </div>
+          <!--内容添加结束--> 
+        </div>
+        
+<!--弹出框内容及脚本开始-->
+
+<div id="dlg4" class="none">
+<div class="popoup_warp">
+  <div class="mallMsg clearfix">
+    <div class="fl">
+      <dl>
+          <dt>美哒哒服饰旗舰店</dt>
+          <dd class="mall_img"><img src="resources/img/product01.jpg" /></dd>
+          <dd>联系人：马利</dd>
+          <dd>联系方式：<br />13415428888</dd>
+      </dl>
+    </div>
+    <div class="fr">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="100" align="right" valign="top">主营分类：</td>
+          <td width="" valign="top">服饰鞋包</td>
+        </tr><tr>
+          <td width="" align="right" valign="top">地址：</td>
+          <td valign="top">广东省深圳市福田区华强北新亚洲二期A座</td>
+        </tr>
+        <tr style="border-bottom:1px dashed #ccc">
+          <td align="right" valign="top">简介：</td>
+          <td valign="top" colspan="3"></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">企业名称：</td>
+          <td valign="top">深圳市大宝科技有限公司</td>
+        </tr><tr>
+          <td align="right" valign="top">企业资源号：</td>
+          <td valign="top">12345678901</td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">法人姓名：</td>
+          <td valign="top">李二蛋</td>
+        </tr><tr>
+          <td align="right" valign="top">营业执照注册号：</td>
+          <td valign="top">879456485184566</td>
+        </tr>
+        <tr style="border-bottom:1px dashed #ccc">
+          <td align="right" valign="top">营业执照：</td>
+          <td valign="top" colspan="3"><img src="resources/img/hslt_0111.gif" /></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">状态：</td>
+          <td valign="top">申请重开/申请暂停/积分暂停</td>
+        </tr><tr>
+          <td align="right" valign="top">申请时间：</td>
+          <td valign="top">2014-12-29 10：32</td>
+        </tr>
+      </table>
+  
+    </div>
+  </div>
+  <div class="history">
+  <div class="history-hd clearfix">
+      <span class="fl">历史申请</span>
+  </div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <th>申请类型</th>
+      <th>处理人</th>
+      <th>申请日期</th>
+      <th>处理日期</th>
+      <th>处理结果</th>
+    </tr>
+    <tr >
+      <td>重开</td>
+      <td>张三</td>
+      <td>2014-10-12</td>
+      <td>2014-12-25</td>
+      <td>重开成功</td>
+    </tr>
+    <tr class="table-tr-c">
+      <td>重开</td>
+      <td>张三</td>
+      <td>2014-10-12</td>
+      <td>2014-12-25</td>
+      <td>重开成功</td>
+    </tr>
+  </table>
+  
+  </div>
+</div>
+<div class="popoup_warp" style="display:none;">
+  <div class="mallMsg clearfix">
+    <div class="fl">
+      <dl>
+          <dt>二十旗舰店</dt>
+          <dd class="mall_img"><img src="resources/img/product01.jpg" /></dd>
+          <dd>联系人：马利</dd>
+          <dd>联系方式：<br />13415428888</dd>
+      </dl>
+    </div>
+    <div class="fr">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="100" align="right" valign="top">主营分类：</td>
+          <td width="" valign="top">服饰鞋包</td>
+        </tr><tr>
+          <td width="" align="right" valign="top">地址：</td>
+          <td valign="top">广东省深圳市福田区华强北新亚洲二期A座</td>
+        </tr>
+        <tr style="border-bottom:1px dashed #ccc">
+          <td align="right" valign="top">简介：</td>
+          <td valign="top" colspan="3"></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">企业名称：</td>
+          <td valign="top">深圳市大宝科技有限公司</td>
+        </tr><tr>
+          <td align="right" valign="top">企业资源号：</td>
+          <td valign="top">12345678901</td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">法人姓名：</td>
+          <td valign="top">李二蛋</td>
+        </tr><tr>
+          <td align="right" valign="top">营业执照注册号：</td>
+          <td valign="top">879456485184566</td>
+        </tr>
+        <tr style="border-bottom:1px dashed #ccc">
+          <td align="right" valign="top">营业执照：</td>
+          <td valign="top" colspan="3"><img src="resources/img/hslt_0111.gif" /></td>
+        </tr>
+        <tr>
+          <td align="right" valign="top">状态：</td>
+          <td valign="top">申请重开/申请暂停/积分暂停</td>
+        </tr><tr>
+          <td align="right" valign="top">申请时间：</td>
+          <td valign="top">2014-12-29 10：32</td>
+        </tr>
+      </table>
+  
+    </div>
+  </div>
+  <div class="history">
+  <div class="history-hd clearfix">
+      <span class="fl">历史申请</span>
+  </div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <th>申请类型</th>
+      <th>处理人</th>
+      <th>申请日期</th>
+      <th>处理日期</th>
+      <th>处理结果</th>
+    </tr>
+    <tr >
+      <td>重开</td>
+      <td>张三</td>
+      <td>2014-10-12</td>
+      <td>2014-12-25</td>
+      <td>重开成功</td>
+    </tr>
+    <tr class="table-tr-c">
+      <td>重开</td>
+      <td>张三</td>
+      <td>2014-10-12</td>
+      <td>2014-12-25</td>
+      <td>重开成功</td>
+    </tr>
+  </table>
+  
+  </div>
+</div>
+</div>
+<!--弹出框内容及脚本结束-->
+

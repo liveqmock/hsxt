@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.DeviceUseRecordMapper">
+	
+	<!-- 插入设备使用记录 -->
+	<insert id="insertDeviceUseRecord" parameterType="com.gy.hsxt.bs.bean.tool.DeviceUseRecord">
+		INSERT INTO 
+		T_BS_DEVICE_USE_RECORD(
+			RECORD_ID,
+			DEVICE_SEQ_NO,
+			USE_TYPE,
+			BATCH_NO,
+			USE_NAME,
+			DESCRIPTION,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEBY
+		) VALUES (
+			#{recordId},
+			#{deviceSeqNo},
+			#{useType},
+			#{batchNo},
+			#{useName},
+			#{description,jdbcType=VARCHAR},
+			'Y',
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL)
+	
+	</insert>
+	
+	<!-- 分页查询工具设备使用 -->
+	<select id="selectToolDeviceUseListPage" resultType="com.gy.hsxt.bs.bean.tool.resultbean.DeviceInfoPage">
+		SELECT 
+			   TDI.CATEGORY_CODE AS categoryCode,
+		       TDI.DEVICE_SEQ_NO AS deviceSeqNo,
+		       ED.ENTER_BATCH_NO AS batchNo,
+		       W.WH_NAME AS whName,
+		       TDI.CREATED_DATE AS enterDate,
+		       TDI.USE_STATUS AS useStatus,
+		       DECODE(TDI.STORE_STATUS,2,TDI.UPDATED_DATE,NULL) AS outDate,
+		       SUBSTR(TDC.TERMINAL_NO, 0, 11) AS entResNo
+		  FROM T_BS_TOOL_DEVICE_INFO TDI
+		  LEFT JOIN T_BS_ENTER_DETAIL ED
+		    ON TDI.DEVICE_CUST_ID = ED.DEVICE_CUST_ID
+		  LEFT JOIN T_BS_WAREHOUSE W
+		    ON TDI.WH_ID = W.WH_ID
+		  LEFT JOIN T_BS_TOOL_DEVICE_CONFIG TDC
+		    ON TDI.DEVICE_CUST_ID = TDC.DEVICE_CUST_ID
+		  WHERE 1 = 1  
+		<if test="deviceSeqNo != null and deviceSeqNo != ''">
+			AND TDI.DEVICE_SEQ_NO = #{deviceSeqNo}
+		</if>
+		<if test="useStatus != null">
+			AND TDI.USE_STATUS = #{useStatus}
+		</if>
+		<if test="batchNo != null and batchNo != ''">
+			AND ED.ENTER_BATCH_NO = #{batchNo}
+		</if>
+	</select>
+	
+</mapper>

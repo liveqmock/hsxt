@@ -1,0 +1,46 @@
+<div id="htff_htfflsTpl">
+	<div class="fb mb5">企业信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">企业互生号</td>
+			<td class="view_text_2" width="30%"><%=obj.entResNo%></td>
+			<td class="view_item" width="20%">企业名称</td>
+			<td class="view_text_2" width="30%"><%=obj.entCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">联系人姓名</td>
+			<td class="view_text_2"><%=obj.linkman%></td>
+			<td class="view_item">联系人手机</td>
+			<td class="view_text_2"><%=obj.mobile%></td>
+		</tr>
+		<tr>
+			<td class="view_item">申报类别</td>
+			<td class="view_text_2"><%=obj.custTypeName%></td>
+			<td class="view_item">系统开启日期</td>
+			<td class="view_text_2"><%=obj.regDate%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">发放次数</td>
+			<td class="view_text_2" width="30%" id="htffls_sendCount"><%=obj.sendCount%></td>
+			<td class="view_item" width="20%">发放时间</td>
+			<td class="view_text_2" width="30%" id="htffls_sendDate"><%=obj.sendDate%></td>
+		</tr>
+	</table>
+	<div class="search-toolbar mt10 clearfix">
+		<ul class="cssform">
+			<li class="h30_middle fb">发放日志</li>
+		</ul>
+	</div>
+	<table id="searchTable">
+	  <tr>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="operator">发放操作员</th>
+		<th w_index="operatedDate">发放日期</th>
+		<th w_render="operate">发放说明</th>
+		<th w_render="operate">收回说明</th>
+	  </tr>
+	</table>
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="back_ffht">返&#12288;回</a>
+	</div>
+</div>

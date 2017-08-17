@@ -1,0 +1,41 @@
+﻿<div class="search-toolbar">
+<form id="shy_form" name="shy_form">
+    <ul class="cssform clearfix">
+      <li class="clearfix">
+        <label class="fl h30_middle">送货人名称：</label>
+		<input type="text" class="h28_middle input-txt w100" placeholder="输入送货人名称"/>
+      </li>
+      <li class="clearfix">
+        <label class="fl h30_middle">营业点名称：</label>
+		<input type="text" class="h28_middle input-txt w100" placeholder="输入营业点名称"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="btn_cx" class="btn-search mr30" type="button">查询</button>
+        </div>
+      </li>
+      <li class="fr">
+        <div class="cont-int">
+          <button id="btn_shy_del" class="btn-search ml30 mr10" type="button">批量删除</button><button id="btn_shy_add" class="btn-search" type="button">添加</button>
+        </div>
+      </li>
+    </ul>
+</form>
+</div>
+<div class="search-cont">
+  <table id="shy_table">
+  	<thead>
+        <tr>
+          <th w_check="true" w_index="id" width="3%"></th>
+          <th w_render="renderImg" w_align="center" width="90">照片</th>
+          <th w_index="shrmc" w_align="left">送货人名称</th>
+          <th w_index="xb" w_align="left">性别</th>
+          <th w_index="lxdh" w_align="left">联系电话</th>
+          <th w_index="ssyed" w_align="left">所属营业点</th>
+          <th w_index="bz" w_align="left">备注</th>
+          <th w_render="operate" w_align="left">操作</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+<div id="shy_shy-dialog" class="none"><p></p></div>

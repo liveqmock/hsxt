@@ -1,0 +1,26 @@
+﻿<div class="f13 clearfix"><img src="resources/img/star.gif" width="16" height="16" class="fl"/><span class="fl ml10">已有<b class="orange"><%=obj.totalSum%></b>人关注本商城</span></div>
+<div class="tabs clearfix mt20">
+  <ul id="gzsc_zt_tab">
+    <li class="cur" data-value="">全部收藏</li>
+  	<%$.each(obj.data, function(k, v){%>
+    <li data-value="<%=v.value%>"><%=v.name%><span class="sub_num m03vm">(<%=v.sum%>)</span></li>
+  	<%})%>
+  </ul>
+</div>
+<div class="search-cont">
+  <table id="gzsc_table">
+  	<thead>
+        <tr>
+          <th w_render="operate" w_align="left">商品</th>
+          <th w_index="fl" w_align="left" width="20%">
+            <div class="pr">
+                <div id="classify" class="classify"><span class="classtext">分类</span><span class="down_arrow"></span></div>
+                <div id="droplist" class="droplist scrlh"></div>
+            </div>
+          </th>
+          <th w_index="scrs" w_align="left" width="20%">收藏人数</th>
+          <th w_index="zjscrq" w_align="left" width="20%">最近收藏日期</th>
+        </tr>
+	</thead>
+  </table>
+</div>

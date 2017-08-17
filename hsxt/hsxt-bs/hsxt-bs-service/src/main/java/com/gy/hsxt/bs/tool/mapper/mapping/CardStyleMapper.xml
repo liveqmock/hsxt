@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.CardStyleMapper">
+	
+	<!-- 审批基础Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.base.ApprBase" id="apprBaseMap">
+		<result column="REQ_OPERATOR" property="reqOperator"/>
+		<result column="REQ_TIME" property="reqTime"/>
+		<result column="REQ_REMARK" property="reqRemark"/>
+		<result column="APPR_OPERATOR" property="apprOperator"/>
+		<result column="APPR_TIME" property="apprTime"/>
+		<result column="APPR_REMARK" property="apprRemark"/>
+	</resultMap>
+	
+	<!-- 互生卡样Map -->
+	<resultMap type="com.gy.hsxt.bs.bean.tool.CardStyle" id="cardStyleMap" extends="apprBaseMap">
+		<result column="CARD_STYLE_ID" property="cardStyleId"/>
+		<result column="CARD_STYLE_NAME" property="cardStyleName"/>
+		<result column="MATERIAL_MICRO_PIC" property="materialMicroPic"/>
+		<result column="MATERIAL_SOURCE_FILE" property="materialSourceFile"/>
+		<result column="MICRO_PIC" property="microPic"/>
+		<result column="SOURCE_FILE" property="sourceFile"/>
+		<result column="IS_SPECIAL" property="isSpecial"/>
+		<result column="IS_DEFAULT" property="isDefault"/>
+		<result column="ENT_RES_NO" property="entResNo"/>
+		<result column="ENT_CUST_ID" property="entCustId"/>
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="CONFIRM_FILE" property="confirmFile"/>
+		<result column="IS_LOCK" property="isLock"/>
+		<result column="IS_CONFIRM" property="isConfirm"/>
+		<result column="ENABLE_STATUS" property="enableStatus"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	
+	<!-- 插入互生卡样 -->
+	<insert id="insertCardStyle" parameterType="com.gy.hsxt.bs.bean.tool.CardStyle">
+		INSERT INTO 
+		T_BS_CARD_STYLE(
+			CARD_STYLE_ID,
+			CARD_STYLE_NAME,
+			MICRO_PIC,
+			SOURCE_FILE,
+			MATERIAL_MICRO_PIC,
+			MATERIAL_SOURCE_FILE,
+			IS_SPECIAL,
+			IS_DEFAULT,
+			ENT_RES_NO,
+			ENT_CUST_ID,
+			ORDER_NO,
+			CONFIRM_FILE,
+			IS_LOCK,
+			IS_CONFIRM,
+			ENABLE_STATUS,
+			STATUS,
+			REQ_OPERATOR,
+			REQ_TIME,
+			REQ_REMARK,
+			APPR_OPERATOR,
+			APPR_TIME,
+			APPR_REMARK) 
+		VALUES (
+			#{cardStyleId},
+			#{cardStyleName},
+			#{microPic},
+			#{sourceFile},
+			#{materialMicroPic,jdbcType=VARCHAR},
+			#{materialSourceFile},
+			#{isSpecial},
+			#{isDefault},
+			#{entResNo},
+			#{entCustId},
+			#{orderNo,jdbcType=VARCHAR},
+			#{confirmFile,jdbcType=VARCHAR},
+			#{isLock},
+			0,
+			#{enableStatus},
+			#{status},
+			#{reqOperator},
+			SYSDATE,
+			#{reqRemark,jdbcType=VARCHAR},
+			NULL,
+			NULL,
+			NULL)
+	</insert>	
+	
+	<!-- 互生卡样的启用和停用 -->
+	<update id="cardStyleEnableOrStop" parameterType="com.gy.hsxt.bs.bean.tool.CardStyle">
+		UPDATE T_BS_CARD_STYLE 
+		<set>
+			REQ_TIME = SYSDATE,	
+			<if test="status != null">
+				STATUS = #{status},	
+			</if>
+			<if test="enableStatus != null">
+				ENABLE_STATUS = #{enableStatus},	
+			</if>
+			<if test="reqOperator != null and reqOperator != ''">
+				REQ_OPERATOR = #{reqOperator},	
+			</if>	
+			<if test="reqRemark != null and reqRemark != ''">
+				REQ_REMARK = #{reqRemark,jdbcType=VARCHAR}
+			</if>	
+		</set> 
+		WHERE CARD_STYLE_ID = #{cardStyleId}
+	</update>
+	
+	<!-- 互生卡样审批 -->
+	<update id="cardStyleAppr" parameterType="com.gy.hsxt.bs.bean.tool.CardStyle">
+		UPDATE T_BS_CARD_STYLE 
+		<set>
+			APPR_TIME = SYSDATE,
+			<if test="enableStatus != null">
+				ENABLE_STATUS = #{enableStatus},	
+			</if>	
+			<if test="status != null">
+				STATUS = #{status},	
+			</if>	
+			<if test="apprOperator != null and apprOperator != ''">
+				APPR_OPERATOR = #{apprOperator},	
+			</if>	
+			<if test="apprRemark != null and apprRemark != ''">
+				APPR_REMARK = #{apprRemark,jdbcType=VARCHAR}	
+			</if>	
+		</set> 
+		WHERE CARD_STYLE_ID = #{cardStyleId}	
+	</update>
+	
+	<!-- 修改标准卡的默认为非默认 -->
+	<update id="updateDefaultToNotDefault">
+		UPDATE T_BS_CARD_STYLE SET IS_DEFAULT = 0 WHERE IS_SPECIAL = 0 AND IS_DEFAULT = 1 AND ENABLE_STATUS = 1
+	</update>
+	
+	<!-- 修改标准卡为默认 -->
+	<update id="updateCardStyleDefault" parameterType="string">
+		UPDATE T_BS_CARD_STYLE SET IS_DEFAULT = 1 WHERE CARD_STYLE_ID = #{cardStyleId}
+	</update>
+	
+	<!-- 根据订单修改互生卡样 -->
+	<update id="updateCardStyleByNo" parameterType="com.gy.hsxt.bs.bean.tool.CardStyle">
+		UPDATE T_BS_CARD_STYLE
+		<set>
+			<if test="microPic != null and microPic != ''">
+				MICRO_PIC = #{microPic},
+			</if>
+			<if test="sourceFile != null and sourceFile != ''">
+				SOURCE_FILE = #{sourceFile},
+			</if>
+			<if test="materialMicroPic != null and materialMicroPic != ''">
+				MATERIAL_MICRO_PIC = #{materialMicroPic},
+			</if>
+			<if test="materialSourceFile != null and materialSourceFile != ''">
+				MATERIAL_SOURCE_FILE = #{materialSourceFile},
+			</if>
+			<if test="confirmFile != null and confirmFile != ''">
+				CONFIRM_FILE = #{confirmFile},
+			</if>
+			<if test="enableStatus != null ">
+				ENABLE_STATUS = #{enableStatus},
+			</if>
+			<if test="status != null ">
+				STATUS = #{status},
+			</if>
+			<if test="isLock != null ">
+				IS_LOCK = #{isLock},
+			</if>
+			<if test="isConfirm != null ">
+				IS_CONFIRM = #{isConfirm},
+			</if>
+			<if test="reqOperator != null and reqOperator != ''">
+				REQ_OPERATOR = #{reqOperator},
+				REQ_TIME = SYSDATE,
+			</if>
+			<if test="reqRemark != null and reqRemark != ''">
+				REQ_REMARK = #{reqRemark},
+			</if>
+		</set>
+		WHERE ORDER_NO = #{orderNo}
+	</update>
+	
+	<!-- 删除互生卡样 -->
+	<delete id="deleteCardStyleById" parameterType="string">
+		 DELETE FROM T_BS_CARD_STYLE WHERE CARD_STYLE_ID = #{cardStyleId}
+	</delete>
+	
+	<!-- 根据订单号删除卡样 -->
+	<delete id="deleteCardStyleByNo">
+		DELETE FROM T_BS_CARD_STYLE WHERE ORDER_NO = #{orderNo}
+	</delete>
+	
+	<!-- 卡样所有字段 -->
+	<sql id="cardStyleAllField">
+		CARD_STYLE_ID,
+		CARD_STYLE_NAME,
+		MICRO_PIC,
+		SOURCE_FILE,
+		MATERIAL_MICRO_PIC,
+		MATERIAL_SOURCE_FILE,
+		IS_SPECIAL,
+		IS_DEFAULT,
+		ENT_RES_NO,
+		ENT_CUST_ID,
+		ORDER_NO,
+		CONFIRM_FILE,
+		IS_LOCK,
+		IS_CONFIRM,
+		ENABLE_STATUS,
+		STATUS,
+		REQ_OPERATOR,
+		REQ_TIME,
+		REQ_REMARK,
+		APPR_OPERATOR,
+		APPR_TIME,
+		APPR_REMARK 
+	</sql>
+	
+	<!-- 根据id查询互生卡样 -->
+	<select id="selectCardStyleById" parameterType="string" resultMap="cardStyleMap">
+		SELECT 
+			<include refid="cardStyleAllField"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE CARD_STYLE_ID = #{cardStyleId}
+	</select>
+	
+	<!-- 根据订单号查询卡样 -->
+	<select id="selectCardStyleByOrderNo" parameterType="string" resultMap="cardStyleMap">
+		SELECT 
+			<include refid="cardStyleAllField"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	<!-- 查询默认的标准卡样 -->
+	<select id="selectCardStyleByDefault" resultMap="cardStyleMap">
+		SELECT 
+			<include refid="selectCardStyleSql"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE ENABLE_STATUS = 1 AND IS_SPECIAL = 0 AND IS_DEFAULT = 1
+	</select>
+	
+	<!-- 查询企业上传的个性卡样 -->
+	<select id="selectCardStyleByEnt" resultMap="cardStyleMap" parameterType="string">
+		SELECT 
+		    <include refid="selectCardStyleSql"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE IS_SPECIAL = 1 AND ENABLE_STATUS = 1 AND IS_CONFIRM = 1  AND ENT_RES_NO = #{entResNo}
+	</select>
+	
+	<!-- 分页查询互生卡样-->
+	<select id="selectCardStyleListPage" resultMap="cardStyleMap">
+		SELECT 
+			C.CARD_STYLE_ID,
+	        C.CARD_STYLE_NAME,
+	        C.IS_DEFAULT,
+	        C.IS_SPECIAL,
+	        C.ENABLE_STATUS,
+	        C.STATUS,
+	        C.REQ_OPERATOR,
+	        C.REQ_TIME
+		 FROM T_BS_CARD_STYLE C
+<!-- 		 <choose> -->
+<!-- 	    	<when test="exeCustId != null and exeCustId != ''"> ,T_BS_TASK T </when> -->
+<!-- 	     </choose>  -->
+		 WHERE IS_SPECIAL = 0
+<!-- 		<if test="exeCustId != null and exeCustId != ''"> -->
+<!-- 			AND C.CARD_STYLE_ID = T.BIZ_NO -->
+<!-- 			AND T.STATUS = 2 -->
+<!-- 			AND T.EXE_CUST_ID = #{exeCustId} -->
+<!-- 		</if> -->
+		<if test="cardStyleName != null and cardStyleName != ''">
+			AND C.CARD_STYLE_NAME LIKE  #{cardStyleName}||'%'
+		</if>
+		ORDER BY C.REQ_TIME DESC
+	</select>
+	
+	<!-- 查询制作时可以选择的卡样(默认标准卡样 + 订制卡样) -->
+	<select id="selectCardStyleByMark" resultMap="cardStyleMap" parameterType="string">
+		SELECT 
+			<include refid="selectCardStyleSql"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE IS_SPECIAL = 0 AND ENABLE_STATUS = 1
+		UNION ALL
+		SELECT 
+			<include refid="selectCardStyleSql"/>
+		FROM T_BS_CARD_STYLE 
+		WHERE IS_SPECIAL = 1 AND ENABLE_STATUS = 1 AND IS_CONFIRM = 1 
+		  AND (ENT_RES_NO = #{entResNo}
+		  	<if test="sEentResNo != null and sEentResNo != ''">
+		  	 	OR  ENT_RES_NO = #{sEentResNo}
+		  	</if>
+		  )
+	</select>
+	
+	<!-- 使用卡样时查询返回字段 -->
+	<sql id="selectCardStyleSql">
+		CARD_STYLE_ID,
+		CARD_STYLE_NAME,
+		MICRO_PIC,
+		SOURCE_FILE,
+		CONFIRM_FILE,
+		ENABLE_STATUS,
+		IS_LOCK,
+		IS_CONFIRM,
+		IS_SPECIAL
+	</sql>	
+	
+	<!-- 分页查询互生个性卡样 -->
+	<select id="selectSpecialCardStyleListPage" parameterType="com.gy.hsxt.bs.bean.base.BaseParam"
+		resultType="com.gy.hsxt.bs.bean.tool.resultbean.SpecialCardStyle">		 			 	
+		 SELECT 
+		  	T.CARD_STYLE_ID AS cardStyleId,
+	        T.CARD_STYLE_NAME AS cardStyleName,
+			T.ORDER_NO AS orderNo,
+			T.ENT_RES_NO AS entResNo,
+			T.ENT_CUST_ID AS entCustId,
+			T.IS_LOCK AS isLock,
+			T.IS_CONFIRM AS isConfirm,
+			T.MATERIAL_SOURCE_FILE AS mSourceFile,
+			T.MICRO_PIC AS microPic,
+			T.SOURCE_FILE AS sourceFile,
+			T.CONFIRM_FILE AS confirmFile,
+			T.ORDER_CASH_AMOUNT AS cardStyleFee,
+			T.CUST_NAME AS custName,
+			T.PAY_STATUS AS payStatus,
+			T.REQ_TIME AS reqTime,
+			T.ORDER_REMARK AS orderRemark
+		 FROM (SELECT 
+			      C.CARD_STYLE_ID AS CARD_STYLE_ID,
+			      C.CARD_STYLE_NAME AS CARD_STYLE_NAME,
+			      O.ORDER_NO AS ORDER_NO,
+			      O.HS_RES_NO AS ENT_RES_NO,
+			      O.CUST_ID AS ENT_CUST_ID,
+			      DECODE(C.IS_LOCK,NULL,0,C.IS_LOCK) AS IS_LOCK,
+			      DECODE(C.IS_CONFIRM,NULL,0,C.IS_CONFIRM) AS IS_CONFIRM,
+			      C.MATERIAL_SOURCE_FILE AS MATERIAL_SOURCE_FILE,
+			      C.MICRO_PIC AS MICRO_PIC,
+			      C.SOURCE_FILE AS SOURCE_FILE,
+			      C.CONFIRM_FILE AS CONFIRM_FILE,
+			      O.ORDER_CASH_AMOUNT AS ORDER_CASH_AMOUNT,
+			      O.CUST_NAME AS CUST_NAME,
+			      O.PAY_STATUS AS PAY_STATUS,
+			      DECODE(C.REQ_TIME,NULL,O.ORDER_TIME,C.REQ_TIME)  AS REQ_TIME,
+			      DECODE(C.REQ_REMARK,NULL,O.ORDER_REMARK,C.REQ_REMARK) AS ORDER_REMARK
+		     FROM T_BS_ORDER O
+		       LEFT JOIN T_BS_CARD_STYLE C ON C.ORDER_NO = O.ORDER_NO
+		     WHERE O.ORDER_TYPE = #{orderType}
+		       AND O.PAY_STATUS = 2
+		        ORDER BY O.ORDER_TIME DESC) T
+		  WHERE 1 = 1     	
+		 <if test="hsResNo != null and hsResNo != '' ">
+			AND T.ENT_RES_NO = #{hsResNo}
+		 </if>
+		 <if test="status != null">
+			AND T.IS_CONFIRM = #{status}
+		 </if>
+		 <if test="hsCustName != null and hsCustName != '' ">
+			AND T.CUST_NAME LIKE '%'||#{hsCustName}||'%'
+		 </if>
+		 <if test="name != null and name != ''">
+			AND T.CARD_STYLE_NAME LIKE  #{name}||'%'
+		 </if>
+	</select>
+</mapper>

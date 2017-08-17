@@ -1,0 +1,97 @@
+﻿<div class="view_info mt10 mb10">
+<%if (obj.status == 0 || obj.status == 1 ){%>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请流水号</td>
+            <td class="view_text" colspan="3"><%=obj.applyId%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">原税率</td>
+            <td class="view_text" width="32%"><%=(parseFloat(obj.currTaxrate)*100).toFixed(2)%>%</td>
+            <td class="view_item" width="18%">申请调整税率</td>
+            <td class="view_text" width="32%"><%=(parseFloat(obj.applyTaxrate)*100).toFixed(2)%>%</td>
+        </tr>
+		<tr>
+            <td class="view_item">企业纳税人类型</td>
+            <td class="view_text" colspan="3"><%=comm.lang("accountManage").taxpayerTypeEnum[obj.taxpayerType]%></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请说明</td>
+            <td class="view_text" colspan="3"><%=obj.applyReason%></td>
+        </tr>
+        <tr>
+            <td class="view_item">证明材料</td>
+            <td class="view_text" colspan="3" id="applyImg">
+                <a rel="<%=obj.proveMaterialFile%>" href="javascript:void(0);" class="ml10 blue">图片</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.createdDate%></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text"><%=obj.createdName%></td>
+        </tr> 
+    </table>
+<%} else {%>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请流水号</td>
+            <td class="view_text" colspan="3"><%=obj.applyId%></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="18%">原税率</td>
+            <td class="view_text" width="32%"><%=(parseFloat(obj.currTaxrate)*100).toFixed(2)%>%</td>
+            <td class="view_item" width="18%">申请调整税率</td>
+            <td class="view_text" width="32%"><%=(parseFloat(obj.applyTaxrate)*100).toFixed(2)%>%</td>
+        </tr>
+		<tr>
+            <td class="view_item">企业纳税人类型</td>
+            <td class="view_text" colspan="3"><%=comm.lang("accountManage").taxpayerTypeEnum[obj.taxpayerType]%></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请说明</td>
+            <td class="view_text" colspan="3"><%=obj.applyReason%></td>
+        </tr>
+        <tr>
+            <td class="view_item">证明材料</td>
+            <td class="view_text" colspan="3" id="applyImg">
+            	 <a rel="<%=obj.proveMaterialFile%>" href="javascript:void(0);" class="ml10 blue">图片</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="view_item">申请时间</td>
+            <td class="view_text"><%=obj.createdDate%></td>
+            <td class="view_item">申请操作员</td>
+            <td class="view_text"><%=obj.createdName%></td>
+        </tr> 
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审核信息</span></td>
+        </tr>
+         <%for(var i=0;i<obj.taxrateChangeHises.length;i++){%>
+        	<%if(obj.taxrateChangeHises[i].bizStatus==obj.status){%>
+         <tr>
+            <td class="view_item">审核结果</td>
+            <td class="view_text"><span class="red"><%=comm.lang("accountManage").taxStatusEnum[obj.status]%></span></td>
+            <td class="view_item">新税率生效日期</td>
+            <td class="view_text"><%=comm.formatDate(obj.enableDate)%></td>
+        </tr> 
+        <tr>
+            <td class="view_item">审核说明</td>
+            <td class="view_text" colspan="3"><%=obj.taxrateChangeHises[i].optRemark%></td>
+        </tr>
+        <tr>
+            <td class="view_item">审核时间</td>
+            <td class="view_text" colspan="3"><%=obj.taxrateChangeHises[i].optDate%></td>
+        </tr>
+       		 <%break;%>
+        	<%}%>
+        <%}%>
+    </table>
+<%}%>
+</div>

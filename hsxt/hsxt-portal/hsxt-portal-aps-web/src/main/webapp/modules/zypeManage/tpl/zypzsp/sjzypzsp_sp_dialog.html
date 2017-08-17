@@ -1,0 +1,93 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">管理公司当前资源配额信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mCustName %></td>
+            <td class="view_item" width="20%">企业互生号</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mEntResNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司资源总数</td>
+            <td class="view_text" colspan="3"><%= obj.entDetail.sResNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">计划城市配额</td>
+            <td class="view_text"><%= obj.entDetail.planNum %></td>
+            <td class="view_item">计划外城市配额</td>
+            <td class="view_text"><%= obj.entDetail.notPlanNum %></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请分配信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司配额</td>
+            <td class="view_text">
+             <%
+          	  if(obj.applyDetail.applyType==1){
+           	 %>
+           		 0
+            <%} else {%>
+            	<%=obj.scDetail.totalNum%>
+            <%}%>
+            </td>
+            <td class="view_item">已使用配额</td>
+            <td class="view_text">
+            <%
+          	  if(obj.applyDetail.applyType==1){
+           	 %>
+           		 0
+            <%} else {%>
+            	<%= obj.scDetail.usedNum %>
+            <%}%>
+        </tr>
+        <tr>
+            <td class="view_item">尚可用配额</td>
+            <td class="view_text">
+              <%
+          	  if(obj.applyDetail.applyType==1){
+           	  %>
+           		 0
+           	 <%} else {%>
+            	 <%= obj.scDetail.usableNum %>
+           	 <%}%>
+           </td>
+            <td class="view_item">城市名称</td>
+            <td class="view_text"><%= comm.getCityNameByCode(obj.applyDetail.provinceNo, obj.applyDetail.cityNo) %></td>
+        </tr>
+        <tr>
+            <td class="view_item">结算币种</td>
+            <td class="view_text"><%=obj.currencyName%></td>
+            <td class="view_item">配置类型</td>
+            <td class="view_text"><%=comm.lang("zypeManage").quotaTypeEnume[obj.applyDetail.applyType]%></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请数量</td>
+            <td class="view_text"><%=obj.applyDetail.applyNum%></td>
+            <td class="view_item">申请理由</td>
+            <td class="view_text"><%=obj.applyDetail.reqRemark%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">审批信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">审批结果</td>
+            <td class="view_text">
+				<input type="radio" id="p1" name="radStatus" checked="checked" value="1"><label for="p1" class="ml5 mr20">审批通过</label>
+				<input type="radio" id="p2" name="radStatus" value="2"><label for="p2" class="ml5">审批驳回</label>
+			</td>
+            <td class="view_item">批复数量</td>
+            <td>
+				<input id="txtApprNum" type="text" name="textfield" placeholder="输入批复数量,不可大于申请数" value="<%=obj.applyDetail.applyNum%>" class="ml5 h28_middle w96pc" />
+			</td>
+        </tr>
+        <tr>
+            <td class="view_item">审批信息</td>
+            <td colspan="3">
+				<textarea id="txtApprRemark" class="fl ml5 h50 w98pc rsn pt5 pb5" maxlength="300" placeholder="输入备注,字数不超过300个字"></textarea>
+			</td>
+        </tr>
+    </table>
+</div>

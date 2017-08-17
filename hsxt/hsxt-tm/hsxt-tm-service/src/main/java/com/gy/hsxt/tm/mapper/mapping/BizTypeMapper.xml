@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.BizTypeMapper">
+	<!-- 新增业务类型 -->
+	<insert id="insertBizType" parameterType="com.gy.hsxt.tm.bean.BizType">
+		INSERT INTO
+		T_TM_BIZ_TYPE
+		(
+		BIZ_TYPE,
+		BIZ_TYPE_NAME,
+		BIZ_ENT_CUST_TYPE
+		)
+		VALUES
+		(
+		#{bizType},
+		#{bizTypeName},
+		#{bizEntCustType}
+		)
+	</insert>
+	
+	<!-- 修改业务类型名称 -->
+	<update id="updateBizTypeName" parameterType="com.gy.hsxt.tm.bean.BizType">
+		UPDATE
+		T_TM_BIZ_TYPE
+		SET
+		BIZ_TYPE_NAME = #{bizTypeName}
+		WHERE
+		BIZ_TYPE =
+		#{bizType}
+	</update>
+	
+	<!-- 删除业务类型 -->
+	<delete id="deleteBizType">
+		DELETE
+		FROM
+		T_TM_BIZ_TYPE
+		WHERE
+		BIZ_TYPE = #{bizTypeCode}
+	</delete>
+	
+	<!-- 查询业务类型列表 -->
+	<select id="findBizTypeList" resultType="com.gy.hsxt.tm.bean.BizType">
+		select b.biz_type AS bizType, b.biz_type_name AS bizTypeName
+		from
+		t_tm_biz_type b,
+		t_tm_biz_type_permission p
+		where p.biz_type =
+		b.biz_type
+		and p.perm_id
+		in
+		<foreach collection="permIdList" item="permId" open="("
+			separator="," close=")">
+			#{permId}
+		</foreach>
+		group by b.biz_type, b.biz_type_name
+	</select>
+	
+	<!-- 查询权限ID列表 -->
+	<select id="findPermIdList" resultType="string">
+		select distinct perm_id from t_tm_biz_type_permission
+	</select>
+	
+	<!-- 查询业务类型列表 -->
+	<select id="findListByCustType" resultType="com.gy.hsxt.tm.bean.BizType">
+		SELECT
+		BIZ_TYPE AS
+		bizType,
+		BIZ_TYPE_NAME AS bizTypeName
+		FROM
+		T_TM_BIZ_TYPE
+		WHERE
+		BIZ_ENT_CUST_TYPE = #{bizEntCustType}
+	</select>
+	
+	<!-- 查询业务类型是否已存在 -->
+	<select id="findBizTypeExists" resultType="int">
+		SELECT
+		count(0)
+		FROM
+		T_TM_BIZ_TYPE
+		WHERE
+		BIZ_TYPE = #{bizType}
+	</select>
+</mapper>

@@ -1,0 +1,94 @@
+<div class="acct-ct mb20">
+	<h1 class="acct-tips lh150 bc" style="width:620px;text-align:left;"><span class="tcr_blue fb">温馨提示：</span><br>
+	1、可最多添加5张银行卡信息，可设其中一个银行卡为默认银行账号；<br>2、填写的银行卡开户名称须与真实姓名一致，银行卡结算币种与结算币种一致，开户银行、开户地区须填写正确；<br>3、当提交的信息不符合第2条时，将影响货币转银行业务正常办理。</h1>
+</div>
+<div class="table_info mt20 info_800">
+	<form id="yhzhxx_xg_form" name="yhzhxx_xg_form">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">修改前内容</td>
+			<td class="table_title" width="40%">修改后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">账户名称</td>
+			<td class="table_text" width="40%" id="bankCustName"></td>
+			<td class="table_text" width="40%" id="bankCustName_old" name="holderName"></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">结算币种</td>
+			<td class="table_text" width="40%" id="busCurrency_old"></td>
+			<td class="table_text" width="40%"><input id="busCurrency" name="applyCurrency" value="人民币" readonly="readonly" class="table_info_input"/></td>
+		</tr>
+		<!-- 
+		<tr>
+			<td class="table_item" width="20%">收支类别</td>
+			<td class="table_text" width="40%"><%=obj.applyCategory%></td>
+			<td class="table_text" width="40%"><input id="applyCategory" name="applyCategory" value="收款" readonly="readonly" class="table_info_input"/></td>
+		</tr>
+		 -->
+		<tr>
+			<td class="table_item" width="20%">开户银行</td>
+			<td class="table_text" width="40%"><%=obj.bankName%></td>
+			<td class="table_text" width="40%">
+			<div class="combobox_style Lkbd">
+				<input type="hidden" value="<%=obj.bankCode%>" id="distributeBank_old"/>
+				<select id="distributeBank" name="distributeBank">
+				</select>
+				
+			</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">开户地区</td>
+			<td class="table_text" width="40%"><%=obj.provinceName%><%=obj.cityName%></td>
+			<td class="table_text" width="40%">
+			<div class="w300 bc">
+				<div class="fl selectDiv pr">
+					<input id="provinceName_old" value="<%=obj.provinceCode%>" type="hidden">
+					<input id="cityName_old" value="<%=obj.cityCode%>"  type="hidden">
+					<input id="province_slt_xg" name="provinceName" readonly="readonly"  placeholder="请选择开户行的省份" />
+				</div>
+				<div class="fr selectDiv pr">
+					<input id="city_slt_xg" name="cityName" readonly="readonly"  placeholder="请选择开户行的城市"/>
+				</div>
+			</div>					
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">银行账号</td>
+				<td class="table_text" width="40%" >
+				<%=obj.bankAcct.substring(0,4)%>*****<%=obj.bankAcct.substring(obj.bankAcct.length-4,obj.bankAcct.length) %>
+				</td>
+				
+			<td class="table_text" width="40%">
+				<input id="cardNo" name="cardNo" class="table_info_input" placeholder="输入银行卡号" value='<%=obj.bankAcct%>'/>
+				<input id="cardNo_old" value='<%=obj.bankAcct%>'  type="hidden">
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">确认账号</td>
+			<td class="table_text" width="40%">&nbsp;</td>
+			<td class="table_text" width="40%">
+				<input id="cardNo_c" name="cardNo_c" class="table_info_input" placeholder="输入确认银行卡号" value='<%=obj.bankAcct%>'/>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">默认银行账号</td>
+			<td class="table_text" width="40%"><%= obj.isDefault ? '是' : '否'%></td>
+			<input id="isDefaultAccount_old" value='<%=obj.isDefault%>'  type="hidden">
+			<td class="table_text" width="40%">
+			<div class="w176 tc">
+				<label><input type="radio" name="isDefaultAccount" value="0" class="m03vm" <%= !obj.isDefault!='1' ? 'checked="checked"' : ''%>/>否</label>
+				<label class="ml15"><input type="radio" name="isDefaultAccount" value="1" class="m03vm" <%= obj.isDefault==='1' ? 'checked="checked"' : ''%>/>是</label>
+			</div>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<div class="w200 bc mt20" align="center">
+		<a class="btn_bg submit fl" id="xg_cancel">取&#12288;消</a><a class="btn_bg submit fr" id="xg_tj">提&#12288;交</a>
+	</div>
+
+</div>

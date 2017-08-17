@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.ProxyBuyHsbMapper">
+	<!-- 返回结果映射 -->
+	<resultMap type="com.gy.hsxt.ao.bean.ProxyBuyHsb" id="baseColumnMap">
+		<id column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+		<result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+		<result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+		<result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+		<result column="ENT_CUST_TYPE" property="entCustType" jdbcType="DECIMAL" />
+		<result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+		<result column="PER_RES_NO" property="perResNo" jdbcType="CHAR" />
+		<result column="PER_CUST_NAME" property="perCustName" jdbcType="VARCHAR" />
+		<result column="PER_CUST_TYPE" property="perCustType" jdbcType="DECIMAL" />
+		<result column="BUY_HSB_AMT" property="buyHsbAmt" jdbcType="DECIMAL" />
+		<result column="CASH_AMT" property="cashAmt" jdbcType="DECIMAL"
+			typeHandler="com.gy.hsxt.ao.common.handler.AmountToStringTypeHandler" />
+		<result column="REQ_TIME" property="reqTime" jdbcType="TIMESTAMP" />
+		<result column="OPT_CUST_ID" property="optCustId" jdbcType="VARCHAR" />
+		<result column="OPT_CUST_NAME" property="optCustName" jdbcType="VARCHAR" />
+		<result column="CHANNEL" property="channel" jdbcType="DECIMAL" />
+		<result column="TERM_NO" property="termNo" jdbcType="VARCHAR" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="ORIGIN_NO" property="originNo" jdbcType="VARCHAR" />
+		<result column="TERM_RUNCODE" property="termRuncode" jdbcType="VARCHAR" />
+		<result column="TRANS_RESULT" property="transResult" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="TRANS_MODE" property="transMode" jdbcType="DECIMAL" />
+		<result column="EX_RATE" property="exRate" jdbcType="DECIMAL"
+			typeHandler="com.gy.hsxt.ao.common.handler.AmountToStringTypeHandler" />
+	</resultMap>
+
+	<resultMap type="java.util.HashMap" id="proxyBuyHsbResultMap">
+		<result column="batch_no" property="hsbcount" javaType="java.lang.String"
+			jdbcType="INTEGER" />
+		<result column="buy_hsb_amt" property="hsbamount" javaType="java.lang.Double"
+			jdbcType="DOUBLE" />
+	</resultMap>
+
+	<!-- 插入企业代兑互生币记录 -->
+	<insert id="insertProxyBuyHsb" parameterType="com.gy.hsxt.ao.bean.ProxyBuyHsb">
+		INSERT INTO
+		T_AO_PROXY_BUY_HSB
+		(
+		TRANS_NO,
+		ENT_CUST_ID,
+		ENT_RES_NO,
+		ENT_CUST_NAME,
+		ENT_CUST_TYPE,
+		PER_CUST_ID,
+		PER_RES_NO,
+		PER_CUST_NAME,
+		PER_CUST_TYPE,
+		BUY_HSB_AMT,
+		CASH_AMT,
+		REQ_TIME,
+		OPT_CUST_ID,
+		OPT_CUST_NAME,
+		CHANNEL,
+		TERM_NO,
+		BATCH_NO,
+		ORIGIN_NO,
+		TERM_RUNCODE,
+		TRANS_RESULT,
+		REMARK,
+		TRANS_MODE,
+		EX_RATE
+		)
+		VALUES
+		(
+		#{transNo},
+		#{entCustId},
+		#{entResNo},
+		#{entCustName},
+		#{entCustType},
+		#{perCustId},
+		#{perResNo},
+		#{perCustName},
+		#{perCustType},
+		#{buyHsbAmt},
+		#{cashAmt},
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss'),
+		#{optCustId},
+		#{optCustName},
+		#{channel},
+		#{termNo},
+		#{batchNo},
+		#{originNo},
+		#{termRuncode},
+		1,
+		#{remark},
+		#{transMode},
+		#{exRate}
+		)
+	</insert>
+
+	<!-- 插入POS兑换互生币记录 -->
+	<insert id="insertPosBuyHsb" parameterType="com.gy.hsxt.ao.bean.ProxyBuyHsb">
+		INSERT INTO
+		T_AO_PROXY_BUY_HSB
+		(
+		TRANS_NO,
+		ENT_CUST_ID,
+		ENT_RES_NO,
+		ENT_CUST_NAME,
+		ENT_CUST_TYPE,
+		PER_CUST_ID,
+		PER_RES_NO,
+		PER_CUST_NAME,
+		PER_CUST_TYPE,
+		BUY_HSB_AMT,
+		CASH_AMT,
+		REQ_TIME,
+		OPT_CUST_ID,
+		OPT_CUST_NAME,
+		CHANNEL,
+		TERM_NO,
+		BATCH_NO,
+		ORIGIN_NO,
+		TERM_RUNCODE,
+		TRANS_RESULT,
+		REMARK,
+		TRANS_MODE,
+		EX_RATE
+		)
+		VALUES
+		(
+		#{transNo},
+		#{entCustId},
+		#{entResNo},
+		#{entCustName},
+		#{entCustType},
+		#{perCustId},
+		#{perResNo},
+		#{perCustName},
+		#{perCustType},
+		#{buyHsbAmt},
+		#{cashAmt},
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss'),
+		#{optCustId},
+		#{optCustName},
+		#{channel},
+		#{termNo},
+		#{batchNo},
+		#{originNo},
+		#{termRuncode},
+		#{transResult},
+		#{remark},
+		#{transMode},
+		#{exRate}
+		)
+	</insert>
+
+	<!-- 更新交易结果 -->
+	<update id="updateTransResult">
+		UPDATE T_AO_PROXY_BUY_HSB
+		set
+		TRANS_RESULT =
+		#{transResult},
+		REMARK = #{remark}
+		WHERE TRANS_NO = #{transNo}
+	</update>
+
+	<!-- 查询代兑互生币详情 -->
+	<select id="findProxyBuyHsbInfo" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM
+		T_AO_PROXY_BUY_HSB
+		WHERE
+		TRANS_NO = #{transNo}
+	</select>
+
+	<!-- 查询代兑互生币详情 ：根据终端凭证号 -->
+	<select id="findInfoByTermRuncode" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM
+		T_AO_PROXY_BUY_HSB
+		WHERE
+		ENT_RES_NO = #{hsResNo}
+		and
+		TERM_NO = #{termNo}
+		and
+		BATCH_NO = #{batchNo}
+		and
+		TERM_RUNCODE = #{termRuncode}
+	</select>
+	
+	<!-- 查询代兑互生币详情 ：根据企业客户号和POS流水号 -->
+	<select id="findInfoByEntCustIdOriginNo" resultType="int">
+		SELECT
+		count(*)
+		FROM
+		T_AO_PROXY_BUY_HSB
+		WHERE
+		ent_cust_id = #{entCustId}
+		and
+		origin_no = #{originNo}
+	</select>
+
+	<!-- 查询POS代兑互生币详情 -->
+	<select id="findPosBuyHsbInfo" resultMap="baseColumnMap">
+		SELECT
+		*
+		FROM
+		T_AO_PROXY_BUY_HSB
+		WHERE
+		ENT_RES_NO = #{hsResNo}
+		and
+		ORIGIN_NO = #{originNo}
+	</select>
+
+	<!-- 查询互生币总金额和总比数 -->
+	<select id="findProxyBuyHsbInfoByBatchNo" resultMap="proxyBuyHsbResultMap">
+		select
+		count(t.batch_no) as hsbcount, sum(t.buy_hsb_amt) as hsbamount
+		from T_AO_PROXY_BUY_HSB t
+		where t.ent_cust_id=#{entCustId}
+		and t.channel = #{channel}
+		and t.term_no = #{termNo}
+		and t.batch_no = #{batchNo}
+		and t.TRANS_RESULT != 2
+	</select>
+
+</mapper>

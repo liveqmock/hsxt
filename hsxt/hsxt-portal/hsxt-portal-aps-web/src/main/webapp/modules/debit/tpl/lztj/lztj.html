@@ -1,0 +1,35 @@
+<div id="lztjTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>统计时间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">收款账户：</label>
+					<input id="accountName" name="accountName"  placeholder="输入收款账户名称" class="h28_middle input-txt w115"/>
+				</li>
+				<li>
+					<button id="lztjquery" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="tj_searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="receiveAccountName" w_tip="true" w_length='30'>收款账户名称</th>
+		<th w_index="payAllAmount" w_render="operate">收款总金额</th>
+		<th w_index="linkAllAmount" w_render="operate">已用总金额</th>
+		<th w_index="refundAllAmount" w_render="operate">退款金额</th>
+		<th w_index="unlinkAllAmount" w_render="operate">余额</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="lztj_operation_tpl" class="none">
+
+</div>

@@ -1,0 +1,40 @@
+ 	<form id="search_form" autocomplete="off">
+<div class="search-toolbar">
+<ul class="cssform clearfix">
+    <li>
+        <label class="title-int">快捷日期：</label>
+        <div class="cont-chk setdiy100">
+        	<input id='quickDate' placeholder="--请选择--"
+options="[{name:'今天',value:'1'},{name:'本周',value:'2'},{name:'本月',value:'3'}]" optionValue=""  readonly="readonly"  />
+       </div>
+    </li>
+    <li class="ml20 mr20">
+        <label class="title-int">日期：</label>
+        <div class="cont-int">
+        	<input type="text" placeholder="--请选择--" name="search_startDate" id="search_startDate" value="" class="input-txt w100">
+        	<span class="separator-pd">-</span>
+        	<input type="text" placeholder="--请选择--" name="search_endDate" id="search_endDate" value="" class="input-txt w100">
+        </div> 
+    </li>
+    <li>
+        <div class="cont-int">
+        	<button id="btnQuery" type="button" class="btn-search ml10">查询</button>
+        </div>
+    </li>
+ </ul>
+</div>
+</form>
+
+<div class="search-cont">
+ 		 <table id="tableDetail" class="bsgrid">   
+			    <tr>     
+			        <th w_index="investNo" >交易流水号</th>
+			        <th w_index="investDate" w_render="operate">交易时间</th>
+			        <th w_index="investAmount" w_render="operate">投资积分数</th>
+			        <th w_index="accumulativeInvestCount" w_render="operate">交易后投资积分数</th> 
+			    </tr>            
+		 </table>  
+ 
+
+</div>
+            

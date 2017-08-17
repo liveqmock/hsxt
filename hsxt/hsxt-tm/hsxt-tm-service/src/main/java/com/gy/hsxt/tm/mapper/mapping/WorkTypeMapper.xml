@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.WorkTypeMapper">
+	<!-- 获取值班状态列表 -->
+	<select id="findWorkTypeList" resultType="com.gy.hsxt.tm.bean.WorkType">
+		SELECT
+		WORK_TYPE AS workType,
+		to_char(WORK_ON_TIME, 'yyyy-MM-dd hh24:mi:ss') AS workOnTime,
+		to_char(WORK_OFF_TIME,'yyyy-MM-dd hh24:mi:ss') AS workOffTime,
+		WORK_TYPE_NAME AS workTypeName
+		FROM
+		T_TM_WORK_TYPE
+		WHERE
+		WORK_TYPE IN (1, 2)
+	</select>
+</mapper>

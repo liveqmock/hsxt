@@ -1,0 +1,54 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+        	<td class="view_item" width="18%">工具名称</td>
+            <td class="view_text" width="32%"><span id="gjmc_txt"><%=obj.toolProductName || ''%></span></td>
+            <td class="view_item" width="18%">工具类别</td>
+            <td class="view_text" width="32%"><span id="gjlb_txt"><%=obj.toolCategoryName || ''%></span></td>
+            
+        </tr>
+        <tr>
+            <td class="view_item">价格</td>
+            <td class="view_text"><span id="jg_txt"><%=comm.formatMoneyNumber(obj.price)%></span></td>
+            <td class="view_item">计量单位</td>
+            <td class="view_text"><span id="jldw_txt"><%=obj.toolUnit || ''%></span></td>
+        </tr>
+		<tr>
+            <td class="view_item">工具图片</td>
+            <td class="view_text" colspan="3"><span id="gjtp_txt" id="searchPicture"><a class="blue" id="gjlbxgtp">点击查看图片<img style="display:none" id="gjlbxgImg" src="" width="80" height="20"  title="点击查看图片" /></a></span></td>
+        </tr>
+        <tr>
+            <td class="view_item">工具说明</td>
+            <td class="view_text" colspan="3"><span id="gjsm_txt"><%=obj.toolDescription || ''%></span></td>
+        </tr>
+    </table>
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable mt10">
+        <tr>
+        	<td class="view_item" width="18%">工具状态</td>
+            <td class="view_text" width="32%"><span id="gjzt_txt"><%=comm.lang("toolmanage").toolStatues[obj.enableStatus]%></span></td>
+            <td class="view_item" width="18%">审批状态</td>
+            <td class="view_text" width="32%"><span id="spzt_txt"><%=comm.lang("toolmanage").ratifyStatues[obj.status]%></span></td>
+        </tr>
+		<tr>
+            <td class="view_item">下架原因</td>
+            <td class="view_text" colspan="3"><span id="xjyy_txt"><%=obj.downReason || ''%></span></td>
+        </tr>
+        <tr>
+        	<td class="view_item" width="18%">操作员</td>
+            <td class="view_text" width="32%"><span id="czy_txt"><%=obj.reqOptName || ''%></span></td>
+            <td class="view_item" width="18%">申请日期</td>
+            <td class="view_text" width="32%"><span id="sqrq_txt"><%=obj.reqTime || ''%></span></td>
+        </tr>
+		<tr>
+            <td class="view_item">审批信息</td>
+            <td class="view_text" colspan="3"><span id="spxx_txt"><%=obj.apprRemark || ''%></span></td>
+        </tr>
+		<tr>
+        	<td class="view_item" width="18%">复核员</td>
+            <td class="view_text" width="32%"><span id="fhy_txt"><%=obj.apprOptName || ''%></span></td>
+            <td class="view_item" width="18%">审批日期</td>
+            <td class="view_text" width="32%"><span id="sprq_txt"><%=obj.apprTime || ''%></span></td>
+        </tr>
+    </table>
+</div>

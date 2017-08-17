@@ -1,0 +1,61 @@
+﻿<div id="zsmbwh_xgTpl" class="info_800 bc">
+	<form>
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">模版名称</label>
+					<input type="hidden" id="templetId" name="templetId" value="<%=obj.templetId%>" />
+					<input type="text" id="templetName" class="fl w185 h30_middle ml5" value="<%=obj.templetName%>" placeholder="输入模版名称" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">适用企业类别</label>
+					<span class="fl ml5">
+						<input id="enterpriseType" readonly="readonly" placeholder="选择适用企业类别" />
+					</span>
+				</li>	
+				<li class="register_row clearfix">
+					<label class="fl w115 h60_middle">模版上传</label>
+					<span class="fl ml5 mt5 sample_img"><img id="img1" src="resources/img/yesTemplate.gif" width="81" height="52"></span>
+					<div class="fl pr mt15 ml10">
+					<a class="input-file btn_bg upload_btn">上传<input type="file" id="tempFileId" name="tempFileId"></a>
+					<!--<a class="btn_bg upload_btn ml10" id="upload_btn">确定</a>
+					<a class="btn_bg upload_btn ml10" id="">取消</a>-->
+					</div>
+				</li>
+				<li class="register_row clearfix">
+					
+					<label class="fl w115 h70_middle">证书图片上传</label>
+					<span id="imgApplyImg" class="sample_img fl mt5 ml5">
+						<i id="business_apply" class="certificateSample_img certificateSample_01"></i>
+						<input type="hidden" id="images" name="images" value=""/>
+					</span>
+					<a class="input-file btn_bg upload_btn ml10 mt20">上传<input id="tempPicId" name="tempPicId" type="file"></a>
+				</li>
+			</ul>
+			<ul id="zsmbwh_qylx_ul" class="fr info_320 none">
+				<li class="register_row clearfix" style="margin-top:42px;">
+					<label class="fl w140 h30_middle">启用资源类型</label>
+					<span class="fl ml5">
+						<input id="resourcesType" readonly="readonly" placeholder="选择启用资源类型" />
+					</span>
+				</li>
+			</ul>
+		</div>
+		<!--<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">模版上传</label>
+				<span class="fl ml5 mt5 sample_img"><img id="img1" src="resources/img/noImg.gif" width="81" height="52"></span>
+				<div class="fl pr mt15 ml10">
+				<input type="file" name="file1" id="file1" class="file_btn pa">
+				<a class="btn_bg upload_btn">上传</a>
+				<a class="btn_bg upload_btn ml10" id="upload_btn">确定</a>
+				<a class="btn_bg upload_btn ml10" id="">取消</a>
+				</div>
+			</li>
+		</ul>-->
+		<div class="w200 bc clearfix mt20">
+			<a class="btn_bg submit fl" id="xgmb_bc_btn" >保&#12288;存</a>
+			<a class="btn_bg submit fr" id="back_zsmbwh">返&#12288;回</a>
+		</div>
+	</form>
+</div>

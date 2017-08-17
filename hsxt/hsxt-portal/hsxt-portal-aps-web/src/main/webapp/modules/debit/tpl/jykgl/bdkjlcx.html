@@ -1,0 +1,54 @@
+<div id="bdkjlcxTpl">
+	<div class="acct-ct" >								
+		<ul class="acctno-box bc pt15 pb15" style="height:90px;width:474px;">
+			<li class="clearfix">
+				<i class="acctno-icon icon-xjzh"></i>
+				<div class="acctno-long">
+					<h1 class="f16 fb gray mt20 ml10">不动款总额 ：<span class="red f18" id="totalAmout"></span></h1>
+					<h1 class="f16 fb gray mt5 ml10"><span style="letter-spacing:0.3em;">结算币种</span>：<span class="red f18">人民币</span></h1>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>付款时间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>付款企业：</label>
+					<input type="text" id="payEntCustName" name="textfield" placeholder="输入付款企业名称" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>拟用企业互生号：</label>
+					<input type="text" id="useEntCustName" name="textfield" placeholder="输入拟用企业互生号" class="h28_middle input-txt w115" />
+				 <input type="hidden" id="debitStatus" value="7"/>
+				</li>
+				<li>
+					<button id="queryNomove" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>	
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="debitId">不动款编号</th>
+		<th w_index="payEntCustName" w_tip="true" w_length='30'>付款企业名称</th>
+		<th w_index="payAmount" w_render="operate">付款金额</th>
+		<th w_index="useEntCustName" w_tip="true">拟用企业互生号</th>
+		<th w_index="payUse" w_render="operate">付款用途</th>
+		<th w_index="payTime" w_tip="true">付款时间</th>
+		<th w_index="unlinkAmount" w_render="operate">余额</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>	
+</div>
+<div id="dialogBox" class="none"></div>
+
+<div id="bdkjlcx_operation_tpl" class="none">
+
+</div>

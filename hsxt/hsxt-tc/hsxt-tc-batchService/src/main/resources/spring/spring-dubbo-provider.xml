@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+    
+    <!-- dubbo 基本配置 -->
+     
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="reg-hsxt" address="${dubbo.registry.address}"  default="true"/>
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}" 
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	
+    
+	<!--<dubbo:monitor protocol="registry" /> -->
+    <!-- 发布服务 -->
+    	
+ 	<!-- 批处理任务模块 begin   -->
+ 	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="AOACBatchService" group="TC_AOAC" timeout="360000" version="1.0.0" />
+ 	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="AOGPBatchService" group="TC_AOGP" timeout="360000" version="1.0.0" />
+ 	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="BSACBatchService" group="TC_BSAC" timeout="360000" version="1.0.0" />
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="BSGPBatchService" group="TC_BSGP" timeout="360000" version="1.0.0" />
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="GPCHBatchService" group="TC_GPCH" timeout="360000" version="1.0.0" />
+	<dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="PSACBatchService" group="TC_PSAC" timeout="360000" version="1.0.0" />
+	
+	<!-- 批处理任务模块 end  -->
+
+</beans>

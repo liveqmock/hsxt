@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uid.uid.mapper.UidMapper" >
+               
+  <insert id="insertUid"  parameterType="java.lang.String" >
+    insert into t_bp_hsxt_uid  (ent_res_no, ent_uid)
+	values  (#{0}, #{1})
+	
+  </insert>
+  <update id="updateUid"  parameterType="java.lang.String" >
+  <![CDATA[
+    update t_bp_hsxt_uid set ent_uid=#{1} where  ent_res_no=#{0} and ent_uid<#{1}
+	]]>
+  </update>
+  <select id="selectUid"  resultType="java.lang.Long" parameterType="java.lang.String" >
+    select  ent_uid from t_bp_hsxt_uid where ent_res_no=#{entResNo}
+	
+  </select>
+  
+  
+</mapper>

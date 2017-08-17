@@ -1,0 +1,77 @@
+ <div> 
+      <!--搜索条件-->
+      <div>
+      	<form name="orderSearchForm">
+      	<div class="search-toolbar">
+        <ul class="clearfix cssform">
+         <li class="mr20">                     
+	          <label class="title-int">订单编号：</label>
+	          <div class="cont-int">                   
+	            <input type="text" name="orderId" class="input-txt" id="orderId" maxlength="17"/>
+	          </div> 
+          </li>
+          <li class="mr20"><label class="title-int">企业互生号：</label>
+	           <div class="cont-int"> 
+	            <input type="text" name="companyNo" class="input-txt" id="companyNo" maxlength="11"/>
+	            </div>
+          </li>
+          <li class="mr20"><label class="title-int">订单日期：</label>
+          <div class="cont-int">
+			<input type="text" class="input-txt" readonly="readonly" value="" id="startTime1" name="startTime" > 
+			<span class="white"> - </span> 
+			<input type="text" class="input-txt" readonly="readonly" value="" id="endTime1" name="endTime">
+		</div>
+          </li>
+          <li class="mr20"><label class="title-int">消费者互生卡号/手机号：</label>
+          	<div class="cont-int">
+            	<input type="text" name="resourceNo" class="input-txt" id="resourceNo" maxlength="11"/>
+            </div>
+          </li>
+          <li class="mr20"><label class="title-int">营业点：</label>
+          	<div class="cont-int">
+            	<input type="text" name="shopName" class="input-txt" id="shopName"/>
+            </div>
+          </li>
+          <li class="mr20">
+          <label class="title-int">订单类型：</label>
+          <input id="repastForm" placeholder="请选择" readonly="readonly" optionvalue="" /> 
+          <!-- <div class="cont-int">
+            <select class="select_radius" style="width:115px;height:30px;" name="" id="repastForm">
+              	 <option value="">请选择</option> 
+			   	 <option value="1">店内</option> 
+                 <option value="2">外卖</option>                        
+                 <option value="3">自提</option> 
+            </select>
+          </div> -->
+        </li>
+           <li class="mr20 none" id="orderStatusLi">
+           	<label class="title-int none">订单状态：</label>
+            <input id="orderStatus" placeholder="请选择" readonly="readonly" optionvalue="" /> 
+           </li>
+       		<li class="last">
+              <div class="cont-int">
+              	<button id="orderListSearch" type="button" class="btn-search ml10">查询</button>    
+              </div>
+          </li>
+        </ul>
+        </div>
+        </form>
+      </div>
+   <div class="shopebox">   
+      <table id="tableList">
+      	<tr>
+          	<th w_render="operate" w_align="center" width="8%">订单编号</th>
+          	<th w_render="operate" w_align="center" width="10%">下单时间</th>
+          	<th w_render="operate" w_align="center" width="8%">企业互生号</th>
+          	<th w_render="operate" w_align="center" width="10%">企业名称</th>
+          	<th w_render="operate" w_align="center" width="15%">营业点</th>
+            <th w_render="operate" w_align="center" width="8%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">总金额</th>
+            <th w_render="operate" w_align="center" width="8%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+            <th w_render="operate" w_align="center" width="8%">订单类型</th>
+            <th w_render="operate" w_align="center" width="8%">支付方式</th>
+            <th w_render="operate" w_align="center" width="2%"><div class="cont-chk setdiy100">交易状态</div></th>
+            <th w_render="operate" w_align="center" width="10%">操作</th>
+         </tr>
+      </table>
+   </div>
+</div>

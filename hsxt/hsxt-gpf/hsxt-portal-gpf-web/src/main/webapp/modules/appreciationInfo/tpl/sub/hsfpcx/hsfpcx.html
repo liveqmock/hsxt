@@ -1,0 +1,88 @@
+﻿<div id="hsfpcxTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label class="queryList-toolbar-label-select">快捷月份：</label>
+				<input id="hsfpcx_tb_kjyf" name="hsfpcx_tb_kjyf" readonly="readonly" placeholder="选择快捷月份" />
+			</li>
+			<li>
+				<label>月份范围：</label>
+				<input type="text" name="hsfpcx_tb_timeRange_start" id="hsfpcx_tb_timeRange_start" placeholder="输入月份范围" class="queryList-toolbar-text" readonly="readonly" />
+				<span class="separator-pd">-</span>
+				<input type="text" name="hsfpcx_tb_timeRange_end" id="hsfpcx_tb_timeRange_end" placeholder="输入月份范围" class="queryList-toolbar-text" readonly="readonly" />
+			</li>
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" id="hsfpcx_tb_resNo" name="hsfpcx_tb_resNo" class="queryList-toolbar-text" placeholder="输入企业互生号" maxlength="11"/>
+			</li>
+			<!--<li>-->
+				<!--<label class="queryList-toolbar-label-select">状态：</label>-->
+				<!--<input id="hsfpcx_tb_zt" name="hsfpcx_tb_zt" readonly="readonly" placeholder="选择状态" />-->
+			<!--</li>-->
+			<li>
+				<button id="hsfpcx_tb_cx" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+		</ul>
+	</div>
+	<table id="hsfpcx_ql">
+		<tr align="center">
+			<th rowspan="3">企业客户号</th>
+			<!--<th rowspan="3">状态</th>-->
+			<!--<th rowspan="3">状态日期</th>-->
+			<th rowspan="3">分配日期</th>
+			<!--<th rowspan="3">流水号</th>-->
+			<th rowspan="3">分配合计</th>
+			<th colspan="5">1增值分配点</th>
+			<th colspan="5">2增值分配点</th>
+			<th colspan="5">3增值分配点</th>
+		</tr>
+		<tr align="center">
+			<th colspan="2">左增值区</th>
+			<th colspan="2">右增值区</th>
+			<th rowspan="2">分配数</th>
+			<th colspan="2">左增值区</th>
+			<th colspan="2">右增值区</th>
+			<th rowspan="2">分配数</th>
+			<th colspan="2">左增值区</th>
+			<th colspan="2">右增值区</th>
+			<th rowspan="2">分配数</th>
+		</tr>
+		<tr align="center">
+			<th>积点数</th>
+			<th>增值点</th>
+			<th>积点数</th>
+			<th>增值点</th>
+			<th>积点数</th>
+			<th>增值点</th>
+			<th>积点数</th>
+			<th>增值点</th>
+			<th>积点数</th>
+			<th>增值点</th>
+			<th>积点数</th>
+			<th>增值点</th>
+		</tr>
+		<tr class="none">
+			<th w_index="custId" w_align="left">企业客户号</th>
+			<!--<th w_index="zt" w_align="left">状态</th>-->
+			<!--<th w_index="ztrq" w_align="left">状态日期</th>-->
+			<th w_render="operate" w_align="left">分配日期</th>
+			<!--<th w_index="lsh" w_align="left">流水号</th>-->
+			<th w_render="operate" w_align="left">分配合计</th>
+			<th w_index="leftP1" w_align="left">积点数</th>
+			<th w_index="leftCount1" w_align="left">增值点</th>
+			<th w_index="rightP1" w_align="left">积点数</th>
+			<th w_index="rightCount1" w_align="left">增值点</th>
+			<th w_index="mlmPoint1" w_align="left">分配数</th>
+			<th w_index="leftP2" w_align="left">积点数</th>
+			<th w_index="leftCount2" w_align="left">增值点</th>
+			<th w_index="rightP2" w_align="left">积点数</th>
+			<th w_index="rightCount2" w_align="left">增值点</th>
+			<th w_index="mlmPoint2" w_align="left">分配数</th>
+			<th w_index="leftP3" w_align="left">积点数</th>
+			<th w_index="leftCount3" w_align="left">增值点</th>
+			<th w_index="rightP3" w_align="left">积点数</th>
+			<th w_index="rightCount3" w_align="left">增值点</th>
+			<th w_index="mlmPoint3" w_align="left">分配数</th>
+		</tr>
+	</table>
+</div>

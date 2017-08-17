@@ -1,0 +1,70 @@
+<div class="info_700 bc mt10">
+<form id="modeForm">
+	<div class="clearfix">
+		<div class="fl w90 tr">待办工单：</div>
+		<div class="fl w400 ml5">
+			<table id="zrdbTable">
+					<th w_index="taskId" w_align="left">工单号</th>
+					<th w_index="bizTypeName" w_align="left">业务类型</th>
+			</table>
+		</div>
+		<div class="fl ml10">
+			<div class="mb5">派单模式：</div>
+				<label><input type="radio" name="mode" value="1" checked="checked" /> 自动分配</label><br />
+				<label><input type="radio" name="mode" value="2" /> 指定值班员</label>
+		</div>		
+	</div>
+	<div id="appoint_zby" class="clearfix none mt10">
+	<!-- 	<div class="fl w90 tr">指定值班员：</div> -->
+		<div class="fl w90 tr" style="padding-top:65px;">指定值班员：</div>
+		<div class="fl ml5">
+			<table class="mt20">
+				<tr>
+					<td colspan="4">工号：<input id="txtOperSearch" class="input-txt w150 h28" placeholder="输入工号"></td>
+		  		</tr>
+				<tr>
+					<td colspan="4">
+						<table width="600" class="mt5">
+							<tr>
+								<td class="bg_grey h30 pl5 fb" width="50">工号</td>
+								<td class="bg_grey h30 pl5 fb" width="50">可更换的值班员</td>
+								<td width="30"></td>
+								<td class="bg_grey h30 pl5 fb" width="110" align="center">已选择值班员</td>
+							</tr>
+							<tr>
+								<td valign="top" colspan="2">
+									<ul id="leftSelect" class="rcap_select">
+									</ul>
+								<!-- 	<select multiple="multiple" class="h100 mt5 w96pc" id="leftSelect">
+									
+									</select> -->
+								</td>
+								<td valign="middle" align="center">
+									
+									<a id="toRight" class="arrow-right"></a>
+									<br><br><br>
+									<a id="toLeft" class="arrow-left"></a>
+								
+									
+									<!-- <button id="toRight" type="button" class="btn-search">&gt;&gt;&gt;</button><br /><br />
+									<button id="toLeft" type="button" class="btn-search">&lt;&lt;&lt;</button> -->
+									
+									
+								</td>
+								<td>
+									<ul id="rightSelect" class="rcap_select">
+										<!--li>张一<span><input type="checkbox"   ></span></li>									 
+										<li>张五<span><input type="checkbox"   ></span></li-->
+									</ul>
+								<!-- 	<select multiple="multiple" class="h100 mt5 w96pc" id="rightSelect">
+									</select> -->
+								</td>
+							</tr> 
+						</table>						
+					</td>
+				</tr>
+		 	</table>
+		</div>
+	</div>
+</form>
+</div>

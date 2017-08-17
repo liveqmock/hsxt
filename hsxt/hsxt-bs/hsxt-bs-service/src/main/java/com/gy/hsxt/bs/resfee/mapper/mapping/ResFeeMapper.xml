@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 资源费方案 -->
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.resfee.mapper.ResFeeMapper">
+
+    <resultMap id="resFeeResult" type="com.gy.hsxt.bs.bean.resfee.ResFee">
+        <id column="RES_FEE_ID" property="resFeeId"/>
+        <result column="TO_CUST_TYPE" property="toCustType"/>
+        <result column="TO_BUY_RES_RANGE" property="toBuyResRange"/>
+        <result column="RES_FEE_DESC" property="resFeeDesc"/>
+        <result column="PRICE" property="price"/>
+        <result column="CURRENCY_CODE" property="currencyCode"/>
+        <result column="INCLUDE_PREPAY_AMOUNT" property="includePrepayAmount"/>
+        <result column="FREE_ANNUAL_FEE_CNT" property="freeAnnualFeeCnt"/>
+        <result column="STATUS" property="status"/>
+        <result column="BEGIN_TIME" property="beginTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="END_TIME" property="endTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="REQ_OPERATOR" property="reqOperator"/>
+        <result column="REQ_TIME" property="reqTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="REQ_REMARK" property="reqRemark"/>
+        <result column="APPR_OPERATOR" property="apprOperator"/>
+        <result column="APPR_TIME" property="apprTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="APPR_REMARK" property="apprRemark"/>
+    </resultMap>
+
+    <!-- 创建 资源费方案 -->
+    <insert id="createResFee" parameterType="com.gy.hsxt.bs.bean.resfee.ResFee">
+        INSERT INTO T_BS_RES_FEE (
+            RES_FEE_ID,
+            TO_CUST_TYPE,
+            TO_BUY_RES_RANGE,
+            RES_FEE_DESC,
+            PRICE,
+            CURRENCY_CODE,
+            INCLUDE_PREPAY_AMOUNT,
+            FREE_ANNUAL_FEE_CNT,
+            STATUS,
+            BEGIN_TIME,
+            REQ_OPERATOR,
+            REQ_TIME,
+            REQ_REMARK
+        ) VALUES (
+            #{resFeeId},
+            #{toCustType},
+            #{toBuyResRange},
+            #{resFeeDesc},
+            #{price},
+            #{currencyCode},
+            #{includePrepayAmount},
+            #{freeAnnualFeeCnt},
+            0,
+            #{beginTime,typeHandler=com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler},
+            #{reqOperator},
+            systimestamp,
+            #{reqRemark}
+        )
+    </insert>
+
+    <!-- 查询 资源费方案列表 -->
+    <select id="queryResFeeList" resultMap="resFeeResult">
+        SELECT
+            t.*
+        FROM
+            T_BS_RES_FEE t
+        WHERE 1 = 1
+        <if test="toCustType != null and toCustType != '' ">
+            AND t.TO_CUST_TYPE= #{toCustType}
+        </if>
+
+        <if test="toBuyResRange != null and toBuyResRange != '' ">
+            AND t.TO_BUY_RES_RANGE= #{toBuyResRange}
+        </if>
+
+        <if test="status != null and status != '' ">
+            AND t.STATUS= #{status}
+        </if>
+    </select>
+
+    <!--查询资源费方案审核列表-->
+    <select id="selectResFeeTaskList" resultMap="resFeeResult" parameterType="com.gy.hsxt.bs.bean.resfee.ResFeeQuery">
+        SELECT
+        t.*
+        FROM
+        T_BS_RES_FEE t
+        JOIN T_BS_TASK k ON k.BIZ_NO=t.RES_FEE_ID
+        WHERE  t.STATUS = #{status} AND k.BIZ_TYPE = #{taskType}
+        AND k.STATUS = #{taskStatus} AND k.ENT_CUST_ID = #{optCustId}
+        <if test="toCustType != null and toCustType != '' ">
+            AND t.TO_CUST_TYPE= #{toCustType}
+        </if>
+        <if test="toBuyResRange != null and toBuyResRange != '' ">
+            AND t.TO_BUY_RES_RANGE= #{toBuyResRange}
+        </if>
+    </select>
+
+    <!-- 查询 已启用的资源费方案 -->
+    <select id="getEnableResFee" resultMap="resFeeResult">
+        SELECT
+            t.*
+        FROM
+            T_BS_RES_FEE t
+        WHERE
+            t.STATUS = 1
+            AND TO_CUST_TYPE = #{toCustType}
+        <if test="toCustType==3 or toCustType==2">
+            AND TO_BUY_RES_RANGE= #{toBuyResRange}
+        </if>
+    </select>
+
+    <!-- 获取 某一条资源费方案 -->
+    <select id="getResFeeBean" resultMap="resFeeResult">
+        SELECT
+            *
+        FROM
+            T_BS_RES_FEE
+        WHERE
+            RES_FEE_ID = #{resFeeId}
+    </select>
+
+    <!-- 审批 资源费方案 -->
+    <update id="apprResFee" parameterType="com.gy.hsxt.bs.bean.resfee.ResFee">
+        UPDATE T_BS_RES_FEE
+        SET
+            STATUS        = #{status},
+            APPR_OPERATOR = #{apprOperator},
+            APPR_TIME     = systimestamp,
+            APPR_REMARK   = #{apprRemark}
+        WHERE
+            RES_FEE_ID = #{resFeeId}
+    </update>
+
+    <!-- 获取 某一条待审的资源费方案是否已经存在 -->
+    <select id="getPendingStatus" resultType="String">
+        SELECT
+        RES_FEE_ID
+        FROM
+        T_BS_RES_FEE WHERE
+        STATUS =0
+        and
+        TO_CUST_TYPE=#{toCustType}
+        <if test="toCustType=3">
+            AND TO_BUY_RES_RANGE= #{toBuyResRange}
+        </if>
+    </select>
+
+</mapper>

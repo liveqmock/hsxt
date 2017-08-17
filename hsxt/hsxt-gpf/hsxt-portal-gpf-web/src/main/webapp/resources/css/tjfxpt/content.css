@@ -1,0 +1,17 @@
+/*  以下测试用，开发时请删除 */
+
+#testTable{
+	width:600px;
+	
+}
+#testTable tr:first-child{
+	font-weight:bold;
+	background-color:#E8E8E8;
+	
+}
+#testTable td{
+	padding:20px;
+}
+
+
+/*  以上测试用，开发时请删除 */

@@ -1,0 +1,70 @@
+<div class="w900 bc">
+	<form id="qxxxgl_optForm">
+		<div class="clearfix">
+			<ul class="inputForm-ul fl w400">
+				<li class="pr">
+					<label class="inputForm-label">权限ID</label>
+					<input type="text" id="qxxxgl_opt_qxid" name="permId" class="inputForm-text" placeholder="输入权限ID" maxlength="32" />
+					<span class="required">*</span>
+				</li>
+				<li class="pr">
+					<label class="inputForm-label">父权限ID</label>
+					<input type="text" id="qxxxgl_opt_fqxid" name="parentId" class="inputForm-text" placeholder="输入父权限ID" maxlength="32" />
+					<span class="required">*</span>
+				</li>
+				<li class="pr">
+					<label class="inputForm-label">权限名称</label>
+					<input type="text" id="qxxxgl_opt_qxmc" name="permName" class="inputForm-text" placeholder="输入权限名称" maxlength="30" />
+					<span class="required">*</span>
+				</li>
+				<li>
+					<label class="inputForm-label">权限类型</label>
+					<input type="text" id="qxxxgl_opt_qxlx" name="permType" readonly="readonly" placeholder="选择权限类型" />
+				</li>
+				<li>
+					<label class="inputForm-label">权限代码</label>
+					<input type="text" id="qxxxgl_opt_qxdm" name="permCode" class="inputForm-text" placeholder="输入权限代码" maxlength="128" />
+				</li>
+			</ul>
+			
+			
+			<ul class="inputForm-ul fr w400">
+				<li class="pr">
+					<label class="inputForm-label">子系统编码</label>
+					<input type="text" id="qxxxgl_opt_zxxbm" name="subSystemCode" class="inputForm-text" placeholder="输入子系统编码" maxlength="128" />
+					<span class="required">*</span>
+				</li>
+				<li>
+					<label class="inputForm-label">平台编码</label>
+					<input type="text" id="qxxxgl_opt_ptbm" name="platformCode" class="inputForm-text" placeholder="输入平台编码" maxlength="128" />
+				</li>
+				<li>
+					<label class="inputForm-label">状态</label>
+					<input type="text" id="qxxxgl_opt_zt" name="qxxxgl_opt_zt" readonly="readonly" placeholder="选择状态" />
+				</li>
+				<li class="pr">
+					<label class="inputForm-label">菜单区域</label>
+					<input type="text" id="qxxxgl_opt_cdqy" name="layout" class="inputForm-text" placeholder="输入菜单区域" maxlength="2" />
+					<span class="required">*</span>
+				</li>
+				<li class="pr">
+					<label class="inputForm-label">菜单排序号</label>
+					<input type="text" id="qxxxgl_opt_cdpxh" name="sortNum" class="inputForm-text" placeholder="输入菜单排序号" maxlength="2" />
+					<span class="required">*</span>
+				</li>
+			</ul>
+		</div>
+		<ul class="inputForm-ul mt5">
+			<li>
+				<label class="inputForm-label">权限URL</label>
+				<input type="text" id="qxxxgl_opt_qxurl" name="permUrl" class="inputForm-text-w750" placeholder="输入权限URL" maxlength="200" />
+			</li>
+			<li class="clearfix">
+				<label class="inputForm-label-h60 fl">权限描述</label>
+				<textarea id="qxxxgl_opt_qxms" name="permDesc" class="inputForm-textarea fl ml5" placeholder="输入权限描述,字数不超过300个字" maxlength="300"></textarea>
+			</li>
+		</ul>
+	</form>
+</div>
+
+<div id="alert_error" class="none ovh"></div>

@@ -1,0 +1,50 @@
+<div id="sjzfwyskdzTpl">
+	<div class="search-toolbar">
+	<form id="search_dz_form" autocomplete="off" name="search_dz_form">
+		<ul class="cssform clearfix">
+			<li>
+				<label>订单日期：</label>			
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115" />
+				<span class="separator-pd">-</span>				
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">订单类型：</label>
+				<input id="sjTransaction_type" readonly="readonly" placeholder="选择交易类型"  optionvalue=""/>
+			</li>
+			<li>
+				<label>互生号/手机号：</label>
+				<input id="txtHsResNo" type="text" name="txtHsResNo" placeholder="输入互生号/手机号" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<label>单位名称：</label>
+				<input id="txtCustName" type="text" name="txtCustName" placeholder="输入单位名称" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<button id="sjdz_qry_btn" type="button" class="btn-search">查询</button>
+			</li>
+			</ul>
+		</form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_check="true" width="3%;"></th>
+		<th w_num="line" width="5%;">序号</th>
+		<th w_index="hsResNo" w_tip="true">互生号/手机号</th>
+		<th w_render="operate" w_index="custName" w_tip="true" w_length='30'>单位名称</th>
+		<th w_index="orderNo" w_tip="true" w_length='20'>订单号</th>
+		<th w_index="orderTime" w_tip="true">订单日期</th>
+		<th w_render="operate">订单类型</th>
+		<th w_render="operate">金额</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+	<div align="center" class="mt20"><a class="btn_bg submit" id="sjdz_btn">数据对账</a></div>
+
+</div>
+
+<!-- 对账 -->
+<div id="sjdz_content" class="none"></div>
+
+<!-- 详单 -->
+<div class="none" id="sjzfwyskdz_ckTpl_div"></div>

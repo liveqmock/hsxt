@@ -1,0 +1,31 @@
+<form>
+	<input type="hidden" name="addrId" value="<%=obj.addrId%>" />
+	<input type="hidden" name="postCode" value="<%=obj.postCode%>" />
+	<input type="hidden" name="telphone" value="<%=obj.telphone%>" />
+	<input type="hidden" name="provinceNo" value="<%=obj.provinceNo%>" />
+	<input type="hidden" name="cityNo" value="<%=obj.cityNo%>" />
+	<input type="hidden" name="receivingAddress" value="<%=obj.receivingAddress%>" />
+	<input type="hidden" name="recipient" value="<%=obj.recipient%>" />
+	<input type="hidden" name="recipientTel" value="<%=obj.recipientTel%>" />
+	<input type="hidden" name="toAddress" value="<%=obj.toAddress%>" />
+	<input type="hidden" name="defaultAddress" value="<%=obj.defaultAddress%>" />
+	<input type="hidden" name="currentAddress" value="<%=obj.currentAddress%>" />
+</form>	
+<div class="fl ml5 clearfix w100">
+	<p class="fl area-icon">寄送至</p>
+	<input type="radio" name="toAddress" value="<%=obj.toAddress%>" class="fr" checked="checked" />
+</div>
+<div class="fl ml5 default-address-w">
+	<span class="ml5"><%=comm.getRegionByCode(null,obj.provinceNo,obj.cityNo)%>-<%=obj.receivingAddress%></span>
+	<span class="ml5">(<%=obj.recipient%> 收)</span>
+	<span class="ml5 pay-text-gray"><%=obj.recipientTel%></span>
+	
+	<% if(obj.defaultAddress == '1'){%>
+		<span class="ml20 pay-text-gray default-address-f12" data-tag="default">默认地址</span>
+	<% } else {%>
+		<span class="ml20 pay-text-gray default-address-f12" data-tag="setDefault"><a>设置为默认收货地址</a></span>
+	<% } %>
+</div>
+<div class="fl ml5">
+	<span class="default-address-f12"><a id="modifyAddress_btn">修改本地址</a></span>
+</div>

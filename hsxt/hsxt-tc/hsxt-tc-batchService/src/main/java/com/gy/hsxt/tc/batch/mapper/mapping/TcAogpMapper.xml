@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tc.batch.mapper.TcAogpMapper" >
+  
+  <delete id="deleteTableData" >    
+    truncate table ${_parameter}   
+  </delete>
+
+  <!-- keys:TABLE,COLUMNS,DATA_LIST 
+  -->
+  <insert id="insertFileDataToDb" parameterType="java.util.Map" >
+  	<if test="TABLE == 'T_TC_AOGP_AO_TMP'">
+    insert into T_TC_AOGP_AO_TMP (BS_ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select 
+        #{item.BS_ORDER_NO},#{item.BS_TRANS_AMOUNT},
+        to_date(#{item.BS_TRANS_DATE},'yyyy-mm-dd hh24:mi:ss'),
+        #{item.BS_TRANS_STATUS}
+		from dual
+      </foreach>
+     ) A
+    </if>
+  	<if test="TABLE == 'T_TC_AOGP_GP_TMP'">
+    insert into T_TC_AOGP_GP_TMP (GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE)      
+    SELECT A.* FROM (
+      <foreach collection="DATA_LIST" item="item" index="index" open="" close="" separator=" union all ">
+        select #{item.GP_SEQ_ID}, #{item.GP_ORDER_NO},
+        #{item.GP_TRANS_TYPE},#{item.GP_TRANS_AMOUNT},#{item.GP_TRANS_STATUS},
+        to_date(#{item.GP_TRANS_DATE},'yyyy-mm-dd hh24:mi:ss')		
+		from dual
+      </foreach>
+     ) A
+     </if>
+  </insert>
+  <!-- 对账要素：业务订单号|订单货币金额|支付状态
+  CHECK_KEY_COLUMNS= new String[] { "ORDER_NO", "TRANS_AMOUNT","TRANS_STATUS"}; 
+  -->
+  <insert id="insertDoubtByMore" >    
+    insert into T_TC_AOGP_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS)
+	select seq_T_TC_AOGP_DOUBT.nextval,#{TC_DATE,jdbcType=CHAR},0,
+	BS_ORDER_NO,BS_TRANS_AMOUNT,BS_TRANS_DATE,BS_TRANS_STATUS
+	from T_TC_AOGP_AO_TMP
+    where BS_ORDER_NO =#{ORDER_NO,jdbcType=VARCHAR}
+    and BS_TRANS_AMOUNT =#{TRANS_AMOUNT,jdbcType=DECIMAL}
+    and BS_TRANS_STATUS =#{TRANS_STATUS,jdbcType=DECIMAL}
+  </insert>
+  
+  <update id="updateDoubtByLack" >
+    <![CDATA[ 
+	update T_TC_AOGP_DOUBT a
+	set (imbalance_result,
+	GP_SEQ_ID,ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE) =( 
+	select 2,
+	GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE
+	from T_TC_AOGP_GP_TMP b where b.GP_ORDER_NO=a.ORDER_NO and rownum=1
+	)
+	where a.ORDER_NO =#{ORDER_NO,jdbcType=VARCHAR}
+	and imbalance_result=0
+	and a.GP_SEQ_ID is null
+	and exists (select 1
+	from T_TC_AOGP_GP_TMP b where b.GP_ORDER_NO=a.ORDER_NO
+	)
+	]]>
+  </update>
+  <insert id="insertDoubtByLack" >    
+    insert into T_TC_AOGP_DOUBT
+  	(doubt_id, acc_date,imbalance_result, 
+  	GP_SEQ_ID,ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE)
+	select seq_T_TC_AOGP_DOUBT.nextval,#{TC_DATE,jdbcType=CHAR},1,
+	GP_SEQ_ID,GP_ORDER_NO,GP_TRANS_TYPE,GP_TRANS_AMOUNT,GP_TRANS_STATUS,GP_TRANS_DATE
+	from T_TC_AOGP_GP_TMP
+    where GP_ORDER_NO =#{ORDER_NO,jdbcType=VARCHAR}
+    and GP_TRANS_AMOUNT =#{TRANS_AMOUNT,jdbcType=DECIMAL}
+    and GP_TRANS_STATUS =#{TRANS_STATUS,jdbcType=DECIMAL}
+  </insert>
+  
+  <insert id="insertImbalanceByDoubt" > 
+  	<![CDATA[
+  	insert into T_TC_AOGP_imbalance
+	  (imbalance_id, acc_date, order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, bs_trans_amount, bs_trans_status, bs_trans_date, imbalance_result)
+	select doubt_id, acc_date, order_no, gp_seq_id, gp_trans_type, gp_trans_amount, gp_trans_status, gp_trans_date, bs_trans_amount, bs_trans_status, bs_trans_date, imbalance_result 
+	from T_TC_AOGP_DOUBT
+	
+  	]]>
+  </insert>
+  <delete id="deleteDoubtAfterMoveToImbalance" >
+  	<![CDATA[  
+    delete from T_TC_AOGP_DOUBT 
+  	]]>
+  </delete>
+  <!-- 对账存储过程 -->
+  <select id="tcProcedure" statementType="CALLABLE" parameterType="java.util.Map">  
+	<![CDATA[  
+   	 	{
+   	 		call PRO_TC_AOGP ( 
+   	 			#{TC_DATE,mode=IN,jdbcType=VARCHAR}
+            )
+        }  
+	]]>
+  </select>
+ 
+</mapper>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.permission.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.permission.bean.Role" >
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="DECIMAL" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="SUB_SYSTEM_CODE" property="subSystemCode" jdbcType="VARCHAR" />
+    <result column="PLATFORM_CODE" property="platformCode" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, 
+    ROLE_TYPE, 
+    ROLE_NAME, 
+    ENT_CUST_ID, 
+    ROLE_DESC, 
+    SUB_SYSTEM_CODE, 
+    PLATFORM_CODE, 
+    ISACTIVE, 
+    CREATE_DATE, 
+    CREATEDBY, 
+    UPDATE_DATE, 
+    UPDATEDBY
+  </sql>
+  <!-- 查找单条角色信息 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询角色信息列表 -->
+  <select id="selectByType" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where ISACTIVE='Y'
+    <if test="roleType != null" >
+      and ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+    </if>
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    <if test="entCustId != null" >
+      and ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectByCustType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where  ISACTIVE='Y'
+    <if test="roleType != null" >
+      and ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+    </if>
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    <if test="entCustId != null" >
+      and (ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+      <if test="entCustType != null" >
+	      or ( ROLE_TYPE=1 and ROLE_ID like '${entCustType}__%' )
+	  </if>
+	  )
+    </if>
+
+    <if test="roleName != null" >
+    <![CDATA[ 
+      and ROLE_NAME like '%${roleName}%'
+    ]]>
+    </if>
+  </select>
+  <!-- 查询角色信息列表 -->
+  <select id="selectByCustId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where  ISACTIVE='Y'
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    and ROLE_ID in
+    (select ROLE_ID from t_user_role b 
+		where b.cust_id=#{custId,jdbcType=VARCHAR} ) 
+  </select>
+  
+  <!-- 查询角色被使用用户列表 
+  ${_parameter}
+  -->
+  <select id="selectRoleUsers" resultType="java.util.HashMap"  >
+    select CUST_ID from t_user_role b 
+		where ROLE_ID=#{_parameter,jdbcType=VARCHAR}
+  </select>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where 1 = 1
+      <if test="roleId != null" >
+        and ROLE_ID = #{roleId,jdbcType=VARCHAR}
+      </if>
+      <if test="roleType != null" >
+        and ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+      </if>
+      <if test="roleName != null" >
+        and ROLE_NAME = #{roleName,jdbcType=VARCHAR}
+      </if>
+      <if test="entCustId != null" >
+        and ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR}
+      </if>
+      <if test="subSystemCode != null" >
+        and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+      </if>
+      <if test="platformCode != null" >
+        and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+      </if>
+      <if test="isactive != null" >
+        and ISACTIVE = #{isactive,jdbcType=CHAR}
+      </if>
+
+  </select>
+  
+  <!-- 查询企业可分配角色列表 -->
+  <select id="selectByEntCustId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where  ISACTIVE='Y'
+    <if test="subSystemCode != null" >
+      and SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR}
+    </if>
+    <if test="platformCode != null" >
+      and PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR}
+    </if>
+    and ( ROLE_TYPE in (1,2) 
+    <if test="entCustId != null" >
+    	or ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR} 
+    </if>
+    )
+     
+  </select>
+  <!-- 删除单条角色信息 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ROLE
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 插入单条角色信息 -->
+  <insert id="insert" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    insert into T_ROLE (ROLE_ID, ROLE_TYPE, ROLE_NAME, 
+      ENT_CUST_ID, ROLE_DESC, SUB_SYSTEM_CODE, 
+      PLATFORM_CODE, ISACTIVE, CREATE_DATE, 
+      CREATEDBY, UPDATE_DATE, UPDATEDBY
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{roleType,jdbcType=DECIMAL}, #{roleName,jdbcType=VARCHAR}, 
+      #{entCustId,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, #{subSystemCode,jdbcType=VARCHAR}, 
+      #{platformCode,jdbcType=VARCHAR}, #{isactive,jdbcType=CHAR}, #{createDate,jdbcType=OTHER}, 
+      #{createdby,jdbcType=VARCHAR}, #{updateDate,jdbcType=OTHER}, #{updatedby,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- 插入单条角色信息 -->
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    insert into T_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      
+        ROLE_ID,
+     
+      <if test="roleType != null" >
+        ROLE_TYPE,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC,
+      </if>
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE,
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId == null" >
+        SEQ_T_ROLE.nextval,
+      </if>
+      
+      <if test="roleType != null" >
+        #{roleType,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="subSystemCode != null" >
+        #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=OTHER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=OTHER},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 更新单条角色信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    update T_ROLE
+    <set >
+      <if test="roleType != null" >
+        ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="subSystemCode != null" >
+        SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="platformCode != null" >
+        PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      UPDATE_DATE = SYSDATE
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <!-- 更新单条角色信息 -->
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.permission.bean.Role" >
+    update T_ROLE
+    set ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      SUB_SYSTEM_CODE = #{subSystemCode,jdbcType=VARCHAR},
+      PLATFORM_CODE = #{platformCode,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      UPDATE_DATE = SYSDATE,
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <!-- 插入用户-角色授权信息 -->
+  <insert id="insertCustRole" parameterType="java.util.Map" >
+      insert into T_USER_ROLE(CUST_ID,ROLE_ID,CREATEDBY)
+		select '${custId}',t.ROLE_ID,'${operator}'
+		from T_ROLE t
+		left join 
+		(select ROLE_ID from T_USER_ROLE a where a.CUST_ID=#{custId,jdbcType=VARCHAR}) b on t.ROLE_ID=b.ROLE_ID
+		where b.ROLE_ID is null
+		and t.ROLE_ID in 
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item,jdbcType=VARCHAR}
+        </foreach>
+  </insert>
+  <!-- 删除用户-角色授权信息 -->
+  <delete id="deleteCustRole" parameterType="java.util.Map" >
+    delete from T_USER_ROLE
+    where CUST_ID = #{custId,jdbcType=VARCHAR}
+    <if test="idList != null" >
+      	and ROLE_ID in 
+		<foreach item="item" index="index" collection="idList"
+                      open="(" separator="," close=")">
+                 #{item,jdbcType=VARCHAR}
+        </foreach>
+    </if>
+  </delete>
+</mapper>

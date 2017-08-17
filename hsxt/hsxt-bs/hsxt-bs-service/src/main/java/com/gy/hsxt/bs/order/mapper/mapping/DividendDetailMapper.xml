@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bs.order.mapper.DividendDetailMapper">
+
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.bs.bean.order.DividendDetail" >
+	    <id column="DIVIDEND_NO" property="dividendNo" jdbcType="VARCHAR" />
+	    <id column="INVEST_NO" property="investNo" jdbcType="VARCHAR" />
+	    <result column="invest_date" property="investDate"/>
+	    <result column="invest_amount" property="investAmount"/>
+	    <result column="DIVIDEND_DAYS" property="dividendDays" jdbcType="DECIMAL" />
+	    <result column="NORMAL_DIVIDEND" property="normalDividend" jdbcType="DECIMAL" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+	    <result column="DIRECTIONAL_DIVIDEND" property="directionalDividend" jdbcType="DECIMAL"  typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+	    <result column="TOTAL_DIVIDEND" property="totalDividend" jdbcType="DECIMAL"  typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+	    <result column="DIVIDEND_YEAR" property="dividendYear" jdbcType="CHAR" />
+	    <result column="DIVIDEND_TIME" property="dividendTime" jdbcType="TIMESTAMP" />
+  	</resultMap>
+  
+	<!-- 查询积分投资分红 -->
+	<select id="findDividendDetailListPage" parameterType="java.lang.String"
+		resultMap="BaseResultMap" >
+		SELECT
+		pi.invest_date,
+    	pi.invest_amount,
+		dd.DIVIDEND_NO,
+		dd.INVEST_NO,
+		dd.DIVIDEND_DAYS,
+		dd.NORMAL_DIVIDEND,
+		dd.DIRECTIONAL_DIVIDEND,
+		dd.TOTAL_DIVIDEND
+		FROM
+		T_BS_DIVIDEND_DETAIL dd,T_BS_POINT_INVEST pi
+		where dd.invest_no = pi.invest_no
+		and pi.hs_res_no = #{hsResNo}
+		and dd.dividend_year = #{dividendYear}
+		order by pi.invest_date desc
+	</select>
+
+	<!-- 查询计算详情 -->
+	<select id="findDividendDetailInfo" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		T_BS_DIVIDEND_DETAIL
+		where
+		DIVIDEND_NO = #{dividendNo}
+	</select>
+</mapper>

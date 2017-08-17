@@ -1,0 +1,75 @@
+<!--内容添加开始-->
+<div class=" " >
+    <div class="search-toolbar">
+    <ul class="cssform clearfix">
+    	<li class="mr10">
+	    	<label class="title-int pl20">菜品编码：</label>
+	        <div class="cont-int pr">
+	            	<input type="text" name="textfield" id="itemCode" placeholder="菜品编码" value="" class="input-txt w150" />
+	        </div> 
+        </li> 
+        <li class="mr10">
+			<label class="title-int">菜品名称：</label>
+             <div class="cont-int">
+                 	<input type="text" name="textfield" id="itemName" placeholder="菜品名称" value="" class="input-txt w150" />
+             </div> 
+        </li>
+		<li class="mr10" >
+        	<label class="title-int">菜品分类：</label>
+            <div class="cont-int pr" >
+            	<input type="hidden" id="categoryId" name="categoryId">
+				<input id="categoryName" name="categoryName" class="input-txt w150" type="text" size="8" value="" placeholder="点击选择菜品分类" readonly="readonly">
+				<i class="goodsC_arrow cp " id="gArrow" style="top:5px" title="点击选择菜品分类"></i>
+				<div id="category_content">
+			 	
+			 	</div>
+            </div> 
+        </li>
+        <li class="mr10">
+        	<label class="title-int">状态：</label>
+        	<input id="selectStatus" placeholder="全部" readonly="readonly" optionvalue=""  />
+            <!-- <div class="cont-int">
+            	<select class="select_radius" id="selectStatus" style="width:80px">
+                      	<option value="">全部</option>
+						<option value="3">已上架</option>
+						<option value="0">未上架</option>
+                 </select>
+            </div>  -->
+        </li>
+        <li>
+           	<div class="cont-int">
+            	 <button id="searchItem" type="button" class="btn-search ml10">查询</button>
+           	</div>
+         </li>
+         <li>
+             <div class="cont-int">
+              	  <button id="addItem" type="button" class="btn-search ml10">新增</button>
+             </div>
+         </li>
+	</ul>
+	</div>
+     <div id="typeHide">          
+		<div id="table1" style="width: 100%;min-height: 399px">  
+		<table id="cyItemInfoTable">
+	      <tr>
+	          <th w_render="operate" class="nobd">菜品信息</th>
+	          <th w_render="operate" width="15%" >口味</th> 
+	          <th w_render="operate" width="15%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格</th>
+	          <th w_render="operate" width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">积分</th>
+	          <th w_render="operate" width="10%">创建时间</th>
+	          <th w_render="operate" width="5%">
+	          	状态
+	          </th>
+	          <th w_render="operate" width="10%">操作</th>
+          </tr>
+	    </table>
+	    </div>
+    </div> 
+</div>
+<!--内容添加结束--> 
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>

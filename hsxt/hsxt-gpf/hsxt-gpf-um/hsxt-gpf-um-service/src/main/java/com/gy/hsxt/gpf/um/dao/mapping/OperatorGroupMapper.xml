@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IOperatorGroupMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="operatorGroupResult" type="com.gy.hsxt.gpf.um.bean.OperatorGroup">
+        <id property="operatorId" column="OPERATOR_ID"/>
+        <id property="groupId" column="GROUP_ID"/>
+    </resultMap>
+
+    <resultMap id="operatorOGResult" type="com.gy.hsxt.gpf.um.bean.Operator" extends="com.gy.hsxt.gpf.um.dao.IOperatorMapper.operatorResult"/>
+    <resultMap id="groupOGResult" type="com.gy.hsxt.gpf.um.bean.Group" extends="com.gy.hsxt.gpf.um.dao.IGroupMapper.groupResult"/>
+
+    <!--  数据插入 -->
+    <insert id="batchInsertForOperator" parameterType="com.gy.hsxt.gpf.um.bean.Operator">
+        INSERT INTO T_UM_OPERATOR_GROUP (
+        OPERATOR_ID,
+        GROUP_ID
+        ) VALUES
+        <foreach collection="groups" item="groupId" separator=",">
+            (
+            #{operatorId},
+            #{groupId}
+            )
+        </foreach>
+    </insert>
+
+    <!--  数据插入 -->
+    <insert id="batchInsertForGroup" parameterType="com.gy.hsxt.gpf.um.bean.Group">
+        INSERT INTO T_UM_OPERATOR_GROUP (
+        OPERATOR_ID,
+        GROUP_ID
+        ) VALUES
+        <foreach collection="operators" item="operatorId" separator=",">
+            (
+            #{operatorId},
+            #{groupId}
+            )
+        </foreach>
+    </insert>
+
+    <!--  删除 -->
+    <delete id="deleteBean" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroup">
+        DELETE FROM T_UM_OPERATOR_GROUP
+        WHERE 1=1
+        <if test="operatorId != null and operatorId !='' ">
+            AND OPERATOR_ID = #{operatorId}
+        </if>
+        <if test="groupId != null and groupId != '' ">
+            AND GROUP_ID = #{groupId}
+        </if>
+    </delete>
+
+    <!--  数据插入 -->
+    <insert id="batchInsertForOperGroup" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroup">
+        INSERT INTO T_UM_OPERATOR_GROUP (
+        OPERATOR_ID,
+        GROUP_ID
+        ) VALUES
+        <foreach collection="addGroupIds" item="groupId" separator=",">
+            (
+            #{operatorId},
+            #{groupId}
+            )
+        </foreach>
+    </insert>
+
+    <!--  数据插入 -->
+    <delete id="batchDeleteForOperator" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroup">
+        DELETE FROM T_UM_OPERATOR_GROUP  WHERE OPERATOR_ID=#{operatorId}
+        <if test="delGroupIds !=null and delGroupIds.size >0 ">
+            AND GROUP_ID IN (
+            <foreach collection="delGroupIds" item="groupId" separator=",">
+                #{groupId}
+            </foreach>
+            )
+        </if>
+    </delete>
+
+    <!-- 查询符合条件的总记录数 -->
+    <select id="selectOperatorCountForPage" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroupQuery" resultType="int">
+        SELECT count(t.OPERATOR_ID)
+        FROM T_UM_OPERATOR t
+        WHERE
+        <choose>
+            <when test="related==true">
+                EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.OPERATOR_ID = t.OPERATOR_ID AND g.GROUP_ID = #{groupId})
+            </when>
+            <otherwise>
+                NOT EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.OPERATOR_ID = t.OPERATOR_ID AND g.GROUP_ID = #{groupId})
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 分页查询符合条件的记录 -->
+    <select id="selectOperatorListForPage" resultMap="operatorOGResult">
+        SELECT t.*
+        FROM T_UM_OPERATOR t
+        WHERE
+        <choose>
+            <when test="operatorGroupQuery.related==true">
+                EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.OPERATOR_ID = t.OPERATOR_ID AND g.GROUP_ID = #{operatorGroupQuery.groupId})
+            </when>
+            <otherwise>
+                NOT EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.OPERATOR_ID = t.OPERATOR_ID AND g.GROUP_ID = #{operatorGroupQuery.groupId})
+            </otherwise>
+        </choose>
+        ORDER BY t.CREATED_DATE DESC
+        LIMIT #{gridPage.startNo}, #{gridPage.pageSize}
+    </select>
+
+    <!-- 查询符合条件的总记录数 -->
+    <select id="selectGroupCountForPage" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroupQuery" resultType="int">
+        SELECT count(t.GROUP_ID)
+        FROM T_UM_GROUP t
+        WHERE
+        <choose>
+            <when test="related==true">
+                EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.GROUP_ID = t.GROUP_ID AND g.OPERATOR_ID = #{operatorId})
+            </when>
+            <otherwise>
+                NOT EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.GROUP_ID = t.GROUP_ID AND g.OPERATOR_ID = #{operatorId})
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 分页查询符合条件的记录 -->
+    <select id="selectGroupListForPage" resultMap="groupOGResult">
+        SELECT t.*
+        FROM T_UM_GROUP t
+        WHERE
+        <choose>
+            <when test="operatorGroupQuery.related==true">
+                EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.GROUP_ID = t.GROUP_ID AND g.OPERATOR_ID = #{operatorGroupQuery.operatorId})
+            </when>
+            <otherwise>
+                NOT EXISTS (SELECT g.OPERATOR_ID FROM T_UM_OPERATOR_GROUP g WHERE g.GROUP_ID = t.GROUP_ID AND g.OPERATOR_ID = #{operatorGroupQuery.operatorId})
+            </otherwise>
+        </choose>
+        ORDER BY t.CREATED_DATE DESC
+        LIMIT #{gridPage.startNo}, #{gridPage.pageSize}
+    </select>
+    <!-- 查询操作者所有的用户组名称 -->
+    <select id="selectGroupNamesByQuery" parameterType="com.gy.hsxt.gpf.um.bean.OperatorGroupQuery" resultType="string">
+        SELECT g.GROUP_NAME FROM T_UM_GROUP g
+        JOIN T_UM_OPERATOR_GROUP og ON g.GROUP_ID = og.GROUP_ID
+        WHERE og.OPERATOR_ID = #{operatorId}
+    </select>
+</mapper>

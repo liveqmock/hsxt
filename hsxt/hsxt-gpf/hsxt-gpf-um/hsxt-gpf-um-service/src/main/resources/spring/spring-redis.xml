@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <!-- 加载属性配置 -->
+    <bean id="resourcePropertySource" class="org.springframework.core.io.support.ResourcePropertySource">
+        <constructor-arg name="location">
+            <value>file:${user.dir}/conf/hsxt-gpf-um/redis.properties</value>
+        </constructor-arg>
+    </bean>
+
+    <!-- 哨兵配置 -->
+    <bean id="redisSentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+        <constructor-arg name="propertySource" ref="resourcePropertySource"/>
+    </bean>
+
+    <bean id="poolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+    </bean>
+
+    <!-- 生菜池配置 -->
+    <bean id="lettucePool" class="org.springframework.data.redis.connection.lettuce.DefaultLettucePool">
+        <property name="hostName" value="${redis.hostName}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+
+    <!-- 生菜链接配置 -->
+    <bean id="lettuceConnectionFactory" class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory">
+        <!--<constructor-arg name="sentinelConfiguration" ref="redisSentinelConfiguration"/>-->
+        <constructor-arg name="pool" ref="lettucePool"/>
+        <property name="validateConnection" value="true"/>
+    </bean>
+
+    <!--  字符串模版配置 -->
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="lettuceConnectionFactory"/>
+    </bean>
+</beans>

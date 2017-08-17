@@ -1,0 +1,12 @@
+<%$.each(obj.stationList.stationList,function(k,v){%>
+		<%if(v.oneNum == obj.stationId){%>
+		<div class="clearfix hd_hush_content">
+			<%if(v.stationInfo.sub_msg_code == "20302"){%>
+				<%=v.stationInfo.msg_content%>
+			<%}else{%>
+			<%var url = eval('('+v.stationInfo.msg_content+')')%>
+				<iframe src="<%=url.pageUrl%>" width="100%" height="100%" ></iframe>
+				<%}%>
+		</div>
+		<%}%>
+<%})%>		

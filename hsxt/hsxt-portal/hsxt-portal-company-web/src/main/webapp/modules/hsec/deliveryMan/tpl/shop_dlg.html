@@ -1,0 +1,44 @@
+<% var list = obj.lstSalerShop %>
+<% var shopId = obj.lstRelatedShopId %>
+<!-- <div>            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+            	<tbody><tr>
+                  <th width="15px"><input type="checkbox" id="allshop">所属</th>
+                  <th width="16px">类型</th>
+                  <th width="250px">营业点</th>
+                </tr>
+            </tbody></table>
+</div> -->
+<div> <!-- style="max-height:300px; overflow:auto;" -->
+<table id="manShopBind" class="bsgrid"> <!-- class="popup_table" width="100%" border="0" cellspacing="0" cellpadding="0" style="word-break:break-all;word-wrap:break-word;" --> 
+<thead>
+	<tr>
+     <th width="15px">所属</th>
+     <th width="16px">类型</th>
+     <th width="250px">营业点</th>
+   </tr>
+</thead>
+<tbody>
+             	<% $.each(list,function(i,shop){ %>
+			    <tr class="<%=i%2==1?'table-tr-c':''%>">
+			      <td width="32px"><input type="radio" name="shop"
+			      <% $.each(shopId,function(k,v){ %>
+			      <%if(v == shop.id){%>
+			       	checked 
+			       <%}%>
+			       <% }) %>
+			       class="popup_ckb" data-id="<%=shop.id%>" data-name="<%if(shop.type == 1){%><%=shop.addAll%><%}else{%><%=shop.name%><%}%>"/></td>
+			       <td width="32px"><%if(shop.type == 1){%>
+						<span class="blue">零售</span>
+					 <%}else if(shop.type == 2){%>
+					 	<span class="red">餐饮</span>
+					 <%}%></td>
+			      <td width="266px" style="text-align: left;">
+			      	<p class="p5" title="<%=shop.name%>"><%=shop.name%></p>
+			      	<p class="pl5 pb5" title="<%=shop.addAll%>"><%=shop.addAll%></p>
+			      </td>
+			    </tr>
+			    <% }) %>
+</tbody>
+</table>
+</div>

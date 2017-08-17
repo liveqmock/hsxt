@@ -1,0 +1,50 @@
+<div class="serviceItem">
+    <%for(var i=0; i<list.length; i++){%>
+    <h3 hidefocus='true'>
+        <ul class="clearfix">
+            <li><i class="service_icon service_icon_folder"></i></li>
+            <li class="f14 serviceItem_text"><%=list[i].groupName%></li>
+            <li><i class="serviceItem_icon icon_serviceItem_04"></i></li>
+        </ul>
+    </h3>
+    <div class="tabDiv_h " style="overflow-y:auto;">
+        <ul class="seat_list">
+            <%
+                for(var j=0; j<list[i].groupList.length; j++){
+                    var obj=list[i].groupList[j];
+            %>
+            <li class="clearfix">
+                <%
+                    switch (parseInt(obj.AgentStatus)) {
+                case 21:
+                %>
+                <div class="fl w80 clearfix"> <i class="service_icon service_icon_phone_green fl"></i>
+                    <%
+                break; //签入   绿
+                case 22:
+                case 23:
+                case 35:
+                    %>
+                <div class="fl w80 clearfix"> <i class="service_icon service_icon_phone_red fl"></i>
+                    <%
+                break;//自我摘机中 黄
+                case 30:
+                case 31:
+                %>
+                <div class="fl w80 clearfix"> <i class="service_icon service_icon_phone_red fl"></i>
+                    <%
+                break;//通话中 红
+                case 20:
+                default:
+                    %>
+                    <div class="fl w80 clearfix"> <i class="service_icon service_icon_phone_gray fl"></i>
+                    <% }%>
+                    <span class="green_3 ml5"><%=obj.UserName%></span> </div>
+                <div class="fl w90 green_4"> <%=obj.AgentNum%></div>
+                <div class="fl clearfix"> <a class="service_icon service_icon_microphone  fl ml10" onclick="comm.call_grant_num(<%=obj.AgentNum%>)" title="短号呼叫"></a> <a class="service_icon service_icon_email_2 fl ml10" title="发送消息"></a> </div>
+            </li>
+            <%}%>
+        </ul>
+    </div>
+    <%}%>
+</div>

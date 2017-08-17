@@ -1,0 +1,36 @@
+﻿<div id="gjcxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>机器码：</label>
+				<input id="search_deviceSeqNo" type="text" placeholder="输入机身码/序列号" class="input-txt h28_middle w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">批次号：</label>
+				<input id="search_batchNo"  placeholder="输入批次号"  class="input-txt h28_middle w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">使用状态：</label>
+				<input id="search_useStatus" readonly="readonly" placeholder="选择使用状态" />
+			</li> 
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>			
+	<table id="searchTable" class="bsgrid">
+	  <tr> 
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="deviceSeqNo" w_tip=true>序列号</th>
+		<th w_index="deviceSeqNo" w_tip=true>机器码</th>
+		<th w_index="batchNo" w_tip=true>批次号</th>
+		<th w_index="whName" w_tip=true>仓库名称</th>
+		<th w_index="enterDate" w_tip=true>入库时间</th>
+		<th w_index="useStatus" w_render="operate">使用状态</th>
+		<th w_index="outDate" w_tip=true>出库时间</th>
+		<th w_index="entResNo">所属企业互生号</th>
+		<!--<th w_render="operate">操作</th>-->
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

@@ -1,0 +1,36 @@
+<td>
+	<%$.each(obj,function(key,val){%>
+		<div class="clearfix mt5 mb5">
+			<div class="fl mr5" style="width:40px"><a href="#"><img data-src="<%=JSON.parse(val.picUrl)["68x68"]%>" height="40" class="orderImg"/></a></div>
+			<div class="fl" style="width:295px;">
+				<ul class="tl">
+					<li class="" title="<%=val.itemName%>" ><span style="word-wrap: break-word;"><%=val.itemName%></span></li>
+					<%var skus = val.skus.split(",")%>
+					<%$.each(skus,function(k,vl){%>
+					<li class="mt5"><%=vl%></li>
+					<%})%>
+				</ul>
+			</div>
+		</div>
+	<%})%>
+</td>
+
+<td>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<%$.each(obj,function(key,val){%>
+		<tr>
+			<td style="color:red;border:0;padding:0;<%if(obj.length > 1){%>height:80px;<%}%>" ><%=comm.formatMoneyNumber(val.price)%></td>
+		</tr>
+		<%})%>
+	</table>
+</td>
+
+<td>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<%$.each(obj,function(key,val){%>
+		<tr>
+			<td style="border:0;padding:0;<%if(obj.length > 1){%>height:80px;<%}%>" ><%=val.quantity%></td>
+		</tr>
+		<%})%>
+	</table>
+</td>

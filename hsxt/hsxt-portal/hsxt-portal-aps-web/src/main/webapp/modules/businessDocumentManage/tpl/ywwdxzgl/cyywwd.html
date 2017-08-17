@@ -1,0 +1,38 @@
+﻿<div id="">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>常用业务文档名称：</label>
+				<input type="text" id="search_docName" placeholder="输入常用业务文档名称" class="h28_middle w130 input-txt" />
+			</li>
+			<!--<li class="clearfix none">
+				<label class="fl h30_middle">适用企业类别：</label>
+				<input id="enterprise_type" readonly="readonly" placeholder="选择适用企业类别" />
+			</li>-->
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input  id="search_docStatus" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="xzmb_btn" type="button" class="btn-search">新增常用业务文档</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable">
+			<tr>
+				<th w_index="docName">常用业务文档名称</th>
+				<th w_index="remark">说明</th>
+                <th w_index="status" w_render="operate">状态</th>
+				<th w_render="operate">操作</th>
+			</tr>
+	</table>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="sltpgl-edit-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

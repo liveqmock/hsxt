@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layout>
+	<title>互生系统平台</title>
+	<!-- 导航区树形菜单配置 -->
+	<trees>
+		<tree name="1.系统基本设置">
+			<leaf id="101" name="1.系统管理员" url="../user/manage.do" />
+			<!-- <folder name="4. 周报管理">
+				<leaf id="106" name="1.增加周报" url="../Weeklys/WeeklyAdd.do" />
+				<leaf id="107" name="2.周报管理" url="../Weeklys/Manage.do" />
+				<leaf id="108" name="3.周报导出" url="../Weeklys/Export.do" />
+			</folder> -->
+		</tree>
+		<tree name="2.全局参数配置">
+			<leaf id="102" name="1.城市" url="../city/manage.do" />
+			<leaf id="103" name="2.省份" url="../province/manage.do" />
+			<leaf id="104" name="3.国家地区" url="../country/manage.do" />
+			<leaf id="105" name="4.币种" url="../currency/manage.do"/>
+			<leaf id="106" name="5.枚举信息" url="../enumitem/manage.do" />
+			<leaf id="107" name="6.错误信息" url="../errormsg/manage.do" />
+			<leaf id="108" name="7.语言" url="../language/manage.do" />
+			<leaf id="109" name="8.平台代码" url="../plat/manage.do" />
+			<leaf id="110" name="9.提示信息" url="../promptmsg/manage.do" />
+			<leaf id="111" name="10.系统代码" url="../subsys/manage.do" />
+			<leaf id="112" name="11.计量单位" url="../unit/manage.do" />
+			<leaf id="113" name="12.业务路由" url="../bizroute/manage.do" />
+			<leaf id="114" name="13.个人平台路由" url="../resroute/manage.do" />
+			<leaf id="115" name="14.积分分配比例" url="../pointrule/manage.do" />
+			<leaf id="116" name="15.通知变更" url="../version/manage.do" />
+		</tree>
+
+	</trees>
+</layout>

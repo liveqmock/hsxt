@@ -1,0 +1,40 @@
+﻿<div id="zzzfpcxTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label class="queryList-toolbar-label-select">快捷月份：</label>
+				<input id="zzzfpcx_tb_kjyf" name="zzzfpcx_tb_kjyf" readonly="readonly" placeholder="选择快捷月份" />
+			</li>
+			<li>
+				<label>月份范围：</label>
+				<input type="text" name="zzzfpcx_tb_timeRange_start" id="zzzfpcx_tb_timeRange_start" placeholder="输入月份范围" class="queryList-toolbar-text" readonly="readonly" />
+				<span class="separator-pd">-</span>
+				<input type="text" name="zzzfpcx_tb_timeRange_end" id="zzzfpcx_tb_timeRange_end" placeholder="输入月份范围" class="queryList-toolbar-text" readonly="readonly" />
+			</li>
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" id="zzzfpcx_tb_resNo" name="zzzfpcx_tb_resNo" class="queryList-toolbar-text" placeholder="输入企业互生号" maxlength="11" />
+			</li>
+			<li>
+				<button id="zzzfpcx_tb_cx" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="zzzfpcx_tb_jfzzzfpsm" type="button" class="queryList-toolbar-btn">积分再增值分配说明</button>
+			</li>
+		</ul>
+	</div>
+	<table id="zzzfpcx_ql">
+		<tr>
+			<th w_index='custId' w_align="left">企业客户号</th>
+			<!--<th w_index='zt' w_align="left">状态</th>-->
+			<!--<th w_index='ztrq' w_align="left">状态日期</th>-->
+			<!--<th w_index='lsh' w_align="left">流水号</th>-->
+			<th w_index='lastCalcTime' w_align="left">汇总时间</th>
+			<th w_index='baseVal' w_align="left">分配基数</th>
+			<th w_index='pointREF' w_align="left">分配比参考数</th>
+			<th w_render='operate' w_align="left">百位分配比</th>
+			<th w_index='mlmPoint' w_align="left">积分分配数</th>
+		</tr>
+	</table>
+</div>
+<div id="zzzfpcxDlg" class="none ovh"></div>

@@ -1,0 +1,75 @@
+﻿<!--互生卡补办2-->
+<div class="p20 none" id="hsCardReapply_pay_div"> 
+	<!-- 资料修改开始 -->
+	<div class="register_info mt40 info_500">
+		<form  method="post" id="gotoPay">
+		<fieldset>
+			<div class="clearfix">
+				<ul class="fl">
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">订单号</label><input type="text" id="hsCardReapply_orderNo" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">支付金额</label><input type="text" id="hsCardReaaply_price" value="" disabled="disabled"/>
+					</li>
+					<li class="register_row info_320 clearfix bg_EFEFEF">
+					<label for="name">结算货币</label><input type="text" value="互生币" disabled="disabled"/>
+					</li>
+					<!--<li class="register_row info_320 clearfix">
+					<label for="name">支付方式</label><div class="hskbb_zffs"><select id="payType">
+					<option value="">请选择</option>
+					<option value="0">互生币支付</option>
+					<option value="1">网银支付</option>
+					<option value="2">快捷支付</option>
+					</select></div>
+					</li>
+					<li class="register_row info_320 clearfix none bg_EFEFEF" id="hsCardReapply_balance">
+					<label for="name">互生币账户余额</label><input type="text" id="hsCardReapply_cash" class="input_gray" value="" disabled="disabled"/><div class="hint"></div>
+					</li>
+					<li class="register_row info_320 clearfix none" id="Hskbb_jymm" >
+					<label for="name">交易密码</label><input type="password" id="hsCardReapply_dealPwd" name="hsCardReapply_dealPwd" class="input_gray" value="" maxlength="8"/><div class="hint"></div>
+					</li>-->
+				</ul>
+			</div>
+			<div class="tc two_button mt20 hskbb_zffs_btn">
+			<!--<a href="javascript:;" class="hs_btn none" id="To_pay_btn">去付款</a>
+			
+			<a href="javascript:;" class="hs_btn none Thick_btn" id="Submission_btn">确认提交</a>-->
+			
+			<a href="javascript:;" class="hs_btn" id="To_qpay_btn">去付款</a>
+			</div>
+		</fieldset>
+		</form>
+	</div>
+	<!-- 资料修改结束 --> 
+</div>
+
+<!--弹出框内容-->
+<!--<div class="none" id="cardPayShowMsg">
+	<div class="content">
+		<table width="400px" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td height="50"><div class="clearfix"><p class="pl50" id="resultOrder"></p> <i class="icon_tips tips_yes"></i><span class="fl fb f14 ml10 pt9" id="resutlMsg"></span></div></td>
+			</tr>
+			<tr>
+				<td height="50">
+					<a class="hs_btn ml50 jfzx_tjcg_btn Thick_btn" id="cardPayShowMsgClose">关闭</a>
+					<input type="hidden" id="returnStatus" value="fail"/>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>-->
+
+<div class="none" id="card_reapply_bank_dialog">
+	<div class="content">
+		<table width="450px" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td height="50"><div class="clearfix"><i class="icon_tips tips_yes"></i> <span class="fl fb f14 ml10 pt9">互生卡补办订单已提交银行，请确认支付结果！</span></div></td>
+			</tr>
+			<tr>
+				<td height="50"><a class="hs_btn ml50 jfzx_tjcg_btn" id="hb_ebank_cg_sure">支付成功</a><a class="hs_btn_gray ml50 jfzx_tjcg_btn" id="hb_ebank_cg_lose">支付失败</a></td>
+			</tr>
+		</table>
+	</div>
+</div>

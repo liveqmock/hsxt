@@ -1,0 +1,46 @@
+<div class="search-toolbar">
+  <form id="scpoint_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li class="clearfix pr">
+        <label class="fl h30_middle">快捷日期：</label>
+        <input type="text" id="quickDate" name="quickDate" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <label>日期：</label>
+        <input type="text" name="scpoint_beginDate" id="scpoint_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="scpoint_endDate" id="scpoint_endDate" placeholder="结束日期" class="h28_middle input-txt w80" />
+      </li>
+      <li class="clearfix pr">
+        <label class="fl h30_middle">业务类别：</label>
+		<input type="text" id="scpoint_subject" name="scpoint_subject" readonly="readonly" placeholder="请选择"/>
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="scpoint_result_table">
+  	<thead>
+        <tr>
+          <th w_index="serialNo" w_align="left">交易流水号</th>
+          <th w_index="fiscalDate" w_align="left">交易时间</th>
+          <th w_index="transType" w_align="left">交易类型</th>
+          <th w_index="transCode" w_align="left">业务类别</th>
+          <th w_index="transAmount" w_align="left">发生积分数</th>
+          <th w_index="balance" w_align="left">交易后账户余数</th>
+          <th w_render="operate" w_align="left">详情</th>
+        </tr>
+	</thead>
+  </table>
+</div>
+
+<!--弹出框内容及脚本开始-->
+<div id="jfyfkzh-mxcx-dialog" class="none">
+  <p></p>
+</div>
+<!--弹出框内容及脚本结束-->

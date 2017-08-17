@@ -1,0 +1,16 @@
+<div class="bc mt20 info_320">
+<form id="xgsx_form" name="xgsx_form" action="" method="post">
+	<input type="hidden" id="xgsx_serialNo" value="<%=obj.serialNo %>"/>
+    <ul class="cssform2 clearfix">
+        <li class="clearfix">
+            <label class="title-txt w115">终端编号</label><div class="cont-chk tbox"><span id="xgsx_code" class="ml10"><%=deviceNO || ''%></span></div>
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">状态</label><input type="text" id="deviceStatus" name="xgsx_status" readonly="readonly"/>
+        </li>
+    </ul>
+    <div class="mt20 tc">
+        <a href="javascript:;" id="btn_xgsx_cx" class="btn_bg submit mr30">取&#12288;消</a><a href="javascript:;" id="btn_xgsx_qd" class="btn_bg submit">确&#12288;定</a>
+    </div>
+</form>
+</div>

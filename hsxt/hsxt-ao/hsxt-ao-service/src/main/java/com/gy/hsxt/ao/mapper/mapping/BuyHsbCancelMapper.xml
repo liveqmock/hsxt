@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.BuyHsbCancelMapper">
+
+	<!-- 插入冲正兑换互生币记录 -->
+	<insert id="insertBuyHsbCancel" parameterType="com.gy.hsxt.ao.bean.BuyHsbCancel">
+		INSERT INTO
+		T_AO_BUY_HSB_CANCEL
+		(
+		TRANS_NO,
+		ORIG_TRANS_NO,
+		REQ_TIME,
+		OPT_CUST_ID,
+		OPT_CUST_NAME)
+		VALUES
+		(
+		#{transNo},
+		#{origTransNo},
+		sysdate,
+		#{optCustId},
+		#{optCustName}
+		)
+	</insert>
+</mapper>

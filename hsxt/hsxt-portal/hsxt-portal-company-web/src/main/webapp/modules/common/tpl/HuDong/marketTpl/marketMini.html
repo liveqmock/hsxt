@@ -1,0 +1,16 @@
+<%$.each(obj.marketList,function(k,v){%>
+<li data-id="<%=v.accountNo%>">
+<dl>
+<dt>
+<img width="50" height="50" src="<%=v.headPic%>">
+</dt>
+<dd class="name"><span title="<%=v.name%>"><%=v.name%></span></dd>
+<dd style="font-weight:bold;word-break:break-all;word-wrap:break-word;" class="newContent"><span style="width: 120px" class="classtext"><%if(v.msg_content != "" && v.msg_content != null){%><%if(v.msg_code == 10){%>图片消息<%}else{%><%=v.msg_content%><%}%><%}%></span><span <%if(v.newStrBool != 0){%>class="count"<%}%>></span></dd>
+<dd class="time">
+<%if(v.time != null && v.time != ""){%>
+	<%=obj.DatetimeNew(v.time)%>
+<%}%>
+</dd>
+</dl>
+</li>
+<%})%>

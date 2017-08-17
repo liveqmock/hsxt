@@ -1,0 +1,43 @@
+<%
+var bankLogoClass = 'bank-' + (obj.bankName || 'zgjsyh');
+var type = obj.type || '信用卡' ;
+%>
+<ul class="mt20">
+	<form id="registeredForm">
+		<li class="clearfix">
+			<label class="fl qPay-label"></label>
+			<div class="fl qPay-div">
+				<span class="bank-logo-box ineblk"><i class="bank-logo <%=bankLogoClass%>"></i></span>
+			</div>
+		</li>
+		<li class="clearfix mt15">
+			<label class="fl qPay-label"><%=type%>卡号：</label>
+			<input type="text" name="cardNum" id="cardNum" value="" class="fl qpay-text-input" placeholder="输入<%=type%>卡号" />
+			<span class="fl ml5 red mt10">*</span>
+		</li>
+		<li class="clearfix mt15">
+			<label class="fl qPay-label">手机号码：</label>
+			<input type="text" name="phnoeNum" id="phoneNum" value="" class="fl qpay-text-input" placeholder="输入手机号码" />
+			<span class="fl ml5 red mt10">*</span>
+			<span class="fl ml5 mt10 blue">请填写在该银行预留的手机号码</span>
+		</li>
+		<li class="clearfix mt15">
+			<label class="fl qPay-label">短信验证码：</label>
+			<input type="text" name="checkCode" id="checkCode" value="" class="fl qpay-code-input" />
+			<span class="fl ml5 red mt10">*</span>
+			<a class="fl ml5 get-code-btn">获取验证码</a>
+		</li>
+		<li class="clearfix mt15">
+			<label class="fl qPay-label"></label>
+			<div class="fl qPay-div">
+				<div>
+					<input type="checkbox" checked="checked" value="" /> 《互生系统快捷支付相关协议》
+				</div>
+				<div class="mt30 clearfix" style="width:270px;">
+					<a id="return_card_add" href="javascript:;" class="pay-btn w100 fl">上一步</a>
+					<a id="agreeToOpen_btn" class="pay-btn qpay-btn-w150 fr">同意协议并开通</a>
+				</div>
+			</div>
+		</li>
+	</form>
+</ul>

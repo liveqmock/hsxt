@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.invoice.mapper.InvoicePoolMapper">
+
+    <resultMap id="invoicePoolResult" type="com.gy.hsxt.bs.bean.invoice.InvoicePool">
+        <result column="CUST_ID" property="custId"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="CUST_TYPE" property="custType"/>
+        <result column="CUST_NAME" property="custName"/>
+        <result column="BIZ_TYPE" property="bizType"/>
+        <result column="INVOICE_MAKER" property="invoiceMaker"/>
+        <result column="ALL_AMOUNT" property="allAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="OPENED_AMOUNT" property="openedAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="PENDING_AMOUNT" property="pendingAmount" typeHandler="com.gy.hsxt.bs.common.handler.StringForNumbericTypeHandler"/>
+        <result column="GO_ON" property="goOn"/>
+        <result column="REMAIN_AMOUNT" property="remainAmount"/>
+        <result column="LAST_DATE" property="lastDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="STOP_DATE" property="stopDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForDateTypeHandler"/>
+        <result column="CREATE_TIME" property="createTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATE_TIME" property="updateTime" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+    </resultMap>
+
+    <!-- 创建发票池数据 -->
+    <insert id="insertInvoicePool" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePool">
+        INSERT INTO T_BS_INVOICE_POOL (
+            CUST_ID,
+            RES_NO,
+            CUST_TYPE,
+            CUST_NAME,
+            BIZ_TYPE,
+            INVOICE_MAKER,
+            ALL_AMOUNT,
+            OPENED_AMOUNT,
+            REMAIN_AMOUNT,
+            GO_ON,
+            LAST_DATE,
+            CREATE_TIME
+        ) VALUES (
+            #{custId},
+            #{resNo},
+            #{custType},
+            #{custName},
+            #{bizType},
+            #{invoiceMaker},
+            #{allAmount},
+            #{openedAmount},
+            #{remainAmount},
+            #{goOn},
+            #{lastDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            SYSTIMESTAMP
+        )
+    </insert>
+    <!-- 查询发票池数据列表 -->
+    <select id="selectListByQuery" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePoolQuery" resultMap="invoicePoolResult">
+        SELECT
+        t.*
+        FROM
+        T_BS_INVOICE_POOL t
+        WHERE
+        t.INVOICE_MAKER = #{invoiceMaker} AND t.BIZ_TYPE &lt;&gt; 'PC004'
+        <if test="custId != null and custId !=''">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="resNo != null and resNo != ''">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custType != null and custType !=''">
+            AND t.CUST_TYPE = #{custType}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        <if test="bizType != null and bizType !='' ">
+            AND t.BIZ_TYPE = #{bizType}
+        </if>
+    </select>
+
+    <!-- 分页查询发票池数据列表 -->
+    <select id="selectBeanListPage" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePoolQuery" resultMap="invoicePoolResult">
+        SELECT
+        t.*
+        FROM
+        T_BS_INVOICE_POOL t
+        WHERE
+        t.INVOICE_MAKER = #{invoiceMaker} AND t.BIZ_TYPE &lt;&gt; 'PC004'
+        <if test="custId != null and custId !=''">
+            AND t.CUST_ID = #{custId}
+        </if>
+        <if test="resNo != null and resNo != ''">
+            AND t.RES_NO = #{resNo}
+        </if>
+        <if test="custType != null and custType !=''">
+            AND t.CUST_TYPE = #{custType}
+        </if>
+        <if test="bizType != null and bizType !=''">
+            AND t.BIZ_TYPE = #{bizType}
+        </if>
+        <if test="custName != null and custName != '' ">
+            AND t.CUST_NAME LIKE '%'||#{custName}||'%'
+        </if>
+        ORDER BY t.CREATE_TIME DESC
+    </select>
+
+    <select id="selectBeanByIdAndType" parameterType="string" resultMap="invoicePoolResult">
+        SELECT t.*
+        FROM T_BS_INVOICE_POOL t
+        WHERE t.CUST_ID = #{custId} AND t.BIZ_TYPE = #{bizType}
+    </select>
+
+    <!-- 更新发票池数据 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.invoice.InvoicePool">
+        UPDATE T_BS_INVOICE_POOL t
+        SET
+            t.UPDATE_TIME = SYSTIMESTAMP,
+        <trim suffixOverrides=",">
+            <if test="remainAmount != null and remainAmount !=''">
+                t.REMAIN_AMOUNT = #{remainAmount},
+            </if>
+            <if test="openedAmount != null and openedAmount !=''">
+                t.OPENED_AMOUNT = #{openedAmount},
+            </if>
+            <if test="pendingAmount != null and pendingAmount != ''">
+                t.PENDING_AMOUNT = #{pendingAmount},
+            </if>
+            <if test="goOn != null and goOn !=1">
+                t.GO_ON = #{goOn},
+                t.STOP_DATE = #{stopDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            </if>
+            <if test="allAmount != null and allAmount != ''">
+                t.ALL_AMOUNT = #{allAmount},
+            </if>
+            <if test="lastDate != null and lastDate != ''">
+                t.LAST_DATE = #{lastDate,typeHandler=com.gy.hsxt.bs.common.handler.StringForDateTypeHandler},
+            </if>
+        </trim>
+        WHERE t.CUST_ID = #{custId} AND t.BIZ_TYPE = #{bizType}
+    </update>
+</mapper>

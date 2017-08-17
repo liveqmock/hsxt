@@ -1,0 +1,164 @@
+<form id="zyxxbgsq_form" name="zyxxbgsq_form">
+	<div id="base_info_div" class="table_info mt20 info_800" style="display:none;">
+		<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" class="fixtable">
+			<tbody>
+			<tr>
+				<td class="table_title" width="20%">信息</td>
+				<td class="table_title" width="40%">变更前内容</td>
+				<td class="table_title pr" width="40%">变更后内容 &nbsp;&nbsp;<a class="red fr mr20" id="zyxxbgsq_sm">说明</a> 
+						<div  class="prompt_div none" style="z-index:99">
+							<ul>
+								<li>修改任何一项重要信息，都要提交重要信息变更业务办理申请书。</li>
+								<li>修改企业名称、企业地址、法人代表姓名中任一项内容，须重新提交营业执照扫描件。</li>
+								<li>联系人姓名、联系人手机修改须提交联系人授权委托书。</li>
+								<li>不单独提供申请营业执照注册号的重要信息的变更业务；第2项内容修改同时可选择修改营业执照注册号。</li>
+								<li>所有的附件随相应业务修改需要上传，不单独提交上传附件业务，上传附件图片要求小于2M，格式为.jpg、.jpeg、.bmp、.png。</li>
+							</ul> 
+						</div>							
+				</td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">企业名称</td>
+				<td class="table_text" width="40%" id="oldEntCustName"><%=obj.entCustName%></td>
+				<td class="table_text" width="40%"><input name="entCustName" maxlength="64" id="entCustName"></td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">企业地址</td>
+				<td class="table_text" width="40%" id="oldEntRegAddr"><%=obj.entRegAddr%></td>
+				<td class="table_text" width="40%"><input name="entRegAddr" maxlength="128" id="entRegAddr"></td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">法人代表</td>
+				<td class="table_text" width="40%" id="oldLegalPerson"><%=obj.legalPerson%></td>
+				<td class="table_text" width="40%"><input name="legalPerson" maxlength="20" id="legalPerson"></td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">营业执照注册号</td>
+				<td class="table_text" width="40%" id="oldBusiLicenseNo"><%=obj.busiLicenseNo%></td>
+				<td class="table_text" width="40%"><input name="busiLicenseNo" maxlength="20" id="busiLicenseNo"></td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">联系人姓名</td>
+				<td class="table_text" width="40%" id="oldContactPerson"><%=obj.contactPerson%></td>
+				<td class="table_text" width="40%"><input name="contactPerson" maxlength="20"  id="contactPerson"></td>
+			</tr>
+			<tr>
+				<td class="table_item" width="20%">联系人手机</td>
+				<td class="table_text" width="40%" id="oldContactPhone"><%=obj.contactPhone%></td>
+				<td class="table_text" width="40%"><input name="contactPhone" maxlength="11"  id="contactPhone"></td>
+			</tr>
+			<tr>
+					<td colspan="3" class="billstyle">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							
+							<tr>
+								<td>
+									<div class="tc bc w200 mt10 mb10">
+										<span class="f13">营业执照扫描件<span class="ml5 red"></span></span>
+										<div class="mt10 mb10 sampleBox infobox"><i id="thum-3" class="certificateSample_img certificateSample_03"></i></div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input type="file" id="busLicenceFileId" name="busLicenceFileId"></a>
+											<a id="case-fileId-3" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="tc bc w200 mt10 mb10">
+										<span class="f13">联系人授权委托书扫描件<span class="ml5 red"></span></span>
+										<div class="mt10 mb10 sampleBox infobox"><i id="thum-6" class="certificateSample_img certificateSample_06"></i></div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input id="linkAuthorizePic" name="linkAuthorizePic" type="file"></a>
+											<a id="certificateFileId" class="btn_bg viewSample_btn" style="float:right;">模板下载</a>
+										</div>
+									</div>
+								</td>
+								<td style="border-right:0;">
+									<div class="tc bc w200 mt10 mb10">
+										<span class="f13">重要信息变更业务办理申请书<span class="ml5 red">*</span></span>
+										<div class="mt10 mb10 sampleBox infobox"><i id="thum-7" class="certificateSample_img certificateSample_07"></i></div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input id="imptappPic" name="imptappPic" type="file"></a>
+											<a  id="bussChangeAppId" class="btn_bg viewSample_btn" style="float:right;">模板下载</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="p5" style="border-right:0;border-bottom:0;">
+									<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="table_item">申请变更原因</td>
+					<td class="table_text pt10 pb10" colspan="2">
+						<textarea class="w96pc h50 rsn infobox w600" id="applyReason" name="applyReason" maxlength="300" placeholder="输入原因，最长不超过300个字"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="table_item">验证码</td>
+					<td class="table_text" colspan="2">
+						<div class="clearfix">
+							<input id='vaildCode' name='vaildCode'  maxlength="4" class="table_info_input fl ml10" style="width:100px;" type="text" value="" placeholder="输入验证码"/>
+							<span class="fl ml10"><img src="resources/img/verificationCode.gif" width="77" id="vaildCodeImg" height="30"></span>
+							<a id="changeVaildCode" class="fl mt10 ml10">看不清，换一张</a>
+							<span class="fl red ml10 mt10">*</span>
+						</div>						
+					</td>
+				</tr>
+		</tbody>
+	</table>
+	    
+	    <input type="hidden" id="hide_busLicenceFileId" />
+		<input type="hidden" id="hide_imptappPic" />
+		<input type="hidden" id="hide_linkAuthorizePic"/>
+		
+		<div class="clearfix mt20 mb10" align="center"><a  class="btn_bg submit a_zyxxbgts" id="btn_tj">提　交</a></div>
+	</div>
+</form>							
+                    <!--审批结果前显示内容开始-->
+<div id="tips_0" class="ml20 mt20 mr20 none">
+    <div class="page_tips bc mt40">
+		<h1 class="f16 fb tc">温馨提示</h1>
+		<p class="f14 fb tc">目前您处于重要信息变更申请处理中，在此期间，本业务暂无法受理！</p>
+	</div>
+</div>
+                        
+<div id="tips_1" class="ml20 mt20 mr20 none">
+    <div class="page_tips bc mt40">
+		<h1 class="f16 fb tc">温馨提示</h1>
+		<p class="f14 fb tc">只有通过实名认证后才能办理此业务!</p>
+	</div>
+</div>
+
+<div id="tips_2" class="none bc view_info info_500 mt40 none">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+      <tr>
+        <td class="view_item" width="30%">审批结果</td>
+        <td class="view_text" width="70%">申请驳回</td>
+      </tr>
+      <tr>
+        <td class="view_item">审批意见</td>
+        <td class="view_text" style='word-break:break-all' id="apprRemarkMessage"></td>
+      </tr>
+	  <tr>
+        <td class="view_item">审批日期</td>
+        <td class="view_text" id="apprDate"></td>
+      </tr>
+    </table>
+	<div id="reApplyDiv" class="mt20 tc" style="display: none;">
+		<a href="javascript:;" id="reApplyBtn" class="btn_bg submit_long" style="margin-left: 160px">重新申请</a>
+	</div>
+</div>
+
+<div id="tips_3" class="none">
+	<div class="page_tips bc mt40" style="text-align:center" >
+		<h1 class="f16 fb tc">温馨提示</h1>
+		<p class="f14 fb center tc">贵企业已通重要信息变更申请！</p>
+		<div class="tc mb10"><a id="back_btn" class="btn_bg submit">再次申請</a></div>
+	</div>
+</div>

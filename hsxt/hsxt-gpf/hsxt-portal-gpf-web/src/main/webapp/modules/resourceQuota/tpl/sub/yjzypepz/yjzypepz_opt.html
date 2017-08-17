@@ -1,0 +1,75 @@
+<div class="w900 bc clearfix">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="20%">管理公司互生号</td>
+            <td class="view_text" width="30%" id="yjzypepz_opt_glgshsh"></td>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%" id="yjzypepz_opt_glgsmc"></td>
+        </tr>
+		<tr>
+            <td class="view_item">计划内配额总数</td>
+            <td class="view_text" id="yjzypepz_opt_jhnpezs"></td>
+            <td class="view_item">待审批配额总数</td>
+            <td class="view_text" id="yjzypepz_opt_dsppezs"></td>
+        </tr>
+    </table>
+	<table id="yjzypepz_opt_ql" class="mt10">
+		<tr>
+			<th w_index="platName" w_align="left">地区平台</th>
+			<th w_index="initQuota" w_align="left">计划内配额数</th>
+			<th w_index="assigned" w_align="left">已分配配额数</th>
+			<th w_index="approving" w_align="left">待审批配额数</th>
+		</tr>
+	</table>
+	
+	<form id="yjzypepz_optForm">
+		<div class="mt10 clearfix">
+			<ul class="inputForm-ul fl w400">
+				<li>
+					<label class="inputForm-label">地区平台</label>
+					<input id="yjzypepz_opt_dqpt" name="yjzypepz_opt_dqpt" placeholder="选择地区平台" readonly="readonly" />
+					<input id="yjzypepz_opt_dqpt_no" name="yjzypepz_opt_dqpt_no" hidden="true" />
+				</li>
+				<li class="view-bg">
+					<label class="inputForm-label">计划内配额数</label>
+					<input type="text" id="yjzypepz_opt_jhnpes" name="yjzypepz_opt_jhnpes" class="inputForm-text view-bg" readonly="readonly" />
+				</li>
+				<li class="pr">
+					<label class="inputForm-label">本次申请配额数</label>
+					<input type="text" id="yjzypepz_opt_bcsqpes" name="yjzypepz_opt_bcsqpes" class="inputForm-text"  style="width:200px;" placeholder="选择配额" readonly="readonly" />
+					<span id="bcsqpes_zd" style="position: absolute; height: 30px; line-height: 30px; right: 55px; color: #aaa;"></span>
+					<input id="zypesq_xh" type="button" value="选号" class="pt5 pb5 pl10 pr10" >
+					<span class="required">*</span>
+				</li>
+				<li class="pr" style="width:898px;">
+					<label class="inputForm-label">申请配额号段</label>
+					<input type="text" id="yjzypepz_opt_sqpehd" name="yjzypepz_opt_sqpehd" class="inputForm-text" placeholder="选择申请配额号段" style="width:755px;"  readonly="readonly"/>
+					
+					<span class="required">*</span>
+				</li>
+			</ul>
+			<ul class="inputForm-ul fr w410">
+<!-- 				<li class="li-top view-bg">
+					<label class="inputForm-label-w130">可申请配额数</label>
+					<input type="text" id="yjzypepz_opt_ksqpes" name="yjzypepz_opt_ksqpes" class="inputForm-text view-bg" readonly="readonly" />
+				</li> -->
+				<li class="li-top view-bg">
+					<label class="inputForm-label">已分配配额数</label>
+					<input type="text" id="yjzypepz_opt_ysypes" name="yjzypepz_opt_ysypes" class="inputForm-text view-bg" readonly="readonly" />
+				</li>
+				<!-- <li class="view-bg">
+					<label class="inputForm-label-w130">申请后可使用配额数</label>
+					<input type="text" id="yjzypepz_opt_sqhksypes" name="yjzypepz_opt_sqhksypes" class="inputForm-text view-bg" readonly="readonly" />
+				</li> -->
+			</ul>
+		</div>
+		<ul class="inputForm-ul">
+			<li class="clearfix">
+				<label class="fl inputForm-label-h60">备注</label>
+				<textarea id="jsxxgl_opt_bz" name="jsxxgl_opt_bz" class="fl inputForm-textarea fl ml5" placeholder="输入备注，不超过300字"></textarea>
+			</li>
+		</ul>
+	</form>
+	
+	
+</div>

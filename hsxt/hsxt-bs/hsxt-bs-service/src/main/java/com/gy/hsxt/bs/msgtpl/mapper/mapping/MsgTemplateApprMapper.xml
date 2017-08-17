@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.msgtpl.mapper.MsgTemplateApprMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.bs.bean.msgtpl.MsgTemplateAppr">
+		<id column="APPLY_ID" jdbcType="VARCHAR" property="applyId" />
+		<result column="TEMP_ID" jdbcType="VARCHAR" property="tempId" />
+		<result column="STATUS" jdbcType="DECIMAL" property="status" />
+		<result column="REQ_STATUS" jdbcType="DECIMAL" property="reqStatus" />
+		<result column="REVIEW_RESULT" jdbcType="DECIMAL" property="reviewResult" />
+		<result column="REQ_OPT_ID" jdbcType="VARCHAR" property="reqOptId" />
+		<result column="REQ_OPT_NAME" jdbcType="VARCHAR" property="reqOptName" />
+		<result column="REQ_TIME" jdbcType="TIMESTAMP" property="reqTime" />
+		<result column="APPR_OPT_ID" jdbcType="VARCHAR" property="apprOptId" />
+		<result column="APPR_OPT_NAME" jdbcType="VARCHAR" property="apprOptName" />
+		<result column="APPR_TIME" jdbcType="TIMESTAMP" property="apprTime" />
+		<result column="APPR_REMARK" jdbcType="VARCHAR" property="apprRemark" />
+		<result column="TEMP_NAME" jdbcType="VARCHAR" property="tempName" />
+		<result column="TEMP_TYPE" jdbcType="DECIMAL" property="tempType" />
+		<result column="BIZ_TYPE" jdbcType="DECIMAL" property="bizType" />
+		<result column="CUST_TYPE" jdbcType="DECIMAL" property="custType" />
+		<result column="BUY_RES_TYPE" jdbcType="DECIMAL" property="buyResType" />
+		<result column="STATUS_TIME" jdbcType="TIMESTAMP" property="statusTime" />
+		<result column="LAST_APPLY_ID" jdbcType="VARCHAR" property="lastApplyId" />
+		<result column="TEMP_CONTENT" jdbcType="VARCHAR" property="tempContent" />
+		<result column="TEMP_FMT" jdbcType="VARCHAR" property="tempFmt" />
+		<result column="DEL_FLAG" jdbcType="DECIMAL" property="delFlag" />
+	</resultMap>
+
+	<!-- 插入消息模版审批 -->
+	<insert id="insertMsgTplAppr" parameterType="com.gy.hsxt.bs.bean.msgtpl.MsgTemplateAppr">
+		INSERT INTO
+		T_BS_MSG_TEMPLATE_APPR
+		(
+		APPLY_ID,
+		TEMP_ID,
+		REQ_STATUS,
+		REVIEW_RESULT,
+		REQ_OPT_ID,
+		REQ_OPT_NAME,
+		REQ_TIME,
+		APPR_OPT_ID,
+		APPR_OPT_NAME
+		)
+		VALUES
+		(
+		#{applyId},
+		#{tempId},
+		#{reqStatus},
+		#{reviewResult},
+		#{reqOptId},
+		#{reqOptName},
+		sysdate,
+		#{apprOptId},
+		#{apprOptName}
+		)
+	</insert>
+
+	<!-- 修改审批状态 -->
+	<update id="updateApprStatus">
+		update T_BS_MSG_TEMPLATE_APPR
+		set
+		REVIEW_RESULT =
+		#{reviewResult},
+		APPR_OPT_ID = #{apprOptId},
+		APPR_OPT_NAME =
+		#{apprOptName},
+		APPR_TIME = sysdate,
+		APPR_REMARK = #{apprRemark}
+		where
+		APPLY_ID = #{applyId}
+	</update>
+
+	<!-- 查询审批列表 -->
+	<select id="findMessageTplApprListPage" resultType="com.gy.hsxt.bs.bean.msgtpl.MsgTemplateAppr">
+		select
+		ta.APPLY_ID AS applyId,
+		ta.TEMP_ID AS tempId,
+		ta.REVIEW_RESULT AS
+		reviewResult,
+		ta.REQ_OPT_ID AS reqOptId,
+		ta.REQ_OPT_NAME AS reqOptName,
+		ta.REQ_TIME AS reqTime,
+		ta.APPR_OPT_ID AS apprOptId,
+		ta.APPR_OPT_NAME AS
+		apprOptName,
+		ta.APPR_TIME AS apprTime,
+		ta.APPR_REMARK AS apprRemark,
+		ta.REQ_STATUS AS reqStatus,
+		mt.TEMP_NAME AS tempName,
+		mt.TEMP_TYPE AS tempType,
+		mt.BIZ_TYPE AS bizType,
+		mt.CUST_TYPE AS custType,
+		mt.BUY_RES_TYPE AS buyResType,
+		mt.STATUS AS status,
+		mt.STATUS_TIME AS statusTime,
+		mt.LAST_APPLY_ID AS lastApplyId,
+		mt.TEMP_CONTENT AS tempContent,
+		mt.TEMP_FMT AS tempFmt,
+		mt.DEL_FLAG AS delFlag
+		from
+		T_BS_TASK bt,
+		T_BS_MSG_TEMPLATE_APPR ta,
+		T_BS_MSG_TEMPLATE mt
+		where
+		bt.biz_no = ta.temp_id
+		and mt.temp_id = ta.temp_id
+		and mt.TEMP_TYPE = #{tplType}
+		and mt.status != 2
+		and ta.review_result = 1
+		and	bt.status = 2
+		and bt.EXE_CUST_ID = #{exeCustId}
+		<if test="tplName!=null and tplName!=''">
+			and mt.TEMP_NAME like '%${tplName}%'
+		</if>
+		<if test="useCustType!=null">
+			and mt.CUST_TYPE = #{useCustType}
+		</if>
+		order by ta.REQ_TIME desc
+	</select>
+
+	<!-- 查询审批记录列表 -->
+	<select id="findApprHisListPage" resultMap="BaseResultMap">
+		select
+		*
+		from
+		T_BS_MSG_TEMPLATE_APPR ta
+		where
+		ta.REVIEW_RESULT != 1
+		and ta.TEMP_ID =
+		#{tempId}
+		order by ta.REQ_TIME desc
+	</select>
+
+	<!-- 查询审批模版详情 -->
+	<select id="findMsgTplApprInfo" resultMap="BaseResultMap">
+		select * from
+		T_BS_MSG_TEMPLATE_APPR where apply_id = #{applyId}
+	</select>
+</mapper>

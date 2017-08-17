@@ -1,0 +1,71 @@
+﻿<div class="acct-ct mb10" style=" margin-bottom:10px;">
+	<h1 class="clearfix pt10 pb10">
+		<div class="fl tr tcr_blue fb" style="width:38%;">温馨提示：</div>
+		<div class="fl tl" style="width:62%;">申报提交前，请先保存当前填写的资料，以防丢失！</div>
+	</h1>
+</div>
+<form id="qysczl_form" name="qysczl_form">
+<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+<div class="certificateBox bd_dot_gray">
+<ul class="certificateSample clearfix">
+	<li>
+		<span class="f13">法人代表证件正面 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-1" class="certificateSample_img certificateSample_01"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="lrCredentialFrontFileId" name="lrCredentialFrontFileId"></a><a id="case-fileId-1" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+	</li>
+	<li id="lrCredentialBackFileDiv">
+		<span class="f13">法人代表证件反面 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-2" class="certificateSample_img certificateSample_02"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="lrCredentialBackFileId" name="lrCredentialBackFileId"></a><a id="case-fileId-2" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+	</li>
+	<li>
+		<span class="f13">营业执照扫描件 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-3" class="certificateSample_img certificateSample_03"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="busLicenceFileId" name="busLicenceFileId"></a><a id="case-fileId-3" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+	</li>
+	<li>
+		<span class="f13">组织机构代码证扫描件 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-6" class="certificateSample_img certificateSample_04"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="organizationFileId" name="organizationFileId"></a><a id="case-fileId-6" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+	</li>
+	<li style="margin-right:0;">
+		<span class="f13">税务登记证扫描件 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-7" class="certificateSample_img certificateSample_05"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="taxplayerFileId" name="taxplayerFileId"></a><a id="case-fileId-7" class="btn_bg viewSample_btn ml5">查看示例图片</a></div>
+	</li>
+	<li id="li-venBefProtocolId" style="margin-right:0;">
+		<span class="f13">创业帮扶协议 <span class="red">*</span></span>
+		<div class="mt10 mb10 sampleBox"><i id="thum-8" class="certificateSample_img certificateSample_08"></i></div>
+		<div class="bc w140"><a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="venBefProtocolId" name="venBefProtocolId"></a><a id="case-fileId-8" class="btn_bg viewSample_btn ml5">下载模板</a></div>
+	</li>
+</ul>
+</div>
+<div class="mt40 info_800 bc">
+<ul>
+	<li class="register_row clearfix">
+		<label class="fl w115 h60_middle">备注说明</label>
+		<textarea id="aptRemark" name="aptRemark" class="fl ml5 h50 w660 rsn pt5 pb5 isChange" placeholder="输入说明，不超过300个字"></textarea>
+	</li>
+</ul>
+</div>
+<div class="w300 clearfix bc mt20">
+	<a class="btn_bg submit fl none" id="qysczl_back">返　回</a>
+	<a class="btn_bg submit fl ml15 mr15" id="qysczl_save">保&#12288;存</a>
+	<a class="btn_bg submit fr" id="qysczl_sbtj">申报提交</a>
+</div>
+
+<input type="hidden" id="venBefFlag"><!-- 被申报企业客户类型 -->
+<input type="hidden" id="real-fileId-1"><!-- 法人代表证件正面文件ID -->
+<input type="hidden" id="real-fileId-2"><!-- 法人代表证件反面文件ID -->
+<input type="hidden" id="real-fileId-3"><!-- 营业执照扫描件文件ID -->
+<input type="hidden" id="real-fileId-6"><!-- 组织机构代码证扫描件文件ID -->
+<input type="hidden" id="real-fileId-7"><!-- 税务登记证扫描件文件ID -->
+<input type="hidden" id="real-fileId-8"><!-- 创业帮扶协议件文件ID -->
+<input type="hidden" id="aptitude-1"><!-- 法人代表证件正面资质附件ID -->
+<input type="hidden" id="aptitude-2"><!-- 法人代表证件反面资质附件ID -->
+<input type="hidden" id="aptitude-3"><!-- 营业执照扫描件资质附件ID -->
+<input type="hidden" id="aptitude-6"><!-- 组织机构代码证扫描件资质附件ID -->
+<input type="hidden" id="aptitude-7"><!-- 税务登记证扫描件资质附件ID -->
+<input type="hidden" id="aptitude-8"><!-- 创业帮扶协议件附件ID -->
+
+</form>

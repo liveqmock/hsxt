@@ -1,0 +1,116 @@
+
+<div class="operationsInner"> 
+  <!--内容添加开始-->
+  <div class="searchbox" id="paramList" style="height: 409px">
+  	<div class="search-toolbar">        	    
+        <ul class="cssform clearfix">
+        	<li class="ml20">
+               	<label class="title-int">登录用户名：</label>
+                    <div class="cont-int">
+                    	<input type="text" name="textfield" id="aAccountNo" value="" class="input-txt w100">
+                    </div> 
+                </li>
+                <li class="ml20">
+                    <label class="title-int">姓名：</label>
+                    <div class="cont-int">
+                    	<input type="text" name="textfield" id="aName" value="" class="input-txt w100">
+                    </div> 
+                </li>
+                <li class="ml20">
+                    <div class="cont-int">
+                    	<button id="btnSearch" type="button" class="btn-search">查询</button>
+                    </div>
+                </li>
+        	<li class="ml40">
+                <div class="cont-int">
+                    <button type="button" class="btn-search ml10 batch_del" >批量删除</button>                    
+                </div>
+            </li>
+            <li class="last">
+                <div class="cont-int">
+                    <button id="addEmployee" type="button" class="btn-search ml10 dlg2">添加</button>                    
+                </div>
+            </li>           
+         </ul>
+    </div>
+    <table id="gridMain">
+    	<tr>
+          <th w_render="operate" w_algin="left" width="6%"><input id="all" type="checkbox" /><span>全选</span></th>
+          <th w_render="operate" w_algin="left" width="10%">登录用户名</th>
+          <th w_render="operate" w_algin="left" width="10%">姓名</th>
+          <th w_render="operate" w_algin="left" width="12%">职务</th>
+          <th w_render="operate" w_algin="left" width="12%">互生卡号</th>
+          <th w_render="operate" w_algin="left" width="12%">手机号</th>
+          <th w_render="operate" w_algin="left" width="8%">状态</th>
+          <th w_render="operate" w_algin="left" width="30%">操作</th>
+       	</tr>
+    </table>
+    <!-- 集合处理区 -->
+    <div class="search-cont" id="employeeList" style="min-height: 350px">
+
+    </div>
+  </div>
+  <!--内容添加结束--> 
+</div>
+
+<!--弹出框内容及脚本开始-->
+
+<div id="dlg1" class="none">
+  <p class="table-del">确认删除？</p>
+</div>
+<div id="store" class="none">
+  
+</div>
+
+<!--弹出框内容及脚本结束--> 
+
+<!--弹出框内容及脚本开始-->
+<div id="dlg2" class="none">
+  <p class="table-del">确认删除?</p>
+</div>
+<div id="store2" class="none">
+  <p class="table-del">确定是否删除?</p>
+</div>
+<!--弹出框内容及脚本结束--> 
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+<!-- 绑定互生卡号弹出框 -->
+<div class="none" id="score_card">
+  <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td align="right">登录用户名：</td>
+        <td><input type="text" class="disabled" id="card_name" disabled="disabled"></td>
+      </tr>
+      <tr>
+        <td align="right">姓名：</td>
+        <td><input type="text" class="disabled" id="card_fullName" disabled="disabled"></td>
+      </tr>
+      <tr>
+        <td align="right">互生卡号：</td>
+        <td><input type="text" id="card_resourceNo" maxlength="11" placeholder="请输入11位数字互生卡号"><span id="resourceNoColor"></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="dlg34" class="none">
+</div>
+<!-- 绑定互生卡号弹出框 -->
+
+<!-- 重置密码弹出框 -->
+<div class="none" id="restAccountPwd_dlg">
+  <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+      <tr>
+        <td align="right">新密码：</td>
+        <td><input type="password" id="newAccountPwd" maxlength="6" style="border: 1px solid #CCC;" class="inpt"><span style="color: red" id="PwdInput"></span></td>
+      </tr>
+       <tr>
+        <td align="right">再次输入新密码：</td>
+        <td><input type="password" id="newAccountPwdTwo" style="border: 1px solid #CCC;" maxlength="6"><span style="color: red" id="PwdInputTwo"></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- 重置密码弹出框-->

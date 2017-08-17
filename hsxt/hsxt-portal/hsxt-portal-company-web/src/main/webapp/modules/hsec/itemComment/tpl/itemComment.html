@@ -1,0 +1,95 @@
+
+                 <div class="shopebox comment" style="height: 410px"><!--列表内容开始-->
+                   
+                  <div class="search-toolbar">
+                   	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">订单编号：</label>
+                                <div class="cont-int">
+                                	<input type="text" class="input-txt" value="" id="orderId" name="textfield" maxlength="17">
+                                </div> 
+                            </li>
+                            
+                            <li class="mr20">
+                                <label class="title-int">商品名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" class="input-txt" value="" id="itemName" name="textfield">
+                                </div> 
+                            </li>
+                         
+                                 <li >
+                                <label class="title-int" style="width:36px;">星级：</label>
+                                <input id="itemScore" placeholder="全部" readonly="readonly" optionvalue=""  />
+                                    <!--  <div class="cont-chk">
+                                     <select style="width:138px" id="itemScore" class="select_radius">
+                                     <option value="">全部</option>
+                                        <%for(var i = 5;i>0;i--){ %>
+										 <option value="<%=i%>"><%for(var j = i;j>0;j--){ %>*<%}%></option>
+										  <%}%>
+                                    </select>
+                                </div> -->
+                            </li>
+                            <li class="mr20" id="shopType" style="display: none;">
+                            	<label class="title-int">营业点：</label>
+                                <div class="cont-chk"><select style="width:170px" id="shopId" class="select_radius">
+                                				<option value="">全部</option>                                   		                                   
+                           						</select>
+                                </div>
+                            </li>
+                            </ul>
+                            <ul class="cssform clearfix">
+                                     <li class="mr10">
+                                <label class="title-int">昵称：</label>
+                                <div class="cont-int">
+                                	<input type="text" class="input-txt" value="" id="userName" name="textfield">
+                                </div> 
+                            </li>
+                                  <li >
+                                <label class="title-int">价格区间：</label>
+                                <div class="cont-int">
+                                	<input type="text" class="input-txt" value="" id="beginPrice" name="textfield">
+                                    <span class="white"> - </span>
+                                    <input type="text" class="input-txt" value="" id="endPrice" name="textfield">
+                                </div> 
+                            </li>
+                            <li >
+                                <label class="title-int">日期范围：</label>
+                                <div class="cont-int">
+                                	<input type="text" class="input-txt" style="width:100px" value="" id="beginTime" name="textfield">
+                                    <span class="white"> - </span>
+                                    <input type="text" class="input-txt w100" style="width:100px" value="" id="endTime" name="textfield">
+                                </div> 
+                            </li>
+                            
+                            <li>
+                                <div class="cont-int">
+                                	<button class="btn-search w80" type="button" id="query" >查询</button>
+                                    
+                                </div>
+                            </li>
+                            
+                         </ul>
+                    
+                    </div>
+        <table id="itemCommentGridMain">
+        	 <tr>
+        		<th width="10%">星级</th>
+        		<th width="15%">标签</th>
+        		<th width="30%">内容</th>
+        		<th width="25%">商品信息</th>
+        		<th width="20%">操作</th>
+        	</tr> 
+        	<tr class="none">
+		      <th w_index="" w_align="left" colspan="5"></th>
+		    </tr>
+        </table>            
+ <!--内容添加结束-->
+     </div>
+
+<!-- 操作台结束 -->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>
+
+
+                

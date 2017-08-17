@@ -1,0 +1,42 @@
+
+<form id="hsb_appForm" autocomplete="off" name="hsb_appForm" method="post" onsubmit="return false;">
+<input type="hidden" name="htc_hid_hsbAccTotal" id="htc_hid_hsbAccTotal" />
+<input type="hidden" name="htc_hid_minHsbNum" id="htc_hid_minHsbNum" />
+<input type="hidden" name="htc_currencyCode" id="htc_currencyCode" />
+<input type="hidden" name="htc_hid_currencyFee" id="htc_hid_currencyFee" />
+<input type="hidden" name="htc_hid_exchangeRate" id="htc_hid_exchangeRate" />
+
+<div id="hsbPoint">
+    <div class="acct-ct mb20">
+        <h1 class="acct-tips lh150 bc " style="width:380px;text-align:left;">
+        <span class="tcr_blue fb">温馨提示:</span><br />
+        1、互生币账户的流通币可转出，转出数为不小于<span id="htc_minHsbNum"></span>的整数！<br/>
+        2、互生币转货币账户须扣除<span  id="htc_currencyFee"></span>%的互生币作为货币转换费。<br/>
+        3、可用互生币数 = 互生币账户余数（流通币） - <span  id="hsbMinimum"></span>（保底互生币数）
+        </h1>
+    </div>
+    <div class="bc mt20 info_320">
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w115">可转数量</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_cpointTotalNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">转出数量</label><input id="hsb_appNum" name="hsb_appNum" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入互生币数量"  maxlength="10"/><div class="hint"></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">转入账户</label><div class="cont-chk tbox"><span class="ml10">货币账户</span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">货币转换费(<span class="htc_fee red" id="htc_txt_currencyFee"></span>%)</label><div class="cont-chk tbox"><span class="ml10" id="acpoint_feeNum"></span></div>
+            </li>
+            <li class="clearfix">
+                <label class="title-txt w115">实际转入数量</label><div class="cont-chk tbox"><span class="ml10" id="hsb_realMoney"></span></div>
+            </li>
+        </ul>
+        <div class="mt20 tc">
+            <a href="javascript:;" id="hsbQrBtn" class="btn_bg submit">提&#12288;交</a>
+        </div>
+    </div>
+</div>
+</form>
+<div class="view_info mt40 info_500 none" id="hsbPoint_affirm"></div>

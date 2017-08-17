@@ -1,0 +1,48 @@
+<%if(obj != null && obj != ""){ try{%>
+<div class="pllb_content myTable">
+   <ul>
+   <li class="pllb_contentli" style="width: 10%">
+   <%for(var i = obj.score;i>0;i--){ %>
+   	*
+   <%}%>
+   </li>
+   <li class="pllb_contentli eps" style="width: 15%;word-break: break-all"><%=obj.tag%></li>
+   <li class="pllb_contentli clearfix reply_cont" style="width: 30%">  
+   <ul class="">
+     <li class="pllb_liboeder" style="white-space: normal;  word-wrap: break-word!important;    word-break: break-all!important;    display: block;"><div style="float: left;">【评价】</div><%=obj.content!=""?obj.content:"评价方未及时作出评价时，系统默认好评！"%><br />【<%=obj.commentTime%>】</li>
+     <%if(obj.reply!=null && obj.reply!=""){%>
+     <li class="pllb_liboeder tcr_red" style="white-space: normal;  word-wrap: break-word!important;    word-break: break-all!important;    display: block;"><div style="float: left;">【回复】</div><%=obj.reply.reply%><br />【<%=obj.reply.replyTime%>】</li>
+     <%}%>
+      <%if(obj.appendComment!=null && obj.appendComment!=""){%>
+     <li class="pllb_liboeder last" style="white-space: normal;  word-wrap: break-word!important;    word-break: break-all!important;    display: block;"><div style="float: left;">【追评】</div><%=obj.appendComment%><br />【<%=obj.appendCommentTime%>】</li>
+  	  <%}%>
+   </ul>
+   <%if(obj.reply==null){%>
+   <form class="form1">
+    <div class="pllb_textareabox" >
+       <div class="reply_arrow">▲</div>
+       <input type="hidden" name="conmentID" class="conmentID" value="<%=obj.id%>"/>
+      <textarea name="" cols="" rows="" name="reply" class="pllb_textarea" placeholder="请输入……"></textarea>
+      <div class="reply" style="float: right;position: robjative;"><input type="button" name="button"  value="发送回复" class="btn_bg submit submitYes" /></div>
+    </div>
+   </form>
+   <%}%>
+   </li>
+   <li class="pllb_contentli" style="width: 25%">
+   <ul>
+   <li class="pllb_spxxli div_spill">商品名称：<span class="div_spill" title="<%=obj.itemName%>"><%=obj.itemName%><span></li>
+   <li class="pllb_spxxli tcr_red"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格：<%=comm.formatMoneyNumber(obj.price)%></li>
+   <li class="pllb_spxxli">订单编号：<%=obj.orderId%></li>
+   <li class="pllb_spxxli">订单日期：<%=obj.buyTime%></li>
+   <li class="pllb_spxxli"><%if(obj.userName != null && obj.userName != ""){%>昵称：<%=obj.userName%><%}%></li>
+   <li class="pllb_spxxli red"><%if(obj.dobjStatus == 1){%>评价已删除<%}%></li>
+   </ul>
+   </li>
+  <%if(obj.reply==null){%>
+    <li class="pllb_contentli mt4">
+     <input id="" type="button" value="回复" class="btn_reply btn_bg submit">
+    </li>
+    <%}%>
+   </ul>
+</div>
+<%}catch(e){} }%>

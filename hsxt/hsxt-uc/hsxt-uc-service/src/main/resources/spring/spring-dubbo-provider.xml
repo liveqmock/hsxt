@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+    
+    <!-- 发布服务 -->
+   
+   <!-- 消费者 tianxh 2015-11-06 begin -->
+   <!-- AS接入系统调用	begin -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderAuthInfoService" ref="UCAsCardHolderAuthInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService" ref="UCAsCardHolderService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderStatusInfoService" ref="UCAsCardHolderStatusInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.consumer.IUCAsNoCardHolderService" ref="UCAsNoCardHolderService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsNetworkInfoService" ref="UCNetworkInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <!-- AS接入系统调用	end -->
+   
+   <!-- BS接入系统调用	begin -->
+   <dubbo:service interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderAuthInfoService" ref="UCBsCardHolderAuthInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0" />
+	<dubbo:service interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderService" ref="UCBsCardHolderService" timeout="${dubbo.service.timeout300s}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0" />
+   
+   <dubbo:service interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsCardHolderStatusInfoService" ref="UCBsCardHolderStatusInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <dubbo:service interface="com.gy.hsxt.uc.bs.api.consumer.IUCBsNoCardHolderService" ref="UCBsNoCardHolderService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <!-- BS接入系统调用	end -->
+   
+   <!-- 消费者 tianxh 2015-11-06 end -->
+   
+   
+   
+   <!-- 收货地址 tianxh 2015-11-06 begin -->
+   <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsReceiveAddrInfoService" ref="UCAsReceiveAddrInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <!-- 收货地址 tianxh 2015-11-06 end -->
+   
+   <!-- 同步签约号 tianxh 2015-11-06 begin -->
+   <dubbo:service interface="com.gy.hsxt.gp.api.IGPNotifyBingNoService" ref="GPNotifyBingNoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <!-- 同步签约号 tianxh 2015-11-06 end -->
+   
+    <!-- BD数据挖掘调用 add by tianxh  2015-11-19	begin -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.sysoper.IUCAsSysOperInfoService" ref="UCAsSysOperInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- BD数据挖掘调用 add by tianxh  2015-11-19 end -->
+   
+	<!-- 设备签入 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsDeviceSignInService" ref="UCAsDeviceSignInService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	<!-- 鉴权 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsAuthService" ref="UCAsAuthService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 登录 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCLoginService" ref="UCAsLoginService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 随机token -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsTokenService" ref="UCAsTokenService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 退出登录 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsLogoutService" ref="UCAsLogoutService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 密码 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdService" ref="UCAsPwdService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 密保 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdQuestionService" ref="UCAsPwdQuestionService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 手机短信处理类 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsMobileService" ref="UCAsMobileService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <dubbo:service interface="com.gy.hsxt.uc.bs.api.common.IUCBsMobileService" ref="UCBsMobileService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    
+    <!-- 预留信息 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsReserveInfoService" ref="UCAsReserveInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+     <!-- 文件系统鉴权 -->
+    <dubbo:service interface="com.gy.hsxt.uc.fs.api.common.IUCFsAuthService" ref="UCFsAuthService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+    <!-- 双签员 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.checker.IUCAsDoubleCheckerInfoService" ref="UCAsDoubleCheckerInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+    <!-- 非持卡人证件信息 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.consumer.IUCAsNoCardHolderAuthInfoService" ref="UCAsNoCardHolderAuthInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" version="1.0.0"/>
+   
+
+    
+    <!-- 银行帐户信息 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsBankAcctInfoService" ref="UCAsBankAcctInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   <dubbo:service interface="com.gy.hsxt.uc.bs.api.common.IUCBsBankAcctInfoService" ref="UCBsBankAcctInfoService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   
+    <!-- Email -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.common.IUCAsEmailService" ref="UCAsEmailService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+   	<!-- 企业管理 -->
+    <dubbo:service interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService" ref="asEntService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	<dubbo:service interface="com.gy.hsxt.uc.bs.api.ent.IUCBsEntService" ref="bsEntService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	<dubbo:service interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntGroupService" ref="asEntGroupService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	   
+	<!-- 操作员管理 -->
+	<dubbo:service interface="com.gy.hsxt.uc.as.api.operator.IUCAsOperatorService" ref="operatorService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	<!-- 设备管理 -->
+	<dubbo:service interface="com.gy.hsxt.uc.as.api.device.IUCAsDeviceService" ref="asDeviceService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	<dubbo:service interface="com.gy.hsxt.uc.bs.api.device.IUCBsDeviceService" ref="bsDeviceService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+	
+ 	
+ 	<!-- 权限模块 begin  -->
+ 	<dubbo:service interface="com.gy.hsxt.uc.as.api.auth.IUCAsPermissionService" ref="permissionService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+ 	<dubbo:service interface="com.gy.hsxt.uc.as.api.auth.IUCAsRoleService" ref="roleService" timeout="${dubbo.service.timeout5000}"  actives="${dubbo.service.actives}" connections="${dubbo.reference.connections}" version="1.0.0"/>
+ 	<!-- 权限模块 end  -->
+ 	
+ 	<!-- 综合前置模块 begin -->
+ 	<bean id="ufRegionPacketService" class="com.gy.hsxt.uf.UFRegionPacketSupport">
+		<constructor-arg ref="UFRegionPacketDataService" />
+	</bean>
+	<!-- 综合前置模块 end  -->
+
+</beans>

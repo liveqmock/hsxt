@@ -1,0 +1,189 @@
+<%
+	var data = obj.data;
+	var kouwei = data.kouwei;
+	data = data.salerShopCategoryList; 
+%>
+
+
+  <!-- 操作台切换标签开始 -->
+  
+  <!-- 操作台切换标签结束 --> 
+  <!--内容添加开始-->
+  <div class="mallStore goods p20 searchbox">
+    <div class="search-cont">
+      <form id="itemOneForm">
+      <table id="tab1" class="detail"border="0" cellspacing="0" cellpadding="0" style="display: table;">
+        <tbody>
+        <tr>
+          <td width="235" align="right">菜品名称<span class="red">*</span><a name="bbb"></a>
+          </td>
+          <td width="310"><input class="inpt remain" type="text" id="itemName" name="name" value="" maxlength="30"></td>
+          <td align="left" style="width:500px;">
+          	还能输入<span class="red">30</span>字
+          	<span class="errorInfo"></span>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">拼音码<span class="red">*</span>
+          </td>
+          <td>
+          	<input class="inpt remain" type="text" id="pinyingCode" name="pinyingCode" value="" maxlength="30">
+          	
+          </td>
+          <td align="left">
+          	<span class="errorInfo"></span>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">菜品编码</td>
+          <td><input class="inpt" type="text" id="code" name="code" value="" maxlength="5"></td>
+          <td align="left">1-5位数字<img src="resources/img/hslt_0333.gif" width="16" class="ml10" style="vertical-align:middle;" title="通过菜品编码，能快速查找菜品">
+          	<span class="errorInfo"></span>
+          </td>
+        </tr>
+        <tr class="integral">
+          <td align="right">菜品图片<span class="red">*</span></td>
+          <td colspan="2">
+          	<div id="pingbi" style="max-width: 850px">
+                <div style="text-align: center;max-width:850px;" class="bc" id="shopImgList">
+                  <ul style="width: 114px;float: left;">
+					<li data-index="0" class="photo">
+					<span class="pr addImgBox_style" style="width: 112px;height: 112px">
+						<input type="hidden" id="picVal">
+						<input class="imgObject" name="imgObject">
+						<input type="file" name="shopPhoto" id="shopPhoto" style="width: 112px;height: 112px">
+						<img src="resources/img/store_main_img_1.gif" width="112" height="112">
+					</span>
+                    </li>
+                  </ul>
+                </div>
+               
+             </div>
+              <span class="errorInfo ml10"></span>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td colspan="2">
+            <div class="clearfix">
+              <div class="fl red" style="width:66px;">温馨提示：
+</div>
+              <div class="fl" style="">
+              	<ul><li class="red">1、建议上传400*400的图片，上传图片支持格式jpg、png、jpeg、bmp。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传1张图片。</li>
+				</ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="integral" id="zhoubian">
+          <td align="right">口味</td>
+          <td class="pr">
+          <input id="feellist" name="taste" class="inpt" type="text" value="" readonly="readonly">
+          <i class="goodsC_arrow cp" id="gArrow1" title="点击选择口味" style="left: 302px"></i>
+          <div class="feellist" style="display: none;" id="zhoubianDiv"> 
+       		<ul class="clearfix">
+              <%try{%>
+                <%$.each(kouwei,function(k1,v1){%>
+          			<li><label><input type="checkbox"  name="kouwei" value="<%=v1.name%>" valueId="<%=v1.id%>"><%=v1.name%></label></li>
+          		<%
+          		})
+          		}catch(e){}
+          		%>
+             </ul>
+          </div>
+          </td>
+          <td align="left">最多可选择<span id="kouwei_max" class="red">5</span>个</td>
+        </tr>
+        <tr>
+          <td align="right">菜品分类<span class="red">*</span><a name="aaa"></a>
+          <input id="itemId" name="id" type="hidden"/>
+          </td>
+          <td class="pr">
+          	<input id="categoryId" name="categoryId" type="hidden" value=""/>
+            <input id="categoryName" class="inpt cp" name="categoryName" type="text" value="" readonly="readonly">
+          	<i class="goodsC_arrow cp" id="gArrow" title="点击选择商品类目" style="left: 302px"></i>
+            <div id="category_content">
+            	
+            </div>
+          </td>
+          <td align="left"><span class="errorInfo"></span></td>
+        </tr>
+        <tr class="priceTr" style="display: none;">
+          <td width="235" align="right">菜品价格<span class="red">*</span>
+          </td><!-- 放大验证的数据Bug：24820 -->
+          <td width="310"><input class="inpt remain" id="price_un" name="price_un" type="text" value="" maxlength="9"></td>
+          <td align="left">价格必须在0~999999 之间，单位：互生币  1互生币=1人民币&nbsp;&nbsp;<span class="errorInfo"></span></td>
+        </tr>
+        <tr class="integral">
+        	<td colspan="3">
+        		<div id="propTable">
+       			</div>
+        	</td>
+        </tr>
+        <tr class="integral">
+          <td align="right">企业自定义分类</td>
+          <td>
+          	<div class="pl10 shangcheng_spfl_box">
+          		<ul class="shopDiyClass">
+            	<%
+            		if(data!=null){
+            		try { $.each(data,function(key,category){
+            		if(category.parentId==0){
+            	 %>
+            		<li>
+            			<input type="checkbox" name="vshopCategory" id="c_<%=category.id%>" value="<%=category.id%>" /><%=category.name%>
+                    </li>
+            	<%	
+            		}
+            		}) }catch(e){};
+            		}
+            	%>
+                </ul>
+            </div>
+          </td>
+          <td align="left">&nbsp;</td>
+        </tr>
+      </tbody>
+      </table>
+       </form>
+      
+	<!-- div id="tab2" class="detail" style="display: none;">
+      <form id="itemTwoForm">
+       
+      <table id="tab2_ipt" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <td width="60" align="right">商品类目<a name="aaa"></a>
+          <input id="itemId" name="id" type="hidden"/>
+          </td>
+          <td width="310" class="pr">
+          	<input id="categoryId" name="categoryId" type="hidden" value=""/>
+            <input id="categoryName" class="inpt cp" name="categoryName" type="text" value="">
+          	<i class="goodsC_arrow cp" id="gArrow" title="点击选择商品类目"></i>
+            <div id="category_content">
+            	
+            </div>
+          </td>
+          <td align="left">&nbsp;</td>
+        </tr>
+       </tbody></table>
+       
+       <div id="propTable">
+       </div>
+      	
+   	  </form>
+      </div-->
+      <p class="ta ">
+        <a class="btn_bg submit detail" id="saveBtn">发&nbsp;&nbsp;布</a>
+        <input type="hidden" id="flag" value="0">
+      </p>
+    </div>
+  </div>
+  <!--内容添加结束-->
+ 
+<!--弹出框内容及脚本开始-->
+<div id="dlg0" class="none">
+  <p id="table-point"></p>
+</div>

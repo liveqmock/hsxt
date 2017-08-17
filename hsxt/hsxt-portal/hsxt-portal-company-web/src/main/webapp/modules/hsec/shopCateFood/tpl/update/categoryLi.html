@@ -1,0 +1,16 @@
+<%
+	var category = obj.category;
+	var cateId = obj.cateId;
+%>
+ <ul class="cglist_sc">
+<%	
+	$.each(category,function(key,c){
+         if(cateId == c.parentId){
+%>
+   		
+   <li data-id="<%=c.id%>"><a class="clearfix category"><span class="fl"><%=c.categoryName %></span><i></i></a></li>
+<%	
+		}
+	});
+%>
+</ul>    

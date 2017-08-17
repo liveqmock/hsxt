@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+
+<!--
+	<context:property-placeholder
+		location="file:${user.dir}/conf/redis.properties"
+		ignore-unresolvable="true" />
+-->
+
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${redis.host1}" p:port="${redis.port1}" p:password="${redis.pwd1}"
+		p:pool-config-ref="poolConfig" p:database="${redis.db1}" />
+
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="keySerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="hashKeySerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+	</bean>
+	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+    	<property name="connectionFactory" ref="connectionFactory" />
+  	</bean>
+
+	<bean id="connectionFactory2"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:host-name="${redis.host2}" p:port="${redis.port2}" p:password="${redis.pwd2}"
+		p:pool-config-ref="poolConfig" p:database="${redis.db2}" />
+
+	<bean id="redisTemplate2" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory2" />
+		<property name="keySerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="hashKeySerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+	</bean>
+	<bean id="stringRedisTemplate2" class="org.springframework.data.redis.core.StringRedisTemplate">
+    	<property name="connectionFactory" ref="connectionFactory2" />
+  	</bean>
+
+
+	<!-- 定义2个缓存，1个用于存储信息固定变动较少的信息，如用户信息，1个缓存为常变信息 ，如用户登录信息 -->
+
+	<bean name="fixRedisUtil" class="com.gy.hsi.redis.client.api.RedisUtil">
+		<property name="redisTemplate" ref="redisTemplate" />
+		<property name="stringRedisTemplate" ref="stringRedisTemplate" />
+	</bean>
+	
+	<bean name="changeRedisUtil" class="com.gy.hsi.redis.client.api.RedisUtil">
+		<property name="redisTemplate" ref="redisTemplate2" />
+		<property name="stringRedisTemplate" ref="stringRedisTemplate2" />
+	</bean>
+
+</beans>
+ 

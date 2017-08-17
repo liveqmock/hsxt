@@ -1,0 +1,42 @@
+<div id="xfzsmrzspcxTpl">
+
+	<form id="search_form">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>日期范围：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115" />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+			</li>
+			<li>
+				<label>互生卡号：</label>
+				<input type="text" name="pResNo" id="pResNo" maxlength="11" placeholder="输入互生卡号" class="h28_middle input-txt w115" />
+			</li>
+			<li>
+				<label>姓名：</label>
+				<input type="text" name="p_name" id="p_name" placeholder="输入姓名" class="h28_middle input-txt w115" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="xfz_statues" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li>
+				<button id="xfzcx_searchBtn" type="button" class="btn-search">查询</button>
+			</li>
+		</ul>
+	</div>
+	</form>
+	
+	<table id="searchTable" class="bsgrid">
+		<tr>
+			<th w_index="perResNo">互生卡号</th>
+			<th w_index="linkman">联系人姓名</th>
+			<th w_index="linkmanMobil">联系人手机</th>
+			<th w_index="applyDate">申请时间</th>
+			<th w_index="status" w_render="operate">状态</th>
+			<th w_index="statusDate">状态日期</th>
+			<th w_render="operate">操作</th>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,374 @@
+<div id="ywblxx_xgTpl" class="table_info info_800">
+	<% if(obj.num == 'xfz'){ %>
+	<div class="mb10 fb">互生卡号:<%=obj.perResNo%></div>
+	<form id="ywblxx_xg_perInfo_form">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">修改前内容</td>
+			<td class="table_title" width="40%">修改后内容</td>
+		</tr>
+		
+		<!-- 当证件类型为身份证或护照时加载的数据 -->
+		<%if(obj.creTypeNew == '1' || obj.creTypeNew == '2'){%>
+		<tr>
+			<td class="table_item">姓名</td>
+			<td class="view_text"><%=obj.nameOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="nameOld" name="nameOld" value="<%=obj.nameOld%>"/>
+				<input type="text" id="nameNew" name="nameNew" value="<%=obj.nameNew%>" maxlength="20" class="table_info_input isChange" placeholder="输入姓名" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">性别</td>
+			<td class="view_text"><%=obj.sexOldText%></td>
+			<td class="table_text">
+				<input type="hidden" id="sexOld" name="sexOld" value="<%=obj.sexOld%>"/>
+				<input type="text" id="sexNew" name="sexNew" optionvalue="<%=obj.sexNew%>" placeholder="输入性别" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">国籍</td>
+			<td class="view_text" id="ywblxx_xg_nationalityOld"><%=obj.nationalityOld%></td>
+			<td class="table_text" >
+			<div data-tag="div-input-select" style="width:299px;display:inline-block;">
+				<input type="hidden" id="nationalityOld" name="nationalityOld" value="<%=obj.nationalityOld%>"/>
+				<!-- <input type="text" id="nationalityNew" name="nationalityNew" class="table_info_input" placeholder="输入国籍" /> -->
+				<select class="selectList-input" id="nationalityNew" name="nationalityNew" style="width:295px;height:24px;font-size:12px;line-height:30px;border:0px solid rgb(102, 204, 102);margin-bottom:3px;"></select>
+				<span data-tag="span-icon-select" tabindex="0" hidefocus="true" class="selectList-span" style="margin-top: -27.5px;"></span>
+			</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">证件类型</td>
+			<td class="view_text"><%=obj.creTypeOldText%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.creTypeOld%>" id="creTypeOld" name="creTypeOld"/>
+				<input optionvalue="<%=obj.creTypeNew%>" id="certificates_type" disabled="disabled" placeholder="选择证件类型"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">证件号码</td>
+			<td class="view_text"><%=obj.creNoOld%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.creNoOld%>" id="creNoOld" name="creNoOld"/>
+				<input type="text" value="<%=obj.creNoNew%>" id="creNoNew" name="creNoNew" class="table_info_input isChange" placeholder="输入证件号码" />
+			</td>
+		</tr>
+		
+		<%}%>
+		
+		<%if(obj.creTypeNew == '1'){%>
+		<tr>
+			<td class="table_item">证件有效期</td>
+			<td class="view_text"><%=obj.creExpireDateOld%></td>
+			<td class="table_text">
+					<input type="hidden" value="<%=obj.creExpireDateOld%>" id="creExpireDateOld" name="creExpireDateOld"/>
+					<input type="text" class="table_info_input isChange" readonly="readonly" style="width:230px;" value="<%=obj.creExpireDateNew%>" id="creExpireDateNew" name="creExpireDateNew" placeholder="输入证件有效期" />
+					<input type="checkbox" class="mt8" value="长期" id="long-term"><label for="long-term" class="ml5 h30_middle label_noStyle">长期</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">发证机关</td>
+			<td class="view_text"><%=obj.creIssueOrgOld%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.creIssueOrgOld%>" id="creIssueOrgOld" name="creIssueOrgOld"/>
+				<input type="text" value="<%=obj.creIssueOrgNew%>" id="creIssueOrgNew"  maxlength="20" name="creIssueOrgNew" class="table_info_input isChange" placeholder="输入发证机关" />
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">户籍地址</td>
+			<td class="view_text"><%=obj.registorAddressOld%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.registorAddressOld%>" id="registorAddressOld" name="registorAddressOld"/>
+				<input type="text" value="<%=obj.registorAddressNew%>" id="registorAddressNew" maxlength="128" name="registorAddressNew" class="table_info_input isChange" placeholder="输入户籍地址" />
+			</td>
+		</tr>
+		<%}%>
+		<%if(obj.creTypeNew == '2'){%>
+			<tr>
+				<td class="table_item">证件有效期</td>
+				<td class="view_text"><%=obj.creExpireDateOld%></td>
+				<td class="table_text">
+						<input type="hidden" value="<%=obj.creExpireDateOld%>" id="creExpireDateOld" name="creExpireDateOld"/>
+						<input type="text" class="table_info_input isChange" value="<%=obj.creExpireDateNew%>" id="creExpireDateNew" readonly="readonly" name="creExpireDateNew" placeholder="输入证件有效期" />
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">出生地点</td>
+				<td class="view_text"><%=obj.registorAddressOld%></td>
+				<td class="table_text">
+					<input type="hidden" value="<%=obj.registorAddressOld%>" id="registorAddressOld" name="registorAddressOld"/>
+					<input type="text" value="<%=obj.registorAddressNew%>" id="registorAddressNew" maxlength="128" name="registorAddressNew" class="table_info_input isChange" placeholder="输入出生地点" />
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">签发地点</td>
+				<td class="view_text"><%=obj.issuePlaceOld%></td>
+				<td class="table_text">
+					<input type="hidden" value="<%=obj.issuePlaceOld%>" id="issuePlaceOld" name="issuePlaceOld"/>
+					<input type="text" value="<%=obj.issuePlaceNew%>" id="issuePlaceNew" name="issuePlaceNew" maxlength="128" class="table_info_input isChange" placeholder="输入签发地点" />
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">签发机关</td>
+				<td class="view_text"><%=obj.creIssueOrgOld%></td>
+				<td class="table_text">
+					<input type="hidden" value="<%=obj.creIssueOrgOld%>" id="creIssueOrgOld" name="creIssueOrgOld"/>
+					<input type="text" value="<%=obj.creIssueOrgNew%>" id="creIssueOrgNew" name="creIssueOrgNew" maxlength="20" class="table_info_input isChange" placeholder="输入签发机关" />
+				</td>
+			</tr>
+		<%}%>
+		
+		<!-- 当证件类型为营业执照时加载的数据 -->
+		<%if(obj.creTypeNew == '3'){%>
+		<tr>
+			<td class="view_item">企业名称</td>
+			<td class="view_text"><%=obj.entNameOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="entNameOld" name="entNameOld" value="<%=obj.entNameOld%>"/>
+				<input type="text" id="entNameNew" name="entNameNew" value="<%=obj.entNameNew%>" maxlength="64" class="table_info_input isChange" placeholder="输入企业名称" />
+			</td>
+			
+		</tr>
+		<tr>
+			<td class="view_item">证件类型</td>
+			<td class="view_text"><%=obj.creTypeOldText%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.creTypeOld%>" id="creTypeOld" name="creTypeOld"/>
+				<input optionvalue="<%=obj.creTypeNew%>" id="certificates_type" disabled="disabled" placeholder="选择证件类型"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">营业执照号码</td>
+			<td class="view_text"><%=obj.creNoOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="creNoOld" name="creNoOld" value="<%=obj.creNoOld%>"/>
+				<input type="text" id="creNoNew" name="creNoNew" value="<%=obj.creNoNew%>" maxlength="20" class="table_info_input isChange" placeholder="输入营业执照号码" />
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">注册地址</td>
+			<td class="view_text"><%=obj.entRegAddrOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="entRegAddrOld" name="entRegAddrOld" value="<%=obj.entRegAddrOld%>"/>
+				<input type="text" id="entRegAddrNew" name="entRegAddrNew" value="<%=obj.entRegAddrNew%>" maxlength="128" class="table_info_input isChange" placeholder="输入注册地址" />
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">企业类型</td>
+			<td class="view_text"><%=obj.entTypeOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="entTypeOld" name="entTypeOld" value="<%=obj.entTypeOld%>"/>
+				<input type="text" id="entTypeNew" name="entTypeNew" value="<%=obj.entTypeNew%>" maxlength="20" class="table_info_input isChange" placeholder="输入企业类型" />
+			</td>
+		</tr>
+		<tr>
+			<td class="view_item">成立日期</td>
+			<td class="view_text"><%=obj.entBuildDateOld%></td>
+			<td class="table_text">
+				<input type="hidden" id="entBuildDateOld" name="entBuildDateOld" value="<%=obj.entBuildDateOld%>"/>
+				<input type="text" id="entBuildDateNew" name="entBuildDateNew" value="<%=obj.entBuildDateNew%>" class="table_info_input isChange" placeholder="输入成立日期" readonly="readonly"/>
+			</td>
+		</tr>
+		<%}%>
+		<tr>
+			<td colspan="3" class="billstyle">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					
+					<tr>
+						<td>
+							<div class="tc bc w200 mt10 mb10">
+								<span class="f13">证件正面</span>
+								<div class="mt10 mb10 sampleBox infobox" id="creFacePicOld">
+									<i id="thum-1" tabindex="creFacePicNew" class="certificateSample_img certificateSample_01"></i>
+								</div>
+								<div class="sample_btn w150 bc clearfix">
+									<a class="input-file btn_bg upload_btn">上传<input type="file" id="creFacePicNew" name="creFacePicNew"/></a>
+									<a id="person_demo_1" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+								</div>
+							</div>
+						</td>
+						<%if(obj.creTypeNew == '1'){%>
+						<td>
+							<div class="tc bc w200 mt10 mb10">
+								<span class="f13">证件反面</span>
+								<div class="mt10 mb10 sampleBox infobox" id="creBackPicOld">
+									<i id="thum-2" tabindex="creBackPicNew" class="certificateSample_img certificateSample_02"></i>
+								</div>
+								<div class="sample_btn w150 bc clearfix">
+									<a class="input-file btn_bg upload_btn">上传<input type="file" id="creBackPicNew" name="creBackPicNew"/></a>
+									<a id="person_demo_2" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+								</div>
+							</div>
+						</td>
+						<%}%>
+						<td>
+							<div class="tc bc w200 mt10 mb10">
+								<span class="f13">手持证件照</span>
+								<div class="mt10 mb10 sampleBox infobox" id="creHoldPicOld">
+									<i id="thum-3" tabindex="creHoldPicNew" class="certificateSample_img certificateSample_01"></i>
+								</div>
+								<div class="sample_btn w150 bc clearfix">
+									<a class="input-file btn_bg upload_btn">上传<input type="file" id="creHoldPicNew" name="creHoldPicNew"/></a>
+									<a id="person_demo_3" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+								</div>
+							</div>
+						</td>
+						<%if(obj.creTypeNew == '1'){%>
+						<td style="border-right:0;">
+							<div class="tc bc w200 mt10 mb10">
+								<span class="f13">户籍变更证明</span>
+								<div class="mt10 mb10 sampleBox infobox" id="registorAddressPicOld">
+									<i id="thum-4" tabindex="residenceAddrPic" class="certificateSample_img certificateSample_01"></i>
+								</div>
+								<div class="sample_btn w150 bc clearfix">
+									<a class="input-file btn_bg upload_btn">上传<input type="file" id="residenceAddrPic" name="residenceAddrPic"/></a>
+									<a id="person_demo_4" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+								</div>
+							</div>
+						</td>
+						<%}%>
+					</tr>
+					<tr>
+						<td colspan="3" class="p5" style="border-right:0;border-bottom:0;">
+							<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+						</td>
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">申请变更原因</td>
+			<td class="table_text pt10 pb10" colspan="2">
+				<textarea class="w96pc h50 rsn infobox" id="applyReason" name="applyReason" placeholder="输入原因，最长不超过300个字"><%=obj.applyReason%></textarea>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" id="creFacePicOld" name="creFacePicOld" value="<%=obj.creFacePicOld%>"/>
+	<input type="hidden" id="creBackPicOld" name="creBackPicOld" value="<%=obj.creBackPicOld%>"/>
+	<input type="hidden" id="creHoldPicOld" name="creHoldPicOld" value="<%=obj.creHoldPicOld%>"/>
+	</form>
+	<% }else{ %>
+	<div class="mb10 fb">企业互生号:<%=obj.entResNo%></div>
+	<form id="ywblxx_xg_entInfo_form">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">修改前内容</td>
+			<td class="table_title" width="40%">修改后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item">企业名称</td>
+			<td class="table_text" style="word-wrap:break-word;word-break:break-all;"><%=obj.custNameOld%></td>
+			<td class="table_text">
+				<input id="custNameOld" name="custNameOld" type="hidden" value="<%=obj.custNameOld%>" />
+				<input id="custNameNew" name="custNameNew" type="text" value="<%=obj.custNameNew%>" maxlength="64" class="table_info_input isChange" placeholder="输入企业中文名称" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">企业地址</td>
+			<td class="table_text"><%=obj.custAddressOld%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.custAddressOld%>" id="custAddressOld" name="custAddressOld"/>
+				<input type="text"  value="<%=obj.custAddressNew%>" id="custAddressNew" name="custAddressNew" maxlength="128" class="table_info_input isChange" placeholder="输入企业地址" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">法人代表</td>
+			<td class="table_text"><%=obj.legalRepOld%></td>
+			<td class="table_text">
+				<input type="hidden" value="<%=obj.legalRepOld%>" id="legalRepOld" name="legalRepOld"/>
+				<input type="text"  value="<%=obj.legalRepNew%>" id="legalRepNew" name="legalRepNew" maxlength="20" class="table_info_input isChange" placeholder="输入法人代表" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">营业执照注册号</td>
+			<td class="table_text"><%=obj.bizLicenseNoOld%></td>
+			<td class="table_text">
+				<input type="hidden"  value="<%=obj.bizLicenseNoOld%>" id="bizLicenseNoOld" name="bizLicenseNoOld" />
+				<input type="text"  value="<%=obj.bizLicenseNoNew%>" id="bizLicenseNoNew" maxlength="20" name="bizLicenseNoNew" class="table_info_input isChange" placeholder="输入营业执照号" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">联系人姓名</td>
+			<td class="table_text"><%=obj.linkmanOld%></td>
+			<td class="table_text">
+				<input type="hidden"  value="<%=obj.linkmanOld%>" id="linkmanOld" name="linkmanOld" />
+				<input type="text" value="<%=obj.linkmanNew%>" id="linkmanNew" name="linkmanNew" maxlength="20" class="table_info_input isChange" placeholder="输入联系人姓名" />
+			</td>
+		</tr>
+		<tr>
+			<td class="table_item">联系人手机</td>
+			<td class="table_text"><%=obj.linkmanMobileOld%></td>
+			<td class="table_text">
+				<input type="hidden"  value="<%=obj.linkmanMobileOld%>" id="linkmanMobileOld" name="linkmanMobileOld" />
+				<input type="text"  value="<%=obj.linkmanMobileNew%>" id="linkmanMobileNew" name="linkmanMobileNew" maxlength="11" class="table_info_input isChange" placeholder="输入联系人手机" />
+			</td>
+		</tr>
+		<tr>
+					<td colspan="3" class="billstyle">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							
+							<tr>
+								<td>
+									<div id="bizLicenseCrePicNew_li" class="tc bc w200 mt10 mb10">
+										<span class="f13">营业执照扫描件</span>
+										<div class="mt10 mb10 sampleBox infobox" tabindex="bizLicenseCrePicOld">
+											<i id="thum-3" tabindex="bizLicenseCrePicNew" class="certificateSample_img certificateSample_01"></i>
+										</div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input type="file" id="bizLicenseCrePicNew" name="bizLicenseCrePicNew"/></a>
+											<a id="ent_demo_3" class="btn_bg viewSample_btn" style="float:right;">查看示例图片</a>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div id="linkAuthorizePicNew_li" class="tc bc w200 mt10 mb10">
+										<span class="f13">联系人授权委托书扫描件</span>
+										<div class="mt10 mb10 sampleBox infobox" tabindex="linkAuthorizePicOld">
+											<i id="thum-6" tabindex="linkAuthorizePicNew" class="certificateSample_img certificateSample_06"></i>
+										</div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input type="file" id="linkAuthorizePicNew" name="linkAuthorizePicNew"/></a>
+											<a id="ent_demo_6" class="btn_bg viewSample_btn" style="float:right;">下载模板</a>
+										</div>
+									</div>
+								</td>
+								<td style="border-right:0;">
+									<div class="tc bc w200 mt10 mb10">
+										<span class="f13">重要信息变更业务办理申请书</span>
+										<div class="mt10 mb10 sampleBox infobox" tabindex="imptappPic">
+											<i id="thum-7" tabindex="imptappPic" class="certificateSample_img certificateSample_01"></i>
+										</div>
+										<div class="sample_btn w150 bc clearfix">
+											<a class="input-file btn_bg upload_btn">上传<input type="file" id="imptappPic" name="imptappPic" /></a>
+											<a id="ent_demo_7" class="btn_bg viewSample_btn" style="float:right;">下载模板</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="p5" style="border-right:0;border-bottom:0;">
+									<div class="prompt clearfix"><i class="icon i_icon"></i>上传附件图片要求小于2M，格式为jpeg、jpg、png、bmp！</div>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+	</table>
+	</form>
+	<% } %>	
+	
+				
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="ywblxx_xg_cancel">取&#12288;消</a>
+		<a class="btn_bg submit fr" id="ywblxx_xg_save">保&#12288;存</a>
+	</div>					
+</div>
+
+<div id="confirm_dialogBox" class="none">
+	<div class="view_info mt10"></div>
+</div>

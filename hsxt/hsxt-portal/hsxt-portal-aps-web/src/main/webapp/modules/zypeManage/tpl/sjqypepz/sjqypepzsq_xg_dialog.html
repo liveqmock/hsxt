@@ -1,0 +1,68 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">管理公司当前资源配额信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mCustName %></td>
+            <td class="view_item" width="20%">企业互生号</td>
+            <td class="view_text" width="30%"><%= obj.entDetail.mEntResNo %></td>
+        </tr>
+        <tr>
+            <td class="view_item">注册日期</td>
+            <td class="view_text">此日期需确认是否需要</td>
+            <td class="view_item">服务公司资源总数</td>
+            <td class="view_text"><%= obj.entDetail.sResNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">计划城市配额</td>
+            <td class="view_text"><%= obj.entDetail.planNum %></td>
+            <td class="view_item">计划外城市配额</td>
+            <td class="view_text"><%= obj.entDetail.notPlanNum %></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">服务公司配额申请</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">服务公司配额</td>
+            <td class="view_text"><%= obj.scDetail.totalNum %></td>
+            <td class="view_item">已使用配额</td>
+            <td class="view_text"><%= obj.scDetail.usedNum %></td>
+        </tr>
+        <tr>
+            <td class="view_item">尚可用配额</td>
+            <td class="view_text" id="tdUsableNum"><%= obj.scDetail.usableNum %></td>
+            <td class="view_item">城市名称</td>
+            <td class="view_text"><%=comm.getCityNameByCode(obj.provinceNo,obj.scDetail.cityNo)%></td>
+        </tr>
+        <tr>
+            <td class="view_item">结算币种</td>
+            <td class="view_text" colspan="3"><%=obj.currencyName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">配置类型</td>
+            <td class="view_text">
+				<input type="radio" id="p1" name="radApplyType" checked="checked" value="2"><label for="p1" class="ml5 mr20">增加配额</label>
+				<input type="radio" id="p2" name="radApplyType" value="3"><label for="p2" class="ml5">减少配额</label>
+			</td>
+            <td class="view_item">申请数量</td>
+            <td><input id="txtApplyNum" type="text" name="textfield" placeholder="输入申请数量" class="ml5 h28_middle w96pc" /></td>
+        </tr>
+        <tr>
+            <td class="view_item">申请理由</td>
+            <td class="view_text p5" colspan="3">
+				<div id="sqly_input">
+					<input type="radio" id="s1" name="radRemark" checked="checked" value="4"><label for="s1" class="ml5 mr20">配额售罄</label>
+					<input type="radio" id="s2" name="radRemark" value="3"><label for="s2" class="ml5 mr20">配额不足</label>
+					<input type="radio" id="s3" name="radRemark" value="2"><label for="s3" class="ml5 mr20">人口增加</label>
+					<input type="radio" id="s4" name="radRemark" value="1"><label for="s4" class="ml5 mr20">人口减少</label>
+					<input type="radio" id="s5" name="radRemark" value="0"><label for="s5" class="ml5 mr20">其他</label>
+				</div>
+				<div id="sqly_textarea" class="mt5 none">
+					<textarea id="txtRemark" placeholder="输入变更理由" class="fl ml5 h50 w465 rsn pt5 pb5 input-txt" ></textarea>
+				</div>
+			</td>
+        </tr>
+    </table>
+</div>

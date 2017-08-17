@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--增值积分统计-->
+    <bean id="pointValueJob" class="com.gy.hsxt.gpf.bm.job.PointValueJob"/>
+    <bean id="pointValueJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 指定任务类 -->
+        <property name="targetObject" ref="pointValueJob"/>
+        <!-- 指定任务执行的方法 -->
+        <property name="targetMethod" value="execute"/>
+    </bean>
+    <bean id="pointValueJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="pointValueJobDetail"/>
+        <!-- 每天下午10:52触发 -->
+        <property name="cronExpression" value="0 0 11 ? * *"/>
+        <!--0 0/1 * * * ?-->
+        <!-- 每周一的零晨2点执行 -->
+        <!-- <property name="cronExpression" value="0 0 2 ? * MON"/> -->
+    </bean>
+
+
+    <!--工作调度工厂-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="pointValueJobTrigger"/>
+            </list>
+        </property>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--积分统计的线程池-->
+    <bean id="jobExecutor"  class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="10"/>
+        <property name="maxPoolSize" value="50"/>
+    </bean>
+</beans>

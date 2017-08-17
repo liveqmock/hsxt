@@ -1,0 +1,211 @@
+<%
+	var order = obj.data.order;
+	var httpUrl = obj.data.httpUri;
+	var picname = "";
+%>
+<div class="">
+  <div class="p20">
+    <div class="scrlh" style="height:auto;">
+      <h1 class="fb f14 lh200 h30">订单详情</h1>
+      <div class="cutline"></div>
+      <div class="mb5 pb5">
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">订单号：</span> <span class="title-txt"><%=order.orderId%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">交易时间：</span> <span class="title-txt"><%=order.createTime%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt">状态：</span><span class="title-txt">
+          	<%if(order.repastForm==1){%>
+          		<% if(order.orderStatus=='0'){%>
+					<span>等待客户付定金</span>
+				<%} else if(order.orderStatus=='-2'){%>
+		 			<span>企业下单</span>					 		
+               	<%} else if(order.orderStatus=='1'||order.orderStatus=='-3'){%>
+		 			<span>待确认</span>
+		   		<%} else  if(order.orderStatus=='2' || order.orderStatus=='9') {%>
+		   			<span>待用餐</span>
+		   		<%} else  if(order.orderStatus=='6') {%>
+		   			<span>用餐中未打单</span>
+		   		<%} else  if(order.orderStatus=='7') {%>
+		   			<span>已打单待结账</span>
+		   		<%} else  if(order.orderStatus=='4') {%>
+		   			<span>已结账</span>
+		   		<%} else  if(order.orderStatus=='10') {%>
+					<span>消费者取消待企业确认</span>							
+				<%} else  if(order.orderStatus=='99'||order.orderStatus=='-1'){%>
+					<span>已取消</span>
+		   		<%}%>  		
+          	<%}else if(order.repastForm==2){%>
+          		<% if(order.orderStatus=='8'){%>
+		 			<span>待接单</span>
+		   		<%} else if(order.orderStatus=='2' ) {%>
+		   			<span>备餐中待送餐</span>
+		   		<%} else if(order.orderStatus=='11') {%>
+		   			<span>配送中待收货</span>				   				   		
+		   		<%} else if(order.orderStatus=='4') {%>
+		   			<span>确认收货订单完成</span>
+		   		<%} else if(order.orderStatus=='10') {%>
+					<span>消费者取消</span>
+				<%} else if(order.orderStatus=='99'||order.orderStatus=='-1'){%>
+					<span>已取消	</span>						
+		   		<%}%>  
+          	<%}else if(order.repastForm==3){%>
+          		<%  if(order.orderStatus=='8'){%>
+		 			<span>待接单</span>	
+		   		<%} else if(order.orderStatus=='2' ) {%>
+		   			<span>待自提	</span>					   	
+		   		<%} else if(order.orderStatus=='4') {%>
+		   			<span>已自提订单完成</span>				   	
+		   		<%} else if(order.orderStatus=='10') {%>
+					<span>消费者申请取消，待企业确认</span>												   		
+	   		    <%} else if(order.orderStatus=='99'||order.orderStatus=='-1'){%>
+					<span>已取消	</span>								
+		   		<%}%>     
+          	<%}%>
+          </span></li>
+          <li class="fl w300 h30 div_spill" title="<%=order.virtualShopName%>"><span class="title-txt tcr_grey">商城名称：</span> <span style="text-align:left;"><%=order.virtualShopName%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">企业互生号：</span> <span class="title-txt"><%=order.companyResourceNo%></span> </li><!-- shopAddr -->
+          <li class="fl w300 h30 div_spill" title="<%=order.shopName%>"><span class="div_spill tcr_grey">营业点：</span> <span style="text-align:left;" title="<%=order.shopName%>"><%=order.shopName%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">昵称：</span> <span class="title-txt"><%=order.nickName%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">
+            <%if(order.isCardCustomer == 0){    %>           
+                                      消费者：                    
+             <%}else{%>   
+                                       互生卡号：
+             <%}%>                     
+          </span> <span class="title-txt"><%=order.buyerAccountNo%></span> </li>
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">就餐方式：</span> <span class="title-txt">
+			<%if(order.repastForm==1){%>
+          		<span>店内就餐</span>
+          	<%}else if(order.repastForm==2){%>
+          		<span>送餐</span>
+          	<%}else if(order.repastForm==3){%>
+          		<span>门店自提</span>
+          	<%}%>
+		</span> </li>
+        </ul>
+      </div>
+      
+      <!--收货人信息-->
+      <%if(order.repastForm==2){%>
+      <div class="mb5 pb5">
+        <h3 class="fb f12 lh200 h30">收货人信息</h3>
+        <div class="cutline"></div>
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">收货人：</span> <span class="title-txt"><%=order.receiver%></span> </li>
+          <li class="fl w300 h30 div_spill" title="<%=order.receiverAddr%>"><span class="div_spill">地址：</span> <span style="text-align:left;" title="<%=order.receiverAddr%>"><%=order.receiverAddr%></span></li>
+          <li class="fl w200 h30"><span class="title-txt tcr_grey">手机号码：</span> <span class="title-txt"><%=order.receiverContact%></span> </li>
+        </ul>
+      </div>
+      <%}%>
+      <!--收货人信息 结束--> 
+      <!--支付及配送方式-->
+      <!-- <div class="mb5 pb5">
+        <h3 class="fb f12 lh200 h30">配送方式</h3>
+        <div class="cutline"></div>
+        <ul class="lh200 clearfix">
+     		<li class="fl w300 h30"><span class="title-txt">就餐形式：</span><span class="title-txt">
+          	<%if(order.repastForm==1){%>
+          		<span>店内就餐</span>
+          	<%}else if(order.repastForm==2){%>
+          		<span>送餐</span>
+          	<%}else if(order.repastForm==3){%>
+          		<span>门店自提</span>
+          	<%}else{%>
+          		<span>其他</span>
+          	<%}%>
+          </span> </li>
+          <li class="fl w400 h30 div_spill" title="<%=order.shopName%>"><span class="title-txt tcr_grey">配送营业点：</span> <span style="text-align:left;"><%=order.shopName%></span> </li>
+        </ul>
+      </div> -->
+      <!--支付及配送方式 结束--> 
+      
+      <!--支付方式-->
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <ul class="lh200 clearfix">
+          <li class="fl w300 h30"><span class="title-txt tcr_grey">支付方式：</span> <span class="title-txt">
+          <%if(order.payType == '1'){%>
+   			 现金
+   		  <%}else if(order.payType == '3'){%>     
+   		 	互生币支付
+   		  <%}else if(order.payType == '4'){%>     
+   		 	网银支付
+   		  <%}else{%> 
+   		  	其他
+   		  <%}%>
+          </span> </li>
+        </ul>
+      </div>
+      <!--支付方式 结束--> 
+      
+      <!-- 买家备注 -->
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <div class="w800 lh200 clearfix"><span class="title-txt tcr_grey">买家备注：</span> <span class="title-txt huanhang"><%=(order.userNote != null)?order.userNote:"无"%></span></div>
+      </div>
+      <!--买家备注 结束-->
+      <%if(order.isInvoice==1){%>
+      <div class="mb5 pb5">
+        <div class="cutline"></div>
+        <div class="w800 lh200 clearfix"><span class="title-txt fb mr30">发票信息</span><span class="title-txt tcr_grey ">发票抬头：</span><span class="title-txt mr50"><%=(order.invoiceTitle!=null)?order.invoiceTitle:"无"%></span></div>
+      </div>
+      <%}%>
+     <!-- 菜品开始 -->
+      <table class="bsgrid">
+        <th width="60%" align="left"><div class="pl10 fl">菜品信息</div></th>
+          <th width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">单价</th>
+          <th width="10%">数量</th>
+          <th width="10%"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">金额</th>
+          <th width="10%"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+        </tr>
+        <% var orderDetailList = order.orderDetailList
+         $.each(orderDetailList,function(index,item){
+         	if(item.picUrl != null && item.picUrl != ""){
+			  		var picObj = eval(item.picUrl);//转换对象
+			  		try{
+				  		$.each(picObj[0].web,function(y,o){
+				  			if(o.size=="400*400"){
+				  				picname = o.name;
+				  			}
+				  		});
+			  		}catch(e){}
+		  		}
+         if(orderDetailList == ''){%>
+             <tr colspan="6"><td>无记录</td></tr>
+         <% }else{ %>
+        <tr class="<%=index%2!=0?'table-tr-c':''%>">
+	        <td valign="middle">
+	         	<div class="pr   lh200" style="min-height: 50px;">
+	              <div class="w100 pa"><img src="<%=httpUrl+picname%>" width="50" height="50" /></div>
+	              <h4 class="pl100 tl" ><a href="#" class="huanhang" style="line-height: 18px;"><%=item.itemName%></a></h4>
+	           </div>
+           </td>
+          <td><span class="red"><%=comm.formatMoneyNumber(item.price)%></span></td>
+          <td><%=item.quantity%></td>
+          <td><span class="red fb"><%=comm.formatMoneyNumber(item.priceTotal)%></span></td>
+          <td><p class="blue"><%=comm.formatMoneyNumber(item.pointTotal)%></p></td>
+        </tr>   
+		<%}})%>       
+      </table>
+     <!-- 菜品结束 -->
+     
+      <div class="h40 tr lh200 pr30 pt10"><span>消费积分总计:<img src="resources/img/pv.png" width="25" style="vertical-align:middle;"><em class="fb blue"><%=comm.formatMoneyNumber(order.pointsTotal)%></em></span></div>
+      <div class="cutline"></div>
+      <div class="tr lh200">
+      <p class="pr30 pt10">配送费：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"><span class="fr w100 red"><%=comm.formatMoneyNumber(order.amountLogistic)%></span></p>
+	  <p  class="pr30 pt10">总计：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"><span class="fr w100"><em class="fb red"><%=comm.formatMoneyNumber(order.amountTotal)%></em></span></p>
+	  <% var couponInfo = obj.data.userCoupon %>
+	  <% if(couponInfo != null && couponInfo != ''){ %>
+	  <p  class="pr30 pt10"><%=comm.formatMoneyNumber(couponInfo.faceValue)%>元<%=couponInfo.couponName%>抵用券*<em class="blue pr5"><%=couponInfo.number%></em>张：<span class="fr w100"><%=comm.formatMoneyNumber(couponInfo.faceValue*couponInfo.number)%>元</span></p>
+	  <% } %>
+	  <p  class="pr30 pt10">实付款
+	  		<!-- edit by liaoc, 2160412, 自提订单不含配送费(业务确认) -->
+	  		<% if(order.repastForm != 3){ %>
+	  		(含配送费)
+	  		<% } %>
+	  	：<img src="resources/img/price.png" width="20" style="vertical-align:middle;"><span class="fr w100 fb red f20"><%if(order.orderStatus=='99'||order.orderStatus=='-1'){%>0.00<%}else{%><%=comm.formatMoneyNumber(order.amountActually)%><%}%></span></p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+

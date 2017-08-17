@@ -1,0 +1,73 @@
+<div class="searchbox p20">
+	<div class="search-toolbar">
+	  <form id="shareDetailSearch_form">
+		<ul class="cssform clearfix">
+			<li class="ml20 mr20"><label class="title-int">年份：</label>
+				<div class="cont-int">
+					<select id="sshare_beginDate" name="sshare_beginDate">
+					</select>
+					<span class="separator-pd">-</span> 
+					<select id="sshare_endDate" name="sshare_endDate">
+						
+					</select>
+					<!--<input type="text" name="sshare_endDate" id="sshare_endDate" class="input-txt w100"/>-->
+				</div>
+			</li>
+			<li>
+				<div class="cont-int">
+					<button id="sshare_searchBtn" type="button" class="btn-search ml10">立即查询</button>
+				</div>
+			</li>
+		</ul>
+	   </form>	
+	</div>
+	<div class="search-cont myhs_dataTable">
+		<table id="sshare_result_table" width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table">
+			<tr>
+				<th class="nobd" w_index="dividendNo" w_align="left">交易流水号</th>
+				<th w_index="dividendYear" w_align="left">分红年份</th>
+				<th w_index="totalDividend" w_align="right">投资分红数量</th>
+				<th w_render="operate">详情</th>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!--弹出框-->
+<div id="dialogShareDividendsDetails" class="jqp-dialog" style="display: none;">
+	<div class="searchbox">
+		<div class="search-cont">
+			<table id="shareDividendsDetails" width="100%" border="0" cellspacing="0" cellpadding="0"  class="search-table">
+				<tr class="table-tr-count">
+					<td class="nobd" colspan="6">
+						<ul class="cssform clearfix">
+							<li class="col4"><label class="title-txt w150">累计投资积分数：</label><div class="cont-txt" id="dividendInvestTotal_dividends"></div></li>
+							<li class="col4"><label class="title-txt w150">投资分红周期：</label><div class="cont-txt" id="dividendCycle_dividends"></div></li>
+							<li class="col4 mt5"><label class="title-txt w150">本年度分红互生币数量：</label><div class="cont-txt" id="currDividendsTotal_dividends"></div></li>
+							<li class="col4 mt5"><label class="title-txt w150">本年度分红回报率：</label><div class="cont-txt" id="dividendRadio_dividends"></div></li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<th rowspan="2" class="nobd">积分投资日期</th>
+					<th rowspan="2">投资积分数</th>
+					<th rowspan="2">可参与分红时间（天）</th>
+					<th colspan="3">本次分红互生币数量</th>
+				</tr>
+				<tr>
+					<th>流通币</th>
+					<th>定向消费币</th>
+					<th>合计</th>
+				</tr>
+				<tr class="none">
+					<th w_render="operate" w_index="investDate"></th>
+					<th w_index="investAmount"></th>
+					<th w_index="dividendDays"></th>
+					<th w_index="normalDividend">流通币</th>
+					<th w_index="directionalDividend">定向消费币</th>
+					<th w_index="totalDividend">合计</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

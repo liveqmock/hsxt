@@ -1,0 +1,43 @@
+<form id="impInfoChange_businessLicense_form" name="impInfoChange_businessLicense_form">
+	<table width="100%" border="1" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" style="table-layout:fixed">
+		<tr>
+			<td class="table_title" width="20%">信息</td>
+			<td class="table_title" width="40%">变更前内容</td>
+			<td class="table_title" width="40%">变更后内容</td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">企业名称</td>
+			<td class="table_text" width="40%" id="impInfoChange_entName2_3"></td>
+			<td class="table_text" width="40%"><input type="text" id="entName" class="isChange" name="entName" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">证件类型</td>
+			<td class="table_text" width="40%" id="impInfoChange_oldCerType2_3"></td>
+			<td class="table_text" width="40%"><input type="text" id="impInfoChange_newCerType2_3" name="impInfoChange_newCerType2_3" disabled="disabled"/></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">营业执照号码</td>
+			<td class="table_text" width="40%"><%=comm.plusXing(obj.cerNo,1,2,false)%></td>
+			<td class="table_text" width="40%"><input type="text" id="cerNo" class="isChange" name="cerNo" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">注册地址</td>
+			<td class="table_text" width="40%"><%=obj.entRegAddr%></td>
+			<td class="table_text" width="40%"><input type="text" id="entRegAddr" class="isChange" name="entRegAddr" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">企业类型</td>
+			<td class="table_text" width="40%"><%=obj.entType%></td>
+			<td class="table_text" width="40%"><input type="text" id="entType" class="isChange" name="entType" /></td>
+		</tr>
+		<tr>
+			<td class="table_item" width="20%">成立日期</td>
+			<td class="table_text td-table-dt" width="40%"><%=obj.entBuildDate%></td>
+			<td class="table_text" width="40%"><input type="text" id="entBuildDate" class="isChange" name="entBuildDate" readonly="readonly" class="jqp-datepicker"/></td>
+		</tr>
+	</table>
+	<div class="tc clearfix mt20 mb10 h40">
+		<a id="impInfoChange_nextBtn_3" href="javascript:;" class="hs_btn myhs_ajax_btn" data-id="zyxxbg2">下一步</a>
+		<div id="impInfoChange_Apptext"></div>
+	</div>
+</form>

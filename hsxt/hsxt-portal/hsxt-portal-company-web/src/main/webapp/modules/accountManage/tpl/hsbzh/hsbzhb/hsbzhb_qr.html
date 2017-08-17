@@ -1,0 +1,39 @@
+<form action="" id="hsb_appForm_qr" autocomplete="off" name="hsb_appForm_qr" method="post" onsubmit="return false;">
+<input type="hidden" id="qr_pi_randomToken" name="qr_pi_randomToken">
+<input type="hidden" id="qr_htc_toCashHsbNum_hidden" name="qr_htc_toCashHsbNum_hidden" />
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+	<tr>
+		<td class="view_item" width="20%">转出数量</td>
+		<td class="view_text" width="30%" ><span id="qr_htc_toCashHsbNum"></span></td>
+	</tr>
+	<tr>
+		<td class="view_item">转入账户</td>
+		<td class="view_text">货币账户</td>
+	</tr>
+	<tr>
+		<td class="view_item">货币转换费(<span class="htc_fee red" id="htc_fee_cost_rate"></span>%)</td>
+		<td class="view_text"  ><span class="htc_toFee" id="htc_fee_cost"></span></td>
+	</tr>
+	<tr>
+		<td class="view_item">实际转入数量</td>
+		<td class="view_text" id="qr_htc_realToCashNum"></td>
+	</tr>
+	<tr>
+		<td class="view_item">当地结算货币</td>
+		<td class="view_text" id="bizhong"></td>
+	</tr>
+	<tr>
+		<td class="view_item">货币转换比率</td>
+		<td class="view_text" id="qr_htc_rate"></td>
+	</tr>
+	<tr>
+		<td class="view_item">转入货币金额</td>
+		<td class="view_text" id="qr_htc_toCashNum"></td>
+	</tr>
+	<tr>
+		<td class="view_item">交易密码</td> 
+		<td class="view_input"><input class="ml5" type="password" id="qr_hsb_dealPwd" name="qr_hsb_dealPwd" maxlength="8" /></td>
+	</tr>
+	</table>
+	<div class="clearfix mt20 tc"><a href="javascript:;" id="hsb_return" class="btn_bg submit mr30">修&#12288;改</a><a href="javascript:;" id="hsb_appSubmit" class="btn_bg submit">确&#12288;认</a></div>
+</form>

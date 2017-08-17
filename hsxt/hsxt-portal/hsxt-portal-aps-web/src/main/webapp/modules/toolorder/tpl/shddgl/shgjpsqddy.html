@@ -1,0 +1,31 @@
+﻿<div id="shgjpsqddyTpl">
+	<form id="search_form" name="search_form">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" id="search_hsResNo" name="search_hsResNo" maxlength="11" placeholder="输入企互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" id="search_hsCustName" name="search_hsCustName" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	</form>
+	<table id="searchTable" class="bsgrid">
+		<tr>
+			<th w_index="entResNo" w_tip="true">企业互生号</th>
+			<th w_index="custName" w_tip="true">企业名称</th>
+			<th w_index="receiver" w_tip="true">联系人</th>
+			<th w_index="mobile" w_tip="true">联系人电话</th>
+			<th w_index="shippingId" w_tip="true">配送单编号</th>
+			<th w_render="operate">操作</th>
+		</tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>
+<div id="dialogBox_dy" class="none ovh"></div>

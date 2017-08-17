@@ -1,0 +1,30 @@
+﻿<div id="ptdggjfhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="textfield" id="ptdggjfhEntResNo" placeholder="输入企业管理号" class="h28_middle w115 input-txt">
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">审核状态：</label>
+				<input id="shzt" readonly="readonly" placeholder="选择审核状态" />
+			</li>
+			<li>
+				<button id="serchBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>	
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="proxyOrderNo">订单号</th>
+		<th w_index="entCustName">企业名称</th>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="orderAmount">订单总价</th>
+		<th w_index="status" w_render="operate">审核状态</th>
+		<th w_index="reqTime">下单时间</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_fh" class="none"></div>

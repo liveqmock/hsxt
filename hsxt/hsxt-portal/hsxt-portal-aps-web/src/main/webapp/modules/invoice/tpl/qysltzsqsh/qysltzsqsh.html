@@ -1,0 +1,36 @@
+<div id="qysltzsqshTpl">
+	<div class="search-toolbar">
+	<form id="slsh_form" autocomplete="off">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="search_resNo" value="" maxlength="11" placeholder="输入企业互生号" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="search_companyName" value="" placeholder="输入企业名称" class="h28_middle w115 input-txt" />
+				<input id="search_status" name="search_status" value="0" type="hidden"/>
+			</li>
+			<li>
+				<button id="slsh_query" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="resNo" w_tip=true>企业互生号</th>
+		<th w_index="custName" w_tip=true>企业名称</th>
+		<th w_index="linkman" w_tip=true>企业联系人</th>
+		<th w_index="telephone" w_tip=true>联系人电话</th>
+		<th w_index="applyTaxrate" w_render="operate">申请调整税率</th>
+		<th w_index="createdDate" w_tip=true>申请时间</th>
+		<th w_index="status" w_render="operate">审批结果</th>
+		<th w_render="operate">操作</th>
+		<th w_render="operate">工单操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="gdcz_gq_jjsl_dlg" class="none"></div>
+<div id="qysltzsqsh_operation_tpl" class="none"></div>

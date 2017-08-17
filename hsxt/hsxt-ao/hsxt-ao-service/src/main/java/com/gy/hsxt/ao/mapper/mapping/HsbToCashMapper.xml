@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.HsbToCashMapper">
+
+	<!-- 插入互生币转货币记录 -->
+	<insert id="insertHsbToCash" parameterType="com.gy.hsxt.ao.bean.HsbToCash">
+		INSERT INTO
+		T_AO_HSB_TO_CASH
+		(
+		TRANS_NO,
+		CUST_ID,
+		HS_RES_NO,
+		CUST_NAME,
+		CUST_TYPE,
+		TO_ACC_TYPE,
+		FROM_HSB_AMT,
+		FEE_RATE,
+		FEE_HSB_AMT,
+		EX_RATE,
+		TO_CASH_AMT,
+		REQ_TIME,
+		OPT_CUST_ID,
+		OPT_CUST_NAME,
+		CHANNEL,
+		TERM_NO,
+		BATCH_NO
+		)
+		VALUES
+		(
+		#{transNo},
+		#{custId},
+		#{hsResNo},
+		#{custName},
+		#{custType},
+		#{toAccType},
+		#{fromHsbAmt},
+		#{feeRate},
+		#{feeHsbAmt},
+		#{exRate},
+		#{toCashAmt},
+		to_date(#{reqTime},'yyyy-mm-dd hh24:mi:ss'),
+		#{optCustId},
+		#{optCustName},
+		#{channel},
+		#{termNo},
+		#{batchNo}
+		)
+	</insert>
+
+	<!-- 查询互生币转货币 -->
+	<select id="findHsbToCash" resultType="com.gy.hsxt.ao.bean.HsbToCash">
+		SELECT
+		TRANS_NO AS	transNo,
+		CUST_ID AS custId,
+		HS_RES_NO AS hsResNo,
+		CUST_NAME AS custName,
+		CUST_TYPE AS custType,
+		TO_ACC_TYPE AS toAccType,
+		FROM_HSB_AMT AS fromHsbAmt,
+		FEE_RATE AS feeRate,
+		FEE_HSB_AMT AS feeHsbAmt,
+		EX_RATE AS exRate,
+		TO_CASH_AMT AS toCashAmt,
+		REQ_TIME AS reqTime,
+		OPT_CUST_ID AS optCustId,
+		OPT_CUST_NAME AS optCustName,
+		CHANNEL AS channel,
+		TERM_NO AS termNo,
+		BATCH_NO AS batchNo
+		FROM
+		T_AO_HSB_TO_CASH
+		WHERE
+		TRANS_NO = #{transNo}
+	</select>
+
+</mapper>

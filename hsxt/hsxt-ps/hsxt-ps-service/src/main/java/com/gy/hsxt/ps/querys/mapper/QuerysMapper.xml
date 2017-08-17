@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.querys.mapper.QuerysMapper">
+    <!-- 单笔交易查询 -->
+    <select id="singleQuery" parameterType="map" resultType="QueryResult">
+        SELECT
+        PSN.ENT_RES_NO "entResNo",
+        PSN.ENT_CUST_ID "entCustId",
+        PSN.EQUIPMENT_NO "equipmentNo",
+        PSN.PER_RES_NO "perResNo",
+        PSN.SOURCE_TRANS_NO "sourceTransNo",
+        PSN.BATCH_NO "batchNo",
+        PSN.SOURCE_TRANS_DT "sourceTransDate",
+        PSN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        PSN.ENT_POINT "entPoint",
+        PSN.TRANS_AMOUNT "transAmount",
+        PSN.TRANS_TYPE "transType",
+        PSN.SOURCE_BATCH_NO "sourceBatchNo",
+        PSN.PER_POINT "perPoint",
+        PSN.TRANS_NO "transNo",
+        PSN.OPER_NO "operNo",
+        PSN.ENT_NAME "entName",
+        PSN.MALL_NAME "mallName",
+        PSN.ORDER_AMOUNT "orderAmount",
+        PSN.DEDUCTION_VOUCHER "deductionVoucher",
+        PSN.REMARK "remark"
+        FROM T_PS_NDETAIL PSN WHERE 1=1
+        <if test='querySingle.sourceTransNo != null and querySingle.sourceTransNo != ""'>
+            AND PSN.SOURCE_TRANS_NO=#{querySingle.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entResNo != null and querySingle.entResNo != ""'>
+            AND PSN.ENT_RES_NO=#{querySingle.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entCustId != null and querySingle.entCustId != ""'>
+            AND PSN.ENT_CUST_ID=#{querySingle.entCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.equipmentNo != null and querySingle.equipmentNo != ""'>
+            AND PSN.EQUIPMENT_NO=#{querySingle.equipmentNo,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <!-- 单笔交易查询pos -->
+    <select id="singlePosQuery" parameterType="map" resultType="QueryResult">
+        SELECT
+        PSN.ENT_RES_NO "entResNo",
+        PSN.ENT_CUST_ID "entCustId",
+        PSN.EQUIPMENT_NO "equipmentNo",
+        PSN.PER_RES_NO "perResNo",
+        PSN.SOURCE_TRANS_NO "sourceTransNo",
+        PSN.BATCH_NO "batchNo",
+        PSN.SOURCE_TRANS_DT "sourceTransDate",
+        PSN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        PSN.POINT_RATE "pointRate",
+        PSN.ENT_POINT "entPoint",
+        PSN.TRANS_AMOUNT "transAmount",
+        PSN.TRANS_TYPE "transType",
+        PSN.SOURCE_BATCH_NO "sourceBatchNo",
+        PSN.PER_POINT "perPoint",
+        PSN.TRANS_NO "transNo",
+        PSN.OPER_NO "operNo",
+        PSN.TERM_TRADE_CODE "termTradeCode",
+        PSN.TERM_RUN_CODE "termRunCode",
+        PSN.TERM_TYPE_CODE "termTypeCode",
+        PSN.ENT_NAME "entName",
+        PSN.MALL_NAME "mallName",
+        PSN.REMARK "remark",
+        PSN.ORDER_AMOUNT "orderAmount",
+        PSN.DEDUCTION_VOUCHER "deductionVoucher",
+        PSN.CURRENCY_RATE "currencyRate",
+        DECODE(SUBSTR(PSN.TRANS_TYPE,4,1),0,NVL(PSN.PAY_STATUS,1),3,NVL(PSN.PAY_STATUS,1),2) "payStatus"
+        FROM T_PS_NDETAIL PSN WHERE 1=1
+        <if test='querySingle!=null'>
+        <if test='querySingle.sourceTransNo != null and querySingle.sourceTransNo != ""'>
+            AND PSN.SOURCE_TRANS_NO=#{querySingle.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entResNo != null and querySingle.entResNo != ""'>
+            AND PSN.ENT_RES_NO=#{querySingle.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entCustId != null and querySingle.entCustId != ""'>
+            AND PSN.ENT_CUST_ID=#{querySingle.entCustId,jdbcType=VARCHAR}
+        </if>
+        <!-- 
+        <if test='querySingle.equipmentNo != null and querySingle.equipmentNo != ""'>
+            AND PSN.EQUIPMENT_NO=#{querySingle.equipmentNo,jdbcType=VARCHAR}
+        </if>
+         -->
+        </if>
+        <if test='queryPosSingle!= null'>
+            AND PSN.ENT_RES_NO=#{queryPosSingle.entResNo,jdbcType=VARCHAR}
+            AND PSN.SOURCE_BATCH_NO=#{queryPosSingle.batchNo,jdbcType=VARCHAR}
+            AND PSN.TERM_RUN_CODE=#{queryPosSingle.termRunCode,jdbcType=VARCHAR}
+            AND PSN.EQUIPMENT_NO=#{queryPosSingle.equipmentNo,jdbcType=VARCHAR}
+            AND PSN.SOURCE_POS_DATE=TO_DATE(#{queryPosSingle.sourcePosDate},'yyyy-MM-dd HH24:mi:ss')
+        </if>
+        <if test='queryPosSingle== null'>
+        UNION ALL
+        SELECT
+        PSN.ENT_RES_NO "entResNo",
+        PSN.ENT_CUST_ID "entCustId",
+        PSN.EQUIPMENT_NO "equipmentNo",
+        PSN.PER_RES_NO "perResNo",
+        PSN.SOURCE_TRANS_NO "sourceTransNo",
+        PSN.BATCH_NO "batchNo",
+        PSN.SOURCE_TRANS_DT "sourceTransDate",
+        PSN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        PSN.POINT_RATE "pointRate",
+        PSN.ENT_POINT "entPoint",
+        PSN.TRANS_AMOUNT "transAmount",
+        PSN.TRANS_TYPE "transType",
+        PSN.SOURCE_BATCH_NO "sourceBatchNo",
+        PSN.PER_POINT "perPoint",
+        PSN.TRANS_NO "transNo",
+        PSN.OPER_NO "operNo",
+        PSN.TERM_TRADE_CODE "termTradeCode",
+        PSN.TERM_RUN_CODE "termRunCode",
+        PSN.TERM_TYPE_CODE "termTypeCode",
+        PSN.ENT_NAME "entName",
+        PSN.MALL_NAME "mallName",
+        PSN.REMARK "remark",
+        NULL "orderAmount",
+        0 "deductionVoucher",
+        PSN.CURRENCY_RATE "currencyRate",
+        DECODE(SUBSTR(PSN.TRANS_TYPE,4,1),0,1,3,1,2) "payStatus"
+        FROM T_PS_BDETAIL PSN WHERE 1=1
+        <if test='querySingle!=null'>
+        <if test='querySingle.sourceTransNo != null and querySingle.sourceTransNo != ""'>
+            AND PSN.SOURCE_TRANS_NO=#{querySingle.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entResNo != null and querySingle.entResNo != ""'>
+            AND PSN.ENT_RES_NO=#{querySingle.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entCustId != null and querySingle.entCustId != ""'>
+            AND PSN.ENT_CUST_ID=#{querySingle.entCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.equipmentNo != null and querySingle.equipmentNo != ""'>
+            AND PSN.EQUIPMENT_NO=#{querySingle.equipmentNo,jdbcType=VARCHAR}
+        </if>
+        </if>
+        UNION ALL 
+        SELECT
+        PSN.ENT_RES_NO "entResNo",
+        PSN.ENT_CUST_ID "entCustId",
+        PSN.EQUIPMENT_NO "equipmentNo",
+        PSN.PER_RES_NO "perResNo",
+        PSN.SOURCE_TRANS_NO "sourceTransNo",
+        PSN.BATCH_NO "batchNo",
+        PSN.SOURCE_TRANS_DT "sourceTransDate",
+        PSN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        PSN.POINT_RATE "pointRate",
+        PSN.ENT_POINT "entPoint",
+        PSN.TRANS_AMOUNT "transAmount",
+        PSN.TRANS_TYPE "transType",
+        PSN.SOURCE_BATCH_NO "sourceBatchNo",
+        PSN.PER_POINT "perPoint",
+        PSN.TRANS_NO "transNo",
+        PSN.OPER_NO "operNo",
+        PSN.TERM_TRADE_CODE "termTradeCode",
+        PSN.TERM_RUN_CODE "termRunCode",
+        PSN.TERM_TYPE_CODE "termTypeCode",
+        PSN.ENT_NAME "entName",
+        PSN.MALL_NAME "mallName",
+        PSN.REMARK "remark",
+        NULL "orderAmount",
+        0 "deductionVoucher",
+        PSN.CURRENCY_RATE "currencyRate",
+        DECODE(SUBSTR(PSN.TRANS_TYPE,4,1),0,1,3,1,2) "payStatus"
+        FROM T_PS_CDETAIL PSN INNER JOIN T_PS_NDETAIL N  ON PSN.OLD_TRANS_NO=N.TRANS_NO AND trim(PSN.SOURCE_TRANS_NO)!=trim(N.SOURCE_TRANS_NO)  WHERE 1=1
+        <if test='querySingle!=null'>
+        <if test='querySingle.sourceTransNo != null and querySingle.sourceTransNo != ""'>
+            AND PSN.SOURCE_TRANS_NO=#{querySingle.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entResNo != null and querySingle.entResNo != ""'>
+            AND PSN.ENT_RES_NO=#{querySingle.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.entCustId != null and querySingle.entCustId != ""'>
+            AND PSN.ENT_CUST_ID=#{querySingle.entCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='querySingle.equipmentNo != null and querySingle.equipmentNo != ""'>
+            AND PSN.EQUIPMENT_NO=#{querySingle.equipmentNo,jdbcType=VARCHAR}
+        </if>
+        </if>
+        </if>
+    </select>
+
+    <!-- 分配其他(扣除税金) -->
+    <select id="queryAllocTaxAmount" parameterType="map" resultType="String">
+        <!-- 分配其他(扣除税金) -->
+        SELECT
+        SUM(NVL(ADD_AMOUNT,0)+NVL(SUB_AMOUNT,0)) "taxes"
+        FROM T_PS_PIONT_ALLOC_TAX
+        WHERE BATCH_NO=#{queryDetail.batchNo,jdbcType=VARCHAR}
+        AND HS_RES_NO=#{queryDetail.resNo,jdbcType=VARCHAR}
+        AND ISACTIVE='1'
+        GROUP BY HS_RES_NO
+    </select>
+
+    <!--查询积分分配明细汇总-->
+    <select id="queryPointAllocSum" parameterType="map" resultType="AllocDetailSum">
+        <!-- 分配明细 -->
+        SELECT
+         SUM (
+        CASE
+        WHEN TA.TRANS_TYPE = 'G20000' THEN
+      <if test="custType==3">
+        NVL (TA.TRUSTEE_ADD_POINT, 0)
+      </if>
+        <if test="custType==4">
+            NVL (TA.SERVICE_ADD_POINT, 0)
+        </if>
+        <if test="custType==5">
+            NVL (TA.MANAGE_ADD_POINT, 0)
+        </if>
+        <if test="custType==6">
+            NVL (TA.PAAS_ADD_POINT, 0)
+        </if>
+        ELSE NULL
+        END)
+        "sum",
+        COUNT (CASE WHEN TA.TRANS_TYPE = 'G20000' THEN 1 ELSE NULL END)
+        "count",
+        SUM (
+        CASE
+        WHEN TA.TRANS_TYPE = 'G24000' OR TA.TRANS_TYPE = 'G23000'
+        THEN
+        <if test="custType==3">
+        ABS(NVL (TA.TRUSTEE_SUB_POINT, 0))
+        </if>
+        <if test="custType==4">
+          ABS(   NVL (TA.SERVICE_SUB_POINT, 0))
+        </if>
+        <if test="custType==5">
+          ABS(NVL (TA.MANAGE_SUB_POINT, 0))
+        </if>
+        <if test="custType==6">
+          ABS(NVL (TA.PAAS_SUB_POINT, 0))
+        </if>
+        ELSE
+        NULL
+        END)
+        "backSum",
+        COUNT (
+        CASE
+        WHEN TO_NUMBER (SUBSTR (TA.TRANS_TYPE, 3, 1)) != 0 THEN 1
+        ELSE NULL
+        END)
+        "backCount"
+        FROM T_PS_PIONT_ALLOT TA
+        WHERE (NVL(TA.PAAS_ADD_POINT,0)!=0 OR NVL(TA.PAAS_SUB_POINT,0)!=0)
+        AND TA.BATCH_NO=#{batchNo,jdbcType=VARCHAR}
+        <if test="custType==3">
+            AND TA.TRUSTEE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==4">
+            AND TA.SERVICE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==5">
+            AND TA.MANAGE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==6">
+            AND TA.PAAS_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+	<!--列表查询积分分配明细汇总-->
+    <select id="queryPointAllocSumPage" parameterType="map" resultType="AllocDetailSum">
+        <!-- 分配明细 -->
+        SELECT
+        BATCH_NO batchNo,
+        NVL(SUM (
+        CASE
+        WHEN TA.TRANS_TYPE = 'G20000' THEN
+      <if test="custType==3">
+        NVL (TA.TRUSTEE_ADD_POINT, 0)
+      </if>
+        <if test="custType==4">
+            NVL (TA.SERVICE_ADD_POINT, 0)
+        </if>
+        <if test="custType==5">
+            NVL (TA.MANAGE_ADD_POINT, 0)
+        </if>
+        <if test="custType==6">
+            NVL (TA.PAAS_ADD_POINT, 0)
+        </if>
+        ELSE NULL
+        END),0)
+        "sum",
+        NVL(COUNT (CASE WHEN TA.TRANS_TYPE = 'G20000' THEN 1 ELSE NULL END),0)
+        "count",
+        NVL(SUM (
+        CASE
+        WHEN TA.TRANS_TYPE = 'G24000' OR TA.TRANS_TYPE = 'G23000'
+        THEN
+        <if test="custType==3">
+        ABS(NVL (TA.TRUSTEE_SUB_POINT, 0))
+        </if>
+        <if test="custType==4">
+          ABS(   NVL (TA.SERVICE_SUB_POINT, 0))
+        </if>
+        <if test="custType==5">
+          ABS(NVL (TA.MANAGE_SUB_POINT, 0))
+        </if>
+        <if test="custType==6">
+          ABS(NVL (TA.PAAS_SUB_POINT, 0))
+        </if>
+        ELSE
+        NULL
+        END),0)
+        "backSum",
+        NVL(COUNT (
+        CASE
+        WHEN TO_NUMBER (SUBSTR (TA.TRANS_TYPE, 3, 1)) != 0 THEN 1
+        ELSE NULL
+        END),0)
+        "backCount"
+        FROM T_PS_PIONT_ALLOT TA
+        WHERE (NVL(TA.PAAS_ADD_POINT,0)!=0 OR NVL(TA.PAAS_SUB_POINT,0)!=0)
+        <if test='beginBatchNo != null and beginBatchNo != ""'>
+            AND TA.BATCH_NO &gt;= #{beginBatchNo,jdbcType=VARCHAR}
+        </if>
+         <if test='endBatchNo != null and endBatchNo != ""'>
+            AND TA.BATCH_NO &lt;= #{endBatchNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==3">
+            AND TA.TRUSTEE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==4">
+            AND TA.SERVICE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==5">
+            AND TA.MANAGE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==6">
+            AND TA.PAAS_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+         GROUP BY TA.BATCH_NO
+         ORDER BY TA.BATCH_NO DESC
+    </select>
+
+    <!--查询积分分配明细列表-->
+    <select id="queryPointAllocPage" parameterType="map" resultType="AllocDetail">
+        <!-- 分配明细 -->
+        SELECT
+        <if test="custType==3">
+            TA.TRUSTEE_ENT_HS_NO,
+            CASE
+            WHEN TA.TRUSTEE_ADD_POINT IS NULL THEN TA.TRUSTEE_SUB_POINT
+            ELSE TA.TRUSTEE_ADD_POINT
+            END "pointVal",
+        </if>
+        <if test="custType==4">
+            TA.SERVICE_ENT_HS_NO,
+            CASE
+            WHEN TA.SERVICE_ADD_POINT IS NULL THEN TA.SERVICE_SUB_POINT
+            ELSE TA.SERVICE_ADD_POINT
+            END "pointVal",
+        </if>
+        <if test="custType==5">
+            TA.MANAGE_ENT_HS_NO,
+            CASE
+            WHEN TA.MANAGE_ADD_POINT IS NULL THEN TA.MANAGE_SUB_POINT
+            ELSE TA.MANAGE_ADD_POINT
+            END "pointVal",
+        </if>
+        <if test="custType==6">
+            TA.PAAS_ENT_HS_NO,
+            CASE
+            WHEN TA.PAAS_ADD_POINT IS NULL THEN TA.PAAS_SUB_POINT
+            ELSE TA.PAAS_ADD_POINT
+            END "pointVal",
+        </if>
+        TA.SOURCE_TRANS_DATE "sourceTransDate",
+        TA.PER_HS_NO "perResNo",
+        TA.TRANS_TYPE "transType",
+        TA.ALLOT_NO "transNo"
+        FROM T_PS_PIONT_ALLOT TA
+        WHERE (NVL(TA.PAAS_ADD_POINT,0)!=0 OR NVL(TA.PAAS_SUB_POINT,0)!=0)
+        AND TA.BATCH_NO=#{batchNo,jdbcType=VARCHAR}
+        <if test="custType==3">
+        AND TA.TRUSTEE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==4">
+            AND TA.SERVICE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==5">
+            AND TA.MANAGE_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test="custType==6">
+            AND TA.PAAS_ENT_HS_NO=#{hsResNo,jdbcType=VARCHAR}
+        </if>
+        order by  TA.SOURCE_TRANS_DATE desc
+    </select>
+    <!-- 查询积分记录(可撤单) -->
+    <select id="pointToCancelRecordPage" parameterType="map" resultType="PointRecordResult">
+        SELECT
+        TRANS_NO "transNo",
+        ENT_RES_NO "entResNo",
+        PER_RES_NO "perResNo",
+        ENT_CUST_ID "entCustId",
+        PER_CUST_ID "perCustId",
+        TRANS_TYPE "transType",
+        SOURCE_CURRENCY_CODE "sourceCurrencyCode",
+        SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        TRANS_AMOUNT "transAmount",
+        POINT_RATE "pointRate",
+        PER_POINT "perPoint",
+        ENT_POINT "entPoint",
+        SOURCE_TRANS_NO "sourceTransNo",
+        BATCH_NO "batchNo",
+        SOURCE_TRANS_DT "sourceTransDate",
+        ENT_NAME "entName",
+        MALL_NAME "mallName",
+        ORDER_AMOUNT "orderAmount",
+        DEDUCTION_VOUCHER "deductionVoucher",
+        REMARK "remark"
+        FROM T_PS_NDETAIL
+        WHERE TRANS_STATUS = 0 
+        AND SUBSTR (TRANS_TYPE, 2, 1) = 2
+        AND ISSETTLE = 1
+        AND (PAY_STATUS = 1 OR PAY_STATUS IS NULL)
+        AND ENT_CUST_ID = #{pointRecord.entCustId,jdbcType=VARCHAR}
+        <if test='pointRecord.sourceTransNo != null and pointRecord.sourceTransNo != ""'>
+            AND SOURCE_TRANS_NO = #{pointRecord.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.hsResNo != null and pointRecord.hsResNo != ""'>
+            AND PER_RES_NO = #{pointRecord.hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.perCustId != null and pointRecord.perCustId != ""'>
+            AND PER_CUST_ID = #{pointRecord.perCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.startDate != null and pointRecord.startDate != ""'>
+            <![CDATA[
+	            	AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') >= TO_DATE(#{pointRecord.startDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        <if test='pointRecord.endDate != null and pointRecord.endDate != ""'>
+            <![CDATA[
+					AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') <= TO_DATE(#{pointRecord.endDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        ORDER BY SOURCE_TRANS_DT DESC
+    </select>
+
+    <!-- 查询积分记录(可退货单) -->
+    <select id="pointToBackRecordPage" parameterType="map" resultType="PointRecordResult">
+        SELECT
+        TRANS_NO "transNo",
+        ENT_RES_NO "entResNo",
+        PER_RES_NO "perResNo",
+        ENT_CUST_ID "entCustId",
+        PER_CUST_ID "perCustId",
+        TRANS_TYPE "transType",
+        SOURCE_CURRENCY_CODE "sourceCurrencyCode",
+        SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        TRANS_AMOUNT "transAmount",
+        POINT_RATE "pointRate",
+        PER_POINT "perPoint",
+        ENT_POINT "entPoint",
+        SOURCE_TRANS_NO "sourceTransNo",
+        BATCH_NO "batchNo",
+        SOURCE_TRANS_DT "sourceTransDate",
+        OPER_NO "operNo",
+        ENT_NAME "entName",
+        MALL_NAME "mallName",
+        ORDER_AMOUNT "orderAmount",
+        DEDUCTION_VOUCHER "deductionVoucher",
+        REMARK "remark"
+        FROM T_PS_NDETAIL
+        WHERE TRANS_STATUS = 0 
+        AND SUBSTR (TRANS_TYPE, 2, 1) = 2
+        AND (PAY_STATUS = 1 OR PAY_STATUS IS NULL)
+        AND ENT_CUST_ID = #{pointRecord.entCustId,jdbcType=VARCHAR}
+        <if test='pointRecord.sourceTransNo != null and pointRecord.sourceTransNo != ""'>
+            AND SOURCE_TRANS_NO = #{pointRecord.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.hsResNo != null and pointRecord.hsResNo != ""'>
+            AND PER_RES_NO = #{pointRecord.hsResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.perCustId != null and pointRecord.perCustId != ""'>
+            AND PER_CUST_ID = #{pointRecord.perCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.startDate != null and pointRecord.startDate != ""'>
+            <![CDATA[
+	            	AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') >= TO_DATE(#{pointRecord.startDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        <if test='pointRecord.endDate != null and pointRecord.endDate != ""'>
+            <![CDATA[
+					AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') <= TO_DATE(#{pointRecord.endDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        ORDER BY SOURCE_TRANS_DT DESC
+    </select>
+
+    <!-- 查询网上积分登记记录 -->
+    <select id="pointRegisterRecordPage" parameterType="map" resultType="PointRecordResult">
+        SELECT
+        TRANS_NO "transNo",
+        ENT_RES_NO "entResNo",
+        PER_RES_NO "perResNo",
+        ENT_CUST_ID "entCustId",
+        PER_CUST_ID "perCustId",
+        TRANS_TYPE "transType",
+        SOURCE_CURRENCY_CODE "sourceCurrencyCode",
+        SOURCE_TRANS_AMOUNT "sourceTransAmount",
+        TRANS_AMOUNT "transAmount",
+        POINT_RATE "pointRate",
+        PER_POINT "perPoint",
+        ENT_POINT "entPoint",
+        SOURCE_TRANS_NO "sourceTransNo",
+        BATCH_NO "batchNo",
+        SOURCE_TRANS_DT "sourceTransDate",
+        ORDER_AMOUNT "orderAmount",
+        DEDUCTION_VOUCHER "deductionVoucher" 
+        FROM T_PS_NDETAIL
+        WHERE TRANS_STATUS = 0 AND IS_ONLINE_REGISTER = 0
+        AND ENT_CUST_ID = #{pointRecord.entCustId,jdbcType=VARCHAR}
+        <if test='pointRecord.sourceTransNo != null and pointRecord.sourceTransNo != ""'>
+            AND SOURCE_TRANS_NO = #{pointRecord.sourceTransNo,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.hsResNo != null and pointRecord.hsResNo != ""'>
+            AND PER_RES_NO like '%'||#{pointRecord.hsResNo,jdbcType=VARCHAR}|| '%'
+        </if>
+        <if test='pointRecord.perCustId != null and pointRecord.perCustId != ""'>
+            AND PER_CUST_ID = #{pointRecord.perCustId,jdbcType=VARCHAR}
+        </if>
+        <if test='pointRecord.startDate != null and pointRecord.startDate != ""'>
+            <![CDATA[
+	            	AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') >= TO_DATE(#{pointRecord.startDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        <if test='pointRecord.endDate != null and pointRecord.endDate != ""'>
+            <![CDATA[
+					AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') <= TO_DATE(#{pointRecord.endDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        ORDER BY SOURCE_TRANS_DT DESC
+    </select>
+
+    <sql id="Base_Column_List">
+         PCBN.ENT_RES_NO "entResNo",
+         PCBN.ENT_CUST_ID "entCustId",
+         PCBN.EQUIPMENT_NO "equipmentNo",
+         PCBN.PER_RES_NO "perResNo",
+         PCBN.SOURCE_TRANS_NO "sourceTransNo",
+         PCBN.BATCH_NO "batchNo",
+         PCBN.SOURCE_TRANS_DT "sourceTransDate",
+         PCBN.SOURCE_TRANS_AMOUNT "sourceTransAmount",
+         PCBN.ENT_POINT "entPoint",
+         PCBN.TRANS_AMOUNT "transAmount",
+         PCBN.TRANS_TYPE "transType",
+         PCBN.SOURCE_BATCH_NO "sourceBatchNo",
+         PCBN.PER_POINT "perPoint",
+         PCBN.TRANS_NO "transNo",
+         PCBN.OPER_NO "operNo",
+         PCBN.ENT_NAME "entName",
+         PCBN.MALL_NAME "mallName",
+         PCBN.REMARK "remark",
+         PCBN.CURRENCY_RATE "currencyRate",
+         PCBN.CHANNEL_TYPE "channelType",
+         PCBN.EQUIPMENT_TYPE "equipmentType",
+         PCBN.POINT_RATE "pointRate",
+         PCBN.ORDER_NO "orderNo"
+    </sql>
+
+    <!-- 查询消费积分 -->
+    <select id="queryPointDetails" parameterType="String" resultType="QueryResult">
+        SELECT
+        <include refid="Base_Column_List"/>,PCBN.ORDER_AMOUNT "orderAmount",
+        PCBN.DEDUCTION_VOUCHER "deductionVoucher", PCBN.TARGET_TRANS_AMOUNT "targetTransAmount"
+        FROM T_PS_NDETAIL PCBN WHERE PCBN.TRANS_NO=#{transNo,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 查询撤单 -->
+    <select id="queryCancelDetails" parameterType="String" resultType="QueryResult">
+        SELECT
+        <include refid="Base_Column_List"/>,PSN.SOURCE_TRANS_NO "oldTransNo",PSN.PER_POINT "sourcePoint",PSN.TARGET_TRANS_AMOUNT "targetTransAmount"
+        FROM T_PS_CDETAIL PCBN JOIN T_PS_NDETAIL PSN ON PSN.TRANS_NO=PCBN.OLD_TRANS_NO
+        WHERE PCBN.TRANS_NO=#{transNo,jdbcType=VARCHAR}
+          AND (PSN.PAY_STATUS = 1 OR PSN.PAY_STATUS IS NULL)
+    </select>
+
+    <!-- 查询退货 -->
+    <select id="queryBackDetails" parameterType="String" resultType="QueryResult">
+        SELECT
+        <include refid="Base_Column_List"/>,PSN.SOURCE_TRANS_NO "oldTransNo",PSN.PER_POINT "sourcePoint",PSN.TARGET_TRANS_AMOUNT "targetTransAmount"
+        FROM T_PS_BDETAIL PCBN JOIN T_PS_NDETAIL PSN ON PSN.TRANS_NO=PCBN.OLD_TRANS_NO
+        WHERE PCBN.TRANS_NO=#{transNo,jdbcType=VARCHAR}
+          AND (PSN.PAY_STATUS = 1 OR PSN.PAY_STATUS IS NULL)
+    </select>
+
+    <!-- 查询企业收入详情 -->
+    <select id="proceedsDetail" parameterType="String" resultType="ProceedsResult">
+        SELECT
+        TPSHSBSUM.HSB_SUM_NO "transNo",
+        TPSHSBSUM.CUST_ID "custId",
+        TPSHSBSUM.HS_RES_NO "hsResNo",
+        NVL(TPSHSBSUM.HSB_TRANS_AMOUNT,0)-NVL(TPSHSBSUM.DEDUCT_POINT_AMOUNT,0)-NVL(CSC.ADD_AMOUNT,0) "dayHsbAmount",
+        CSC.ADD_AMOUNT "cscTurnover",
+        TPSHSBSUM.TRANS_TYPE "transType",
+        TPSHSBSUM.BATCH_NO "batchNo",
+        TPSHSBSUM.SALE_AMOUNT "daySale",
+        TPSHSBSUM.CASH_TRANS_AMOUNT "dayCashTurnover",
+        TPSHSBSUM.HSB_TRANS_AMOUNT "dayHsbTurnover",
+        TPSHSBSUM.BACK_AMOUNT "dayBackTurnover",
+        NVL(TPSHSBSUM.TRANS_AMOUNT,0)+NVL(TPSHSBSUM.SETTLE_BACK_CASH_TRANS_AMOUNT,0)+NVL(TPSHSBSUM.SETTLE_BACK_HSB_TRANS_AMOUNT,0) "dayTurnover",
+        TPSHSBSUM.ACCOUNTANT_DATE "accountantDate",
+        TPSHSBSUM.DEDUCT_POINT_AMOUNT "deductPointAmount",
+        TPSHSBSUM.SETTLE_BACK_CASH_TRANS_AMOUNT "dayBackCyberTurnover",
+        TPSHSBSUM.SETTLE_BACK_HSB_TRANS_AMOUNT "dayBackHsbTurnover",
+        TPSHSBSUM.SETTLE_BACK_POINT_AMOUNT "dayBackPointTurnover"
+        FROM T_PS_HSB_ALLOC_SUM TPSHSBSUM LEFT JOIN T_PS_HSB_ALLOC_CSC CSC ON TPSHSBSUM.HSB_SUM_NO = CSC.REL_SUM_NO
+        WHERE TPSHSBSUM.HSB_SUM_NO=#{transNo,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 查询企业收入详情汇总 -->
+    <select id="proceedsAllDetail" parameterType="Proceeds" resultType="ProceedsResult">
+        SELECT
+        TPSHSBSUM.CUST_ID "custId",
+        TPSHSBSUM.HS_RES_NO "hsResNo",
+        SUM(TPSHSBSUM.ADD_AMOUNT) "dayHsbAmount",
+        SUM(CSC.ADD_AMOUNT) "cscTurnover",
+        TPSHSBSUM.TRANS_TYPE "transType",
+        TPSHSBSUM.BATCH_NO "batchNo",
+        SUM(TPSHSBSUM.SALE_AMOUNT) "daySale",
+        SUM(TPSHSBSUM.CASH_TRANS_AMOUNT) "dayCashTurnover",
+        SUM(TPSHSBSUM.HSB_TRANS_AMOUNT) "dayHsbTurnover",
+        SUM(TPSHSBSUM.BACK_AMOUNT) "dayBackTurnover",
+        SUM(TPSHSBSUM.TRANS_AMOUNT) "dayTurnover",
+        TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd')||TO_CHAR(SYSDATE,'hh24:mi:ss'),'yyyy-MM-dd hh24:mi:ss') "accountantDate",
+        SUM(TPSHSBSUM.ADD_COUNT) "addCount"
+        FROM T_PS_HSB_ALLOC_SUM TPSHSBSUM LEFT JOIN T_PS_HSB_ALLOC_CSC CSC ON TPSHSBSUM.HSB_SUM_NO = CSC.REL_SUM_NO
+        WHERE 1=1
+        <if test="entResNo != null and entResNo!=''">
+            AND TPSHSBSUM.HS_RES_NO=#{entResNo,jdbcType=VARCHAR}
+        </if>
+
+        <if test="entCustId != null and entCustId!=''">
+            AND TPSHSBSUM.CUST_ID=#{entCustId,jdbcType=VARCHAR}
+        </if>
+        <if test="transDate != null and transDate!=''">
+            AND TPSHSBSUM.BATCH_NO BETWEEN
+            TO_DATE(#{transDate,jdbcType=VARCHAR}, 'yyyy-MM-dd
+            HH24:MI:SS')
+            AND
+            TO_DATE(#{transDate,jdbcType=VARCHAR}||'23:59:59','YYYY-MM-DD
+            HH24:MI:SS')
+        </if>
+        GROUP BY TPSHSBSUM.CUST_ID,
+        TPSHSBSUM.HS_RES_NO,
+        TPSHSBSUM.TRANS_TYPE,
+        TPSHSBSUM.BATCH_NO,
+        TO_CHAR(TPSHSBSUM.ACCOUNTANT_DATE,'YYYY-MM-DD')
+    </select>
+
+
+
+    <!-- 查询企业收入明细 -->
+    <select id="proceedsOffLineEntryPage" parameterType="QueryDetail" resultType="QueryEntry">
+        SELECT
+        O.ENTRY_NO "transNo",
+        O.SOURCE_TRANS_DATE "sourceTransDate",
+        O.TRANS_TYPE "transType",
+        O.PER_HS_NO "perResNo",
+        O.ENT_HS_NO "entResNo",
+        CASE
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='30'  THEN N.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='31'  THEN C.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='32'  THEN B.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='36'  THEN B.TRANS_AMOUNT
+        WHEN O.ENT_ADD_AMOUNT IS NOT NULL THEN O.ENT_ADD_AMOUNT
+        ELSE NVL (O.ENT_SUB_AMOUNT, 0)
+        END
+        "transAmount",
+        CASE
+        WHEN O.ENT_ADD_POINT_AMOUNT IS NOT NULL THEN O.ENT_ADD_POINT_AMOUNT
+        ELSE NVL (O.ENT_SUB_POINT_AMOUNT, 0)
+        END
+        "deductPoint",
+        CASE
+        WHEN SETTLE_AMOUNT IS NOT NULL THEN
+        NVL (O.SETTLE_AMOUNT, 0)
+        ELSE -(NVL (O.ENT_SUB_AMOUNT,0)-NVL(O.ENT_ADD_POINT_AMOUNT, 0))
+        END
+        "settleAmount",
+        O.UPDATED_DATE "settleDate",
+        N.POINT_RATE||B.POINT_RATE||C.POINT_RATE "pointRate"
+        FROM T_PS_OFFLINE_ENTRY O
+        LEFT JOIN T_PS_NDETAIL N ON O.REL_TRANS_NO=N.TRANS_NO
+        LEFT JOIN T_PS_BDETAIL B ON O.REL_TRANS_NO=B.TRANS_NO
+        LEFT JOIN T_PS_CDETAIL C ON O.REL_TRANS_NO=C.TRANS_NO
+        WHERE O.ISSETTLE=0 AND SUBSTR(O.TRANS_TYPE,4,1) IN (0,1,2,4,6,8)  AND SUBSTR (O.TRANS_TYPE,2,3)!='230'
+        <if test='queryDetail.batchNo != null and queryDetail.batchNo != ""'>
+         AND O.BATCH_NO=#{queryDetail.batchNo,jdbcType=VARCHAR}
+        </if>
+        <if test='queryDetail.resNo != null and queryDetail.resNo != ""'>
+         AND O.ENT_HS_NO = #{queryDetail.resNo,jdbcType=VARCHAR}
+        </if>
+        -- AND SUBSTR (O.TRANS_TYPE, 3, 1) = 1
+         ORDER BY O.ENT_HS_NO, O.SOURCE_TRANS_DATE DESC
+    </select>
+
+
+    <!-- 查询企业收入明细 -->
+    <select id="proceedsOnlineEntryPage" parameterType="QueryDetail" resultType="QueryEntry">
+        SELECT
+        O.ENTRY_NO "transNo",
+        O.SOURCE_TRANS_DATE "sourceTransDate",
+        O.TRANS_TYPE "transType",
+        O.PER_HS_NO "perResNo",
+        O.ENT_HS_NO "entResNo",
+        CASE
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='30'  THEN N.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='31'  THEN C.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='32'  THEN B.TRANS_AMOUNT
+        WHEN SUBSTR(O.TRANS_TYPE,3,2)='36'  THEN B.TRANS_AMOUNT
+        WHEN O.ENT_ADD_AMOUNT IS NOT NULL THEN O.ENT_ADD_AMOUNT
+        ELSE NVL (O.ENT_SUB_AMOUNT, 0)
+        END
+        "transAmount",
+        CASE
+        WHEN O.ENT_ADD_POINT_AMOUNT IS NOT NULL THEN O.ENT_ADD_POINT_AMOUNT
+        ELSE NVL (O.ENT_SUB_POINT_AMOUNT, 0)
+        END
+        "deductPoint",
+        NVL (O.SETTLE_AMOUNT, 0) "settleAmount",
+        O.UPDATED_DATE "settleDate",
+        CASE
+        WHEN B.TRANS_NO IS NOT NULL  THEN (SELECT '{'||'orderNo:'||NN.ORDER_NO||',orderType:'||NVL(NN.ORDER_TYPE,0)||'}' FROM T_PS_NDETAIL NN WHERE NN.TRANS_NO=B.OLD_TRANS_NO)
+        WHEN C.TRANS_NO IS NOT NULL  THEN (SELECT '{'||'orderNo:'||NN.ORDER_NO||',orderType:'||NVL(NN.ORDER_TYPE,0)||'}' FROM T_PS_NDETAIL NN WHERE NN.TRANS_NO=C.OLD_TRANS_NO)
+        ELSE'{'||'orderNo:'||N.ORDER_NO||',orderType:'||NVL(N.ORDER_TYPE,0)||'}'
+        END
+        "orderNoOrorderType",
+        CASE WHEN O.ENT_SUB_SERVICE_FEE IS NOT NULL THEN O.ENT_SUB_SERVICE_FEE
+        ELSE O.ENT_ADD_SERVICE_FEE
+        END
+        "serviceFee"
+        FROM T_PS_ONLINE_ENTRY O
+        LEFT JOIN T_PS_NDETAIL N ON O.REL_TRANS_NO=N.TRANS_NO
+        LEFT JOIN T_PS_BDETAIL B ON O.REL_TRANS_NO=B.TRANS_NO
+        LEFT JOIN T_PS_CDETAIL C ON O.REL_TRANS_NO=C.TRANS_NO
+        WHERE O.ISSETTLE=0
+        <if test='queryDetail.batchNo != null and queryDetail.batchNo != ""'>
+            AND O.BATCH_NO=#{queryDetail.batchNo,jdbcType=VARCHAR}
+        </if>
+        <if test='queryDetail.resNo != null and queryDetail.resNo != ""'>
+            AND O.ENT_HS_NO = #{queryDetail.resNo,jdbcType=VARCHAR}
+        </if>
+        <if test='queryDetail.orderNo != null and queryDetail.orderNo != ""'>
+            AND N.ORDER_NO=#{queryDetail.orderNo,jdbcType=VARCHAR}
+        </if>
+        --AND SUBSTR (O.TRANS_TYPE, 3, 1) = 1
+        ORDER BY O.ENT_HS_NO, O.SOURCE_TRANS_DATE DESC
+    </select>
+
+
+    <!-- 消费积分纳税详单 -->
+    <select id="queryDayTax" parameterType="String" resultType="TaxResult">
+        SELECT TPSTAX.TAX_NO "transNo",
+        TPSTAX.ADD_AMOUNT "pointTax",
+        TPSTAX.HS_RES_NO "hsResNo",
+        TPSTAX.CUST_ID "custId",
+        TPSTAX.UPDATED_DATE "accountantDate",
+        TPSTAX.TAX_RATE "taxRate",
+        TPSPA.ADD_AMOUNT "pointIncome"
+        FROM T_PS_PIONT_ALLOC_TAX TPSTAX
+        LEFT JOIN T_PS_PIONT_ALLOC_SUM TPSPA ON TPSPA.SUM_NO = TPSTAX.REL_SUM_NO
+        WHERE TPSTAX.ISACTIVE = '1'
+          AND  TPSTAX.TAX_NO=#{transNo,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 商业服务费纳税详单 -->
+    <select id="queryCscTax" parameterType="String" resultType="TaxResult">
+        SELECT TPSTAX.TAX_NO "transNo",
+        TPSTAX.ADD_AMOUNT "cscTax",
+        TPSTAX.HS_RES_NO "hsResNo",
+        TPSTAX.CUST_ID "custId",
+        TPSTAX.UPDATED_DATE "accountantDate",
+        TPSTAX.TAX_RATE "taxRate",
+        TPSPA.ADD_AMOUNT " cscIncome"
+        FROM T_PS_PIONT_ALLOC_TAX TPSTAX
+        LEFT JOIN T_PS_HSB_ALLOC_CSC TPSPA ON TPSPA.CSC_NO = TPSTAX.REL_SUM_NO
+        WHERE TPSTAX.ISACTIVE = '1'
+        AND  TPSTAX.TAX_NO=#{transNo,jdbcType=VARCHAR}
+    </select>
+    
+    <!-- POS定金单查询 -->
+    <select id="searchPosEarnestPage" parameterType="QuerySingle" resultType="PosEarnest">
+        SELECT T.SOURCE_TRANS_NO sourceTransNo,
+		       T.TRANS_AMOUNT transAmount,
+		       T.TRANS_TYPE transType,
+		       T.SOURCE_CURRENCY_CODE sourceCurrencyCode,
+		       T.ORDER_AMOUNT orderAmount,
+               T.DEDUCTION_VOUCHER deductionVoucher,
+		       TO_CHAR(T.SOURCE_TRANS_DT, 'YYYYMMDDHH24MISS') sourceTransDate
+		  FROM T_PS_NDETAIL T
+		 WHERE T.ENT_CUST_ID = #{entCustId, jdbcType = VARCHAR}
+		   AND T.PER_CUST_ID = #{perCustId, jdbcType = VARCHAR}
+		   AND T.TRANS_TYPE IN (${transTypes})
+		   AND T.TRANS_STATUS = 7
+		   <if test='startDate != null and startDate != ""'>
+            <![CDATA[
+	            	AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') >= TO_DATE(#{startDate},'YYYY-MM-DD')
+				]]>
+	        </if>
+	        <if test='endDate != null and endDate != ""'>
+	            <![CDATA[
+						AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') <= TO_DATE(#{endDate},'YYYY-MM-DD')
+					]]>
+	        </if>
+		 ORDER BY TO_CHAR(T.SOURCE_TRANS_DT, 'YYYYMMDDHH24MISS')  
+    </select>
+
+
+
+    <!--积分记录-->
+    <select id="queryPointNBCPage" parameterType="map" resultType="QueryPageResult">
+        SELECT
+        TRANS_NO "transNo",
+        ENT_RES_NO "entResNo",
+        PER_RES_NO "perResNo",
+        TRANS_AMOUNT "transAmount",
+        POINT_RATE "pointRate",
+        PER_POINT "perPoint",
+        ENT_POINT "entPoint",
+        <if test="queryPage.queryType==2">
+        OLD_TRANS_AMOUNT "sourceTransAmount",
+        OLD_ENT_POINT "sourceEntPoint",
+        OLD_PER_POINT "sourcePerPoint",
+        </if>
+        SOURCE_TRANS_DT "sourceTransDate",
+        CHANNEL_TYPE "channelType",
+        EQUIPMENT_TYPE "equipmentType",
+        REMARK "remark"
+        FROM ${tableName}
+        WHERE TRANS_STATUS IN (0,6,8) AND
+        SUBSTR (TRANS_TYPE, 2, 1) = 2
+        <if test='queryPage.perResNo != null and queryPage.perResNo != ""'>
+            AND PER_RES_NO = #{queryPage.perResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='queryPage.entResNo != null and queryPage.entResNo != ""'>
+            AND ENT_RES_NO = #{queryPage.entResNo,jdbcType=VARCHAR}
+        </if>
+        <if test='queryPage.startDate != null and queryPage.startDate != ""'>
+            <![CDATA[
+	            	AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') >= TO_DATE(#{queryPage.startDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        <if test='queryPage.endDate != null and queryPage.endDate != ""'>
+            <![CDATA[
+					AND TO_DATE(TO_CHAR(SOURCE_TRANS_DT,'YYYY-MM-DD'),'YYYY-MM-DD') <= TO_DATE(#{queryPage.endDate},'YYYY-MM-DD')
+				]]>
+        </if>
+        ORDER BY SOURCE_TRANS_DT DESC
+    </select>
+
+
+
+	<!-- 根据企业custId查询是否有未结单的交易 -->
+    <select id="queryIsSettleByEntCustId" parameterType="String" resultType="int">
+        SELECT COUNT(N.TRANS_NO) 
+          FROM T_PS_NDETAIL N
+		 WHERE N.ENT_CUST_ID = #{entCustId, jdbcType = VARCHAR}
+		   AND ((N.ISSETTLE = 1 AND N.TRANS_STATUS IN (0, 3, 4, 5, 7)) OR
+		       N.ISSETTLE = 0 AND N.TRANS_STATUS IN (5))
+    </select>
+    
+    <!-- 根据custId查询是否有未结算的预付定金的交易 -->
+    <select id="queryPrePayByCustId" parameterType="String" resultType="int">
+        SELECT COUNT(1) FROM T_PS_NDETAIL N 
+		 WHERE N.TRANS_STATUS = 7
+		   AND N.ISSETTLE = 1
+		   AND (N.ENT_CUST_ID = #{custId, jdbcType = VARCHAR} OR N.PER_CUST_ID = #{custId, jdbcType = VARCHAR})
+    </select>
+	
+</mapper>

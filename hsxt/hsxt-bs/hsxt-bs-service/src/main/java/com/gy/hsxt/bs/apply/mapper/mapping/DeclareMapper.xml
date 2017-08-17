@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.DeclareMapper">
+
+    <!-- 创建申报申请 -->
+    <insert id="createDeclare" parameterType="com.gy.hsxt.bs.bean.apply.DeclareRegInfo">
+        INSERT INTO T_BS_DECLARE_ENT
+        (APPLY_ID,
+         TO_ENT_CUST_NAME,
+         TO_ENT_ENNAME,
+         TO_ENT_RES_NO,
+         TO_SELECT_MODE,
+         TO_M_RES_NO,
+         TO_CUST_TYPE,
+         TO_BUSINESS_TYPE,
+         TO_BUY_RES_RANGE,
+         TO_PNODE_CUST_ID,
+         TO_PNODE_RES_NO,
+         TO_INODE_RES_NO,
+         TO_INODE_L_OR_R,
+         FR_ENT_CUST_ID,
+         FR_ENT_CUST_NAME,
+         FR_ENT_RES_NO,
+         FR_M_ENT_RES_NO,
+         FR_M_CORP_NAME,
+         APP_STATUS,
+         ORDER_NO,
+         RES_FEE_ALLOC_MODE,
+         RES_FEE_CHARGE_MODE,
+         CHARGE_FLAG,
+         OPEN_ACC_FLAG,
+         OPEN_VAS_FLAG,
+         COUNTRY_NO,
+         PROVINCE_NO,
+         CITY_NO,
+         SPREAD_ENT_CUST_ID,
+         SPREAD_ENT_CUST_NAME,
+         SPREAD_ENT_RES_NO,
+         CREATED_DATE,
+         CREATEDBY)
+        VALUES
+            (#{applyId},
+                #{toEntCustName},
+                #{toEntEnName},
+                #{toEntResNo},
+                #{toSelectMode},
+                #{toMResNo},
+                #{toCustType},
+                #{toBusinessType},
+                #{toBuyResRange},
+                #{toPnodeCustId},
+                #{toPnodeResNo},
+                #{toInodeResNo},
+                #{toInodeLorR},
+                #{frEntCustId},
+                #{frEntCustName},
+                #{frEntResNo},
+                #{frMEntResNo},
+                #{frMCorpName},
+                0,
+                NULL,
+                1,
+                1,
+                0,
+                0,
+                0,
+                #{countryNo},
+                #{provinceNo},
+                #{cityNo},
+                #{spreadEntCustId},
+                #{spreadEntCustName},
+                #{spreadEntResNo},
+             SYSDATE,
+             #{optCustId})
+    </insert>
+
+    <!-- 更新申报申请 -->
+    <update id="updateDeclare" parameterType="com.gy.hsxt.bs.bean.apply.DeclareRegInfo">
+        UPDATE T_BS_DECLARE_ENT SET
+        <if test="toEntResNo != null and toEntResNo !=''">
+            TO_ENT_RES_NO = #{toEntResNo},
+        </if>
+        <if test="toSelectMode != null">
+            TO_SELECT_MODE = #{toSelectMode},
+        </if>
+        <if test="spreadEntResNo !=null">
+            SPREAD_ENT_RES_NO = #{spreadEntResNo},
+        </if>
+        <if test="spreadEntCustId !=null">
+            SPREAD_ENT_CUST_ID = #{spreadEntCustId},
+        </if>
+        <if test="spreadEntCustName !=null">
+            SPREAD_ENT_CUST_NAME = #{spreadEntCustName},
+        </if>
+        <if test="toEntEnName != null and toEntEnName != ''">
+            TO_ENT_ENNAME = #{toEntEnName},
+        </if>
+        <if test="toCustType != null">
+            TO_CUST_TYPE = #{toCustType},
+        </if>
+        <if test="toBusinessType != null">
+            TO_BUSINESS_TYPE = #{toBusinessType},
+        </if>
+        <if test="toBuyResRange != null">
+            TO_BUY_RES_RANGE = #{toBuyResRange},
+        </if>
+        <if test="toEntCustName != null and toEntCustName !=''">
+            TO_ENT_CUST_NAME = #{toEntCustName},
+        </if>
+        <if test="countryNo != null and countryNo != ''">
+            COUNTRY_NO = #{countryNo},
+        </if>
+        <if test="provinceNo != null and provinceNo != ''">
+            PROVINCE_NO = #{provinceNo},
+        </if>
+        <if test="cityNo != null and cityNo != ''">
+            CITY_NO = #{cityNo},
+        </if>
+        <if test="toMResNo != null and toMResNo != ''">
+            TO_M_RES_NO = #{toMResNo},
+        </if>
+        <if test="toPnodeCustId != null and toPnodeCustId !=''">
+            TO_PNODE_CUST_ID = #{toPnodeCustId},
+        </if>
+        <if test="toPnodeResNo != null and toPnodeResNo != ''">
+            TO_PNODE_RES_NO = #{toPnodeResNo},
+        </if>
+        <if test="toInodeResNo != null and toInodeResNo !=''">
+            TO_INODE_RES_NO = #{toInodeResNo},
+        </if>
+        <if test="toInodeLorR != null">
+            TO_INODE_L_OR_R = #{toInodeLorR},
+        </if>
+        UPDATED_DATE = sysdate
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 更新申报企业工商登记信息 -->
+    <update id="updateDeclareEnt" parameterType="com.gy.hsxt.bs.bean.apply.DeclareBizRegInfo">
+        UPDATE T_BS_DECLARE_ENT
+        SET
+        TO_ENT_CUST_NAME = #{entName},
+        ENT_ADDR = #{entAddress},
+        LEGAL_NAME = #{legalName},
+        ENT_TYPE = #{entType},
+        <if test="legalCreType != null">
+            LEGAL_CRE_TYPE = #{legalCreType},
+        </if>
+        <if test="legalCreNo != null and legalCreNo != ''">
+            LEGAL_CRE_NO = #{legalCreNo},
+        </if>
+        <if test="linkmanMobile != null and linkmanMobile != ''">
+            PHONE = #{linkmanMobile},
+        </if>
+        LICENSE_NO = #{licenseNo},
+        LIMIT_DATE = #{limitDate},
+        <if test="orgNo != null and orgNo != ''">
+            ORG_NO = #{orgNo},
+        </if>
+        <if test="taxNo != null and taxNo != ''">
+            TAX_NO = #{taxNo},
+        </if>
+        <if test="dealArea != null and dealArea != ''">
+            DEAL_AREA = #{dealArea},
+        </if>
+        <if test="establishingDate !=null and establishingDate != '' ">
+            ESTABLISHING_DATE = to_date(#{establishingDate},'yyyy-MM-dd'),
+        </if>
+        <if test="establishingDate ==null or establishingDate==''">
+            ESTABLISHING_DATE = null,
+        </if>
+        UPDATED_DATE = SYSDATE
+        where
+        APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 创建申报企业联系人信息 -->
+    <insert id="createLinkman" parameterType="com.gy.hsxt.bs.bean.apply.DeclareLinkman">
+        INSERT INTO T_BS_DECLARE_ENT_LINKMAN
+        (APPLY_ID,
+         LINKMAN,
+         PHONE,
+         MOBILE,
+         EMAIL,
+         ZIP_CODE,
+         ADDRESS,
+         JOB,
+         CERTIFICATE_FILE,
+         QQ,
+         WEB_SITE,
+         FAX,
+         CREATED_DATE,
+         CREATEDBY)
+        VALUES
+            (#{applyId},
+                #{linkman},
+                #{phone},
+                #{mobile},
+                #{email},
+                #{zipCode},
+                #{address},
+                #{job},
+                #{certificateFile},
+                #{qq},
+                #{webSite},
+             #{fax},
+             SYSDATE,
+             #{optCustId})
+    </insert>
+
+    <!-- 更新申报企业联系人信息 -->
+    <update id="updateLinkman" parameterType="com.gy.hsxt.bs.bean.apply.DeclareLinkman">
+        UPDATE T_BS_DECLARE_ENT_LINKMAN
+        <set>
+            LINKMAN = #{linkman},
+            PHONE = #{phone},
+            MOBILE = #{mobile},
+            EMAIL = #{email},
+            ZIP_CODE = #{zipCode},
+            ADDRESS = #{address},
+            JOB = #{job},
+            CERTIFICATE_FILE = #{certificateFile},
+            QQ = #{qq},
+            WEB_SITE = #{webSite},
+            FAX = #{fax},
+            UPDATED_DATE = SYSDATE,
+            UPDATEDBY = #{optCustId}
+        </set>
+        <where>
+            APPLY_ID = #{applyId}
+        </where>
+    </update>
+
+    <!-- 创建申报企业银行账户信息 -->
+    <insert id="createBank" parameterType="com.gy.hsxt.bs.bean.apply.DeclareBank">
+        INSERT INTO T_BS_DECLARE_BANK_ACCOUNT
+        (ACCOUNT_ID,
+         APPLY_ID,
+         BANK_CODE,
+         BRANCH_CODE,
+         ACCOUNT_NAME,
+         ACCOUNT_NO,
+         COUNTRY_NO,
+         PROVINCE_NO,
+         CITY_NO,
+         CURRENCY_CODE,
+         ISDEFAULT,
+         CREATED_DATE,
+         CREATEDBY)
+        VALUES
+            (#{accountId},
+                #{applyId},
+                #{bankCode},
+                #{branchCode},
+                #{accountName},
+                #{accountNo},
+                #{countryNo},
+                #{provinceNo},
+                #{cityNo},
+                #{currencyCode},
+                #{isDefault},
+             SYSDATE,
+             #{optCustId})
+    </insert>
+
+    <!-- 更新申报企业银行账户信息 -->
+    <update id="updateBank" parameterType="com.gy.hsxt.bs.bean.apply.DeclareBank">
+        UPDATE T_BS_DECLARE_BANK_ACCOUNT
+        <set>
+            BANK_CODE = #{bankCode},
+            BRANCH_CODE = #{branchCode},
+            ACCOUNT_NAME = #{accountName},
+            ACCOUNT_NO = #{accountNo},
+            COUNTRY_NO = #{countryNo},
+            PROVINCE_NO = #{provinceNo},
+            CITY_NO = #{cityNo},
+            CURRENCY_CODE = #{currencyCode},
+            ISDEFAULT = #{isDefault},
+            UPDATEDBY = #{optCustId},
+            UPDATED_DATE = SYSDATE
+        </set>
+        <where>
+            ACCOUNT_ID = #{accountId}
+        </where>
+    </update>
+
+    <!-- 创建申报企业资质信息 -->
+    <insert id="createAptitude" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close="end;">
+            INSERT INTO T_BS_DECLARE_CORP_APTITUDE
+            (APTITUDE_ID,
+            APPLY_ID,
+            APTITUDE_TYPE,
+            APTITUDE_NAME,
+            FILE_ID,
+            CREATED_DATE,
+            CREATEDBY)
+            VALUES
+            (#{item.aptitudeId},
+            #{item.applyId},
+            #{item.aptitudeType},
+            #{item.aptitudeName},
+            #{item.fileId},
+            SYSDATE,
+            #{item.optCustId});
+        </foreach>
+    </insert>
+
+    <!-- 创建申报企业资质信息 -->
+    <insert id="createOneAptitude" parameterType="com.gy.hsxt.bs.bean.apply.DeclareAptitude">
+        INSERT INTO T_BS_DECLARE_CORP_APTITUDE
+        (APTITUDE_ID,
+         APPLY_ID,
+         APTITUDE_TYPE,
+         APTITUDE_NAME,
+         FILE_ID,
+         CREATED_DATE,
+         CREATEDBY)
+        VALUES
+            (#{aptitudeId},
+             #{applyId},
+             #{aptitudeType},
+             #{aptitudeName},
+             #{fileId},
+             SYSDATE,
+             #{optCustId})
+    </insert>
+
+    <!-- 更新申报企业资质信息 -->
+    <update id="updateAptitude" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close="end;">
+            UPDATE T_BS_DECLARE_CORP_APTITUDE
+            <trim prefix="SET" suffixOverrides=",">
+                APTITUDE_TYPE = #{item.aptitudeType},
+                APTITUDE_NAME = #{item.aptitudeName},
+                FILE_ID = #{item.fileId},
+                UPDATED_DATE = SYSDATE,
+                UPDATEDBY = #{item.optCustId}
+            </trim>
+            WHERE APTITUDE_ID = #{item.aptitudeId};
+        </foreach>
+    </update>
+    <!-- 更新申报企业资质信息 -->
+    <update id="updateOneAptitude" parameterType="com.gy.hsxt.bs.bean.apply.DeclareAptitude">
+        UPDATE T_BS_DECLARE_CORP_APTITUDE SET
+        APTITUDE_TYPE = #{aptitudeType},
+        <if test="aptitudeName != null and aptitudeName != ''">
+            APTITUDE_NAME = #{aptitudeName},
+        </if>
+        FILE_ID = #{fileId},
+        UPDATED_DATE = SYSDATE,
+        UPDATEDBY = #{optCustId}
+        WHERE APTITUDE_ID = #{aptitudeId}
+    </update>
+
+
+    <!-- 审批申报 -->
+    <update id="apprDeclare">
+        UPDATE T_BS_DECLARE_ENT
+        <set>
+            APP_STATUS = #{apprStatus},
+            UPDATEDBY = #{apprOperator},
+            UPDATED_DATE = SYSDATE
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询申报申请列表 -->
+    <select id="queryDeclareListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        t1.REDO_FLAG AS redoFlag,
+        t1.OPEN_ACC_FLAG AS openUC,
+        t1.OPEN_VAS_FLAG AS openBM,
+        DECODE(t1.TO_BUY_RES_RANGE,5,0,1) AS joinBM,
+        TO_CHAR(t1.CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE
+        t1.APPLY_ID = t2.APPLY_ID(+)
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="status != null">
+            AND t1.APP_STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        <if test="declarerResNo != null and declarerResNo != '' ">
+            AND t1.FR_ENT_RES_NO = #{declarerResNo}
+        </if>
+        <if test="manageResNo != null and manageResNo != '' ">
+            AND t1.TO_M_RES_NO = #{manageResNo}
+        </if>
+        <if test="notInStatus != null and notInStatus != ''">
+            AND t1.APP_STATUS NOT IN ${notInStatus}
+        </if>
+        <if test="isPlatQuery != null and isPlatQuery == true">
+            AND (t1.FR_ENT_RES_NO LIKE '00000000%' OR t1.APP_STATUS > 0)
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 根据推荐企业查询申报申请列表() -->
+    <select id="queryDeclareByRecommendListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        t1.REDO_FLAG AS redoFlag,
+        TO_CHAR(t1.CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE
+        t1.APPLY_ID = t2.APPLY_ID(+)
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="status != null and status == 23">
+            AND (t1.APP_STATUS = 2 or t1.APP_STATUS = 3)
+        </if>
+        <if test="status != null and status == 56">
+            AND (t1.APP_STATUS = 5 or t1.APP_STATUS = 6)
+        </if>
+        <if test="status != null and status != 23 and status != 56">
+            AND t1.APP_STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        <if test="declarerResNo != null and declarerResNo != '' ">
+            AND t1.SPREAD_ENT_RES_NO = #{declarerResNo}
+            <![CDATA[AND (t1.FR_ENT_RES_NO = #{declarerResNo} OR t1.APP_STATUS > 0)]]>
+        </if>
+        <if test="manageResNo != null and manageResNo != '' ">
+            AND t1.TO_M_RES_NO = #{manageResNo}
+        </if>
+        <if test="notInStatus != null and notInStatus != ''">
+            AND t1.APP_STATUS NOT IN ${notInStatus}
+        </if>
+        <if test="linkman !=null and linkman != ''">
+            AND UPPER(t2.LINKMAN) like UPPER('%'||#{linkman}||'%')
+        </if>
+        <if test="linkmanMobile !=null and linkmanMobile != ''">
+            AND t2.MOBILE = #{linkmanMobile}
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 更新重新申报标识 -->
+    <update id="updateRedoFlag">
+        UPDATE T_BS_DECLARE_ENT
+        SET REDO_FLAG = 1
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 关联工单查询申报申请列表 -->
+    <select id="queryDeclare4TaskListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        TO_CHAR(t1.CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2,
+        T_BS_TASK t4
+        WHERE
+        t1.APPLY_ID = t4.BIZ_NO
+        AND t1.APPLY_ID = t2.APPLY_ID(+)
+        AND t4.STATUS = 2
+        AND t4.EXE_CUST_ID = #{operatorCustId}
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="status != null">
+            AND t1.APP_STATUS = #{status}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        <if test="declarerResNo != null and declarerResNo != '' ">
+            AND t1.FR_ENT_RES_NO = #{declarerResNo}
+        </if>
+        <if test="manageResNo != null and manageResNo != '' ">
+            AND t1.TO_M_RES_NO = #{manageResNo}
+        </if>
+        <if test="notInStatus != null and notInStatus != ''">
+            AND t1.APP_STATUS NOT IN ${notInStatus}
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 查询待开启系统申报列表 -->
+    <select id="queryOpenSysListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        TO_CHAR(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE
+        t1.APP_STATUS = 8
+        AND t1.APPLY_ID = t2.APPLY_ID(+)
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 关联工单查询待开启系统申报列表 -->
+    <select id="queryOpenSys4TaskListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        TO_CHAR(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2,
+        T_BS_TASK t4
+        WHERE
+        t1.APP_STATUS = 8
+        AND t1.APPLY_ID = t2.APPLY_ID(+)
+        AND t1.APPLY_ID = t4.BIZ_NO
+        AND t4.STATUS = 2
+        AND t4.EXE_CUST_ID = #{operatorCustId}
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 查询开启系统欠款审核列表 -->
+    <select id="queryOpenSysApprListPage" parameterType="com.gy.hsxt.bs.apply.bean.DeclareParam"
+            resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.TO_CUST_TYPE AS custType,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t1.ENT_ADDR AS entAddress,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        t1.COUNTRY_NO AS countryNo,
+        t1.PROVINCE_NO AS provinceNo,
+        t1.CITY_NO AS cityNo,
+        t1.APP_STATUS AS status,
+        TO_CHAR(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+        TO_CHAR(t1.UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM
+        T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE
+        t1.APPLY_ID = t2.APPLY_ID(+)
+        AND t1.APP_STATUS = 7
+        AND t1.CHARGE_FLAG = 0
+        <if test="custType != null">
+            AND t1.TO_CUST_TYPE = #{custType}
+        </if>
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test="resNo != null and resNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{resNo}||'%'
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 检查是否已存在相同企业名的申报 -->
+    <select id="checkDuplicateEntName" resultType="boolean">
+        SELECT DECODE(COUNT(1),0,0,1)
+        FROM T_BS_DECLARE_ENT
+        WHERE TO_CUST_TYPE = #{toCustType}
+        AND TO_ENT_CUST_NAME = #{toEntCustName}
+        AND APP_STATUS IN (1,2,3,7,8,9)
+        <if test="applyId != null and applyId != ''">
+            <![CDATA[ AND APPLY_ID <> #{applyId} ]]>
+        </if>
+    </select>
+
+    <!-- 通过Id查询申报信息 -->
+    <select id="queryDeclareById" resultType="com.gy.hsxt.bs.bean.apply.DeclareInfo">
+        SELECT
+            APPLY_ID                                       AS applyId,
+            TO_ENT_CUST_ID                                 AS toEntCustId,
+            TO_ENT_CUST_NAME                               AS toEntCustName,
+            TO_ENT_ENNAME                                  AS toEntEnname,
+            TO_ENT_RES_NO                                  AS toEntResNo,
+            TO_SELECT_MODE                                 AS toSelectMode,
+            TO_M_RES_NO                                    AS toMResNo,
+            TO_CUST_TYPE                                   AS toCustType,
+            TO_BUSINESS_TYPE                               AS toBusinessType,
+            TO_BUY_RES_RANGE                               AS toBuyResRange,
+            TO_PNODE_RES_NO                                AS toPnodeResNo,
+            TO_PNODE_CUST_ID                               AS toPnodeCustId,
+            TO_INODE_RES_NO                                AS toInodeResNo,
+            TO_INODE_L_OR_R                                AS toInodeLOrR,
+            TO_LIMITE_DATE                                 AS toLimiteDate,
+            FR_ENT_CUST_ID                                 AS frEntCustId,
+            FR_ENT_CUST_NAME                               AS frEntCustName,
+            FR_ENT_RES_NO                                  AS frEntResNo,
+            SPREAD_ENT_CUST_ID                             AS spreadEntCustId,
+            SPREAD_ENT_CUST_NAME                           AS spreadEntCustName,
+            SPREAD_ENT_RES_NO                              AS spreadEntResNo,
+            FR_M_ENT_RES_NO                                AS frMEntResNo,
+            FR_M_CORP_NAME                                 AS frMCorpName,
+            APP_STATUS                                     AS appStatus,
+            REDO_FLAG                                      AS redoFlag,
+            ORDER_NO                                       AS orderNo,
+            RES_FEE_ID                                     AS resFeeId,
+            RES_FEE_ALLOC_MODE                             AS resFeeAllocMode,
+            RES_FEE_CHARGE_MODE                            AS resFeeChargeMode,
+            CHARGE_FLAG                                    AS chargeFlag,
+            OPEN_ACC_FLAG                                  AS openAccFlag,
+            OPEN_VAS_FLAG                                  AS openVasFlag,
+            OPEN_ACC_DATE                                  AS openAccDate,
+            REMARK                                         AS remark,
+            ENT_TYPE                                       AS entType,
+            LEGAL_NAME                                     AS legalName,
+            LEGAL_CRE_TYPE                                 AS legalCreType,
+            LEGAL_CRE_NO                                   AS legalCreNo,
+            COUNTRY_NO                                     AS countryNo,
+            PROVINCE_NO                                    AS provinceNo,
+            CITY_NO                                        AS cityNo,
+            LIMIT_DATE                                     AS limitDate,
+            ENT_ADDR                                       AS entAddr,
+            PHONE                                          AS phone,
+            LICENSE_NO                                     AS licenseNo,
+            ORG_NO                                         AS orgNo,
+            TAX_NO                                         AS taxNo,
+            DEAL_AREA                                      AS dealArea,
+            REGISTER_FEE                                   AS registerFee,
+            to_char(ESTABLISHING_DATE, 'yyyy-MM-dd')       AS establishingDate,
+            YEAR_CHECK                                     AS yearCheck,
+            to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+            to_char(UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS updatedDate,
+            DECODE(UPDATEDBY, NULL, CREATEDBY, UPDATEDBY)  AS optCustId
+        FROM T_BS_DECLARE_ENT
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 查询申报申请信息 -->
+    <select id="queryDeclareAppInfoByApplyId" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.DeclareAppInfo">
+        SELECT
+            t1.APPLY_ID                                       AS applyId,
+            t1.TO_ENT_CUST_NAME                               AS toEntName,
+            t1.TO_ENT_ENNAME        AS toEntEnName,
+            t1.ENT_ADDR                                       AS toEntAddress,
+            t1.TO_ENT_RES_NO                                  AS toEntResNo,
+            t1.TO_SELECT_MODE                                 AS toSelectMode,
+            t1.TO_BUY_RES_RANGE                               AS toBuyResRange,
+            t1.FR_ENT_CUST_NAME                               AS frEntCustName,
+            t1.FR_ENT_RES_NO                                  AS frEntResNo,
+            t1.TO_CUST_TYPE                                   AS toCustType,
+            t1.COUNTRY_NO                                     AS countryNo,
+            t1.PROVINCE_NO                                    AS provinceNo,
+            t1.CITY_NO                                        AS cityNo,
+            to_char(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS applyDate,
+            TO_CHAR(t1.UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate,
+            t1.CREATEDBY                                      AS applyOperator,
+            t1.TO_BUSINESS_TYPE                               AS toBusinessType
+        FROM T_BS_DECLARE_ENT t1
+        WHERE t1.APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 申报提交更新申报单 -->
+    <update id="submitDeclare">
+        UPDATE T_BS_DECLARE_ENT
+        <set>
+            APP_STATUS= #{appStatus},
+            CREATED_DATE = SYSDATE,
+            UPDATEDBY = #{optCustId},
+            UPDATED_DATE = SYSDATE
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 更新申报状态 -->
+    <update id="updateDeclareStatus" parameterType="com.gy.hsxt.bs.apply.bean.DeclareEntStatus">
+        UPDATE T_BS_DECLARE_ENT
+        <set>
+            <if test="toEntCustId != null and toEntCustId != '' ">
+                TO_ENT_CUST_ID = #{toEntCustId},
+            </if>
+            <if test="expiryDate != null">
+                TO_LIMITE_DATE = #{expiryDate},
+            </if>
+            <if test="appStatus != null">
+                APP_STATUS= #{appStatus},
+                UPDATED_DATE = SYSDATE,
+            </if>
+            <if test="orderNo != null and orderNo != '' ">
+                ORDER_NO = #{orderNo},
+            </if>
+            <if test="resFeeId != null and resFeeId != '' ">
+                RES_FEE_ID = #{resFeeId},
+            </if>
+            <if test="resFeeAllocMode != null">
+                RES_FEE_ALLOC_MODE= #{resFeeAllocMode},
+            </if>
+            <if test="resFeeChargeMode != null">
+                RES_FEE_CHARGE_MODE= #{resFeeChargeMode},
+            </if>
+            <if test="chargeFlag != null">
+                CHARGE_FLAG= #{chargeFlag},
+            </if>
+            <if test="openAccFlag != null">
+                OPEN_ACC_FLAG= #{openAccFlag},
+            </if>
+            <if test="openAccDate != null and openAccDate != ''">
+                OPEN_ACC_DATE = to_date(#{openAccDate},'yyyy-MM-dd HH24:mi:ss'),
+            </if>
+            <if test="openVasFlag != null">
+                OPEN_VAS_FLAG= #{openVasFlag},
+            </if>
+            <if test="operator != null and operator != '' ">
+                UPDATEDBY = #{operator}
+            </if>
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询授权码 -->
+    <select id="queryAuthCodeListPage" resultType="com.gy.hsxt.bs.bean.apply.DeclareAuthCode">
+        SELECT t1.APPLY_ID AS applyId,
+        t1.APP_STATUS AS appStatus,
+        t1.auth_code AS authCode,
+        t1.auth_code_send_times AS sendTimes,
+        TO_CHAR(t1.auth_code_send_last,'yyyy-MM-dd HH24:mi:ss') AS sendLastTime,
+        t1.TO_ENT_RES_NO AS entResNo,
+        t1.TO_ENT_CUST_NAME AS entName,
+        t2.LINKMAN AS linkman,
+        t2.MOBILE AS linkmanMobile,
+        TO_CHAR(t1.TO_LIMITE_DATE,'yyyy-MM-dd') AS expireDate
+        FROM T_BS_DECLARE_ENT t1,
+        T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE t1.APPLY_ID = t2.APPLY_ID(+)
+        and t1.auth_code is not null
+        <if test="appStatus != null">
+            AND t1.APP_STATUS= #{appStatus}
+        </if>
+        <if test=" manResNo != null and manResNo !='' ">
+            AND T1.TO_M_RES_NO = #{manResNo}
+        </if>
+        <if test=" serResNo != null and serResNo !='' ">
+            AND T1.SPREAD_ENT_RES_NO = #{serResNo}
+        </if>
+        <if test=" entResNo != null and entResNo !='' ">
+            AND T1.TO_ENT_RES_NO like #{entResNo}||'%'
+        </if>
+        <if test=" entName != null and entName !='' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        <if test=" linkman != null and linkman !='' ">
+            AND UPPER(t2.LINKMAN) like UPPER('%'||#{linkman}||'%')
+        </if>
+        ORDER BY t1.CREATED_DATE DESC
+    </select>
+
+    <!-- 通过授权码查询申报信息 -->
+    <select id="queryDeclareByAuthCode" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.DeclareInfo">
+        SELECT
+            APPLY_ID                                       AS applyId,
+            TO_ENT_CUST_ID                                 AS toEntCustId,
+            TO_ENT_CUST_NAME                               AS toEntCustName,
+            TO_ENT_ENNAME                                  AS toEntEnname,
+            TO_ENT_RES_NO                                  AS toEntResNo,
+            TO_SELECT_MODE                                 AS toSelectMode,
+            TO_M_RES_NO                                    AS toMResNo,
+            TO_CUST_TYPE                                   AS toCustType,
+            TO_BUSINESS_TYPE                               AS toBusinessType,
+            TO_BUY_RES_RANGE                               AS toBuyResRange,
+            TO_PNODE_RES_NO                                AS toPnodeResNo,
+            TO_PNODE_CUST_ID                               AS toPnodeCustId,
+            TO_INODE_RES_NO                                AS toInodeResNo,
+            TO_INODE_L_OR_R                                AS toInodeLOrR,
+            TO_LIMITE_DATE                                 AS toLimiteDate,
+            FR_ENT_CUST_ID                                 AS frEntCustId,
+            FR_ENT_CUST_NAME                               AS frEntCustName,
+            FR_ENT_RES_NO                                  AS frEntResNo,
+            SPREAD_ENT_CUST_ID                             AS spreadEntCustId,
+            SPREAD_ENT_CUST_NAME                           AS spreadEntCustName,
+            SPREAD_ENT_RES_NO                              AS spreadEntResNo,
+            FR_M_ENT_RES_NO                                AS frMEntResNo,
+            FR_M_CORP_NAME                                 AS frMCorpName,
+            APP_STATUS                                     AS appStatus,
+            ORDER_NO                                       AS orderNo,
+            RES_FEE_ID                                     AS resFeeId,
+            RES_FEE_ALLOC_MODE                             AS resFeeAllocMode,
+            RES_FEE_CHARGE_MODE                            AS resFeeChargeMode,
+            CHARGE_FLAG                                    AS chargeFlag,
+            OPEN_ACC_FLAG                                  AS openAccFlag,
+            OPEN_VAS_FLAG                                  AS openVasFlag,
+            OPEN_ACC_DATE                                  AS openAccDate,
+            REMARK                                         AS remark,
+            ENT_TYPE                                       AS entType,
+            LEGAL_NAME                                     AS legalName,
+            LEGAL_CRE_TYPE                                 AS legalCreType,
+            LEGAL_CRE_NO                                   AS legalCreNo,
+            COUNTRY_NO                                     AS countryNo,
+            PROVINCE_NO                                    AS provinceNo,
+            CITY_NO                                        AS cityNo,
+            LIMIT_DATE                                     AS limitDate,
+            ENT_ADDR                                       AS entAddr,
+            PHONE                                          AS phone,
+            LICENSE_NO                                     AS licenseNo,
+            ORG_NO                                         AS orgNo,
+            TAX_NO                                         AS taxNo,
+            DEAL_AREA                                      AS dealArea,
+            REGISTER_FEE                                   AS registerFee,
+            to_char(ESTABLISHING_DATE, 'yyyy-MM-dd')       AS establishingDate,
+            YEAR_CHECK                                     AS yearCheck,
+            to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+            to_char(UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS updatedDate,
+            DECODE(UPDATEDBY, NULL, CREATEDBY, UPDATEDBY)  AS optCustId
+        FROM T_BS_DECLARE_ENT
+        WHERE AUTH_CODE = #{authCode}
+    </select>
+
+    <!-- 通过申请编号查询授权码 -->
+    <select id="queryAuthCodeByApplyId" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.DeclareAuthCode">
+        SELECT
+            t1.APPLY_ID                                              AS applyId,
+            t1.APP_STATUS                                            AS appStatus,
+            t1.auth_code                                             AS authCode,
+            t1.auth_code_send_times                                  AS sendTimes,
+            TO_CHAR(t1.auth_code_send_last, 'yyyy-MM-dd HH24:mi:ss') AS sendLastTime,
+            t1.TO_ENT_RES_NO                                         AS entResNo,
+            t1.TO_ENT_CUST_NAME                                      AS entName,
+            t1.TO_BUY_RES_RANGE                                      AS toBuyResRange,
+            t2.LINKMAN                                               AS linkman,
+            t2.MOBILE                                                AS linkmanMobile,
+            TO_CHAR(t1.TO_LIMITE_DATE, 'yyyy-MM-dd')                 AS expireDate
+        FROM T_BS_DECLARE_ENT t1,
+            T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE t1.APPLY_ID = t2.APPLY_ID
+              AND t1.APPLY_ID = #{applyId}
+    </select>
+    <!-- 发送授权码后更新发送次数与最后发送时间 -->
+    <update id="updateAfterSendAuthCode">
+        UPDATE T_BS_DECLARE_ENT
+        SET
+            AUTH_CODE_SEND_TIMES = AUTH_CODE_SEND_TIMES + 1,
+            AUTH_CODE_SEND_LAST  = sysdate,
+            AUTH_CODE            = #{authCode}
+        WHERE
+            APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 通过申请编号查询联系人 -->
+    <select id="queryLinkmanByApplyId" resultType="com.gy.hsxt.bs.bean.apply.DeclareLinkman">
+        SELECT
+            APPLY_ID         AS applyId,
+            LINKMAN          AS linkman,
+            PHONE            AS phone,
+            MOBILE           AS mobile,
+            EMAIL            AS email,
+            ZIP_CODE         AS zipCode,
+            ADDRESS          AS address,
+            JOB              AS job,
+            CERTIFICATE_FILE AS certificateFile,
+            QQ               AS qq,
+            WEB_SITE         AS webSite,
+            FAX              AS fax
+        FROM T_BS_DECLARE_ENT_LINKMAN
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 查询申报企业资质 -->
+    <select id="queryAptitudeByApplyId" resultType="com.gy.hsxt.bs.bean.apply.DeclareAptitude">
+        SELECT
+            APTITUDE_ID   AS aptitudeId,
+            APPLY_ID      AS applyId,
+            APTITUDE_TYPE AS aptitudeType,
+            APTITUDE_NAME AS aptitudeName,
+            FILE_ID       AS fileId
+        FROM T_BS_DECLARE_CORP_APTITUDE
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <select id="queryOneAptitude" resultType="com.gy.hsxt.bs.bean.apply.DeclareAptitude">
+        SELECT
+            APTITUDE_ID   AS aptitudeId,
+            APPLY_ID      AS applyId,
+            APTITUDE_TYPE AS aptitudeType,
+            APTITUDE_NAME AS aptitudeName,
+            FILE_ID       AS fileId
+        FROM T_BS_DECLARE_CORP_APTITUDE
+        WHERE APPLY_ID = #{applyId} AND APTITUDE_TYPE = #{aptitudeType}
+    </select>
+
+    <!-- 查询申报企业银行账户,申报时一个申报单只允许设置一个银行账户 -->
+    <select id="queryBankByApplyId" resultType="com.gy.hsxt.bs.bean.apply.DeclareBank">
+        SELECT
+            ACCOUNT_ID    AS accountId,
+            APPLY_ID      AS applyId,
+            BANK_CODE     AS bankCode,
+            BRANCH_CODE   AS branchCode,
+            ACCOUNT_NAME  AS accountName,
+            ACCOUNT_NO    AS accountNo,
+            COUNTRY_NO    AS countryNo,
+            PROVINCE_NO   AS provinceNo,
+            CITY_NO       AS cityNo,
+            CURRENCY_CODE AS currencyCode,
+            ISDEFAULT     AS isDefault
+        FROM T_BS_DECLARE_BANK_ACCOUNT
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 查询已过期的申报申请 -->
+    <select id="getExpiryDeclareList" resultType="com.gy.hsxt.bs.apply.bean.ExpiryDeclare">
+        SELECT
+            APPLY_ID      AS applyId,
+            TO_CUST_TYPE  AS custType,
+            TO_ENT_RES_NO AS entResNo,
+            ORDER_NO      AS orderNo
+        FROM T_BS_DECLARE_ENT
+        WHERE APP_STATUS = 7
+			 <![CDATA[ AND TO_LIMITE_DATE < SYSDATE
+        ]]>
+    </select>
+
+    <!-- 查询是否存申报 -->
+    <select id="existDeclare" resultType="boolean">
+        SELECT DECODE(COUNT(1), 0, 0, 1)
+        FROM T_BS_DECLARE_ENT
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 通过申请编号查询状态 -->
+    <select id="queryDeclareStatusById" parameterType="string" resultType="int">
+        SELECT APP_STATUS
+        FROM T_BS_DECLARE_ENT
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 删除申报企业银行账户信息 -->
+    <delete id="delBank" parameterType="string">
+		DELETE FROM T_BS_DECLARE_BANK_ACCOUNT WHERE APPLY_ID = #{applyId}
+	</delete>
+
+    <!-- 删除申报企业资质 -->
+    <delete id="delApt" parameterType="string">
+		DELETE FROM T_BS_DECLARE_CORP_APTITUDE WHERE APPLY_ID = #{applyId}
+	</delete>
+
+    <!-- 删除申报企业联系人 -->
+    <delete id="delLinkman" parameterType="string">
+		DELETE FROM T_BS_DECLARE_ENT_LINKMAN WHERE APPLY_ID = #{applyId}
+	</delete>
+
+    <!-- 删除申报申请 -->
+    <delete id="delDeclareApp" parameterType="string">
+		DELETE FROM T_BS_DECLARE_ENT WHERE APPLY_ID = #{applyId}
+	</delete>
+
+    <!-- 查询申报企业信息 -->
+    <select id="queryEntInfo" resultType="com.gy.hsxt.bs.bean.apply.EntBaseInfo">
+        SELECT TO_ENT_CUST_NAME AS entName,
+        TO_CUST_TYPE AS custType,
+        CREATED_DATE AS applyDate,
+        COUNTRY_NO AS countryNo,
+        PROVINCE_NO AS provinceNo,
+        CITY_NO AS cityNo,
+        APP_STATUS AS status
+        FROM T_BS_DECLARE_ENT
+        WHERE 1 = 1
+        <if test="entName != null and entName != ''">
+            AND TO_ENT_CUST_NAME = #{entName}
+        </if>
+        <if test="status != null">
+            AND APP_STATUS = #{status}
+        </if>
+        <if test="notInStatus != null and notInStatus != ''">
+            AND APP_STATUS NOT IN ${notInStatus}
+        </if>
+    </select>
+
+    <!-- 更新申报服务公司互生号 -->
+    <update id="updateSerResNo" parameterType="com.gy.hsxt.bs.bean.apply.DeclareRegInfo">
+        UPDATE T_BS_DECLARE_ENT
+        SET
+            TO_ENT_RES_NO  = #{toEntResNo},
+            TO_SELECT_MODE = #{toSelectMode}
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询系统销售费欠款单 -->
+    <select id="queryResFeeDebtOrderListPage" parameterType="com.gy.hsxt.bs.bean.apply.DebtOrderParam"
+            resultType="com.gy.hsxt.bs.bean.apply.ResFeeDebtOrder">
+        SELECT T1.TO_ENT_CUST_NAME AS entName,
+        T1.TO_ENT_RES_NO AS entResNo,
+        T1.OPEN_ACC_DATE AS openSysDate,
+        T2.ORDER_CASH_AMOUNT AS resFee,
+        T2.PAY_STATUS AS payStatus
+        FROM T_BS_DECLARE_ENT T1, T_BS_ORDER T2
+        WHERE T1.APPLY_ID = T2.BIZ_NO
+        AND T1.APP_STATUS = 9
+        AND T1.RES_FEE_CHARGE_MODE != 2
+        AND T1.CHARGE_FLAG = 0
+        AND T2.PAY_STATUS = 0
+        <if test="startDate != null and startDate != '' ">
+            <![CDATA[ AND t1.OPEN_ACC_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            <![CDATA[ AND t1.OPEN_ACC_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>
+        </if>
+        <if test="entResNo != null and entResNo != '' ">
+            AND t1.TO_ENT_RES_NO like #{entResNo}||'%'
+        </if>
+        <if test="entName != null and entName != '' ">
+            AND UPPER(t1.TO_ENT_CUST_NAME) like UPPER('%'||#{entName}||'%')
+        </if>
+        ORDER BY t1.OPEN_ACC_DATE DESC
+    </select>
+
+    <!-- 更新申报备注 -->
+    <update id="updateDeclareRemark">
+        UPDATE T_BS_DECLARE_ENT
+        SET REMARK = #{remark}
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询申报备注 -->
+    <select id="getDeclareRemark" resultType="string">
+        SELECT REMARK
+        FROM T_BS_DECLARE_ENT
+        WHERE APPLY_ID = #{applyId}
+    </select>
+
+    <!-- 查询申报进度 -->
+    <select id="queryDeclareProgress" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.DeclareProgress">
+        SELECT
+            TO_ENT_CUST_NAME AS entName,
+            TO_ENT_RES_NO    AS entResNo,
+            TO_CUST_TYPE     AS custType,
+            APP_STATUS       AS status
+        FROM T_BS_DECLARE_ENT
+        WHERE TO_ENT_CUST_NAME = #{entName}
+        ORDER BY CREATED_DATE DESC
+    </select>
+
+    <!-- 保存申报增值点信息 -->
+    <update id="saveIncrement" parameterType="com.gy.hsxt.bs.bean.apply.DeclareIncrement">
+        UPDATE T_BS_DECLARE_ENT
+        <set>
+            TO_PNODE_CUST_ID = #{toPnodeCustId},
+            TO_PNODE_RES_NO = #{toPnodeResNo},
+            TO_INODE_RES_NO = #{toInodeResNo},
+            TO_INODE_L_OR_R = #{toInodeLorR}
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 把拟用互生号设为空 -->
+    <update id="emptyToEntResNo" parameterType="string">
+        UPDATE T_BS_DECLARE_ENT
+        <set>
+            TO_ENT_RES_NO = NULL,
+            UPDATED_DATE = SYSDATE
+        </set>
+        WHERE APPLY_ID = #{applyId}
+    </update>
+
+    <!-- 查询申报基本信息 -->
+    <select id="queryDeclareEntBaseInfoById" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.DeclareEntBaseInfo">
+        SELECT
+            t1.APPLY_ID                                       AS applyId,
+            t1.TO_ENT_RES_NO                                  AS entResNo,
+            t1.TO_ENT_CUST_NAME                               AS entName,
+            t1.TO_CUST_TYPE                                   AS custType,
+            t1.APP_STATUS                                     AS status,
+            t1.ENT_ADDR                                       AS entAddress,
+            t1.COUNTRY_NO                                     AS countryNo,
+            t1.PROVINCE_NO                                    AS provinceNo,
+            t1.CITY_NO                                        AS cityNo,
+            t2.LINKMAN                                        AS linkman,
+            t2.MOBILE                                         AS linkmanMobile,
+            TO_CHAR(t1.CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS declareDate,
+            TO_CHAR(t1.UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate
+        FROM T_BS_DECLARE_ENT t1, T_BS_DECLARE_ENT_LINKMAN t2
+        WHERE t1.APPLY_ID = t2.APPLY_ID (+)
+              AND t1.APPLY_ID = #{applyId}
+    </select>
+
+
+    <!-- 查询开启系统成功但是同步开启UC或BM失败的申报单 -->
+    <select id="queryDeclareSyncFail" resultType="com.gy.hsxt.bs.bean.apply.DeclareInfo">
+        SELECT
+            APPLY_ID                                       AS applyId,
+            TO_ENT_CUST_ID                                 AS toEntCustId,
+            TO_ENT_CUST_NAME                               AS toEntCustName,
+            TO_ENT_ENNAME                                  AS toEntEnname,
+            TO_ENT_RES_NO                                  AS toEntResNo,
+            TO_SELECT_MODE                                 AS toSelectMode,
+            TO_M_RES_NO                                    AS toMResNo,
+            TO_CUST_TYPE                                   AS toCustType,
+            TO_BUSINESS_TYPE                               AS toBusinessType,
+            TO_BUY_RES_RANGE                               AS toBuyResRange,
+            TO_PNODE_RES_NO                                AS toPnodeResNo,
+            TO_PNODE_CUST_ID                               AS toPnodeCustId,
+            TO_INODE_RES_NO                                AS toInodeResNo,
+            TO_INODE_L_OR_R                                AS toInodeLOrR,
+            TO_LIMITE_DATE                                 AS toLimiteDate,
+            FR_ENT_CUST_ID                                 AS frEntCustId,
+            FR_ENT_CUST_NAME                               AS frEntCustName,
+            FR_ENT_RES_NO                                  AS frEntResNo,
+            SPREAD_ENT_CUST_ID                             AS spreadEntCustId,
+            SPREAD_ENT_CUST_NAME                           AS spreadEntCustName,
+            SPREAD_ENT_RES_NO                              AS spreadEntResNo,
+            FR_M_ENT_RES_NO                                AS frMEntResNo,
+            FR_M_CORP_NAME                                 AS frMCorpName,
+            APP_STATUS                                     AS appStatus,
+            REDO_FLAG                                      AS redoFlag,
+            ORDER_NO                                       AS orderNo,
+            RES_FEE_ID                                     AS resFeeId,
+            RES_FEE_ALLOC_MODE                             AS resFeeAllocMode,
+            RES_FEE_CHARGE_MODE                            AS resFeeChargeMode,
+            CHARGE_FLAG                                    AS chargeFlag,
+            OPEN_ACC_FLAG                                  AS openAccFlag,
+            OPEN_VAS_FLAG                                  AS openVasFlag,
+            OPEN_ACC_DATE                                  AS openAccDate,
+            REMARK                                         AS remark,
+            ENT_TYPE                                       AS entType,
+            LEGAL_NAME                                     AS legalName,
+            LEGAL_CRE_TYPE                                 AS legalCreType,
+            LEGAL_CRE_NO                                   AS legalCreNo,
+            COUNTRY_NO                                     AS countryNo,
+            PROVINCE_NO                                    AS provinceNo,
+            CITY_NO                                        AS cityNo,
+            LIMIT_DATE                                     AS limitDate,
+            ENT_ADDR                                       AS entAddr,
+            PHONE                                          AS phone,
+            LICENSE_NO                                     AS licenseNo,
+            ORG_NO                                         AS orgNo,
+            TAX_NO                                         AS taxNo,
+            DEAL_AREA                                      AS dealArea,
+            REGISTER_FEE                                   AS registerFee,
+            to_char(ESTABLISHING_DATE, 'yyyy-MM-dd')       AS establishingDate,
+            YEAR_CHECK                                     AS yearCheck,
+            to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+            to_char(UPDATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS updatedDate,
+            DECODE(UPDATEDBY, NULL, CREATEDBY, UPDATEDBY)  AS optCustId
+        FROM
+            T_BS_DECLARE_ENT
+        WHERE
+            APP_STATUS = 9
+            AND (
+                OPEN_ACC_FLAG = 0
+                OR (
+                    TO_BUY_RES_RANGE != 5
+                    AND OPEN_VAS_FLAG = 0
+                )
+                OR (
+                    TO_BUY_RES_RANGE IS NULL
+                    AND OPEN_VAS_FLAG = 0
+                )
+            )
+    </select>
+
+    <select id="serviceQueryDeclareHisListPage" parameterType="string" resultType="com.gy.hsxt.bs.bean.base.OptHisInfo">
+        SELECT
+            OPERATION_APPR_ID                              AS optHisId,
+            BIZ_ACTION_CODE                                AS bizAction,
+            STATUS                                         AS bizStatus,
+            to_char(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS optDate,
+            OPERATOR                                       AS optId,
+            OPERATOR_NAME                                  AS optName,
+            OPT_ENT_NAME                                   AS optEntName,
+            REMARK                                         AS optRemark,
+            CHANGE_CONTENT                                 AS changeContent
+        FROM T_BS_DECLARE_ENT_APPR
+        WHERE APPLY_ID = #{applyId}
+              AND STATUS != 6
+        ORDER BY CREATED_DATE DESC, OPERATION_APPR_ID DESC
+    </select>
+
+</mapper>

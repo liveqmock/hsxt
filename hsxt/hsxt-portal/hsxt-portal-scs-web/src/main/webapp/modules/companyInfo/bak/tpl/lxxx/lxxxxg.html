@@ -1,0 +1,79 @@
+	<!-- 资料修改开始 -->
+<div id="lxxx_xgTpl" class="register_info mt40 info_800 none">
+      	<form id="lxxx_xgTpl_form">
+		 
+		<div class="clearfix h280">
+			<ul class="fl">
+				<li class="register_row info_320 clearfix">
+					<label for="name">联系人姓名</label>
+					<input id="name" value="<%=obj.contactPerson%>"  type="text" id="name" value="杨过" class="input_gray" readonly="readonly">
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">联系地址</label>
+					<input type="text" id="address" name="contactAddr" value="<%=obj.contactAddr%>"  placeholder="输入联系地址"  >				
+					<input type="hidden" id="address_old" value="<%=obj.contactAddr%>"/>
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">企业网址</label>
+					<input type="text" id="website" name="webSite" value="<%=obj.webSite%>"  placeholder="输入企业网址" >
+					<input type="hidden" id="website_old" value="<%=obj.webSite%>"/>
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">办公电话</label>
+					<input type="hidden" id="officePhone_old" value="<%=obj.officeTel%>"/>
+					<input id="officePhone" name="officeTel" value="<%=obj.officeTel%>" type="text"  placeholder="输入办公电话"  >
+			
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">联系人职务</label>
+					<input type="text" placeholder="输入联系人职务" id="contactsJob" name="contactDuty" value="<%=obj.contactDuty%>"/>
+					<input type="hidden" id="contactsJob_old" value="<%=obj.contactDuty%>"/>
+				</li>
+				<li class="input_item_upload_1 info_320 clearfix mt5">
+					<label for="name">联系人授权委托书</label>
+					<div id="imgDiv" class="spanfl sample_img" >
+						<img id="grant_permission_i_xg" src="resources/img/noImg.gif" width="81" height="52">
+					</div>
+	              	<a href="javascript:void(0);" class="input-file btn_bg upload_btn" >上传<input id="authProxyFile" name="authProxyFile" type="file"></a><a id="powerOfAttorneyFileId_sample"  class="btn_bg viewSample_btn">模板下载</a>
+					<input type="hidden" id="authProxyFile_old" value="">
+				</li>
+			</ul>
+			<ul class="fr">
+				<li class="register_row info_320 clearfix">
+					<label for="name">联系人手机</label>
+					<input type="text" id="name" value="<%=obj.contactPhone%>" class="input_gray" placeholder="输入联系人手机" readonly="readonly">
+				</li>
+				<li class="register_row info_320 clearfix">
+					<input type="hidden" id="postalCode_old" value="<%=obj.postCode%>"/>
+					<label for="name">邮政编码</label>
+					<input type="text" id="postalCode" name="postCode" value="<%=obj.postCode%>"  placeholder="输入邮政编码"  >
+	
+				</li>
+				<li class="register_row info_320 clearfix">
+				<label for="name">企业安全邮箱</label>
+				<input type="hidden" id="mail_old" value="<%=obj.contactEmail%>"/>
+				<input type="text" name ="contactEmail"  id="mail" value="<%=obj.contactEmail%>"  placeholder="输入企业安全邮箱"  >
+					<!--<a  class="dlgEmail btn_bg submit_btn" style="margin-top:2px;">验证</a>-->
+				
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">传真号码</label>
+					<input type="hidden" id="faxNo_old" value="<%=obj.officeFax%>"/>
+					<input type="text"  id="faxNo" name="officeFax" value="<%=obj.officeFax%>"  placeholder="输入传真号码"  >
+				
+				</li>
+				<li class="register_row info_320 clearfix">
+					<label for="name">企业联系QQ</label>
+					<input type="text" id="qq" name="officeQq" value="<%=obj.officeQq%>"  placeholder="输入企业联系QQ"  >
+					<input type="hidden" id="qq_old" value="<%=obj.officeQq%>"/>
+				</li>
+				
+			</ul>
+		</div>
+              <div class="two_button mt20" align="center"><a  class="btn_bg submit fl" id="backBt_qiyelianxi">取　消</a><a  class="btn_bg submit fr" id="submitBt_qiyelianxi">提　交</a></div>
+ 
+	</form>
+</div>
+		
+<!-- 资料修改结束 -->
+		

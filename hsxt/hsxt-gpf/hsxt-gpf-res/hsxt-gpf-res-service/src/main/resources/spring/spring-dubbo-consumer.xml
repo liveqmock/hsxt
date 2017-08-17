@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">  
+    
+    <!-- 关闭所有服务的启动时检查 -->
+    <dubbo:consumer check="false"/>    
+    
+    <dubbo:reference id="iGCSRouteRuleService" interface="com.gy.hsxt.gpf.gcs.api.IGCSRouteRuleService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+    <dubbo:reference id="iUMLoginService" interface="com.gy.hsxt.gpf.um.api.IUMLoginService"
+   		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		
+</beans>

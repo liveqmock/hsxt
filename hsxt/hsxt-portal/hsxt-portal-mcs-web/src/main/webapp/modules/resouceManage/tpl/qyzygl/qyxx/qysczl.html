@@ -1,0 +1,52 @@
+﻿<div id="qysczlTpl">
+	<ul class="certificateSample clearfix">
+		<li>
+			<span class="f13">法人代表证件正面</span>
+			<div class="mt10 sampleBox">
+			<img id="imgCreFaceImg" alt="法人代表证件正面" src="<%=comm.getFsServerUrl(obj.entDetail.mainInfo.creFaceImg)%>" width="107px" height="64px">
+			<!-- <i class="certificateSample_img certificateSample_01"></i> -->
+			</div>
+		</li>
+		<li>
+			<span class="f13">法人代表证件反面</span>
+			<div class="mt10 sampleBox">
+			<img id="imgCreBackImg" alt="法人代表证件反面" src="<%=comm.getFsServerUrl(obj.entDetail.mainInfo.creBackImg)%>" width="107px" height="64px">
+			<!-- <i class="certificateSample_img certificateSample_02"></i> -->
+			</div>
+		</li>
+		<li>
+			<span class="f13">营业执照扫描件</span>
+			<div class="mt10 sampleBox">
+			<!-- <i class="certificateSample_img certificateSample_03"></i> -->
+			<img id="imgBusiLicenseImg" alt="营业执照扫描件" src="<%=comm.getFsServerUrl(obj.entDetail.mainInfo.busiLicenseImg)%>" width="107px" height="64px">
+			</div>
+		</li>
+		
+		<li>
+			<span class="f13">组织机构代码证扫描件</span>
+			<div class="mt10 sampleBox">
+			<img id="imgOrgCodeImg" alt="组织机构代码证扫描件" src="<%=comm.getFsServerUrl(obj.entDetail.mainInfo.orgCodeImg)%>" width="107px" height="64px">
+			<!-- <i class="certificateSample_img certificateSample_04"></i> -->
+			</div>
+		</li>
+		<li>
+			<span class="f13">税务登记证扫描件 </span>
+			<div class="mt10 sampleBox">
+			<img id="imgTaxRegImg" alt="税务登记证扫描件" src="<%=comm.getFsServerUrl(obj.entDetail.mainInfo.taxRegImg)%>" width="107px" height="64px">
+			<!-- <i class="certificateSample_img certificateSample_05"></i> -->
+			</div>
+		</li>
+		
+		<%if(obj.entType=="3" && obj.entDetail.extendInfo.startResType==2){%>
+		<!--托管企业选择创业资源的才显示-->
+		<li id="cybfxy_li">
+			<span class="f13">创业帮扶协议</span>
+			<div class="mt10 sampleBox">
+			<img id="imgHelpAgreement" alt="创业帮扶协议" src="<%=comm.getFsServerUrl(obj.entDetail.extendInfo.helpAgreement)%>" width="107px" height="64px">
+			<!-- <i class="certificateSample_img certificateSample_08"></i> -->
+			</div>
+		</li>
+		 <%}%>
+		<!--end-->
+	</ul>
+</div>

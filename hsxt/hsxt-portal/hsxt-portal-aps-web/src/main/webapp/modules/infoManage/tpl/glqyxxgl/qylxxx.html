@@ -1,0 +1,53 @@
+<div class="view_info info_800" id="qylxxxTpl1">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+				<td class="view_item" width="20%">联系人姓名</td>
+				<td class="view_text" width="30%"><%=obj.contactPerson%></td>
+				<td class="view_item" width="20%">联系人手机</td>
+				<td class="view_text" width="30%"><%=obj.contactPhone%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">联系地址</td>
+				<td class="view_text" width="30%"><%=obj.contactAddr%></td>
+				<td class="view_item" width="20%">邮政编码</td>
+				<td class="view_text" width="30%"><%=obj.postCode%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">企业安全邮箱</td>
+				<td class="view_text" colspan="3">
+					<div class="clearfix mr5">
+						<span class="fl" style="margin-top:7px;" id="lxxx_contactEmail"><%=obj.contactEmail%></span>
+						<% if(comm.isNotEmpty(obj.contactEmail)) { %>
+							<% if(obj.asEntStatusInfo.isAuthEmail !=1 ) { %>
+								<span style="float: left;width: 60px;line-height: 28px;">&nbsp;&nbsp;未验证</span> 
+							<% } %>
+							
+							<% if(obj.asEntStatusInfo.isAuthEmail ==1) { %>
+							<span style="float: left;width: 60px;line-height: 28px;">&nbsp;&nbsp;已验证</span> 
+							<% } %>
+						<% } %>	
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<span id="aimg" class="fl ml5 mt5 sample_img">
+					<img id="img-1" src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" />
+				</span>
+				</td>
+			</tr>
+			<%if (3 == obj.custType && 2 == obj.startResType){%>
+			<tr>
+            <td class="view_item" width="20%" height="60">创业帮扶协议</td>
+            <td colspan="3" class="view_text pt5 pb5">
+            &nbsp;
+            <a ><img id="other_protocol" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a></td>
+            </tr>
+            <%}%>
+	</table>
+	<div class="w200 bc clearfix mt20">
+		<a class="btn_bg submit fl" id="qylxxx_modify">修&#12288;改</a>
+		<a class="btn_bg submit fr" id="qylxxx_cancel">取&#12288;消</a>
+	</div>
+</div>

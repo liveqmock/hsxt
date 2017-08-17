@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>互生系统平台 - 首页</title>
+  	<link rel="shortcut icon" href="resources/img/husheng.png">
+	
+	<script type="text/javascript">
+	//设置版本
+	 var webVersion = 'v3.0.1.3';
+	 //加载样式
+	 var cssArr = ['base', 'jquery.jscrollpane', 'jquery-ui.min', 'bsgrid.all.min', 'plugins', 'style', 'kuangrb', 'qinsl', 'qisc', 'zxm', 'skin', 'luoym', 'ztree', 'bank-logo'];
+	 for (var i = 0 ;i<cssArr.length ;i++){
+	 	  var linkTag=document.createElement("link") ;
+				linkTag.setAttribute("rel", "stylesheet") ;
+				linkTag.setAttribute("type", "text/css") ;
+				linkTag.setAttribute("href", 'resources/css/'+cssArr[i]+'.css'+ (!!webVersion?'?v='+webVersion:'')  ) ;
+		  		document.getElementsByTagName("head")[0].appendChild(linkTag)	; 
+	 }
+	 function winLoad(){
+		 document.getElementById('wrap').style.display = '';
+	 }
+	 	
+	</script>
+	<script data-main="modules/common/main" src="library/require/require.min.js" type="text/javascript" defer async ></script>
+	
+	<!-- <link rel="stylesheet" href="resources/css/base.css"> -->
+    <!-- <link rel="stylesheet" href="resources/css/jquery.jscrollpane.css">   -->
+    <!-- <link rel="stylesheet" href="resources/css/jquery-ui.min.css">   --> 
+    <!-- <link rel="stylesheet" href="resources/css/bsgrid.all.min.css">  -->
+    
+	<!-- <link rel="stylesheet" href="resources/css/plugins.css">  -->  
+	<!-- <link rel="stylesheet" href="resources/css/style.css"> -->
+	<!-- <link rel="stylesheet" href="resources/css/kuangrb.css"> -->
+    <!-- <link rel="stylesheet" href="resources/css/qinsl.css"> -->
+    <!-- <link rel="stylesheet" href="resources/css/qisc.css" /> -->
+    <!-- <link rel="stylesheet" href="resources/css/zxm.css" /> -->
+  	<!-- <link rel="stylesheet" href="resources/css/skin.css"> -->
+	<!-- <link rel="stylesheet" href="resources/css/luoym.css"> -->
+	<!-- <link rel="stylesheet" href="resources/css/ztree.css"> -->
+	<!-- <link rel="stylesheet" href="resources/css/bank-logo.css"> -->
+    
+</head>
+
+<body onload="winLoad()">
+	<input type="hidden" name="oldToken" id="oldToken" />
+	<div id="wrap" style="display: none;">
+		
+        	<!-- 页头开始 -->
+			<div id="header" class="clearfix">
+            	
+            </div>
+            <!-- 页头结束 -->
+            
+            <!-- 页面主体开始 -->
+			<div id="main" class="clearfix">
+            
+            	<!-- 左边导航栏开始-->
+				<div id="sideBar" class="fl">
+                	
+                </div>
+                <!-- 左边导航栏结束-->
+                
+                <!-- 右边服务模块开始-->
+    			<div id="service" class="fr">
+                	
+                </div>
+                <!-- 右边服务模块结束-->
+                
+                <!-- 中间主体内容开始 -->
+   			  	<div class="content">
+                	
+                    <!-- 中间菜单开始 -->
+                    <div id="nav">
+                    	
+                    </div>
+                    <!-- 中间菜单结束 -->
+                    
+                    <!-- 操作台开始 -->
+        			<div class="operationsArea pr">
+        				<span class="pa serviceTab ui-state-default" id="serviceTab_btn" title="收起右栏">
+							<i class="ui-icon serviceTab_arrow_right bc"></i>
+						</span>
+        				<div class="operationsInner">
+                        	<!---->
+                            <div class="busibox p20 ovh">
+                            	
+                 		 	<div class="jf_bjcr1">
+                           	 <div class="tc">
+							 	<span class="gray">您上次登录的时间：</span><span id="sLastDate"></span>
+							 	<span class="ml30 gray">您上次登录的IP：</span><span id="sLastIp"></span>
+							 </div>											                            
+							 </div>
+                            <div class="jf_bjcr1" style="width:400px;margin-top:30px;">                            	
+                            		<div class="tc fb">欢迎登录互生系统平台</div>
+                            </div>
+                            <div class="cssform_400">
+                        <ul class="cssform clearfix" style="margin-top:5px;">
+                            <!-- 2015-05-04 qinsl add 预留信息 -->
+                            <li class="col2" style="height:auto;">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<tbody><tr>
+										<td class="p10 tips_320">
+											<div class="clearfix">
+												<i class="icon_tips tips_1 fl"></i>
+												<div class="fr" style="width:356px;">
+													<span class="red">预留信息：</span>
+													<span class="gray" id="sReserveInfo"></span>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody></table>
+                            </li>
+                            <li class="col2">
+                                <label class="title-txt">企业名称</label>
+                                <div class="cont-chk tbox"><span class="ml5" id="sEntName"></span></div>
+                            </li>
+                            <li class="col2">
+                                <label class="title-txt">企业互生号</label>
+                                <div class="cont-chk tbox"><span class="ml5" id="sEntResNo"></span></div>
+                            </li>
+                            <li class="col2">
+                                <label class="title-txt">用户名</label>
+                                <div class="cont-chk tbox"><span class="ml5" id="sUserAccount"></span></div>
+                            </li>
+                         </ul>
+                         
+                        </div>
+                 </div>
+                            <!---->
+                        </div>
+        			</div>
+                    <!-- 操作台结束 -->
+                    
+   			  	</div> 
+                <!-- 中间主体内容结束 -->
+                
+			</div>
+            <!-- 页面主体结束 -->
+            
+            <!-- 页脚开始 -->
+			<div id="footer">
+
+            </div>
+            <!-- 页脚结束 -->
+		
+	</div>
+</body>
+<!-- 互动弹窗start -->
+<div id="huDongMain" style="position: absolute;top: 25%;left: 28%;z-index: 99"></div>
+<div id="huDongMain2" style="position: absolute;top: 30%;left: 25%;z-index: 99"></div>
+<!-- 用户协议 -->
+<div id="alertYesOrNo" class="none"></div>
+</html>

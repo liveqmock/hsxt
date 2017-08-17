@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.entstatus.mapper.PointActivityMapper">
+	
+	<!-- 创建积分活动申请 -->
+	<insert id="createPointActivity" parameterType="com.gy.hsxt.bs.bean.entstatus.PointActivity">
+		INSERT INTO T_BS_POINTGAME
+				(APPLY_ID,
+				 ENT_RES_NO,
+				 ENT_CUST_ID,
+				 ENT_CUST_NAME,
+				 ENT_ADDR,
+				 CONTACT_NAME,
+				 CONTACT_PHONE,
+				 OLD_STATUS,
+				 S_ENT_CUST_ID,
+				 S_ENT_RES_NO,
+				 S_ENT_CUST_NAME,
+				 APPLY_TYPE,
+				 APPLY_REASON,
+				 STATUS,
+				 BIZ_APPLY_FILE,
+				 CREATED_DATE,
+				 CREATEDBY) 
+	    SELECT  #{applyId},
+	            #{entResNo},
+	            #{entCustId},
+	            #{entCustName},
+	            #{entAddress},
+	            #{linkman},
+	            #{linkmanMobile},
+	            #{oldStatus},
+	            #{serEntCustId},
+	            #{serEntResNo},
+	            #{serEntCustName},
+	            #{applyType},
+	            #{applyReason},
+	    		0,
+	    		#{bizApplyFile},
+	    		SYSDATE,
+	    		#{createdBy}
+	    FROM dual
+		WHERE NOT EXISTS( SELECT * FROM T_BS_POINTGAME  
+	      				WHERE ENT_CUST_ID = #{entCustId} AND STATUS IN(0,1,2)
+	      				)
+	</insert>
+	
+	<!-- 查询积分活动申请 -->
+	<select id="queryPointActivityListPage" parameterType="com.gy.hsxt.bs.entstatus.bean.PointActivityParam" 
+			resultType="com.gy.hsxt.bs.bean.entstatus.PointActivityBaseInfo">
+		SELECT APPLY_ID      AS applyId,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entName,
+		       ENT_ADDR      AS entAddress,
+		       CONTACT_NAME  AS linkman,
+		       CONTACT_PHONE AS linkmanMobile,
+		       STATUS        AS status,
+			   to_char(DECODE(UPDATED_DATE,NULL,CREATED_DATE,UPDATED_DATE),'yyyy-MM-dd') AS statusDate
+	    FROM T_BS_POINTGAME 
+	    WHERE 1=1
+	    	  <if test="applyType != null">
+	          	AND APPLY_TYPE = #{applyType}
+	          </if>
+	          <if test="serResNo != null and serResNo != '' ">
+	          	AND S_ENT_RES_NO = #{serResNo}
+	          </if>
+	          <if test="entResNo != null and entResNo != '' ">
+	          	AND ENT_RES_NO LIKE #{entResNo}||'%'
+	          </if>
+	          <if test="entName != null and entName != '' ">
+	          	AND UPPER(ENT_CUST_NAME) LIKE UPPER('%'||#{entName}||'%')
+	          </if>
+	          <if test="linkman != null and linkman != '' ">
+	          	AND UPPER(CONTACT_NAME) LIKE UPPER('%'||#{linkman}||'%') 
+	          </if>
+	          <if test="status != null and status == 12">
+	          	AND (STATUS = 1 OR STATUS = 2)
+	          </if>
+	          <if test="status != null and status == 56">
+	          	AND (STATUS = 5 OR STATUS = 6)
+	          </if>
+	          <if test="status != null and status != 12 and status != 56">
+	          	AND STATUS = #{status}
+	          </if>
+	          <if test="inStatus != null and inStatus != '' ">
+	          	AND STATUS IN ${inStatus}
+	          </if>
+	     ORDER BY CREATED_DATE DESC
+	</select>
+	
+	<!-- 关联工单查询积分活动申请 -->
+	<select id="queryPointActivity4ApprListPage" parameterType="com.gy.hsxt.bs.entstatus.bean.PointActivityParam" 
+			resultType="com.gy.hsxt.bs.bean.entstatus.PointActivityBaseInfo">
+		SELECT t1.APPLY_ID      AS applyId,
+		       t1.ENT_RES_NO    AS entResNo,
+		       t1.ENT_CUST_NAME AS entName,
+		       t1.ENT_ADDR      AS entAddress,
+		       t1.CONTACT_NAME  AS linkman,
+		       t1.CONTACT_PHONE AS linkmanMobile,
+		       t1.STATUS        AS status,
+			   to_char(DECODE(t1.UPDATED_DATE,NULL,t1.CREATED_DATE,t1.UPDATED_DATE),'yyyy-MM-dd') AS statusDate
+	    FROM T_BS_POINTGAME t1,T_BS_TASK t2 
+        WHERE t1.APPLY_ID = t2.BIZ_NO
+              AND t2.STATUS = 2
+              AND t2.EXE_CUST_ID = #{optCustId}
+	    	  <if test="applyType != null">
+	          	AND t1.APPLY_TYPE = #{applyType}
+	          </if>
+	          <if test="serResNo != null and serResNo != '' ">
+	          	AND t1.S_ENT_RES_NO = #{serResNo}
+	          </if>
+	          <if test="entResNo != null and entResNo != '' ">
+	          	AND t1.ENT_RES_NO LIKE #{entResNo}||'%'
+	          </if>
+	          <if test="entName != null and entName != '' ">
+	          	AND UPPER(t1.ENT_CUST_NAME) LIKE UPPER('%'||#{entName}||'%')
+	          </if>
+	          <if test="linkman != null and linkman != '' ">
+	          	AND UPPER(t1.CONTACT_NAME) LIKE UPPER('%'||#{linkman}||'%') 
+	          </if>
+	          <if test="status != null and status == 12">
+	          	AND (t1.STATUS = 1 OR t1.STATUS = 2)
+	          </if>
+	          <if test="status != null and status == 56">
+	          	AND (t1.STATUS = 5 OR t1.STATUS = 6)
+	          </if>
+	          <if test="status != null and status != 12 and status != 56">
+	          	AND t1.STATUS = #{status}
+	          </if>
+	          <if test="inStatus != null and inStatus != '' ">
+	          	AND t1.STATUS IN ${inStatus}
+	          </if>
+	     ORDER BY t1.CREATED_DATE DESC
+	</select>
+	
+	<!-- 更新积分活动申请状态 -->
+	<update id="updatePointActivityStatus">
+		UPDATE T_BS_POINTGAME 
+			<set>
+				STATUS       = #{status},
+				UPDATEBY     = #{optCustId},
+				UPDATED_DATE = SYSDATE
+			</set>
+		WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 查询积分活动详情 -->
+	<select id="queryPointActivityById" resultType="com.gy.hsxt.bs.bean.entstatus.PointActivity">
+		SELECT APPLY_ID        AS applyId,
+		       ENT_RES_NO      AS entResNo,
+		       ENT_CUST_ID     AS entCustId,
+		       ENT_CUST_NAME   AS entCustName,
+		       APPLY_TYPE      AS applyType,
+		       APPLY_REASON    AS applyReason,
+		       STATUS          AS status,
+		       BIZ_APPLY_FILE  AS bizApplyFile,
+		       CREATEDBY       AS createdBy,
+		       UPDATEBY        AS updateBy,
+		       ENT_ADDR        AS entAddress,
+		       CONTACT_NAME    AS linkman,
+		       CONTACT_PHONE   AS linkmanMobile,
+		       OLD_STATUS      AS oldStatus,
+		       S_ENT_CUST_ID   AS serEntCustId,
+		       S_ENT_RES_NO    AS serEntResNo,
+		       S_ENT_CUST_NAME AS serEntCustName,
+		       to_char(CREATED_DATE, 'yyyy-MM-dd') AS createdDate,
+		       to_char(UPDATED_DATE, 'yyyy-MM-dd') AS updatedDate
+		  FROM T_BS_POINTGAME
+		 WHERE APPLY_ID = #{applyId}
+	</select>
+
+	<!-- 根据企业客户号查询积分活动状态信息 -->
+	<select id="queryPointActivityStatus" parameterType="string" resultType="com.gy.hsxt.bs.bean.entstatus.PointActivityStatus">
+		SELECT APPLY_ID AS applyId, 
+		       APPLY_TYPE AS applyType,
+		       STATUS   AS status, 
+		       REMARK AS apprRemark, 
+		       to_char(CREATED_DATE,'yyyy-MM-dd') AS applyDate,
+		       to_char(APPR_DATE,'yyyy-MM-dd HH24:mi:ss') AS apprDate
+		  FROM (SELECT T1.APPLY_ID,
+		               T1.APPLY_TYPE,
+		               T1.STATUS,
+		               T1.CREATED_DATE,
+		               T2.REMARK,
+		               CASE
+		                 WHEN T2.CREATED_DATE IS NOT NULL THEN
+		                  T2.CREATED_DATE
+		                 ELSE
+		                  CASE
+		                    WHEN T1.UPDATED_DATE IS NOT NULL THEN
+		                     T1.UPDATED_DATE
+		                    ELSE
+		                     T1.CREATED_DATE
+		                  END
+		               END AS APPR_DATE,
+		               ROWNUM
+		          FROM T_BS_POINTGAME T1, T_BS_POINTGAME_APPR T2
+		         WHERE T1.APPLY_ID = T2.APPLY_ID(+)
+		           AND T1.ENT_CUST_ID = #{entCustId}
+		         ORDER BY T1.CREATED_DATE DESC, T2.CREATED_DATE DESC)
+		 WHERE ROWNUM = 1
+	</select>
+	
+	<select id="existPointActivity" resultType="boolean">
+		SELECT DECODE(COUNT(1),0,0,1) 
+		FROM T_BS_POINTGAME 
+		WHERE ENT_CUST_ID = #{entCustId}
+			  AND STATUS IN (0,1,2)
+	</select>
+</mapper>

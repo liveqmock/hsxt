@@ -1,0 +1,38 @@
+﻿<div id="htmbwhTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>模版名称：</label>
+				<input type="text" name="textfield" id="templetName" placeholder="输入模版名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">适用企业类别：</label>
+				<input id="custType" readonly="readonly" placeholder="选择适用企业类别" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="status" readonly="readonly" placeholder="选择状态" />
+			</li>
+			<li>
+				<button id="qry_htmb_btn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="xzmb_btn" type="button" class="btn-search">新增模版</button>
+			</li>
+		 </ul>
+	</div>
+	
+	<table id="searchTable" class="bsgrid">
+		<tr>
+			<th w_index="templetName" w_tip=true>模版名称</th>
+			<th w_index="custType" w_render="operate">适用企业类别</th>
+			<th w_index="resType" w_render="operate">启用资源类型</th>
+			<th w_index="status" w_render="operate">状态</th>
+			<th w_index="updatedDate" w_render="operate">状态时间</th>
+			<th w_render="operate">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="chaKan_content" class="none ovh"></div>
+<div id="dialogBox" class="none ovh"></div>

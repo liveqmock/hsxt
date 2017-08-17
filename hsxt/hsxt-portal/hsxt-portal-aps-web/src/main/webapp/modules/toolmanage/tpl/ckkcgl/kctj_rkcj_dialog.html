@@ -1,0 +1,63 @@
+<form id="cj_form" name="cj_form">
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+        	<td class="view_item" width="18%">工具名称</td>
+            <td class="view_text" width="32%"><%=obj.productName%></td>
+            <td class="view_item" width="18%">工具类别</td>
+            <td class="view_text" width="32%"><%=obj.categoryName%></td>
+           
+        </tr>
+        <tr>
+            <td class="view_item">仓库名称</td>
+			<td class="view_text"><%=obj.whName%></td>
+            <td class="view_item">入库数量</td>
+            <td class="view_text"><%=obj.enterNum%><!--<input type="text" class="ml5 h28_middle w96pc" placeholder="<%=obj.th_5%>" readonly="readonly" />--></td>
+        </tr>
+         
+        <tr>
+			<td class="view_item">出库数量</td>
+            <td class="view_text"><%=obj.outNum%><!--<input type="text" class="ml5 h28_middle w96pc" placeholder="<%=obj.th_6%>" readonly="readonly" />--></td>
+        	<td class="view_item">抽检数量</td>
+            <td class="pr">
+            	<input type="text" id="cj_quantity" name="cj_quantity" class="ml5 h28_middle w96pc" placeholder="输入抽检数量" />
+            </td>
+        </tr>
+         <tr>
+		 	<td class="view_item">合格数量</td>
+            <td class="pr">
+            	<input type="text" id="cj_passQuantity" name="cj_passQuantity" class="ml5 h28_middle w96pc" placeholder="输入合格数量" />
+            </td>
+         	<td class="view_item">合格率</td>
+            <td class="view_text" id="passRate">
+            </td>
+         </tr>
+        <tr>
+            <td class="view_item">备注</td>
+            <td colspan="3"><textarea id="remark" name="remark" class="ml5 h50 w98pc rsn pt5 pb5" placeholder="输入备注,字数不超过300个字" maxlength="300"></textarea></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml5">复核信息</span></td>
+        </tr>
+        <tr>
+			<td class="view_item">选择验证方式</td>
+			<td colspan="3" class="pr">
+				<input id="verificationMode_cj" readonly="readonly" placeholder="" />
+				<span class="ml10 red none" id="verificationMode_prompt_cj">当前版本暂时不支持这种验证方式</span>
+				<span class="required-right-10">*</span>
+			</td>
+		</tr>
+        <tr id="fhy_user_cj">
+            <td class="view_item">复核员</td>
+            <td>
+				<input type="text" id="cj_double_username" name="cj_double_username" class="ml5 h28_middle w96pc" placeholder="输入复核员用户名" />
+			</td>
+            <td class="view_item">复核员密码</td>
+            <td class="pr">
+				<input type="password" id="cj_double_password" name="cj_double_password" class="ml5 h28_middle w96pc" placeholder="输入复核员登录密码" />
+				<span class="required-right-10">*</span>
+			</td>
+        </tr>
+    </table>
+</div>
+</form>

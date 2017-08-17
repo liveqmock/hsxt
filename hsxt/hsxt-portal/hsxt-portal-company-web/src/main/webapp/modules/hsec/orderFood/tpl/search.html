@@ -1,0 +1,150 @@
+ <!--局部切换页签 结束--> 
+      
+    <!--订单详情-->
+ <div class="busibox p20 none" id="orderDetail"></div>
+ <!-- 订单修改 -->
+ <div class="busibox p20 none" id="orderEdit"></div> 
+ 
+ <!-- 加菜 -->
+ <div class="busibox  none" id="detailAddFood">
+ 		<div class="clearfix">
+    	<div  id="takeOrder_selectFoods" style="width:62%;display:inline-block;"></div> 
+       <div class="fr w380" id="takeOrder_orderInfos"></div>
+  	</div>
+ </div> 
+<div id="tgqycsyw_tpl" class="searchbox" >
+	<div class="search-toolbar">
+		<!-- 0全部订单search 开始-->
+		<div class="toolbar-box searchBar">
+			<ul class="cssform clearfix">
+				<li class="mr20">
+				 	<label class="title-int">订单编号：</label>
+					<div class="cont-int">
+							<input type="text" name="orderId" id="orderId" placeholder="输入订单编号" value="" class="input-txt w100" maxlength="17">						
+					</div> 
+				</li>
+				<%if(queryIndex=='0' || queryIndex=='1' || queryIndex=='2'){%>
+	            <li class="mr20">
+	                  <label class="title-int">订单类型：</label>
+	                  <input id="repastForm" placeholder="全部" readonly="readonly" optionvalue=""  /> 
+	            </li>
+	            <%}%>   
+	            <li class="mr20">
+				 	<label class="title-int">互生卡号/手机号码：</label>
+					<div class="cont-int">
+							<input type="text" name="buyerAccountNo" id="buyerAccountNo" placeholder="输入互生卡号/手机号码" value="" class="input-txt w100" maxlength="11">
+					</div> 
+				</li>
+			    <li class="mr20 ml10" id="shopType">	          
+		            <label class="title-int">营业点： </label>
+		            <input id="shopId" placeholder="全部" readonly="readonly" optionvalue="" />
+	                    
+	            </li>
+	            <%if(queryIndex=='0'){%>
+	            <li class="mr20">
+	                <label class="title-int">订单状态：</label>
+	                <input id="orderStatus" placeholder="全部" readonly="readonly" optionvalue=""  />
+	            </li>     
+	            <%}%>   
+	            
+	            <%if(queryIndex=='3'){%>  
+	            <li class="mr20">
+	                <label class="title-int">桌台号：</label>
+	                <div class="cont-int">
+							<input type="text" name="tableNomber" placeholder="输入桌台号" value="" class="input-txt w100">						
+					</div> 
+	            </li>  
+	            <%}%>
+	            <%if(queryIndex=='4'){%>  
+	            <li class="mr20">	          
+		            <label class="title-int">送餐人员： </label>
+		            <input id="sendPeopleId" placeholder="全部" readonly="readonly" optionvalue=""  />
+	            </li>   
+	            <%}%> 
+	            
+	        	<li class="mr20">
+					<label class="title-int">交易时间：</label>				
+					<div class="cont-int">
+	           			 <input type="text" id="beginTime" value="" class="input-txt w80" />
+	            		 <span class="white"> - </span>
+	            		 <input type="text" id="endTime" value="" class="input-txt w80" />
+	          		</div> 
+				</li>
+	            <li class="fr">
+					<div class="cont-int mr30">
+						<button id="" orderstatus="" type="button" class="btn-search">查询</button>
+					</div>
+			  </li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- <table id="searchTable" style="height: 410px"> -->
+	<table id="foodOrderTable" width="100%"><!-- 去掉表格高度，解决没有数据显示时的提示信息的行过高 modify by kuangrb 2016-04-19 -->
+		<tr>
+           <th w_render="operate" w_align="left">订单编号</th>	            
+           <th w_hidden="<%=!(queryIndex=='3'||queryIndex=='4')?false:true%>" w_render="operate">订单类型</th>
+           <th w_index="createTime">交易时间</th>
+           <th w_render="operate" w_index="amountTotal"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">订单金额</th>
+           <th w_render="operate" w_index="pointsTotal"><img src="resources/img/pv.png" width="25" style="vertical-align:middle;">消费积分</th>
+           <th w_index="receiverContact">联系电话</th>     
+           <th w_render="operate" w_align="left"></th>
+           <th w_render="operate" w_hidden="<%=!(queryIndex=='1'||queryIndex=='3'||queryIndex=='4'||queryIndex=='6')?false:true%>">状态</th>
+           <th w_render="operate">操作</th>            
+         </tr>
+	</table>
+	<div id="tableList_ol"></div>
+	
+	
+	 <div id="dlg0" class="none">
+  	<p id="table-point"></p>
+	</div>
+    <div id="dlg1" class="none"></div>
+    <div id="dlg2" class="none"></div>
+    <!--开台-->
+   <div id="dlg12" class="none">
+	  <table class="detail-table no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <tbody>
+			    <tr>			    
+			      <td align="right" width="30%">人数：</td>
+			      <td><input class="inpt" type="text" name="tableNumber" value=""></td>
+			    </tr>
+			    <tr>
+			      <td align="right">桌台号：</td>
+			      <td><input class="inpt" type="text" name="tableNo" value=""></td>
+			    </tr>
+		   </tbody>
+	  </table>
+	</div>
+	
+	<div id="dlg3" class="none">
+	  	<table class="detail-table no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+		    <tbody>
+		    <!-- <tr>
+		      <td align="right" colspan="2" class="blue tc">温馨提示：平台收取已收定金1%商业服务费</td>
+		    </tr> -->
+		    <tr>
+		      <td align="right" width="30%">取消理由：</td>
+		      <td><input class="inpt" type="text" name="cancelReason" value=""></td>
+		    </tr>
+		    <tr>
+		      <td align="right">已收定金：</td>
+		      <td class="moneyEarnest">00.00</td>
+		    </tr>
+		    <tr>
+		      <td align="right"></td>
+		      <td>
+		      	<label class="mr10"><input type="radio" name="refundType" checked="checked" value="1" class="mr5" />全额退还</label>
+		      	<!-- <label><input type="radio" name="refundType"  value="2" class="mr5" />不退还</label> -->
+		      </td>
+		    </tr>
+		   <!-- 
+		    <tr>
+		      <td align="right">退还定金：</td>
+		      <td>0.00</td>
+		    </tr>
+		     --> 
+		    </tbody>
+	  </table>
+	</div>
+</div>

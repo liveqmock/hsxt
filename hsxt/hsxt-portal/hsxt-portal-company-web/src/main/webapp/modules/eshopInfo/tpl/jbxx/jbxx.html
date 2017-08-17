@@ -1,0 +1,137 @@
+﻿<div class="bc cssform_600">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr5" width="100">企业管理号</td>
+          <td>
+            <%if (!obj.zt) {%>
+                <input type="text" id="jbxx_qyglh" name="jbxx_qyglh" value="<%=obj.qyglh%>" class="w300 h30_middle pl5 bg_f0 infobox2" readonly="readonly"/>
+            <%} else {%>
+                <a href="#" class="blue"><%=obj.qyglh%></a>
+            <%}%>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr5">地区</td>
+          <td><div class="w300 h30_middle pl5 bg_f0 infobox2"><span class="mr15"><%=obj.dq1%></span><span class="mr15"><%=obj.dq2%></span><span><%=obj.dq3%></span></div></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">公司名称</td>
+          <td><input type="text" id="jbxx_gsmc" name="jbxx_gsmc" value="<%=obj.gsmc%>" class="w300 h30_middle pl5 bg_f0 infobox2" readonly="readonly"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr5"><span class="red ml5 mr5">*</span>商城名称</td>
+          <td><input type="text" id="jbxx_scmc" name="jbxx_scmc" value="<%=obj.scmc%>" class="w300 h30_middle pl5 infobox2" placeholder="输入商城名称"/><span class="ml5">商城名称设置成功后不可修改</span></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">商城图标</td>
+          <td>
+            <%if (!obj.zt) {%>
+                <span class="sample_img fl"><img src="resources/img/noImg.gif" width="81" height="52" class="mt5 ml5"/></span><a href="javascript:;" class="input-file btn_bg upload_btn ml10 mr10 mt15">上传<input type="file"></a>
+            <%} else {%>
+                <img src="<%=obj.sctb%>" width="41" height="52">
+            <%}%>
+          </td>
+        </tr>
+    <%if (!obj.zt) {%>
+        <tr>
+          <td class="tr pr5">商城图片</td>
+          <td class="pr" height="80">
+            <div class="pa imgBox_style clearfix" id="jbxx_imgBox">
+                <div class="fl imgMask_style" id="jbxx_imgMask">
+                    <ul class="imgList clearfix" id="jbxx_imgLists">
+                        <li class="noImgLi">
+                            <span class="pr addImgBox_style">
+                                <input type="file">
+                                <img src="resources/img/add_img_bt.gif" width="80" height="70"/>
+                            </span>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/husheng.png" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/avatar01.png" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/avatar02.png" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片" style="display: none;"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/hslt_cpzs1.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片" style="display: none;"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/hslt_cpzs2.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片" style="display: none;"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/hslt_cpzs3.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/mmzh2_04.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/mmzh2_05.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/mmzh2_06.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                        <li class="pr">
+                            <img src="resources/img/nav_bg_flower.gif" width="80" height="70"/>
+                            <i class="tips_close pa delImg" title="删除图片"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div id="jbxx_btn_more" class="fr moreBt_style mt5 mr5"><img src="resources/img/arrow-right.png" width="15" height="70"/></div>			  
+            </div>
+          </td>
+        </tr>
+    <%}%>
+        <tr>
+          <td class="tr pr5">商城联系人</td>
+          <td><input type="text" id="jbxx_sclxr" name="jbxx_sclxr" value="<%=obj.sclxr%>" class="w300 h30_middle pl5 infobox2" placeholder="输入商城联系人"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr5">联系电话</td>
+          <td><input type="text" id="jbxx_lxdh" name="jbxx_lxdh" value="<%=obj.lxdh%>" class="w300 h30_middle pl5 infobox2" placeholder="输入组合名称"/></td>
+        </tr>
+    <%if (obj.zt) {%>
+        <tr>
+          <td class="tr pr5">联系邮箱</td>
+          <td><input type="text" id="jbxx_lxyx" name="jbxx_lxyx" value="<%=obj.lxyx%>" class="w300 h30_middle pl5 infobox2" placeholder="输入组合名称"/></td>
+        </tr>
+    <%}%>
+        <tr>
+          <td class="tr pr5">经营范围</td>
+          <td><textarea id="jbxx_jyfw" name="jbxx_jyfw" value="<%=obj.jyfw%>" class="w300 h60 attxta infobox2" placeholder="输入经营范围"></textarea></td>
+        </tr>
+        <tr>
+          <td class="tr pr5"><span class="red ml5 mr5">*</span>商城描述</td>
+          <td><textarea id="jbxx_scms" name="jbxx_scms" value="<%=obj.scms%>" class="w300 h60 attxta infobox2" placeholder="输入商城描述"></textarea></td>
+        </tr>
+    <%if (!obj.zt) {%>
+        <tr>
+            <td></td>
+            <td>我已阅读并同意<a href="#" class="blue"><<互生企业自主经营平台经营需知>></a></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="tc"><a href="javascript:;" id="jbxx_btn_ktsc" class="mt20 btn_bg submit mr30">开通商城</a></td>
+        </tr>
+    <%} else {%>
+        <tr>
+            <td colspan="2" class="tc">
+                <div class="mt20 mr50">
+                    <a href="javascript:;" id="jbxx_btn_xg" class="btn_bg submit mr10">修&#12288;改</a>
+                    <a href="javascript:;" id="jbxx_btn_sqzs" class="btn_bg submit mr10">申请暂时</a>
+                    <a href="javascript:;" id="jbxx_btn_sqzt" class="btn_bg submit">申请暂停</a>
+                </div>
+            </td>
+        </tr>
+    <%}%>
+     </table>
+</div>

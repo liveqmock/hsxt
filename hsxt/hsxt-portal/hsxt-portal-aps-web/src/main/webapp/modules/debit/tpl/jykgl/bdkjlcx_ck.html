@@ -1,0 +1,37 @@
+<div id="bdkjlcx_ckTpl">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">不动款编号</td>
+			<td class="view_text_2" width="30%"><%=obj.debitId%></td>
+			<td class="view_item" width="20%">付款企业名称</td>
+			<td class="view_text_2" width="30%"><%=obj.payEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款金额</td>
+			<td class="view_text_2"><%=comm.formatMoneyNumber(obj.payAmount)%></td>
+			<td class="view_item">拟用企业互生号</td>
+			<td class="view_text_2"><%=obj.useEntCustName%></td>
+		</tr>
+		<tr>
+			<td class="view_item">付款用途</td>
+			<td class="view_text_2"><%=obj.payUseString%></td>
+			<td class="view_item">付款时间</td>
+			<td class="view_text_2"><%=obj.payTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item">不动款金额</td>
+			<td class="view_text_2"><%=comm.formatMoneyNumber(obj.unlinkAmount)%></td>
+			<td class="view_item">转不动款说明</td>
+			<td class="view_text_2"><%=obj.balanceRecord%></td>
+		</tr>
+		<tr>
+			<td class="view_item">转不动款操作员</td>
+			<td class="view_text_2" id="tdOperation"></td>
+			<td class="view_item">转不动款时间</td>
+			<td class="view_text_2"><%=obj.updatedDate%></td>
+		</tr>
+	</table>
+	<div class="mt20" align="center">
+		<a class="btn_bg submit" id="ck_back">返&#12288;回</a>
+	</div>
+</div>

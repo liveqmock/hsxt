@@ -1,0 +1,53 @@
+<div class="mt20 openQuickPay-box">
+	<div class="clearfix">
+		<div class="fl">
+			<ul class="fl clearfix pay-ul">
+				<li class="pay-mt2"><i class="pay-icon-dui"></i></li>
+				<li class="ml15 mt5 fb f14">银行卡</li>
+				<li class="ml15 mt5"><a id="back_qpay">&lt; 返回快捷支付</a></li>
+			</ul>
+		</div>
+		<div class="fr f16" id="zfje_div">
+			支付金额：<span id="pay_money" class="pay-text-red fb"></span>
+		</div>
+	</div>
+	
+	<div class="ml30 mr30 mt20">
+		<div class="pay-oqp-tab-title" id="pay_card_tab"><!--2016-01-09 modify-->
+			<h1 class="hover" data-tab="cxk">储畜卡</h1>
+			<h1 class="left122" data-tab="xyk">信用卡</h1>
+		</div>
+		
+		<div class="mt10">
+		
+			<!--储畜卡银行列表-->
+			<ul class="clearfix pay-bank-list" id="qPay_ul_cxk">
+				<li class="more-select pay-text-blue" id="qPay_ul_cxk_more">
+					<div class="bc clearfix w70">
+						<span class="fl">更多银行</span>
+						<i class="fr ml5 pay-ui-gray pay-ui-arrow-down"></i>
+					</div>
+				</li>
+			</ul>
+			<!--end-->
+			
+			<!--信用卡银行列表-->
+			<ul class="clearfix pay-bank-list none" id="qPay_ul_xyk">
+				<li class="more-select pay-text-blue" id="qPay_ul_xyk_more">
+					<div class="bc clearfix w70">
+						<span class="fl">更多银行</span>
+						<i class="fr ml5 pay-ui-gray pay-ui-arrow-down"></i>
+					</div>
+				</li>
+			</ul>
+			<!--end-->
+		</div>
+	</div>
+</div>
+
+<!-- 样例 -->
+<ul class="none" id="exampleCard">
+	<li class="bank_click" title="title_name" id="li-id">
+		<i class="bank-logo bank-bankCode" data-name="bankCode"></i>
+	</li>
+</ul>

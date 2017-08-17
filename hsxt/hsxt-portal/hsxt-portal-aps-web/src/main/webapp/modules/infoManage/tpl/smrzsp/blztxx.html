@@ -1,0 +1,30 @@
+<div id="blztxxTpl">
+	<table id="searchTable4blztxx">
+		<tr>
+			<th w_render="operate">业务阶段</th>
+			<th w_index="optDate">时间</th>
+			<th w_index="optEntName">状态操作单位</th>
+			<th w_index="optName">操作员</th>
+			<th w_render="operate">详细</th>
+		</tr>
+	</table>
+	<div class="mt20" align="center">
+		<% if(obj.num == 'xfz'){ %>
+		<a class="btn_bg submit" id="xfz_blztxx_cancel">取&#12288;消</a>
+		<% }else if(obj.num == 'tgqy'){ %>
+		<a class="btn_bg submit" id="tgqy_blztxx_cancel">取&#12288;消</a>
+		<% }else if(obj.num == 'cyqy'){ %>
+		<a class="btn_bg submit" id="cyqy_blztxx_cancel">取&#12288;消</a>
+		<% }else if(obj.num == 'fwgs'){ %>
+		<a class="btn_bg submit" id="fwgs_blztxx_cancel">取&#12288;消</a>
+		<% }else if(obj.num == 'xfzspcx'){%>
+		<a class="btn_bg submit" id="xfzspcx_blztxx_cancel">返&#12288;回</a>
+		<% }else if(obj.num == 'qyspcx'){%>
+		<a class="btn_bg submit" id="qyspcx_blztxx_cancel">返&#12288;回</a>
+		<% }%>
+	</div>
+</div>
+
+<div id="confirm_dialogBox" class="none">
+	<div class="view_info mt10"></div>
+</div>

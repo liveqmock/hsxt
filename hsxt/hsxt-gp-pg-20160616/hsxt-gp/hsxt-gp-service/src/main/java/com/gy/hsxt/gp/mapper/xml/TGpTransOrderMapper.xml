@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gp.mapper.TGpTransOrderMapper">
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.gp.mapper.vo.TGpTransOrder">
+		<id column="TRANS_SEQ_ID" property="transSeqId" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_SEQ_ID" property="bankOrderSeqId" jdbcType="VARCHAR" />
+		<result column="BANK_BATCH_NO" property="bankBatchNo" jdbcType="VARCHAR" />
+		<result column="MER_ID" property="merId" jdbcType="CHAR" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="OUT_BANK_ACC_TYPE" property="outBankAccType" jdbcType="INTEGER" />
+		<result column="OUT_ACC_NO" property="outAccNo" jdbcType="VARCHAR" />
+		<result column="IN_ACC_NO" property="inAccNo" jdbcType="VARCHAR" />
+		<result column="IN_ACC_NAME" property="inAccName" jdbcType="VARCHAR" />
+		<result column="IN_ACC_BANK_NAME" property="inAccBankName" jdbcType="VARCHAR" />
+		<result column="IN_ACC_BANK_NODE" property="inAccBankNode" jdbcType="VARCHAR" />
+		<result column="IN_ACC_PROVINCE_CODE" property="inAccProvinceCode" jdbcType="VARCHAR" />
+		<result column="IN_ACC_CITY_NAME" property="inAccCityName" jdbcType="VARCHAR" />
+		<result column="BANK_FEE" property="bankFee" jdbcType="DECIMAL" />
+		<result column="BANK_SUBMIT_DATE" property="bankSubmitDate" jdbcType="TIMESTAMP" />
+		<result column="BANK_ACCOUNT_DATE" property="bankAccountDate" jdbcType="DATE" />
+		<result column="NOTIFY_MOBILE" property="notifyMobile" jdbcType="VARCHAR" />
+		<result column="UNION_FLAG" property="unionFlag" jdbcType="INTEGER" />
+		<result column="SYS_FLAG" property="sysFlag" jdbcType="CHAR" />
+		<result column="ADDR_FLAG" property="addrFlag" jdbcType="INTEGER" />
+		<result column="TRANS_DESC" property="transDesc" jdbcType="VARCHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="SRC_SUBSYS_ID" property="srcSubsysId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap id="TransCashOrderStateMap" type="com.gy.hsxt.gp.bean.TransCashOrderState">
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />		
+		<result column="BANK_FEE" property="bankFee" jdbcType="DECIMAL" />
+		<result column="BANK_SUBMIT_DATE" property="bankSubmitDate" jdbcType="TIMESTAMP" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="SRC_SUBSYS_ID" property="srcSubsysId" jdbcType="VARCHAR"/>		
+	</resultMap>
+	<sql id="Base_Column_List">
+		TRANS_SEQ_ID, ORDER_NO, ORDER_DATE, BATCH_NO,
+		BANK_ORDER_NO, BANK_ORDER_SEQ_ID,
+		BANK_BATCH_NO,
+		MER_ID, TRANS_AMOUNT,
+		TRANS_STATUS, TRANS_DATE, CURRENCY_CODE,
+		OUT_BANK_ACC_TYPE,
+		OUT_ACC_NO,
+		IN_ACC_NO, IN_ACC_NAME, IN_ACC_BANK_NAME, IN_ACC_BANK_NODE,
+		IN_ACC_PROVINCE_CODE,
+		IN_ACC_CITY_NAME, BANK_FEE, BANK_SUBMIT_DATE,
+		BANK_ACCOUNT_DATE, NOTIFY_MOBILE,
+		UNION_FLAG,
+		SYS_FLAG, ADDR_FLAG,
+		TRANS_DESC, FAIL_REASON, CREATED_DATE, UPDATED_DATE,SRC_SUBSYS_ID
+	</sql>
+	<sql id="TransCashOrderStatelist">
+		ORDER_NO, ORDER_DATE, TRANS_AMOUNT,
+		TRANS_STATUS, CURRENCY_CODE,
+		BANK_FEE, BANK_SUBMIT_DATE,
+		 FAIL_REASON,SRC_SUBSYS_ID
+	</sql>
+	
+	<select id="selectOrderStateByPrimary" resultMap="TransCashOrderStateMap">
+		select
+		<include refid="TransCashOrderStatelist" />
+		from T_GP_TRANS_ORDER
+		where TRANS_SEQ_ID = #{transSeqId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectOneBySucHanding" resultType="java.lang.Integer">
+		select
+		TRANS_STATUS
+		from T_GP_TRANS_ORDER
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		and
+		 MER_ID = #{merId,jdbcType=VARCHAR}
+		and
+		(TRANS_STATUS=1000 or
+		TRANS_STATUS=1002) order by
+		TRANS_STATUS,TRANS_DATE LIMIT 1
+	</select>
+	
+	<select id="selectOneBySelective" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		(select
+		T.*,
+		case TRANS_STATUS
+		when '1000' then 100
+		when '1002' then 120
+		when '1001' then 140
+		when '1003' then 150
+		when '-1' then 160
+		when '-2' then 180
+		end as orderstatus
+		from T_GP_TRANS_ORDER T
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		    and MER_ID = #{merId,jdbcType=VARCHAR}
+		order by orderstatus,TRANS_DATE DESC LIMIT 1) alias
+	</select>
+	
+	<select id="countBatchNo" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(BATCH_NO)
+		from T_GP_TRANS_ORDER
+		where BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectbyBatchNoMerId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_TRANS_ORDER
+		where
+		MER_ID = #{merId,jdbcType=VARCHAR}
+		and
+		BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectbyOrderNoMerId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_TRANS_ORDER
+		where MER_ID=#{merId,jdbcType=VARCHAR}
+		and
+		ORDER_NO in
+		<foreach item="item" index="index" collection="orderNoList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectByBankOrderNo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_GP_TRANS_ORDER
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insert" parameterType="com.gy.hsxt.gp.mapper.vo.TGpTransOrder">
+		insert into T_GP_TRANS_ORDER
+		(TRANS_SEQ_ID, ORDER_NO, ORDER_DATE,
+		BATCH_NO, BANK_ORDER_NO,
+		BANK_ORDER_SEQ_ID,
+		BANK_BATCH_NO, MER_ID, TRANS_AMOUNT,
+		TRANS_STATUS,
+		TRANS_DATE, CURRENCY_CODE,
+		OUT_BANK_ACC_TYPE, OUT_ACC_NO, IN_ACC_NO,
+		IN_ACC_NAME, IN_ACC_BANK_NAME, IN_ACC_BANK_NODE,
+		IN_ACC_PROVINCE_CODE,
+		IN_ACC_CITY_NAME, BANK_FEE,
+		BANK_SUBMIT_DATE, BANK_ACCOUNT_DATE,
+		NOTIFY_MOBILE,
+		UNION_FLAG, SYS_FLAG, ADDR_FLAG,
+		TRANS_DESC, FAIL_REASON,
+		CREATED_DATE,
+		UPDATED_DATE, SRC_SUBSYS_ID, ORDER_DATE_S, TRANS_DATE_S)
+		values (#{transSeqId,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=VARCHAR},
+		#{orderDate,jdbcType=TIMESTAMP},
+		#{batchNo,jdbcType=VARCHAR}, #{bankOrderNo,jdbcType=VARCHAR},
+		#{bankOrderSeqId,jdbcType=VARCHAR},
+		#{bankBatchNo,jdbcType=VARCHAR},
+		#{merId,jdbcType=CHAR},
+		#{transAmount,jdbcType=DECIMAL},
+		#{transStatus,jdbcType=INTEGER}, #{transDate,jdbcType=TIMESTAMP},
+		#{currencyCode,jdbcType=CHAR},
+		#{outBankAccType,jdbcType=INTEGER},
+		#{outAccNo,jdbcType=VARCHAR},
+		#{inAccNo,jdbcType=VARCHAR},
+		#{inAccName,jdbcType=VARCHAR}, #{inAccBankName,jdbcType=VARCHAR},
+		#{inAccBankNode,jdbcType=VARCHAR},
+		#{inAccProvinceCode,jdbcType=VARCHAR},
+		#{inAccCityName,jdbcType=VARCHAR}, #{bankFee,jdbcType=DECIMAL},
+		#{bankSubmitDate,jdbcType=TIMESTAMP},
+		#{bankAccountDate,jdbcType=DATE}, #{notifyMobile,jdbcType=VARCHAR},
+		#{unionFlag,jdbcType=INTEGER}, #{sysFlag,jdbcType=CHAR},
+		#{addrFlag,jdbcType=INTEGER},
+		#{transDesc,jdbcType=VARCHAR},
+		#{failReason,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP},
+		#{updatedDate,jdbcType=TIMESTAMP}, 
+		#{srcSubsysId,jdbcType=VARCHAR},
+		#{orderDateS,jdbcType=DATE},
+		#{transDateS,jdbcType=DATE})
+	</insert>
+
+	<update id="updateStatusByBankOrderNo" parameterType="com.gy.hsxt.gp.mapper.vo.TGpTransOrder">
+		update T_GP_TRANS_ORDER
+		<set>
+			<if test="bankOrderSeqId != null">
+				BANK_ORDER_SEQ_ID =#{bankOrderSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="transStatus != null">
+				TRANS_STATUS =#{transStatus,jdbcType=INTEGER},
+			</if>
+			<if test="bankFee != null">
+				BANK_FEE =#{bankFee,jdbcType=DECIMAL},
+			</if>
+			<if test="bankSubmitDate != null">
+				BANK_SUBMIT_DATE =#{bankSubmitDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bankAccountDate != null">
+				BANK_ACCOUNT_DATE =#{bankAccountDate,jdbcType=DATE},
+			</if>
+			<if test="failReason != null">
+				FAIL_REASON =#{failReason,jdbcType=VARCHAR},
+			</if>
+			UPDATED_DATE = SYSDATE()
+		</set>
+		where BANK_ORDER_NO =#{bankOrderNo,jdbcType=VARCHAR}
+	</update>
+</mapper>

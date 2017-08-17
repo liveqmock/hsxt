@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gui-definition>
+    <pos>
+        <posNo>061860100000052</posNo>
+        <batchNo>100036</batchNo>
+        <posRunCode>110510</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061860100000051</posNo>
+        <batchNo>100238</batchNo>
+        <posRunCode>103559</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061865100000001</posNo>
+        <batchNo>000009</batchNo>
+        <posRunCode>000205</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061121500000003</posNo>
+        <batchNo>000001</batchNo>
+        <posRunCode>000002</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061860100000071</posNo>
+        <batchNo>000001</batchNo>
+        <posRunCode>111220</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061860100000003</posNo>
+        <batchNo>000001</batchNo>
+        <posRunCode>111299</posRunCode>
+    </pos>
+    <pos>
+        <posNo>061866300000001</posNo>
+        <batchNo>000001</batchNo>
+        <posRunCode>111328</posRunCode>
+    </pos>
+</gui-definition>

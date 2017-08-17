@@ -1,0 +1,46 @@
+﻿<div id="cyqyzyylTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>系统开启日期：</label>
+					<input id="search_startDate" type="text" name="search_startDate" class="h28_middle w80 input-txt " placeholder="选择开始日期">--
+					<input id="search_endDate" type="text" name="search_endDate" class="h28_middle w80 input-txt " placeholder="选择结束日期">
+				</li>
+				<li>
+					<label>企业互生号：</label>
+					<input type="text" name="textfield" id="belongEntResNo" maxlength="11" class="h28_middle w80 input-txt" placeholder="输入企业互生号" />
+				</li>
+				<li>
+					<label>企业名称：</label>
+					<input type="text" name="textfield" id="belongEntName" class="h28_middle w80 input-txt" placeholder="输入企业名称" />
+				</li>
+				<li>
+					<label>联系人姓名：</label>
+					<input type="text" name="textfield" id="belongEntContacts" class="h28_middle w80 input-txt" placeholder="输入联系人姓名" />
+				</li>
+				<li>
+					<button id="searchBtn"  type="button" class="btn-search">查询</button>
+				</li>
+				<li>
+					<button id="btn_export" type="button" class="btn-search">导出</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate">企业互生号</th>
+		<th w_index="entCustName" w_tip=true>企业名称</th>
+		<th w_index="entRegAddr" w_tip=true>企业地址</th>
+	    <th w_index="contactPerson" w_tip=true>联系人姓名</th>
+	    <th w_index="contactPhone" w_tip=true>联系人手机</th>
+	    <th w_index="openDate" w_tip=true>系统开启日期</th>
+	    <th w_render="operate">启用资源类型</th>
+	    <th w_render="operate">企业认证状态</th>
+	    <th w_render="operate">企业状态</th>
+	    <th w_render="operate">开启系统类型</th>
+	  </tr>
+	  
+	</table>
+</div>

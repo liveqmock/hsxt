@@ -1,0 +1,57 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>时间范围：</label>
+			<input type="text" name="textfield" id="timeRange_start" placeholder="输入时间范围" class="h28_middle w115 input-txt"    />
+			<span class="separator-pd">-</span>
+			<input type="text" name="textfield" id="timeRange_end" placeholder="输入时间范围" class="h28_middle w115 input-txt"    />
+		</li>
+		<li>
+			<label>主叫号码：</label>
+			<input id="yjld_zjhm_input" type="text" name="textfield" placeholder="输入主叫号码" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>坐席号：</label>
+			<input id="yjld_zx_input" type="text" name="textfield" placeholder="输入坐席号" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="yjld_search_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<!--//已接来电
+"CallRecordList": [
+{
+"CallingNum": "6433",
+"Agent_Num": "801",
+"Agent_Name": "0000",
+"Start_Time": "2016-02-19 18:35:11",
+"Host": "192.168.1.109",
+"File": "F:\\lingjun\\customer\\CallCenter3.0\\HSRecordVoc\\20160219\\801\\183511-I-6433.wav",
+"Duration": "336",
+"InOut": "I"
+}
+]
+CallingNum	主叫号码/来电号码
+Agent_Num	座席号
+Start_Time	开始通话时间：格式yyyy-mm-dd HH:MM:SS
+Host	录音主机
+File	录音文件
+Duration	通话时长
+InOut	通话方向 I/O-->
+
+<table id="searchTable">
+  <tr>
+	<!--<th w_check="true" width="5%;"></th> -->
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="CallingNum">主叫号码</th>
+	<!--<th w_index="th_2">被叫号码</th>-->
+	<th w_index="Agent_Num">座席号</th>
+	<th w_index="Agent_Name">座席姓名</th>
+	<!-- <th w_index="th_5">来电状态</th> -->
+	<th w_index="Start_Time" w_sort="Start_Time desc" id="yjld_startTime">开始时间</th>
+	<th w_index="Duration" w_render="operate">录音时长</th>
+	<th w_index="File" w_render="operate">文件名</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>

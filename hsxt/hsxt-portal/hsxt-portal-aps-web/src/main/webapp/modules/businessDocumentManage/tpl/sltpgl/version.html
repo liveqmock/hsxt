@@ -1,0 +1,15 @@
+<ul class="certificateSample clearfix">
+<%for (var i=0;i<record.length;i++){%>
+	<li>
+		<span class="f13"><%=record[i].docName%></span>
+		<div class="mt10 mb10 sampleBox"><%=record[i].image%></div>
+		<div class="mt5" align="left">状态：<%=record[i].statusText%></div>
+		<div class="mt5 gray" align="left"><%if(record[i].status == 3){%>停用时间：<%}%></div>
+		<div class="mt5 gray" align="left"><%if(record[i].status == 3){%><%=record[i].updatedDate%><%}%></div>
+		<div class="bc w140 mt5">
+		<a href="javascript:void(0);" id="preview_<%=record[i].docId%>" class="btn_bg upload_btn preview_btn">预览</a>
+		<%if(record[i].status == 3){%><a id="<%=record[i].docId%>" class="btn_bg viewSample_btn ml5 version_btn">恢复版本</a><%}%>
+		</div>
+	</li>
+<%}%>
+</ul>

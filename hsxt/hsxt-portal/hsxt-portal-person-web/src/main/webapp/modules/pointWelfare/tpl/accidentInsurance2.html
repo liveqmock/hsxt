@@ -1,0 +1,248 @@
+﻿<!-- 医疗保障金 -->
+<form id="applyMedicalForm" name="applyMedicalForm">
+	<div id="accInsurance_apply" class="register_info mt40 info_800 none">
+		<fieldset>
+			<div class="register_info info_900">
+				<h1 class="acct-tips">
+					<span class="tcr_blue fb">温馨提示：</span>证件图片要求必须是清晰，仅支持jpg、jpeg、bmp、png格式图片且不能超过2M！
+				</h1>
+				<div class="clearfix">
+					<ul class="fl">
+						<li class="input_item_upload_1 info_320 clearfix mt5" style="height:30px;">
+							<label for="name" style="height:30px;line-height:30px;">医保卡号</label>
+							<input type="text" id="healthCardNo" name="healthCardNo" maxlength="19"  onpaste = "return false" ondragenter = "return false" />
+							
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix">
+				<ul class="fl" style="width:45%;">
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name">互生卡正面</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="hscPositiveImg"  src="resources/images/space.png" class="showImage2" width="81" height="52"/>
+							</i>
+							<!-- <img id="hscPositiveImg" src="resources/images/noImg2.gif" width="81" height="52" class="showImage2"/> -->
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="hscPositive" name="hscPositive"/></a>
+						<a id="accInsurance_demo_href_1"  href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name">身份证正面</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="cerPositiveImg" src="resources/images/space.png" class="showImage2" width="81" height="52" />
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cerPositive" name="cerPositive"/></a>
+						<a id="accInsurance_demo_href_3" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> 
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name">医疗证明</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="medicalProveImg" src="resources/images/space.png" width="81" height="52" class="showImage2"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="medicalProve" name="medicalProve"/></a>
+						<a id="accInsurance_demo_href_5" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a> 
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">医保中心的受理<br/>回执复印件</label> 
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="medicalAcceptImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="medicalAccept" name="medicalAccept"/></a>
+						<span class="required-box-h60 hscard_tip none">*</span>
+					</li>
+
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">消费者本人的<br/>社会保障卡复印件</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="sscImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ssc" name="ssc"/></a>
+						<span class="required-box-h60 hscard_tip none">*</span> 
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">原始收费收据<br/>复印件(一份)</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="ofrImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ofr" name="ofr"/></a> 
+						<span class="required-box-h60">*</span>
+					</li>
+					
+                </ul>
+                <ul class="fr" style="width: 45%;">
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name">互生卡背面</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="hscReverseImg" src="resources/images/space.png" width="81" height="52" class="showImage2"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="hscReverse" name="hscReverse"/></a>
+						<a id="accInsurance_demo_href_2" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name">身份证背面</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="cerReverseImg" src="resources/images/space.png" width="81" height="52" class="showImage2"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cerReverse" name="cerReverse"/></a>
+						<a id="accInsurance_demo_href_4" href="javascript:;" class="btn_bg viewSample_btn">查看示例图片</a>
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">费用明细清单<br/>复印件(一份)</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="cdlImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="cdl" name="cdl"/></a> 
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">医疗费用报销<br/>计算表复印件</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="costCountImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="costCount" name="costCount"/></a>
+						<span class="required-box-h60 hscard_tip none">*</span>  
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">住院病历<br/>复印件(一份)</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="imrImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="imr" name="imr"/></a> 
+						<span class="required-box-h60">*</span>
+					</li>
+					
+					<li class="input_item_upload_1 info_320 clearfix mt5 pr">
+						<label for="name" style="line-height: 24px;">诊断证明书<br/>复印件(一份)</label>
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="ddcImg" src="resources/images/space.png" class="showImage50" width="81" height="52"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="ddc" name="ddc"/></a> 
+						<span class="required-box-h60">*</span>
+					</li>
+				</ul>
+			</div>
+			<ul class="clearfix">
+				<li class="input_item_upload_1 clearfix mt5" style="width:895px;">
+					<label for="name">其它证明材料</label> 
+					<span id="otherProveSpan1">
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="otherProveImg1" src="resources/images/space.png" width="81" height="52" class="showImage"/>
+							</i>
+						</span>
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve1" name="otherProve1"/></a> 
+					</span>
+					<span id="otherProveSpan2" style="display:none">
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="otherProveImg2" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+							</i>
+						</span> 
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve2" name="otherProve2"/></a>
+					</span>
+					<span id="otherProveSpan3" style="display:none">
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="otherProveImg3" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+							</i>
+						</span> 
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve3" name="otherProve3"/></a>
+					</span>
+					<span id="otherProveSpan4" style="display:none">
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="otherProveImg4" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+							</i>
+						</span> 
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve4" name="otherProve4"/></a>
+					</span>
+					<span id="otherProveSpan5" style="display:none">
+						<span class="spanfl sample_img">
+							<i class="noImgMidSample_img certificateSample_01">
+								<img id="otherProveImg5" src="resources/images/space.png" width="81" height="52" class="showImage50"/>
+							</i>
+						</span> 
+						<a href="javascript:;" class="input-file btn_bg upload_btn">上传<input type="file" id="otherProve5" name="otherProve5"/></a>
+					</span>
+				</li>
+			</ul>
+			<p><a href="javascript:;" class="lh200 cl-blue Thick_btn2" id="acc_Thick_btn2">互生意外伤害医疗保障证明材料说明</a></p>
+			<div class="tc two_button h50 mt20">
+				<a id="medicalApply_submit" href="javascript:;" class="hs_btn Thick_btn">确认提交</a>
+			</div>
+		</fieldset>
+	</div>
+	<!-- 隐藏域，用于提交后台路径 -->
+	<input type="hidden" name="custId" id="custId"/>	<!-- id -->
+	<input type="hidden" name="hsResNo" id="hsResNo"/>	<!-- 互生号  -->
+	<input type="hidden" name="proposerName" id="proposerName"/><!--申请人姓名 -->
+	<input type="hidden" name="proposerPhone" id="proposerPhone"/>	<!--申请人电话 -->
+	<input type="hidden" name="proposerPapersNo" id="proposerPapersNo"/>	<!--申请人证件号码 -->
+	<input type="hidden" name="applyDate" id="applyDate"/>		<!--医保卡号 -->
+	<input type="hidden" name="explain" id="explain"/>		<!--说明 -->
+	<!-- <input type="hidden" name="healthCardNo" id="healthCardNo"/> -->		<!--医保卡号  -->
+	
+	
+	
+	
+	<input type="hidden" name="hscPositivePath" id="hscPositivePath"/>		<!-- 互生卡正面图片路径 -->
+	<input type="hidden" name="hscReversePath" id="hscReversePath"/>		<!-- 互生卡背面图片路径 径-->
+	<input type="hidden" name="cerPositivePath" id="cerPositivePath"/>		<!-- 身份证正面图片路径 -->
+	<input type="hidden" name="cerReversePath" id="cerReversePath"/>		<!-- 身份证背面图片路径 -->
+	<input type="hidden" name="medicalProvePath" id="medicalProvePath"/>		<!-- 医疗证明图片路径-->
+	<input type="hidden" name="otherProvesPath" id="otherProve1Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve2Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve3Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve4Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="otherProvesPath" id="otherProve5Path"/>		<!-- 其他证明图片路径 -->
+	<input type="hidden" name="medicalAcceptPath" id="medicalAcceptPath"/>	<!-- 	医保中心的受理回执复印件图片路径-->
+	<input type="hidden" name="costCountPath" id="costCountPath"/>		<!-- 医疗费用报销计算表复印件 图片路径 -->
+	<input type="hidden" name="sscPath" id="sscPath"/>		<!-- 消费者本人的社会保障卡复印件-->
+	<input type="hidden" name="imrPath" id="imrPath"/>		<!-- 住院病历复印件 图片路径-->
+	<input type="hidden" name="ofrPath" id="ofrPath"/>		<!-- 原始收费收据复印件 图片路径)-->
+	<input type="hidden" name="ddcPath" id="ddcPath"/>		<!-- 诊断证明书复印件 图片路径-->
+	<input type="hidden" name="cdlPath" id="cdlPath"/>		<!-- 费用明细清单复印件图片路径 -->
+</form>
+<!-- 资料修改结束 -->
+
+<div id="showImageDiv2" class="none">
+	<img alt="证件图片" src="" id="showImage2" width="800" height="600">
+</div>

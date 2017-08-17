@@ -1,0 +1,42 @@
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li>
+			<label>时间范围：</label>
+			<input type="text" name="textfield" placeholder="输入时间范围" id="timeRange_start" class="h28_middle w115 input-txt"    />
+			<span class="separator-pd">-</span>
+			<input type="text" name="textfield" placeholder="输入时间范围" id="timeRange_end" class="h28_middle w115 input-txt"    />
+		</li>
+		<li>
+			<label>来电号码：</label>
+			<input id="call_tel_input" type="text" name="textfield" placeholder="输入来电号码" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="yyly_search_btn" type="button" class="btn-search">查询</button>
+		</li>
+	 </ul>
+</div>
+<table id="searchTable">
+  <tr>
+	<!--<th w_check="true" width="5%;"></th>-->
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="CallingNum">来电号码</th>
+	<th w_index="Start_Time" w_sort="Start_Time desc" id="yyly_startTime">开始时间</th>
+	<th w_index="Duration">留言时长</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+
+<!-- 语音留言数据
+{
+"resultCode": "1",
+"rowCount": "1",
+"CommentsList": [
+{
+"CallingNum": "6433",   主叫号码/来电号码
+"Start_Time": "2016-02-23 18:07:39", 开始通话时间
+"Host": "192.168.1.109",
+"File": "F:\\lingjun\\customer\\CallCenter3.0\\HSRecordVoc\\20160223\\180739-I-6433.wav", 录音文件
+"Duration": "0" 通话时长
+}
+]
+}-->

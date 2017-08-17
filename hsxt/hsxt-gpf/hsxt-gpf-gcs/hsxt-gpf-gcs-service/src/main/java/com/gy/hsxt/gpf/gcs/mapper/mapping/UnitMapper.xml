@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.UnitMapper">
+	<!--插入-->
+	<insert id="addUnit" parameterType="com.gy.hsxt.gpf.gcs.bean.Unit" >
+		INSERT INTO T_GCS_UNIT (
+			LANGUAGE_CODE,
+			UNIT_CODE,
+			UNIT_NAME,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+			(
+				#{languageCode,jdbcType=VARCHAR},
+				#{unitCode,jdbcType=VARCHAR},
+				#{unitName,jdbcType=VARCHAR},
+				#{delFlag,jdbcType=TINYINT},
+				#{version,jdbcType=BIGINT}
+			);
+	</insert>
+	<!--逻辑删除-->
+	<update id="deleteUnit" parameterType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		UPDATE T_GCS_UNIT
+			<set>
+			  DEL_FLAG = true,
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+	</update>
+	<!--更新-->
+	<update id="updateUnit" parameterType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		UPDATE T_GCS_UNIT
+			<set>
+	          UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+	          DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+			  VERSION = #{version,jdbcType=BIGINT}
+			</set>
+		WHERE  
+		      LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		      AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+	</update>
+	<!--是否已存在相同-->
+	<select id="existUnit" resultType="string" parameterType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		<![CDATA[
+		SELECT
+			1
+		FROM
+			T_GCS_UNIT
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	<!--查询:查询条件delFlag为true,查出结果包含了逻辑删除的记录，否则不包含-->
+	<select id="queryUnitListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Unit" resultType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_UNIT
+		WHERE
+			TRUE
+  		    <if test="true != delFlag">
+  		    	 AND DEL_FLAG = false
+  		    </if>
+			<if test="languageCode != null and languageCode != '' "> 
+				AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR} 
+			</if>
+			<if test="unitCode != null and unitCode != '' "> 
+				AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR} 
+			</if>   
+			<if test="unitName != null and unitName != '' "> 
+				<![CDATA[  AND UNIT_NAME like CONCAT('%',#{unitName},'%')   escape '/' ]]>
+			</if>
+			  ORDER BY LANGUAGE_CODE,UNIT_CODE
+	</select>
+	
+	<select id="queryUnitWithPK"  resultType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		<![CDATA[
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_UNIT
+		WHERE
+			LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		AND UNIT_CODE = #{unitCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	
+	<select id="queryUnitByLanguage"  resultType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		<![CDATA[
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_UNIT
+		WHERE
+			DEL_FLAG = FALSE
+		AND LANGUAGE_CODE = #{languageCode,jdbcType=VARCHAR}
+		]]> 
+	</select>
+	
+	<select id="queryUnit4SyncData"  resultType="com.gy.hsxt.gpf.gcs.bean.Unit">
+		<![CDATA[
+		SELECT
+			LANGUAGE_CODE languageCode,
+			UNIT_CODE unitCode,
+			UNIT_NAME unitName,
+			VERSION version,
+			DEL_FLAG delFlag
+		FROM
+			T_GCS_UNIT
+		WHERE
+			VERSION > #{version,jdbcType=BIGINT} 
+		ORDER BY
+			LANGUAGE_CODE,
+			UNIT_CODE
+		]]> 
+	</select>
+	    
+</mapper>

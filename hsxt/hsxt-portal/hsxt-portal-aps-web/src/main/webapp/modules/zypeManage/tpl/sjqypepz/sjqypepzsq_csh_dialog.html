@@ -1,0 +1,24 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+		<tr>
+			<td class="view_item" width="30%">当前可用配额数</td>
+			<td class="view_text" width="70%"><span class="red"><%=obj.unUseNum%></span></td>
+		</tr>
+		<tr>
+			<td class="view_item" >城市/区县</td>
+			<td class="view_text" ><%=comm.getCityNameByCode(obj.provinceNo, obj.cityNo)%></td>
+		</tr>
+		<tr>
+			<td class="view_item" >配置类型</td>
+			<td class="view_text" >首次配置</td>
+		</tr>
+		<tr>
+			<td class="view_item" >城市人口</td>
+			<td><input id="txtPopulation" type="text" value="<%=obj.population%>" class="h28_middle w96pc ml5" placeholder="输入城市人口" /></td>
+		</tr>
+		<tr>
+			<td class="view_item" >初始配额数</td>
+			<td><input id="txtInitApplyNum" type="text" name="textfield" placeholder="输入初始配额数" class="h28_middle w96pc ml5" /></td>
+		</tr>
+	</table>
+</div>

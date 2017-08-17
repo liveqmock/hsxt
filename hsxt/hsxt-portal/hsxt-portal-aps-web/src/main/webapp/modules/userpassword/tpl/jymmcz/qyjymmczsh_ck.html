@@ -1,0 +1,43 @@
+<div class="fb mb10">申请企业信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">企业互生号</td>
+		<td class="view_text_2" width="30%"><%=obj.entResNo%></td>
+		<td class="view_item" width="20%">企业名称</td>
+		<td class="view_text_2" width="30%"><%=obj.entCustName%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">企业联系人</td>
+		<td class="view_text_2" width="30%"><%=obj.linkman%></td>
+		<td class="view_item" width="20%">手机号码</td>
+		<td class="view_text_2" width="30%"><%=obj.mobile%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">系统开启日期</td>
+		<td class="view_text_2" colspan="3" width="80%"><%=obj.openDate%></td>
+	</tr>
+</table>
+<div class="fb mt20 mb10">申请信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">申请说明</td>
+		<td class="view_text_2" width="30%"><%=obj.applyReason%></td>
+		<td class="view_item" width="20%">申请操作员</td>
+		<td class="view_text_2" width="30%"><%=obj.createdbyDetail%></td>
+	</tr>
+	<tr>
+		<td class="view_item" width="20%">申请日期</td>
+		<td class="view_text_2" width="30%"><%=obj.applyDate%></td>
+		<td class="view_item" width="20%">交易密码重置申请函</td>
+		<td class="view_text_2" width="30%"><a id="downloadId" class="blue">下载链接</a></td>
+	</tr>
+</table>
+<div class="fb mt20 mb10">审核信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">审核说明</td>
+		<td class="view_text_2" width="30%"><%=comm.removeNull(obj.apprRemark)%></td>
+		<td class="view_item" width="20%">审核结果</td>
+		<td class="view_text_2" width="30%"><%=obj.statusStr%></td>
+	</tr>
+</table>

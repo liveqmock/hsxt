@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.lcs.mapper.SubsysMapper">
+	<!--是否已存在相同代码 -->
+	<select id="existSubsys" resultType="string">
+		SELECT
+			1
+		FROM
+			T_LCS_SUBSYS
+		WHERE
+			SUBSYS_CODE = #{subsysCode}
+	</select>
+	<!-- 批量插入数据 -->
+	<insert id="batchInsert" parameterType="com.gy.hsxt.lcs.bean.Subsys">
+		INSERT INTO T_LCS_SUBSYS (
+			SUBSYS_CODE,
+			SYS_NAME,
+			SYS_DESC,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			 (#{item.subsysCode},
+			 #{item.sysName},
+			 #{item.sysDesc},
+			 #{item.delFlag},
+			 #{item.version})
+		</foreach>
+	</insert>
+	<!-- 批量更新数据 -->
+	<update id="batchUpdate" parameterType="com.gy.hsxt.lcs.bean.Subsys">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE T_LCS_SUBSYS
+			<set>
+				SUBSYS_CODE=#{item.subsysCode},
+				SYS_NAME=#{item.sysName},
+				SYS_DESC=#{item.sysDesc},
+				DEL_FLAG = #{item.delFlag},
+				VERSION=#{item.version}
+			</set>
+			WHERE
+	          SUBSYS_CODE=#{item.subsysCode}
+		</foreach>
+	</update>
+</mapper>

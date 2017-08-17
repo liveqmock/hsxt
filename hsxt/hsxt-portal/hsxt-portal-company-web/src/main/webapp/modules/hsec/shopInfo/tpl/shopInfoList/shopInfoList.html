@@ -1,0 +1,40 @@
+<%var param = obj%>
+    <div>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="search-table" id="searchTable" style="word-break:break-all;word-wrap:break-word;">
+      <thead>
+            <tr>
+		      	<th width="5%">序号</th>
+<!-- 		        <th width="12%">营业点简称</th> -->
+		        <th width="18%">营业点地址</th>
+		        <th width="10%">所属商圈</th>
+		        <th width="10%">联系人</th>
+		        <th width="15%">服务热线</th>
+		        <th width="8%">状态</th>
+		        <th width="6%">地图</th>
+		        <th>操作</th>
+      		</tr>
+      </thead>
+      <%$.each(param.result,function(key,value){%>
+        <tr <%=key%2==1?"class='table-tr-c'":""%> shopId="<%=value.id%>">
+        	<td><%=param.recordSize*(param.currentPageIndex-1)+(key+1)%></td>
+<!--         	<td><a href="javascript:;" class="detail"><%=value.name%></a></td> -->
+            <td><a href="javascript:;" class="detail"><%=value.addrInfo%></a></td>
+            <td><%= ''!=value.section&&null!=value.section? eval(value.section)[1] :'' %></td>
+            <td><%=value.contactor%></td>
+            <td><%=value.hotLine%></td>
+            <td><%=value.statusName%></td>
+			<td width="90"><button id="" type="button" class="btn-search lookMap" landmark="<%=value.landmark%>">查看地图</button></td>
+            <td><a href="javascript:;" class="updateShopInfo">修改</a> | <a href="javascript:;" class="deleteShopInfo">删除</a> | <a href="javascript:;" class="setFoodMenu">设置菜单</a></td>
+        </tr>
+        <%})%>
+      </table>
+    </div>
+	<div class="table-page">
+			<a href="javascript:;" class="page-nact pageOrder" page="1">首页</a>
+			<a href="javascript:;" class="page-nact pageOrder" page="<%=((param.currentPageIndex-1)<1?'':param.currentPageIndex-1)%>">上一页</a>
+			<a href="javascript:;" class="page-act pageOrder" page="<%=((param.currentPageIndex+1)>param.totalPage?'':param.currentPageIndex+1)%>">下一页</a>
+			<a href="javascript:;" class="page-act pageOrder" page="<%=param.totalPage%>">末页</a>
+			<span class="page-go">跳到</span>
+			<input type="text" class="page-txt" id="pageInput" value="<%=param.currentPageIndex%>" totalPage="<%=param.totalPage%>"/><span class="page-go">页/<%=param.totalPage%>页</span>
+			<a href="javascript:;" class="page-act pageOrder" style="cursor:default">共<%=param.recoredCount%>条</a>
+	</div>

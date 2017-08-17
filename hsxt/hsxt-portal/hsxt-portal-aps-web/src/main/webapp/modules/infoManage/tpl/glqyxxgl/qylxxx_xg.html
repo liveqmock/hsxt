@@ -1,0 +1,74 @@
+﻿<div class="info_800 bc none" id="qylxxxTpl2">
+	<div class="view_info info_800">
+	<form id="qylxxx_form" name="qylxxx_form">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人姓名</label>
+					<input type="text" id="contactPerson" name="contactPerson" value="<%=obj.contactPerson%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人姓名" />
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">联系地址</label>
+					<input type="text" id="contactAddr" name="contactAddr" value="<%=obj.contactAddr%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系地址" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">企业安全邮箱</label>
+					<input type="text" id="contactEmail" name="contactEmail" value="<%=obj.contactEmail%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业安全邮箱" />
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人手机</label>
+					<input type="text" id="contactPhone" name="contactPhone" value="<%=obj.contactPhone%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人手机" />
+					<span class="required-left330">*</span>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">邮政编码</label>
+					<input type="text" id="postCode" name="postCode" value="<%=obj.postCode%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入邮政编码" />
+				</li>
+			</ul>
+		</div>
+		<ul>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">联系人授权委托书</label>
+				<span id="bimg" class="fl ml5 mt5 sample_img"><img id="img-2" src="resources/img/noImg.gif" width="81" height="52" /></span>
+				<div class="fl pr mt15 ml10">
+					<input type="hidden" id="contactProxy" name="contactProxy" value="<%=obj.contactProxy%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate" name="certificate"></a>
+					<a id="certificateFileId" class="btn_bg viewSample_btn ml10">模板下载</a>
+				</div>
+				<span class="required-right-15" style="top:25px;">*</span>
+			</li>
+			
+			
+			
+			<%if (3 == obj.custType && 2 == obj.startResType){%>
+			<li class="register_row clearfix pr">
+				<label class="fl w115 h60_middle">创业帮扶协议</label>
+				<span id="bimg2" class="fl ml5 mt5 sample_img"><img id="other_protocol2" src="resources/img/noImg.gif" width="81" height="52" /></span>
+				<div class="fl pr mt15 ml10">
+					<input type="hidden" id="helpAgreement" name="helpAgreement" value="<%=obj.helpAgreement%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate2" name="certificate2"></a>
+					<!-- <a id="certificateFileId2" class="btn_bg viewSample_btn ml10">模板下载</a> -->
+				</div>
+				<span class="required-right-15" style="top:25px;">*</span>
+			</li>
+			<%}%>
+			
+            
+		</ul>
+		
+		
+		
+		<div class="w200 bc mt20 clearfix">
+			<a class="btn_bg submit fl" id="qylxxx_xg_btn">保&#12288;存</a>
+			<a class="btn_bg submit fr" id="back_qylxxx">取&#12288;消</a>
+		</div>	
+	</form>
+	</div>
+</div>
+
+<div id="qylxxx_dialog" class="none" title="企业联系信息修改确认">
+	<p class="autowidth"></p>
+</div>

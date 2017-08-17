@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.gpf.um.dao.IGroupMapper">
+
+    <!-- bean 映射-->
+    <resultMap id="groupResult" type="com.gy.hsxt.gpf.um.bean.Group">
+        <id property="groupId" column="GROUP_ID"/>
+        <result property="groupName" column="GROUP_NAME"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="createdDate" column="CREATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="updatedBy" column="UPDATED_BY"/>
+        <result property="updatedDate" column="UPDATED_DATE" typeHandler="com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler"/>
+        <result property="delFlag" column="DEL_FLAG"/>
+    </resultMap>
+    <!--  数据插入 -->
+    <insert id="insertBean" parameterType="com.gy.hsxt.gpf.um.bean.Group">
+        INSERT INTO T_UM_GROUP (
+            GROUP_ID,
+            GROUP_NAME,
+            DESCRIPTION,
+            CREATED_BY,
+            DEL_FLAG,
+            CREATED_DATE
+        ) VALUES (
+            #{groupId},
+            #{groupName},
+            #{description},
+            #{createdBy},
+            #{delFlag},
+            #{createdDate, typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        )
+    </insert>
+
+    <!-- 查询符合条件的总记录数 -->
+    <select id="selectCountForPage" parameterType="com.gy.hsxt.gpf.um.bean.GroupQuery" resultType="int">
+        SELECT count(*) FROM T_UM_GROUP t where 1=1
+        <if test="groupName != null and groupName != ''">
+            AND t.GROUP_NAME LIKE concat('%',#{groupName},'%')
+        </if>
+    </select>
+
+    <!-- 分页查询符合条件的记录 -->
+    <select id="selectBeanListForPage" resultMap="groupResult">
+        SELECT t.* FROM T_UM_GROUP t where 1=1
+        <if test="groupQuery.groupName != null and groupQuery.groupName != ''">
+            AND t.GROUP_NAME LIKE concat('%',#{groupQuery.groupName},'%')
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+        LIMIT #{gridPage.startNo},#{gridPage.pageSize}
+    </select>
+
+    <!-- 根据唯一条件查询用户组 -->
+    <select id="selectBeanByQuery" parameterType="com.gy.hsxt.gpf.um.bean.GroupQuery" resultMap="groupResult">
+        SELECT t.*
+        FROM T_UM_GROUP t
+        WHERE t.GROUP_NAME = #{groupName}
+    </select>
+
+    <!-- 根据查询实体查询bean列表 -->
+    <select id="selectBeanListByQuery" parameterType="com.gy.hsxt.gpf.um.bean.GroupQuery" resultMap="groupResult">
+        SELECT t.*
+        FROM T_UM_GROUP t
+        WHERE 1=1
+        <if test="groupName != null and groupName != ''">
+            AND t.GROUP_NAME LIKE concat('%',#{groupName},'%')
+        </if>
+    </select>
+    <!-- 查询用户组下的操作员名称 -->
+    <select id="selectOperatorsByGroupId" parameterType="string" resultType="string">
+        SELECT t.LOGIN_USER FROM T_UM_OPERATOR t
+        JOIN T_UM_OPERATOR_GROUP g ON g.OPERATOR_ID = t.OPERATOR_ID
+        WHERE g.GROUP_ID = #{groupId}
+    </select>
+
+    <update id="updateBean" parameterType="com.gy.hsxt.gpf.um.bean.Group">
+        UPDATE T_UM_GROUP
+        SET UPDATED_BY = #{updatedBy},
+        <if test="groupName != null and groupName != ''">
+            GROUP_NAME = #{groupName},
+        </if>
+        <if test="description != null and description != ''">
+            DESCRIPTION = #{description},
+        </if>
+        UPDATED_DATE = #{updatedDate,typeHandler=com.gy.hsxt.gpf.um.handler.StringForTimestampTypeHandler}
+        WHERE GROUP_ID = #{groupId}
+    </update>
+
+    <delete id="deleteBeanById" parameterType="string">
+        DELETE FROM T_UM_GROUP WHERE GROUP_ID = #{id}
+    </delete>
+
+</mapper>

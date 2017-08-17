@@ -1,0 +1,32 @@
+<div class="view_info">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">管理公司配额信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item" width="20%">管理公司资源号</td>
+            <td class="view_text" width="30%"><%=obj.entResNo%></td>
+            <td class="view_item" width="20%">管理公司名称</td>
+            <td class="view_text" width="30%"><%=obj.entCustName%></td>
+        </tr>
+        <tr>
+            <td class="view_item">当前配额总数</td>
+            <td class="view_text"><%=obj.totalNum%></td>
+            <td class="view_item">可申请配额数</td>
+            <td class="view_text" id="tdMayAppNum"><%=obj.mayAppNum%></td>
+        </tr>
+        <tr>
+            <td class="tab_trbg" colspan="4"><span class="ml10">申请分配信息</span></td>
+        </tr>
+        <tr>
+            <td class="view_item">本次申请调整配额数</td>
+            <td><input id="txtAppNum" type="text" name="textfield" placeholder="输入配额数" class="h28_middle w96pc ml5" maxlength="10" /></td>
+            <td class="view_item">调整后可用配额数</td>
+            <td id="tdUsableNum" class="view_text">0</td>
+        </tr>
+        <tr>
+            <td class="view_item">备注</td>
+            <td colspan="3" align="center"><textarea id="txtRemark" class="ml5 h50 w98pc rsn pt5 pb5" placeholder="输入备注,字数不超过300个字"></textarea></td>
+        </tr>
+    </table>
+</div>

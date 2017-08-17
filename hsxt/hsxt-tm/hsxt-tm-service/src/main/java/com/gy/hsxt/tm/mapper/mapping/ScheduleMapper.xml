@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.tm.mapper.ScheduleMapper">
+	<!-- 新增值班计划 -->
+	<insert id="insertSchedule" parameterType="com.gy.hsxt.tm.bean.Schedule">
+		INSERT INTO
+		T_TM_SCHEDULE (
+		SCHEDULE_ID,
+		GROUP_ID,
+		PLAN_YEAR,
+		PLAN_MONTH,
+		STATUS
+		)
+		VALUES
+		(
+		#{scheduleId},
+		#{groupId},
+		#{planYear},
+		#{planMonth},
+		#{status}
+		)
+	</insert>
+
+	<!-- 更新值班计划状态 -->
+	<update id="updateScheduleStatus">
+		UPDATE T_TM_SCHEDULE
+		SET STATUS = #{status}
+		WHERE
+		SCHEDULE_ID = #{scheduleId}
+	</update>
+	
+	<!-- 暂停值班计划 -->
+	<update id="updateScheduleStatusStop">
+		UPDATE T_TM_SCHEDULE
+		SET STATUS = 3
+		WHERE
+		GROUP_ID = #{groupId}
+	</update>
+	
+	<!-- 执行值班计划1：草稿 2：启动 3：暂停 -->
+	<update id="updateScheduleStatusStart">
+		UPDATE T_TM_SCHEDULE
+		SET STATUS = 2
+		WHERE
+		GROUP_ID = #{groupId}
+	</update>
+
+	<!-- 是否已存在值班计划 -->
+	<select id="findExistsSchedule" resultType="com.gy.hsxt.tm.bean.Schedule">
+		SELECT
+		SCHEDULE_ID as scheduleId,
+		GROUP_ID as groupId,
+		PLAN_YEAR as planYear,
+		PLAN_MONTH as planMonth,
+		STATUS as status
+		FROM
+		T_TM_SCHEDULE
+		WHERE
+		PLAN_YEAR = #{planYear}
+		AND PLAN_MONTH = #{planMonth}
+		AND GROUP_ID = #{groupId}
+	</select>
+
+	<!-- 根据值班组编号查询当前时间以后的值班计划 -->
+	<select id="findNowAfterScheduleId" resultType="string">
+		select ts.schedule_id from t_tm_schedule ts,t_tm_group g 
+		where ts.group_id = g.group_id 
+		and ts.group_id = #{groupId}
+ 		and ts.plan_year >= to_char(sysdate,'yyyy') and ts.plan_month >=  to_char(sysdate,'MM')
+  		group by ts.schedule_id
+	</select>
+</mapper>

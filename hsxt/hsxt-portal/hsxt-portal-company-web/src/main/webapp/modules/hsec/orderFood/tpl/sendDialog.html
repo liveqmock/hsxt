@@ -1,0 +1,23 @@
+<div class="ddlb_contentc">           
+	<table class="detail-table no_tr_hover" width="100%" border="0" cellspacing="0" cellpadding="0">
+	    <tbody>
+		    <tr>
+		      <td align="right" width="30%">送货员：</td>
+		      <td>
+		      <select id="deliverManSel" >
+		          <option>请选择</option>
+		       	<% $.each(obj.data,function(key,el){%>
+				  <option value="<%=el.id%>" phone="<%=el.phone%>"><%=el.name%></option>
+			   	<%})%>
+		        </select>
+		      </td>
+		    </tr>
+		    <tr>
+		      <td align="right">备注：</td>
+		      <td>
+		      	<textarea class="ed-txta" style="" id="deliverNode"></textarea>
+		      </td>
+		    </tr>
+	  </tbody>
+   </table>
+ </div>

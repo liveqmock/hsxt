@@ -1,0 +1,43 @@
+<div id="xyfyglTpl">
+	<div class="queryList-toolbar">
+		<ul class="queryList-toolbar-ul clearfix">
+			<li>
+				<label>协议名称：</label>
+				<input type="text" id="xyfygl_query_xydm" name="xyfygl_query_xydm" placeholder="请选择协议名称" />
+			</li>
+			<li>
+				<label>费用名称：</label>
+				<input type="text" id="xyfygl_query_fymc" name="xyfygl_query_fymc" class="queryList-toolbar-text" placeholder="输入费用名称" />
+			</li>
+			<li>
+				<label>激活状态：</label>
+				<input id="xyfygl_query_jhzt" name="xyfygl_query_jhzt" placeholder="选择激活状态" readonly="readonly"/>
+			</li>
+			<li>
+				<button id="xyfygl_query_btn" type="button" class="queryList-toolbar-btn">查 询</button>
+			</li>
+			<li>
+				<button id="xyfygl_add_btn" type="button" class="queryList-toolbar-btn">新 增</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="queryList_xyfygl">
+		<tr>
+			<th w_index="agreeName" w_align="left">协议名称</th>
+			<th w_index="agreeFeeName" w_align="left">费用名称</th>
+			<th w_index="agreeFeeCode" w_align="left">费用代码</th>
+			<th w_index="billingType" w_align="left" w_render="operate">计费类型</th>
+			<th w_index="chargingType" w_align="left" w_render="operate">扣费类型</th>
+			<th w_index="payPeriod" w_align="left">缴费期限</th>
+			<th w_index="fyfw" w_align="left" w_render="operate">费用范围</th>
+			<th w_index="feeAmount" w_align="left">费用金额</th>
+			<th w_index="feeType" w_align="left" w_render="operate">费用类型</th>
+			<th w_index="feeRatio" w_align="left">费用比例</th>
+			<th w_index="currencyCode" w_align="left" w_render="operate">币种</th>
+			<th w_index="isActive" w_align="left" w_render="operate">激活状态</th>
+			<th w_render="operate" width="8%">操作</th>
+		</tr>
+	</table>
+</div>
+
+<div id="xyfyglDlg" class="none"></div>

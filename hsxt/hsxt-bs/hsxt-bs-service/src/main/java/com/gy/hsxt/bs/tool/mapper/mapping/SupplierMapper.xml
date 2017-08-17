@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.tool.mapper.SupplierMapper">
+	
+	<!-- 插入供应商 -->
+	<insert id="insertSupplier" parameterType="com.gy.hsxt.bs.bean.tool.Supplier">
+		INSERT INTO 
+		T_BS_SUPPLIER(
+			SUPPLIER_ID,
+			SUPPLIER_NAME,
+			CORP_NAME,
+			LINKMAN,
+			ADDRESS,
+			PHONE,
+			MOBILE,
+			FAX,
+			EMAIL,
+			WEBSITE,
+			REMARK,
+			ISACTIVE,
+			CREATED_DATE,
+			CREATEDBY,
+			UPDATED_DATE,
+			UPDATEDBY) 
+		VALUES (
+			#{supplierId},
+			#{supplierName},
+			#{corpName},
+			#{linkMan},
+			#{addr},
+			#{phone},
+			#{mobile},
+			#{fax},
+			#{email},
+			#{website},
+			#{remark},
+			'Y',
+			SYSDATE,
+			#{createdBy,jdbcType=VARCHAR},
+			NULL,
+			NULL)
+	</insert>
+	
+	<!-- 修改供应商 -->
+	<update id="updateSupplier" parameterType="com.gy.hsxt.bs.bean.tool.Supplier">
+		UPDATE T_BS_SUPPLIER
+		<set>
+			UPDATED_DATE = SYSDATE,
+			<if test="supplierName != null and supplierName != ''">
+				SUPPLIER_NAME = #{supplierName},
+			</if>
+			<if test="corpName != null and corpName != ''">
+				CORP_NAME = #{corpName},
+			</if>
+			<if test="linkMan != null and linkMan != ''">
+				LINKMAN = #{linkMan},
+			</if>
+			<if test="addr != null and addr != ''">
+				ADDRESS = #{addr},
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE = #{phone},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				MOBILE = #{mobile},
+			</if>
+			<if test="fax != null and fax != ''">
+				FAX = #{fax},
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL = #{email},
+			</if>
+			<if test="website != null and website != ''">
+				WEBSITE = #{website},
+			</if>
+			<if test="remark != null and remark != ''">
+				REMARK = #{remark},
+			</if>
+			<if test="updatedBy != null and updatedBy != ''">
+				UPDATEDBY = #{updatedBy}, 
+			</if>
+			<if test="isActive != null and isActive != ''">
+				ISACTIVE = #{isActive} 
+			</if>
+		</set>
+		WHERE SUPPLIER_ID = #{supplierId}
+	</update>
+	
+	<!-- 删除供应商 -->
+	<delete id="deleteSupplierById" parameterType="string">
+		 DELETE FROM T_BS_SUPPLIER WHERE SUPPLIER_ID = #{supplierId}
+	</delete>
+	
+	<!-- 供应商所有字段 -->
+	<sql id="supplierAllField">
+		SUPPLIER_ID AS supplierId,
+		SUPPLIER_NAME AS supplierName,
+		CORP_NAME AS corpName,
+		LINKMAN AS linkMan,
+		ADDRESS AS addr,
+		PHONE AS phone,
+		MOBILE AS mobile,
+		FAX AS fax,
+		EMAIL AS email,
+		WEBSITE AS website,
+		REMARK AS remark,
+		ISACTIVE AS isActive,
+		CREATED_DATE AS createdDate,
+		CREATEDBY AS createdBy,
+		UPDATED_DATE AS updatedDate,
+		UPDATEDBY AS updatedBy
+	</sql>
+	
+	<!-- 根据id查询供应商 -->
+	<select id="seleteSupplierById" parameterType="string" resultType="com.gy.hsxt.bs.bean.tool.Supplier">
+		SELECT 
+			<include refid="supplierAllField"/>
+		FROM T_BS_SUPPLIER 
+		WHERE SUPPLIER_ID = #{supplierId}
+	</select>
+	
+	<!-- 分成查询供应商-->
+	<select id="selectSupplierListPage" resultType="com.gy.hsxt.bs.bean.tool.Supplier">
+		SELECT 
+			SUPPLIER_ID AS supplierId,
+			SUPPLIER_NAME AS supplierName,
+			CORP_NAME AS corpName,
+			LINKMAN AS linkMan,
+			PHONE AS phone,
+			MOBILE AS mobile,
+			ADDRESS AS addr
+		FROM T_BS_SUPPLIER 
+		WHERE 1=1
+		<if test="supplierName != null and supplierName != '' ">
+			AND SUPPLIER_NAME LIKE #{supplierName}||'%'
+		</if>
+		<if test="corpName != null and corpName != '' ">
+			AND CORP_NAME LIKE #{corpName}||'%'
+		</if>
+		<if test="linkMan != null and linkMan != '' ">
+			AND LINKMAN LIKE #{linkMan}||'%'
+		</if>
+		ORDER BY CREATED_DATE DESC
+	</select>
+	
+	<!-- 查询所有供应商 -->
+	<select id="seleteSupplierByAll" resultType="com.gy.hsxt.bs.bean.tool.Supplier">
+		SELECT 
+			<include refid="supplierAllField"/>
+		FROM T_BS_SUPPLIER WHERE ISACTIVE = 'Y'
+	</select>
+</mapper>

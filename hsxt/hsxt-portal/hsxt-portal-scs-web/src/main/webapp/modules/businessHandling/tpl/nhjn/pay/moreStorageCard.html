@@ -1,0 +1,14 @@
+<% $.each(banks,function(i,itme){ %>
+	<% if(Number(itme.bankCode) > 5){%>
+		<li class="add bank_click">
+			<i class="bank-logo bank-<%=itme.bankCode %>" data-name="<%=itme.bankCode %>"></i>
+		</li>
+	<%}%>
+<%});%> 
+
+<li class="more-select pay-text-blue add">
+	<div class="bc clearfix w40">
+		<span class="fl">收起</span>
+		<i class="fr ml5 pay-ui-gray pay-ui-arrow-up"></i>
+	</div>
+</li>

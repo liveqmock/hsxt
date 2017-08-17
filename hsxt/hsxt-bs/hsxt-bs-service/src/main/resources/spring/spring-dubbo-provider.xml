@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+
+    <!-- dubbo 基本配置 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="hsxt-bs-provider" address="${dubbo.registry.address}" default="true"/>
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}" threadpool="${dubbo.protocol.threadpool.type}"
+                    threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}"/>
+    <!-- <dubbo:monitor protocol="registry"/>  -->
+
+    <!-- 发布工具产品服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolProductService"
+                   ref="toolProductService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0"/>
+
+    <!-- 发布工具调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="toolBatchService"  group="HSXT_BS_TOOL_AUTO_STATUS" version="1.0.0" />
+
+    <!-- 发布工具订单服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolOrderService"
+                   ref="toolOrderService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布工具制作服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolMarkService"
+                   ref="toolMarkService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+        <dubbo:method name="cardConfigEnter" timeout="${dubbo.service.timeout100000}"/>
+        <dubbo:method name="remarkOpenCard" timeout="${dubbo.service.timeout30000}"/>
+    </dubbo:service>
+
+    <!-- 发布工具发货服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolSendService"
+                   ref="toolSendService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布工具库存服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolStockService"
+                   ref="toolStockService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布工具售后服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolAfterService"
+                   ref="toolAfterService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布订单服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.order.IBSOrderService"
+                   ref="orderService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布积分投资服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.order.IBSInvestProfitService"
+                   ref="investProfitService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布接收文件同步系统通知接口 -->
+    <dubbo:service interface="com.gy.hsxt.gpf.fss.api.IOtherNotifyService"
+                   ref="bsFssNotifyService" group="BS" timeout="${dubbo.service.timeout5000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布接收增值系统通知接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.bm.IBSmlmService"
+                   ref="bsMlmService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布增值调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="bmlmDetailService"
+                    group="HSXT_BS_BMLM" version="1.0.0" />
+
+    <!-- 发布配额管理接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.quota.IBSQuotaService"
+                   ref="quotaService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!--支付系统回调通知-->
+    <dubbo:service ref="paymentNotifyService" interface="com.gy.hsxt.gp.api.IGPNotifyService" group="${system.id}"
+                   timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0"/>
+
+    <!--BS任务接口-->
+    <dubbo:service interface="com.gy.hsxt.bs.api.task.IBSTaskService"
+                   ref="bsTaskService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    <!-- 工单系统：同步服务 -->
+    <dubbo:service interface="com.gy.hsxt.tm.api.ITMSyncTaskService"
+                   ref="syncTaskService" group="${system.id}" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- ####################### 资源业务  ################################# -->
+    <!-- 发布意向客户管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSIntentCustService"
+                   ref="intentCustService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布报备管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSFilingService"
+                   ref="filingService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布申报管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSDeclareService"
+                   ref="declareService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    	<dubbo:method name="openSystem" timeout="${dubbo.service.timeout30000}"/>
+    </dubbo:service>
+    
+    <dubbo:service interface="com.gy.hsxt.bs.api.tool.IBSToolMarkService"
+                   ref="toolMarkService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布系统销售费欠款单管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSDebtOrderService"
+                   ref="debtOrderService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布证书管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSCertificateService"
+                   ref="certificateService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布合同管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSContractService"
+                   ref="contractService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布重要信息变更服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.entstatus.IBSChangeInfoService"
+                   ref="changeInfoService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布成员企业注销服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.entstatus.IBSMemberQuitService"
+                   ref="memberQuitService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布积分活动服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.entstatus.IBSPointActivityService"
+                   ref="pointActivityService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布实名认证服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.entstatus.IBSRealNameAuthService"
+                   ref="realNameAuthService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布开关企业系统服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.entstatus.IBSCloseOpenEntService"
+                   ref="closeOpenEntService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发布官网服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.apply.IBSOfficialWebService"
+                   ref="officialWebService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+    <!-- 发布申报授权码过期调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="declareBatchService"
+                    group="HSXT_BS_DECLARE_EXPIRY" version="1.0.0" />
+    
+    <!-- 发布成员企业注销调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="memberQuitBatchService"
+                    group="HSXT_BS_MEMBER_QUIT" version="1.0.0" />
+    <!-- ####################### 资源业务  ################################# -->
+
+    <!-- ####################### 重置交易密码业务  ################################# -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.pwd.IBSTransPwdService"
+                   ref="transPwdService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- ####################### 年费业务  ################################# -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.annualfee.IBSAnnualFeeService"
+                   ref="annualFeeService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    <!-- 年费扫描调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService" ref="annualFeeScanTask"
+                    group="HSXT_BS_ANNUALFEE_SCAN" version="1.0.0" />
+    <!-- 年费解析调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="annualFeeParseTask"  group="HSXT_BS_ANNUALFEE_PARSE" version="1.0.0" />
+    <!-- 年费状态同步用户中心调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="annualFeeSyncTask"  group="HSXT_BS_ANNUALFEE_SYNC" version="1.0.0" />
+
+    <!-- ####################### 税率调整业务  ################################# -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tax.IBSTaxrateChangeService"
+                   ref="taxrateChangeAllService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- ####################### 临账业务  ################################# -->
+    <!-- 账户名称接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tempacct.IBSAccountService"
+                   ref="accountService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    <!-- 临账关联接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.tempacct.IBSTempAcctService"
+                   ref="tempAcctService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    <!-- ####################### 发票业务  ################################# -->
+    <!-- 发票业务接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.invoice.IBSInvoiceService"
+                   ref="invoiceService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 发票自动签收任务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="invoiceSignJob"  group="HSXT_BS_INVOICE_SIGN" version="1.0.0" />
+    <!-- 发票统计数据解析任务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="invoiceTotalParseTask"  group=" 	HSXT_BS_INVOICE_TOTAL_SCAN" version="1.0.0" />
+
+    <!-- ####################### 消息与公告  ################################# -->
+    <!-- 消息与公告发送接口 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.message.IBSMsgSendService"
+                   ref="msgSendService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 日终记账调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="batchExportAcctDetailTxtFile"  group="HSXT_BS_DAY_ACCT_DETAIL" version="1.0.0" />
+
+    <!-- 日终记账调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="batchExportOrderTxtFile"  group="HSXT_BS_DAY_GP" version="1.0.0" />
+
+    <!-- 日终账务对账调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="batchExportAcctCheckTxtFile"  group="HSXT_BS_DAY_ACCT_CHECK" version="1.0.0" />
+     
+ 	<!-- 日终资源费分配记账调度服务 -->
+    <dubbo:service interface="com.gy.hsi.ds.api.IDSBatchService"
+                   ref="batchResFeeAlloc"  group="HSXT_BS_RES_FEE_ALLOC" version="1.0.0" />                   
+    
+    <!-- 发布业务文档管理服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.bizfile.IBSBizFileService"
+                   ref="bizFileService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+    <!-- 发布消息模版服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.msgtpl.IBSMessageTplService"
+                   ref="messageTplService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+
+    <!-- 平台扣款服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.deduction.IBSHsbDeductionService"
+                   ref="hsbDeductionService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+    
+    <!-- 支付服务 -->
+    <dubbo:service interface="com.gy.hsxt.bs.api.order.IBSPaymentService"
+                   ref="paymentService" timeout="${dubbo.service.timeout15000}" actives="${dubbo.service.actives}" version="1.0.0">
+    </dubbo:service>
+</beans>

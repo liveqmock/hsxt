@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.pg.mapper.TPgBankPaymentOrderMapper">
+
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.pg.mapper.vo.TPgBankPaymentOrder">
+		<id column="ORDER_SEQ_ID" property="orderSeqId" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_SEQ_ID" property="bankOrderSeqId" jdbcType="VARCHAR" />
+		<result column="ORIG_BANK_ORDER_NO" property="origBankOrderNo" jdbcType="VARCHAR" />
+		<result column="MER_TYPE" property="merType" jdbcType="INTEGER" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="BANK_ORDER_STATUS" property="bankOrderStatus" jdbcType="CHAR" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CHANNEL_PROVIDER" property="channelProvider" jdbcType="VARCHAR" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="PRIV_OBLIGATE" property="privObligate" jdbcType="VARCHAR" />
+		<result column="PRIV_OBLIGATE2" property="privObligate2" jdbcType="VARCHAR" />
+		<result column="JUMP_URL" property="jumpUrl" jdbcType="VARCHAR" />
+		<result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ORDER_SEQ_ID, BANK_ORDER_NO, BANK_ORDER_SEQ_ID,
+		ORIG_BANK_ORDER_NO, MER_TYPE,
+		TRANS_TYPE, TRANS_AMOUNT, TRANS_STATUS,
+		BANK_ORDER_STATUS, TRANS_DATE, PAY_CHANNEL, CHANNEL_PROVIDER,
+		CURRENCY_CODE, FAIL_REASON, PRIV_OBLIGATE, PRIV_OBLIGATE2, JUMP_URL,
+		CREATED_DATE, UPDATED_DATE
+	</sql>
+	
+	<resultMap id="OrderStateMap" type="com.gy.hsxt.pg.bean.PGPaymentOrderState">
+		<result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_SEQ_ID" property="bankOrderSeqId" jdbcType="VARCHAR" />		
+		<result column="ORIG_BANK_ORDER_NO" property="origBankOrderNo" jdbcType="VARCHAR" />
+		<result column="BANK_ORDER_STATUS" property="bankOrderStatus" jdbcType="CHAR" />
+		<result column="TRANS_TYPE" property="transType" jdbcType="INTEGER" />
+		<result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+		<result column="TRANS_STATUS" property="transStatus" jdbcType="INTEGER" />
+		<result column="TRANS_DATE" property="transDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_CHANNEL" property="payChannel" jdbcType="INTEGER" />
+		<result column="CURRENCY_CODE" property="currencyCode" jdbcType="CHAR" />
+		<result column="FAIL_REASON" property="failReason" jdbcType="VARCHAR" />
+		<result column="PRIV_OBLIGATE2" property="privObligate2" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="OrderState_List">
+		BANK_ORDER_NO, BANK_ORDER_SEQ_ID, ORIG_BANK_ORDER_NO, BANK_ORDER_STATUS,
+		TRANS_TYPE, TRANS_AMOUNT, TRANS_STATUS, TRANS_DATE, PAY_CHANNEL,
+		CURRENCY_CODE, FAIL_REASON, PRIV_OBLIGATE2
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_BANK_PAYMENT_ORDER
+		where ORDER_SEQ_ID = #{orderSeqId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="isExistBankOrderNo" resultType="java.lang.Integer"	parameterType="java.lang.String">
+		select
+		count(*)
+		from T_PG_BANK_PAYMENT_ORDER
+		where
+		BANK_ORDER_NO
+		= #{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="isExistOrder" resultType="java.lang.Integer">
+		select count(*)
+		from T_PG_BANK_PAYMENT_ORDER
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+		      and TRANS_STATUS = #{transStatus,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectMerTypeByBankOrderNo" resultType="java.lang.Integer">
+		select MER_TYPE
+		from T_PG_BANK_PAYMENT_ORDER
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByBankOrderNo" resultMap="BaseResultMap"	parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_BANK_PAYMENT_ORDER
+		where BANK_ORDER_NO=#{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectStateByBankOrderNo" resultMap="OrderStateMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="OrderState_List" />
+		from T_PG_BANK_PAYMENT_ORDER
+		where BANK_ORDER_NO=#{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getJumpUrl" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select
+		JUMP_URL
+		from T_PG_BANK_PAYMENT_ORDER
+		where BANK_ORDER_NO=#{bankOrderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="listByStatus" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_PG_BANK_PAYMENT_ORDER
+		where TRANS_STATUS = #{transStatus,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert" parameterType="com.gy.hsxt.pg.mapper.vo.TPgBankPaymentOrder">
+		insert into
+		T_PG_BANK_PAYMENT_ORDER (ORDER_SEQ_ID, BANK_ORDER_NO,
+		BANK_ORDER_SEQ_ID,
+		ORIG_BANK_ORDER_NO, MER_TYPE, TRANS_TYPE,
+		TRANS_AMOUNT, TRANS_STATUS,
+		BANK_ORDER_STATUS,
+		TRANS_DATE, PAY_CHANNEL, CHANNEL_PROVIDER,
+		CURRENCY_CODE,
+		FAIL_REASON,
+		PRIV_OBLIGATE, PRIV_OBLIGATE2, JUMP_URL,
+		CREATED_DATE, UPDATED_DATE)
+		values (#{orderSeqId,jdbcType=VARCHAR},
+		#{bankOrderNo,jdbcType=VARCHAR},
+		#{bankOrderSeqId,jdbcType=VARCHAR},
+		#{origBankOrderNo,jdbcType=VARCHAR}, #{merType,jdbcType=INTEGER},
+		#{transType,jdbcType=INTEGER},
+		#{transAmount,jdbcType=DECIMAL},
+		#{transStatus,jdbcType=INTEGER}, #{bankOrderStatus,jdbcType=CHAR},
+		#{transDate,jdbcType=TIMESTAMP}, #{payChannel,jdbcType=INTEGER},
+		#{channelProvider,jdbcType=VARCHAR},
+		#{currencyCode,jdbcType=CHAR},
+		#{failReason,jdbcType=VARCHAR},
+		#{privObligate,jdbcType=VARCHAR},
+		#{privObligate2,jdbcType=VARCHAR},
+		#{jumpUrl,jdbcType=VARCHAR},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+
+	<update id="updateStatusByBankOrderNo" parameterType="com.gy.hsxt.pg.mapper.vo.TPgBankPaymentOrder">
+		update T_PG_BANK_PAYMENT_ORDER
+		<set>
+			<if test="bankOrderSeqId != null">
+				BANK_ORDER_SEQ_ID = #{bankOrderSeqId,jdbcType=VARCHAR},
+			</if>
+			<if test="transStatus != null">
+				TRANS_STATUS = #{transStatus,jdbcType=INTEGER},
+			</if>
+			BANK_ORDER_STATUS = #{bankOrderStatus,jdbcType=CHAR},
+			FAIL_REASON = #{failReason,jdbcType=VARCHAR},
+			UPDATED_DATE = SYSDATE()
+		</set>
+
+		where BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR}
+
+		<if test="transStatus != null">
+			and TRANS_STATUS != #{transStatus,jdbcType=INTEGER}
+		</if>
+	</update>
+</mapper>

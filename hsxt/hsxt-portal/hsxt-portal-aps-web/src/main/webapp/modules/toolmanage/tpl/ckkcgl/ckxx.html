@@ -1,0 +1,29 @@
+﻿<div id="ckxxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>仓库名称：</label>
+				<input type="text" id="search_whName" name="search_whName" placeholder="输入仓库名称" class="h28_middle w115 input-txt" />
+			</li>
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+			<li>
+				<button id="tjck_btn" type="button" class="btn-search">添加仓库</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="whName" w_tip=true>仓库名称</th>
+		<th w_index="provinceNos" w_render="operate">仓库配送地区</th>
+		<th w_index="whAddr" w_tip=true>仓库地址</th>
+		<th w_index="isDefault" w_render="operate">是否为默认仓库</th>
+		<th w_index="whRoleId" w_render="operate">仓库管理员角色</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox_tj" class="none"></div>
+<div id="dialogBox_ck" class="none"></div>
+<div id="dialogBox_xg" class="none"></div>

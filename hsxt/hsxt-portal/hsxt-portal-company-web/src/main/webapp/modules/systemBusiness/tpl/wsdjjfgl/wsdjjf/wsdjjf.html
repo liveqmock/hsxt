@@ -1,0 +1,59 @@
+<%if (obj.status == '5') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业已注销,没有交易权限！</p>
+    </div>
+</div>
+<%}else if(obj.status == '6') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您已 提交了停止积分活动申请，目前正在处理中，处理需要15个工作日，请耐心等待！</p>
+    </div>
+</div>
+<%}else if(obj.status == '7') {%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业已停止积分活动,没有交易权限！</p>
+    </div>
+</div>
+<%}else if(obj.status == '8'){%>
+<div class="mt20">&nbsp;</div>
+<div class="bc mt50">
+ <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">企业注销申请中,没有交易权限！</p>
+ </div>
+</div>
+<%}else{%>
+
+<div class="bc mt40 info_320" id="wsdjjf_1">
+<form id="wsdjjf_form" name="wsdjjf_form" action="" method="post">
+    <ul class="cssform2 clearfix">
+        <li class="clearfix pr">
+            <label class="title-txt w115">互生卡号</label><input class="fl w185 h30_middle ml5" name="hscard_num" id="hscard_num" type="text" value="" maxlength="11" placeholder="输入互生卡号"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">消费金额</label><input class="fl w185 h30_middle ml5" type="text" name="consume_fee" id="consume_fee" value="" placeholder="输入消费金额"/><div class="hint red">*</div>
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">抵扣券</label><input type="text" id='wsdjjf_dkj' placeholder="-选择抵扣券-" readonly="readonly"/>
+        </li>
+		<li class="clearfix bg_ef">
+            <label class="title-txt w115">实付金额</label><input id="wsdjjf_sfje" class="fl w185 h30_middle ml5 bg_ef" type="text" value="" readonly="readonly" />
+        </li>
+        <li class="clearfix pr">
+            <label class="title-txt w115">积分比例</label><input type="text" id='wsdjjf_jfbl' name="wsdjjf_jfbl" placeholder="-选择积分比例-" readonly="readonly"/><div class="hint red">*</div>
+        </li>
+    </ul>
+    <div class="mt20 tc"><a href="javascript:;" id="btn_wsdjjf_tj" class="btn_bg submit">提&#12288;交</a></div>
+</form>
+</div>
+<div class="view_info bc mt40 info_500 none" id="wsdjjf_2"></div>
+<div class="none" id="wsdjjf-dialog"><p></p></div>
+<%}%>

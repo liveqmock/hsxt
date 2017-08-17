@@ -1,0 +1,109 @@
+<div class="mb5 fb">发票抬头信息</div>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">发票抬头</td>
+		<td class="view_text_2" width="30%"><%=obj.th_2%></td>
+		<td class="view_item" width="20%">纳税人识别号</td>
+		<td class="view_text_2" width="30%">440300073382310</td>
+	</tr>
+	<tr>
+		<td class="view_item">地址、电话</td>
+		<td class="view_text_2" colspan="3">xxx 0398-83344111</td>
+	</tr>
+	<tr>
+		<td class="view_item">开户行及账号</td>
+		<td class="view_text_2" colspan="3">中国交通银行嘉峪关（0000000000000)</td>
+	</tr>
+	<tr>
+		<td class="view_item">发票类型</td>
+		<td class="view_text_2">普通增值税发票</td>
+		<td class="view_item">发票金额</td>
+		<td class="view_text_2"><%=obj.th_9%></td>
+	</tr>
+	<tr>
+		<td class="view_item">开票内容</td>
+		<td class="view_text_2"><%=obj.th_4%></td>
+		<td class="view_item"></td>
+		<td class="view_text_2"></td>
+	</tr>
+</table>
+<div class="mt15 mb5 fb">发票记录</div>
+<div class="billstyle p10">
+	<ul class="cssform clearfix">
+		<li>
+			<label>发票代码：</label>
+			<input type="text" name="textfield" placeholder="输入发票代码" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>发票号码：</label>
+			<input type="text" name="textfield" placeholder="输入发票号码" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<label>发票金额：</label>
+			<input type="text" name="textfield" placeholder="输入发票金额" class="h28_middle w115 input-txt" />
+		</li>
+		<li>
+			<button id="" type="button" class="btn-search">新增发票</button>
+		</li>
+	 </ul>
+</div>
+<!--<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+	<tr>
+		<td class="view_item" width="20%">已选择业务需开发票金额</td>
+		<td class="view_text_2" width="30%">xxx</td>
+		<td class="view_item" width="20%">已添加发票金额</td>
+		<td class="view_text_2" width="30%">xxx</td>
+	</tr>
+</table>-->
+<table id="searchTable_1">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="th_1">发票代码</th>
+	<th w_index="th_2">发票号码</th>
+	<th w_index="th_3">发票金额</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+<div class="mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table-2">
+		<tr>
+			<td class="view_item" width="20%" height="40">配送方式</td>
+			<td class="view_text_2" width="30%">
+				<input type="radio" name="deliveryMethod" value="1" class="mr5"/>快递配送
+				<input type="radio" name="deliveryMethod" value="2" class="ml10 mr5"/>自取
+			</td>
+			<td class="view_item" width="20%">承运公司</td>
+			<td class="view_text_2" width="30%"><input type="text" value="" placeholder="输入承运公司" class="h28_middle w200 input-txt"/></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%" height="40"></td>
+			<td class="view_text_2" width="30%"></td>
+			<td class="view_item" width="20%">运单号</td>
+			<td class="view_text_2" width="30%"><input type="text" value="" placeholder="输入承运公司"  class="h28_middle w200 input-txt"/></td>
+		</tr>
+	</table>
+</div>
+<!--<div class="search-toolbar mt10">
+	<ul class="cssform clearfix">
+		<li><label class="fb h30_middle">选择的业务信息</label></li>
+	</ul>
+</div>
+<table id="searchTable_2">
+  <tr>
+	<th w_num="line" width="5%;">序号</th>
+	<th w_index="th_1">企业互生号</th>
+	<th w_index="th_2">企业名称</th>
+	<th w_index="th_3">企业类别</th>
+	<th w_index="th_4">交易类型</th>
+	<th w_index="th_5">交易流水号</th>
+	<th w_index="th_6">单位</th>
+	<th w_index="th_7">数量</th>
+	<th w_index="th_8">单价</th>
+	<th w_index="th_9">金额</th>
+	<th w_index="th_10">交易时间</th>
+  </tr>
+</table>-->
+<div class="w200 bc clearfix mt10">
+	<a class="btn_bg submit fl">提&#12288;交</a>
+	<a class="btn_bg submit fr" id="back_dqptwkfpywk">返&#12288;回</a>
+</div>

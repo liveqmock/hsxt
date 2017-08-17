@@ -1,0 +1,39 @@
+<div class="search-toolbar">
+  <form id="jfzzzfp_form" autocomplete="off">
+    <ul class="cssform clearfix">
+      <li class="mr10">
+        <label class="title-int">日期：</label>
+        <input type="text" name="search_beginDate" id="search_beginDate" placeholder="开始日期" class="h28_middle input-txt w80" readonly="readonly" />
+        <span class="separator-pd">-</span>
+        <input type="text" name="search_endDate" id="search_endDate" placeholder="结束日期" class="h28_middle input-txt w80" readonly="readonly" />
+      </li>
+      <li>
+        <div class="cont-int">
+          <button id="scpoint_dj_searchBtn" class="btn-search" type="button">查询</button>
+        </div>
+      </li>
+    </ul>
+  </form>
+</div>
+<div class="search-cont">
+  <table id="tableDetail" class="bsgrid">   
+      <tr>              
+          <th w_index="createdDate" w_render="operate">日期</th>
+          <th w_index="calcStartTime" w_render="operate" width="28%;">汇总时间</th>
+          <th w_index="baseVal" w_render="operate">分配基数</th>
+          <th w_index="pointREF" w_render="operate">分配比参考数</th>
+          <th w_index="percent" w_render="operate">百位分配比</th>
+          <th w_index="bmlmPoint" w_render="operate">再增值分配积分数</th>
+          <th w_index="totalRow" w_render="operate">笔数</th>      
+      </tr>            
+  </table> 
+  <div class="mt20 lh150">
+    	<h2 class="fb">积分再增值分配说明</h2>
+        <ul><li>• 分配比参考数：是以企业每月支付消费者积分的汇总数按1%来计算分配比参考数。</li>
+        <li>• 分配基数：是按月将所有隶属本企业系统中的企业分配比参考数合计而得出的数据。</li>
+        <li>• 当企业的分配比参考数在10～100时，用分配基数按百位2.5%，千位0.25%，万位0.025%，依此类推，计算所得；</li>
+        <li>• 当企业的分配比参考数在101～300时，用分配基数按百位5%，千位0.5%，万位0.05%，依此类推，计算所得；</li>
+        <li>• 当企业的分配比参考数在301～500时，用分配基数按百位7.5%，千位0.75%，万位0.075%，依此类推，计算所得；</li>
+        <li>• 当企业的分配比参考数在501以上时，用分配基数按百位10%，千位1%，万位0.1%，依此类推，计算所得。</li></ul>
+  </div>
+</div>

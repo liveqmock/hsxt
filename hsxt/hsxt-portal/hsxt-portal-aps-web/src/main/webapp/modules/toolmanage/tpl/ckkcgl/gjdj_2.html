@@ -1,0 +1,36 @@
+﻿<div class="info_800 bc clearfix">
+	<ul class="fl info_320">
+		<li class="register_row clearfix cannotEdit-bg">
+			<label class="fl w115 h30_middle">工具名称</label>
+			<input type="text" id="productName" class="fl w185 h30_middle ml5 cannotEdit-bg" readonly="readonly"/>
+		</li>
+		<li class="register_row clearfix cannotEdit-bg">
+			<label class="fl w115 h30_middle">批次号</label>
+			<input type="text" id="batchNo" class="fl w185 h30_middle ml5 cannotEdit-bg" readonly="readonly"/>
+		</li>
+		<li class="register_row clearfix cannotEdit-bg pr">
+			<label class="fl w115 h30_middle">登记类别</label>
+			<span class="fl h30_middle ml5" id="djlb_div">
+				<input type="radio" name="useType" value="1" class="mr5 input_radio" />工具领用
+				<input type="radio" name="useType" value="2" class="ml10 mr5 input_radio" />工具报损
+				<span class="required-left330">*</span>
+			</span>
+		</li>
+	</ul>
+	<ul class="fr info_320">
+		<li class="register_row clearfix cannotEdit-bg">
+			<label class="fl w115 h30_middle">工具类别</label>
+			<input type="text" id="categoryCode" class="fl w185 h30_middle ml5 cannotEdit-bg" readonly="readonly"/>
+		</li>
+		<li class="register_row clearfix cannotEdit-bg">
+			<label class="fl w115 h30_middle">仓库名称</label>
+			<input type="text" id="whName" class="fl w185 h30_middle ml5 cannotEdit-bg" readonly="readonly"/>
+		</li>
+	</ul>
+</div>
+<div class="w200 bc mt20 clearfix">
+	<a class="btn_bg submit fl" id="gjdj_2_syb_btn">上一步</a>
+	<a class="btn_bg submit fr" id="gjdj_2_xyb_btn">下一步</a>
+</div>
+
+<input type="hidden" id="deviceSeqNo"/>

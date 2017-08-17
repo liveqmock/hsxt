@@ -1,0 +1,80 @@
+<div id="addressManageTpl" class="pay-container mt10 mb10">
+	<div class="pay-container-inner bc">
+		<div class="clearfix order-title">
+			<h3 class="fl pay-h25-middle fb f14">确认收货地址</h3>
+			<span class="fr pay-h25-middle"><a id="manageAddress_btn" class="cl-blue">管理收货地址</a></span>
+		</div>
+	
+	
+		<!--地址管理区域-->
+		<div class="mt20">
+			<ul id="addressList" class="address-list">
+				
+				<%$.each(obj,function(n,value){
+					if(value.isDefault == 1 ){%>
+					<li class="clearfix default-address">
+				<%}else{%>
+					<li class="clearfix spare-address">
+				<%}%>
+						<form id="form_<%=n%>">
+							<input type="hidden" name="addrId" value="<%=value.addrId%>" />
+							<input type="hidden" name="postCode" value="<%=value.postCode%>" />
+							<input type="hidden" name="telphone" value="<%=value.telphone%>" />
+							<input type="hidden" name="provinceNo" value="<%=value.provinceNo%>" />
+							<input type="hidden" name="cityNo" value="<%=value.cityNo%>" />
+							<input type="hidden" name="receivingAddress" value="<%=value.address%>" />
+							<input type="hidden" name="recipient" value="<%=value.receiver%>" />
+							<input type="hidden" name="recipientTel" value="<%=value.mobile%>" />
+							<input type="hidden" name="toAddress" value="<%=n%>" />
+							<input type="hidden" name="defaultAddress" value="<%=value.isDefault%>" />
+							
+							<%if(value.isDefault == 1 ){%>
+								<input type="hidden" name="currentAddress" value="1" />
+							<%}else{%>
+								<input type="hidden" name="currentAddress" value="0" />
+							<%}%>
+							
+						</form>	
+						<div class="fl ml5 clearfix w100">
+							<%if(value.isDefault == 1){%>
+							<p class="fl area-icon">寄送至</p>
+								<input type="radio" name="toAddress" value="<%=n%>" class="fr" checked="checked"/>
+							<%}else{%>
+								<input type="radio" name="toAddress" value="<%=n%>" class="fr"/>
+							<%}%>
+						</div>
+						<div class="fl ml5 default-address-w">
+							<span class="ml5"><%=comm.getRegionByCode(null,value.provinceNo,value.cityNo)%>-<%=value.address%></span>
+							<span class="ml5">( <%=value.receiver%> 收)</span>
+							<span class="ml5 pay-text-gray"><%=value.mobile%></span>
+							
+							<%if(value.isDefault == 1){%>
+								<span class="ml20 pay-text-gray default-address-f12" data-tag="default">默认地址</span>
+							<%}else{%>
+								<span class="ml20 pay-text-gray" data-tag="setDefault"><a class="cl-blue" id="defaultRecAddr">设置为默认收货地址</a></span>
+							<%}%>
+						</div>
+						<div class="fl ml5">
+						
+							<%if(value.isDefault == 1){%>
+								<span class="default-address-f12"><a id="modifyAddress_btn" class="cl-blue">修改本地址</a></span>
+							<%}%>
+						</div>
+										
+					</li>	
+				<%})%>
+			</ul>
+			<div class="new-address">
+				<a id="addNewAddress_btn" class="address-btn-bg add-new-btn">使用新地址</a>
+			</div>
+		</div>
+		<!--end-->	
+		
+		<div class="mt50 tc">
+			<a id="goPay_btn" href="javascript:;" class="hs_btn myhs_ajax_btn">去付款</a>
+		</div>	
+	</div>
+</div>
+<div id="modifyAddress_dialog" class="none"></div>
+<div id="addAddress_dialog" class="none"></div>
+<div id="manageAddress_dialog" class="none"></div>

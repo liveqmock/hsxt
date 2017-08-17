@@ -1,0 +1,115 @@
+﻿<div id="qylxxxTpl1">
+	<div class="view_info info_800">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item" width="20%">联系人姓名</td>
+				<td class="view_text" width="30%"><%=obj.linkman%></td>
+				<td class="view_item" width="20%">联系人手机</td>
+				<td class="view_text" width="30%"><%=obj.mobile%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">联系地址</td>
+				<td class="view_text" width="30%"><%=obj.address%></td>
+				<td class="view_item" width="20%">邮政编码</td>
+				<td class="view_text" width="30%"><%=obj.zipCode%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%">企业安全邮箱</td>
+				<td class="view_text" colspan="3"><%=obj.email%></td>
+			</tr>
+			<tr>
+				<td class="view_item" width="20%" height="60">联系人授权委托书</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<a ><img id="img" src="resources/img/noImg.gif"width="81" height="52"  title="点击查看图片" /></a>
+				</td>
+			</tr>
+			<%if('true'==obj.venBefFlag){%>	
+			<tr>
+				<td class="view_item" width="20%" height="60">创业帮扶协议</td>
+				<td colspan="3" class="view_text pt5 pb5">
+				<a ><img id="helpxys2" src="resources/img/noImg.gif" width="81" height="52" title="点击查看图片"></a>
+				</td>
+			</tr>
+			<%}%>	
+			
+		</table>
+	</div>
+	<div class="w200 bc mt20 clearfix">
+		<a class="btn_bg submit fl" id="qylxxx_modify">修&#12288;改</a>
+		<a class="btn_bg submit fr" id="qylxxx_cancel">取&#12288;消</a>
+	</div>
+</div>
+
+<div id="qylxxxTpl2">
+	<div class="view_info info_800">
+	<form id="qylxxx_form" name="qylxxx_form">
+		<div class="clearfix">
+			<ul class="fl info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人姓名</label>
+					<input type="text" id="linkman" name="linkman" value="<%=obj.linkman%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人姓名" />
+					<!-- <span class="required-left330">*</span> -->
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">联系地址</label>
+					<input type="text" id="address" name="address" value="<%=obj.address%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系地址" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">企业安全邮箱</label>
+					<input type="text" id="email" name="email" value="<%=obj.email%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入企业安全邮箱" />
+				</li>
+			</ul>
+			<ul class="fr info_320">
+				<li class="register_row clearfix pr">
+					<label class="fl w115 h30_middle">联系人手机</label>
+					<input type="text" id="mobile" name="mobile" value="<%=obj.mobile%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入联系人手机" />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">邮政编码</label>
+					<input type="text" id="zipCode" name="zipCode" value="<%=obj.zipCode%>" class="fl w185 h30_middle ml5 isChange" placeholder="输入邮政编码" />
+				</li>
+			</ul>
+		</div>
+		
+		<ul>
+			<li class="register_row clearfix mt5 h60_middle pr">
+				<label class="fl w115 h60_middle">联系人授权委托书</label>
+				<span id="bimg" class="fl ml5 mt5 sample_img"><img id="img-2" src="resources/img/noImg.gif" width="81" height="52" /></span>
+				<div class="fl mt15 ml10">
+					<input type="hidden" id="certificateFile" name="certificateFile" value="<%=obj.certificateFile%>" />
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="certificate" name="certificate"></a>
+					<a id="certificateFileId" href="#" class="btn_bg viewSample_btn fl  ml10">模板下载</a>
+					<span class="required-right-15" style="top:25px;">*</span>
+				</div>
+			</li>
+			<%if('true'==obj.venBefFlag){%>
+			<li class="register_row clearfix mt5 h60_middle pr">
+				<label class="fl w115 h60_middle">创业帮扶协议书</label>
+				<span id="helpxys" class="fl ml5 mt5 sample_img"><img id="helpxys2" src="resources/img/noImg.gif" width="81" height="52" /></span>
+				<div class="fl mt15 ml10">
+					<input type="hidden" id="hlepFile" name="hlepFile" value="<%=obj.protocolAptitude==null?'':obj.protocolAptitude.fileId%>">
+					<a href="javascript:void(0);" class="input-file btn_bg upload_btn">上传<input type="file" id="hlepFileBtn" name="hlepFileBtn" /></a>
+					<a id="hlepFileId" href="#" class="btn_bg viewSample_btn fl  ml10">模板下载</a>
+					<span class="required-right-15" style="top:25px;">*</span>
+				</div>
+			</li>
+			<%}%>
+		</ul>
+		
+		<div class="w200 bc mt20 clearfix">
+			<a class="btn_bg submit fl" id="qylxxx_xg_btn">保&#12288;存</a>
+			<a class="btn_bg submit fr" id="back_qylxxx">取&#12288;消</a>
+		</div>	
+	</form>
+	</div>
+</div>
+ 
+<div id="qylxxx_dialog" class="none" title="企业联系信息修改确认"><p class="autowidth"></p></div>
+
+
+
+
+		 
+
+
+		 

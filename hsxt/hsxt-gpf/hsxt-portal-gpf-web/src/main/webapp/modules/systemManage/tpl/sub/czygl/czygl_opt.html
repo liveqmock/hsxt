@@ -1,0 +1,49 @@
+<div class="w900">
+	<form id="czygl_optFrom">
+		<div class="clearfix">
+			<ul class="inputForm-ul fl w400">
+				<li>
+					<label class="inputForm-label">登录用户名</label>
+					<input type="text" id="loginUser" name="loginUser" class="inputForm-text" placeholder="输入登录用户名" />
+					<div class="required">*</div>
+				</li>
+				<li>
+					<label class="inputForm-label">登录密码</label>
+					<input type="password" id="loginPwd" name="loginPwd" class="inputForm-text" placeholder="输入登录密码" maxlength="6"/>
+					<div class="required">*</div>
+				</li>
+				<li>
+					<label class="inputForm-label">确认登录密码</label>
+					<input type="password" id="loginPwd2" name="loginPwd2" class="inputForm-text" placeholder="输入确认登录密码"  maxlength="6"/>
+					<div class="required">*</div>
+				</li>
+			</ul>
+			<ul class="inputForm-ul fr w400">
+				<li>
+					<label class="inputForm-label">姓名</label>
+					<input type="text" id="name" name="name" class="inputForm-text" placeholder="输入姓名" />
+					<div class="required">*</div>
+				</li>
+				<li>
+					<label class="inputForm-label">职务</label>
+					<input type="text" id="duty" name="duty" class="inputForm-text" placeholder="输入职务" />
+				</li>
+				<li class="view-bg pr">
+					<label class="inputForm-label">用户组</label>
+					<input type="text" class="inputForm-text view-bg" readonly="readonly" id="groupNames" />
+					<div class="inputForm-li-out-div w115" style="top:3px;" id="czygl_opt_xzyhz">
+						<i class="icon-add fl" title="选择用户组"></i>
+						<span class="ml5 fl mt5">多选，非必选</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<ul class="inputForm-ul">
+			<li class="clearfix">
+				<label class="fl inputForm-label-h60">描述</label>
+				<textarea id="description" name="description" class="fl inputForm-textarea ml5" placeholder="输入描述，不超过300字" maxlength="300"></textarea>
+			</li>
+		</ul>
+	</form>
+</div>
+<div id="czygl_opt_dlg" class="none ovh"></div>

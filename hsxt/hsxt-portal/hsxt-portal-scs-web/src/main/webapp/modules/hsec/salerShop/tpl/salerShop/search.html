@@ -1,0 +1,47 @@
+
+<div class="search-toolbar">
+	<ul class="cssform clearfix">
+		<li class="mr20"><label class="title-int">企业互生号：</label>
+			<div class="cont-int">
+				<input type="text" name="resourceNo" id="resourceNo" value="企业互生号"
+					class="input-txt w80" />
+			</div></li>
+		<li class="mr20"><label class="title-int">企业名称：</label>
+			<div class="cont-int">
+				<input type="text" name="companyName" id="companyName" value="企业名称"
+					class="input-txt w80" />
+			</div></li>
+		<li class="mr20"><label class="title-int">实体店：</label>
+			<div class="cont-int">
+				<input type="text" name="name" id="name" value="实体店名称"
+					class="input-txt w80" />
+			</div></li>
+		<li class="mr20"><label class="title-int">&nbsp;</label>
+			<div class="cont-chk setdiy100">
+				<select id="quickDate">
+					<option value="-1">--请选择--</option>
+					<%$.each(obj.data,function(key,el){%>
+					<option value="<%=el.id%>"><%=el.areaName%></option> <% })%>
+				</select>
+			</div></li>
+		<li class="mr20"><label class="title-int">&nbsp;</label>
+			<div class="cont-chk setdiy100">
+				<select id="optTerm">
+					<option value="-1">--请选择--</option>
+				</select>
+			</div></li>
+		<li class="mr20"><label class="title-int">&nbsp;</label>
+			<div class="cont-chk setdiy100">
+				<select id="stdsh_ftq">
+					<option>--请选择--</option>
+
+				</select>
+			</div></li>
+		<li>
+			<div class="cont-int">
+				<button id="findSalerShopList" ctype="1" type="button"
+					class="btn-search ml10">查询</button>
+			</div>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,326 @@
+﻿<form id="yydgl_xzxg_form" name="yydgl_xzxg_form">
+<input type="hidden" name="id" value="<%=obj.id%>"/>
+<div class="search-toolbar">
+	<ul class="cssform detail-tab clearfix">
+      <li class="clearfix pr">
+        <label class="fl h30_middle mr10">营业点类型</label>
+        <input type="text" id="yydlb_xzxg_yydlx" name="yydlb_xzxg_yydlx" readonly="readonly" placeholder="请选择" optionValue="<%=obj.yydlxid%>"/>
+      </li>
+      <li class="fr">
+          <a href="javascript:;" class="active">基本信息</a><a class="ml10" href="javascript:;">卖家服务</a>
+      </li>
+    </ul>
+</div>
+<div class="scrlh pt20" style="height:345px;">
+    <table class="detail-table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="tr pr10" width="335"><span class="mr5 red">*</span>营业点名称</td>
+          <td width="310"><input type="text" id="yydlb_xzxg_yydmc" name="yydlb_xzxg_yydmc" value="<%=obj.yydmc%>" class="w300 h30_middle pl5 infobox2" placeholder="输入营业点名称"/></td>
+          <td width="400"> </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">详细地址</td>
+          <td><input type="text" id="yydlb_xzxg_city" name="yydlb_xzxg_city" value="<%=obj.city%>" class="w70 h30_middle pl5 bg_f0 infobox2 fl" readonly="readonly"/><div class="ineblk infobox2 fl pr pr1 ml10"><input type="text" id="yydlb_xzxg_area" name="yydlb_xzxg_area" readonly="readonly" placeholder="选择区域" options='<%=obj.arealist%>' optionValue="<%=obj.area%>"/></div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="text" id="yydlb_xzxg_address" name="yydlb_xzxg_address" value="<%=obj.address%>" class="w300 h30_middle pl5 infobox2" placeholder="输入详细地址"/></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">经纬度</td>
+          <td><input type="text" id="yydlb_xzxg_jd" name="yydlb_xzxg_jd" value="<%=obj.jd%>" class="w70 h30_middle pl5 bg_f0 infobox2" readonly="readonly"/><input type="text" id="yydlb_xzxg_wd" name="yydlb_xzxg_wd" value="<%=obj.wd%>" class="w70 h30_middle pl5 bg_f0 infobox2 ml10" readonly="readonly"/><button id="yydlb_xzxg_btn_dw" type="button" class="btn-search ml10 mt5">&#12288;定位&#12288;</button></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">所属商圈</td>
+          <td><div class="ineblk infobox2 pr pr1"><input type="text" id="yydlb_xzxg_sssq" name="yydlb_xzxg_sssq" readonly="readonly" placeholder="选择商圈" options='<%=obj.sssqlist%>' optionValue="<%=obj.sssq%>"/></div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10"><span class="mr5 red">*</span>营业点照片</td>
+          <td colspan="2">
+          	<ul class="pImgList clearfix" id="yydlb_xzxg_yydzp">
+                <li data-flag="<%=obj.zt ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.zt ? obj.zt : 'resources/img/store_main_img_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="<%=obj.xjt1 ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.xjt1 ? obj.xjt1 : 'resources/img/store_noimg_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="<%=obj.xjt2 ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.xjt2 ? obj.xjt2 : 'resources/img/store_noimg_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="<%=obj.xjt3 ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.xjt3 ? obj.xjt3 : 'resources/img/store_noimg_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="<%=obj.xjt4 ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.xjt4 ? obj.xjt4 : 'resources/img/store_noimg_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <li data-flag="<%=obj.xjt5 ? 1 : 0%>">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="<%=obj.xjt5 ? obj.xjt5 : 'resources/img/store_noimg_1.gif'%>" width="100" height="100"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2">
+          	<div class="red clearfix">
+              <div class="fl">温馨提示：</div>
+              <div class="fl">
+              	<p>1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</p>
+				<p>2、上传图片大小不超过1M。</p>
+                <p>3、最多可上传6张图片。</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">证件图片</td>
+          <td colspan="2">
+          	<ul class="pImgList2 clearfix" id="yydlb_xzxg_zjtp">
+                <%$.each(obj.zjtp, function(k, v) {%>
+                <li data-id="<%=v.id%>">
+                    <span class="pr addpImgBox_style">
+                        <img src="<%=v.url ? v.url : 'resources/img/store_noimg.gif'%>" width="70" height="57"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+                <%})%>
+                <li class="zjtpAdd">
+                    <span class="pr addpImgBox_style">
+                        <input type="file"><img src="resources/img/store_addimg.gif" width="70" height="57"/>
+                    </span>
+                    <i class="tips_close pa delImg" title="删除图片"></i>
+                </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td class="tr pr10">餐厅分类</td>
+          <td>
+          <div class="w300 infobox2 p4">
+              <ul class="clearfix">
+              <%$.each(obj.ctfl, function(k, v) {%>
+                <li class="fl h22_middle"><label class="ml5 mr5"><input type="checkbox" name="yydlb_xzxg_ctfl" value="<%=v.id%>" class="m03vm"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+              <%})%>
+              </ul>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">经营特色</td>
+          <td>
+          <div class="w300 infobox2 p4">
+              <ul class="clearfix">
+              <%$.each(obj.jyts, function(k, v) {%>
+                <li class="fl h22_middle"><label class="ml5 mr5"><input type="checkbox" name="yydlb_xzxg_jyts" value="<%=v.id%>" class="m03vm"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+              <%})%>
+              </ul>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">供餐类别</td>
+          <td>
+          <div class="w300 infobox2 p4">
+              <ul class="clearfix">
+              <%$.each(obj.gclb, function(k, v) {%>
+                <li class="fl h22_middle"><label class="ml5 mr5"><input type="checkbox" name="yydlb_xzxg_gclb" value="<%=v.id%>" class="m03vm"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+              <%})%>
+              </ul>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">经营模式</td>
+          <td><div class="ineblk infobox2 pr pr1"><input type="text" id="yydlb_xzxg_jyms" name="yydlb_xzxg_jyms" readonly="readonly" placeholder="选择经营模式" options='<%=obj.jymslist%>' optionValue="<%=obj.jyms%>"/></div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">品牌</td>
+          <td><input type="text" id="yydlb_xzxg_pp" name="yydlb_xzxg_pp" value="<%=obj.pp%>" class="w300 h30_middle pl5 infobox2" placeholder="输入品牌"/></td>
+          <td><img src="resources/img/hslt_0333.gif" width="16" style="vertical-align:middle;" title="录入项，多个品牌中间用英文符号','分开"></td>
+        </tr>
+        <tr class="yysj_tr">
+          <td class="tr pr10">营业时间</td>
+          <td>
+          	<%var yysj_1 = obj.yysj && $.isArray(obj.yysj) && obj.yysj.length > 0 ? obj.yysj[0] : {}%>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" class="yydlb_xzxg_yysj" name="yydlb_xzxg_yysj" readonly="readonly" options='<%=obj.yysjlist%>' optionValue="<%= yysj_1.val%>"/></div>
+            <span class="fl ml10"><input type="text" value="<%=yysj_1.a%>" class="yydsj-inupt"/>:<input type="text" value="<%=yysj_1.b%>" class="yydsj-inupt"/>至<input type="text" value="<%=yysj_1.c%>" class="yydsj-inupt"/>:<input type="text" value="<%=yysj_1.d%>" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" id="yydlb_xzxg_yysj_tj" class="detail-btn-add" value="+"><span class="ml10 red">最多可添加3条</span></td>
+        </tr>
+        <%if (obj.yysj && $.isArray(obj.yysj) && obj.yysj.length > 1) { $.each(obj.yysj, function(k, v) {%>
+        <tr class="new_yysj_tr">
+          <td></td>
+          <td>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" class="yydlb_xzxg_yysj" name="yydlb_xzxg_yysj" readonly="readonly" options='<%=obj.yysjlist%>' optionValue="<%=v.val%>"/></div>
+            <span class="fl ml10"><input type="text" value="<%=v.a%>" class="yydsj-inupt"/>:<input type="text" value="<%=v.b%>" class="yydsj-inupt"/>至<input type="text" value="<%=v.c%>" class="yydsj-inupt"/>:<input type="text" value="<%=v.d%>" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" class="btn-search yydlb_xzxg_yysj_del" value="删除"/></td>
+        </tr>
+        <%})}%>
+        <tr class="add_yysj_tr none">
+          <td></td>
+          <td>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" name="yydlb_xzxg_yysj" readonly="readonly" options='<%=obj.yysjlist%>' optionValue=""/></div>
+            <span class="fl ml10"><input type="text" value="" class="yydsj-inupt"/>:<input type="text" value="" class="yydsj-inupt"/>至<input type="text" value="" class="yydsj-inupt"/>:<input type="text" value="" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" class="btn-search yydlb_xzxg_yysj_del" value="删除"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">营业时间备注</td>
+          <td><div class="w300"><textarea class="infobox2 attxta w h50" id="yydlb_xzxg_yysjbz" name="yydlb_xzxg_yysjbz" placeholder="输入营业时间备注"><%= obj.yysjbz%></textarea></div></td>
+          <td>最多可输入50个汉字</td>
+        </tr>
+        <tr class="jdsj_tr">
+          <td class="tr pr10">接单时间</td>
+          <td>
+          	<%var jdsj_1 = obj.jdsj && $.isArray(obj.jdsj) && obj.jdsj.length > 0 ? obj.jdsj[0] : {}%>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" class="yydlb_xzxg_jdsj" name="yydlb_xzxg_jdsj" readonly="readonly" options='<%=obj.jdsjlist%>' optionValue="<%= jdsj_1.val%>"/></div>
+            <span class="fl ml10"><input type="text" value="<%=jdsj_1.a%>" class="yydsj-inupt"/>:<input type="text" value="<%=jdsj_1.b%>" class="yydsj-inupt"/>至<input type="text" value="<%=jdsj_1.c%>" class="yydsj-inupt"/>:<input type="text" value="<%=jdsj_1.d%>" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" id="yydlb_xzxg_jdsj_tj" class="detail-btn-add" value="+"><span class="ml10 red">最多可添加3条</span></td>
+        </tr>
+        <%if (obj.jdsj && $.isArray(obj.jdsj) && obj.jdsj.length > 1) { $.each(obj.jdsj, function(k, v) {%>
+        <tr class="new_jdsj_tr">
+          <td></td>
+          <td>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" class="yydlb_xzxg_jdsj" name="yydlb_xzxg_jdsj" readonly="readonly" options='<%=obj.jdsjlist%>' optionValue="<%=v.val%>"/></div>
+            <span class="fl ml10"><input type="text" value="<%=v.a%>" class="yydsj-inupt"/>:<input type="text" value="<%=v.b%>" class="yydsj-inupt"/>至<input type="text" value="<%=v.c%>" class="yydsj-inupt"/>:<input type="text" value="<%=v.d%>" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" class="btn-search yydlb_xzxg_jdsj_del" value="删除"/></td>
+        </tr>
+        <%})}%>
+        <tr class="add_jdsj_tr none">
+          <td></td>
+          <td>
+          	<div class="ineblk infobox2 pr pr1 fl"><input type="text" name="yydlb_xzxg_jdsj" readonly="readonly" options='<%=obj.jdsjlist%>' optionValue=""/></div>
+            <span class="fl ml10"><input type="text" value="" class="yydsj-inupt"/>:<input type="text" value="" class="yydsj-inupt"/>至<input type="text" value="" class="yydsj-inupt"/>:<input type="text" value="" class="yydsj-inupt"/></span>
+          </td>
+          <td><input type="button" class="btn-search yydlb_xzxg_jdsj_del" value="删除"/></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">服务热线</td>
+          <td><input type="text" id="yydlb_xzxg_fwrx" name="yydlb_xzxg_fwrx" value="<%=obj.fwrx%>" class="w300 h30_middle pl5 infobox2" placeholder="输入服务热线"/></td>
+          <td>服务热线对外公开</td>
+        </tr>
+        <tr>
+          <td class="tr pr10">订餐电话</td>
+          <td><input type="text" id="yydlb_xzxg_dcdh" name="yydlb_xzxg_dcdh" value="<%=obj.dcdh%>" class="w300 h30_middle pl5 infobox2" placeholder="输入订餐电话"/></td>
+          <td>订餐电话对外公开</td>
+        </tr>
+        <tr>
+          <td class="tr pr10">装修风格</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%var _a=[]; $.each(obj.zxfg, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" value="<%=v.id%>" class="feellist_chk"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+                  <%if(v.checked)_a.push(v.name);})%>
+                  </ul>
+              </div>
+              <input type="text" id="yydlb_xzxg_zxfg" name="yydlb_xzxg_zxfg" class="feellist_input" value="<%=_a.join(',')%>" readonly="readonly"/>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">面积（平方米）</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%var _a=[]; $.each(obj.mj, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" value="<%=v.id%>" class="feellist_chk"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+                  <%if(v.checked)_a.push(v.name);})%>
+                  </ul>
+              </div>
+              <input type="text" id="yydlb_xzxg_mj" name="yydlb_xzxg_mj" class="feellist_input" value="<%=_a.join(',')%>" readonly="readonly"/>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">座位类型及数量</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%var _a=[]; $.each(obj.zwlxjsl, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" value="<%=v.id%>" class="feellist_chk"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+                  <%if(v.checked)_a.push(v.name);})%>
+                  </ul>
+              </div>
+              <input type="text" id="yydlb_xzxg_mj" name="yydlb_xzxg_mj" class="feellist_input" value="<%=_a.join(',')%>" readonly="readonly"/>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">包间类型及数量</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%var _a=[]; $.each(obj.bjlxjsl, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" value="<%=v.id%>" class="feellist_chk"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+                  <%if(v.checked)_a.push(v.name);})%>
+                  </ul>
+              </div>
+              <input type="text" id="yydlb_xzxg_mj" name="yydlb_xzxg_mj" class="feellist_input" value="<%=_a.join(',')%>" readonly="readonly"/>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">周边环境</td>
+          <td>
+          <div class="feellist_div">
+              <div class="feellist">
+                  <ul class="clearfix">
+                  <%var _a=[]; $.each(obj.zbhj, function(k, v) {%>
+                    <li class="fl h22_middle"><label><input type="checkbox" data-text="<%=v.name%>" value="<%=v.id%>" class="feellist_chk"<%=v.checked ? 'checked="checked"' : ''%>/><%=v.name%></label></li>
+                  <%if(v.checked)_a.push(v.name);})%>
+                  </ul>
+              </div>
+              <input type="text" id="yydlb_xzxg_mj" name="yydlb_xzxg_mj" class="feellist_input" value="<%=_a.join(',')%>" readonly="readonly"/>
+          </div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="tr pr10">简介</td>
+          <td><div class="w300"><textarea class="infobox2 attxta w h80" id="yydlb_xzxg_jj" name="yydlb_xzxg_jj" placeholder="输入简介"><%= obj.jj%></textarea></div></td>
+          <td>最多可输入200个汉字</td>
+        </tr>
+    </table>
+    <div class="mt20 tc">
+        <a href="javascript:;" id="yydlb_xzxg_btn_qx" class="btn_bg submit mr30">取&#12288;消</a><a href="javascript:;" id="yydlb_xzxg_btn_bc" class="btn_bg submit mr10">保&#12288;存</a>
+    </div>
+</div>
+</form>

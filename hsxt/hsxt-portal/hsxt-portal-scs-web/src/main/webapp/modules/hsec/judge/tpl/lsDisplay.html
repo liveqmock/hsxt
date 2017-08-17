@@ -1,0 +1,70 @@
+<%if(obj!=null&&obj!=""){try{%>
+<div class="pllb_content myTable">
+	<ul>
+	<li class="pllb_contentli" style="width: 9%">
+	<%for(var i = obj.score;i>0;i--){ %>
+		*
+	<%}%>
+	</li>
+	<li class="pllb_contentli" style="width: 14%;word-break: break-all"><%=obj.tag%></li>
+	<li class="pllb_contentli clearfix reply_cont" style="width: 30%">   
+	<ul class="">
+	  <li class="pllb_liboeder"><div style="float: left;">【评价】</div><%=obj.content!=""?obj.content:"评价方未及时作出评价时，系统默认好评！"%><br />【<%=obj.commentTime%>】</li>
+	  <%if(obj.reply!=null && obj.reply!=""){%>
+	  <li class="pllb_liboeder tcr_red"><div style="float: left;">【回复】</div><%=obj.reply.reply%><br />【<%=obj.reply.replyTime%>】</li>
+	  <%}%>
+	   <%if(obj.appendComment!=null && obj.appendComment!=""){%>
+	  <li class="pllb_liboeder last"><div style="float: left;">【追评】</div><%=obj.appendComment%><br />【<%=obj.appendCommentTime%>】</li>
+	  <%}%>
+	</ul>
+	<%if(obj.reply==null){%>
+	<form class="form1">
+	 <div class="pllb_textareabox" >
+	    <div class="reply_arrow">▲</div>
+	    <input type="hidden" name="conmentID" class="conmentID" value="<%=obj.id%>"/>
+	   <textarea name="" cols="" rows="" name="reply" class="pllb_textarea" placeholder="请输入……"></textarea>
+	   <div class="reply" style="float: right;position: robjative;"><input type="button" name="button"  value="发送回复" class="btn_bg submit submitYes" /></div>
+	 </div>
+	</form>
+	<%}%>
+	</li>
+	<li class="pllb_contentli" style="width: 24%">
+	<ul>
+	<li class="pllb_spxxli">商品名称：<%=obj.itemName%></li>
+	<li class="pllb_spxxli tcr_red"><img src="resources/img/price.png" width="20" style="vertical-align:middle;">价格：<%=comm.formatMoneyNumber(obj.price)%></li>
+	<li class="pllb_spxxli">订单编号：<%=obj.orderId%></li>
+	<li class="pllb_spxxli">订单日期：<%=obj.buyTime%></li>
+	<li class="pllb_spxxli"><%if(obj.userName != null && obj.userName != ""){%>昵称：<%=obj.userName%><%}%></li>
+	<!-- <li class="pllb_spxxli">营业点：<%=obj.shopName%></li> -->
+	</ul>
+	</li>
+	 <li class="pllb_contentli mt4" style="width: 15%">
+	<%	
+		if(obj.delStatus == 0){
+	%>
+	  		<input name="judgeDel" delId="<%=obj.id%>" type="button" value="删除评价" class=" btn_bg submit btn_reply"/>
+	<%
+		}else{
+	%>
+			<button type="button" class="btn-search ml10 red"><b>已删除评价</b></button>
+	<%
+		}
+	%>
+	
+	<%
+		if(obj.appendComment != null && obj.appendComment != ''){
+			if(obj.delAppendStatus != null && obj.delAppendStatus == 0){
+	%>
+				<input name="appendCommentDel" delId="<%=obj.id%>" type="button" value="删除追评" class=" btn_bg submit btn_reply"/>
+	<%
+			}else{
+	%>
+				<button type="button" class="btn-search ml10 red"><b>已删除追评</b></button>
+	<%
+			}
+		}
+	%>
+	 </li>
+	</ul>
+	</div>
+<%}catch(e){} }%>

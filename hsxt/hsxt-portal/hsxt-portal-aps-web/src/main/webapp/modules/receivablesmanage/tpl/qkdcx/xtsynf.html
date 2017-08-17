@@ -1,0 +1,35 @@
+<div id="xtsynfTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form" autocomplete="off">
+			<ul class="cssform clearfix">
+				<li>
+					<label>未缴纳年费区间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"  />
+				</li>
+				<li>
+					<label>企业互生号：</label>
+					<input id="txtHsResNo" type="text" name="textfield" placeholder="输入企业互生号" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<label>企业名称：</label>
+					<input id="txtCustName" type="text" name="textfield" placeholder="输入企业名称" class="h28_middle input-txt w115" />
+				</li>
+				<li>
+					<button id="btnQuery" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>	
+<table id="searchTable" class="bsgrid">
+  <tr>
+ 	<th w_render="operate">企业互生号</th>
+	<th w_render="operate" w_tip="true" w_length='30'>企业名称</th>
+	<th w_render="operate">未缴纳年费区间</th>
+	<th w_render="operate">欠费总额</th>
+	<th w_render="operate">折合应付本币（人民币）</th>
+	<th w_render="operate">操作</th>
+  </tr>
+</table>
+</div>

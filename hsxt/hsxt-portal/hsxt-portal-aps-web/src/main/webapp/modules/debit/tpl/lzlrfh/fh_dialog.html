@@ -1,0 +1,19 @@
+<div id="lrfh_dialogTpl" class="info_320 bc">
+	<form id="lrfh_form" autocomplete="off">
+		<ul>
+			<li class="register_row clearfix">
+				<label class="fl w115 h60_middle">复核信息</label>
+				<textarea name="auditRecord" class="fl ml5 h50 w185 rsn pt5 pb5" placeholder="输入复核信息，不超过300字"></textarea>
+				<span style="position: absolute;color: red;top: 30px;left: 365px;">*</span>
+			</li>
+			<li class="register_row clearfix">
+			<label class="fl w115 h30_middle">复核结果</label>
+			<div class="fl h30_middle">
+				<input type="radio" name="debitStatus" value="1" class="ml20" checked="checked"> 通过
+				<input type="radio" name="debitStatus" value="4" class="ml20"> 驳回
+			</div>
+			<input type="hidden" name="debitId" value="<%=obj.debitId%>"> 
+		</li>
+		</ul>
+	</form>
+</div>

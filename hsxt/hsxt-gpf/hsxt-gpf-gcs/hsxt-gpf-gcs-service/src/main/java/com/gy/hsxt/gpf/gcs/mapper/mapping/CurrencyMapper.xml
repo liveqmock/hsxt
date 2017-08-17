@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.gpf.gcs.mapper.CurrencyMapper">
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		INSERT INTO T_GCS_CURRENCY (
+			CURRENCY_NO,
+			CURRENCY_CODE,
+			CURRENCY_NAME_CN,
+			CURRENCY_SYMBOL,
+			PRECISION_NUM,
+			UNIT_CODE,
+			EXCHANGE_RATE,
+			DEL_FLAG,
+			VERSION
+		)
+		VALUES
+		(
+			#{currencyNo},
+			#{currencyCode},
+			#{currencyNameCn},
+			#{currencySymbol},
+			#{precisionNum},
+			#{unitCode},
+			#{exchangeRate},
+			#{delFlag},
+			#{version}
+		)
+	</insert>
+	<!-- 获取某个条记录 -->
+	<select id="getCurrency" parameterType="string"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		SELECT
+			CURRENCY_NO AS currencyNo,
+			CURRENCY_CODE AS currencyCode,
+			CURRENCY_NAME_CN AS currencyNameCn,
+			CURRENCY_SYMBOL AS currencySymbol,
+			PRECISION_NUM AS precisionNum,
+			UNIT_CODE AS unitCode,
+			EXCHANGE_RATE AS exchangeRate,
+			DEL_FLAG AS delFlag,
+			VERSION AS version
+		FROM
+			T_GCS_CURRENCY
+		WHERE
+			CURRENCY_NO = #{currencyNo}
+	</select>
+	<!-- 获取列表 -->
+	<select id="getCurrencyListPage" parameterType="com.gy.hsxt.gpf.gcs.bean.Currency"
+		resultType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		SELECT
+			CURRENCY_NO AS currencyNo,
+			CURRENCY_CODE AS currencyCode,
+			CURRENCY_NAME_CN AS currencyNameCn,
+			CURRENCY_SYMBOL AS currencySymbol,
+			PRECISION_NUM AS precisionNum,
+			UNIT_CODE AS unitCode,
+			EXCHANGE_RATE AS exchangeRate,
+			VERSION AS version
+		FROM
+			T_GCS_CURRENCY
+		WHERE
+			DEL_FLAG = 0
+		<if test="currencyNo != null and currencyNo != '' "> 
+			AND CURRENCY_NO=#{currencyNo}
+		</if>
+		<if test="currencyCode != null and currencyCode != '' "> 
+			AND CURRENCY_CODE=#{currencyCode}
+		</if>
+		<if test="currencyNameCn != null and currencyNameCn != '' "> 
+		<![CDATA[ 
+			AND CURRENCY_NAME_CN like CONCAT('%',#{currencyNameCn},'%') escape '/'  
+		]]>
+		</if>
+		   order by CURRENCY_NO
+	</select>
+	<!-- 获取下拉菜单列表 -->
+	<select id="getCurrencyAll" resultType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		SELECT
+			CURRENCY_NO AS currencyNo,
+			CURRENCY_NAME_CN AS currencyNameCn
+		FROM
+			T_GCS_CURRENCY
+		WHERE
+			DEL_FLAG = 0
+		ORDER BY
+			CURRENCY_NO
+	</select>
+	<!-- 更新一条记录 -->
+	<update id="update" parameterType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		update T_GCS_CURRENCY
+		<set>
+			CURRENCY_CODE = #{currencyCode},
+			CURRENCY_NAME_CN = #{currencyNameCn},
+			CURRENCY_SYMBOL = #{currencySymbol},
+			PRECISION_NUM = #{precisionNum},
+			UNIT_CODE = #{unitCode},
+			EXCHANGE_RATE = #{exchangeRate},
+			VERSION = #{version}
+		</set>
+		where CURRENCY_NO=#{currencyNo}
+	</update>
+	<!-- 删除一条记录 -->
+	<update id="delete" parameterType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		update T_GCS_CURRENCY
+			<set>
+				DEL_FLAG=#{delFlag},
+				VERSION=#{version}
+			</set>
+		where CURRENCY_NO=#{currencyNo}
+	</update>
+	<!--是否已存在相同 -->
+	<select id="existCurrency" resultType="string">
+		<![CDATA[
+			SELECT
+				1
+			FROM
+				T_GCS_CURRENCY
+			WHERE
+				CURRENCY_NO = #{currencyNo}
+		]]>
+	</select>
+	<!-- 读取大于某个版本号的数据 -->
+	<select id="queryCurrencySyncData" resultType="com.gy.hsxt.gpf.gcs.bean.Currency">
+		SELECT
+			CURRENCY_NO AS currencyNo,
+			CURRENCY_CODE AS currencyCode,
+			CURRENCY_NAME_CN AS currencyNameCn,
+			CURRENCY_SYMBOL AS currencySymbol,
+			PRECISION_NUM AS precisionNum,
+			UNIT_CODE AS unitCode,
+			EXCHANGE_RATE AS exchangeRate,
+			VERSION AS version
+		FROM
+			T_GCS_CURRENCY
+		WHERE
+			VERSION > #{version}
+		ORDER BY
+			CURRENCY_NO
+	</select>
+</mapper>

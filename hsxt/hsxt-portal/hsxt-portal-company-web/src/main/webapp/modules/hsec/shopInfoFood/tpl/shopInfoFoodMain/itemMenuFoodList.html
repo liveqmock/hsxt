@@ -1,0 +1,19 @@
+<%var param = obj%>
+<div>
+	<table id="menuItemFoodList" class="bsgrid">
+		<thead>
+			<tr>
+				<th width="10%">选择</th>
+				<!-- 		        <th width="12%">营业点简称</th> -->
+				<th>菜单名称</th>
+			</tr>
+		</thead>
+		<%$.each(param.data,function(key,value){%>
+		<tr class="<%=key%2==1?'table-tr-c':''%>">
+			<td style="text-align: center;"><input name="itemMenuFood" id="menu_<%=value.id%>" type="radio" foodItemId="<%=value.id%>"></td>
+<!--         	<td><a href="javascript:;" class="detail"><%=value.name%></a></td> -->
+            <td><%if(value.name == "all"){%>全部<%}else{%><%=value.name%><%}%></td>
+        </tr>
+		<%})%>
+	</table>
+</div>

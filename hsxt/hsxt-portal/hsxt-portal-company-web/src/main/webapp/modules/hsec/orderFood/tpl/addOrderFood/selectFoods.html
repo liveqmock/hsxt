@@ -1,0 +1,23 @@
+<%
+var param = obj.data.itemCustomCategory;
+%>
+<!--加菜 选择菜品--> 
+<div class="p10 brd-box">
+       <div class="mb10">   
+      <button id="" type="button" class="btn-search btn-search1 btn-active mr10">全部分类</button>
+      <%if(null==param||param.size==0){%>
+      
+      <%}else{$.each(param,function(key,category){ %> 
+      		<% if(comm.isNotEmpty(category.itemCustomCategoryName)){%>
+        	<button id="" itemCustomCategoryId="<%=category.itemCustomCategoryId%>" type="button" class="btn-search btn-search1 mr10"><%=category.itemCustomCategoryName%></button>
+           <%}})%> 
+      <%}%>                 
+       </div>
+       
+       <div class="bdr-top pt10">
+       <input type="text" name="searchName" placeholder="输入菜品名称" id="" value="" class="input-txt w200 mr10"><input id="" type="button" class="btn-search btn-search2 mr10" value="搜索菜品" /></div>
+  </div>
+<div class="foodlist1 pr" id="foodList_selectFoods" style="">
+ 
+</div>
+<!--结束-->

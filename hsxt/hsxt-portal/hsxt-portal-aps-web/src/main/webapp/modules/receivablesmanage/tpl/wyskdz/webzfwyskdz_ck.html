@@ -1,0 +1,58 @@
+<div class="" id="webzfwyskdz_ckTpl">
+	<div class="fb mb5">订单信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">企业互生号</td>
+			<td class="view_text_2" width="30%"><%=obj.hsResNo%></td>
+			<td class="view_item" width="20%">单位名称</td>
+			<td class="view_text_2" width="30%"><%=comm.navNull(obj.custName)%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">订单流水号</td>
+			<td class="view_text_2" width="30%"><%=obj.orderNo%></td>
+			<td class="view_item" width="20%">订单日期</td>
+			<td class="view_text_2" width="30%"><%=obj.orderTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">订单类型</td>
+			<td class="view_text_2" width="30%"><%=obj.orderTypeName%></td>
+			<td class="view_item" width="20%">结算币种</td>
+			<td class="view_text_2" width="30%"><%=obj.currencyTextName%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">金额</td>
+			<td class="view_text_2" width="30%"><%=obj.orderCashAmount%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+		
+	</table>
+	<div class="fb mt10 mb5">支付信息</div>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table">
+		<tr>
+			<td class="view_item" width="20%">支付方式</td>
+			<td class="view_text_2" width="30%"><%=obj.payChannelText%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">银行流水号</td>
+			<td class="view_text_2" width="30%"><%=obj.bankTransNo%></td>
+			<td class="view_item" width="20%">支付日期</td>
+			<td class="view_text_2" width="30%"><%=obj.payTime%></td>
+		</tr>
+		<tr>
+			<td class="view_item" width="20%">支付状态</td>
+			<td class="view_text_2" width="30%"><%=obj.payStatusText%></td>
+			<td class="view_item" width="20%"></td>
+			<td class="view_text_2" width="30%"></td>
+		</tr>
+	</table>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="list-table mt10">
+		<tr>
+			<td class="view_item" width="20%">备注</td>
+			<td  colspan="3" class="view_text_2" width="80%"><%=obj.orderRemark%></td>
+		</tr>
+	</table>
+	<div class="mt20" align="center"><a class="btn_bg submit" id="back_webzfwyskdz">返&#12288;回</a></div>
+</div>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.ao.mapper.TransOutFailMapper">
+
+	<!-- 插入银行转帐失败记录 -->
+	<insert id="insertTransOutFail" parameterType="com.gy.hsxt.ao.bean.TransOutFail">
+		INSERT INTO
+		T_AO_TRANS_OUT_FAIL
+		(
+		TRANS_NO,
+		ORIG_TRANS_NO,
+		IS_RETURN_FEE,
+		PROCESS_MODE,
+		PROCESS_RESULT,
+		CREATED_DATE,
+		UPDATED_DATE,
+		OPT_CUST_ID,
+		OPT_CUST_NAME,
+		REMARK
+		)
+		VALUES
+		(
+		#{transNo},
+		#{origTransNo},
+		#{isReturnFee},
+		#{processMode},
+		#{processResult},
+		sysdate,
+		null,
+		#{optCustId},
+		#{optCustName},
+		#{remark}
+		)
+	</insert>
+
+	<!-- 查询失败交易流水号 -->
+	<select id="findTransFailNo" resultType="string">
+		select trans_no from t_ao_trans_out_fail
+		where 
+		orig_trans_no = #{transNo} and rownum = 1
+	</select>
+	
+	<!-- 查询失败详情 -->
+	<select id="findTransFailDetail" resultType="com.gy.hsxt.ao.bean.TransOutFail">
+		select
+		t.amount as amount,
+		f.trans_no as transNo,
+		f.orig_trans_no as origTransNo,
+		f.is_return_fee as isReturnFee,
+		f.process_mode as processMode,
+		f.process_result as processResult,
+		f.created_date as createdDate,
+		f.updated_date as updatedDate,
+		f.opt_cust_id as optCustId,
+		f.opt_cust_name as optCustName,
+		f.remark as remark,
+		t.CUST_ID AS custId,
+		t.HS_RES_NO AS hsResNo,
+		t.CUST_NAME AS custName,
+		t.CUST_TYPE AS custType,
+		t.TRANS_REASON AS transReason,
+		t.AMOUNT AS amount,
+		t.FEE_AMT AS feeAmt,
+		t.REAL_AMT AS realAmt,
+		t.CURRENCY_CODE AS currencyCode,
+		t.BANK_ACCT_NAME AS bankAcctName,
+		t.BANK_ACCT_NO AS bankAcctNo,
+		t.BANK_NO AS bankNo,
+		t.BANK_BRANCH AS bankBranch,
+		t.BANK_PROVINCE_NO AS bankProvinceNo,
+		t.BANK_CITY_NO AS bankCityNo,
+		t.BANK_ADDRESS AS bankAddress,
+		t.IS_VERIFY AS isVerify,
+		t.TRANS_STATUS AS transStatus,
+		t.TRANS_RESULT AS transResult,
+		t.RESULT_TIME AS resultTime,
+		t.FAIL_REASON AS failReason,
+		t.REQ_OPT_ID AS	reqOptId,
+		t.REQ_OPT_NAME AS reqOptName,
+		t.REQ_TIME AS reqTime,
+		t.REQ_REMARK AS reqRemark,
+		t.APPR_OPT_ID AS apprOptId,
+		t.APPR_OPT_NAME AS apprOptName,
+		t.APPR_TIME AS apprTime,
+		t.APPR_REMARK AS apprRemark,
+		t.CHANNEL AS channel,
+		t.TERM_NO AS termNo,
+		t.BATCH_NO AS batchNo,
+		t.COMMIT_TYPE AS commitType
+		from 
+		t_ao_trans_out_fail f,t_ao_trans_out t 
+		where f.orig_trans_no =	t.trans_no
+		and t.trans_no = #{transNo}
+	</select>
+
+	<!-- 更新处理结果 -->
+	<update id="updateProcessResult">
+		UPDATE
+		T_AO_TRANS_OUT_FAIL
+		SET
+		PROCESS_RESULT =
+		#{processResult},
+		UPDATED_DATE = sysdate
+		WHERE
+		orig_trans_no = #{transNo}
+	</update>
+	
+	<!-- 查询还未处理的退款 -->
+	<select id="findUnCheckRefund" resultType="int">
+		select
+		count(0)
+		from
+		T_AO_TRANS_OUT_FAIL
+		WHERE
+		PROCESS_RESULT = 0
+		and
+		orig_trans_no = #{transNo}
+	</select>
+</mapper>

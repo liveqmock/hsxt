@@ -1,0 +1,111 @@
+<div class="view_info mt10">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+        <tr>
+            <td class="view_item" width="18%">订单号</td>
+            <td class="view_text" width="32%"><%=obj.order.orderNo%></td>
+            <td class="view_item" width="18%">企业名称</td>
+            <td class="view_text" width="32%"><%=comm.navNull(obj.order.custName)%></td>
+        </tr>
+        <tr>
+            <td class="view_item">企业互生号
+            </td>
+            <td class="view_text"><%=obj.order.hsResNo%></td>
+            <td class="view_item">申购类型</td>
+            <td class="view_text">新增申购</td>
+        </tr>
+        <tr>
+            <td class="view_item">订单类型</td>
+            <td class="view_text">售后服务维修订单</td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单总价</td>
+            <td class="view_text"><%=obj.orderTotal%></td>
+            <td class="view_item">订单状态</td>
+            <td class="view_text"><%=obj.status%></td>
+        </tr>
+        <tr>
+            <td class="view_item">支付方式</td>
+            <td class="view_text"><%=obj.pay%></td>
+            <td class="view_item">订单日期</td>
+            <td class="view_text"><%=obj.order.orderTime%></td>
+        </tr>
+        <tr>
+            <td class="view_item">订单操作员</td>
+            <td class="view_text"><%=obj.order.orderOperator%></td>
+            <td class="view_item"></td>
+            <td class="view_text"></td>
+        </tr>
+   </table>
+</div>
+<%if(obj.confs && obj.confs.length > 0){%>
+<div class="p20 border_left_CCC border_right_CCC border_bottom_CCC">
+	<div class="search-toolbar clearfix">
+		<ul class="cssform">
+			<li class="h30_middle fb">工具清单</li>
+		</ul>
+	</div>
+	<table id="gjqd_table" class="bsgrid-table bsgrid" style="min-width: 786px;">
+	<thead>
+		<tr>
+			<th w_index="gjlb">工具类别</th>
+			<th w_index="dj">单价</th>
+			<th w_index="sl">数量</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%for(var i=0;i < obj.confs.length;i++){%>
+			<%if(i%2 == 0){%>
+			<tr>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.confs[i].productName%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=comm.formatMoneyNumberAps(obj.confs[i].price)%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.confs[i].quantity%></td>
+			</tr>
+			<%}else{%>
+			<tr class="even_index_row">
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.confs[i].productName%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=comm.formatMoneyNumberAps(obj.confs[i].price)%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.confs[i].quantity%></td>
+			</tr>
+			<%}}%>
+	</tbody>
+	<tfoot style="display: none;"></tfoot>
+	</table>
+</div>
+<%}%>
+<%if(obj.afterDetail && obj.afterDetail.length > 0){%>
+<div class="p20 border_left_CCC border_right_CCC border_bottom_CCC">
+	<div class="search-toolbar clearfix">
+		<ul class="cssform">
+			<li class="h30_middle fb">售后工具清单</li>
+		</ul>
+	</div>
+	<table id="gjqd_table" class="bsgrid-table bsgrid" style="min-width: 786px;">
+	<thead>
+		<tr>
+			<th w_index="gjlb">序号</th>
+			<th w_index="dj">终端编号</th>
+			<th w_index="sl">机器码</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%for(var i=0;i < obj.afterDetail.length;i++){%>
+			<%if(i%2 == 0){%>
+			<tr>
+				<td style="text-align: center;" class="lineNoWrap"><%=i + 1%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.afterDetail[i].terminalNo%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.afterDetail[i].deviceSeqNo%></td>
+			</tr>
+			<%}else{%>
+			<tr class="even_index_row">
+				<td style="text-align: center;" class="lineNoWrap"><%=i + 1%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.afterDetail[i].terminalNo%></td>
+				<td style="text-align: center;" class="lineNoWrap"><%=obj.afterDetail[i].deviceSeqNo%></td>
+			</tr>
+			<%}}%>
+	</tbody>
+	<tfoot style="display: none;"></tfoot>
+	</table>
+</div>
+<%}%>

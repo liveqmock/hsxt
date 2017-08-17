@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 其他的查询，更新，调用存储过程 -->
+<mapper namespace="com.gy.hsxt.bs.tempacct.mapper.AccountNameMapper">
+    <!-- 收款账户名称 -->
+    <resultMap id="accountNameResult" type="com.gy.hsxt.bs.bean.tempacct.AccountName">
+        <id column="RECEIVE_ACCOUNT_ID" property="receiveAccountId"/>
+        <result column="RECEIVE_ACCOUNT_TYPE" property="receiveAccountType"/>
+        <result column="RECEIVE_ACCOUNT_NAME" property="receiveAccountName"/>
+        <result column="ABBREVIATION" property="abbreviation"/>
+        <result column="CREATED_DATE" property="createdDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="CREATEDBY" property="createdBy"/>
+        <result column="UPDATED_DATE" property="updatedDate" typeHandler="com.gy.hsxt.bs.common.handler.StringForTimestampTypeHandler"/>
+        <result column="UPDATEDBY" property="updatedBy"/>
+        <result column="ISACTIVE" property="isActive"/>
+    </resultMap>
+    <!-- 创建 收款账户名称 -->
+    <insert id="insertAccountName" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountName">
+        INSERT INTO T_BS_ACCOUNT_NAME (
+            RECEIVE_ACCOUNT_ID,
+            RECEIVE_ACCOUNT_TYPE,
+            RECEIVE_ACCOUNT_NAME,
+            ABBREVIATION,
+            CREATED_DATE,
+            CREATEDBY,
+            ISACTIVE
+        ) VALUES (
+            #{receiveAccountId},
+            #{receiveAccountType},
+            #{receiveAccountName},
+            #{abbreviation},
+            systimestamp,
+            #{createdBy},
+            'Y'
+        )
+    </insert>
+
+    <!-- 分页查询 收款账户名称列表 -->
+    <select id="queryAccountNameListPage" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountNameQuery" resultMap="accountNameResult">
+        SELECT t.*
+        FROM
+        T_BS_ACCOUNT_NAME t
+        WHERE 1=1
+        <if test="receiveAccountName != null and receiveAccountName != ''">
+            AND t.RECEIVE_ACCOUNT_NAME LIKE '%'||#{receiveAccountName}||'%'
+        </if>
+        <if test="receiveAccountType != null and receiveAccountType !=''">
+            AND t.RECEIVE_ACCOUNT_TYPE =#{receiveAccountType}
+        </if>
+        <if test="abbreviation != null and abbreviation != '' ">
+            AND t.ABBREVIATION LIKE '%'||#{abbreviation}||'%'
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+
+    <!--查询某一条收款账户名称详情-->
+    <select id="selectBeanById" resultMap="accountNameResult" parameterType="string">
+        SELECT t.*
+        FROM
+            T_BS_ACCOUNT_NAME t
+        WHERE
+            t.RECEIVE_ACCOUNT_ID = #{receiveAccountId}
+    </select>
+
+    <!--根据条件查询唯一收款账户名称-->
+    <select id="selectUniqueBeanByQuery" resultMap="accountNameResult" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountNameQuery">
+        SELECT t.*
+        FROM
+            T_BS_ACCOUNT_NAME t
+        WHERE
+            t.RECEIVE_ACCOUNT_NAME = #{receiveAccountName}
+            AND t.RECEIVE_ACCOUNT_TYPE = #{receiveAccountType}
+    </select>
+
+    <!-- 更新 收款账户名称 -->
+    <update id="updateBean" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountName">
+        UPDATE
+        T_BS_ACCOUNT_NAME t
+        SET
+        t.UPDATED_DATE = systimestamp,
+        <if test="receiveAccountType >0">
+            t.RECEIVE_ACCOUNT_TYPE = #{receiveAccountType},
+        </if>
+        <if test="receiveAccountName != null and receiveAccountName != ''">
+            t.RECEIVE_ACCOUNT_NAME = #{receiveAccountName},
+        </if>
+        <if test="abbreviation != null and abbreviation != ''">
+            t.ABBREVIATION = #{abbreviation},
+        </if>
+        t.UPDATEDBY = #{updatedBy}
+        WHERE
+        t.RECEIVE_ACCOUNT_ID = #{receiveAccountId}
+    </update>
+
+    <!--条件查询收款账户名称列表 -->
+    <select id="selectListByQuery" parameterType="com.gy.hsxt.bs.bean.tempacct.AccountNameQuery" resultMap="accountNameResult">
+        SELECT
+        t.RECEIVE_ACCOUNT_ID,
+        t.RECEIVE_ACCOUNT_NAME,
+        t.RECEIVE_ACCOUNT_TYPE,
+        t.ABBREVIATION
+        FROM
+        T_BS_ACCOUNT_NAME t
+        WHERE 1=1
+        <if test="receiveAccountName != null and receiveAccountName != ''">
+            AND t.RECEIVE_ACCOUNT_NAME LIKE '%'||#{receiveAccountName}||'%'
+        </if>
+        <if test="receiveAccountType != null and receiveAccountType !=''">
+            AND t.RECEIVE_ACCOUNT_TYPE =#{receiveAccountType}
+        </if>
+        <if test="abbreviation != null and abbreviation != '' ">
+            AND t.ABBREVIATION LIKE '%'||#{abbreviation}||'%'
+        </if>
+        ORDER BY t.CREATED_DATE DESC
+    </select>
+</mapper>

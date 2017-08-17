@@ -1,0 +1,42 @@
+﻿<div id="cyjfhdspcxTpl">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>企业互生号：</label>
+				<input type="text" name="textfield" id="entResNo" maxlength="11" class="h28_middle w115 input-txt" placeholder="输入企业互生号" />
+			</li>
+			<li>
+				<label>企业名称：</label>
+				<input type="text" name="textfield" id="entName" class="h28_middle w115 input-txt" placeholder="输入企业名称" />
+			</li>
+			<li>
+				<label>联系人姓名：</label>
+				<input type="text" name="textfield" id="linkman" class="h28_middle w115 input-txt" placeholder="输入联系人姓名" />
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">状态：</label>
+				<input id="status" readonly="readonly" placeholder="--请选择--"  optionValue=""/>
+			</li>
+			<li>
+				<button id="searchBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="entResNo">企业互生号</th>
+		<th w_index="entName" w_tip="true">企业名称</th>
+		<th w_index="entAddress" w_tip="true">企业地址</th>
+		<th w_index="linkman" w_tip="true">联系人姓名</th>
+		<th w_index="linkmanMobile">联系人手机</th>
+		<th w_index="status" w_render="operate">状态</th>
+		<th w_index="statusDate">状态日期</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+
+<div id="dialogBox" class="none">
+	<div class="view_info mt10">
+	</div>
+</div>

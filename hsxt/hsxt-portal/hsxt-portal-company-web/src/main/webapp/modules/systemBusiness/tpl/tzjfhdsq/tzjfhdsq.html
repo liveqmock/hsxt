@@ -1,0 +1,82 @@
+﻿<div class="bc w650 none" id="tzjfhdsq_1">
+<div class="acct-ct mb10">
+	<h1 class="acct-tips" style="padding-top:10px;">您当前企业状态：正常</h1>
+</div>
+<form id="tzjfhdsq_form" name="tzjfhdsq_form" action="" method="post">
+    <ul class="cssform2 clearfix">
+        <li class="clearfix" >
+            <label class="title-txt w115" style="height: 40px;">企业名称</label>
+            <div class="cont-chk tbox">
+            <span class="fl ml5 rsn cannotEdit-bg" style="width: 500px;overflow: hidden;"><%=obj.companyName %></span>
+            </div>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115 h60" style="height:70px;line-height:70px">业务办理申请书</label>
+            <span class="sample_img fl">
+           		<i id="business_apply" class="certificateSample_noImg"  style="margin-left:10px;height:60px"></i>
+            </span>
+            <a href="javascript:;" class="input-file btn_bg upload_btn ml10 mr10 mt15">上传
+           	 <input id="apply_file" name="apply_file" type="file">
+           	 <input id="hidApplyFileId"  type="hidden">
+            </a>
+            <a  id="moduleFile" class="btn_bg viewSample_btn mt15">模板下载</a>
+        </li>
+        <li class="clearfix">
+            <label class="title-txt w115 h60">申请原因</label><div class="cont-int" style="width:523px;"><textarea id="tzjfhdsq_reason" name="tzjfhdsq_reason" rows="3" maxlength="300" class="attxta w" placeholder="输入申请说明，最长不超过300个字" style="height:55px;"></textarea></div>
+        </li>
+    </ul>
+    <div class="warmTips mt10">
+    	<div class="red">温馨提示：</div>
+        <ul>
+            <!--<li class="warmTipsLi">上传业务办理申请书扫描件必须加盖公章！</li>
+            <li class="warmTipsLi">停止积分活动申请提交后，企业的所有POS机终端将被终止使用。</li>
+            <li class="warmTipsLi">停止积分活动申请通过审核后，积分预付款账户的余额，在扣除手续费后转账至您的现金账户，停用积分预付款账户。</li>-->
+            <li class="warmTipsLi">此业务办理仅用于因企业自身关停而无法面向消费者经营时使用；</li>
+            <li class="warmTipsLi">此业务办理一旦提交成功所有互生消费积分终端、网上商城将停止使用；</li>
+            <li class="warmTipsLi">如重新启用需在“参与积分活动”菜单办理开启；</li>
+            <li class="warmTipsLi">此业务办理需要根据模板要求上传业务办理申请书；</li>
+            <li class="warmTipsLi">此业务申请办理的处理时间约为15个工作日。</li>
+        </ul>
+    </div>
+    <div class="mt20 tc"><a href="javascript:;" id="btn_tzjfhdsq_xyb" class="btn_bg submit">提  交</a></div>
+</form>
+</div>
+<div class="view_info bc info_500 none" id="tzjfhdsq_2"></div>
+<div class="bc mt50 none" id="tips_6">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您已于<%=obj.appDate%>提交了停止积分活动申请，目前正在处理中，处理需要15个工作日，请耐心等待！</p>
+    </div>
+</div>
+<div class="bc mt50 none" id="tips_5">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您的企业资格状态处于非正常状态（预警、休眠、长眠、注销）中！</p>
+    </div>
+</div>
+<div class="bc mt50 none" id="tips_7">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您的企业已停止积分活动！</p>
+    </div>
+</div>
+<div class="bc mt50 none" id="tips_8">
+    <div class="page_tips bc">
+      <h1 class="f16 fb tc">温馨提示</h1>
+      <p class="f14 fb tc">您的企业注销申请中！</p>
+    </div>
+</div>
+<%if(obj.status=='999'){%>
+<div id="tips_999" class="none" style="width:500px;margin-left:300px;">
+	<div class="warmTips mt10">
+    	<div class="red">温馨提示：</div>
+        <ul>
+            <li class="warmTipsLi">贵企业于<%=obj.poin.applyDate%>提交的停止积分活动申请失败！</li>
+            <li class="warmTipsLi">审批结果：驳回申请</li>
+            <li class="warmTipsLi">审批意见：<%=obj.poin.apprRemark%></li>
+            <li class="warmTipsLi">审核日期：<%=obj.poin.apprDate%></li>
+        </ul>
+        <div class="tc mb10"><a id="back_btn" class="btn_bg submit">申请停止积分活动</a></div>
+    </div>
+</div>
+<%}%>

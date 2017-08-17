@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">    
+	
+	 <!-- 消费服务 -->
+	<dubbo:reference id="accountEntryService" interface="com.gy.hsxt.ac.api.IAccountEntryService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<dubbo:reference id="cardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	<dubbo:reference id="entService" interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService"  timeout="8000" retries="0"  check="false" version="1.0.0"/>
+	
+</beans>

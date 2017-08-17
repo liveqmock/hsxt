@@ -1,0 +1,36 @@
+<div class="view_info" id="xgtjDiv">
+	<form id="gjxg_form">
+		<input type="hidden" id="microPic_hidden"/>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="fixtable">
+			<tr>
+				<td class="view_item">工具名称</td>
+				<td colspan="3">
+					<input type="text" class="h28_middle w96pc ml5"  readonly="readonly" id="productName"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">预警值</td>
+				<td colspan="3">
+					<input type="text" class="h28_middle w96pc ml5" placeholder="输入预警值"  name="warningValue" id="warningValue" maxlength="5"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">工具图片</td>
+				<td colspan="3">
+					<div class="clearfix ml5">
+						<input id="microPicFileName" readonly="readonly" type="text" class="fl h28_middle w140 input-txt" />
+						<a href="javascript:void(0);" class="input-file btn_bg upload_btn ml5">上传<input type="file" id="microPicXg" name="microPicXg"></a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="view_item">工具说明</td>
+				<td colspan="3">
+					<textarea  class="ml5 h50 w96pc rsn pt5 pb5" id="description" maxlength="300" name ="description" placeholder="输入添加原因,字数不超过300个字" ></textarea>
+				</td>
+			</tr>
+		</table>.
+		<input type="hidden" id="productId"/>
+		<input type="hidden" id="microPicHid"/>
+	</form>
+</div>

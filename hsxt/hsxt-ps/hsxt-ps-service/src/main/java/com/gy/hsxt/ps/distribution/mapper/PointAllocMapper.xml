@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.distribution.mapper.PointAllocMapper">
+	<!-- 获取订单积分总数 -->
+	<select id="queryPointSum" resultType="int" parameterType="map" >
+		SELECT COUNT(1)
+		FROM T_PS_NDETAIL TN
+		WHERE TN.TRANS_STATUS IN (0,4,6,8) AND ISSETTLE = 1 AND (TN.PAY_STATUS=1 OR TN.PAY_STATUS IS NULL)
+		AND TN.BATCH_NO =	#{runDate,jdbcType=VARCHAR}
+	</select>
+	<!-- 查询消费积分待分配积分订单 -->
+	<select id="queryPoint" resultType="PointDetail" parameterType="PointPage">
+	   SELECT * FROM (
+				SELECT
+				TN.TRANS_NO "transNo",
+				TN.SOURCE_TRANS_NO "sourceTransNo",
+				TN.TRANS_TYPE "transType",
+				TN.ENT_RES_NO "entResNo",
+				TN.POINT_RATE "pointRate",
+				TN.CURRENCY_RATE "currencyRate",
+				TN.PER_RES_NO "perResNo",
+				TN.TRANS_AMOUNT "transAmount",
+				NVL(TN.PER_POINT,0)-NVL(BB.PER_POINT,0) "perPoint",
+				NVL(TN.ENT_POINT,0)-NVL(BB.ENT_POINT,0) "entPoint",
+				TN.ENT_CUST_ID "entCustId",
+				TN.PER_CUST_ID "perCustId",
+				TN.SOURCE_TRANS_DT "sourceTransDate",
+				ROWNUM RN
+		FROM T_PS_NDETAIL TN LEFT JOIN (SELECT B.OLD_TRANS_NO, SUM (B.PER_POINT) PER_POINT,SUM(B.ENT_POINT) ENT_POINT FROM T_PS_BDETAIL B WHERE BATCH_NO= #{runDate} GROUP BY  B.OLD_TRANS_NO) BB ON BB.OLD_TRANS_NO=TN.TRANS_NO
+		WHERE TN.TRANS_STATUS IN (0,4,6,8)  AND TN.ISSETTLE = 1 AND (TN.PAY_STATUS=1 OR TN.PAY_STATUS IS NULL)
+		AND  TN.BATCH_NO= #{runDate})
+		WHERE RN &gt; #{startsRow} AND RN &lt;= #{endRow}
+	</select>
+	
+	<!-- 实时积分分配 -->
+	<insert id="insertPointAllotDaily" parameterType="list" >
+		INSERT INTO T_PS_PIONT_ALLOT (
+			ALLOT_NO, 
+			PER_HS_NO, 
+			TRANS_TYPE,
+			WRITE_BACK,
+			REL_TRANS_NO, 
+			SOURCE_TRANS_DATE, 
+			ISACTIVE, 
+			CREATED_DATE, 
+			CREATED_BY, 
+			UPDATED_DATE, 
+			UPDATED_BY, 
+			BATCH_NO, 
+			SOURCE_TRANS_NO, 
+			ISSETTLE, 
+			TRUSTEE_ENT_HS_NO, 
+			SERVICE_ENT_HS_NO, 
+			MANAGE_ENT_HS_NO, 
+			PAAS_ENT_HS_NO, 
+			TRUSTEE_ADD_POINT, 
+			SERVICE_ADD_POINT, 
+			MANAGE_ADD_POINT, 
+			PAAS_ADD_POINT, 
+			TRUSTEE_SUB_POINT, 
+			SERVICE_SUB_POINT, 
+			MANAGE_SUB_POINT, 
+			PAAS_SUB_POINT, 
+			SURPLUS_SUB_POINT, 
+			SURPLUS_ADD_POINT,
+			REMARK
+		)
+  		<foreach collection="list" item="item" index="index" separator="union all" >
+		(SELECT
+				#{item.allotNo, jdbcType=VARCHAR} AS ALLOT_NO,
+				#{item.perHsNo, jdbcType=VARCHAR} AS PER_HS_NO,
+				#{item.transType, jdbcType=VARCHAR} AS TRANS_TYPE,
+				#{item.writeBack, jdbcType=VARCHAR} AS WRITE_BACK,
+				#{item.relTransNo, jdbcType=VARCHAR} AS REL_TRANS_NO,
+				#{item.sourceTransDate, jdbcType=TIMESTAMP} AS SOURCE_TRANS_DATE,
+				#{item.isActive, jdbcType=VARCHAR} AS ISACTIVE,
+				SYSTIMESTAMP,
+				#{item.createdBy, jdbcType=VARCHAR} AS CREATED_BY,
+				SYSTIMESTAMP,
+				#{item.updatedBy, jdbcType=VARCHAR} AS UPDATED_BY,
+				#{item.batchNo, jdbcType=VARCHAR} AS BATCH_NO,
+				#{item.sourceTransNo, jdbcType=VARCHAR} AS SOURCE_TRANS_NO,
+				#{item.isSettle, jdbcType=INTEGER} AS ISSETTLE,
+				#{item.trusteeEntHsNo, jdbcType=VARCHAR} AS TRUSTEE_ENT_HS_NO,
+				#{item.serviceEntHsNo, jdbcType=VARCHAR} AS SERVICE_ENT_HS_NO,
+				#{item.manageEntHsNo, jdbcType=VARCHAR} AS MANAGE_ENT_HS_NO,
+				#{item.paasEntHsNo, jdbcType=VARCHAR} AS PAAS_ENT_HS_NO,
+				#{item.trusteeAddPoint, jdbcType=NUMERIC} AS TRUSTEE_ADD_POINT,
+				#{item.serviceAddPoint, jdbcType=NUMERIC} AS SERVICE_ADD_POINT,
+				#{item.manageAddPoint, jdbcType=NUMERIC} AS MANAGE_ADD_POINT,
+				#{item.paasAddPoint, jdbcType=NUMERIC} AS PAAS_ADD_POINT,
+				#{item.trusteeSubPoint, jdbcType=NUMERIC} AS TRUSTEE_SUB_POINT,
+				#{item.serviceSubPoint, jdbcType=NUMERIC} AS SERVICE_SUB_POINT,
+				#{item.manageSubPoint, jdbcType=NUMERIC} AS MANAGE_SUB_POINT,
+				#{item.paasSubPoint, jdbcType=NUMERIC} AS PAAS_SUB_POINT,
+				#{item.surplusSubPoint, jdbcType=NUMERIC} AS SURPLUS_SUB_POINT,
+				#{item.surplusAddPoint, jdbcType=NUMERIC} AS SURPLUS_ADD_POINT,
+				#{item.remark, jdbcType=VARCHAR} AS REMARK
+		FROM DUAL)
+		</foreach>
+	</insert>
+
+	 <!-- 线下交易分录信息入库 改造后-->
+   	 <insert id="insertEntry" parameterType="EntryAllot">
+		INSERT INTO T_PS_OFFLINE_ENTRY (
+			 	ENTRY_NO, 
+				WRITE_BACK, 
+				TRANS_TYPE, 
+				REL_TRANS_NO, 
+				BATCH_NO, 
+				SOURCE_TRANS_NO, 
+				REL_ENTRY_NO, 
+				ISSETTLE, 
+				ENT_HS_NO, 
+				PER_HS_NO, 
+				ENT_CUST_ID, 
+				PER_CUST_ID, 
+				ENT_ADD_AMOUNT, 
+				ENT_SUB_AMOUNT, 
+				PER_ADD_AMOUNT, 
+				PER_SUB_AMOUNT, 
+				ENT_ADD_POINT_AMOUNT, 
+				ENT_SUB_POINT_AMOUNT, 
+				PER_ADD_POINT_AMOUNT, 
+				PER_SUB_POINT_AMOUNT, 
+				SETTLE_AMOUNT, 
+				SOURCE_TRANS_DATE, 
+				REMARK, 
+				ISACTIVE, 
+				CREATED_DATE, 
+				CREATED_BY, 
+				UPDATED_DATE, 
+				UPDATED_BY
+		)
+		VALUES(
+			#{entryNo, jdbcType=VARCHAR},
+			#{writeBack, jdbcType=VARCHAR}, 
+			#{transType, jdbcType=VARCHAR},
+			#{relTransNo, jdbcType=VARCHAR},
+			#{batchNo, jdbcType=VARCHAR},
+			#{sourceTransNo, jdbcType=VARCHAR},
+			#{relEntryNo, jdbcType=VARCHAR},
+			#{isSettle, jdbcType=INTEGER},
+			#{entHsNo, jdbcType=VARCHAR},
+			#{perHsNo, jdbcType=VARCHAR},
+			#{entCustId, jdbcType=VARCHAR},
+			#{perCustId, jdbcType=VARCHAR},
+			#{entAddAmount, jdbcType=NUMERIC},
+			#{entSubAmount, jdbcType=NUMERIC},
+			#{perAddAmount, jdbcType=NUMERIC},
+			#{perSubAmount, jdbcType=NUMERIC},
+			#{entAddPointAmount, jdbcType=NUMERIC},
+			#{entSubPointAmount, jdbcType=NUMERIC},
+			#{perAddPointAmount, jdbcType=NUMERIC}, 
+			#{perSubPointAmount, jdbcType=NUMERIC},
+			#{settleAmount, jdbcType=NUMERIC},
+			#{sourceTransDate, jdbcType=TIMESTAMP},
+			#{remark, jdbcType=VARCHAR},
+			#{isActive, jdbcType=VARCHAR},
+			SYSTIMESTAMP,
+			#{createdBy, jdbcType=VARCHAR},
+			SYSTIMESTAMP,
+			#{updatedBy, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 计算分组计算日终汇总总条数 -->
+	<select id="queryCollectCount" resultType="int" parameterType="map">
+		SELECT COUNT(1)
+		FROM(SELECT 1
+		FROM T_PS_PIONT_ALLOC t
+		WHERE t.ISSETTLE = 1 AND t.BATCH_NO = 	#{runDate,jdbcType=VARCHAR} 
+		GROUP BY t.CUST_ID, t.CUST_TYPE,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO)
+	</select>
+
+	<!-- 分组计算日终汇总 -->
+	<select id="queryCollect" resultType="Alloc">
+		SELECT * FROM ( SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+		SELECT SUM(ADD_AMOUNT) "addAmount",
+		COUNT(1) "pvAddCount",
+		t.CUST_ID "custId",
+		t.CUST_TYPE "custType",
+		t.HS_RES_NO "hsResNo",
+		t.ACC_TYPE "accType",
+		t.BATCH_NO "batchNo"
+		FROM T_PS_PIONT_ALLOT t
+		WHERE t.ISSETTLE = 1 AND t.BATCH_NO =#{runDate}
+		GROUP BY t.CUST_ID, t.CUST_TYPE,t.HS_RES_NO,t.ACC_TYPE,t.BATCH_NO
+		) ROW_ ) WHERE ROWNUM_ &gt; #{startsRow} AND ROWNUM_ &lt;= #{endRow}
+	</select>
+
+	<!-- 计算分组计算日终汇总总条数 -->
+	<select id="queryPointAllotCount" resultType="int" parameterType="map">
+		SELECT COUNT(1) FROM (
+			(SELECT 1
+			 FROM T_PS_PIONT_ALLOT T
+			 WHERE  T.ISSETTLE != 0 AND  TRUSTEE_ENT_HS_NO IS NOT NULL AND T.BATCH_NO = #{runDate,jdbcType=VARCHAR}
+			 GROUP BY TRUSTEE_ENT_HS_NO,BATCH_NO)
+			UNION ALL
+			(SELECT 1
+			 FROM T_PS_PIONT_ALLOT T
+			 WHERE T.ISSETTLE != 0 AND  SERVICE_ENT_HS_NO IS NOT  NULL AND  T.BATCH_NO =#{runDate,jdbcType=VARCHAR}
+			 GROUP BY SERVICE_ENT_HS_NO,BATCH_NO)
+			UNION ALL
+			(
+			SELECT 1
+			FROM T_PS_PIONT_ALLOT T
+			WHERE T.ISSETTLE != 0 AND MANAGE_ENT_HS_NO IS NOT NULL AND T.BATCH_NO =#{runDate,jdbcType=VARCHAR}
+			GROUP BY MANAGE_ENT_HS_NO,BATCH_NO)
+			UNION ALL
+			(SELECT 1
+			 FROM T_PS_PIONT_ALLOT T
+			 WHERE T.ISSETTLE != 0  AND T.BATCH_NO =#{runDate,jdbcType=VARCHAR}
+			 GROUP BY PAAS_ENT_HS_NO,BATCH_NO)
+		)
+	</select>
+
+	<!-- 分组计算日终汇总 -->
+	<select id="queryPointAllot" resultType="PointAllot">
+		SELECT * FROM ( SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+		   (SELECT
+				COUNT(1)  "pvAddCount",
+				BATCH_NO    "batchNo",
+				TRUSTEE_ENT_HS_NO   "trusteeEntHsNo",
+				null  "serviceEntHsNo",
+				null  "manageEntHsNo",
+				null  "paasEntHsNo",
+				SUM(NVL(TRUSTEE_ADD_POINT,0)-NVL(TRUSTEE_SUB_POINT,0))  "trusteeAddPoint",
+				null   "serviceAddPoint",
+				null "manageAddPoint",
+				null  "paasAddPoint",
+				null "noCardPaasAddPoint",
+				null  "surplusAddPoint"
+			FROM T_PS_PIONT_ALLOT WHERE  ISSETTLE != 0 AND TRUSTEE_ENT_HS_NO IS NOT NULL AND  BATCH_NO =#{runDate}
+			GROUP BY TRUSTEE_ENT_HS_NO,BATCH_NO)
+		   UNION ALL
+		   (
+			   SELECT
+				   COUNT(1)  "pvAddCount",
+				   BATCH_NO    "batchNo",
+				   null   "trusteeEntHsNo",
+				   SERVICE_ENT_HS_NO  "serviceEntHsNo",
+				   null  "manageEntHsNo",
+				   null  "paasEntHsNo",
+				   null  "trusteeAddPoint",
+				   SUM(NVL(SERVICE_ADD_POINT,0)-NVL(SERVICE_SUB_POINT,0))   "serviceAddPoint",
+				   null  "manageAddPoint",
+				   null  "paasAddPoint",
+				   null "noCardPaasAddPoint",
+				   null  "surplusAddPoint"
+			   FROM T_PS_PIONT_ALLOT WHERE  ISSETTLE != 0 AND SERVICE_ENT_HS_NO IS NOT NULL AND  BATCH_NO =#{runDate}
+			   GROUP BY SERVICE_ENT_HS_NO,BATCH_NO
+		   )
+		   UNION ALL
+		   (
+			   SELECT
+				   COUNT(1)  "pvAddCount",
+				   BATCH_NO    "batchNo",
+				   null   "trusteeEntHsNo",
+				   null  "serviceEntHsNo",
+				   MANAGE_ENT_HS_NO  "manageEntHsNo",
+				   null  "paasEntHsNo",
+				   null "trusteeAddPoint",
+				   null   "serviceAddPoint",
+				   SUM(NVL(MANAGE_ADD_POINT,0)-NVL(MANAGE_SUB_POINT,0))  "manageAddPoint",
+				   null  "paasAddPoint",
+				   null "noCardPaasAddPoint",
+				   null  "surplusAddPoint"
+			   FROM T_PS_PIONT_ALLOT WHERE ISSETTLE != 0 AND MANAGE_ENT_HS_NO IS NOT NULL AND  BATCH_NO =#{runDate}
+			   GROUP BY MANAGE_ENT_HS_NO,BATCH_NO
+		   )
+		   UNION ALL
+		   (
+			   SELECT
+				   COUNT(1)  "pvAddCount",
+				   BATCH_NO    "batchNo",
+				   null   "trusteeEntHsNo",
+				   null  "serviceEntHsNo",
+				   null  "manageEntHsNo",
+				   PAAS_ENT_HS_NO  "paasEntHsNo",
+				   null  "trusteeAddPoint",
+				   null  "serviceAddPoint",
+				   null "manageAddPoint",
+				   SUM(NVL(PAAS_ADD_POINT,0)-NVL(PAAS_SUB_POINT,0))  "paasAddPoint",
+				   null "noCardPaasAddPoint",
+				   null  "surplusAddPoint"
+			   FROM T_PS_PIONT_ALLOT WHERE ISSETTLE != 0 AND TRUSTEE_ENT_HS_NO IS NOT NULL AND SERVICE_ENT_HS_NO IS NOT NULL AND MANAGE_ENT_HS_NO IS NOT NULL AND  BATCH_NO =#{runDate}
+			   GROUP BY  PAAS_ENT_HS_NO,BATCH_NO
+		   )
+		   UNION ALL
+		   (
+			   SELECT
+				   COUNT(1)  "pvAddCount",
+				   BATCH_NO    "batchNo",
+				   null   "trusteeEntHsNo",
+				   null  "serviceEntHsNo",
+				   null  "manageEntHsNo",
+				   PAAS_ENT_HS_NO  "paasEntHsNo",
+				   null  "trusteeAddPoint",
+				   null  "serviceAddPoint",
+				   null "manageAddPoint",
+				   null "paasAddPoint",
+				   SUM(NVL(PAAS_ADD_POINT,0)-NVL(PAAS_SUB_POINT,0))  "noCardPaasAddPoint",
+				   null  "surplusAddPoint"
+			   FROM T_PS_PIONT_ALLOT WHERE ISSETTLE != 0 AND TRUSTEE_ENT_HS_NO IS  NULL AND SERVICE_ENT_HS_NO IS NULL AND MANAGE_ENT_HS_NO IS  NULL  AND  BATCH_NO =#{runDate}
+			   GROUP BY  PAAS_ENT_HS_NO,BATCH_NO
+		   )
+		   UNION ALL
+		   (
+			   SELECT
+				   COUNT(1)  "pvAddCount",
+				   BATCH_NO    "batchNo",
+				   null   "trusteeEntHsNo",
+				   null  "serviceEntHsNo",
+				   null  "manageEntHsNo",
+				   PAAS_ENT_HS_NO  "paasEntHsNo",
+				   null  "trusteeAddPoint",
+				   null  "serviceAddPoint",
+				   null "manageAddPoint",
+				   null "paasAddPoint",
+				   null "noCardPaasAddPoint",
+				   SUM(NVL(SURPLUS_ADD_POINT,0)-NVL(SURPLUS_SUB_POINT,0))  "surplusAddPoint"
+			   FROM T_PS_PIONT_ALLOT WHERE ISSETTLE != 0 AND  BATCH_NO =#{runDate}
+			   GROUP BY  PAAS_ENT_HS_NO,BATCH_NO
+		   )
+		) ROW_ ) WHERE ROWNUM_ &gt; #{startsRow} AND ROWNUM_ &lt;= #{endRow}
+	</select>
+
+
+	<!--  日终批量插入汇总 -->
+	<insert id="insertCollect" parameterType="java.util.List">
+	    INSERT INTO T_PS_PIONT_ALLOC_SUM (
+		    SUM_NO,
+		    CUST_ID,
+		    CUST_TYPE,
+		    HS_RES_NO,
+		    BATCH_NO,
+		    ACC_TYPE,
+		    ADD_AMOUNT,
+	   	    ADD_COUNT,
+	   	    CREATED_DATE,
+	   	    UPDATED_DATE)
+  		<foreach collection="list" item="item" index="index" separator="union all" >
+		(SELECT
+			#{item.pvNo,jdbcType=VARCHAR} as SUM_NO,
+			#{item.custId,jdbcType=VARCHAR} as CUST_ID,
+			#{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+			#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+			#{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+			#{item.accType,jdbcType=VARCHAR} as ACC_TYPE,
+			<if test="item.addAmount!=null">
+				#{item.addAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+			</if>
+			<if test="item.addAmount==null">
+				#{item.subAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+			</if>
+			#{item.pvAddCount,jdbcType=INTEGER} as ADD_COUNT,
+			SYSTIMESTAMP,SYSTIMESTAMP
+		FROM DUAL)
+		</foreach>
+	</insert>
+	<!-- 更新分配表中订单号 -->
+	<update id="updateRelTaxSumNo" parameterType="map">
+		UPDATE T_PS_PIONT_ALLOC
+		SET REL_TAX_SUM_NO=#{relTaxSumNo}
+		WHERE CUST_ID = #{custId} AND ACC_TYPE=#{accType}
+	</update>
+	<!--  日终批量插入城市税收 -->
+	<insert id="insertTax" parameterType="java.util.List">
+	    INSERT  INTO T_PS_PIONT_ALLOC_TAX (
+		    TAX_NO,
+		    CUST_ID,
+		    CUST_TYPE,
+		    BATCH_NO,
+		    HS_RES_NO,
+		    ACC_TYPE,
+			ADD_AMOUNT,
+			SUB_AMOUNT,
+			REL_SUM_NO,
+			TAX_RATE,
+			CREATED_DATE,
+			UPDATED_DATE)
+  		<foreach collection="list" item="item" index="index" separator="union all" >
+		(SELECT
+			#{item.taxNo,jdbcType=VARCHAR} as TAX_NO,
+			#{item.custId,jdbcType=VARCHAR} as CUST_ID,
+			#{item.custType,jdbcType=VARCHAR} as CUST_TYPE,
+			#{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+			#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+			#{item.taxAccType,jdbcType=VARCHAR} as ACC_TYPE,
+			#{item.taxAddAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+			#{item.taxSubAmount,jdbcType=NUMERIC} as SUB_AMOUNT,
+			#{item.relPvNo,jdbcType=VARCHAR} as REL_SUM_NO,
+			#{item.taxRate,jdbcType=NUMERIC} as TAX_RATE,
+			SYSTIMESTAMP, SYSTIMESTAMP
+		FROM DUAL)
+		</foreach>
+	</insert>
+
+	<select id="queryTax" resultType="Alloc" parameterType="String">
+		SELECT
+			  TAX_NO "taxNo",
+			  ACC_TYPE "taxAccType",
+			  CUST_ID "custId",
+			  HS_RES_NO "hsResNo",
+			  BATCH_NO "batchNo",
+			  REL_SUM_NO "relPvNo",
+			  CUST_TYPE "custType",
+			  SUB_AMOUNT "taxSubAmount",
+			  ADD_AMOUNT "taxAddAmount",
+			  CUST_TYPE "custType"
+      	FROM  T_PS_PIONT_ALLOC_TAX
+      	WHERE BATCH_NO = #{runDate,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 日终退税查询 -->
+	<select id="queryTaxEntryCount" resultType="int" parameterType="map">
+		SELECT COUNT (1)
+		FROM (  SELECT 1
+				FROM T_PS_PIONT_ALLOT TA
+				WHERE TA.BATCH_NO = #{runDate,jdbcType=VARCHAR}
+				GROUP BY TA.TRUSTEE_ENT_HS_NO, TA.SERVICE_ENT_HS_NO)
+	</select>
+
+
+    <!-- 日终退税查询 -->
+    <select id="queryTaxEntry" resultType="PointAllot" parameterType="map">
+		SELECT * FROM ( SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+		SELECT TA.TRUSTEE_ENT_HS_NO  "trusteeEntHsNo",
+			   TA.SERVICE_ENT_HS_NO  "serviceEntHsNo",
+			   SUM (NVL(TA.TRUSTEE_SUB_POINT,0))  "trusteeSubPoint",
+		SUM (TA.SERVICE_SUB_POINT)  "serviceSubPoint",
+			TA.BATCH_NO "batchNo"
+		FROM T_PS_PIONT_ALLOT TA
+		WHERE TA.BATCH_NO = #{pointPage.runDate}
+		GROUP BY TA.TRUSTEE_ENT_HS_NO, TA.SERVICE_ENT_HS_NO,TA.BATCH_NO
+		) ROW_ ) WHERE ROWNUM_ &gt; #{pointPage.startsRow} AND ROWNUM_ &lt;= #{pointPage.endRow}
+    </select>
+
+	<!--  日终批量插入商业服务费-->
+	<insert id="insertCsc" parameterType="java.util.List">
+	    INSERT /*+APPEND*/ INTO T_PS_HSB_ALLOC_CSC (
+	    	CSC_NO,
+	    	CUST_ID,
+	    	CUST_TYPE,
+	    	BATCH_NO,
+	    	HS_RES_NO,
+	    	ACC_TYPE,
+			CSC_AMOUNT,
+			ADD_AMOUNT,
+			SUB_AMOUNT,
+			CREATED_DATE,
+			UPDATED_DATE
+		)
+  		<foreach collection="list" item="item" index="index" separator="union all" >
+		(SELECT
+			#{item.cscNo,jdbcType=VARCHAR} as CSC_NO,
+			#{item.custId,jdbcType=VARCHAR} as CUST_ID,
+			#{item.custType,jdbcType=VARCHAR} as CUST_TYPE,
+			#{item.batchNo,jdbcType=VARCHAR} as BATCH_NO,
+			#{item.hsResNo,jdbcType=VARCHAR} as HS_RES_NO,
+			#{item.taxAccType,jdbcType=VARCHAR} as ACC_TYPE,
+			#{item.cscAmount,jdbcType=NUMERIC} as CSC_AMOUNT,
+			#{item.addAmount,jdbcType=NUMERIC} as ADD_AMOUNT,
+			#{item.subAmount,jdbcType=NUMERIC} as SUB_AMOUNT,
+			SYSTIMESTAMP, SYSTIMESTAMP
+		FROM DUAL)
+		</foreach>
+	</insert>
+
+	<!-- 查询当月每天的商业服务费 -->
+	<select id="queryMonthCsc" resultType="Alloc">
+		SELECT
+	        t.CSC_NO "cscNo",
+	        t.CUST_ID "custId",
+	        t.CUST_TYPE "custType",
+	        t.HS_RES_NO "hsResNo",
+	        t.ADD_AMOUNT "addAmount",
+	        t.SUB_AMOUNT "subAmount",
+	        t.ACC_TYPE "accType",
+	        t.BATCH_NO "batchNo"
+       FROM T_PS_HSB_ALLOC_CSC t
+	   WHERE t.CREATED_DATE &gt;= TRUNC(SYSDATE, 'MM')
+	   AND t.CREATED_DATE &lt;= LAST_DAY(SYSDATE)
+	</select>
+	<!--批量修改消费积分状态（是否已结算）-->
+	<update id="batchUpdateNdetail"  parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			update T_PS_NDETAIL
+			<set>
+				ISSETTLE=2
+			</set>
+			where TRANS_NO = #{item.relTransNo,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<!-- 更新积分订单状态（是否已分配结算） -->
+	<update id="updatePointSettle" parameterType="String">
+		UPDATE  T_PS_NDETAIL T SET T.ISSETTLE = 2
+        WHERE
+         T.TRANS_NO = #{transNo,jdbcType=VARCHAR}
+         AND T.ISSETTLE = 1 AND T.TRANS_STATUS in (0,4,6,8)
+	</update>
+
+
+	<!-- 更新隔日退退货表状态(是否已分配结算） -->
+	<update id="updateBPointSettle" parameterType="String">
+		UPDATE  T_PS_BDETAIL B SET B.ISSETTLE = 2
+		WHERE B.ISSETTLE=0 AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6') AND  B.BATCH_NO=#{runDate,jdbcType=VARCHAR}
+	</update>
+	
+	   <!-- 更新积分分配是否结算 -->
+    <update id="updatePointAllocSettle" parameterType="String">
+		UPDATE T_PS_PIONT_ALLOT t SET t.ISSETTLE = 0
+        WHERE  t.ISSETTLE = 1 AND t.BATCH_NO = #{runDate,jdbcType=VARCHAR}
+	</update>
+	  <!-- 更新积分汇总是否结算 -->
+    <update id="updatePointSumSettle" parameterType="String">
+		UPDATE T_PS_PIONT_ALLOC_SUM t SET t.ISSETTLE = 0
+        WHERE  t.ISSETTLE = 1
+        AND t.BATCH_NO = #{runDate,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 查询原已分配积分 -->
+	<select id="getPointAllot" parameterType="map" resultType="PointAllot">
+		   SELECT
+				PER_HS_NO "perHsNo", 
+				WRITE_BACK "writeBack",
+				REL_TRANS_NO "relTransNo", 
+				SOURCE_TRANS_DATE "sourceTransDate", 
+				ISACTIVE "isActive", 
+				CREATED_BY "createdBy", 
+				UPDATED_BY "updatedBy", 
+				SOURCE_TRANS_NO "sourceTransNo", 
+				TRUSTEE_ENT_HS_NO "trusteeEntHsNo", 
+				SERVICE_ENT_HS_NO "serviceEntHsNo", 
+				MANAGE_ENT_HS_NO "manageEntHsNo", 
+				PAAS_ENT_HS_NO "paasEntHsNo", 
+				TRUSTEE_ADD_POINT "trusteeAddPoint", 
+				SERVICE_ADD_POINT "serviceAddPoint", 
+				MANAGE_ADD_POINT "manageAddPoint", 
+				PAAS_ADD_POINT "paasAddPoint", 
+				TRUSTEE_SUB_POINT "trusteeSubPoint", 
+				SERVICE_SUB_POINT "serviceSubPoint", 
+				MANAGE_SUB_POINT "manageSubPoint", 
+				PAAS_SUB_POINT "paasSubPoint", 
+				SURPLUS_SUB_POINT "surplusSubPoint", 
+				SURPLUS_ADD_POINT "surplusAddPoint"
+        	FROM T_PS_PIONT_ALLOT 
+        	WHERE REL_TRANS_NO = #{relTransNo,jdbcType=VARCHAR}
+	</select>
+</mapper>

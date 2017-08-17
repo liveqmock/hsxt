@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.ps.distribution.mapper.HsbAllocMapper">
+    <!-- 日终汇总线上交易销售额 -->
+    <select id="queryOnlineEntry" resultType="Alloc"  parameterType="String">
+              SELECT NNN.*,BBB.*,OOO.SERVIDE_FEE  "cscTurnover" FROM (
+              SELECT --SUM (CASE WHEN  T.ISSETTLE = 1 THEN  NVL (T.TARGET_TRANS_AMOUNT,0) END)  "addAmount",
+               0  "subAmount",
+               --SUM (CASE WHEN  T.ISSETTLE = 1  THEN NVL (T.TARGET_TRANS_AMOUNT, 0) - NVL (B.TRANS_AMOUNT, 0) END) "daySale",
+              NVL(SUM (CASE WHEN SUBSTR (T.TRANS_TYPE,3,1)!='3' AND T.ISSETTLE = 2 AND T.TRANS_STATUS IN (0,4,6) THEN NVL(T.TRANS_AMOUNT,0) END),0)
+                                                                           "dayHsbTurnover",/*互生币结算交易金额*/
+               NVL(SUM (CASE WHEN SUBSTR (T.TRANS_TYPE,3,1)='3' AND T.ISSETTLE = 2  AND T.TRANS_STATUS IN (0,4) THEN T.TARGET_TRANS_AMOUNT
+                             WHEN SUBSTR (T.TRANS_TYPE,3,1)='3' AND T.ISSETTLE = 2  AND T.TRANS_STATUS=6  THEN NVL(T.TRANS_AMOUNT,0) END),0)
+                                                                            "dayCashTurnover",/*现金结算交易金额*/
+               NVL(SUM (CASE WHEN T.TRANS_STATUS IN(1,2)  AND SUBSTR (T.TRANS_TYPE,3, 1)='3'  AND T.ISSETTLE =1 THEN NVL(T.TARGET_TRANS_AMOUNT,0)
+               WHEN T.TRANS_STATUS=6  AND SUBSTR (T.TRANS_TYPE,3, 1)='3'  AND T.ISSETTLE =2 THEN NVL(T.TARGET_TRANS_AMOUNT,0)-NVL(T.TRANS_AMOUNT,0)
+               END),0)
+                                                                            "dayBackCyberTurnover",/*当日未结交易退现金金额*/
+               NVL(SUM (CASE WHEN T.TRANS_STATUS IN(1,2)  AND SUBSTR (T.TRANS_TYPE,3, 1)!='3'  AND T.ISSETTLE =1 THEN NVL(T.TARGET_TRANS_AMOUNT,0)
+               WHEN T.TRANS_STATUS=6  AND SUBSTR (T.TRANS_TYPE,3, 1)!='3'  AND T.ISSETTLE =2 THEN NVL(T.TARGET_TRANS_AMOUNT,0)-NVL(T.TRANS_AMOUNT,0)
+               END),0)
+                                                                            "dayBackHsbTurnover",/*当日未结交易退互生币金额*/
+              -- NVL(SUM (CASE WHEN T.TRANS_STATUS IN('2','6')  AND B.ISSETTLE = 0 THEN NVL(B.ENT_POINT,0) END),0) "dayBackPointTurnover",/*已结交易当日退回积分金额*/
+               NVL(SUM (CASE WHEN  T.ISSETTLE=2 AND SUBSTR (T.TRANS_TYPE,2,2)!='13' THEN  T.ENT_POINT END),0) -
+               NVL(SUM (CASE WHEN  T.ISSETTLE=1 AND  SUBSTR (T.TRANS_TYPE,2,2)='13' AND T.TRANS_STATUS =1 THEN  NVL(T.ENT_POINT,0)END),0)-
+               NVL(SUM (CASE WHEN  B.ISSETTLE!=0 AND  SUBSTR (T.TRANS_TYPE,2,2)='13' AND  T.TRANS_STATUS IN (2,6) THEN  NVL(B.ENT_POINT,0) END),0)-
+               NVL(SUM (CASE WHEN  B.ISSETTLE!=0 AND  SUBSTR (T.TRANS_TYPE,2,2)!='13' AND   T.TRANS_STATUS=6 THEN  NVL(B.ENT_POINT,0)
+                END),0)
+               "deductPointAmount",/*扣除积分金额*/
+               COUNT (1) "hsbAddCount",
+               T.ENT_CUST_ID "custId",
+               T.ENT_CUST_ID,
+               T.ENT_RES_NO "hsResNo",
+               '20111' "accType",
+               #{runDate,jdbcType=VARCHAR} "batchNo"
+            FROM T_PS_NDETAIL T
+            LEFT  JOIN  T_PS_BDETAIL B ON T.TRANS_NO=B.OLD_TRANS_NO AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6')
+            WHERE T.BATCH_NO =#{runDate,jdbcType=VARCHAR} AND T.TRANS_STATUS IN (0,1,2,4,6) AND SUBSTR(T.TRANS_TYPE,4,1) IN ('0','1','2','4') AND SUBSTR (T.TRANS_TYPE,2, 1)=1 AND T.ISSETTLE!=0
+            GROUP BY T.ENT_CUST_ID,T.ENT_RES_NO) NNN LEFT JOIN (SELECT SUM(NVL(BB.ENT_POINT,0)) "dayBackPointTurnover",NN.ENT_CUST_ID FROM T_PS_BDETAIL BB INNER  JOIN  T_PS_NDETAIL NN ON NN.TRANS_NO=BB.OLD_TRANS_NO AND SUBSTR(BB.TRANS_TYPE,4,1) IN ('2','6')
+            WHERE NN.ISSETTLE=0 AND BB.ISSETTLE=2 AND SUBSTR (NN.TRANS_TYPE,2, 1)=1 AND BB.BATCH_NO=#{runDate,jdbcType=VARCHAR} AND NN.TRANS_STATUS IN (2,6) AND NN.BATCH_NO!=BB.BATCH_NO
+            GROUP BY NN.ENT_CUST_ID,NN.ENT_RES_NO)  BBB ON NNN.ENT_CUST_ID=BBB.ENT_CUST_ID
+            LEFT JOIN (SELECT NVL(OOO.SUB_SERVICE_FEE,0)-NVL(OOOO.ADD_SERVICE_FEE,0) SERVIDE_FEE,OOO.ENT_CUST_ID FROM (SELECT SUM(NVL(O.ENT_SUB_SERVICE_FEE,0)) SUB_SERVICE_FEE,O.ENT_CUST_ID FROM T_PS_ONLINE_ENTRY O
+            INNER JOIN T_PS_NDETAIL N ON N.TRANS_NO=O.REL_TRANS_NO AND
+            O.BATCH_NO =#{runDate,jdbcType=VARCHAR} AND N.TRANS_STATUS IN (0,2,4,5,6) AND SUBSTR(N.TRANS_TYPE,4,1) IN ('0','1','2','4') AND SUBSTR (N.TRANS_TYPE,2, 1)=1 AND N.ISSETTLE!=0
+            GROUP BY O.ENT_CUST_ID) OOO
+            LEFT JOIN (SELECT SUM(NVL(O.ENT_ADD_SERVICE_FEE,0)) ADD_SERVICE_FEE,O.ENT_CUST_ID FROM T_PS_ONLINE_ENTRY O  INNER JOIN  (select B.TRANS_NO from T_PS_BDETAIL B INNER JOIN T_PS_NDETAIL N ON  N.TRANS_NO=B.OLD_TRANS_NO AND
+            N.BATCH_NO =#{runDate,jdbcType=VARCHAR} AND N.TRANS_STATUS=4 AND SUBSTR(N.TRANS_TYPE,4,1)='4' AND SUBSTR (N.TRANS_TYPE,2, 1)=1 AND N.ORDER_TYPE=2  AND N.ISSETTLE!=0) BBBB ON BBBB.TRANS_NO=O.REL_TRANS_NO
+            GROUP BY O.ENT_CUST_ID) OOOO ON OOO.ENT_CUST_ID=OOOO.ENT_CUST_ID)OOO ON OOO.ENT_CUST_ID=NNN.ENT_CUST_ID
+    </select>
+
+
+    <!-- 日终汇总线上交易销售额紧退货，没有做正常单 -->
+    <select id="queryOnlineEntryOnlyBc" resultType="Alloc"  parameterType="String">
+        SELECT
+            0 "subAmount",
+            0 "dayHsbTurnover",/*互生币结算交易金额*/
+            0 "dayCashTurnover",/*现金结算交易金额*/
+            0 "dayBackCyberTurnover",/*当日未结交易退现金金额*/
+            0 "dayBackHsbTurnover",/*当日未结交易退互生币金额*/
+            SUM(NVL(B.ENT_POINT,0)) "dayBackPointTurnover",
+            0 "deductPointAmount",/*扣除积分金额*/
+            0 "cscTurnover",
+            COUNT (1) "hsbAddCount",
+            T.ENT_CUST_ID "custId",
+            T.ENT_CUST_ID,
+            T.ENT_RES_NO "hsResNo",
+            '20111' "accType",
+            #{runDate,jdbcType=VARCHAR}  "batchNo"
+        FROM T_PS_BDETAIL B INNER  JOIN  T_PS_NDETAIL T ON T.TRANS_NO=B.OLD_TRANS_NO AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6')
+        WHERE T.ISSETTLE=0 AND B.ISSETTLE=2 AND B.BATCH_NO=#{runDate,jdbcType=VARCHAR}  AND T.TRANS_STATUS IN (2,6) AND T.BATCH_NO!=B.BATCH_NO  AND SUBSTR (T.TRANS_TYPE,2, 1)=1
+              AND  NOT EXISTS(SELECT 1 FROM T_PS_NDETAIL NN WHERE NN.BATCH_NO=B.BATCH_NO AND NN.ENT_CUST_ID=B.ENT_CUST_ID AND NN.TRANS_STATUS NOT IN (1,3,5) AND NN.ISSETTLE!=0 AND SUBSTR (NN.TRANS_TYPE,2, 1)=1)
+        GROUP BY T.ENT_CUST_ID,T.ENT_RES_NO
+    </select>
+
+    <!-- 日终汇总线下交易销售额 -->
+    <select id="queryOfflineEntry" resultType="Alloc"  parameterType="String">
+              SELECT NNN.*,BBB.* FROM (
+               SELECT --SUM (CASE WHEN  T.ISSETTLE = 1 THEN  NVL (T.TARGET_TRANS_AMOUNT,0) END)  "addAmount",
+               0  "subAmount",
+               --SUM (CASE WHEN  T.ISSETTLE = 1  THEN NVL (T.TARGET_TRANS_AMOUNT, 0) - NVL (B.TRANS_AMOUNT, 0) END) "daySale",
+               NVL(SUM (CASE WHEN SUBSTR (T.TRANS_TYPE,3,1)!='3' AND T.ISSETTLE = 2 AND T.TRANS_STATUS IN (0,8) THEN T.TARGET_TRANS_AMOUNT
+                            WHEN SUBSTR (T.TRANS_TYPE,3,1)!='3' AND T.ISSETTLE = 2 AND T.TRANS_STATUS=6 THEN NVL(T.TRANS_AMOUNT,0) END),0)
+                                                          "dayHsbTurnover",/*互生币结算交易金额*/
+               NVL(SUM (CASE WHEN SUBSTR (T.TRANS_TYPE,3,1)='3' AND T.ISSETTLE = 2  AND T.TRANS_STATUS IN (0,8) THEN T.TARGET_TRANS_AMOUNT
+                             WHEN SUBSTR (T.TRANS_TYPE,3,1)='3' AND T.ISSETTLE = 2  AND T.TRANS_STATUS=6  THEN NVL(T.TRANS_AMOUNT,0) END),0)
+                             "dayCashTurnover",/*现金结算交易金额*/
+               NVL(SUM (CASE WHEN T.TRANS_STATUS IN(1,2)  AND SUBSTR (T.TRANS_TYPE,3, 1)='3'  AND T.ISSETTLE =1 THEN NVL(T.TARGET_TRANS_AMOUNT,0)
+               WHEN T.TRANS_STATUS=6  AND SUBSTR (T.TRANS_TYPE,3, 1)='3'  AND T.ISSETTLE =2 THEN NVL(T.TARGET_TRANS_AMOUNT,0)-NVL(T.TRANS_AMOUNT,0)
+               END),0)                                                                            "dayBackCyberTurnover",/*当日未结交易退现金金额*/
+               NVL(SUM (CASE WHEN T.TRANS_STATUS IN(1,2)  AND SUBSTR (T.TRANS_TYPE,3, 1)!='3'  AND T.ISSETTLE =1 THEN NVL(T.TARGET_TRANS_AMOUNT,0)
+               WHEN T.TRANS_STATUS=6  AND SUBSTR (T.TRANS_TYPE,3, 1)!='3'  AND T.ISSETTLE =2 THEN NVL(T.TARGET_TRANS_AMOUNT,0)-NVL(T.TRANS_AMOUNT,0)
+               END),0)                                                                            "dayBackHsbTurnover",/*当日未结交易退互生币金额*/
+               --NVL(SUM (CASE WHEN T.TRANS_STATUS IN(2,6)  AND B.ISSETTLE = 0 THEN NVL(B.ENT_POINT,0) END),0) "dayBackPointTurnover",/*已结交易当日退回积分金额*/
+               NVL(SUM (CASE WHEN  T.ISSETTLE=2 AND SUBSTR (T.TRANS_TYPE,2,2)!='23' THEN  T.ENT_POINT END),0) -
+               NVL(SUM (CASE WHEN  T.ISSETTLE =1 AND  SUBSTR (T.TRANS_TYPE,2,2)='23' AND T.TRANS_STATUS =1 THEN  NVL(T.ENT_POINT,0)END),0)-
+               NVL(SUM (CASE WHEN  B.ISSETTLE!=0 AND  SUBSTR (T.TRANS_TYPE,2,2)='23' AND  T.TRANS_STATUS IN (2,6) THEN  NVL(B.ENT_POINT,0) END),0)-
+               NVL(SUM (CASE WHEN  B.ISSETTLE!=0 AND  SUBSTR (T.TRANS_TYPE,2,2)!='23' AND   T.TRANS_STATUS=6 THEN  NVL(B.ENT_POINT,0)
+                END),0)
+               "deductPointAmount",/*扣除积分金额*/
+               COUNT (1) "hsbAddCount",
+               T.ENT_CUST_ID "custId",
+               T.ENT_CUST_ID,
+               T.ENT_RES_NO "hsResNo",
+               '20111' "accType",
+                #{runDate,jdbcType=VARCHAR} "batchNo"
+                FROM T_PS_NDETAIL T
+                LEFT  JOIN  T_PS_BDETAIL B ON T.TRANS_NO=B.OLD_TRANS_NO AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6')
+                WHERE T.BATCH_NO=#{runDate,jdbcType=VARCHAR} AND T.TRANS_STATUS IN (0,1,2,6,8) AND SUBSTR(T.TRANS_TYPE,4,1) IN ('0','1','2','8') AND SUBSTR (T.TRANS_TYPE,2, 1)=2 AND T.ISSETTLE!=0 AND (T.PAY_STATUS=1 OR T.PAY_STATUS IS NULL)
+                GROUP BY T.ENT_CUST_ID,T.ENT_RES_NO) NNN LEFT JOIN (SELECT SUM(NVL(BB.ENT_POINT,0)) "dayBackPointTurnover",NN.ENT_CUST_ID FROM T_PS_BDETAIL BB INNER  JOIN  T_PS_NDETAIL NN ON NN.TRANS_NO=BB.OLD_TRANS_NO AND SUBSTR(BB.TRANS_TYPE,4,1) IN ('2','6')
+                WHERE NN.ISSETTLE=0 AND BB.ISSETTLE=2 AND SUBSTR (NN.TRANS_TYPE,2, 1)=2   AND BB.BATCH_NO=#{runDate,jdbcType=VARCHAR} AND NN.TRANS_STATUS IN (2,6) AND NN.BATCH_NO!=BB.BATCH_NO  AND (NN.PAY_STATUS=1 OR NN.PAY_STATUS IS NULL)
+                GROUP BY NN.ENT_CUST_ID,NN.ENT_RES_NO)  BBB ON NNN.ENT_CUST_ID=BBB.ENT_CUST_ID
+    </select>
+
+
+    <!-- 日终汇总线下交易销售额紧退货，没有做正常单 -->
+    <select id="queryOfflineEntryOnlyBc" resultType="Alloc"  parameterType="String">
+        SELECT
+        0 "subAmount",
+        0 "dayHsbTurnover",/*互生币结算交易金额*/
+        0 "dayCashTurnover",/*现金结算交易金额*/
+        0 "dayBackCyberTurnover",/*当日未结交易退现金金额*/
+        0 "dayBackHsbTurnover",/*当日未结交易退互生币金额*/
+        SUM(NVL(B.ENT_POINT,0)) "dayBackPointTurnover",
+        0 "deductPointAmount",/*扣除积分金额*/
+        0 "cscTurnover",
+        COUNT (1) "hsbAddCount",
+        T.ENT_CUST_ID "custId",
+        T.ENT_CUST_ID,
+        T.ENT_RES_NO "hsResNo",
+        '20111' "accType",
+        #{runDate,jdbcType=VARCHAR}  "batchNo"
+        FROM T_PS_BDETAIL B INNER  JOIN  T_PS_NDETAIL T ON T.TRANS_NO=B.OLD_TRANS_NO AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6')
+        WHERE T.ISSETTLE=0 AND B.ISSETTLE=2 AND B.BATCH_NO=#{runDate,jdbcType=VARCHAR}  AND T.TRANS_STATUS IN (2,6) AND T.BATCH_NO!=B.BATCH_NO AND (T.PAY_STATUS=1 OR T.PAY_STATUS IS NULL) AND SUBSTR (T.TRANS_TYPE,2, 1)=2
+              AND  NOT EXISTS(SELECT 1 FROM T_PS_NDETAIL NN WHERE NN.BATCH_NO=B.BATCH_NO AND NN.ENT_CUST_ID=B.ENT_CUST_ID AND NN.TRANS_STATUS NOT IN (1,7,9) AND NN.ISSETTLE!=0  AND SUBSTR (NN.TRANS_TYPE,2, 1)=2)
+        GROUP BY T.ENT_CUST_ID,T.ENT_RES_NO
+    </select>
+
+
+    <!-- 批量插入商业服务费 (日终、月终)-->
+    <insert id="insertDailyCsc" parameterType="list">
+        INSERT  INTO T_PS_HSB_ALLOC_CSC (
+	        CSC_NO,
+	        CUST_ID,
+	        CUST_TYPE,
+	        BATCH_NO,
+	        HS_RES_NO,
+	        ACC_TYPE,
+	        ADD_AMOUNT,
+	        SUB_AMOUNT,
+	        TRANS_TYPE,
+	        SETTLE_TYPE,
+	        CSC_TYPE,
+	        AMOUNT_RATE,
+	        CREATED_DATE,
+	        UPDATED_DATE,
+            REL_SUM_NO,
+            ISSETTLE
+	        )
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.tollNo,jdbcType=VARCHAR} AS CSC_NO,
+            #{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+            #{item.custType,jdbcType=VARCHAR} AS CUST_TYPE,
+            #{item.batchNo,jdbcType=VARCHAR} AS BATCH_NO,
+            #{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+            #{item.tollAccType,jdbcType=VARCHAR} AS ACC_TYPE,
+            #{item.tollAddAmount,jdbcType=NUMERIC} AS ADD_AMOUNT,
+            #{item.tollSubAmount,jdbcType=NUMERIC} AS SUB_AMOUNT,
+            #{item.transType,jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.settleType,jdbcType=VARCHAR} AS SETTLE_TYPE,
+            #{item.cscType,jdbcType=NUMERIC} AS CSC_TYPE,
+            #{item.amountRate,jdbcType=NUMERIC} AS AMOUNT_RATE,
+            SYSTIMESTAMP,
+            SYSTIMESTAMP,
+            #{item.relCscNo,jdbcType=VARCHAR},
+            #{item.isSettle,jdbcType=INTEGER} AS ISSETTLE
+            FROM DUAL)
+        </foreach>
+    </insert>
+    
+    <!-- 更新商业服务费是否结算 -->
+    <update id="updateCscIssettle">
+		UPDATE T_PS_HSB_ALLOC_CSC t SET t.ISSETTLE = 0
+        WHERE 
+        t.BATCH_NO  &gt;= TO_CHAR(TRUNC(add_months(SYSDATE, -1),'MM'),'YYYY-MM-DD')  
+     	AND t.BATCH_NO  &lt;= TO_CHAR(TRUNC(add_months(last_day(SYSDATE), -0)),'YYYY-MM-DD') 
+        AND t.ISSETTLE = 1 
+	</update>
+
+    <!-- 查询当月的商业服务费 -->
+    <select id="queryMonthCsc" parameterType="String" resultType="Alloc">
+ 	    SELECT  SUM(t.ADD_AMOUNT) "addAmount",
+             -- t.CUST_ID "custId",
+              SUBSTR(t.HS_RES_NO,0,5)||'000000' "hsResNo",
+              t.ACC_TYPE "accType",
+             TO_CHAR(ADD_MONTHS(TRUNC(LAST_DAY(SYSDATE)),-1),'YYYY-MM-DD')  "batchNo"
+        FROM  T_PS_HSB_ALLOC_CSC t
+        WHERE
+        SUBSTR(T.BATCH_NO,0,7)=#{batchNo,jdbcType=VARCHAR}
+        AND t.SETTLE_TYPE = 1 AND t.ISSETTLE = 1
+	    GROUP BY
+	    SUBSTR(t.HS_RES_NO,0,5)||'000000', t.ACC_TYPE
+	</select>
+    <!-- 日终互生币减去商业服务费后批量插入 -->
+    <insert id="insertHsbSum" parameterType="list">
+        INSERT /*+APPEND*/ INTO T_PS_HSB_ALLOC_SUM (
+	        HSB_SUM_NO,
+	        CUST_ID,
+	        CUST_TYPE,
+	        HS_RES_NO,
+	        ACC_TYPE,
+	        ADD_AMOUNT,
+	        SUB_AMOUNT,
+	        ADD_COUNT,
+	        TRANS_TYPE,
+	        BATCH_NO,
+            SALE_AMOUNT,
+           TRANS_AMOUNT,
+           CASH_TRANS_AMOUNT,
+           HSB_TRANS_AMOUNT,
+           SETTLE_BACK_HSB_TRANS_AMOUNT,
+           SETTLE_BACK_CASH_TRANS_AMOUNT,
+           SETTLE_BACK_POINT_AMOUNT,
+           ACCOUNTANT_DATE,
+          CSC_AMOUNT,
+          DEDUCT_POINT_AMOUNT,
+          ISSETTLE
+	        )
+        <foreach collection="list" item="item" index="index" separator="union all">
+            (SELECT
+            #{item.hsbNo,jdbcType=VARCHAR} AS HSB_SUM_NO,
+            #{item.custId,jdbcType=VARCHAR} AS CUST_ID,
+            #{item.custType,jdbcType=INTEGER} AS CUST_TYPE,
+            #{item.hsResNo,jdbcType=VARCHAR} AS HS_RES_NO,
+            #{item.accType,jdbcType=VARCHAR} AS ACC_TYPE,
+            #{item.addAmount,jdbcType=NUMERIC} AS ADD_AMOUNT,
+            #{item.subAmount,jdbcType=NUMERIC} AS SUB_AMOUNT,
+            #{item.hsbAddCount,jdbcType=INTEGER} AS ADD_COUNT,
+            #{item.transType,jdbcType=VARCHAR} AS TRANS_TYPE,
+            #{item.batchNo,jdbcType=VARCHAR} AS BATCH_NO,
+            #{item.daySale,jdbcType=NUMERIC} AS SALE_AMOUNT,
+            #{item.dayTurnover,jdbcType=NUMERIC} AS TRANS_AMOUNT,
+            #{item.dayCashTurnover,jdbcType=NUMERIC} AS CASH_TRANS_AMOUNT,
+            #{item.dayHsbTurnover,jdbcType=NUMERIC} AS HSB_TRANS_AMOUNT,
+            #{item.dayBackHsbTurnover,jdbcType=NUMERIC} AS SETTLE_BACK_HSB_TRANS_AMOUNT,
+            #{item.dayBackCyberTurnover,jdbcType=NUMERIC} AS SETTLE_BACK_CASH_TRANS_AMOUNT,
+            #{item.dayBackPointTurnover,jdbcType=NUMERIC} AS SETTLE_BACK_POINT_AMOUNT,
+            SYSTIMESTAMP,
+            #{item.cscTurnover,jdbcType=NUMERIC} AS CSC_AMOUNT,
+            #{item.deductPointAmount,jdbcType=NUMERIC} AS DEDUCT_POINT_AMOUNT,
+            #{item.isSettle,jdbcType=INTEGER} AS ISSETTLE
+            FROM DUAL)
+        </foreach>
+    </insert>
+    
+    
+    	<!-- 更新积分订单状态（是否已分配结算） -->
+	<update id="updatePointSettle" parameterType="String">
+		UPDATE  T_PS_NDETAIL T SET T.ISSETTLE = 0
+        WHERE
+       --  T.ISSETTLE=2 AND
+         T.BATCH_NO = #{runDate,jdbcType=VARCHAR}
+         AND  T.TRANS_STATUS in (0,1,2,4,6,8)
+	</update>
+      <!-- 更新商城待清算互生币是否结算 -->
+    <update id="updateEsHsbSettle" parameterType="String">
+		UPDATE T_PS_ONLINE_ENTRY t SET t.ISSETTLE = 0
+        WHERE  t.ISSETTLE = 1
+        AND t.BATCH_NO =  #{runDate,jdbcType=VARCHAR}
+	</update>
+      <!-- 更新线下待清算互生币是否结算 -->
+    <update id="updatePosHsbSettle" parameterType="String">
+		UPDATE T_PS_OFFLINE_ENTRY t SET t.ISSETTLE = 0
+        WHERE  t.ISSETTLE = 1
+        AND t.BATCH_NO =  #{runDate,jdbcType=VARCHAR}
+	</update>
+
+    <!-- 更新线下待清算互生币是否结算 -->
+    <update id="updatePosHsbWriteBack" parameterType="map">
+        UPDATE T_PS_OFFLINE_ENTRY t SET t.WRITE_BACK=#{writeBack, jdbcType=VARCHAR}
+        WHERE  t.ENTRY_NO = #{entryNo,jdbcType=VARCHAR}
+    </update>
+	  <!-- 更新互生币汇总是否结算 -->
+    <update id="updateHsbSumSettle" parameterType="String">
+		UPDATE T_PS_HSB_ALLOC_SUM t SET t.ISSETTLE = 0
+        WHERE  t.ISSETTLE = 1
+        AND t.BATCH_NO =  #{runDate,jdbcType=VARCHAR}
+	</update>
+
+    <!-- 更新隔日退退货表状态(是否已分配结算） -->
+    <update id="updateBPointSettle" parameterType="String">
+        UPDATE  T_PS_BDETAIL B SET B.ISSETTLE =1
+        WHERE B.ISSETTLE=2 AND SUBSTR(B.TRANS_TYPE,4,1) IN ('2','6') AND  B.BATCH_NO=#{runDate,jdbcType=VARCHAR}
+    </update>
+</mapper>
+

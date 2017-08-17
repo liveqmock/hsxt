@@ -1,0 +1,39 @@
+ <form id="ac_appform" autocomplete="off" name="ac_appform" action="" method="post"> 
+		<input type="hidden" id="ac_minCashNum" value=""/>
+		<input type="hidden" id="ac_randomToken" value=""/>
+		<input type="hidden" id="cashAccTotal" value=""/>
+                 			<div class="acct-ct mb20">
+								<h1 class="acct-tips lh150 bc" style="width:450px;text-align:left;"><span class="tcr_blue fb">温馨提示：</span><br>1、货币账户可转出，转出金额为不小于<span id="hb_ac_minCashNum"></span>的整数！<br>2、转账手续费从货币账户余额中扣除，请保证余额充足，以确保能顺利进行转账。</h1>
+                            </div>
+                             <div class="cssform_450">
+                        <ul class="cssform clearfix">
+                            <li class="col2 pr " style="display: none;">
+                                <label class="title-txt">转出货币账户交易子账户</label>
+                                     
+                                  <input id='bankNo' placeholder="-选择转入货币账户交易子账户-" 
+options="[{name:'人民币-互生中国结算公司',value:'1'},{name:'美元-互生美国结算公司',value:'2'}]" optionValue=""  readonly="readonly"  />     
+                                     
+                            </li>
+                            <li class="col2 pr bg_ef">
+                                <label class="title-txt">货币账户余额</label>
+                                <div class="cont-chk tbox"><span class="ml10" id="ac_cashAccTotal"></span></div>
+                            </li>
+                            <li class="col2 pr">
+                                <label class="title-txt">转出金额</label>
+                                <div class="cont-int"><input maxlength="10" class="inpt w176 input_gray" type="text" name="ac_appTransferMoneyNum" id="ac_appTransferMoneyNum" placeholder="输入转出金额"  ><div class="hint red">*</div></div>
+                            </li>
+                            <li class="col2 pr" >
+                                <label class="title-txt">转入银行账户</label>
+                              <div class="cont-chk tbox2 wseltbox"><select id="ac_bankCardList" style="width:275px;height:30px"></select></div><div class="hint"></div>      
+                                    <div class="hint red">*</div> 
+                                    <!--div class="hint"><a href="#">+添加新的银行账号</a></div--> 
+                            </li>
+                            <li class="col2 pr  bg_ef">
+                                <label class="title-txt">当地结算货币</label>
+                                <div class="cont-chk tbox"><span class="ml10">人民币</span></div>
+                            </li>
+                         </ul>
+                         
+                        </div>   
+                        <div align="center" class="mt20"><a id="btn_hbzyh_post" class="btn_bg submit">提　交</a></div>   
+</form>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				        http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://code.alibabatech.com/schema/dubbo
+				        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<!-- dubbo 基本配置 -->
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry id="hsxt-access-web-official-consumer" address="${dubbo.registry.address}"  default="true"/>
+    <dubbo:protocol name="${dubbo.protocol}" port="${dubbo.protocol.port}"  threadpool="${dubbo.protocol.threadpool.type}"
+    	threads="${dubbo.protocol.threadpool.threads}" accepts="${dubbo.protocol.accepts}" />
+	<!--<dubbo:monitor protocol="registry" /> -->
+
+    <!-- 关闭所有服务的启动时检查 -->
+	<dubbo:consumer check="false"/>
+
+	<!-- 全局配置参数 -->
+	<dubbo:reference id="baseDataService" interface="com.gy.hsxt.lcs.api.ILCSBaseDataService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+
+	<!-- 用户中心企业信息接口 -->
+	<dubbo:reference id="asEntService" interface="com.gy.hsxt.uc.as.api.ent.IUCAsEntService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<!-- 用户中心企业银行账户接口 -->	   
+	<dubbo:reference id="asBankAcctInfoService" interface="com.gy.hsxt.uc.as.api.common.IUCAsBankAcctInfoService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<!-- 用户中心企业操作员接口 -->	   
+	<dubbo:reference id="asOperatorService" interface="com.gy.hsxt.uc.as.api.operator.IUCAsOperatorService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>	
+		   	   
+	<!-- 用户中心手机接口 -->	   
+	<dubbo:reference id="asMobileService" interface="com.gy.hsxt.uc.as.api.common.IUCAsMobileService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   		   
+	<!-- 用户中心邮箱接口 -->	   
+	<dubbo:reference id="asEmailService" interface="com.gy.hsxt.uc.as.api.common.IUCAsEmailService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<!-- 用户中心密保接口 -->	   
+	<dubbo:reference id="asPwdQuestionService" interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdQuestionService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>	
+		   		   
+	<!-- 用户中心持卡人接口 -->	   
+	<dubbo:reference id="asCardHolderService" interface="com.gy.hsxt.uc.as.api.consumer.IUCAsCardHolderService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>			   
+ 	
+	<!-- 用户中心密码接口 -->	   
+	<dubbo:reference id="asPwdService" interface="com.gy.hsxt.uc.as.api.common.IUCAsPwdService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>			   
+ 	
+ 	
+ 	<!-- BS官网服务 -->
+ 	<dubbo:reference id="officialWebService" interface="com.gy.hsxt.bs.api.apply.IBSOfficialWebService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+		   
+	<!-- BS订单服务 -->
+ 	<dubbo:reference id="orderService" interface="com.gy.hsxt.bs.api.order.IBSOrderService"
+		   retries="${dubbo.reference.retires}"  connections="${dubbo.reference.connections}" check="false" version="1.0.0"/>
+ 	
+</beans>

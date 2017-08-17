@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.common.mapper.ReceiveAddrMapper">
+<!-- 收货地址信息-->
+	<resultMap id="BaseResultMap" type="com.gy.hsxt.uc.common.bean.ReceiveAddr">
+		<id column="ADDR_ID" property="addrId" jdbcType="DECIMAL" />
+		<result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+		<result column="RECEIVER" property="receiver" jdbcType="VARCHAR" />
+		<result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+		<result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+		<result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+		<result column="TELPHONE" property="telphone" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="IS_DEFAULT" property="isDefault" jdbcType="DECIMAL" />
+		<result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 查询的列 -->
+	<sql id="Base_Column_List">
+		ADDR_ID,
+		CUST_ID,
+		RECEIVER,
+		COUNTRY_NO,
+		PROVINCE_NO,
+		CITY_NO,
+		AREA,
+		ADDRESS,
+		POST_CODE,
+		TELPHONE,
+		MOBILE,
+		IS_DEFAULT,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY
+	</sql>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_RECEIVE_ADDR
+		where ADDR_ID = #{addrId,jdbcType=DECIMAL}
+	</select>
+	
+	<!-- 查询默认的收货地址信息 -->
+	<select id="selectDefaultAddr" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from T_RECEIVE_ADDR
+		where IS_DEFAULT = 1
+	</select>
+	
+	<!-- 根据客户号和收货地址编号ID查询收货地址信息 -->
+	<select id="selectAddrInfo" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from T_RECEIVE_ADDR
+		where ADDR_ID = #{addrId,jdbcType=DECIMAL} and CUST_ID = #{custId,jdbcType=VARCHAR}
+	</select>
+	 
+	<!-- 根据客户号查询默认的收货地址信息 -->
+	<select id="selectDefaultAddrInfo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_RECEIVE_ADDR
+		where IS_DEFAULT = 1 and CUST_ID = #{custId,jdbcType=VARCHAR} and ISACTIVE='Y'
+	</select>
+	
+	
+	<!-- 根据ID删除收货地址 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		T_RECEIVE_ADDR
+		where ADDR_ID = #{addrId,jdbcType=DECIMAL}
+	</delete>
+	
+	<!-- 添加收货地址全部字段 -->
+	<insert id="insert" parameterType="com.gy.hsxt.uc.common.bean.ReceiveAddr">
+		insert into T_RECEIVE_ADDR (
+		ADDR_ID,
+		CUST_ID,
+		RECEIVER,
+		COUNTRY_NO,
+		PROVINCE_NO,
+		CITY_NO,
+		AREA,
+		ADDRESS,
+		POST_CODE,
+		TELPHONE,
+		MOBILE,
+		IS_DEFAULT,
+		ISACTIVE,
+		CREATE_DATE,
+		CREATEDBY,
+		UPDATE_DATE,
+		UPDATEDBY)
+		values (
+		#{addrId,jdbcType=DECIMAL},
+		#{custId,jdbcType=VARCHAR},
+		#{receiver,jdbcType=VARCHAR},
+		#{countryNo,jdbcType=VARCHAR},
+		#{provinceNo,jdbcType=VARCHAR},
+		#{cityNo,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{postCode,jdbcType=VARCHAR},
+		#{telphone,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=DECIMAL},
+		#{isactive,jdbcType=CHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createdby,jdbcType=VARCHAR},
+		#{updateDate,jdbcType=TIMESTAMP},
+		#{updatedby,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 添加收货地址  -->
+	<insert id="insertSelective" parameterType="com.gy.hsxt.uc.common.bean.ReceiveAddr">
+		insert into T_RECEIVE_ADDR
+		<trim prefix="(" suffix=")" suffixOverrides=",">			
+				ADDR_ID,
+			<if test="custId != null">
+				CUST_ID,
+			</if>
+			<if test="receiver != null">
+				RECEIVER,
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO,
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO,
+			</if>
+			<if test="cityNo != null">
+				CITY_NO,
+			</if>
+			<if test="area != null">
+				AREA,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="postCode != null">
+				POST_CODE,
+			</if>
+			<if test="telphone != null">
+				TELPHONE,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="isDefault != null">
+				IS_DEFAULT,
+			</if>
+			<if test="isactive != null">
+				ISACTIVE,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="createdby != null">
+				CREATEDBY,
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE,
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="addrId == null">
+				SEQ_T_RECEIVE_ADDR.NEXTVAL,
+			</if>
+			<if test="addrId != null">
+				#{addrId,jdbcType=DECIMAL},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="receiver != null">
+				#{receiver,jdbcType=VARCHAR},
+			</if>
+			<if test="countryNo != null">
+				#{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				#{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				#{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="postCode != null">
+				#{postCode,jdbcType=VARCHAR},
+			</if>
+			<if test="telphone != null">
+				#{telphone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				#{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				#{updatedby,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 更新字段值不为空的收货地址信息 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.gy.hsxt.uc.common.bean.ReceiveAddr">
+		update T_RECEIVE_ADDR
+		<set>
+			<if test="custId != null">
+				CUST_ID = #{custId,jdbcType=VARCHAR},
+			</if>
+			<if test="receiver != null">
+				RECEIVER = #{receiver,jdbcType=VARCHAR},
+			</if>
+			<if test="countryNo != null">
+				COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceNo != null">
+				PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="cityNo != null">
+				CITY_NO = #{cityNo,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				AREA = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="postCode != null">
+				POST_CODE = #{postCode,jdbcType=VARCHAR},
+			</if>
+			<if test="telphone != null">
+				TELPHONE = #{telphone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+			</if>
+			<if test="isactive != null">
+				ISACTIVE = #{isactive,jdbcType=CHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdby != null">
+				CREATEDBY = #{createdby,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedby != null">
+				UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ADDR_ID = #{addrId,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 根据ID更新收货地址 -->
+	<update id="updateByPrimaryKey" parameterType="com.gy.hsxt.uc.common.bean.ReceiveAddr">
+		update
+		T_RECEIVE_ADDR
+		set CUST_ID = #{custId,jdbcType=VARCHAR},
+		RECEIVER =
+		#{receiver,jdbcType=VARCHAR},
+		COUNTRY_NO =
+		#{countryNo,jdbcType=VARCHAR}, 
+		PROVINCE_NO =
+		#{provinceNo,jdbcType=VARCHAR},
+		CITY_NO = #{cityNo,jdbcType=VARCHAR},
+		AREA = #{area,jdbcType=VARCHAR},
+		ADDRESS = #{address,jdbcType=VARCHAR},
+		POST_CODE = #{postCode,jdbcType=VARCHAR},
+		TELPHONE = #{telphone,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+		ISACTIVE = #{isactive,jdbcType=CHAR},
+		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+		CREATEDBY = #{createdby,jdbcType=VARCHAR},
+		UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+		UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+		where ADDR_ID =#{addrId,jdbcType=DECIMAL}
+	</update>
+	
+	<!-- 根据客户号设置收货地址不为默认地址 -->
+	<update id="setNoDefaultByCustId" parameterType="java.lang.String">
+		update
+		T_RECEIVE_ADDR
+		set
+		IS_DEFAULT = 0
+		where ISACTIVE='Y' AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 根据客户号查询收货地址  -->
+	<select id="selectByCustId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from T_RECEIVE_ADDR
+		where ISACTIVE='Y' AND CUST_ID = #{custId,jdbcType=VARCHAR}
+	</select>
+</mapper>

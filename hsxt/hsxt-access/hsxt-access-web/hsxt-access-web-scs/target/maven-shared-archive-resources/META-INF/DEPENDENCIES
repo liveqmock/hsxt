@@ -1,0 +1,287 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+hsxt-access-web-scs
+
+
+From: 'Alibaba Group' (http://code.alibabatech.com/)
+  - druid (https://github.com/alibaba/druid) com.alibaba:druid:jar:1.0.12
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - fastjson (https://github.com/alibaba/fastjson) com.alibaba:fastjson:jar:1.2.2
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'an unknown organization'
+  - AOP alliance (http://aopalliance.sourceforge.net) aopalliance:aopalliance:jar:1.0
+    License: Public Domain 
+  - zkclient  com.101tec:zkclient:jar:0.4
+
+  - dubbo  com.alibaba:dubbo:jar:2.5.3
+
+  - Hessian (http://hessian.caucho.com) com.caucho:hessian:jar:4.0.7
+    License: The Apache Software License, Version 1.1  (http://www.apache.org/licenses/LICENSE-1.1.txt)
+  - Guava: Google Core Libraries for Java (http://code.google.com/p/guava-libraries/guava) com.google.guava:guava:bundle:16.0.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - hsec-external-api  com.gy.hsec.api:hsec-external-api:jar:3.0.0-SNAPSHOT
+
+  - ojdbc6  com.oracle:ojdbc6:jar:11.2.0.3
+
+  - RabbitMQ Java Client (http://www.rabbitmq.com) com.rabbitmq:amqp-client:jar:3.4.1
+    License: ASL 2.0  (http://www.apache.org/licenses/LICENSE-2.0.html)    License: GPL v2  (http://www.gnu.org/licenses/gpl-2.0.txt)    License: MPL 1.1  (http://www.mozilla.org/MPL/MPL-1.1.txt)
+  - hessian  hessian:hessian:jar:4.0.7
+
+  - Javassist (http://www.javassist.org/) javassist:javassist:jar:3.12.1.GA
+    License: MPL 1.1  (http://www.mozilla.org/MPL/MPL-1.1.html)    License: LGPL 2.1  (http://www.gnu.org/licenses/lgpl-2.1.html)
+  - javax.inject (http://code.google.com/p/atinject/) javax.inject:javax.inject:jar:1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Bean Validation API  javax.validation:validation-api:jar:1.0.0.GA
+    License: Apache License, Version 2.0  (license.txt)
+  - JLine (http://jline.sourceforge.net) jline:jline:jar:0.9.94
+    License: BSD  (LICENSE.txt)
+  - LZ4 and xxHash (https://github.com/jpountz/lz4-java) net.jpountz.lz4:lz4:jar:1.2.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - ezmorph (http://ezmorph.sourceforge.net) net.sf.ezmorph:ezmorph:jar:1.0.6
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Kafka (http://kafka.apache.org) org.apache.kafka:kafka-clients:jar:0.9.0.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - zookeeper  org.apache.zookeeper:zookeeper:pom:3.4.6
+
+  - AspectJ tools (http://www.aspectj.org) org.aspectj:aspectjtools:jar:1.7.4
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - AspectJ weaver (http://www.aspectj.org) org.aspectj:aspectjweaver:jar:1.6.8
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)
+  - FreeMarker (http://freemarker.org/) org.freemarker:freemarker:jar:2.3.22
+    License: Apache License, Version 2.0  (http://freemarker.org/LICENSE.txt)
+  - Hibernate Validator Engine (http://validator.hibernate.org/hibernate-validator) org.hibernate:hibernate-validator:jar:4.3.0.Final
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Javassist (http://www.javassist.org/) org.javassist:javassist:bundle:3.19.0-GA
+    License: MPL 1.1  (http://www.mozilla.org/MPL/MPL-1.1.html)    License: LGPL 2.1  (http://www.gnu.org/licenses/lgpl-2.1.html)    License: Apache License 2.0  (http://www.apache.org/licenses/)
+  - Reflections (http://code.google.com/p/reflections/reflections/) org.reflections:reflections:jar:0.9.9-RC1
+    License: WTFPL  (http://www.wtfpl.net/)
+  - Jedis (https://github.com/xetorthio/jedis) redis.clients:jedis:jar:2.7.2
+    License: MIT  (http://github.com/xetorthio/jedis/raw/master/LICENSE.txt)
+
+From: 'Apache Software Foundation' (http://jakarta.apache.org/)
+  - HttpClient (http://jakarta.apache.org/httpcomponents/httpclient-3.x/) commons-httpclient:commons-httpclient:jar:3.1
+    License: Apache License  (http://www.apache.org/licenses/LICENSE-2.0)
+
+From: 'Apache Software Foundation' (http://www.apache.org)
+  - Apache Log4j (http://logging.apache.org/log4j/1.2/) log4j:log4j:bundle:1.2.17
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Apache Software Foundation' (http://www.apache.org/)
+  - XML Commons External Components XML APIs (http://xml.apache.org/commons/#external) xml-apis:xml-apis:jar:1.0.b2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Baidu' (http://www.example.com)
+  - disconf-client (https://github.com/knightliao/disconf/tree/master/disconf-client) com.baidu.disconf:disconf-client:jar:2.6.25
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - disconf-core (https://github.com/knightliao/disconf/tree/master/disconf-core) com.baidu.disconf:disconf-core:jar:2.6.25
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'FasterXML' (http://fasterxml.com)
+  - Jackson (http://jackson.codehaus.org) org.codehaus.jackson:jackson-core-asl:jar:1.9.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - JAX-RS provider for JSON content type (http://jackson.codehaus.org) org.codehaus.jackson:jackson-jaxrs:jar:1.9.8
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)    License: GNU Lesser General Public License (LGPL), Version 2.1  (http://www.fsf.org/licensing/licenses/lgpl.txt)
+  - Data Mapper for Jackson (http://jackson.codehaus.org) org.codehaus.jackson:jackson-mapper-asl:jar:1.9.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Xml Compatibility extensions for Jackson (http://jackson.codehaus.org) org.codehaus.jackson:jackson-xc:jar:1.9.8
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)    License: GNU Lesser General Public License (LGPL), Version 2.1  (http://www.fsf.org/licensing/licenses/lgpl.txt)
+
+From: 'GlassFish Community' (https://glassfish.dev.java.net)
+  - Java Servlet API (http://servlet-spec.java.net) javax.servlet:javax.servlet-api:jar:3.1.0
+    License: CDDL + GPLv2 with classpath exception  (https://glassfish.dev.java.net/nonav/public/CDDL+GPL.html)
+  - OSGi resource locator bundle - used by various API providers that rely on META-INF/services mechanism to locate providers. (http://glassfish.org/osgi-resource-locator/) org.glassfish.hk2:osgi-resource-locator:jar:1.0.1
+    License: CDDL + GPLv2 with classpath exception  (https://glassfish.dev.java.net/nonav/public/CDDL+GPL.html)
+
+From: 'GlassFish Community' (https://glassfish.java.net)
+  - javax.annotation API (http://jcp.org/en/jsr/detail?id=250) javax.annotation:javax.annotation-api:jar:1.2-b02
+    License: CDDL + GPLv2 with classpath exception  (https://glassfish.dev.java.net/nonav/public/CDDL+GPL.html)
+
+From: 'Google, Inc.' (http://www.google.com)
+  - Gson (http://code.google.com/p/google-gson/) com.google.code.gson:gson:jar:2.2.4
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'JBoss, a division of Red Hat, Inc.' (http://www.jboss.org)
+  - JBoss Logging 3 (http://www.jboss.org) org.jboss.logging:jboss-logging:jar:3.1.0.CR2
+    License: GNU Lesser General Public License, version 2.1  (http://www.gnu.org/licenses/lgpl-2.1.txt)
+
+From: 'Json-lib' (http://json-lib.sourceforge.net)
+  - json-lib (http://json-lib.sourceforge.net) net.sf.json-lib:json-lib:jar:2.2.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'KNIGHT' (http://www.liaoqiqi.com)
+  - apollo (https://github.com/knightliao/apollo) com.github.knightliao.apollo:apollo:jar:1.0.8
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'MetaStuff Ltd.' (http://sourceforge.net/projects/dom4j)
+  - dom4j (http://dom4j.org) dom4j:dom4j:jar:1.6.1
+
+
+From: 'MyBatis.org' (http://www.mybatis.org/)
+  - MyBatis (http://www.mybatis.org/core/) org.mybatis:mybatis:jar:3.2.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - MyBatis-Spring (http://www.mybatis.org/spring/) org.mybatis:mybatis-spring:jar:1.2.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Oracle Corporation' (http://www.oracle.com)
+  - HK2 API module (http://java.net/hk2-parent/hk2-api/) org.glassfish.hk2:hk2-api:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+  - ServiceLocator Default Implementation (http://java.net/hk2-parent/hk2-locator/) org.glassfish.hk2:hk2-locator:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+  - HK2 Implementation Utilities (http://java.net/hk2-parent/hk2-utils/) org.glassfish.hk2:hk2-utils:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+  - org.objectweb.asm.all version 3.3 repackaged as a module (http://java.net/hk2-parent/external/asm-all-repackaged/) org.glassfish.hk2.external:asm-all-repackaged:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+  - cglib version 2.2 repackaged as a module (http://java.net/hk2-parent/external/cglib/) org.glassfish.hk2.external:cglib:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+  - Injection API (JSR 330) version 1 repackaged as OSGi bundle (http://java.net/hk2-parent/external/javax.inject/) org.glassfish.hk2.external:javax.inject:jar:2.1.64
+    License: CDDL + GPLv2 with classpath exception  (http://glassfish.java.net/nonav/public/CDDL+GPL_1_1.html)
+
+From: 'Oracle Corporation' (http://www.oracle.com/)
+  - javax.ws.rs-api (http://jax-rs-spec.java.net) javax.ws.rs:javax.ws.rs-api:jar:2.0-rc1
+    License: CDDL 1.1  (http://glassfish.java.net/public/CDDL+GPL_1_1.html)    License: GPL2 w/ CPE  (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+  - jersey-core-client (https://jersey.java.net/jersey-client/) org.glassfish.jersey.core:jersey-client:jar:2.0-m13
+    License: CDDL+GPL License  (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+  - jersey-core-common (https://jersey.java.net/jersey-common/) org.glassfish.jersey.core:jersey-common:jar:2.0-m13
+    License: CDDL+GPL License  (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+  - jersey-media-json-jackson (https://jersey.java.net/project/jersey-media-json-jackson/) org.glassfish.jersey.media:jersey-media-json-jackson:jar:2.0-m13
+    License: CDDL+GPL License  (http://glassfish.java.net/public/CDDL+GPL_1_1.html)
+
+From: 'Pivotal Software, Inc.' (http://projects.spring.io/spring-data-redis)
+  - Spring Data Redis (http://github.com/spring-projects/spring-data-redis) org.springframework.data:spring-data-redis:jar:1.6.0.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'QOS.ch' (http://www.qos.ch)
+  - Logback Classic Module (http://logback.qos.ch) ch.qos.logback:logback-classic:jar:1.0.9
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)    License: GNU Lesser General Public License  (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+  - Logback Core Module (http://logback.qos.ch) ch.qos.logback:logback-core:jar:1.0.9
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)    License: GNU Lesser General Public License  (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+  - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.12
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+  - SLF4J LOG4J-12 Binding (http://www.slf4j.org) org.slf4j:slf4j-log4j12:jar:1.7.12
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+
+From: 'Spring IO' (http://projects.spring.io/spring-framework)
+  - Spring Messaging (https://github.com/spring-projects/spring-framework) org.springframework:spring-messaging:jar:4.1.6.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'SpringIO' (http://spring.io)
+  - Spring AMQP Core (http://www.spring.io/spring-amqp) org.springframework.amqp:spring-amqp:jar:1.4.5.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring RabbitMQ Support (http://www.spring.io/spring-amqp) org.springframework.amqp:spring-rabbit:jar:1.4.5.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'SpringSource' (http://springsource.org/spring-framework)
+  - Spring AOP (https://github.com/SpringSource/spring-framework) org.springframework:spring-aop:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Aspects (https://github.com/SpringSource/spring-framework) org.springframework:spring-aspects:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Beans (https://github.com/SpringSource/spring-framework) org.springframework:spring-beans:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Context (https://github.com/SpringSource/spring-framework) org.springframework:spring-context:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Context Support (https://github.com/SpringSource/spring-framework) org.springframework:spring-context-support:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Core (https://github.com/SpringSource/spring-framework) org.springframework:spring-core:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Expression Language (SpEL) (https://github.com/SpringSource/spring-framework) org.springframework:spring-expression:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring JDBC (https://github.com/SpringSource/spring-framework) org.springframework:spring-jdbc:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Transaction (https://github.com/SpringSource/spring-framework) org.springframework:spring-tx:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Web (https://github.com/SpringSource/spring-framework) org.springframework:spring-web:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Spring Web MVC (https://github.com/SpringSource/spring-framework) org.springframework:spring-webmvc:jar:3.2.11.RELEASE
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'SpringSource' (http://www.springsource.com)
+  - Spring Retry (http://www.springsource.org) org.springframework.retry:spring-retry:jar:1.1.2.RELEASE
+    License: Apache 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'The Apache Software Foundation' (http://www.apache.org/)
+  - Apache Commons BeanUtils (http://commons.apache.org/proper/commons-beanutils/) commons-beanutils:commons-beanutils:jar:1.9.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons Codec (http://commons.apache.org/proper/commons-codec/) commons-codec:commons-codec:jar:1.8
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons Collections (http://commons.apache.org/collections/) commons-collections:commons-collections:jar:3.2.1
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons FileUpload (http://commons.apache.org/proper/commons-fileupload/) commons-fileupload:commons-fileupload:jar:1.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons IO (http://commons.apache.org/io/) commons-io:commons-io:jar:2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons Lang (http://commons.apache.org/lang/) commons-lang:commons-lang:jar:2.4
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Commons Logging (http://commons.apache.org/proper/commons-logging/) commons-logging:commons-logging:jar:1.1.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons Lang (http://commons.apache.org/proper/commons-lang/) org.apache.commons:commons-lang3:jar:3.3.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons Pool (http://commons.apache.org/proper/commons-pool/) org.apache.commons:commons-pool2:jar:2.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Curator Client (http://curator.apache.org/curator-client) org.apache.curator:curator-client:bundle:2.7.0
+    License: The Apache Software License, Version 2.0  (file://${basedir}/LICENSE)
+  - Curator Framework (http://curator.apache.org/curator-framework) org.apache.curator:curator-framework:bundle:2.7.0
+    License: The Apache Software License, Version 2.0  (file://${basedir}/LICENSE)
+  - Apache HttpClient (http://hc.apache.org/httpcomponents-client) org.apache.httpcomponents:httpclient:jar:4.4.1
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache HttpCore (http://hc.apache.org/httpcomponents-core-ga) org.apache.httpcomponents:httpcore:jar:4.4.1
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache HttpClient Mime (http://hc.apache.org/httpcomponents-client) org.apache.httpcomponents:httpmime:jar:4.4.1
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'The GUIYI Software Foundation' (http://www.gyist.com/)
+  - hsi-common (http://www.gyist.com/hsi/hsi-common/) com.gy.hsi:hsi-common:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsi-ds-api (http://www.gyist.com/hsi/hsi-ds/hsi-ds-api/) com.gy.hsi:hsi-ds-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsi-fs-client (http://www.gyist.com/hsi/hsi-fs/hsi-fs-client/) com.gy.hsi:hsi-fs-client:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsi-fs-common (http://www.gyist.com/hsi/hsi-fs/hsi-fs-common/) com.gy.hsi:hsi-fs-common:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsi-lc-client (http://www.gyist.com/hsi/hsi-lc/hsi-lc-client/) com.gy.hsi:hsi-lc-client:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsi-redis-client (http://www.gyist.com/hsi/hsi-redis-client/) com.gy.hsi:hsi-redis-client:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-ac-api (http://www.gyist.com/hsxt/hsxt-ac/hsxt-ac-api/) com.gy.hsxt:hsxt-ac-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-access-web-common (http://www.gyist.com/hsxt/hsxt-access/hsxt-access-web/hsxt-access-web-common/) com.gy.hsxt:hsxt-access-web-common:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-ao-api (http://www.gyist.com/hsxt/hsxt-ao/hsxt-ao-api/) com.gy.hsxt:hsxt-ao-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-bp-api (http://www.gyist.com/hsxt/hsxt-bp/hsxt-bp-api/) com.gy.hsxt:hsxt-bp-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-bp-client (http://www.gyist.com/hsxt/hsxt-bp/hsxt-bp-client/) com.gy.hsxt:hsxt-bp-client:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-bs-api (http://www.gyist.com/hsxt/hsxt-bs/hsxt-bs-api/) com.gy.hsxt:hsxt-bs-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-common (http://www.gyist.com/hsxt/hsxt-common/) com.gy.hsxt:hsxt-common:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-gp-api (http://www.gyist.com/hsxt/hsxt-gp/hsxt-gp-api/) com.gy.hsxt:hsxt-gp-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-lcs-api (http://www.gyist.com/hsxt/hsxt-lcs/hsxt-lcs-api/) com.gy.hsxt:hsxt-lcs-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-lcs-client (http://www.gyist.com/hsxt/hsxt-lcs/hsxt-lcs-client/) com.gy.hsxt:hsxt-lcs-client:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-ps-api (http://www.gyist.com/hsxt/hsxt-ps/hsxt-ps-api/) com.gy.hsxt:hsxt-ps-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-rp-api (http://www.gyist.com/hsxt/hsxt-rp/hsxt-rp-api/) com.gy.hsxt:hsxt-rp-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-tc-api (http://www.gyist.com/hsxt/hsxt-tc/hsxt-tc-api/) com.gy.hsxt:hsxt-tc-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+  - hsxt-uc-as-api (http://www.gyist.com/hsxt/hsxt-uc/hsxt-uc-api/hsxt-uc-as-api/) com.gy.hsxt:hsxt-uc-as-api:jar:3.1.0-SNAPSHOT
+    License: GUIYI License, Version 2.0  (http://www.gyist.com/licenses/LICENSE-2.0.txt)
+
+From: 'The Netty Project' (http://netty.io/)
+  - The Netty Project (http://netty.io/) io.netty:netty:bundle:3.7.0.Final
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+
+From: 'xerial.org'
+  - snappy-java (https://github.comm/xerial/snappy-java) org.xerial.snappy:snappy-java:bundle:1.1.1.7
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

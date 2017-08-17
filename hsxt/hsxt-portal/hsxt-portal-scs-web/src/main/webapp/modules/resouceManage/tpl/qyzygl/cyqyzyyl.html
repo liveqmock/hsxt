@@ -1,0 +1,49 @@
+<div class="search-toolbar">
+                    	<ul class="cssform clearfix">
+                            <li class="mr20">
+                                <label class="title-int">企业互生号：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_entResNo" id="search_entResNo" class="input-txt w100 input_gray" placeholder="输入企业互生号"  maxlength="30">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">企业名称：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_entName" id="search_entName" class="input-txt w100 input_gray" placeholder="输入企业名称"  maxlength="30">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">联系人姓名：</label>
+                                <div class="cont-int">
+                                	<input type="text" name="search_linkman" id="search_linkman" class="input-txt w100 input_gray" placeholder="输入联系人姓名"  maxlength="20">
+                                </div> 
+                            </li>
+                            <li class="mr20">
+                                <label class="title-int">状态：</label>
+                                <div class="cont-chk w130">
+									<input id='search_status' placeholder="--请选择--" options="" optionValue="" readonly="readonly" />
+								</div>
+                            </li>
+                            <li class="mr20">
+                                <div class="cont-int">
+                                	<button id="btnQuery" type="button" class="btn-search">查询</button>
+                                </div>
+                            </li>
+                         </ul>
+                    </div>
+                    <div class="search-cont">                    	
+                    	<table id="tableDetail" class="bsgrid">
+							 <tr>
+							    <th w_index="hsResNo" w_tip="true">企业互生号</th>
+							    <th w_index="entCustName" w_tip="true" w_length=18>企业名称</th>
+							    <th w_index="entRegAddr" w_tip="true" w_length=18>企业地址</th>
+							    <th w_index="contactPerson" w_tip="true" w_length=10>联系人姓名</th>
+							    <th w_index="contactPhone" w_tip="true">联系人手机</th>
+							    <th w_index="openDate">系统开启日期</th>
+							    <th w_index="pointStatus" w_render="operate">成员企业状态</th>
+							    <th w_index="realNameAuthSatus" w_render="operate">企业认证状态</th>
+							    <th w_render="operate">操作</th>
+							  </tr> 
+							</table> 
+                    </div>
+                    <!--</div>使用dataTable组件时需要此DIV-->

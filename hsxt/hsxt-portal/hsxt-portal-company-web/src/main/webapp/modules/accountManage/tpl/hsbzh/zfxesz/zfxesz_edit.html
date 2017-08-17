@@ -1,0 +1,57 @@
+<div id="zfxesz_editTpl" class="bc mt20 info_360">
+    <form id="zfxesz_editForm" autocomplete="off" name="zfxesz_editForm" action="" method="post">
+        <ul class="cssform2 clearfix">
+            <li class="clearfix">
+                <label class="title-txt w140">单笔互生币支付限额</label><input id="dbhsbzfxe" name="dbhsbzfxe" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入单笔互生币支付限额" />
+				<div class="hint" style="left:365px;"><a id="dbxe_btn">说明</a></div>
+				<div id="dbxe_prompt" class="none prompt_div">
+					<ul>
+						<li>填写数字，表示每次使用互生币支付时，单笔支付金额不得超出设置金额；</li>
+						<li>不填或者填写0，表示每次使用互生币支付时，单笔支付金额不受限制；</li>
+						<li>代兑互生币、购买系统工具互生币支付、互生币支付交易均受此设置限制。</li>
+					</ul>
+				</div>
+            </li>
+			<li class="clearfix">
+                <label class="title-txt w140">每日互生币支付限额</label><input id="mrhsbzfxe" name="mrhsbzfxe" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入每日互生币支付限额" />
+				<div class="hint" style="left:365px;"><a id="mrxe_btn">说明</a></div>
+				<div id="mrxe_prompt" class="none prompt_div">
+					<ul>
+						<li>填写数字，表示使用互生币支付时，当日（00:00-24:00）累计支付金额不得超出设置金额；</li>
+						<li>不填或者填写0，表示使用互生币支付时，当日累计支付金额不受限制；</li>
+						<li>代兑互生币、购买系统工具互生币支付、互生币支付交易均受此设置限制。</li>
+					</ul>
+				</div>
+            </li>
+            <!-- 
+			<li class="clearfix">
+                <label class="title-txt w140">每日互生币支付限制次数</label><input id="mrhsbzfxzcs" name="mrhsbzfxzcs" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入每日互生币支付限制次数" />
+				<div class="hint" style="left:365px;"><a id="xzcs_btn">说明</a></div>
+				<div id="xzcs_prompt" class="none prompt_div">
+					<ul>
+						<li>填写数字，表示使用互生币支付时，当日（00:00-24:00）累计支付次数不得超出设置次数；</li>
+						<li>不填或者填写0，表示使用互生币支付时，当日累计支付次数不受限制；</li>
+						<li>代兑互生币、购买系统工具互生币支付、互生币支付交易均受此设置限制。</li>
+					</ul>
+				</div>
+            </li>
+             -->
+			<li class="clearfix ">
+                <label class="title-txt w140">交易密码</label><input id="zfxesz_pwd" name="zfxesz_pwd" class="fl w185 h30_middle ml5" type="password" maxlength="8" placeholder="输入交易密码" /><div class="hint red" style="padding-left:40px">*</div>
+            </li>
+			<li class="clearfix pr">
+                <label class="title-txt w140">动态验证码</label>
+				<input id="code" name="code" class="fl w185 h30_middle ml5" type="text" value="" placeholder="输入动态验证码" />
+				<div class="hint" style="width:200px;left:365px;">
+					<span class="fl red" style="margin-top:3px;">*</span>
+					<span class="fl mr5 ml5"><img src="" width="77" id="img_smrz_yzm" height="30"></span>
+					<a id="img_smrz_hyz" class="ml10 blue">看不清，换一张</a>
+				</div>
+            </li>
+        </ul>
+        <div class="mt20 bc clearfix w200">
+            <a href="javascript:;" id="save_edit_btn" class="btn_bg submit fl">提&#12288;交</a>
+			<a href="javascript:;" id="cancel_btn" class="btn_bg submit fr">取&#12288;消</a>
+        </div>
+    </form>
+</div>

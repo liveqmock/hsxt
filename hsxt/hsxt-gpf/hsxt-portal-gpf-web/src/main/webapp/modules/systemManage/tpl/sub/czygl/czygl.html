@@ -1,0 +1,33 @@
+<div id="czyglTpl">
+    <div class="queryList-toolbar">
+        <ul class="queryList-toolbar-ul clearfix">
+            <li>
+                <label>登录用户名：</label>
+                <input type="text" id="czygl_tb_dlyhm" name="czygl_tb_dlyhm" class="queryList-toolbar-text" placeholder="输入登录用户名"/>
+            </li>
+            <li>
+                <label>姓名：</label>
+                <input type="text" id="czygl_tb_xm" name="czygl_tb_xm" class="queryList-toolbar-text" placeholder="输入姓名"/>
+            </li>
+            <li>
+                <button id="czygl_tb_cx" type="button" class="queryList-toolbar-btn">查询</button>
+            </li>
+            <li>
+                <button id="czygl_tb_xzczy" type="button" class="queryList-toolbar-btn">新增操作员</button>
+            </li>
+        </ul>
+    </div>
+
+    <table id="czygl_ql">
+        <tr>
+            <th w_num="line" width="5%;">序号</th>
+            <th w_index="loginUser" w_align="left">登录用户名</th>
+            <th w_index="name" w_align="left">姓名</th>
+            <th w_index="duty" w_align="left">职务</th>
+            <th w_index="roles" w_align="left">角色</th>
+            <th w_index="groups" w_align="left">所属用户组</th>
+            <th w_render="operate" w_align="left" width="15%">操作</th>
+        </tr>
+    </table>
+</div>
+<div id="czygl_dlg" class="none ovh"></div>

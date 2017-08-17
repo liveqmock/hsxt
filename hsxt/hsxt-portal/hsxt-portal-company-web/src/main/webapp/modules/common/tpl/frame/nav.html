@@ -1,0 +1,21 @@
+<!-- 主菜单开始 -->
+<%var param = obj;
+%>
+<div class="mainNav">
+	<ul id="navUl" class="ulNav clearfix">
+	<%$.each(param,function(key,el){ 
+		if(0==el.parentId&&0==el.permType&&1==el.layout){ 
+	%>
+		<li >
+			<div class="navMenu"><i class="nav_menu_icon <%=el.permDesc%>"></i><span id="<%=el.permId%>" class="f12"><%=el.permName%></span></div>
+		</li>
+	<%}
+	})%>
+	</ul>
+</div>
+<!-- 主菜单结束-->
+
+<!-- 子菜单开始 -->
+<div id="subNav" class="subNav1">
+</div>
+<!-- 子菜单结束 -->

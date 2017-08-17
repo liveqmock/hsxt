@@ -1,0 +1,41 @@
+<div id="sjqypepzcxTpl">
+	<div class="search-toolbar">
+		<form id="search_form" name="search_form">
+			<ul class="cssform clearfix">
+				<li>
+					<label>申请时间：</label>
+					<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+					<span class="separator-pd">-</span>
+					<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				</li>
+				<li>
+					<label>配置城市：</label>
+					<input id="txtCityName" type="text" name="txtCityName" class="h28_middle input-txt w115" placeholder="输入城市名称" optionvalue="" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">配置类型：</label>
+					<input id="type" readonly="readonly" placeholder="选择配置类型" optionvalue="" />
+				</li>
+				<li class="clearfix">
+					<label class="fl h30_middle">状态：</label>
+					<input id="state" readonly="readonly" placeholder="选择状态" optionvalue="" />
+				</li>
+				<li>
+					<button id="btnQuery" type="button" class="btn-search">查询</button>
+				</li>
+			 </ul>
+		 </form>
+	</div>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_render="operate">配置城市</th>
+		<th w_render="operate">配置类型</th>
+		<th w_index="applyNum">申请配额数</th>
+		<th w_index="apprNum">批复配额数</th>
+		<th w_index="reqTime">申请时间</th>
+		<th w_render="operate">状态</th>
+		<th w_render="operate">操作</th>
+	  </tr>
+	</table>
+</div>
+<div id="dialogBox" class="none"></div>

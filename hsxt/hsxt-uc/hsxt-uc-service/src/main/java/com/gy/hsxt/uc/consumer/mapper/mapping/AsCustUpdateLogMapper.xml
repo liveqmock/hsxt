@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.uc.consumer.mapper.AsCustUpdateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsxt.uc.as.bean.consumer.AsCustUpdateLog" >
+    <result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="UPDATE_FIELD" jdbcType="VARCHAR" property="updateField" />
+    <result column="UPDATE_FIELD_NAME" jdbcType="VARCHAR" property="updateFieldName" />
+    <result column="UPDATE_VALUE_OLD" jdbcType="VARCHAR" property="updateValueOld" />
+    <result column="UPDATE_VALUE_NEW" jdbcType="VARCHAR" property="updateValueNew" />
+    <result column="UPDATE_DATE"  property="updateDate" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp" />
+    <result column="UPDATEDBY" jdbcType="VARCHAR" property="updatedby" />
+    <result column="LOG_TYPE" jdbcType="DECIMAL" property="logType" />
+    <result column="LOG_REM" jdbcType="VARCHAR" property="logRem" />
+    <result column="CONFIRM_ID" jdbcType="VARCHAR" property="confirmId" />
+    <result column="OPER_NAME" jdbcType="VARCHAR" property="operName" />
+    <result column="CONFIRM_NAME" jdbcType="VARCHAR" property="confirmName" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PER_CUST_ID, UPDATE_FIELD, UPDATE_FIELD_NAME, UPDATE_VALUE_OLD, UPDATE_VALUE_NEW, 
+    UPDATE_DATE, UPDATEDBY, LOG_TYPE, LOG_REM, CONFIRM_ID, OPER_NAME, CONFIRM_NAME
+  </sql>
+  
+  <select id="selectList" resultMap="BaseResultMap" parameterType="com.gy.hsxt.uc.as.bean.consumer.AsCustUpdateLog" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CUST_UPDATE_LOG
+    where PER_CUST_ID = #{perCustId,jdbcType=VARCHAR}
+    <if test="updateFieldName != null">
+    	<![CDATA[
+        and UPDATE_FIELD_NAME like '%${updateFieldName}%'
+        ]]>
+    </if>
+    order by UPDATE_DATE desc
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.gy.hsxt.uc.as.bean.consumer.AsCustUpdateLog" >
+    insert into T_CUST_UPDATE_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        PER_CUST_ID,
+      <if test="updateField != null">
+        UPDATE_FIELD,
+      </if>
+      <if test="updateFieldName != null">
+        UPDATE_FIELD_NAME,
+      </if>
+      <if test="updateValueOld != null">
+        UPDATE_VALUE_OLD,
+      </if>
+      <if test="updateValueNew != null">
+        UPDATE_VALUE_NEW,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updatedby != null">
+        UPDATEDBY,
+      </if>
+      <if test="logType != null">
+        LOG_TYPE,
+      </if>
+      <if test="logRem != null">
+        LOG_REM,
+      </if>
+      <if test="confirmId != null">
+        CONFIRM_ID,
+      </if>
+      <if test="operName != null">
+        OPER_NAME,
+      </if>
+      <if test="confirmName != null">
+        CONFIRM_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        #{perCustId,jdbcType=VARCHAR},
+      <if test="updateField != null">
+        #{updateField,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFieldName != null">
+        #{updateFieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateValueOld != null">
+        #{updateValueOld,jdbcType=VARCHAR},
+      </if>
+      <if test="updateValueNew != null">
+        #{updateValueNew,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null">
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null">
+        #{logType,jdbcType=DECIMAL},
+      </if>
+      <if test="logRem != null">
+        #{logRem,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmId != null">
+        #{confirmId,jdbcType=VARCHAR},
+      </if>
+      <if test="operName != null">
+        #{operName,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmName != null">
+        #{confirmName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+</mapper>

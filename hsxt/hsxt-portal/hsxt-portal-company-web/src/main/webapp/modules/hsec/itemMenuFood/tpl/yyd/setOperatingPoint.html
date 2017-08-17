@@ -1,0 +1,86 @@
+<%
+	var param = obj.data.result.result;
+	var https = obj.data.httpUrl;
+	var picname = "";
+	var menuid = menuId;
+	var vshopid = vShopId;
+%>
+<!--设置营业点-->
+<div class="search-toolbar">
+  	<ul class="cssform clearfix">
+          <li class="mr20">
+              <label class="title-int">营业点名称：</label>
+              <div class="cont-int">
+                  <input type="text" class="input-txt w150" value="" placeholder="输入营业点名称" name="shopName" id="shopName">
+              </div> 
+          </li>
+          
+          <li class="mr20">
+                <label class="title-int">区域：</label>
+                <div class="cont-int">
+                    <!--<input type="text" class="input-txt w100" value="" placeholder="输入区域" name="area" id="area">-->
+                    <select class="input-txt w100" style="height:30px;padding:0" id="area">
+						<option value="">全部</option>
+						<!-- <%$.each(param,function(key,value){%>
+			              <option value="<%=value.areaCode%>"><%=value.areaName%></option>
+			             <%})%> -->
+					</select>
+                </div>
+            </li>
+          <li class="mr20">
+              <label class="title-int">商圈：</label>
+              <div class="cont-int">
+                  <!-- <input type="text" class="input-txt w100" value="" placeholder="输入商圈" name="businessArea" id="businessArea"> -->
+                  <select class="input-txt w100" style="height:30px;padding:0" id="businessArea">
+						<option value="">所属商圈</option>
+						<!-- <%$.each(param,function(key,value){%>
+			              <option value="<%=value.areaCode%>"><%=value.areaName%></option>
+			             <%})%> -->
+				  </select>
+              </div> 
+          </li>
+          <li class="mr20">
+              <div class="cont-int">
+                  <button class="btn-search yydsearch" type="button" id="">查询</button>
+              </div>
+          </li>
+          <li style="float:right">
+                    <div class="cont-int">
+                        <button class="btn-search yydback mr10" type="button" data-id="<%=menuid%>" data-vshop-id="<%=vshopid%>">取消</button>
+                        <button class="btn-search yydsave" type="button" id="">保存</button>
+                    </div>
+                </li>
+             </ul>
+        </div>
+ 
+<div class="search-cont">     
+  <div class="foodlist pr">
+    <ul class="floatlist clearfix pt20list">
+        <%try { if(param.length > 0){
+           	   $.each(param,function(k,v){
+	           	   if(v.pics != null && v.pics != ""){
+				  		var picObj = eval(v.pics);//转换对象
+				  		try{
+				  		$.each(picObj[0].web,function(y,o){
+				  			if(o.size=="400*400"){
+				  				picname = o.name;
+				  			}
+				  		});
+				  		}catch(e){}
+			  		}
+           	  %>
+    	<li class="w20p" data-id="<%=v.id%>">
+        	<div class="pr addcp bc w120">
+            <i title="添加营业点" class="cp_get none"></i>
+            <div class="fiximg"><img width="120" height="120" src="<%=https+picname%>">
+            </div>
+            <h2 class="mt5 f12"><%=v.name%></h2>
+            </div>
+        </li>
+        <% }); }else{ %>
+       	<div align="center"><span style="color:blue">没有找到符合条件的数据</span></div>
+       	<% } }catch(e){} %>
+    </ul>
+   </div>
+</div>
+  

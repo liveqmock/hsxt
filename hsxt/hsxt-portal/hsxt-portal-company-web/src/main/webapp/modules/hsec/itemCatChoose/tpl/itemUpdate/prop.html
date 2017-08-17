@@ -1,0 +1,273 @@
+<%
+	var data = obj.data;
+	var param = data.ItemInfo;
+	var skuInfo = data.ItemWebInfo;
+	var lstItemOfKeyProps = data.ItemWebInfo.lstItemOfKeyProps;
+	var lstItemOfSaleProps = data.ItemWebInfo.lstItemOfSaleProps;
+	var lstPVid = data.lstPVid;
+	var spuList = eval('('+param.propKey+')');
+%>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="itemspu">
+ 		<tr>
+          <td align="right" width="90px">商品类目</td>
+          <td>
+             <input class="inpt disabled" readonly="readonly"  name="categoryName" type="text" value="<%=param.categoryName%>"/>
+          </td>
+          <td align="left"></td>
+        </tr>
+           <tr>
+          <td align="right">品牌</td>
+           <td style="width: 200px">
+            <input id="itemPinpai" class="inpt cp" valueId="<%=param.brandId%>" type="text" value="<%=param.brandName%>" placeholder="无品牌可不填" maxlength="30"/>
+          	<i class="goodsC_arrow cp" id="itemPinpaiSelect" title="点击选择商品品牌" style="right: 101px"></i>
+			<ul class="bank_ul" id="itemPinpaiList" style="display: none;width: 319px">
+			</ul>
+          </td>
+          <td align="left"></td>
+        </tr>
+        
+           <% $.each(lstItemOfKeyProps,function(key,el){ 
+           	var isDeng = "";
+           		if(spuList.length != 0){
+           		try{
+		            $.each(spuList,function(kMy,vMy){   
+		           		if(vMy.pId == el.id){
+		           			isDeng = vMy;
+		           			spuList.remove(kMy);
+		           			return false;
+		           		}
+		           }) }catch(e){} 
+	           }%>
+        <tr class="spu" valueId="<%=el.id%>" valuename="<%=el.attrName%>">
+		   <td align="right"><%=el.attrName%></td>
+		   <td style="width: 200px"><input class="inpt remain" type="text" maxlength="50" value="<%try{if(isDeng.pId == el.id){%><%=isDeng.pVName%><%}}catch(e){}%>"></td>
+		   <td align="left">还能输入<span class="red"><%try{if(isDeng.pId == el.id){%><%=(50-isDeng.pVName.length)%><%}}catch(e){%>50<%}%></span>字</td>
+		 </tr>
+		 <%}) %>
+		 
+  <tr>
+     <td width="60" align="right">商品属性</td>
+     <td width="310" colspan="2" >
+     
+            	<%
+								var skutype = 0;
+						 		var skuBig = new Array();
+						 		var skuxiao = new Array();
+						 		 
+						 	 $.each(lstPVid!=null?lstPVid:'',function(k1,v1){
+                            	 var skuMy = v1.split("&&");
+                            	 skuBig.push(skuMy[0]);
+                            	 skuxiao.push(skuMy[1]);
+                             })
+                             	skuBig = obj.uniqueArray(skuBig);
+								skuxiao =obj.uniqueArray(skuxiao);
+                             		$.each(skuInfo.lstItemOfSaleProps,function(key,el){
+	                             		$.each(skuBig,function(k1,v1){
+		                             		if(v1 == el.id){
+		                             			skutype++;
+		                             			return false;
+		                             		}
+	                             		})
+                             	})
+            	%> 
+            		
+                   <div id="skuTabs">
+					<ul <%if(skutype == skuInfo.lstItemOfSaleProps.length && skuBig.length == skuInfo.lstItemOfSaleProps.length){%>style="display: none;"<%}%>>
+						<li><a href="#tabs-1">商品属性(旧版)</a></li>
+						<li><a href="#tabs-2">商品属性(新版)</a></li>
+						<center style="padding-top: 6px;"><span>商品属性有变动,建议使用新销售属性.</span></center>
+					</ul>
+					<div id="tabs-1" isshow="1" style="padding: 0px">
+							
+                  <%if(!(skutype == skuInfo.lstItemOfSaleProps.length && skuBig.length == skuInfo.lstItemOfSaleProps.length)){%> 
+				 
+		 <div id="skuMain" class="skulength" level="<%=skuBig.length%>">	
+		   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="updmg editval">
+		  		<%var imgbool = 0;%>
+                <%$.each(skuBig,function(k1,v1){%> 
+                <%$.each(lstPVid,function(k2,v2){%>
+                <%var skuMy = v2.split("&&");%>
+                <%if(v1 == skuMy[0]){%>
+                <%if(skuMy[6] == 1){imgbool = skuMy[6]}%>
+		     	<tr class="nav-block skuTrUpdate">
+			     	<td width="70" height="34" align="right" items="<%=skuMy[2]%>&<%=skuMy[3]%>" isColor="<%=skuMy[6]%>"><%=skuMy[3]%>：</td>
+			        <td height="34">
+			         	<ul class="ed1 clearfix Father_Item<%=k1%>">
+			         		<%$.each(skuxiao,function(k3,v3){%> 
+                             <%$.each(lstPVid,function(k4,v4){%>
+                             <%var skuMy4 = v4.split("&&");%>
+                             <%if(v3 == skuMy4[1] && v1 == skuMy4[0]){%>
+                            <li class="clearfix pb5"><span class="fl skuName"><input type="checkbox" class="sku"  value="<%=skuMy4[4]%>&<%=skuMy4[5]%>"
+                              isColor="<%=skuMy4[6]%>" checked="checked"/><%=skuMy4[5]%></span></li>
+                             <% return false;} %>  
+                            <% }) %>  
+                            <% }) %> 
+                                <%var skuxiao2 = skuxiao;%>
+                                <%$.each(skuInfo.lstItemOfSaleProps,function(key,el){%> 
+                            	<%if(el.id == v1){%>
+                            			<%
+                            				var skuxiao3 = el.propValues;
+                            			%>
+                            	
+                            		 <% $.each(skuxiao3,function(keys,els){ %> 
+                            		<% var boolId = "";%> 
+                            		 <%$.each(skuxiao2,function(k5,v5){%>
+                            		 		<%if(v5 == els.id){
+                            		 			boolId = els.id;
+                            		 		}%>
+                            		 <%})%>
+                            		 <%if(els.id == boolId){
+                            		 	return true;
+                            		 }%>
+                            		        <li style="line-height: 20px"><span class="fl skuName"><input type="checkbox" class="sku"  value="<%=els.id%>&<%=els.value%>"
+                                      		isColor="<%=el.isColorProp%>"/><%=els.value%></span></li>
+                            		 <% }) %>
+                            	<%}%>
+                                
+                            <% }) %>    
+                             
+			         			<!-- a class="fl editval-del" title="删除"><i></i></a-->
+			                <li class="edipt clearfix none"><span class="fl"><input type="checkbox"  /><input type="text" style="width:50px;" /></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="eds"></i></a></li>
+			             </ul>
+			        </td>
+			       	<td width="30"><!-- <a class="fr editval-add" title="新增"><i></i></a>--></td>
+		     	</tr>
+		     <% return false;} %>
+		     <% }) %>
+		     <% }) %>
+		      </table>
+		      <div id="createTable"></div>
+		        <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+		              <h6>图片上传</h6>
+		              <ul id="imgLoad">
+		    
+		             </ul>
+		       </div>
+		        <div class="clearfix lh150 <%if(imgbool != 1){%>none<%}%>" >
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl" style="">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传6张图片。</li>
+				</ul>
+              </div>
+            </div>
+		</div>	
+				 
+				 <%}else{%>
+		<div id="skuMain">	
+		   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="updmg editval">
+		     <% try {
+		     	var imgbool = 0;
+		     	$.each(lstItemOfSaleProps,function(key,sp){
+		     	 if(sp.isColorProp == 1){ imgbool = 1;}
+		     %>
+		     	<tr class="nav-block skuTrUpdate">
+			     	<td width="70" height="34" align="right" items="<%=sp.id%>&<%=sp.attrName%>" isColor="<%=sp.isColorProp%>"><%=sp.attrName%>：</td>
+			        <td height="34">
+			         	<ul class="ed1 clearfix Father_Item<%=key%>">
+			         		<%try{
+			         		$.each(sp.propValues,function(key1,pv){ %>
+			         		<li class="clearfix pb5">
+			         			<span class="fl skuName">
+			         				<input type="checkbox" name="sp_<%=sp.id%>" id="cb_<%=pv.id%>" class="sku" value="<%=pv.id%>&<%=pv.value%>" isColor="<%=sp.isColorProp%>"
+			         				 <%try{$.each(lstPVid!=null?lstPVid:'',function(index,lst){%>
+		                             <%var skuMy = lst.split("&&")%>
+		                             <%if(pv.id==skuMy[1]){%>
+		                             	<%='checked'%>
+		                             	<%lstPVid.remove(index)%>
+		                             	<%return false;%>
+		                             <%}%>
+		                             <%}) }catch(e){}%> />
+			         				<label for="cb_<%=pv.id%>"><%=pv.value%></label>
+			         			</span>
+			         			<!-- a class="fl editval-del" title="删除"><i></i></a-->
+			         		</li>
+			         		<%}) }catch(e){};
+			         		%>
+			                <li class="edipt clearfix none"><span class="fl"><input type="checkbox"  /><input type="text" style="width:50px;" /></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="eds"></i></a></li>
+			             </ul>
+			        </td>
+			       	<td width="30"><!-- <a class="fr editval-add" title="新增"><i></i></a>--></td>
+		     	</tr>
+		     <%	}) }catch(e){};
+		 	 %>
+		      </table>
+		      <div id="createTable"></div>
+		        <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+		              <h6>图片上传</h6>
+		              <ul id="imgLoad">
+		    
+		             </ul>
+		       </div>
+	       <div class="clearfix lh150 <%if(imgbool != 1){%>none<%}%>" >
+              <div class="fl red" style="width:66px;">温馨提示：</div>
+              <div class="fl" style="">
+              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+				<li class="red">2、上传图片大小不超过1M。</li>
+                <li class="red">3、最多可上传6张图片。</li>
+				</ul>
+              </div>
+            </div>
+		</div>	
+	
+				<%}%>			
+					</div>
+					<div id="tabs-2" isshow="2" style="padding: 0px">
+					
+				     <div id="skuMainAdd">
+				     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="updmg editval">
+				     <%
+				     	var imgbool = 0;
+				     	$.each(lstItemOfSaleProps,function(key,sp){
+				     	 if(sp.isColorProp == 1){imgbool = 1;}
+				     %>
+				     	<tr class="nav-block skuTrAdd">
+					     	<td width="70" height="34" align="right" items="<%=sp.id%>&<%=sp.attrName%>" isColor="<%=sp.isColorProp%>"><%=sp.attrName%>：</td>
+					        <td height="34">
+					         	<ul class="ed1 clearfix Father_ItemAdd<%=key%>">
+					         		<%
+					         		$.each(sp.propValues,function(key1,pv){ %>
+					         		<li class="clearfix pb5">
+					         			<span class="fl skuName">
+					         				<input type="checkbox" name="sp_<%=sp.id%>" id="cb_<%=pv.id%>" class="skuAdd" value="<%=pv.id%>&<%=pv.value%>" isColor="<%=sp.isColorProp%>"/>
+					         				<label for="cb_<%=pv.id%>"><%=pv.value%></label>
+					         			</span>
+					         			<!-- a class="fl editval-del" title="删除"><i></i></a-->
+					         		</li>
+					         		<%});
+					         		%>
+					                <li class="edipt clearfix none"><span class="fl"><input type="checkbox"  /><input type="text" style="width:50px;" /></span><a class="fl editval-yes" title="确定"><i></i></a><a class="fl editval-del" title="删除"><i class="eds"></i></a></li>
+					             </ul>
+					        </td>
+					       	<td width="30"><!-- <%if(sp.valueCount < sp.propValues.length){%><a class="fr editval-add" maxCount="<%=sp.valueCount%>" title="新增"><i></i></a><%}%>--></td>
+				     	</tr>
+				     <%	});
+				 	 %>
+				      </table>
+				      <div id="createTableAdd"></div>
+				        <div class="upload_img <%if(imgbool != 1){%>none<%}%>">
+				              <h6>图片上传</h6>
+				              <ul id="imgLoadAdd">
+				    
+				             </ul>
+				       </div>
+					       <div class="clearfix lh150 <%if(imgbool != 1){%>none<%}%>" >
+				              <div class="fl red" style="width:66px;">温馨提示：</div>
+				              <div class="fl" style="">
+				              	<ul><li class="red">1、建议上传800*800的图片，上传图片支持格式jpg、png、jpeg。</li>
+								<li class="red">2、上传图片大小不超过1M。</li>
+				                <li class="red">3、最多可上传6张图片。</li>
+								</ul>
+				              </div>
+				            </div>
+				     </div>
+
+					</div>
+				</div>
+       
+     </td>
+   </tr>
+</table>
+<div id="dlg3" class="none">
+</div>

@@ -1,0 +1,61 @@
+
+<div class="heightscroll" style="height:400px">
+<table  class="bsgrid">
+	<thead>
+		<tr>
+			<th  width="10%;"><input class="mr5" id="selectAll" name="" type="checkbox" value="">序号</th>
+			<th >登录用户名</th>
+			<th >姓名</th>
+			<th >职务</th>
+		</tr>
+	</thead>
+	 <tbody>
+	  <%if(obj.data != null && obj.data.length > 0){%>
+	  	<%if(obj.hav != null && obj.hav.length > 0){%>
+	  	<%for(var i = 0; i < obj.data.length; i++){%>
+	  	<% var flag = false;%>
+	  	<%for(var j = 0; j < obj.hav.length; j++){%>
+	  
+	  	<%if(obj.data[i].operCustId == obj.hav[j].operCustId){%>
+	  		<%flag = true;%>
+	    <%}}%>
+	    <%if(flag){%>
+	    <%if(i%2==0){%>
+	    	<tr>
+	    <%}else{%>
+	    	<tr class="even_index_row">
+	    <%}%>
+	    <td width="80" class="nobd"><input class="mr5" name="userid" type="checkbox" checked="checked" value="<%=obj.data[i].operCustId%>"><%=i+1%></td>
+	    <td><%=obj.data[i].userName%></td>
+	    <td><%=obj.data[i].realName%></td>
+	    <td><%=obj.data[i].operDuty%></td>
+	     </tr>
+	    <%}else{%>
+	    <%if(i%2==0){%>
+	    	<tr>
+	    <%}else{%>
+	    	<tr class="even_index_row">
+	    <%}%>
+	    <td width="80" class="nobd"><input class="mr5" name="userid" type="checkbox" value="<%=obj.data[i].operCustId%>"><%=i+1%></td>
+	    <td><%=obj.data[i].userName%></td>
+	    <td><%=obj.data[i].realName%></td>
+	    <td><%=obj.data[i].operDuty%></td>
+	     </tr>
+	    <%}}%>
+	 
+	  <%}else{%>
+	     <%for(var i = 0; i < obj.data.length; i++){%>
+	     	<%if(i%2==0){%>
+		    	<tr>
+		    <%}else{%>
+		    	<tr class="even_index_row">
+		    <%}%>
+		    <td width="80" class="nobd"><input class="mr5" name="userid" type="checkbox" value="<%=obj.data[i].operCustId%>"><%=i+1%></td>
+		  	<td><%=obj.data[i].userName%></td>
+		    <td><%=obj.data[i].realName%></td>
+		    <td><%=obj.data[i].operDuty%></td>
+		    </tr>
+	  <%}}}%>
+	</tbody>
+ </table>
+</div>

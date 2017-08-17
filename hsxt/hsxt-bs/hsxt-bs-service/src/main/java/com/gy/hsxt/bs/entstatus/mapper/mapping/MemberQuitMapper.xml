@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.entstatus.mapper.MemberQuitMapper">
+	<!-- 创建成员企业销户申请 -->
+	<insert id="createMemberQuit" parameterType="com.gy.hsxt.bs.bean.entstatus.MemberQuit">
+		INSERT INTO T_BS_COMPANY_STOP
+		       (APPLY_ID,
+		        APPLY_TYPE,
+		        ENT_CUST_ID,
+		        ENT_RES_NO,
+		        ENT_CUST_NAME,
+		        ENT_ADDR,
+		        CONTACT_NAME,
+		        CONTACT_PHONE,
+		        APPLY_RESON,
+		        OLD_STATUS,
+		        BIZ_APPLY_FILE,
+		        REPORT_FILE,
+		        STATEMENT_FILE,
+		        OTHER_FILE,
+		        BANKACCTID,
+		        S_ENT_CUST_ID,
+		        S_ENT_RES_NO,
+		        S_ENT_CUST_NAME,
+		        STATUS,
+		        CREATED_DATE,
+		        CREATEDBY) 
+		SELECT  #{applyId},
+				#{applyType},
+				#{entCustId},
+				#{entResNo},
+				#{entCustName},
+				#{entAddress},
+				#{linkman},
+				#{linkmanMobile},
+				#{applyReason},
+				#{oldStatus},
+				#{bizApplyFile},
+				#{reportFile},
+				#{statementFile},
+				#{otherFile},
+				#{bankAcctId},
+				#{serEntCustId},
+				#{serEntResNo},
+				#{serEntCustName},
+				0,
+				SYSDATE,
+				#{createdBy}
+		FROM dual
+		WHERE NOT EXISTS( SELECT * FROM T_BS_COMPANY_STOP  
+	      				WHERE ENT_CUST_ID = #{entCustId} AND STATUS IN(0,1,2)
+	      				)
+	</insert>
+	
+	<!-- 查询成员企业销户申请 -->
+	<select id="queryMemberQuitListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.MemberQuitQueryParam" 
+			resultType="com.gy.hsxt.bs.bean.entstatus.MemberQuitBaseInfo">
+		SELECT APPLY_ID      AS applyId,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       ENT_ADDR      AS entAddress,
+		       CONTACT_NAME  AS linkman,
+		       CONTACT_PHONE AS linkmanMobile,
+		       STATUS        AS status,
+			   to_char(DECODE(UPDATED_DATE,NULL,CREATED_DATE,UPDATED_DATE),'yyyy-MM-dd') AS statusDate
+	    FROM T_BS_COMPANY_STOP 
+	    WHERE 1=1
+	          <if test="serResNo != null and serResNo != '' ">
+	          	AND S_ENT_RES_NO = #{serResNo}
+	          </if>
+	          <if test="entResNo != null and entResNo != '' ">
+	          	AND ENT_RES_NO LIKE #{entResNo}||'%'
+	          </if>
+	          <if test="entName != null and entName != '' ">
+	          	AND UPPER(ENT_CUST_NAME) LIKE UPPER('%'||#{entName}||'%')
+	          </if>
+	          <if test="linkman != null and linkman != '' ">
+	          	AND UPPER(CONTACT_NAME) LIKE UPPER('%'||#{linkman}||'%') 
+	          </if>
+	          <if test="status != null and status == 12">
+	          	AND (STATUS = 1 OR STATUS = 2)
+	          </if>
+	          <if test="status != null and status == 56">
+	          	AND (STATUS = 5 OR STATUS = 6)
+	          </if>
+	          <if test="status != null and status != 12 and status != 56">
+	          	AND STATUS = #{status}
+	          </if>
+	      ORDER BY CREATED_DATE DESC
+	</select>
+	
+	<!-- 关联工单查询成员企业销户申请 -->
+	<select id="queryMemberQuit4ApprListPage" parameterType="com.gy.hsxt.bs.bean.entstatus.MemberQuitQueryParam" 
+			resultType="com.gy.hsxt.bs.bean.entstatus.MemberQuitBaseInfo">
+		SELECT t1.APPLY_ID      AS applyId,
+		       t1.ENT_RES_NO    AS entResNo,
+		       t1.ENT_CUST_NAME AS entCustName,
+		       t1.ENT_ADDR      AS entAddress,
+		       t1.CONTACT_NAME  AS linkman,
+		       t1.CONTACT_PHONE AS linkmanMobile,
+		       t1.STATUS        AS status,
+			   to_char(DECODE(t1.UPDATED_DATE,NULL,t1.CREATED_DATE,t1.UPDATED_DATE),'yyyy-MM-dd') AS statusDate
+	    FROM T_BS_COMPANY_STOP t1,T_BS_TASK t2
+        WHERE t1.STATUS IN (1,2)
+              AND t1.APPLY_ID = t2.BIZ_NO
+              AND t2.STATUS = 2
+              AND t2.EXE_CUST_ID = #{optCustId}
+	          <if test="serResNo != null and serResNo != '' ">
+	          	AND t1.S_ENT_RES_NO = #{serResNo}
+	          </if>
+	          <if test="entResNo != null and entResNo != '' ">
+	          	AND t1.ENT_RES_NO LIKE #{entResNo}||'%'
+	          </if>
+	          <if test="entName != null and entName != '' ">
+	          	AND UPPER(t1.ENT_CUST_NAME) LIKE UPPER('%'||#{entName}||'%')
+	          </if>
+	          <if test="linkman != null and linkman != '' ">
+	          	AND UPPER(t1.CONTACT_NAME) LIKE UPPER('%'||#{linkman}||'%') 
+	          </if>
+	          <if test="status != null and status == 12">
+	          	AND (t1.STATUS = 1 OR t1.STATUS = 2)
+	          </if>
+	          <if test="status != null and status == 56">
+	          	AND (t1.STATUS = 5 OR t1.STATUS = 6)
+	          </if>
+	          <if test="status != null and status != 12 and status != 56">
+	          	AND t1.STATUS = #{status}
+	          </if>
+	      ORDER BY t1.CREATED_DATE DESC
+	</select>
+	
+	<!-- 更新成员企业销户状态 -->
+	<update id="updateQuitStatus">
+		UPDATE T_BS_COMPANY_STOP 
+			<set>
+				STATUS = #{status},
+				<if test="reportFile != null and reportFile != ''">
+				  REPORT_FILE = #{reportFile},
+				</if>
+				<if test="statementFile != null and statementFile != ''">
+				  STATEMENT_FILE = #{statementFile},
+				</if>
+				UPDATEBY     = #{optCustId},
+				UPDATED_DATE = SYSDATE
+			</set>
+		WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 查询成员企业销户 -->
+	<select id="queryMemberQuitById" resultType="com.gy.hsxt.bs.bean.entstatus.MemberQuit">
+		SELECT APPLY_ID        AS applyId,
+		       APPLY_TYPE      AS applyType,
+		       ENT_CUST_ID     AS entCustId,
+		       ENT_RES_NO      AS entResNo,
+		       ENT_CUST_NAME   AS entCustName,
+		       ENT_ADDR        AS entAddress,
+		       CONTACT_NAME    AS linkman,
+		       CONTACT_PHONE   AS linkmanMobile,
+		       APPLY_RESON     AS applyReason,
+		       OLD_STATUS      AS oldStatus,
+		       BIZ_APPLY_FILE  AS bizApplyFile,
+		       REPORT_FILE     AS reportFile,
+		       STATEMENT_FILE  AS statementFile,
+		       OTHER_FILE      AS otherFile,
+		       BANKACCTID      AS bankAcctId,
+		       S_ENT_CUST_ID   AS serEntCustId,
+		       S_ENT_RES_NO    AS serEntResNo,
+		       S_ENT_CUST_NAME AS serEntCustName,
+		       STATUS          AS status,
+		       PROGRESS        AS progress,
+		       CREATEDBY       AS createdBy,
+		       UPDATEBY        AS updateBy,
+		       to_char(CREATED_DATE, 'yyyy-MM-dd') AS createdDate,
+		       to_char(UPDATED_DATE, 'yyyy-MM-dd') AS updateDate
+		 FROM T_BS_COMPANY_STOP
+		 WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 更新销户进度 -->
+	<update id="updateProgress">
+		UPDATE T_BS_COMPANY_STOP 
+			<set>
+				PROGRESS     = #{progress},
+				UPDATEBY     = #{optCustId},
+				UPDATED_DATE = SYSDATE
+			</set>
+		WHERE APPLY_ID = #{applyId}
+	</update>
+	
+	<!-- 查询未完成销户的申请 -->
+	<select id="getUnCompletedCancelAcList" resultType="com.gy.hsxt.bs.entstatus.bean.CancelAccountParam">
+		SELECT APPLY_ID      AS applyId,
+		       ENT_CUST_ID   AS entCustId,
+		       ENT_RES_NO    AS entResNo,
+		       ENT_CUST_NAME AS entCustName,
+		       PROGRESS      AS progress,
+		       BANKACCTID    AS bankAcctId,
+		       UPDATEBY      AS optCustId
+		FROM T_BS_COMPANY_STOP
+		WHERE STATUS = 3
+		      <![CDATA[ AND PROGRESS <> 5 ]]>	 
+	</select>
+	
+	<!-- 根据客户查询成员企业注销状态信息 -->
+	<select id="queryMemberQuitStatus" parameterType="string" resultType="com.gy.hsxt.bs.bean.entstatus.MemberQuitStatus">
+		 SELECT APPLY_ID AS applyId,
+		        STATUS   AS status,
+		        REMARK   AS apprRemark,
+		        to_char(CREATED_DATE, 'yyyy-MM-dd') AS applyDate,
+		        to_char(APPR_DATE, 'yyyy-MM-dd HH24:mi:ss') AS apprDate
+		   FROM (SELECT T1.APPLY_ID,
+		                T1.CREATED_DATE,
+		                T1.STATUS,
+		                T2.REMARK,
+		                CASE
+		                  WHEN T2.CREATED_DATE IS NOT NULL THEN
+		                   T2.CREATED_DATE
+		                  ELSE
+		                   CASE
+		                     WHEN T1.UPDATED_DATE IS NOT NULL THEN
+		                      T1.UPDATED_DATE
+		                     ELSE
+		                      T1.CREATED_DATE
+		                   END
+		                END AS APPR_DATE,
+		                ROWNUM
+		           FROM T_BS_COMPANY_STOP T1, T_BS_COMPANY_STOP_APPR T2
+		          WHERE T1.APPLY_ID = T2.APPLY_ID(+)
+		            AND T1.ENT_CUST_ID = #{entCustId}
+		          ORDER BY T1.CREATED_DATE DESC, T2.CREATED_DATE DESC)
+		  WHERE ROWNUM = 1
+	</select>
+</mapper>

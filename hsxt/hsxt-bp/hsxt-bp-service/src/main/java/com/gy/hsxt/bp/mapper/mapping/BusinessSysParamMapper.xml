@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsxt.bp.mapper.BusinessSysParamMapper"><!-- map的类 -->
+
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessSysParamGroup" id="businessSysParamGroup">
+    <!-- 系统参数组对象-->
+        <id column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_NAME" property="sysGroupName" jdbcType="VARCHAR" />
+        <result column="ISPUBLIC" property="isPublic" jdbcType="VARCHAR" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap type="com.gy.hsxt.bp.bean.BusinessSysParamItems" id="businessSysParamItems">
+     <!-- 系统参数项对象-->
+        <id column="SYS_ITEMS_CODE" property="sysItemsCode" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_CODE" property="sysGroupCode" jdbcType="VARCHAR" />
+        <result column="SYS_GROUP_NAME" property="sysGroupName" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_KEY" property="sysItemsKey" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_NAME" property="sysItemsName" jdbcType="VARCHAR" />
+        <result column="SYS_ITEMS_VALUE" property="sysItemsValue" jdbcType="VARCHAR" />
+        <result column="ACCESS_LEVEL" property="accessLevel" jdbcType="INTEGER" />
+        <result column="ISACTIVE" property="isActive" jdbcType="VARCHAR" />
+        <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+        <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+        <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+<!-- @author 作者 : weixz -->
+
+<!-- 新增单个系统参数组 -->
+<insert id="addSysParamGroup" parameterType="BusinessSysParamGroup">
+		INSERT /*+ APPEND */ INTO  
+               T_BP_SYS_PARAM_GROUP
+		      ( 
+				SYS_GROUP_CODE, 
+				SYS_GROUP_NAME, 
+				ISPUBLIC, 
+				ISACTIVE,
+				CREATEDBY,
+				CREATED_DATE, 
+				UPDATEDBY, 
+				UPDATED_DATE) 
+		VALUES (
+			 	#{sysGroupCode,jdbcType=VARCHAR},
+				#{sysGroupName,jdbcType=VARCHAR},
+				#{isPublic,jdbcType=VARCHAR},
+				#{isActive,jdbcType=VARCHAR},
+				#{createdby,jdbcType=VARCHAR},
+				systimestamp,
+				#{updatedby,jdbcType=VARCHAR},
+		  		systimestamp)
+</insert>
+
+<!-- 单个系统参数组修改 -->
+<update id="updateSysParamGroup" parameterType="BusinessSysParamGroup">
+        UPDATE T_BP_SYS_PARAM_GROUP
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sysGroupName != null and sysGroupName != '' ">
+                 SYS_GROUP_NAME = #{sysGroupName,jdbcType=VARCHAR},
+            </if>
+            <if test="isPublic != null and isPublic != '' ">
+                 ISPUBLIC = #{isPublic,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="createdby != null and createdby != '' ">
+                 CREATEDBY = #{createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedby != null and updatedby != '' ">
+                 UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+</update>
+
+
+<!-- 单个系统参数组删除 -->
+<delete id="deleteSysParamGroup" parameterType="String">
+        delete from T_BP_SYS_PARAM_GROUP where SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+</delete>
+
+
+<!-- 单个系统参数组查询 -->
+<select id="getSysParamGroupByCode" resultMap="businessSysParamGroup" parameterType="String">
+        SELECT SYS_GROUP_CODE, 
+               SYS_GROUP_NAME, 
+               ISPUBLIC, 
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_GROUP  
+         WHERE SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 多个系统参数组查询 -->
+<select id="searchSysParamGroupListPage" resultMap="businessSysParamGroup" parameterType="BusinessSysParamGroup">
+        SELECT SYS_GROUP_CODE, 
+               SYS_GROUP_NAME, 
+               ISPUBLIC, 
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_GROUP  
+         WHERE 1 = 1 
+         <if test="sysGroupCode != null and sysGroupCode != ''">
+                AND SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+         </if>
+         <if test="sysGroupName != null and sysGroupName != ''">
+                AND SYS_GROUP_NAME = #{sysGroupName,jdbcType=VARCHAR}
+         </if>
+         <if test="isPublic != null and isPublic != '' ">
+                AND ISPUBLIC = #{isPublic,jdbcType=VARCHAR}
+         </if>
+         <if test="isActive != null and isActive != '' ">
+                AND ISACTIVE = #{isActive,jdbcType=VARCHAR}
+         </if>
+         <if test="createdby != null and createdby != '' ">
+                AND CREATEDBY = #{createdby,jdbcType=VARCHAR}
+         </if>
+         <if test="updatedby != null and updatedby != '' ">
+                AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+         </if>
+</select>
+
+<!-- 系统参数组所有查询 -->
+<select id="searchSysParamGroupList" resultMap="businessSysParamGroup" >
+        SELECT SYS_GROUP_CODE, 
+               SYS_GROUP_NAME, 
+               ISPUBLIC, 
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_GROUP  
+</select>
+
+
+<!-- 新增单个系统参数项 -->
+<insert id="addSysParamItems" parameterType="BusinessSysParamItems">
+        INSERT /*+ APPEND */ INTO  
+               T_BP_SYS_PARAM_ITEMS
+              ( 
+                SYS_ITEMS_CODE, 
+                SYS_GROUP_CODE, 
+                SYS_ITEMS_KEY,
+                SYS_ITEMS_NAME,
+                SYS_ITEMS_VALUE,
+                ACCESS_LEVEL,
+                ISACTIVE,
+                CREATEDBY,
+                CREATED_DATE, 
+                UPDATEDBY, 
+                UPDATED_DATE) 
+        VALUES (
+                SEQ_BP_SYS_ITEMS_CODE.NEXTVAL,
+                #{sysGroupCode,jdbcType=VARCHAR},
+                #{sysItemsKey,jdbcType=VARCHAR},
+                #{sysItemsName,jdbcType=VARCHAR},
+                #{sysItemsValue,jdbcType=VARCHAR},
+                #{accessLevel,jdbcType=INTEGER},
+                #{isActive,jdbcType=VARCHAR},
+                #{createdby,jdbcType=VARCHAR},
+                systimestamp,
+                #{updatedby,jdbcType=VARCHAR},
+                systimestamp)
+</insert>
+
+<!-- 单个系统参数项修改 -->
+<update id="updateSysParamItems" parameterType="BusinessSysParamItems">
+        UPDATE T_BP_SYS_PARAM_ITEMS
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sysGroupCode != null and sysGroupCode != '' ">
+                 SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsKey != null and sysItemsKey != '' ">
+                 SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsName != null and sysItemsName != '' ">
+                 SYS_ITEMS_NAME = #{sysItemsName,jdbcType=VARCHAR},
+            </if>
+            <if test="sysItemsValue != null and sysItemsValue != '' ">
+                 SYS_ITEMS_VALUE = #{sysItemsValue,jdbcType=VARCHAR},
+            </if>
+            <if test="accessLevel != null and accessLevel != '' ">
+                 ACCESS_LEVEL = #{accessLevel,jdbcType=INTEGER},
+            </if>
+            <if test="isActive != null and isActive != '' ">
+                 ISACTIVE = #{isActive,jdbcType=VARCHAR},
+            </if>
+            <if test="createdby != null and createdby != '' ">
+                 CREATEDBY = #{createdby,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedby != null and updatedby != '' ">
+                 UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+            </if>
+                 UPDATED_DATE = systimestamp
+        </trim>
+         WHERE SYS_ITEMS_CODE = #{sysItemsCode,jdbcType=VARCHAR}
+</update>
+
+
+<!-- 单个系统参数项删除 -->
+<delete id="deleteSysParamItems" parameterType="String">
+        delete from T_BP_SYS_PARAM_ITEMS where SYS_ITEMS_CODE = #{sysItemsCode,jdbcType=VARCHAR}
+</delete>
+
+
+<!-- 单个系统参数项查询 -->
+<select id="getSysParamItemsByCode" resultMap="businessSysParamItems" parameterType="String">
+        SELECT SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE,
+               (SELECT SYS_GROUP_NAME FROM T_BP_SYS_PARAM_GROUP WHERE SYS_GROUP_CODE = T.SYS_GROUP_CODE) sysGroupName,
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS T
+         WHERE SYS_ITEMS_CODE = #{sysItemsCode,jdbcType=VARCHAR}
+</select>
+
+<!-- 单个系统参数项查询 -->
+<select id="getSysParamItemsByKey" resultMap="businessSysParamItems" parameterType="String">
+        SELECT SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               (SELECT SYS_GROUP_NAME FROM T_BP_SYS_PARAM_GROUP WHERE SYS_GROUP_CODE = T.SYS_GROUP_CODE) sysGroupName,
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  T
+         WHERE SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+</select>
+
+<!-- 多个系统参数项查询 -->
+<select id="searchSysParamItemsListPage" resultMap="businessSysParamItems" parameterType="BusinessSysParamItems">
+        SELECT SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               (SELECT SYS_GROUP_NAME FROM T_BP_SYS_PARAM_GROUP WHERE SYS_GROUP_CODE = T.SYS_GROUP_CODE) sysGroupName,
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  T
+         WHERE 1 = 1 
+         <if test="sysItemsCode != null and sysItemsCode != ''">
+                AND SYS_ITEMS_CODE = #{sysItemsCode,jdbcType=VARCHAR}
+         </if>
+         <if test="sysGroupCode != null and sysGroupCode != ''">
+                AND SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsKey != null and sysItemsKey != '' ">
+                AND SYS_ITEMS_KEY = #{sysItemsKey,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsName != null and sysItemsName != '' ">
+                AND SYS_ITEMS_NAME = #{sysItemsName,jdbcType=VARCHAR}
+         </if>
+         <if test="sysItemsValue != null and sysItemsValue != '' ">
+                AND SYS_ITEMS_VALUE = #{sysItemsValue,jdbcType=VARCHAR}
+         </if>
+         <if test="accessLevel != null and accessLevel != '' ">
+                AND ACCESS_LEVEL = #{accessLevel,jdbcType=INTEGER}
+         </if>
+         <if test="isActive != null and isActive != '' ">
+                AND ISACTIVE = #{isActive,jdbcType=VARCHAR}
+         </if>
+         <if test="createdby != null and createdby != '' ">
+                AND CREATEDBY = #{createdby,jdbcType=VARCHAR}
+         </if>
+         <if test="updatedby != null and updatedby != '' ">
+                AND UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+         </if>
+</select>
+
+<!-- 通过系统参数组编码查询系统参数项 -->
+<select id="searchSysParamItemsList" resultMap="businessSysParamItems" parameterType="String">
+        SELECT SYS_ITEMS_CODE, 
+               SYS_GROUP_CODE, 
+               (SELECT SYS_GROUP_NAME FROM T_BP_SYS_PARAM_GROUP WHERE SYS_GROUP_CODE = T.SYS_GROUP_CODE) sysGroupName,
+               SYS_ITEMS_KEY, 
+               SYS_ITEMS_NAME,
+               SYS_ITEMS_VALUE,
+               ACCESS_LEVEL,
+               ISACTIVE,
+               CREATEDBY,
+               CREATED_DATE, 
+               UPDATEDBY, 
+               UPDATED_DATE  
+          FROM T_BP_SYS_PARAM_ITEMS  T
+         WHERE SYS_GROUP_CODE = #{sysGroupCode,jdbcType=VARCHAR}
+</select>
+
+</mapper>

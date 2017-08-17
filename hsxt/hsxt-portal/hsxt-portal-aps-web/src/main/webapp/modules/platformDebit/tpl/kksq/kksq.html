@@ -1,0 +1,40 @@
+<div id="kksqTpl">
+	<div class="bc info_800">
+		<form id="kksqForm">
+			<div class="clearfix">
+				<ul class="fl info_320">
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">互生号</label>
+						<input type="text" id="txtResNo" name="txtResNo" maxlength="11" placeholder="输入互生号" class="fl w185 h30_middle ml5" />
+						<span class="required-right-15">*</span>
+					</li>
+					<li class="register_row clearfix pr">
+						<label class="fl w115 h30_middle">扣款金额</label>
+						<input type="text" id="txtAmount" name="txtAmount" placeholder="输入扣款金额" class="fl w185 h30_middle ml5" maxlength="15" />
+						<span class="required-right-15">*</span>
+					</li>
+				</ul>
+				
+				<ul class="fr info_320">	
+					<li class="register_row clearfix cannotEdit-bg">
+						<label class="fl w115 h30_middle">单位名称</label>
+						<input type="text" id="txtUnitName" name="txtUnitName" readonly="readonly" class="fl w185 h30_middle ml5 cannotEdit-bg" />
+					</li>		
+				</ul>
+			</div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="mt5">
+				<tr>
+					<td align="right" class="w115 table_item border_left_CCC border_top_CCC border_bottom_CCC">扣款原因</td>
+					<td align="left" class="pr">
+						<textarea id="debitReason" name="debitReason" maxlength="3000" style="float:left"></textarea>
+						<span class="required-right-15" style="top:100px">*</span>
+					</td>
+				</tr>
+			</table>
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="bc_btn">保&#12288;存</a>
+				<a class="btn_bg submit fr" id="fq_btn">放&#12288;弃</a>
+			</div>
+		</form>
+	</div>
+</div>

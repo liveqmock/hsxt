@@ -1,0 +1,38 @@
+<div id="gjrklsTpl">
+	<form id="search_form" name="search_form">
+	<div class="search-toolbar">
+		<ul class="cssform clearfix">
+			<li>
+				<label>入库日期：</label>
+				<input type="text" name="search_startDate" id="search_startDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    />
+				<span class="separator-pd">-</span>
+				<input type="text" name="search_endDate" id="search_endDate" placeholder="输入时间范围" class="h28_middle input-txt w115"    /> 
+			</li>
+			<li class="clearfix">
+				<label class="fl h30_middle">工具类别：</label>
+				<input id="search_categoryCode" readonly="readonly" placeholder="选择工具类别" />
+			</li>
+			<!-- <li class="clearfix">
+				<label class="fl h30_middle">入库类别：</label>
+				<input id="search_categoryCode" readonly="readonly" placeholder="选择入库类别" /> 
+			</li> -->
+			<li>
+				<button id="queryBtn" type="button" class="btn-search">查询</button>
+			</li>
+		 </ul>
+	</div>
+	</form>
+	<table id="searchTable" class="bsgrid">
+	  <tr>
+		<th w_index="operDate"   w_render="operate">入库日期</th>
+		<th w_index="categoryCode" w_render="operate">工具类别</th>
+		<th w_index="productName" w_tip=true>工具名称</th>
+		<th w_index="whName" w_tip=true>仓库名称</th>
+		<!-- <th w_index="th_4">入库类别</th> -->
+		<th w_index="batchNo" w_tip=true>批次号</th>
+		<th w_index="quantity">入库数量</th>
+		<!-- <th w_index="th_7">所属供应商</th> -->
+		<th w_index="operNo" w_tip=true>操作员</th>
+	  </tr>
+	</table>
+</div>

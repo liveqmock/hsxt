@@ -1,0 +1,33 @@
+<div id="skzhxxgl_xgTpl">
+	<div class="info_600 bc mt40">
+		<form id="skzhxxgl_xg_form" autocomplete="off">
+			<ul>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款账户名称</label>
+					<input id="receiveAccountName"value="<%= obj.receiveAccountName %>" readonly="readonly" placeholder="选择收款账户名称" />
+				    <input type="hidden" name="receiveAccountId" value="<%= obj.receiveAccountId %>"  />
+				
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款开户银行</label>
+					<div class="fl ml5 combobox_style brandSelect">
+					<select id="bankId" name="bankId"></select>
+				</div>
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款开户行名称</label>
+					<input type="text"  name="bankBranchName"  value="<%= obj.bankBranchName %>" class="fl info_360 h30_middle ml5" placeholder="输入收款开户行名称"  />
+				</li>
+				<li class="register_row clearfix">
+					<label class="fl w115 h30_middle">收款账号</label>
+					<input type="hidden"  name="receiveAccountInfoId"  value="<%= obj.receiveAccountInfoId %>" class="fl info_360 h30_middle ml5" placeholder="输入收款账号" />
+				<input type="text" name="receiveAccountNo"  value="<%= obj.receiveAccountNo %>" class="fl info_360 h30_middle ml5" placeholder="输入收款账号" />
+				</li>
+			</ul>
+			<div class="w200 bc clearfix mt20">
+				<a class="btn_bg submit fl" id="xg_save">保&#12288;存</a>
+				<a class="btn_bg submit fr" id="xg_back">返&#12288;回</a>
+			</div>
+		</form>
+	</div>
+</div>

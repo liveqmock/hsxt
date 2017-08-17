@@ -1,0 +1,20 @@
+
+	<!-- 子菜单滚动 add by kuangrb 2016-04-27 -->
+	<a class="sub_arrow_left tabNone">&lt;</a>
+	<a class="sub_arrow_right tabNone">&gt;</a>
+	<!-- end -->
+	<ul class="clearfix">
+	 <% var param =obj.data;%>
+	 <% var reserveInfo = comm.getCookie('reserveInfo');%>
+	 <% var tradPwd = comm.getCookie("tradPwd");%>
+	 <% var custName = comm.getCookie("custName");%>
+	 <%$.each(param,function(key,el){%>
+	 	<%if(tradPwd == 'false' && (el.permUrl == "safeSetSrc/czjymm/tab" || el.permUrl == "safeSetSrc/xgjymm/tab")) return true;%>
+	 	<%if(tradPwd == 'true' && el.permUrl == "safeSetSrc/szjymm/tab") return true;%>
+	 	<%if(reserveInfo == '' && el.permUrl == "safeSetSrc/xgylxx/tab") return true;%>
+	 	<%if(reserveInfo != '' && el.permUrl == "safeSetSrc/szylxx/tab") return true;%>
+	 	<!-- 只有管理员（用户名0000）才有设置密保问题菜单 -->
+	    <%if(custName != '0000' && el.permUrl == "safeSetSrc/szmbwt/tab") return true;%>
+	    <li class="clearfix"><a  menuUrl='<%=el.permUrl%>' id="<%=el.parentId%>_subNav_<%=el.permId%>" ><%=el.permName%></a></li>
+	  <%})%>
+	  </ul>

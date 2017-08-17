@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gy.hsxt.bs.apply.mapper.IntentCustMapper">
+
+	<!-- 创建意向客户 -->
+	<insert id="createIntentCust" parameterType="com.gy.hsxt.bs.bean.apply.IntentCust" >
+		INSERT INTO T_BS_INTENT_CUST 
+		      (APPLY_ID,
+		       ACCEPT_NO,
+		       S_ENT_RES_NO,
+		       S_ENT_CUST_ID,
+		       S_ENT_CUST_NAME,
+		       LICENSE_NO,
+		       ENT_CUST_NAME,
+               APP_TYPE,
+               ENT_TYPE,
+               COUNTRY_NO,
+               PROVINCE_NO,
+               CITY_NO,
+               ENT_ADDRESS,
+               LINKMAN,
+               MOBILE,
+               OFFICE_TEL,
+               EMAIL,
+               AREA,
+               STAFFS,
+               BIZ_SCOPE,
+               CREATED_DATE,
+               STATUS) 
+		   VALUES 
+		      (#{applyId}, 
+		       #{acceptNo}, 
+		       #{serEntResNo}, 
+		       #{serEntCustId}, 
+		       #{serEntCustName},
+		       #{licenseNo}, 
+		       #{entCustName}, 
+		       #{appType}, 
+		       #{entType}, 
+		       #{countryNo}, 
+		       #{provinceNo}, 
+		       #{cityNo}, 
+		       #{entAddress},
+		       #{linkman}, 
+		       #{mobile}, 
+		       #{officeTel}, 
+		       #{email}, 
+		       #{area}, 
+		       #{staffs}, 
+		       #{bizScope}, 
+		       SYSDATE, 
+		       #{status})
+	</insert>
+	
+	<!-- 根据受理编号和营业执照号查询意向客户 -->
+	<select id="queryIntentCustByAcceptNoAndLicenseNo" resultType="com.gy.hsxt.bs.bean.apply.IntentCust">
+		SELECT APPLY_ID        AS applyId,
+		       ACCEPT_NO       AS acceptNo,
+		       S_ENT_RES_NO    AS serEntResNo,
+		       S_ENT_CUST_ID   AS serEntCustId,
+		       S_ENT_CUST_NAME AS serEntCustName,
+		       LICENSE_NO      AS licenseNo,
+		       ENT_CUST_NAME   AS entCustName,
+		       APP_TYPE        AS appType,
+		       ENT_TYPE        AS entType,
+		       COUNTRY_NO      AS countryNo,
+		       PROVINCE_NO     AS provinceNo,
+		       CITY_NO         AS cityNo,
+		       ENT_ADDRESS     AS entAddress,
+		       LINKMAN         AS linkman,
+		       MOBILE          AS mobile,
+		       OFFICE_TEL      AS officeTel,
+		       EMAIL           AS email,
+		       AREA            AS area,
+		       STAFFS          AS staffs,
+		       BIZ_SCOPE       AS bizScope,
+		       STATUS          AS status,
+		       APPR_OPERATOR   AS apprOperator,
+		       APPR_REMARK     AS apprRemark,
+		       TO_CHAR(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+		       TO_CHAR(APPR_TIME, 'yyyy-MM-dd HH24:mi:ss')    AS apprTime
+		FROM T_BS_INTENT_CUST 
+		WHERE 
+		     ACCEPT_NO = #{acceptNo}
+		AND  LICENSE_NO = #{licenseNo}
+	</select>
+	
+	<!-- 查询意向客户 -->
+	<select id="queryIntentCustById" parameterType="string" resultType="com.gy.hsxt.bs.bean.apply.IntentCust">
+		SELECT APPLY_ID        AS applyId,
+		       ACCEPT_NO       AS acceptNo,
+		       S_ENT_RES_NO    AS serEntResNo,
+		       S_ENT_CUST_ID   AS serEntCustId,
+		       S_ENT_CUST_NAME AS serEntCustName,
+		       LICENSE_NO      AS licenseNo,
+		       ENT_CUST_NAME   AS entCustName,
+		       APP_TYPE        AS appType,
+		       ENT_TYPE        AS entType,
+		       COUNTRY_NO      AS countryNo,
+		       PROVINCE_NO     AS provinceNo,
+		       CITY_NO         AS cityNo,
+		       ENT_ADDRESS     AS entAddress,
+		       LINKMAN         AS linkman,
+		       MOBILE          AS mobile,
+		       OFFICE_TEL      AS officeTel,
+		       EMAIL           AS email,
+		       AREA            AS area,
+		       STAFFS          AS staffs,
+		       BIZ_SCOPE       AS bizScope,
+		       STATUS          AS status,
+		       APPR_OPERATOR   AS apprOperator,
+		       APPR_REMARK     AS apprRemark,
+		       TO_CHAR(CREATED_DATE, 'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+		       TO_CHAR(APPR_TIME, 'yyyy-MM-dd HH24:mi:ss')    AS apprTime
+		FROM T_BS_INTENT_CUST 
+		WHERE APPLY_ID = #{applyId}
+	</select>
+	
+	<!-- 通过ID查询意向客户  -->
+	<select id="queryIntentCustListPage" parameterType="com.gy.hsxt.bs.bean.apply.IntentCustQueryParam" resultType="com.gy.hsxt.bs.bean.apply.IntentCustBaseInfo">
+		SELECT APPLY_ID      AS applyId,
+		       ENT_CUST_NAME AS entCustName,
+		       ENT_ADDRESS   AS entAddress,
+		       LINKMAN       AS linkman,
+		       MOBILE        AS mobile,
+		       COUNTRY_NO    AS countryNo,
+		       PROVINCE_NO   AS provinceNo,
+		       CITY_NO       AS cityNo,
+		       APP_TYPE      AS appType,
+		       STATUS        AS status,
+		       S_ENT_RES_NO  AS serEntResNo,
+		       to_char(CREATED_DATE,'yyyy-MM-dd HH24:mi:ss') AS createdDate,
+		       to_char(APPR_TIME,'yyyy-MM-dd HH24:mi:ss')    AS apprTime
+		FROM T_BS_INTENT_CUST
+		WHERE 1=1
+		      <if test="serEntResNo != null and serEntResNo != '' "> 
+		      	AND S_ENT_RES_NO = #{serEntResNo}
+		      </if>
+		      <if test="startDate != null and startDate != '' "> 
+		      	<![CDATA[ AND CREATED_DATE >= to_date(#{startDate},'yyyy-MM-dd') ]]>
+		      </if>
+		      <if test="endDate != null and endDate != '' "> 
+		      	<![CDATA[ AND CREATED_DATE < to_date(#{endDate},'yyyy-MM-dd')+1 ]]>	 
+		      </if>
+		      <if test="appType != null"> 
+		      	AND APP_TYPE = #{appType}
+		      </if>
+		      <if test="entCustName != null and entCustName != '' "> 
+		      	AND UPPER(ENT_CUST_NAME) LIKE UPPER('%'||#{entCustName}||'%')
+		      </if>
+		      <if test="status != null"> 
+		      	AND STATUS = #{status}
+		      </if>
+		   ORDER BY APPR_TIME DESC NULLS LAST,CREATED_DATE DESC
+	</select>
+	
+	<!-- 处理意向客户 -->
+	<update id="apprIntentCust">
+		UPDATE T_BS_INTENT_CUST SET
+		    STATUS = #{status},
+		    APPR_OPERATOR = #{apprOperator},
+		    APPR_TIME = SYSDATE,
+		    APPR_REMARK = #{apprRemark}
+		    WHERE APPLY_ID = #{applyId}
+	</update>
+
+	<select id="queryUniqueIntentCust" parameterType="com.gy.hsxt.bs.bean.apply.IntentCust" resultType="int">
+		SELECT count(t.APPLY_ID) FROM T_BS_INTENT_CUST t WHERE t.ENT_CUST_NAME = #{entCustName} AND t.LICENSE_NO = #{licenseNo} AND t.APP_TYPE = #{appType}
+	</select>
+</mapper>
