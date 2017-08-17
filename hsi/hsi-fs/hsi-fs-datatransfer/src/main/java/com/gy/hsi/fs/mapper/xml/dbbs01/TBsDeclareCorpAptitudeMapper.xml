@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsDeclareCorpAptitudeMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitude" >
+    <id column="APTITUDE_ID" property="aptitudeId" jdbcType="VARCHAR" />
+    <result column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="APTITUDE_TYPE" property="aptitudeType" jdbcType="DECIMAL" />
+    <result column="APTITUDE_NAME" property="aptitudeName" jdbcType="VARCHAR" />
+    <result column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APTITUDE_ID, APPLY_ID, APTITUDE_TYPE, APTITUDE_NAME, FILE_ID, CREATED_DATE, CREATEDBY, 
+    UPDATED_DATE, UPDATEDBY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitudeExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    where APTITUDE_ID = #{aptitudeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    where APTITUDE_ID = #{aptitudeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitudeExample" >
+    delete from DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitude" >
+    insert into DBBS01.T_BS_DECLARE_CORP_APTITUDE (APTITUDE_ID, APPLY_ID, APTITUDE_TYPE, 
+      APTITUDE_NAME, FILE_ID, CREATED_DATE, 
+      CREATEDBY, UPDATED_DATE, UPDATEDBY
+      )
+    values (#{aptitudeId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{aptitudeType,jdbcType=DECIMAL}, 
+      #{aptitudeName,jdbcType=VARCHAR}, #{fileId,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{createdby,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitude" >
+    insert into DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aptitudeId != null" >
+        APTITUDE_ID,
+      </if>
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="aptitudeType != null" >
+        APTITUDE_TYPE,
+      </if>
+      <if test="aptitudeName != null" >
+        APTITUDE_NAME,
+      </if>
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aptitudeId != null" >
+        #{aptitudeId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="aptitudeType != null" >
+        #{aptitudeType,jdbcType=DECIMAL},
+      </if>
+      <if test="aptitudeName != null" >
+        #{aptitudeName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitudeExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <set >
+      <if test="record.aptitudeId != null" >
+        APTITUDE_ID = #{record.aptitudeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aptitudeType != null" >
+        APTITUDE_TYPE = #{record.aptitudeType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.aptitudeName != null" >
+        APTITUDE_NAME = #{record.aptitudeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileId != null" >
+        FILE_ID = #{record.fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedby != null" >
+        UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    set APTITUDE_ID = #{record.aptitudeId,jdbcType=VARCHAR},
+      APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      APTITUDE_TYPE = #{record.aptitudeType,jdbcType=DECIMAL},
+      APTITUDE_NAME = #{record.aptitudeName,jdbcType=VARCHAR},
+      FILE_ID = #{record.fileId,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitude" >
+    update DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    <set >
+      <if test="applyId != null" >
+        APPLY_ID = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="aptitudeType != null" >
+        APTITUDE_TYPE = #{aptitudeType,jdbcType=DECIMAL},
+      </if>
+      <if test="aptitudeName != null" >
+        APTITUDE_NAME = #{aptitudeName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        FILE_ID = #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APTITUDE_ID = #{aptitudeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDeclareCorpAptitude" >
+    update DBBS01.T_BS_DECLARE_CORP_APTITUDE
+    set APPLY_ID = #{applyId,jdbcType=VARCHAR},
+      APTITUDE_TYPE = #{aptitudeType,jdbcType=DECIMAL},
+      APTITUDE_NAME = #{aptitudeName,jdbcType=VARCHAR},
+      FILE_ID = #{fileId,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR}
+    where APTITUDE_ID = #{aptitudeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* 效果CSS开始 */
+.selectbox {width:600px;height:320px;margin:0px auto;}
+.selectbox div{float:left;}
+.selectbox .select-bar{padding:0 2px;}
+.selectbox .select-bar select{width:300px;height:300px;border:1px #A0A0A4 solid;padding:4px;font-size:14px;font-family:"microsoft yahei";}
+.btn-bar {padding-left:10px; padding-right:10px;}
+.btn-bar p{margin-top:16px;}
+.btn-bar p .btn{width:50px;height:30px;cursor:pointer;font-family:simsun;font-size:14px;}
+/* 效果CSS结束 */

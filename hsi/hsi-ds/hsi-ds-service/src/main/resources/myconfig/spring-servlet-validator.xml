@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:myconfig/message-info</value>
+				<value>classpath:com/gy/hsi/ds/login/controller/resource/sign-controller-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/login/controller/resource/sign-service-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/param/controller/resource/config-controller-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/param/controller/resource/app-service-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/param/controller/resource/app-controller-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/job/controller/resource/business-controller-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/job/controller/resource/trigger-controller-info
+				</value>
+				<value>classpath:com/gy/hsi/ds/job/controller/resource/detail-controller-info
+				</value>
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="false" />
+	</bean>
+
+	<bean id="my_validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+</beans>

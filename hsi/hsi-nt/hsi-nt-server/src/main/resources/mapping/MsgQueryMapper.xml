@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.gy.hsi.nt.server.mapper.MsgQueryMapper">
+		
+	<!-- 公共查询sql -->	
+	<sql id="commomQuerySql">
+		(
+			SELECT
+				SM.MSG_ID,
+				SM.HS_RES_NO,
+				SM.TEMP_NAME,
+				SM.CUST_TYPE,
+				SM.BIZ_TYPE,
+				SM.CUST_NAME,
+				SM.MSG_RECEIVER,
+				SM.MSG_CONTENT,
+				SM.LAST_SEND_DATE,
+				SM.MSG_CHANNEL,
+				'1' STATUS
+			FROM
+				T_NT_SENDED_MSG SM
+			WHERE
+				<![CDATA[ SM.MSG_CHANNEL <> 4 ]]>
+		UNION ALL
+			SELECT
+				AM.MSG_ID,
+				AM.HS_RES_NO,
+				AM.TEMP_NAME,
+				AM.CUST_TYPE,
+				AM.BIZ_TYPE,
+				AM.CUST_NAME,
+				AM.MSG_RECEIVER,
+				AM.MSG_CONTENT,
+				AM.LAST_SEND_DATE,
+				AM.MSG_CHANNEL,
+				'0' STATUS
+			FROM
+				T_NT_ABANDON_MSG AM
+			WHERE
+				<![CDATA[ AM.MSG_CHANNEL <> 4 ]]>
+		UNION ALL		
+			SELECT
+				RM.MSG_ID,
+				RM.HS_RES_NO,
+				RM.TEMP_NAME,
+				RM.CUST_TYPE,
+				RM.BIZ_TYPE,
+				RM.CUST_NAME,
+				RM.MSG_RECEIVER,
+				RM.MSG_CONTENT,
+				RM.LAST_SEND_DATE,
+				RM.MSG_CHANNEL,
+				'0' STATUS
+			FROM
+				T_NT_RESEND_MSG RM
+			WHERE
+				<![CDATA[ RM.MSG_CHANNEL <> 4 ]]>
+		) T
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="selectIf">
+		<if test="hsResNo != null and hsResNo != ''">
+			AND T.HS_RES_NO LIKE CONCAT(#{hsResNo},'%')
+		</if>
+		<if test="custName != null and custName != ''">
+			AND T.CUST_NAME LIKE CONCAT('%',#{custName},'%')
+		</if>
+		<if test="custType != null">
+			AND T.CUST_TYPE = #{custType}
+		</if>
+		<if test="status != null and status != ''">
+			AND T.STATUS = #{status}
+		</if>
+	</sql>
+	
+	<!-- 公共字段 -->
+	<sql id="commonField">
+		T.MSG_ID AS msgId,
+		T.HS_RES_NO AS hsResNo,
+		T.TEMP_NAME AS tempName,
+		T.CUST_TYPE AS custType,
+		T.BIZ_TYPE AS bizType,
+		T.CUST_NAME AS custName,
+		T.MSG_RECEIVER AS msgReceiver,
+		T.MSG_CONTENT AS msgContent,
+		date_format(T.LAST_SEND_DATE,'%Y-%c-%d %H:%i:%s') AS sendDate,
+		T.STATUS AS status
+	</sql>
+	
+	<!-- 查询短信总行数 -->
+	<select id="queryNoteByCount" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 1
+		<include refid="selectIf"/>
+	</select>
+	
+	<!-- 分页查询短信 -->
+	<select id="queryNoteByPage" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="com.gy.hsi.nt.api.beans.MsgQueryBean">
+		SELECT 
+			<include refid="commonField"/>
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 1
+		<include refid="selectIf"/>
+		ORDER BY T.LAST_SEND_DATE DESC
+		limit #{startCount},#{pageSize}
+	</select>
+	
+	<!-- 查询邮件总行数 -->
+	<select id="queryEmailByCount" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 3
+		<include refid="selectIf"/>
+	</select>
+	
+	<!-- 分页查询邮件 -->
+	<select id="queryEmailByPage" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="com.gy.hsi.nt.api.beans.MsgQueryBean">
+		SELECT 
+			<include refid="commonField"/>
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 3
+		<include refid="selectIf"/>
+		ORDER BY T.LAST_SEND_DATE DESC
+		limit #{startCount},#{pageSize}
+	</select>
+		
+	<!-- 查询业务互动消息总行数 -->
+	<select id="queryDynamicBizByCount" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 2
+		<include refid="selectIf"/>
+	</select>
+	
+	<!-- 分页查询业务互动消息 -->
+	<select id="queryDynamicBizByPage" parameterType="com.gy.hsi.nt.api.beans.QueryParam" resultType="com.gy.hsi.nt.api.beans.MsgQueryBean">
+		SELECT 
+			<include refid="commonField"/>
+		FROM <include refid="commomQuerySql"/>
+		WHERE T.MSG_CHANNEL = 2
+		<include refid="selectIf"/>
+		ORDER BY T.LAST_SEND_DATE DESC
+		limit #{startCount},#{pageSize}
+	</select>
+	
+</mapper>

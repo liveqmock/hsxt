@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.TFsFileMetaDataMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.TFsFileMetaData" >
+    <id column="FILE_ID" property="fileId" jdbcType="CHAR" />
+    <result column="FILE_STORAGE_ID" property="fileStorageId" jdbcType="CHAR" />
+    <result column="FILE_PERMISSION" property="filePermission" jdbcType="CHAR" />
+    <result column="OWNER_USER_ID" property="ownerUserId" jdbcType="CHAR" />
+    <result column="IS_ANONYMOUS" property="isAnonymous" jdbcType="BIT" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_SUFFIX" property="fileSuffix" jdbcType="VARCHAR" />
+    <result column="FILE_SIZE_BYTES" property="fileSizeBytes" jdbcType="BIGINT" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="TINYINT" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FILE_ID, FILE_STORAGE_ID, FILE_PERMISSION, OWNER_USER_ID, IS_ANONYMOUS, FILE_NAME, 
+    FILE_SUFFIX, FILE_SIZE_BYTES, FILE_STATUS, CREATED_DATE, UPDATED_DATE
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FS_FILE_META_DATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+     order by FILE_ID
+     limit ${start}, ${end}
+  </select>
+
+	<select id="selectByExampleForDownload" resultMap="BaseResultMap"
+		parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaDataExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from T_FS_FILE_META_DATA		
+		<![CDATA[
+		where 
+		   (FILE_STORAGE_ID like 'T%' or FILE_STORAGE_ID like 'L%') 
+		   and FILE_SIZE_BYTES <0
+		]]>
+		order by FILE_ID
+		limit ${start}, ${end}
+	</select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FS_FILE_META_DATA
+    where FILE_ID = #{fileId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_FS_FILE_META_DATA
+    where FILE_ID = #{fileId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaDataExample" >
+    delete from T_FS_FILE_META_DATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaData" >
+    insert into T_FS_FILE_META_DATA (FILE_ID, FILE_STORAGE_ID, FILE_PERMISSION, 
+      OWNER_USER_ID, IS_ANONYMOUS, FILE_NAME, 
+      FILE_SUFFIX, FILE_SIZE_BYTES, FILE_STATUS, 
+      CREATED_DATE, UPDATED_DATE)
+    values (#{fileId,jdbcType=CHAR}, #{fileStorageId,jdbcType=CHAR}, #{filePermission,jdbcType=CHAR}, 
+      #{ownerUserId,jdbcType=CHAR}, #{isAnonymous,jdbcType=BIT}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileSuffix,jdbcType=VARCHAR}, #{fileSizeBytes,jdbcType=BIGINT}, #{fileStatus,jdbcType=TINYINT}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaData" >
+    insert into T_FS_FILE_META_DATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="fileStorageId != null" >
+        FILE_STORAGE_ID,
+      </if>
+      <if test="filePermission != null" >
+        FILE_PERMISSION,
+      </if>
+      <if test="ownerUserId != null" >
+        OWNER_USER_ID,
+      </if>
+      <if test="isAnonymous != null" >
+        IS_ANONYMOUS,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="fileSuffix != null" >
+        FILE_SUFFIX,
+      </if>
+      <if test="fileSizeBytes != null" >
+        FILE_SIZE_BYTES,
+      </if>
+      <if test="fileStatus != null" >
+        FILE_STATUS,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=CHAR},
+      </if>
+      <if test="fileStorageId != null" >
+        #{fileStorageId,jdbcType=CHAR},
+      </if>
+      <if test="filePermission != null" >
+        #{filePermission,jdbcType=CHAR},
+      </if>
+      <if test="ownerUserId != null" >
+        #{ownerUserId,jdbcType=CHAR},
+      </if>
+      <if test="isAnonymous != null" >
+        #{isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null" >
+        #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSizeBytes != null" >
+        #{fileSizeBytes,jdbcType=BIGINT},
+      </if>
+      <if test="fileStatus != null" >
+        #{fileStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaDataExample" resultType="java.lang.Integer" >
+    select count(*) from T_FS_FILE_META_DATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FS_FILE_META_DATA
+    <set >
+      <if test="record.fileId != null" >
+        FILE_ID = #{record.fileId,jdbcType=CHAR},
+      </if>
+      <if test="record.fileStorageId != null" >
+        FILE_STORAGE_ID = #{record.fileStorageId,jdbcType=CHAR},
+      </if>
+      <if test="record.filePermission != null" >
+        FILE_PERMISSION = #{record.filePermission,jdbcType=CHAR},
+      </if>
+      <if test="record.ownerUserId != null" >
+        OWNER_USER_ID = #{record.ownerUserId,jdbcType=CHAR},
+      </if>
+      <if test="record.isAnonymous != null" >
+        IS_ANONYMOUS = #{record.isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSuffix != null" >
+        FILE_SUFFIX = #{record.fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSizeBytes != null" >
+        FILE_SIZE_BYTES = #{record.fileSizeBytes,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileStatus != null" >
+        FILE_STATUS = #{record.fileStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FS_FILE_META_DATA
+    set FILE_ID = #{record.fileId,jdbcType=CHAR},
+      FILE_STORAGE_ID = #{record.fileStorageId,jdbcType=CHAR},
+      FILE_PERMISSION = #{record.filePermission,jdbcType=CHAR},
+      OWNER_USER_ID = #{record.ownerUserId,jdbcType=CHAR},
+      IS_ANONYMOUS = #{record.isAnonymous,jdbcType=BIT},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      FILE_SUFFIX = #{record.fileSuffix,jdbcType=VARCHAR},
+      FILE_SIZE_BYTES = #{record.fileSizeBytes,jdbcType=BIGINT},
+      FILE_STATUS = #{record.fileStatus,jdbcType=TINYINT},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaData" >
+    update T_FS_FILE_META_DATA
+    <set >
+      <if test="fileStorageId != null" >
+        FILE_STORAGE_ID = #{fileStorageId,jdbcType=CHAR},
+      </if>
+      <if test="filePermission != null" >
+        FILE_PERMISSION = #{filePermission,jdbcType=CHAR},
+      </if>
+      <if test="ownerUserId != null" >
+        OWNER_USER_ID = #{ownerUserId,jdbcType=CHAR},
+      </if>
+      <if test="isAnonymous != null" >
+        IS_ANONYMOUS = #{isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null" >
+        FILE_SUFFIX = #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSizeBytes != null" >
+        FILE_SIZE_BYTES = #{fileSizeBytes,jdbcType=BIGINT},
+      </if>
+      <if test="fileStatus != null" >
+        FILE_STATUS = #{fileStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FILE_ID = #{fileId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.TFsFileMetaData" >
+    update T_FS_FILE_META_DATA
+    set FILE_STORAGE_ID = #{fileStorageId,jdbcType=CHAR},
+      FILE_PERMISSION = #{filePermission,jdbcType=CHAR},
+      OWNER_USER_ID = #{ownerUserId,jdbcType=CHAR},
+      IS_ANONYMOUS = #{isAnonymous,jdbcType=BIT},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_SUFFIX = #{fileSuffix,jdbcType=VARCHAR},
+      FILE_SIZE_BYTES = #{fileSizeBytes,jdbcType=BIGINT},
+      FILE_STATUS = #{fileStatus,jdbcType=TINYINT},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP}
+    where FILE_ID = #{fileId,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC   
+    "-//mybatis.org//DTD Config 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启缓存 -->
+        <setting name="cacheEnabled" value="true" />   
+        <setting name="useGeneratedKeys" value="true" />   
+    </settings>
+    
+    <mappers>  
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/TFsFileMetaDataMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/TFsFileMetaDataDelMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/TFsCommonParamsMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/TFsFileOperationLogMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/TFsPermissionRuleMapper.xml" />		
+		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/ext/ExtendedFileMetaDataMapper.xml" />
+   		<mapper resource="com/gy/hsi/fs/server/common/framework/mybatis/xml/ext/ExtendedFileMetaDataDelMapper.xml" />
+    </mappers>
+</configuration>

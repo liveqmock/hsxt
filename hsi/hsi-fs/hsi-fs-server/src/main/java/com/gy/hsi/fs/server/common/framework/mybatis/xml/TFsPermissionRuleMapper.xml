@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.server.common.framework.mybatis.mapper.TFsPermissionRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRule" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="RULE_MATRIX_X" property="ruleMatrixX" jdbcType="VARCHAR" />
+    <result column="RULE_MATRIX_Y" property="ruleMatrixY" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, RULE_MATRIX_X, RULE_MATRIX_Y, REMARK, CREATED_DATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FS_PERMISSION_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FS_PERMISSION_RULE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_FS_PERMISSION_RULE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRuleExample" >
+    delete from T_FS_PERMISSION_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRule" >
+    insert into T_FS_PERMISSION_RULE (ID, RULE_MATRIX_X, RULE_MATRIX_Y, 
+      REMARK, CREATED_DATE)
+    values (#{id,jdbcType=INTEGER}, #{ruleMatrixX,jdbcType=VARCHAR}, #{ruleMatrixY,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRule" >
+    insert into T_FS_PERMISSION_RULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="ruleMatrixX != null" >
+        RULE_MATRIX_X,
+      </if>
+      <if test="ruleMatrixY != null" >
+        RULE_MATRIX_Y,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ruleMatrixX != null" >
+        #{ruleMatrixX,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMatrixY != null" >
+        #{ruleMatrixY,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRuleExample" resultType="java.lang.Integer" >
+    select count(*) from T_FS_PERMISSION_RULE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FS_PERMISSION_RULE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ruleMatrixX != null" >
+        RULE_MATRIX_X = #{record.ruleMatrixX,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ruleMatrixY != null" >
+        RULE_MATRIX_Y = #{record.ruleMatrixY,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FS_PERMISSION_RULE
+    set ID = #{record.id,jdbcType=INTEGER},
+      RULE_MATRIX_X = #{record.ruleMatrixX,jdbcType=VARCHAR},
+      RULE_MATRIX_Y = #{record.ruleMatrixY,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRule" >
+    update T_FS_PERMISSION_RULE
+    <set >
+      <if test="ruleMatrixX != null" >
+        RULE_MATRIX_X = #{ruleMatrixX,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleMatrixY != null" >
+        RULE_MATRIX_Y = #{ruleMatrixY,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsPermissionRule" >
+    update T_FS_PERMISSION_RULE
+    set RULE_MATRIX_X = #{ruleMatrixX,jdbcType=VARCHAR},
+      RULE_MATRIX_Y = #{ruleMatrixY,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

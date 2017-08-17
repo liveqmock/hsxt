@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>DS - 调度及参数配置系统</title>
+	<link rel="stylesheet" href="dep/bootstrap/css/bootstrap.css" />
+	<!--[if lte IE 6]>
+	        <link rel="stylesheet" href="dep/bootstrap/css/bootstrap-ie6.css" />
+	        <![endif]-->
+	<!--[if lte IE 7]>
+	        <link rel="stylesheet" href="dep/bootstrap/css/ie.css" />
+	        <![endif]-->
+	<![if !IE]>
+	<link rel="stylesheet" href="dep/bootstrap/css/noie.css" />
+	<![endif]>
+	<link rel="stylesheet"
+		href="dep/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/project.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/menu.css" />	
+	
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top clearfix">
+		<div class="navbar-inner zu-top">
+			<span class="header"></span>
+			<div class="nav-collapse collapse" style="margin-right: 10px;">
+				<ul class="nav pull-right">
+					<div class="login-yes" style="display: none; padding: 10px;">
+						<li style="display: inline;" class="dropdown">
+							<span style="color: #CCCCCC;">登录用户:&nbsp;&nbsp;</span> 
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> 
+								<span class="zu-top-nav-link loginName" id="username"></span> 
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="password.html" >修改密码</a></li>
+							</ul></li> &nbsp;&nbsp;&nbsp;&nbsp;
+						<li style="display: inline;" class="dropdown"><a href="#" id="signout"> <span
+								class="zu-top-nav-link" title="点击退出登录">退出</span></a></li>
+					</div>
+
+					<div class="login-no" style="padding: 10px;">
+						<li style="display: inline;"><a href="login.html"> <span
+								class="zu-top-nav-link">登录</span>
+						</a></li>
+					</div>
+				</ul>
+			</div>
+		</div>
+		<div class=navtabmenu style="margin-left: 0px; margin-top: 0px;">
+			<ul>
+				<li id="unique_tab1"><a href="#" id="toHome">首页</a></li>
+				<li id="unique_tab2" class="current"><a href="main.html"
+					onclick="return true;" style="cursor: pointer;">参数配置</a>
+					<ul>
+						<li><a href="main.html">参数列表</a></li>
+						<li><a href="newapp.html">新建APP</a></li>						
+						<li><a href="newconfig_file.html">新建配置文件</a></li>
+						<li><a href="batch_upload_download.html">批量上传&下载</a></li>
+					</ul></li>
+				<li id="unique_tab3" class="sub_nav"><a href="business.html"
+					onclick="return true;" style="cursor: pointer;">调度配置</a>
+					<ul>
+						<li><a href="business.html">业务列表</a></li>					
+					    <li><a href="newservice.html">新建业务</a></li>
+						<li><a href="jobs.html">定时任务队列</a></li>
+						<li><a href="cron.html">Cron生成器</a></li>
+						<li><a href="executedetail.html">业务执行详情</a></li>
+					</ul></li>
+			</ul>
+			<div class="about">
+				<table>
+					<tbody>
+						<tr>
+							<td><img src="assets/img/ico_help.png" width="14"
+								height="14" border="0"></td>
+							<td><a href="#" target="_self">帮助</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="Wrapper" class="clearfix">
+		<div id="Main" style="margin-top: 80px;">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<ul style="background-color: #fff; width:300px; margin-left:10px;margin-top:5px;">
+						<span><a href="main.html">参数配置</a></span>
+						<span class="active">/ 批量上传下载</span>
+					</ul>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="content oz" style="padding-bottom: 15px;">
+							<form id="form" action="config/" method="post" enctype="multipart/form-data" class="private-form clearfix">
+								<h2 class="autoPush-detail-title">批量上传下载</h2>
+								<div class="private-item"  style="display:none;">
+									<span class="private-item-key">版本：</span>
+									<div class="btn-group">
+									   <input id="versionChoice" type="text" value="1.0.0.0" readonly="readonly"/>
+									</div>
+								</div>
+								
+								<div class="private-item"  style="display:none;">
+									<span class="private-item-key">环境：</span>
+									<div class="btn-group">
+									    <input id="envChoice" type="text" value="local" readonly="readonly"/>
+									</div>
+								</div>
+
+								<div id="file_upload_choice" class="private-item clearfix ">
+									<span style="float: left" class="private-item-key">上传配置文件：</span>
+									<div style="float: left" class="private-item-value-pre">
+										<span class="sl-custom-file btn btn-success fileinput-button"
+											style="overflow: hidden; cursor: pointer;">
+											<div id="open_dialog_rar">选择zip文件...</div> 
+											<input class="ui-input-file" type="file" name="myfilerar"
+											id="myfilerar" style="width: 120px; height: 30px;">
+										</span> 
+										<span id="error_rar" class="text-error error_rar"></span>
+
+										<div style="color: #999; padding-top:8px;">
+											(请将上传的配置文件按约定格式打成zip包, 仅支持zip格式压缩文件, 可以参考<a href="help_batch_upload_download.html" target="_blank" title="点击参考相关使用说明">相关使用说明</a>。)
+											<span id="status_rar" class="text-success"></span>
+										</div>
+										<div class="progress_rar">
+											<div class="bar_rar"></div>
+											<div class="percent_rar">0%</div>
+										</div>
+										<div class="loading_rar"></div>
+									</div>
+								</div>
+
+								<div id="text_upload_choice" class="hide">
+
+									<div class="private-item">
+										<span style="float: left" class="private-item-key">文件名：</span>
+										<input id="fileName" type="text" class="private-item-value">
+									</div>
+
+									<div class="private-item">
+										<span style="float: left" class="private-item-key">输入文本：</span>
+										<textarea id="fileContent" type="text" class="private-item-value"
+											style="min-width: 500px; height: 200px;">
+										</textarea>
+									</div>
+								</div>
+								<div id="error" class="error hide">表单选项不能为空或填写格式错误！</div>
+							</form>
+							<div style="text-align: center; margin-bottom:30px;">
+								<button id="file_submit" class="btn btn-primary" title="点击上传">批量上传</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-fluid" style="margin-top:25px;">
+					<div class="span12">
+						<div class="content oz" style="padding-bottom: 15px;">
+							<form id="file_batch_download_form" action="config/downloadAllAppFiles" method="post" enctype="multipart/form-data"></form>
+							<div style="text-align: center">
+								<button id="file_batchdownload" class="btn" style="margin-top:15px;" title="点击进行批量下载">批量下载</button>
+							</div>
+							<div style="color: #999; text-align: center; padding-top:8px;">
+								(将会把所有APP的配置文件压缩成一个zip包, 然后下载到本地)
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<div id="BottomMain">
+			<div class="inner">
+				<strong> <a href="#" class="dark">关于</a> &nbsp;
+				</strong>
+				<div class="sep10"></div>
+				<span>调度及参数配置系统</span>&nbsp;&nbsp;<span style="color:blue;">[建议使用Firefox、Google Chrome、或IE9及以上版本浏览器]</span>
+				<div class="sep10"></div>
+				<span class="myfade">© 2013-2015 Intergrowth Corporation
+					深圳市互生科技有限公司<a href="http://www.miitbeian.gov.cn/" target="_blank">
+						粤ICP备13058455号</a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<script src="assets/js/jquery-1.11.0.js"></script>
+	<script src="dep/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+	<script src="dep/bootstrap/js/bootstrap.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/common.js"></script>
+	<script src="assets/js/heartbeat.js"></script>
+	<script src="assets/js/config_common.js"></script>
+	<script src="assets/js/jquery.form.js"></script>
+	<script src="assets/js/batchUploadDownload.js"></script>
+	<script src="assets/js/footer.js"></script>
+</body>
+</html>
+

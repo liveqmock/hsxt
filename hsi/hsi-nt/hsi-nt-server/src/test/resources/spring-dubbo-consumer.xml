@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+        http://www.springframework.org/schema/beans/spring-beans.xsd    
+        http://code.alibabatech.com/schema/dubbo    
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<dubbo:application name="com_gy_hsxt_dubbo_nt_consumer"/>
+	 <dubbo:registry address="zookeeper://192.168.229.28:2181" check="true"/> 
+	<!-- 生成远程服务代理 -->
+	<dubbo:reference id="ntService"
+		interface="com.gy.hsi.nt.api.service.INtService" version="1.0.0"/>	
+		
+	<!-- 通知查询 -->	
+	<dubbo:reference id="ntQueryService"
+		interface="com.gy.hsi.nt.api.service.INtQueryService" version="1.0.0"/>		
+</beans>

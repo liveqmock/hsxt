@@ -1,0 +1,247 @@
+ [
+       {
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "posBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "posBIZ",
+            "desc": "pos接入"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "ucBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "ucBIZ",
+            "desc": "用户中心"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "gpBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "gpBIZ",
+            "desc": "HSXT_GP"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "pgBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "pgBIZ",
+            "desc": "HSXT_PG"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "aoBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "aoBIZ",
+            "desc": "Account_Operate_System"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "tmBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "tmBIZ",
+            "desc": "TM"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "bsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "bsBIZ",
+            "desc": "业务系统"
+        },
+        {
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "companyBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "companyBIZ",
+            "desc": "企业系统"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "personBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "personBIZ",
+            "desc": "消费者系统"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "apsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "apsBIZ",
+            "desc": "地区平台"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "mcsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "mcsBIZ",
+            "desc": "管理公司"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "scsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "scsBIZ",
+            "desc": "服务公司"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "esBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "esBIZ",
+            "desc": "电商的消费积分"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "psBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "psBIZ",
+            "desc": "POS的消费积分"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "wsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "wsBIZ",
+            "desc": "积分福利"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "ucbatchBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "ucbatchBIZ",
+            "desc": "UC批处理"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "tcbatchBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "tcbatchBIZ",
+            "desc": "对账中心批处理"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "ulsBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "ulsBIZ",
+            "desc": "统一登录"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "acBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "acBIZ",
+            "desc": "账务系统"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "acBacthBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "acBacthBIZ",
+            "desc": "账务批生成文件"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "bpBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "bpBIZ",
+            "desc": "业务参数系统"
+        },{
+            "bootstrap.servers": "192.168.229.107:9093",
+            "group.id": "rpBIZ",
+            "enable.auto.commit": "true",
+            "auto.commit.interval.ms": "1000",
+            "session.timeout.ms": "30000",
+            "key.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "value.deserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+            "partitions": "0",
+            "topics": "rpBIZ",
+            "desc": "报表系统"
+        }
+        
+    ]

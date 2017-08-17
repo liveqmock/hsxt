@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsEntRealnameAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuth" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+    <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+    <result column="ENT_CUST_NAME_EN" property="entCustNameEn" jdbcType="VARCHAR" />
+    <result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+    <result column="PROVINCE_NO" property="provinceNo" jdbcType="VARCHAR" />
+    <result column="CITY_NO" property="cityNo" jdbcType="VARCHAR" />
+    <result column="ENT_ADDR" property="entAddr" jdbcType="VARCHAR" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+    <result column="LEGAL_CRE_TYPE" property="legalCreType" jdbcType="DECIMAL" />
+    <result column="LEGAL_CRE_NO" property="legalCreNo" jdbcType="VARCHAR" />
+    <result column="LICENSE_NO" property="licenseNo" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="TAX_NO" property="taxNo" jdbcType="VARCHAR" />
+    <result column="LRC_FACE_PIC" property="lrcFacePic" jdbcType="VARCHAR" />
+    <result column="LRC_BACK_PIC" property="lrcBackPic" jdbcType="VARCHAR" />
+    <result column="LICENSE_PIC" property="licensePic" jdbcType="VARCHAR" />
+    <result column="ORG_PIC" property="orgPic" jdbcType="VARCHAR" />
+    <result column="TAX_PIC" property="taxPic" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="APPR_CONTENT" property="apprContent" jdbcType="VARCHAR" />
+    <result column="APPR_DATE" property="apprDate" jdbcType="TIMESTAMP" />
+    <result column="POST_SCRIPT" property="postScript" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, ENT_RES_NO, ENT_CUST_ID, CUST_TYPE, ENT_CUST_NAME, ENT_CUST_NAME_EN, COUNTRY_NO, 
+    PROVINCE_NO, CITY_NO, ENT_ADDR, LINKMAN, MOBILE, LEGAL_NAME, LEGAL_CRE_TYPE, LEGAL_CRE_NO, 
+    LICENSE_NO, ORG_NO, TAX_NO, LRC_FACE_PIC, LRC_BACK_PIC, LICENSE_PIC, ORG_PIC, TAX_PIC, 
+    STATUS, APPR_CONTENT, APPR_DATE, POST_SCRIPT, CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+    UPDATEBY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuthExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_ENT_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_ENT_REALNAME_AUTH
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_ENT_REALNAME_AUTH
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuthExample" >
+    delete from DBBS01.T_BS_ENT_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuth" >
+    insert into DBBS01.T_BS_ENT_REALNAME_AUTH (APPLY_ID, ENT_RES_NO, ENT_CUST_ID, 
+      CUST_TYPE, ENT_CUST_NAME, ENT_CUST_NAME_EN, 
+      COUNTRY_NO, PROVINCE_NO, CITY_NO, 
+      ENT_ADDR, LINKMAN, MOBILE, 
+      LEGAL_NAME, LEGAL_CRE_TYPE, LEGAL_CRE_NO, 
+      LICENSE_NO, ORG_NO, TAX_NO, 
+      LRC_FACE_PIC, LRC_BACK_PIC, LICENSE_PIC, 
+      ORG_PIC, TAX_PIC, STATUS, 
+      APPR_CONTENT, APPR_DATE, POST_SCRIPT, 
+      CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+      UPDATEBY)
+    values (#{applyId,jdbcType=VARCHAR}, #{entResNo,jdbcType=CHAR}, #{entCustId,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=DECIMAL}, #{entCustName,jdbcType=VARCHAR}, #{entCustNameEn,jdbcType=VARCHAR}, 
+      #{countryNo,jdbcType=VARCHAR}, #{provinceNo,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, 
+      #{entAddr,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{legalName,jdbcType=VARCHAR}, #{legalCreType,jdbcType=DECIMAL}, #{legalCreNo,jdbcType=VARCHAR}, 
+      #{licenseNo,jdbcType=VARCHAR}, #{orgNo,jdbcType=VARCHAR}, #{taxNo,jdbcType=VARCHAR}, 
+      #{lrcFacePic,jdbcType=VARCHAR}, #{lrcBackPic,jdbcType=VARCHAR}, #{licensePic,jdbcType=VARCHAR}, 
+      #{orgPic,jdbcType=VARCHAR}, #{taxPic,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{apprContent,jdbcType=VARCHAR}, #{apprDate,jdbcType=TIMESTAMP}, #{postScript,jdbcType=VARCHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{updateby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuth" >
+    insert into DBBS01.T_BS_ENT_REALNAME_AUTH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME,
+      </if>
+      <if test="entCustNameEn != null" >
+        ENT_CUST_NAME_EN,
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO,
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO,
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO,
+      </if>
+      <if test="entAddr != null" >
+        ENT_ADDR,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME,
+      </if>
+      <if test="legalCreType != null" >
+        LEGAL_CRE_TYPE,
+      </if>
+      <if test="legalCreNo != null" >
+        LEGAL_CRE_NO,
+      </if>
+      <if test="licenseNo != null" >
+        LICENSE_NO,
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO,
+      </if>
+      <if test="taxNo != null" >
+        TAX_NO,
+      </if>
+      <if test="lrcFacePic != null" >
+        LRC_FACE_PIC,
+      </if>
+      <if test="lrcBackPic != null" >
+        LRC_BACK_PIC,
+      </if>
+      <if test="licensePic != null" >
+        LICENSE_PIC,
+      </if>
+      <if test="orgPic != null" >
+        ORG_PIC,
+      </if>
+      <if test="taxPic != null" >
+        TAX_PIC,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="apprContent != null" >
+        APPR_CONTENT,
+      </if>
+      <if test="apprDate != null" >
+        APPR_DATE,
+      </if>
+      <if test="postScript != null" >
+        POST_SCRIPT,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustNameEn != null" >
+        #{entCustNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="entAddr != null" >
+        #{entAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalCreType != null" >
+        #{legalCreType,jdbcType=DECIMAL},
+      </if>
+      <if test="legalCreNo != null" >
+        #{legalCreNo,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNo != null" >
+        #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNo != null" >
+        #{taxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lrcFacePic != null" >
+        #{lrcFacePic,jdbcType=VARCHAR},
+      </if>
+      <if test="lrcBackPic != null" >
+        #{lrcBackPic,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePic != null" >
+        #{licensePic,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPic != null" >
+        #{orgPic,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPic != null" >
+        #{taxPic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="apprContent != null" >
+        #{apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="apprDate != null" >
+        #{apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postScript != null" >
+        #{postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuthExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_ENT_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_ENT_REALNAME_AUTH
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entResNo != null" >
+        ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      </if>
+      <if test="record.entCustId != null" >
+        ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custType != null" >
+        CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entCustName != null" >
+        ENT_CUST_NAME = #{record.entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entCustNameEn != null" >
+        ENT_CUST_NAME_EN = #{record.entCustNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryNo != null" >
+        COUNTRY_NO = #{record.countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceNo != null" >
+        PROVINCE_NO = #{record.provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityNo != null" >
+        CITY_NO = #{record.cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entAddr != null" >
+        ENT_ADDR = #{record.entAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalName != null" >
+        LEGAL_NAME = #{record.legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalCreType != null" >
+        LEGAL_CRE_TYPE = #{record.legalCreType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.legalCreNo != null" >
+        LEGAL_CRE_NO = #{record.legalCreNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseNo != null" >
+        LICENSE_NO = #{record.licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgNo != null" >
+        ORG_NO = #{record.orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxNo != null" >
+        TAX_NO = #{record.taxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lrcFacePic != null" >
+        LRC_FACE_PIC = #{record.lrcFacePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lrcBackPic != null" >
+        LRC_BACK_PIC = #{record.lrcBackPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licensePic != null" >
+        LICENSE_PIC = #{record.licensePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgPic != null" >
+        ORG_PIC = #{record.orgPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxPic != null" >
+        TAX_PIC = #{record.taxPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.apprContent != null" >
+        APPR_CONTENT = #{record.apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprDate != null" >
+        APPR_DATE = #{record.apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.postScript != null" >
+        POST_SCRIPT = #{record.postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateby != null" >
+        UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_ENT_REALNAME_AUTH
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      ENT_CUST_NAME = #{record.entCustName,jdbcType=VARCHAR},
+      ENT_CUST_NAME_EN = #{record.entCustNameEn,jdbcType=VARCHAR},
+      COUNTRY_NO = #{record.countryNo,jdbcType=VARCHAR},
+      PROVINCE_NO = #{record.provinceNo,jdbcType=VARCHAR},
+      CITY_NO = #{record.cityNo,jdbcType=VARCHAR},
+      ENT_ADDR = #{record.entAddr,jdbcType=VARCHAR},
+      LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      LEGAL_NAME = #{record.legalName,jdbcType=VARCHAR},
+      LEGAL_CRE_TYPE = #{record.legalCreType,jdbcType=DECIMAL},
+      LEGAL_CRE_NO = #{record.legalCreNo,jdbcType=VARCHAR},
+      LICENSE_NO = #{record.licenseNo,jdbcType=VARCHAR},
+      ORG_NO = #{record.orgNo,jdbcType=VARCHAR},
+      TAX_NO = #{record.taxNo,jdbcType=VARCHAR},
+      LRC_FACE_PIC = #{record.lrcFacePic,jdbcType=VARCHAR},
+      LRC_BACK_PIC = #{record.lrcBackPic,jdbcType=VARCHAR},
+      LICENSE_PIC = #{record.licensePic,jdbcType=VARCHAR},
+      ORG_PIC = #{record.orgPic,jdbcType=VARCHAR},
+      TAX_PIC = #{record.taxPic,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      APPR_CONTENT = #{record.apprContent,jdbcType=VARCHAR},
+      APPR_DATE = #{record.apprDate,jdbcType=TIMESTAMP},
+      POST_SCRIPT = #{record.postScript,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuth" >
+    update DBBS01.T_BS_ENT_REALNAME_AUTH
+    <set >
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="entCustNameEn != null" >
+        ENT_CUST_NAME_EN = #{entCustNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceNo != null" >
+        PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null" >
+        CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="entAddr != null" >
+        ENT_ADDR = #{entAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="legalName != null" >
+        LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalCreType != null" >
+        LEGAL_CRE_TYPE = #{legalCreType,jdbcType=DECIMAL},
+      </if>
+      <if test="legalCreNo != null" >
+        LEGAL_CRE_NO = #{legalCreNo,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNo != null" >
+        LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNo != null" >
+        TAX_NO = #{taxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lrcFacePic != null" >
+        LRC_FACE_PIC = #{lrcFacePic,jdbcType=VARCHAR},
+      </if>
+      <if test="lrcBackPic != null" >
+        LRC_BACK_PIC = #{lrcBackPic,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePic != null" >
+        LICENSE_PIC = #{licensePic,jdbcType=VARCHAR},
+      </if>
+      <if test="orgPic != null" >
+        ORG_PIC = #{orgPic,jdbcType=VARCHAR},
+      </if>
+      <if test="taxPic != null" >
+        TAX_PIC = #{taxPic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="apprContent != null" >
+        APPR_CONTENT = #{apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="apprDate != null" >
+        APPR_DATE = #{apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postScript != null" >
+        POST_SCRIPT = #{postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsEntRealnameAuth" >
+    update DBBS01.T_BS_ENT_REALNAME_AUTH
+    set ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      ENT_CUST_NAME_EN = #{entCustNameEn,jdbcType=VARCHAR},
+      COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      PROVINCE_NO = #{provinceNo,jdbcType=VARCHAR},
+      CITY_NO = #{cityNo,jdbcType=VARCHAR},
+      ENT_ADDR = #{entAddr,jdbcType=VARCHAR},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+      LEGAL_CRE_TYPE = #{legalCreType,jdbcType=DECIMAL},
+      LEGAL_CRE_NO = #{legalCreNo,jdbcType=VARCHAR},
+      LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      TAX_NO = #{taxNo,jdbcType=VARCHAR},
+      LRC_FACE_PIC = #{lrcFacePic,jdbcType=VARCHAR},
+      LRC_BACK_PIC = #{lrcBackPic,jdbcType=VARCHAR},
+      LICENSE_PIC = #{licensePic,jdbcType=VARCHAR},
+      ORG_PIC = #{orgPic,jdbcType=VARCHAR},
+      TAX_PIC = #{taxPic,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      APPR_CONTENT = #{apprContent,jdbcType=VARCHAR},
+      APPR_DATE = #{apprDate,jdbcType=TIMESTAMP},
+      POST_SCRIPT = #{postScript,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

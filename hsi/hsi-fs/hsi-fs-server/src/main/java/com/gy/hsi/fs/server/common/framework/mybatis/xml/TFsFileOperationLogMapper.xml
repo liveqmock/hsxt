@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.server.common.framework.mybatis.mapper.TFsFileOperationLogMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="FILE_ID" property="fileId" jdbcType="CHAR" />
+    <result column="FUNCTION_ID" property="functionId" jdbcType="VARCHAR" />
+    <result column="FUNCTION_PARAM" property="functionParam" jdbcType="VARCHAR" />
+    <result column="OPT_STATUS" property="optStatus" jdbcType="INTEGER" />
+    <result column="OPT_ERR_DESC" property="optErrDesc" jdbcType="VARCHAR" />
+    <result column="OPT_IP_ADDR" property="optIpAddr" jdbcType="VARCHAR" />
+    <result column="OPT_USER_ID" property="optUserId" jdbcType="CHAR" />
+    <result column="SECURE_TOKEN" property="secureToken" jdbcType="CHAR" />
+    <result column="CHANNEL" property="channel" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" extends="BaseResultMap" >
+    <result column="OPT_ERR_DETAIL" property="optErrDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, FILE_ID, FUNCTION_ID, FUNCTION_PARAM, OPT_STATUS, OPT_ERR_DESC, OPT_IP_ADDR, 
+    OPT_USER_ID, SECURE_TOKEN, CHANNEL, CREATED_DATE
+  </sql>
+  <sql id="Blob_Column_List" >
+    OPT_ERR_DETAIL
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_FS_FILE_OPERATION_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FS_FILE_OPERATION_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_FS_FILE_OPERATION_LOG
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_FS_FILE_OPERATION_LOG
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLogExample" >
+    delete from T_FS_FILE_OPERATION_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    insert into T_FS_FILE_OPERATION_LOG (ID, FILE_ID, FUNCTION_ID, 
+      FUNCTION_PARAM, OPT_STATUS, OPT_ERR_DESC, 
+      OPT_IP_ADDR, OPT_USER_ID, SECURE_TOKEN, 
+      CHANNEL, CREATED_DATE, OPT_ERR_DETAIL
+      )
+    values (#{id,jdbcType=BIGINT}, #{fileId,jdbcType=CHAR}, #{functionId,jdbcType=VARCHAR}, 
+      #{functionParam,jdbcType=VARCHAR}, #{optStatus,jdbcType=INTEGER}, #{optErrDesc,jdbcType=VARCHAR}, 
+      #{optIpAddr,jdbcType=VARCHAR}, #{optUserId,jdbcType=CHAR}, #{secureToken,jdbcType=CHAR}, 
+      #{channel,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{optErrDetail,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    insert into T_FS_FILE_OPERATION_LOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="functionId != null" >
+        FUNCTION_ID,
+      </if>
+      <if test="functionParam != null" >
+        FUNCTION_PARAM,
+      </if>
+      <if test="optStatus != null" >
+        OPT_STATUS,
+      </if>
+      <if test="optErrDesc != null" >
+        OPT_ERR_DESC,
+      </if>
+      <if test="optIpAddr != null" >
+        OPT_IP_ADDR,
+      </if>
+      <if test="optUserId != null" >
+        OPT_USER_ID,
+      </if>
+      <if test="secureToken != null" >
+        SECURE_TOKEN,
+      </if>
+      <if test="channel != null" >
+        CHANNEL,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="optErrDetail != null" >
+        OPT_ERR_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=CHAR},
+      </if>
+      <if test="functionId != null" >
+        #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionParam != null" >
+        #{functionParam,jdbcType=VARCHAR},
+      </if>
+      <if test="optStatus != null" >
+        #{optStatus,jdbcType=INTEGER},
+      </if>
+      <if test="optErrDesc != null" >
+        #{optErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="optIpAddr != null" >
+        #{optIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="optUserId != null" >
+        #{optUserId,jdbcType=CHAR},
+      </if>
+      <if test="secureToken != null" >
+        #{secureToken,jdbcType=CHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optErrDetail != null" >
+        #{optErrDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLogExample" resultType="java.lang.Integer" >
+    select count(*) from T_FS_FILE_OPERATION_LOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FS_FILE_OPERATION_LOG
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileId != null" >
+        FILE_ID = #{record.fileId,jdbcType=CHAR},
+      </if>
+      <if test="record.functionId != null" >
+        FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionParam != null" >
+        FUNCTION_PARAM = #{record.functionParam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optStatus != null" >
+        OPT_STATUS = #{record.optStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.optErrDesc != null" >
+        OPT_ERR_DESC = #{record.optErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optIpAddr != null" >
+        OPT_IP_ADDR = #{record.optIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optUserId != null" >
+        OPT_USER_ID = #{record.optUserId,jdbcType=CHAR},
+      </if>
+      <if test="record.secureToken != null" >
+        SECURE_TOKEN = #{record.secureToken,jdbcType=CHAR},
+      </if>
+      <if test="record.channel != null" >
+        CHANNEL = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.optErrDetail != null" >
+        OPT_ERR_DETAIL = #{record.optErrDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update T_FS_FILE_OPERATION_LOG
+    set ID = #{record.id,jdbcType=BIGINT},
+      FILE_ID = #{record.fileId,jdbcType=CHAR},
+      FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
+      FUNCTION_PARAM = #{record.functionParam,jdbcType=VARCHAR},
+      OPT_STATUS = #{record.optStatus,jdbcType=INTEGER},
+      OPT_ERR_DESC = #{record.optErrDesc,jdbcType=VARCHAR},
+      OPT_IP_ADDR = #{record.optIpAddr,jdbcType=VARCHAR},
+      OPT_USER_ID = #{record.optUserId,jdbcType=CHAR},
+      SECURE_TOKEN = #{record.secureToken,jdbcType=CHAR},
+      CHANNEL = #{record.channel,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      OPT_ERR_DETAIL = #{record.optErrDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FS_FILE_OPERATION_LOG
+    set ID = #{record.id,jdbcType=BIGINT},
+      FILE_ID = #{record.fileId,jdbcType=CHAR},
+      FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
+      FUNCTION_PARAM = #{record.functionParam,jdbcType=VARCHAR},
+      OPT_STATUS = #{record.optStatus,jdbcType=INTEGER},
+      OPT_ERR_DESC = #{record.optErrDesc,jdbcType=VARCHAR},
+      OPT_IP_ADDR = #{record.optIpAddr,jdbcType=VARCHAR},
+      OPT_USER_ID = #{record.optUserId,jdbcType=CHAR},
+      SECURE_TOKEN = #{record.secureToken,jdbcType=CHAR},
+      CHANNEL = #{record.channel,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    update T_FS_FILE_OPERATION_LOG
+    <set >
+      <if test="fileId != null" >
+        FILE_ID = #{fileId,jdbcType=CHAR},
+      </if>
+      <if test="functionId != null" >
+        FUNCTION_ID = #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionParam != null" >
+        FUNCTION_PARAM = #{functionParam,jdbcType=VARCHAR},
+      </if>
+      <if test="optStatus != null" >
+        OPT_STATUS = #{optStatus,jdbcType=INTEGER},
+      </if>
+      <if test="optErrDesc != null" >
+        OPT_ERR_DESC = #{optErrDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="optIpAddr != null" >
+        OPT_IP_ADDR = #{optIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="optUserId != null" >
+        OPT_USER_ID = #{optUserId,jdbcType=CHAR},
+      </if>
+      <if test="secureToken != null" >
+        SECURE_TOKEN = #{secureToken,jdbcType=CHAR},
+      </if>
+      <if test="channel != null" >
+        CHANNEL = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optErrDetail != null" >
+        OPT_ERR_DETAIL = #{optErrDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    update T_FS_FILE_OPERATION_LOG
+    set FILE_ID = #{fileId,jdbcType=CHAR},
+      FUNCTION_ID = #{functionId,jdbcType=VARCHAR},
+      FUNCTION_PARAM = #{functionParam,jdbcType=VARCHAR},
+      OPT_STATUS = #{optStatus,jdbcType=INTEGER},
+      OPT_ERR_DESC = #{optErrDesc,jdbcType=VARCHAR},
+      OPT_IP_ADDR = #{optIpAddr,jdbcType=VARCHAR},
+      OPT_USER_ID = #{optUserId,jdbcType=CHAR},
+      SECURE_TOKEN = #{secureToken,jdbcType=CHAR},
+      CHANNEL = #{channel,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      OPT_ERR_DETAIL = #{optErrDetail,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.TFsFileOperationLog" >
+    update T_FS_FILE_OPERATION_LOG
+    set FILE_ID = #{fileId,jdbcType=CHAR},
+      FUNCTION_ID = #{functionId,jdbcType=VARCHAR},
+      FUNCTION_PARAM = #{functionParam,jdbcType=VARCHAR},
+      OPT_STATUS = #{optStatus,jdbcType=INTEGER},
+      OPT_ERR_DESC = #{optErrDesc,jdbcType=VARCHAR},
+      OPT_IP_ADDR = #{optIpAddr,jdbcType=VARCHAR},
+      OPT_USER_ID = #{optUserId,jdbcType=CHAR},
+      SECURE_TOKEN = #{secureToken,jdbcType=CHAR},
+      CHANNEL = #{channel,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

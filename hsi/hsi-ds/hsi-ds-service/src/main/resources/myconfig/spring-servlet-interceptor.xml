@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/mvc 
+           http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	<mvc:interceptors>
+
+		<mvc:interceptor>
+			<mvc:mapping path="**" />
+			<bean
+				class="com.gy.hsi.ds.common.thirds.dsp.common.interceptor.session.SessionInterceptor">
+			</bean>
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.gy.hsi.ds.login.LoginInterceptor">
+				<property name="notJsonPathList">
+					<list>
+						<value>/</value>
+						<value>/index.html</value>
+					</list>
+				</property>
+				<property name="notInterceptPathList">
+					<list>
+						<value>api/account/signin</value>
+						<value>api/account/checksession</value>
+						<value>api/zoo/hosts</value>
+						<value>api/zoo/prefix</value>
+						<value>api/config/item</value>
+						<value>api/config/file</value>
+					</list>
+				</property>
+
+				<property name="staticResourceList">
+					<list>
+						<value>dep/</value>
+						<value>assets/</value>
+					</list>
+				</property>
+				<property name="XONE_COOKIE_DOMAIN_STRING">
+					<value>${domain}</value>
+				</property>
+			</bean>
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+
+</beans>

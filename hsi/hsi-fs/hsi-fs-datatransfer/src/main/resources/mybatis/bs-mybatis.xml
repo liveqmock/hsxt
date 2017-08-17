@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC   
+    "-//mybatis.org//DTD Config 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 开启缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<setting name="useGeneratedKeys" value="true" />
+	</settings>
+
+	<mappers>
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsCardStyleMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsCompanyStopMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsDebitMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsDeclareCorpAptitudeMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsDeclareEntLinkmanMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsEntChangeInfoAppMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsEntRealnameAuthMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsFilingAptitudeMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsPerChangeInfoAppMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsPerRealnameAuthMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsPointgameMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsResetTranpwdapplyMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsShippingMethodMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsTaxrateChangeMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsToolProductMapper.xml" />
+		
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsEntChangeInfoDataMapper.xml" />
+		<mapper resource="com/gy/hsi/fs/mapper/xml/dbbs01/TBsPerChangeInfoDataMapper.xml" />
+	</mappers>
+</configuration>

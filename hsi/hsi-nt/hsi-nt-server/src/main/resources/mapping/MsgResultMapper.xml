@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.gy.hsi.nt.server.mapper.MsgResultMapper">
+	
+	<!-- 增加发送成功消息 -->
+	<insert id="insertSendedMsg" parameterType="com.gy.hsi.nt.server.entity.result.SendedMsg">	
+		INSERT INTO T_NT_SENDED_MSG (
+			MSG_ID,			
+			HS_RES_NO,
+			CUST_NAME,
+			TEMP_NAME,
+			CUST_TYPE,
+			BIZ_TYPE,
+			BUY_RES_TYPE,
+			MSG_CODE,
+			SUB_MSG_CODE,
+			MSG_TYPE,
+			MSG_CHANNEL,
+			MSG_RECEIVER,
+			MSG_TITLE,
+			MSG_CONTENT,
+			MSG_SUMMARY,
+			MSG_SUMMARY_PIC_URL,
+			PRIORITY,
+			SENDER,
+			ATTACH_FILE_IDS,
+			LAST_SEND_DATE,
+			CREATED_DATE,
+			CREATEDBY) 
+		VALUES (
+			#{msgId},
+			#{hsResNo,jdbcType=VARCHAR},
+			#{custName,jdbcType=VARCHAR},
+			#{tempName,jdbcType=VARCHAR},
+			#{custType,jdbcType=VARCHAR},
+			#{bizType,jdbcType=VARCHAR},
+			#{buyResType,jdbcType=VARCHAR},
+			#{msgCode,jdbcType=VARCHAR},
+			#{subMsgCode,jdbcType=VARCHAR},
+			#{msgType,jdbcType=INTEGER},
+			#{msgChannel},
+			#{msgReceiver},
+			#{msgTitle,jdbcType=VARCHAR},
+			#{msgContent},
+			#{msgSummary,jdbcType=VARCHAR},
+			#{msgSummaryPicUrl,jdbcType=VARCHAR},
+			#{priority},
+			#{sender},
+			#{attachFileIds,jdbcType=VARCHAR},
+			#{lastSendDate},
+			#{createdDate,jdbcType=TIMESTAMP},
+			#{createdby,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 删除成功消息 -->
+	<delete id="deleteSendedMsg" parameterType="string">
+		DELETE FROM T_NT_SENDED_MSG WHERE <![CDATA[ CREATED_DATE <= #{date}]]>
+	</delete>
+	
+	<!-- 增加彻底失败消息 -->
+	<insert id="insertAbandonMsg" parameterType="com.gy.hsi.nt.server.entity.result.AbandonMsg">
+		INSERT INTO T_NT_ABANDON_MSG (
+			MSG_ID,
+			HS_RES_NO,
+			CUST_NAME,
+			TEMP_NAME,
+			CUST_TYPE,
+			BIZ_TYPE,
+			BUY_RES_TYPE,
+			MSG_CODE,
+			SUB_MSG_CODE,
+			MSG_TYPE,
+			MSG_CHANNEL,
+			MSG_RECEIVER,
+			MSG_TITLE,
+			MSG_CONTENT,
+			MSG_SUMMARY,
+			MSG_SUMMARY_PIC_URL,
+			PRIORITY,
+			SENDER,
+			ATTACH_FILE_IDS,
+			CREATED_DATE,
+			CREATEDBY,
+			FAILED_COUNTS,
+			LAST_SEND_DATE) 
+		VALUES (
+			#{msgId},
+			#{hsResNo,jdbcType=VARCHAR},
+			#{custName,jdbcType=VARCHAR},
+			#{tempName,jdbcType=VARCHAR},
+			#{custType,jdbcType=VARCHAR},
+			#{bizType,jdbcType=VARCHAR},
+			#{buyResType,jdbcType=VARCHAR},
+			#{msgCode,jdbcType=VARCHAR},
+			#{subMsgCode,jdbcType=VARCHAR},
+			#{msgType,jdbcType=INTEGER},
+			#{msgChannel},
+			#{msgReceiver},
+			#{msgTitle,jdbcType=VARCHAR},
+			#{msgContent},
+			#{msgSummary,jdbcType=VARCHAR},
+			#{msgSummaryPicUrl,jdbcType=VARCHAR},
+			#{priority},
+			#{sender},
+			#{attachFileIds,jdbcType=VARCHAR},
+			#{createdDate,jdbcType=TIMESTAMP},
+			#{createdby,jdbcType=VARCHAR},
+			#{failedCounts},
+			#{lastSendDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<!-- 删除彻底失败消息 -->
+	<delete id="deleteAbandonMsg">
+		DELETE FROM T_NT_ABANDON_MSG WHERE <![CDATA[ CREATED_DATE <= #{date}]]>
+	</delete>
+	
+	<!-- 新增重发信息 -->
+	<insert id="insertResendMsg" parameterType="com.gy.hsi.nt.server.entity.result.ResendMsg">
+		INSERT INTO T_NT_RESEND_MSG (
+			MSG_ID,
+			HS_RES_NO,
+			CUST_NAME,
+			TEMP_NAME,
+			CUST_TYPE,
+			BIZ_TYPE,
+			BUY_RES_TYPE,
+			MSG_CODE,
+			SUB_MSG_CODE,
+			MSG_TYPE,
+			MSG_CHANNEL,
+			MSG_RECEIVER,
+			MSG_TITLE,
+			MSG_CONTENT,
+			MSG_SUMMARY,
+			MSG_SUMMARY_PIC_URL,
+			PRIORITY,
+			SENDER,
+			ATTACH_FILE_IDS,
+			CREATED_DATE,
+			CREATEDBY,
+			FAILED_COUNTS,
+			LAST_SEND_DATE) 
+		VALUES (
+			#{msgId},
+			#{hsResNo,jdbcType=VARCHAR},
+			#{custName,jdbcType=VARCHAR},
+			#{tempName,jdbcType=VARCHAR},
+			#{custType,jdbcType=VARCHAR},
+			#{bizType,jdbcType=VARCHAR},
+			#{buyResType,jdbcType=VARCHAR},
+			#{msgCode,jdbcType=VARCHAR},
+			#{subMsgCode,jdbcType=VARCHAR},
+			#{msgType,jdbcType=INTEGER},
+			#{msgChannel},
+			#{msgReceiver},
+			#{msgTitle,jdbcType=VARCHAR},
+			#{msgContent},
+			#{msgSummary,jdbcType=VARCHAR},
+			#{msgSummaryPicUrl,jdbcType=VARCHAR},
+			#{priority},
+			#{sender},
+			#{attachFileIds,jdbcType=VARCHAR},
+			#{createdDate,jdbcType=TIMESTAMP},
+			#{createdby,jdbcType=VARCHAR},
+			#{failedCounts},
+			#{lastSendDate,jdbcType=TIMESTAMP}	
+		)
+	</insert>
+	
+	<!-- 删除重发信息 -->
+	<delete id="deleteResendMsg" parameterType="string"> 
+		DELETE FROM T_NT_RESEND_MSG WHERE MSG_ID = #{msgId}
+	</delete>
+	
+	<!-- 修改重发信息 -->
+	<update id="updateResendMsg" parameterType="com.gy.hsi.nt.server.entity.result.ResendMsg">
+		UPDATE T_NT_RESEND_MSG
+		<set>
+			FAILED_COUNTS = #{failedCounts},
+			LAST_SEND_DATE = #{lastSendDate,jdbcType=TIMESTAMP}
+		</set>
+		WHERE MSG_ID = #{msgId}
+	</update>
+	
+	<!-- 查询重发信息 -->
+	<select id="selectResendMsgList" resultType="com.gy.hsi.nt.server.entity.result.ResendMsg">
+		SELECT 
+			MSG_ID AS msgId,
+			HS_RES_NO AS hsResNo,
+			CUST_NAME AS custName,
+			TEMP_NAME AS tempName,
+			CUST_TYPE AS custType,
+			BIZ_TYPE AS bizType,
+			BUY_RES_TYPE AS buyResType,
+			MSG_CODE AS msgCode,
+			SUB_MSG_CODE AS subMsgCode,
+			MSG_TYPE AS msgType,
+			MSG_CHANNEL AS msgChannel,
+			MSG_RECEIVER AS msgReceiver,
+			MSG_TITLE AS msgTitle,
+			MSG_CONTENT AS msgContent,
+			MSG_SUMMARY AS msgSummary,
+			MSG_SUMMARY_PIC_URL AS msgSummaryPicUrl,
+			SENDER AS sender,
+			ATTACH_FILE_IDS AS attachFileIds,
+			FAILED_COUNTS AS failedCounts,
+			LAST_SEND_DATE AS lastSendDate
+		FROM T_NT_RESEND_MSG RM	
+		WHERE RM.PRIORITY = #{priority}
+		  AND (
+		  		(RM.FAILED_COUNTS = 1 AND  <![CDATA[ RM.LAST_SEND_DATE <= #{min5}]]>) 
+		  		OR (RM.FAILED_COUNTS = 2 AND  <![CDATA[ RM.LAST_SEND_DATE <= #{min10}]]>) 
+		  		OR (RM.FAILED_COUNTS = 3 AND  <![CDATA[ RM.LAST_SEND_DATE <= #{min15}]]>) 
+		  		OR (RM.FAILED_COUNTS = 4 AND  <![CDATA[ RM.LAST_SEND_DATE <= #{min30}]]>) 
+		  		OR (RM.FAILED_COUNTS = 5 AND  <![CDATA[ RM.LAST_SEND_DATE <= #{min60}]]>) 
+		  )
+		  limit #{startCount},#{endCount}
+	</select>
+	
+	<select id="selectResendCountByPriority" parameterType="int" resultType="java.lang.Integer">
+		SELECT COUNT(*) CNT FROM T_NT_RESEND_MSG RM	WHERE RM.PRIORITY = #{priority}
+	</select>
+	
+</mapper>

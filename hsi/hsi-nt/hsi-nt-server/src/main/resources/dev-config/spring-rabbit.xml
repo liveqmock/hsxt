@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                		http://www.springframework.org/schema/beans/spring-beans.xsd
+            			http://www.springframework.org/schema/context
+                		http://www.springframework.org/schema/context/spring-context.xsd
+            			http://www.springframework.org/schema/rabbit
+                		http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+	<!-- Rabbit MQ 连接工厂 -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="${host}" username="${username}" password="${password}" port="${port}"
+		virtual-host="${virtualHost}"/>		
+	<rabbit:admin connection-factory="connectionFactory"/>  
+	
+	
+	<!-- 短信高优先级队列声明-->
+    <rabbit:queue id="qu.note.high" name="${note_high_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 短信中优先级队列声明-->
+    <rabbit:queue id="qu.note.middle" name="${note_middle_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 短信低优先级队列声明-->
+    <rabbit:queue id="qu.note.low" name="${note_low_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+       
+    <!-- 短信队列绑定  exchange queue binging key -->
+    <rabbit:direct-exchange id="ex.note" name="${note_exchange}" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="qu.note.high" key="${note_high_rout_k}"/>
+            <rabbit:binding queue="qu.note.middle" key="${note_middle_rout_k}"/>
+            <rabbit:binding queue="qu.note.low" key="${note_low_rout_k}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>   
+    
+    
+    <!-- 邮件高优先级队列声明-->
+    <rabbit:queue id="qu.email.high" name="${email_high_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 邮件中优先级队列声明-->
+    <rabbit:queue id="qu.email.middle" name="${email_middle_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 邮件低优先级队列声明-->
+    <rabbit:queue id="qu.email.low" name="${email_low_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 邮件队列绑定 exchange queue binging key -->
+    <rabbit:direct-exchange id="ex.email" name="${email_exchange}" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="qu.email.high" key="${email_high_rout_k}"/>
+            <rabbit:binding queue="qu.email.middle" key="${email_middle_rout_k}"/>
+            <rabbit:binding queue="qu.email.low" key="${email_low_rout_k}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>  
+      
+    
+    <!-- 系统互动消息高优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.sys.high" name="${dynamic_sys_high_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 系统互动消息中优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.sys.middle" name="${dynamic_sys_middle_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 系统互动消息低优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.sys.low" name="${dynamic_sys_low_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 系统互动消息队列绑定 exchange queue binging key -->
+    <rabbit:direct-exchange id="ex.dynamic.sys" name="${dynamic_sys_exchange}" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="qu.dynamic.sys.high" key="${dynamic_sys_high_rout_k}"/>
+            <rabbit:binding queue="qu.dynamic.sys.middle" key="${dynamic_sys_middle_rout_k}"/>
+            <rabbit:binding queue="qu.dynamic.sys.low" key="${dynamic_sys_low_rout_k}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+       
+    
+    <!-- 业务互动消息高优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.biz.high" name="${dynamic_biz_high_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 业务互动消息中优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.biz.middle" name="${dynamic_biz_middle_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 业务互动消息低优先级队列声明-->
+    <rabbit:queue id="qu.dynamic.biz.low" name="${dynamic_biz_low_queue}" durable="true" auto-delete="false" exclusive="false">
+    	<rabbit:queue-arguments>
+			<entry key="x-ha-policy" value="all"/>
+		</rabbit:queue-arguments>
+    </rabbit:queue>
+    
+    <!-- 业务互动消息队列绑定 exchange queue binging key -->
+    <rabbit:direct-exchange id="ex.dynamic.biz" name="${dynamic_biz_exchange}" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="qu.dynamic.biz.high" key="${dynamic_biz_high_rout_k}"/>
+            <rabbit:binding queue="qu.dynamic.biz.middle" key="${dynamic_biz_middle_rout_k}"/>
+            <rabbit:binding queue="qu.dynamic.biz.low" key="${dynamic_biz_low_rout_k}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>  
+    
+    
+    <!-- spring amqp默认的是jackson 的一个插件,目的将生产者生产的数据转换为json存入消息队列，由于fastjson的速度快于jackson,这里替换为fastjson的一个实现 -->
+    <bean id="messageConverter" class="com.gy.hsi.nt.server.util.MessageConverter"/>     	
+	<rabbit:template id="amqpTemplateNote" connection-factory="connectionFactory" reply-timeout="30" message-converter="messageConverter" exchange="ex.note"/>
+	<rabbit:template id="amqpTemplateEmail" connection-factory="connectionFactory" reply-timeout="30" message-converter="messageConverter" exchange="ex.email"/>	
+	<rabbit:template id="amqpTemplateDynamicSys" connection-factory="connectionFactory" reply-timeout="30" message-converter="messageConverter" exchange="ex.dynamic.sys"/>
+	<rabbit:template id="amqpTemplateDynamicBiz" connection-factory="connectionFactory" reply-timeout="30" message-converter="messageConverter" exchange="ex.dynamic.biz"/>
+    
+      	
+	<!-- 高优先级队列监听器 -->
+	<bean id="highQueueListener" class="com.gy.hsi.nt.server.listener.HighQueueListener"/>	
+	<rabbit:listener-container
+		connection-factory="connectionFactory" concurrency="${concurrency.high}" acknowledge="auto">
+		<rabbit:listener ref="highQueueListener" queues="qu.note.high,qu.email.high,qu.dynamic.sys.high,qu.dynamic.biz.high"/>
+	</rabbit:listener-container>
+	
+	<!-- 中优先级队列监听器 -->
+	<bean id="middleQueueListener" class="com.gy.hsi.nt.server.listener.MiddleQueueListener"/>	
+	<rabbit:listener-container
+		connection-factory="connectionFactory" concurrency="${concurrency.middle}" acknowledge="auto">
+		<rabbit:listener ref="middleQueueListener" queues="qu.note.middle,qu.email.middle,qu.dynamic.sys.middle,qu.dynamic.biz.middle"/>
+	</rabbit:listener-container>
+	
+	<!-- 低优先级队列监听器 -->
+	<bean id="lowQueueListener" class="com.gy.hsi.nt.server.listener.LowQueueListener"/>	
+	<rabbit:listener-container
+		connection-factory="connectionFactory" concurrency="${concurrency.low}" acknowledge="auto">
+		<rabbit:listener ref="lowQueueListener" queues="qu.note.low,qu.email.low,qu.dynamic.sys.low,qu.dynamic.biz.low"/>
+	</rabbit:listener-container>
+			
+</beans>

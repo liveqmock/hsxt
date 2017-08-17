@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsPerChangeInfoAppMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoApp" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="PER_RES_NO" property="perResNo" jdbcType="CHAR" />
+    <result column="PER_CUST_NAME" property="perCustName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="RESIDENCE_ADDR_PIC" property="residenceAddrPic" jdbcType="VARCHAR" />
+    <result column="CHANGE_ITEM" property="changeItem" jdbcType="VARCHAR" />
+    <result column="APPLY_REASON" property="applyReason" jdbcType="VARCHAR" />
+    <result column="APPR_REMARK" property="apprRemark" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, PER_CUST_ID, PER_RES_NO, PER_CUST_NAME, MOBILE, RESIDENCE_ADDR_PIC, CHANGE_ITEM, 
+    APPLY_REASON, APPR_REMARK, STATUS, APPLY_DATE, CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+    UPDATEBY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoAppExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_PER_CHANGE_INFO_APP
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_PER_CHANGE_INFO_APP
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoAppExample" >
+    delete from DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoApp" >
+    insert into DBBS01.T_BS_PER_CHANGE_INFO_APP (APPLY_ID, PER_CUST_ID, PER_RES_NO, 
+      PER_CUST_NAME, MOBILE, RESIDENCE_ADDR_PIC, 
+      CHANGE_ITEM, APPLY_REASON, APPR_REMARK, 
+      STATUS, APPLY_DATE, CREATED_DATE, 
+      CREATEDBY, UPDATED_DATE, UPDATEBY
+      )
+    values (#{applyId,jdbcType=VARCHAR}, #{perCustId,jdbcType=VARCHAR}, #{perResNo,jdbcType=CHAR}, 
+      #{perCustName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{residenceAddrPic,jdbcType=VARCHAR}, 
+      #{changeItem,jdbcType=VARCHAR}, #{applyReason,jdbcType=VARCHAR}, #{apprRemark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{applyDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{createdby,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, #{updateby,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoApp" >
+    insert into DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="perCustId != null" >
+        PER_CUST_ID,
+      </if>
+      <if test="perResNo != null" >
+        PER_RES_NO,
+      </if>
+      <if test="perCustName != null" >
+        PER_CUST_NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="residenceAddrPic != null" >
+        RESIDENCE_ADDR_PIC,
+      </if>
+      <if test="changeItem != null" >
+        CHANGE_ITEM,
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON,
+      </if>
+      <if test="apprRemark != null" >
+        APPR_REMARK,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="perCustId != null" >
+        #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="perResNo != null" >
+        #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="perCustName != null" >
+        #{perCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceAddrPic != null" >
+        #{residenceAddrPic,jdbcType=VARCHAR},
+      </if>
+      <if test="changeItem != null" >
+        #{changeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="apprRemark != null" >
+        #{apprRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoAppExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perCustId != null" >
+        PER_CUST_ID = #{record.perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perResNo != null" >
+        PER_RES_NO = #{record.perResNo,jdbcType=CHAR},
+      </if>
+      <if test="record.perCustName != null" >
+        PER_CUST_NAME = #{record.perCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residenceAddrPic != null" >
+        RESIDENCE_ADDR_PIC = #{record.residenceAddrPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeItem != null" >
+        CHANGE_ITEM = #{record.changeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyReason != null" >
+        APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprRemark != null" >
+        APPR_REMARK = #{record.apprRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applyDate != null" >
+        APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateby != null" >
+        UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_APP
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      PER_CUST_ID = #{record.perCustId,jdbcType=VARCHAR},
+      PER_RES_NO = #{record.perResNo,jdbcType=CHAR},
+      PER_CUST_NAME = #{record.perCustName,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      RESIDENCE_ADDR_PIC = #{record.residenceAddrPic,jdbcType=VARCHAR},
+      CHANGE_ITEM = #{record.changeItem,jdbcType=VARCHAR},
+      APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      APPR_REMARK = #{record.apprRemark,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoApp" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_APP
+    <set >
+      <if test="perCustId != null" >
+        PER_CUST_ID = #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="perResNo != null" >
+        PER_RES_NO = #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="perCustName != null" >
+        PER_CUST_NAME = #{perCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceAddrPic != null" >
+        RESIDENCE_ADDR_PIC = #{residenceAddrPic,jdbcType=VARCHAR},
+      </if>
+      <if test="changeItem != null" >
+        CHANGE_ITEM = #{changeItem,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="apprRemark != null" >
+        APPR_REMARK = #{apprRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoApp" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_APP
+    set PER_CUST_ID = #{perCustId,jdbcType=VARCHAR},
+      PER_RES_NO = #{perResNo,jdbcType=CHAR},
+      PER_CUST_NAME = #{perCustName,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      RESIDENCE_ADDR_PIC = #{residenceAddrPic,jdbcType=VARCHAR},
+      CHANGE_ITEM = #{changeItem,jdbcType=VARCHAR},
+      APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      APPR_REMARK = #{apprRemark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

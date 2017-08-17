@@ -1,0 +1,235 @@
+{
+    "queues": [
+        {
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_pos_syslog_queue",
+            "exchange": "hsxtSys_pos_syslog_exchange",
+            "routerKey": "",
+            "desc": "pos接入",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_uc_syslog_queue",
+            "exchange": "hsxtSys_uc_syslog_exchange",
+            "routerKey": "",
+            "desc": "用户中心",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_gp_syslog_queue",
+            "exchange": "hsxtSys_gp_syslog_exchange",
+            "routerKey": "",
+            "desc": "HSXT_GP",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_pg_syslog_queue",
+            "exchange": "hsxtSys_pg_syslog_exchange",
+            "routerKey": "",
+            "desc": "HSXT_PG",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_bs_syslog_queue",
+            "exchange": "hsxtSys_bs_syslog_exchange",
+            "routerKey": "",
+            "desc": "业务系统",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_tm_syslog_queue",
+            "exchange": "hsxtSys_tm_syslog_exchange",
+            "routerKey": "",
+            "desc": "TM",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_ao_syslog_queue",
+            "exchange": "hsxtSys_ao_syslog_exchange",
+            "routerKey": "",
+            "desc": "Account_Operate_System",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_person_syslog_queue",
+            "exchange": "hsxtSys_person_syslog_exchange",
+            "routerKey": "",
+            "desc": "消费者系统",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_company_syslog_queue",
+            "exchange": "hsxtSys_company_syslog_exchange",
+            "routerKey": "",
+            "desc": "企业系统",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_aps_syslog_queue",
+            "exchange": "hsxtSys_aps_syslog_exchange",
+            "routerKey": "",
+            "desc": "地区平台",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_mcs_syslog_queue",
+            "exchange": "hsxtSys_mcs_syslog_exchange",
+            "routerKey": "",
+            "desc": "管理公司",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_scs_syslog_queue",
+            "exchange": "hsxtSys_scs_syslog_exchange",
+            "routerKey": "",
+            "desc": "服务公司",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_es_syslog_queue",
+            "exchange": "hsxtSys_es_syslog_exchange",
+            "routerKey": "",
+            "desc": "电商的消费积分",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_ps_syslog_queue",
+            "exchange": "hsxtSys_ps_syslog_exchange",
+            "routerKey": "",
+            "desc": "POS的消费积分",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_ws_syslog_queue",
+            "exchange": "hsxtSys_ws_syslog_exchange",
+            "routerKey": "",
+            "desc": "积分福利",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_ucbatch_syslog_queue",
+            "exchange": "hsxtSys_ucbatch_syslog_exchange",
+            "routerKey": "",
+            "desc": "UC批处理",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_tc_syslog_queue",
+            "exchange": "hsxtSys_tc_syslog_exchange",
+            "routerKey": "",
+            "desc": "对账中心",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_tcbatch_syslog_queue",
+            "exchange": "hsxtSys_tcbatch_syslog_exchange",
+            "routerKey": "",
+            "desc": "对账中心批处理",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_uls_syslog_queue",
+            "exchange": "hsxtSys_uls_syslog_exchange",
+            "routerKey": "",
+            "desc": "统一登录",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_ac_syslog_queue",
+            "exchange": "hsxtSys_ac_syslog_exchange",
+            "routerKey": "",
+            "desc": "账务系统",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_acBacth_syslog_queue",
+            "exchange": "hsxtSys_acBacth_syslog_exchange",
+            "routerKey": "",
+            "desc": "账务批生成文件",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_bp_syslog_queue",
+            "exchange": "hsxtSys_bp_syslog_exchange",
+            "routerKey": "",
+            "desc": "业务参数系统",
+            "maxconsumers": 10
+        },{
+            "host": "192.168.229.30",
+            "port": "5672",
+            "username": "guest",
+            "password": "guest",
+            "queue": "hsxtSys_rp_syslog_queue",
+            "exchange": "hsxtSys_rp_syslog_exchange",
+            "routerKey": "",
+            "desc": "报表系统",
+            "maxconsumers": 10
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    					http://www.springframework.org/schema/context
+    					http://www.springframework.org/schema/context/spring-context-3.2.xsd
+   						http://www.springframework.org/schema/aop
+   						http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+   						http://www.springframework.org/schema/tx
+   						http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+   						http://www.springframework.org/schema/task
+   						http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- 高优先级线程池 -->
+	<bean id="highPriorityTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池活跃的线程数 -->
+		<property name="corePoolSize" value="${high.corePoolSize}"/>
+		<!-- 线程池最大活跃的线程数 -->
+		<property name="maxPoolSize" value="${high.maxPoolSize}"/>
+	</bean>
+
+	<!-- 中优先级线程池 -->
+	<bean id="middlePriorityTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池活跃的线程数 -->
+		<property name="corePoolSize" value="${middle.corePoolSize}"/>
+		<!-- 线程池最大活跃的线程数 -->
+		<property name="maxPoolSize" value="${middle.maxPoolSize}"/>
+	</bean>
+	
+	<!-- 低优先级线程池 -->
+	<bean id="lowPriorityTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池活跃的线程数 -->
+		<property name="corePoolSize" value="${low.corePoolSize}"/>
+		<!-- 线程池最大活跃的线程数 -->
+		<property name="maxPoolSize" value="${low.maxPoolSize}"/>
+	</bean>
+	
+	<!-- aop线程池 -->
+	<bean id="aopTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池活跃的线程数 -->
+		<property name="corePoolSize" value="${aop.corePoolSize}"/>
+		<!-- 线程池最大活跃的线程数 -->
+		<property name="maxPoolSize" value="${aop.maxPoolSize}"/>
+	</bean>
+
+</beans>

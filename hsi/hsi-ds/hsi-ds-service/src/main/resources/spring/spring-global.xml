@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<!-- 不能删除, 删了登录会有严重问题!!!!!!!!!! -->
+	<mvc:annotation-driven />
+
+	<context:component-scan base-package="com.gy.hsi.ds.*">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- Validator设置 -->
+	<import resource="classpath*:myconfig/spring-datasource.xml" />
+	<import resource="classpath*:myconfig/spring-servlet-validator.xml" />
+	<import resource="classpath*:myconfig/spring-servlet-interceptor.xml" />
+	<import resource="classpath*:myconfig/spring-quartz.xml" />
+	<import resource="classpath*:spring/spring-task.xml" />
+	<import resource="classpath*:spring/spring-dubbo-provider.xml" />
+
+	<!-- configs -->
+	<bean id="propertyConfigurer" class="com.gy.hsi.ds.common.spring.MyPropertyConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>file:${user.dir}/conf/hsi-ds/jdbc.properties</value>
+				<value>file:${user.dir}/conf/hsi-ds/dubbo.properties</value>
+				<value>file:${user.dir}/conf/hsi-ds/hsi-ds.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="zooConfig" class="com.gy.hsi.ds.param.beans.ZooConfig">
+		<property name="zooHosts" value="${dubbo.registry.address}" />
+		<property name="zookeeperUrlPrefix" value="${zookeeper_url_prefix}" />
+	</bean>
+
+	<bean id="dubboComsumerConfig" class="com.gy.hsi.ds.job.beans.DubboComsumerConfig">
+		<property name="appName" value="${dubbo.application.name}" />
+		<property name="regAddr" value="${dubbo.registry.address}" />
+		<property name="refRetries" value="${dubbo.reference.retires}" />
+		<property name="refTimeout" value="${dubbo.service.timeout10000}" />
+	</bean>
+
+	<bean id="loginRedisLogin" class="com.gy.hsi.ds.login.service.impl.LoginService" />
+	<bean id="roleResourceAspect" class="com.gy.hsi.ds.login.service.impl.RoleResourceAspect" />
+	<bean id="zookeeperDriver" class="com.gy.hsi.ds.param.service.impl.ZookeeperDriverImpl" />
+
+</beans>

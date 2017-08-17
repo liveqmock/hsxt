@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsDebitMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebit" >
+    <id column="DEBIT_ID" property="debitId" jdbcType="VARCHAR" />
+    <result column="PAY_TIME" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="PAY_AMOUNT" property="payAmount" jdbcType="DECIMAL" />
+    <result column="PAY_TYPE" property="payType" jdbcType="DECIMAL" />
+    <result column="PAY_ENT_CUST_NAME" property="payEntCustName" jdbcType="VARCHAR" />
+    <result column="PAY_BANK_NAME" property="payBankName" jdbcType="VARCHAR" />
+    <result column="PAY_BANK_NO" property="payBankNo" jdbcType="VARCHAR" />
+    <result column="PAY_USE" property="payUse" jdbcType="VARCHAR" />
+    <result column="USE_ENT_CUST_NAME" property="useEntCustName" jdbcType="VARCHAR" />
+    <result column="DEBIT_STATUS" property="debitStatus" jdbcType="DECIMAL" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="AUDIT_RECORD" property="auditRecord" jdbcType="VARCHAR" />
+    <result column="AUDIT_CUST_ID" property="auditCustId" jdbcType="VARCHAR" />
+    <result column="AUDIT_CUST_NAME" property="auditCustName" jdbcType="VARCHAR" />
+    <result column="AUDIT_TIME" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="LINK_AMOUNT" property="linkAmount" jdbcType="DECIMAL" />
+    <result column="UNLINK_AMOUNT" property="unlinkAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_INFO_ID" property="accountInfoId" jdbcType="VARCHAR" />
+    <result column="BANK_BRANCH_NAME" property="bankBranchName" jdbcType="VARCHAR" />
+    <result column="RECEIVE_ACCOUNT_NAME" property="receiveAccountName" jdbcType="VARCHAR" />
+    <result column="RECEIVE_ACCOUNT_NO" property="receiveAccountNo" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_RECEIVETIME" property="accountReceivetime" jdbcType="TIMESTAMP" />
+    <result column="IS_PLATFORM_FILLING" property="isPlatformFilling" jdbcType="DECIMAL" />
+    <result column="REFUND_RECORD" property="refundRecord" jdbcType="VARCHAR" />
+    <result column="REFUND_AUDIT_RECORD" property="refundAuditRecord" jdbcType="VARCHAR" />
+    <result column="BALANCE_RECORD" property="balanceRecord" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="CREATED_NAME" property="createdName" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATED_NAME" property="updatedName" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEBIT_ID, PAY_TIME, PAY_AMOUNT, PAY_TYPE, PAY_ENT_CUST_NAME, PAY_BANK_NAME, PAY_BANK_NO, 
+    PAY_USE, USE_ENT_CUST_NAME, DEBIT_STATUS, FILENAME, FILE_ID, DESCRIPTION, AUDIT_RECORD, 
+    AUDIT_CUST_ID, AUDIT_CUST_NAME, AUDIT_TIME, LINK_AMOUNT, UNLINK_AMOUNT, REFUND_AMOUNT, 
+    ACCOUNT_INFO_ID, BANK_BRANCH_NAME, RECEIVE_ACCOUNT_NAME, RECEIVE_ACCOUNT_NO, ACCOUNT_RECEIVETIME, 
+    IS_PLATFORM_FILLING, REFUND_RECORD, REFUND_AUDIT_RECORD, BALANCE_RECORD, CREATED_DATE, 
+    CREATEDBY, CREATED_NAME, UPDATED_DATE, UPDATEDBY, UPDATED_NAME, ISACTIVE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebitExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_DEBIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_DEBIT
+    where DEBIT_ID = #{debitId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_DEBIT
+    where DEBIT_ID = #{debitId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebitExample" >
+    delete from DBBS01.T_BS_DEBIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebit" >
+    insert into DBBS01.T_BS_DEBIT (DEBIT_ID, PAY_TIME, PAY_AMOUNT, 
+      PAY_TYPE, PAY_ENT_CUST_NAME, PAY_BANK_NAME, 
+      PAY_BANK_NO, PAY_USE, USE_ENT_CUST_NAME, 
+      DEBIT_STATUS, FILENAME, FILE_ID, 
+      DESCRIPTION, AUDIT_RECORD, AUDIT_CUST_ID, 
+      AUDIT_CUST_NAME, AUDIT_TIME, LINK_AMOUNT, 
+      UNLINK_AMOUNT, REFUND_AMOUNT, ACCOUNT_INFO_ID, 
+      BANK_BRANCH_NAME, RECEIVE_ACCOUNT_NAME, RECEIVE_ACCOUNT_NO, 
+      ACCOUNT_RECEIVETIME, IS_PLATFORM_FILLING, 
+      REFUND_RECORD, REFUND_AUDIT_RECORD, BALANCE_RECORD, 
+      CREATED_DATE, CREATEDBY, CREATED_NAME, 
+      UPDATED_DATE, UPDATEDBY, UPDATED_NAME, 
+      ISACTIVE)
+    values (#{debitId,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{payAmount,jdbcType=DECIMAL}, 
+      #{payType,jdbcType=DECIMAL}, #{payEntCustName,jdbcType=VARCHAR}, #{payBankName,jdbcType=VARCHAR}, 
+      #{payBankNo,jdbcType=VARCHAR}, #{payUse,jdbcType=VARCHAR}, #{useEntCustName,jdbcType=VARCHAR}, 
+      #{debitStatus,jdbcType=DECIMAL}, #{filename,jdbcType=VARCHAR}, #{fileId,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{auditRecord,jdbcType=VARCHAR}, #{auditCustId,jdbcType=VARCHAR}, 
+      #{auditCustName,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{linkAmount,jdbcType=DECIMAL}, 
+      #{unlinkAmount,jdbcType=DECIMAL}, #{refundAmount,jdbcType=DECIMAL}, #{accountInfoId,jdbcType=VARCHAR}, 
+      #{bankBranchName,jdbcType=VARCHAR}, #{receiveAccountName,jdbcType=VARCHAR}, #{receiveAccountNo,jdbcType=VARCHAR}, 
+      #{accountReceivetime,jdbcType=TIMESTAMP}, #{isPlatformFilling,jdbcType=DECIMAL}, 
+      #{refundRecord,jdbcType=VARCHAR}, #{refundAuditRecord,jdbcType=VARCHAR}, #{balanceRecord,jdbcType=VARCHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}, #{createdName,jdbcType=VARCHAR}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updatedName,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebit" >
+    insert into DBBS01.T_BS_DEBIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="debitId != null" >
+        DEBIT_ID,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT,
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE,
+      </if>
+      <if test="payEntCustName != null" >
+        PAY_ENT_CUST_NAME,
+      </if>
+      <if test="payBankName != null" >
+        PAY_BANK_NAME,
+      </if>
+      <if test="payBankNo != null" >
+        PAY_BANK_NO,
+      </if>
+      <if test="payUse != null" >
+        PAY_USE,
+      </if>
+      <if test="useEntCustName != null" >
+        USE_ENT_CUST_NAME,
+      </if>
+      <if test="debitStatus != null" >
+        DEBIT_STATUS,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="auditRecord != null" >
+        AUDIT_RECORD,
+      </if>
+      <if test="auditCustId != null" >
+        AUDIT_CUST_ID,
+      </if>
+      <if test="auditCustName != null" >
+        AUDIT_CUST_NAME,
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME,
+      </if>
+      <if test="linkAmount != null" >
+        LINK_AMOUNT,
+      </if>
+      <if test="unlinkAmount != null" >
+        UNLINK_AMOUNT,
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT,
+      </if>
+      <if test="accountInfoId != null" >
+        ACCOUNT_INFO_ID,
+      </if>
+      <if test="bankBranchName != null" >
+        BANK_BRANCH_NAME,
+      </if>
+      <if test="receiveAccountName != null" >
+        RECEIVE_ACCOUNT_NAME,
+      </if>
+      <if test="receiveAccountNo != null" >
+        RECEIVE_ACCOUNT_NO,
+      </if>
+      <if test="accountReceivetime != null" >
+        ACCOUNT_RECEIVETIME,
+      </if>
+      <if test="isPlatformFilling != null" >
+        IS_PLATFORM_FILLING,
+      </if>
+      <if test="refundRecord != null" >
+        REFUND_RECORD,
+      </if>
+      <if test="refundAuditRecord != null" >
+        REFUND_AUDIT_RECORD,
+      </if>
+      <if test="balanceRecord != null" >
+        BALANCE_RECORD,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="createdName != null" >
+        CREATED_NAME,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updatedName != null" >
+        UPDATED_NAME,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="debitId != null" >
+        #{debitId,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=DECIMAL},
+      </if>
+      <if test="payEntCustName != null" >
+        #{payEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankName != null" >
+        #{payBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankNo != null" >
+        #{payBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payUse != null" >
+        #{payUse,jdbcType=VARCHAR},
+      </if>
+      <if test="useEntCustName != null" >
+        #{useEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="debitStatus != null" >
+        #{debitStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="auditRecord != null" >
+        #{auditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="auditCustId != null" >
+        #{auditCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditCustName != null" >
+        #{auditCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkAmount != null" >
+        #{linkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="unlinkAmount != null" >
+        #{unlinkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInfoId != null" >
+        #{accountInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranchName != null" >
+        #{bankBranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAccountName != null" >
+        #{receiveAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAccountNo != null" >
+        #{receiveAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountReceivetime != null" >
+        #{accountReceivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPlatformFilling != null" >
+        #{isPlatformFilling,jdbcType=DECIMAL},
+      </if>
+      <if test="refundRecord != null" >
+        #{refundRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAuditRecord != null" >
+        #{refundAuditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceRecord != null" >
+        #{balanceRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createdName != null" >
+        #{createdName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedName != null" >
+        #{updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebitExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_DEBIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_DEBIT
+    <set >
+      <if test="record.debitId != null" >
+        DEBIT_ID = #{record.debitId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payAmount != null" >
+        PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payType != null" >
+        PAY_TYPE = #{record.payType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payEntCustName != null" >
+        PAY_ENT_CUST_NAME = #{record.payEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payBankName != null" >
+        PAY_BANK_NAME = #{record.payBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payBankNo != null" >
+        PAY_BANK_NO = #{record.payBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payUse != null" >
+        PAY_USE = #{record.payUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useEntCustName != null" >
+        USE_ENT_CUST_NAME = #{record.useEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debitStatus != null" >
+        DEBIT_STATUS = #{record.debitStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.filename != null" >
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileId != null" >
+        FILE_ID = #{record.fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditRecord != null" >
+        AUDIT_RECORD = #{record.auditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditCustId != null" >
+        AUDIT_CUST_ID = #{record.auditCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditCustName != null" >
+        AUDIT_CUST_NAME = #{record.auditCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        AUDIT_TIME = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.linkAmount != null" >
+        LINK_AMOUNT = #{record.linkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unlinkAmount != null" >
+        UNLINK_AMOUNT = #{record.unlinkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundAmount != null" >
+        REFUND_AMOUNT = #{record.refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountInfoId != null" >
+        ACCOUNT_INFO_ID = #{record.accountInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankBranchName != null" >
+        BANK_BRANCH_NAME = #{record.bankBranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAccountName != null" >
+        RECEIVE_ACCOUNT_NAME = #{record.receiveAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAccountNo != null" >
+        RECEIVE_ACCOUNT_NO = #{record.receiveAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountReceivetime != null" >
+        ACCOUNT_RECEIVETIME = #{record.accountReceivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isPlatformFilling != null" >
+        IS_PLATFORM_FILLING = #{record.isPlatformFilling,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundRecord != null" >
+        REFUND_RECORD = #{record.refundRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundAuditRecord != null" >
+        REFUND_AUDIT_RECORD = #{record.refundAuditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balanceRecord != null" >
+        BALANCE_RECORD = #{record.balanceRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdName != null" >
+        CREATED_NAME = #{record.createdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedby != null" >
+        UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedName != null" >
+        UPDATED_NAME = #{record.updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactive != null" >
+        ISACTIVE = #{record.isactive,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_DEBIT
+    set DEBIT_ID = #{record.debitId,jdbcType=VARCHAR},
+      PAY_TIME = #{record.payTime,jdbcType=TIMESTAMP},
+      PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      PAY_TYPE = #{record.payType,jdbcType=DECIMAL},
+      PAY_ENT_CUST_NAME = #{record.payEntCustName,jdbcType=VARCHAR},
+      PAY_BANK_NAME = #{record.payBankName,jdbcType=VARCHAR},
+      PAY_BANK_NO = #{record.payBankNo,jdbcType=VARCHAR},
+      PAY_USE = #{record.payUse,jdbcType=VARCHAR},
+      USE_ENT_CUST_NAME = #{record.useEntCustName,jdbcType=VARCHAR},
+      DEBIT_STATUS = #{record.debitStatus,jdbcType=DECIMAL},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      FILE_ID = #{record.fileId,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      AUDIT_RECORD = #{record.auditRecord,jdbcType=VARCHAR},
+      AUDIT_CUST_ID = #{record.auditCustId,jdbcType=VARCHAR},
+      AUDIT_CUST_NAME = #{record.auditCustName,jdbcType=VARCHAR},
+      AUDIT_TIME = #{record.auditTime,jdbcType=TIMESTAMP},
+      LINK_AMOUNT = #{record.linkAmount,jdbcType=DECIMAL},
+      UNLINK_AMOUNT = #{record.unlinkAmount,jdbcType=DECIMAL},
+      REFUND_AMOUNT = #{record.refundAmount,jdbcType=DECIMAL},
+      ACCOUNT_INFO_ID = #{record.accountInfoId,jdbcType=VARCHAR},
+      BANK_BRANCH_NAME = #{record.bankBranchName,jdbcType=VARCHAR},
+      RECEIVE_ACCOUNT_NAME = #{record.receiveAccountName,jdbcType=VARCHAR},
+      RECEIVE_ACCOUNT_NO = #{record.receiveAccountNo,jdbcType=VARCHAR},
+      ACCOUNT_RECEIVETIME = #{record.accountReceivetime,jdbcType=TIMESTAMP},
+      IS_PLATFORM_FILLING = #{record.isPlatformFilling,jdbcType=DECIMAL},
+      REFUND_RECORD = #{record.refundRecord,jdbcType=VARCHAR},
+      REFUND_AUDIT_RECORD = #{record.refundAuditRecord,jdbcType=VARCHAR},
+      BALANCE_RECORD = #{record.balanceRecord,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      CREATED_NAME = #{record.createdName,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      UPDATED_NAME = #{record.updatedName,jdbcType=VARCHAR},
+      ISACTIVE = #{record.isactive,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebit" >
+    update DBBS01.T_BS_DEBIT
+    <set >
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="payType != null" >
+        PAY_TYPE = #{payType,jdbcType=DECIMAL},
+      </if>
+      <if test="payEntCustName != null" >
+        PAY_ENT_CUST_NAME = #{payEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankName != null" >
+        PAY_BANK_NAME = #{payBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankNo != null" >
+        PAY_BANK_NO = #{payBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payUse != null" >
+        PAY_USE = #{payUse,jdbcType=VARCHAR},
+      </if>
+      <if test="useEntCustName != null" >
+        USE_ENT_CUST_NAME = #{useEntCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="debitStatus != null" >
+        DEBIT_STATUS = #{debitStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="filename != null" >
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileId != null" >
+        FILE_ID = #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="auditRecord != null" >
+        AUDIT_RECORD = #{auditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="auditCustId != null" >
+        AUDIT_CUST_ID = #{auditCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditCustName != null" >
+        AUDIT_CUST_NAME = #{auditCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="linkAmount != null" >
+        LINK_AMOUNT = #{linkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="unlinkAmount != null" >
+        UNLINK_AMOUNT = #{unlinkAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInfoId != null" >
+        ACCOUNT_INFO_ID = #{accountInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranchName != null" >
+        BANK_BRANCH_NAME = #{bankBranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAccountName != null" >
+        RECEIVE_ACCOUNT_NAME = #{receiveAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAccountNo != null" >
+        RECEIVE_ACCOUNT_NO = #{receiveAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountReceivetime != null" >
+        ACCOUNT_RECEIVETIME = #{accountReceivetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isPlatformFilling != null" >
+        IS_PLATFORM_FILLING = #{isPlatformFilling,jdbcType=DECIMAL},
+      </if>
+      <if test="refundRecord != null" >
+        REFUND_RECORD = #{refundRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAuditRecord != null" >
+        REFUND_AUDIT_RECORD = #{refundAuditRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="balanceRecord != null" >
+        BALANCE_RECORD = #{balanceRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="createdName != null" >
+        CREATED_NAME = #{createdName,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedName != null" >
+        UPDATED_NAME = #{updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+    </set>
+    where DEBIT_ID = #{debitId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsDebit" >
+    update DBBS01.T_BS_DEBIT
+    set PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      PAY_TYPE = #{payType,jdbcType=DECIMAL},
+      PAY_ENT_CUST_NAME = #{payEntCustName,jdbcType=VARCHAR},
+      PAY_BANK_NAME = #{payBankName,jdbcType=VARCHAR},
+      PAY_BANK_NO = #{payBankNo,jdbcType=VARCHAR},
+      PAY_USE = #{payUse,jdbcType=VARCHAR},
+      USE_ENT_CUST_NAME = #{useEntCustName,jdbcType=VARCHAR},
+      DEBIT_STATUS = #{debitStatus,jdbcType=DECIMAL},
+      FILENAME = #{filename,jdbcType=VARCHAR},
+      FILE_ID = #{fileId,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      AUDIT_RECORD = #{auditRecord,jdbcType=VARCHAR},
+      AUDIT_CUST_ID = #{auditCustId,jdbcType=VARCHAR},
+      AUDIT_CUST_NAME = #{auditCustName,jdbcType=VARCHAR},
+      AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      LINK_AMOUNT = #{linkAmount,jdbcType=DECIMAL},
+      UNLINK_AMOUNT = #{unlinkAmount,jdbcType=DECIMAL},
+      REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      ACCOUNT_INFO_ID = #{accountInfoId,jdbcType=VARCHAR},
+      BANK_BRANCH_NAME = #{bankBranchName,jdbcType=VARCHAR},
+      RECEIVE_ACCOUNT_NAME = #{receiveAccountName,jdbcType=VARCHAR},
+      RECEIVE_ACCOUNT_NO = #{receiveAccountNo,jdbcType=VARCHAR},
+      ACCOUNT_RECEIVETIME = #{accountReceivetime,jdbcType=TIMESTAMP},
+      IS_PLATFORM_FILLING = #{isPlatformFilling,jdbcType=DECIMAL},
+      REFUND_RECORD = #{refundRecord,jdbcType=VARCHAR},
+      REFUND_AUDIT_RECORD = #{refundAuditRecord,jdbcType=VARCHAR},
+      BALANCE_RECORD = #{balanceRecord,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      CREATED_NAME = #{createdName,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATED_NAME = #{updatedName,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=CHAR}
+    where DEBIT_ID = #{debitId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%x %d [%-5p] %c %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" /><!-- DEBUG -->
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<appender name="LOG.DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log.home}/logs/nt_server_log/debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="LOG.INFO" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log.home}/logs/nt_server_log/info.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="LOG.WARN" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log.home}/logs/nt_server_log/warn.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="LOG.ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log.home}/logs/nt_server_log/error.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+
+	<appender name="LOG.FATAL" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log.home}/logs/nt_server_log/fatal.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="FATAL" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+	
+	<!-- 下面是打印mybatis语句的配置 -->
+	<logger name="com.ibatis" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.Connection" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.Statement" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.PreparedStatement" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	
+	<!-- 阻止MQ队列日志debug级别刷屏 -->
+	<logger name="org.springframework.amqp.rabbit.listener.BlockingQueueConsumer" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="org.springframework.amqp.rabbit.connection.CachingConnectionFactory" additivity="true">
+		<level value="INFO" />
+	</logger>
+	<logger name="org.apache.zookeeper.ClientCnxn" additivity="true">
+		<level value="INFO" />
+	</logger>
+
+	<root>
+		<priority value="${log.level}" />
+		<appender-ref ref="LOG.DEBUG" />
+		<appender-ref ref="LOG.INFO" />
+		<appender-ref ref="LOG.WARN" />
+		<appender-ref ref="LOG.ERROR" />
+		<appender-ref ref="LOG.FATAL" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</log4j:configuration>

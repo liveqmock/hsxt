@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsResetTranpwdapplyMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapply" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+    <result column="ENT_CUST_NAME" property="entCustName" jdbcType="VARCHAR" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="APPLY_PATH" property="applyPath" jdbcType="VARCHAR" />
+    <result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="APPLY_REASON" property="applyReason" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="VALIDATE_CODE" property="validateCode" jdbcType="VARCHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="ISACTIVE" property="isactive" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, ENT_RES_NO, ENT_CUST_ID, CUST_TYPE, ENT_CUST_NAME, LINKMAN, MOBILE, APPLY_PATH, 
+    APPLY_DATE, APPLY_REASON, STATUS, VALIDATE_CODE, CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+    UPDATEDBY, ISACTIVE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapplyExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_RESET_TRANPWDAPPLY
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_RESET_TRANPWDAPPLY
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapplyExample" >
+    delete from DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapply" >
+    insert into DBBS01.T_BS_RESET_TRANPWDAPPLY (APPLY_ID, ENT_RES_NO, ENT_CUST_ID, 
+      CUST_TYPE, ENT_CUST_NAME, LINKMAN, 
+      MOBILE, APPLY_PATH, APPLY_DATE, 
+      APPLY_REASON, STATUS, VALIDATE_CODE, 
+      CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+      UPDATEDBY, ISACTIVE)
+    values (#{applyId,jdbcType=VARCHAR}, #{entResNo,jdbcType=CHAR}, #{entCustId,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=DECIMAL}, #{entCustName,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{applyPath,jdbcType=VARCHAR}, #{applyDate,jdbcType=TIMESTAMP}, 
+      #{applyReason,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{validateCode,jdbcType=VARCHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{updatedby,jdbcType=VARCHAR}, #{isactive,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapply" >
+    insert into DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="applyPath != null" >
+        APPLY_PATH,
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE,
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="validateCode != null" >
+        VALIDATE_CODE,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPath != null" >
+        #{applyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="validateCode != null" >
+        #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapplyExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entResNo != null" >
+        ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      </if>
+      <if test="record.entCustId != null" >
+        ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custType != null" >
+        CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entCustName != null" >
+        ENT_CUST_NAME = #{record.entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyPath != null" >
+        APPLY_PATH = #{record.applyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDate != null" >
+        APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyReason != null" >
+        APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.validateCode != null" >
+        VALIDATE_CODE = #{record.validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedby != null" >
+        UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isactive != null" >
+        ISACTIVE = #{record.isactive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_RESET_TRANPWDAPPLY
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      ENT_CUST_NAME = #{record.entCustName,jdbcType=VARCHAR},
+      LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      APPLY_PATH = #{record.applyPath,jdbcType=VARCHAR},
+      APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      VALIDATE_CODE = #{record.validateCode,jdbcType=VARCHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      ISACTIVE = #{record.isactive,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapply" >
+    update DBBS01.T_BS_RESET_TRANPWDAPPLY
+    <set >
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="entCustName != null" >
+        ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPath != null" >
+        APPLY_PATH = #{applyPath,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="validateCode != null" >
+        VALIDATE_CODE = #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsResetTranpwdapply" >
+    update DBBS01.T_BS_RESET_TRANPWDAPPLY
+    set ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      ENT_CUST_NAME = #{entCustName,jdbcType=VARCHAR},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      APPLY_PATH = #{applyPath,jdbcType=VARCHAR},
+      APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      VALIDATE_CODE = #{validateCode,jdbcType=VARCHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      ISACTIVE = #{isactive,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

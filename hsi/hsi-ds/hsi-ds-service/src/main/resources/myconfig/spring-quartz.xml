@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<bean name="quartzScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
+		<property name="configLocation" value="classpath:/myconfig/spring-quartz.properties" />
+		<property name="jobFactory" ref="jobFactory"></property>
+	</bean>
+
+	<bean id="jobDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass">
+			<value>com.gy.hsi.ds.job.service.impl.CommonJobService</value>
+		</property>
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="false" />
+	</bean>
+
+	<!-- job工厂，实现支持@Autowired注入 -->
+	<bean id="jobFactory" class="com.gy.hsi.ds.job.DSJobFactory"></bean>
+
+</beans>

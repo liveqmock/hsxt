@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsPerChangeInfoDataMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoData" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <id column="CHANGE_INFO_CODE" property="changeInfoCode" jdbcType="VARCHAR" />
+    <result column="BEFORE_VALUE" property="beforeValue" jdbcType="VARCHAR" />
+    <result column="AFTER_VALUE" property="afterValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, CHANGE_INFO_CODE, BEFORE_VALUE, AFTER_VALUE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoDataExample" >
+    select * from (
+	    select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    ROWNUM rn,
+	    <include refid="Base_Column_List" />
+	    from DBBS01.T_BS_PER_CHANGE_INFO_DATA
+	    where CHANGE_INFO_CODE like '%PIC'
+     )
+	   <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoDataKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+      and CHANGE_INFO_CODE = #{changeInfoCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoDataKey" >
+    delete from DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+      and CHANGE_INFO_CODE = #{changeInfoCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoDataExample" >
+    delete from DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoData" >
+    insert into DBBS01.T_BS_PER_CHANGE_INFO_DATA (APPLY_ID, CHANGE_INFO_CODE, BEFORE_VALUE, 
+      AFTER_VALUE)
+    values (#{applyId,jdbcType=VARCHAR}, #{changeInfoCode,jdbcType=VARCHAR}, #{beforeValue,jdbcType=VARCHAR}, 
+      #{afterValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoData" >
+    insert into DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="changeInfoCode != null" >
+        CHANGE_INFO_CODE,
+      </if>
+      <if test="beforeValue != null" >
+        BEFORE_VALUE,
+      </if>
+      <if test="afterValue != null" >
+        AFTER_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="changeInfoCode != null" >
+        #{changeInfoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeValue != null" >
+        #{beforeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="afterValue != null" >
+        #{afterValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoDataExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeInfoCode != null" >
+        CHANGE_INFO_CODE = #{record.changeInfoCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beforeValue != null" >
+        BEFORE_VALUE = #{record.beforeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afterValue != null" >
+        AFTER_VALUE = #{record.afterValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      CHANGE_INFO_CODE = #{record.changeInfoCode,jdbcType=VARCHAR},
+      BEFORE_VALUE = #{record.beforeValue,jdbcType=VARCHAR},
+      AFTER_VALUE = #{record.afterValue,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoData" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    <set >
+      <if test="beforeValue != null" >
+        BEFORE_VALUE = #{beforeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="afterValue != null" >
+        AFTER_VALUE = #{afterValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+      and CHANGE_INFO_CODE = #{changeInfoCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerChangeInfoData" >
+    update DBBS01.T_BS_PER_CHANGE_INFO_DATA
+    set BEFORE_VALUE = #{beforeValue,jdbcType=VARCHAR},
+      AFTER_VALUE = #{afterValue,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+      and CHANGE_INFO_CODE = #{changeInfoCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler/>
+	
+	<mvc:resources mapping="**.html" location="/WEB-INF/html/"/>
+	<mvc:resources mapping="dep/**" location="/WEB-INF/html/dep/"/>
+	<mvc:resources mapping="assets/**" location="/WEB-INF/html/assets/"/>
+	
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
+	<context:component-scan base-package="com.gy.hsi.ds.*" />	
+
+    <!-- Convenient subclass of UrlBasedViewResolver that supports InternalResourceView
+        (i.e. Servlets and JSPs) and subclasses such as JstlView. -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          abstract="false" lazy-init="default" autowire="default">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix">
+            <value>/WEB-INF/jsp_views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="uploadTempDir" value="tmp" />
+        <!-- 最大内存大小 -->        
+        <property name="maxInMemorySize" value="4194304"/>
+        <!-- 最大文件大小，1024*1024*4 = 4M -->
+        <property name="maxUploadSize" value="4194304"/>        
+    </bean>
+
+    <mvc:resources mapping="/api/system/**" location="/WEB-INF/public-resources/" cache-period="259200"/>
+	<mvc:resources mapping="/mainTpl/**" location="/mainTpl/" cache-period="259200"/>
+	<mvc:resources mapping="/output/**" location="/output/" cache-period="259200"/>
+	<mvc:resources mapping="/unitTpl/**" location="/unitTpl/" cache-period="259200"/>
+</beans>

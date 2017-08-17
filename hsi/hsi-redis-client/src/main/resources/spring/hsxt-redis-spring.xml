@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/jdbc
+            http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<!-- 
+	<context:property-placeholder location="file:${user.dir}/conf/redis.properties"
+		ignore-unresolvable="true" />
+     -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxTotal}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<bean id="changeJedisSentinelConf"
+		class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+		<property name="master">
+			<bean class="org.springframework.data.redis.connection.RedisNode">
+				<property name="name" value="${change.main.name}"></property>
+			</bean>
+		</property>
+		<property name="sentinels">
+			<set>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${change.main.sentinel.ip}" />
+					<constructor-arg index="1" value="${change.main.sentinel.port}" />
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${change.backup.sentinel.ip}" />
+					<constructor-arg index="1" value="${change.backup.sentinel.port}" />
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="changeJeidsConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg ref="changeJedisSentinelConf" />
+		<property name="poolConfig" ref="poolConfig"></property>
+		<property name="usePool" value="true"></property>
+	</bean>
+
+	<bean id="changeRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="changeJeidsConnFactory" />
+	</bean>
+
+	<bean name="changeRedisUtil" class="com.gy.hsi.redis.client.api.RedisUtil">
+		<property name="redisTemplate" ref="changeRedisTemplate" />
+	</bean>
+
+	<!-- fix配置 -->
+	<bean id="fixRedisSentinelConf"
+		class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+		<property name="master">
+			<bean class="org.springframework.data.redis.connection.RedisNode">
+				<property name="name" value="master-fix"></property>
+			</bean>
+		</property>
+		<property name="sentinels">
+			<set>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${fix.main.sentinel.ip}" />
+					<constructor-arg index="1" value="${fix.main.sentinel.port}" />
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode">
+					<constructor-arg index="0" value="${fix.backup.sentinel.ip}" />
+					<constructor-arg index="1" value="${fix.backup.sentinel.port}" />
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="fixReidsConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg ref="fixRedisSentinelConf" />
+		<property name="poolConfig" ref="poolConfig"></property>
+		<property name="usePool" value="true"></property>
+	</bean>
+
+	<bean id="fixRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="fixReidsConnFactory" />
+	</bean>
+	
+	<!-- 定义2个缓存，1个用于存储信息固定变动较少的信息，如用户信息，1个缓存为常变信息 ，如用户登录信息 -->
+
+	<bean name="fixRedisUtil" class="com.gy.hsi.redis.client.api.RedisUtil">
+		<property name="redisTemplate" ref="fixRedisTemplate" />
+	</bean>
+</beans>
+ 

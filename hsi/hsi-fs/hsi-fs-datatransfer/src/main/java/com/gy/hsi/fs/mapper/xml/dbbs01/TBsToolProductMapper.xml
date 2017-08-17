@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsToolProductMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProduct" >
+    <id column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="CATEGORY_CODE" property="categoryCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="MICRO_PIC" property="microPic" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="WARNING_VALUE" property="warningValue" jdbcType="DECIMAL" />
+    <result column="ENABLE_STATUS" property="enableStatus" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="LAST_STATUS_TIME" property="lastStatusTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_APPLY_ID" property="lastApplyId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PRODUCT_ID, CATEGORY_CODE, PRODUCT_NAME, MICRO_PIC, PRICE, UNIT, DESCRIPTION, WARNING_VALUE, 
+    ENABLE_STATUS, STATUS, LAST_STATUS_TIME, LAST_APPLY_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProductExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_TOOL_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_TOOL_PRODUCT
+    where PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_TOOL_PRODUCT
+    where PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProductExample" >
+    delete from DBBS01.T_BS_TOOL_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProduct" >
+    insert into DBBS01.T_BS_TOOL_PRODUCT (PRODUCT_ID, CATEGORY_CODE, PRODUCT_NAME, 
+      MICRO_PIC, PRICE, UNIT, 
+      DESCRIPTION, WARNING_VALUE, ENABLE_STATUS, 
+      STATUS, LAST_STATUS_TIME, LAST_APPLY_ID
+      )
+    values (#{productId,jdbcType=VARCHAR}, #{categoryCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{microPic,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{unit,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{warningValue,jdbcType=DECIMAL}, #{enableStatus,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{lastStatusTime,jdbcType=TIMESTAMP}, #{lastApplyId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProduct" >
+    insert into DBBS01.T_BS_TOOL_PRODUCT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="categoryCode != null" >
+        CATEGORY_CODE,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="microPic != null" >
+        MICRO_PIC,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="warningValue != null" >
+        WARNING_VALUE,
+      </if>
+      <if test="enableStatus != null" >
+        ENABLE_STATUS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="lastStatusTime != null" >
+        LAST_STATUS_TIME,
+      </if>
+      <if test="lastApplyId != null" >
+        LAST_APPLY_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryCode != null" >
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="microPic != null" >
+        #{microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="warningValue != null" >
+        #{warningValue,jdbcType=DECIMAL},
+      </if>
+      <if test="enableStatus != null" >
+        #{enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="lastStatusTime != null" >
+        #{lastStatusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastApplyId != null" >
+        #{lastApplyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProductExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_TOOL_PRODUCT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_TOOL_PRODUCT
+    <set >
+      <if test="record.productId != null" >
+        PRODUCT_ID = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryCode != null" >
+        CATEGORY_CODE = #{record.categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null" >
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.microPic != null" >
+        MICRO_PIC = #{record.microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        PRICE = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unit != null" >
+        UNIT = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.warningValue != null" >
+        WARNING_VALUE = #{record.warningValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.enableStatus != null" >
+        ENABLE_STATUS = #{record.enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastStatusTime != null" >
+        LAST_STATUS_TIME = #{record.lastStatusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastApplyId != null" >
+        LAST_APPLY_ID = #{record.lastApplyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_TOOL_PRODUCT
+    set PRODUCT_ID = #{record.productId,jdbcType=VARCHAR},
+      CATEGORY_CODE = #{record.categoryCode,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      MICRO_PIC = #{record.microPic,jdbcType=VARCHAR},
+      PRICE = #{record.price,jdbcType=DECIMAL},
+      UNIT = #{record.unit,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      WARNING_VALUE = #{record.warningValue,jdbcType=DECIMAL},
+      ENABLE_STATUS = #{record.enableStatus,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      LAST_STATUS_TIME = #{record.lastStatusTime,jdbcType=TIMESTAMP},
+      LAST_APPLY_ID = #{record.lastApplyId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProduct" >
+    update DBBS01.T_BS_TOOL_PRODUCT
+    <set >
+      <if test="categoryCode != null" >
+        CATEGORY_CODE = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="microPic != null" >
+        MICRO_PIC = #{microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="warningValue != null" >
+        WARNING_VALUE = #{warningValue,jdbcType=DECIMAL},
+      </if>
+      <if test="enableStatus != null" >
+        ENABLE_STATUS = #{enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="lastStatusTime != null" >
+        LAST_STATUS_TIME = #{lastStatusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastApplyId != null" >
+        LAST_APPLY_ID = #{lastApplyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsToolProduct" >
+    update DBBS01.T_BS_TOOL_PRODUCT
+    set CATEGORY_CODE = #{categoryCode,jdbcType=VARCHAR},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      MICRO_PIC = #{microPic,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DECIMAL},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      WARNING_VALUE = #{warningValue,jdbcType=DECIMAL},
+      ENABLE_STATUS = #{enableStatus,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      LAST_STATUS_TIME = #{lastStatusTime,jdbcType=TIMESTAMP},
+      LAST_APPLY_ID = #{lastApplyId,jdbcType=VARCHAR}
+    where PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+  </update>
+</mapper>

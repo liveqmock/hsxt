@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsTaxrateChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChange" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="RES_NO" property="resNo" jdbcType="CHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="CUST_TYPE" property="custType" jdbcType="DECIMAL" />
+    <result column="TAXPAYER_TYPE" property="taxpayerType" jdbcType="DECIMAL" />
+    <result column="CURR_TAXRATE" property="currTaxrate" jdbcType="DECIMAL" />
+    <result column="APPLY_TAXRATE" property="applyTaxrate" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="PROVE_MATERIAL_FILE" property="proveMaterialFile" jdbcType="VARCHAR" />
+    <result column="APPLY_REASON" property="applyReason" jdbcType="VARCHAR" />
+    <result column="ENABLE_DATE" property="enableDate" jdbcType="TIMESTAMP" />
+    <result column="DISABLE_DATE" property="disableDate" jdbcType="TIMESTAMP" />
+    <result column="ISACTIVE" property="isactive" jdbcType="CHAR" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEDBY" property="updatedby" jdbcType="VARCHAR" />
+    <result column="UPDATED_NAME" property="updatedName" jdbcType="VARCHAR" />
+    <result column="CREATED_NAME" property="createdName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, RES_NO, CUST_ID, CUST_NAME, LINKMAN, TELEPHONE, CUST_TYPE, TAXPAYER_TYPE, 
+    CURR_TAXRATE, APPLY_TAXRATE, STATUS, PROVE_MATERIAL_FILE, APPLY_REASON, ENABLE_DATE, 
+    DISABLE_DATE, ISACTIVE, CREATED_DATE, CREATEDBY, UPDATED_DATE, UPDATEDBY, UPDATED_NAME, 
+    CREATED_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChangeExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_TAXRATE_CHANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_TAXRATE_CHANGE
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_TAXRATE_CHANGE
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChangeExample" >
+    delete from DBBS01.T_BS_TAXRATE_CHANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChange" >
+    insert into DBBS01.T_BS_TAXRATE_CHANGE (APPLY_ID, RES_NO, CUST_ID, 
+      CUST_NAME, LINKMAN, TELEPHONE, 
+      CUST_TYPE, TAXPAYER_TYPE, CURR_TAXRATE, 
+      APPLY_TAXRATE, STATUS, PROVE_MATERIAL_FILE, 
+      APPLY_REASON, ENABLE_DATE, DISABLE_DATE, 
+      ISACTIVE, CREATED_DATE, CREATEDBY, 
+      UPDATED_DATE, UPDATEDBY, UPDATED_NAME, 
+      CREATED_NAME)
+    values (#{applyId,jdbcType=VARCHAR}, #{resNo,jdbcType=CHAR}, #{custId,jdbcType=VARCHAR}, 
+      #{custName,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{custType,jdbcType=DECIMAL}, #{taxpayerType,jdbcType=DECIMAL}, #{currTaxrate,jdbcType=DECIMAL}, 
+      #{applyTaxrate,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{proveMaterialFile,jdbcType=VARCHAR}, 
+      #{applyReason,jdbcType=VARCHAR}, #{enableDate,jdbcType=TIMESTAMP}, #{disableDate,jdbcType=TIMESTAMP}, 
+      #{isactive,jdbcType=CHAR}, #{createdDate,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{updatedby,jdbcType=VARCHAR}, #{updatedName,jdbcType=VARCHAR}, 
+      #{createdName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChange" >
+    insert into DBBS01.T_BS_TAXRATE_CHANGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="resNo != null" >
+        RES_NO,
+      </if>
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE,
+      </if>
+      <if test="taxpayerType != null" >
+        TAXPAYER_TYPE,
+      </if>
+      <if test="currTaxrate != null" >
+        CURR_TAXRATE,
+      </if>
+      <if test="applyTaxrate != null" >
+        APPLY_TAXRATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="proveMaterialFile != null" >
+        PROVE_MATERIAL_FILE,
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON,
+      </if>
+      <if test="enableDate != null" >
+        ENABLE_DATE,
+      </if>
+      <if test="disableDate != null" >
+        DISABLE_DATE,
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY,
+      </if>
+      <if test="updatedName != null" >
+        UPDATED_NAME,
+      </if>
+      <if test="createdName != null" >
+        CREATED_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="resNo != null" >
+        #{resNo,jdbcType=CHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="taxpayerType != null" >
+        #{taxpayerType,jdbcType=DECIMAL},
+      </if>
+      <if test="currTaxrate != null" >
+        #{currTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTaxrate != null" >
+        #{applyTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="proveMaterialFile != null" >
+        #{proveMaterialFile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="enableDate != null" >
+        #{enableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="disableDate != null" >
+        #{disableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedName != null" >
+        #{updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdName != null" >
+        #{createdName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChangeExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_TAXRATE_CHANGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_TAXRATE_CHANGE
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resNo != null" >
+        RES_NO = #{record.resNo,jdbcType=CHAR},
+      </if>
+      <if test="record.custId != null" >
+        CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custName != null" >
+        CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custType != null" >
+        CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxpayerType != null" >
+        TAXPAYER_TYPE = #{record.taxpayerType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currTaxrate != null" >
+        CURR_TAXRATE = #{record.currTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applyTaxrate != null" >
+        APPLY_TAXRATE = #{record.applyTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.proveMaterialFile != null" >
+        PROVE_MATERIAL_FILE = #{record.proveMaterialFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyReason != null" >
+        APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enableDate != null" >
+        ENABLE_DATE = #{record.enableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.disableDate != null" >
+        DISABLE_DATE = #{record.disableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isactive != null" >
+        ISACTIVE = #{record.isactive,jdbcType=CHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedby != null" >
+        UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedName != null" >
+        UPDATED_NAME = #{record.updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdName != null" >
+        CREATED_NAME = #{record.createdName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_TAXRATE_CHANGE
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      RES_NO = #{record.resNo,jdbcType=CHAR},
+      CUST_ID = #{record.custId,jdbcType=VARCHAR},
+      CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      LINKMAN = #{record.linkman,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      CUST_TYPE = #{record.custType,jdbcType=DECIMAL},
+      TAXPAYER_TYPE = #{record.taxpayerType,jdbcType=DECIMAL},
+      CURR_TAXRATE = #{record.currTaxrate,jdbcType=DECIMAL},
+      APPLY_TAXRATE = #{record.applyTaxrate,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      PROVE_MATERIAL_FILE = #{record.proveMaterialFile,jdbcType=VARCHAR},
+      APPLY_REASON = #{record.applyReason,jdbcType=VARCHAR},
+      ENABLE_DATE = #{record.enableDate,jdbcType=TIMESTAMP},
+      DISABLE_DATE = #{record.disableDate,jdbcType=TIMESTAMP},
+      ISACTIVE = #{record.isactive,jdbcType=CHAR},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{record.updatedby,jdbcType=VARCHAR},
+      UPDATED_NAME = #{record.updatedName,jdbcType=VARCHAR},
+      CREATED_NAME = #{record.createdName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChange" >
+    update DBBS01.T_BS_TAXRATE_CHANGE
+    <set >
+      <if test="resNo != null" >
+        RES_NO = #{resNo,jdbcType=CHAR},
+      </if>
+      <if test="custId != null" >
+        CUST_ID = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="custType != null" >
+        CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      </if>
+      <if test="taxpayerType != null" >
+        TAXPAYER_TYPE = #{taxpayerType,jdbcType=DECIMAL},
+      </if>
+      <if test="currTaxrate != null" >
+        CURR_TAXRATE = #{currTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTaxrate != null" >
+        APPLY_TAXRATE = #{applyTaxrate,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="proveMaterialFile != null" >
+        PROVE_MATERIAL_FILE = #{proveMaterialFile,jdbcType=VARCHAR},
+      </if>
+      <if test="applyReason != null" >
+        APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="enableDate != null" >
+        ENABLE_DATE = #{enableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="disableDate != null" >
+        DISABLE_DATE = #{disableDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isactive != null" >
+        ISACTIVE = #{isactive,jdbcType=CHAR},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedby != null" >
+        UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedName != null" >
+        UPDATED_NAME = #{updatedName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdName != null" >
+        CREATED_NAME = #{createdName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsTaxrateChange" >
+    update DBBS01.T_BS_TAXRATE_CHANGE
+    set RES_NO = #{resNo,jdbcType=CHAR},
+      CUST_ID = #{custId,jdbcType=VARCHAR},
+      CUST_NAME = #{custName,jdbcType=VARCHAR},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      CUST_TYPE = #{custType,jdbcType=DECIMAL},
+      TAXPAYER_TYPE = #{taxpayerType,jdbcType=DECIMAL},
+      CURR_TAXRATE = #{currTaxrate,jdbcType=DECIMAL},
+      APPLY_TAXRATE = #{applyTaxrate,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      PROVE_MATERIAL_FILE = #{proveMaterialFile,jdbcType=VARCHAR},
+      APPLY_REASON = #{applyReason,jdbcType=VARCHAR},
+      ENABLE_DATE = #{enableDate,jdbcType=TIMESTAMP},
+      DISABLE_DATE = #{disableDate,jdbcType=TIMESTAMP},
+      ISACTIVE = #{isactive,jdbcType=CHAR},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEDBY = #{updatedby,jdbcType=VARCHAR},
+      UPDATED_NAME = #{updatedName,jdbcType=VARCHAR},
+      CREATED_NAME = #{createdName,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.server.common.framework.mybatis.mapper.ext.ExtendedFileMetaDataDelMapper">
+<resultMap id="BaseResultMap" type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.ext.SimpleFileMetaDataDel" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="FILE_ID" property="fileId" jdbcType="CHAR" />
+    <result column="FILE_STORAGE_ID" property="fileStorageId" jdbcType="CHAR" />
+    <result column="FILE_SUFFIX" property="fileSuffix" jdbcType="VARCHAR" />
+    <result column="IS_ANONYMOUS" property="isAnonymous" jdbcType="BIT" />
+    <result column="FILE_STATUS" property="fileStatus" jdbcType="TINYINT" />
+    <result column="FAILED_COUNTS" property="failedCounts" jdbcType="INTEGER" />
+    <result column="LAST_FAILED_DATE" property="lastFailedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Base_Column_List">
+	ID, FILE_ID, FILE_STORAGE_ID, FILE_SUFFIX, IS_ANONYMOUS, FILE_STATUS,
+	FAILED_COUNTS, LAST_FAILED_DATE
+  </sql>
+  
+  <!-- 查询待删除文件记录 -->
+  <select id="selectWaitingDeletedByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.ext.ExtendedFileMetaDataDelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FS_FILE_META_DATA_DEL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    limit #{offset}, #{limit}
+  </select>
+    
+  <!-- 按文件id查询待删除文件记录 -->
+  <select id="selectWaitingDeletedByFileId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from T_FS_FILE_META_DATA_DEL
+    where FILE_ID=#{fileId,jdbcType=CHAR}
+  </select>
+</mapper>

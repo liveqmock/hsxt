@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsCardStyleMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyle" >
+    <id column="CARD_STYLE_ID" property="cardStyleId" jdbcType="VARCHAR" />
+    <result column="CARD_STYLE_NAME" property="cardStyleName" jdbcType="VARCHAR" />
+    <result column="MICRO_PIC" property="microPic" jdbcType="VARCHAR" />
+    <result column="SOURCE_FILE" property="sourceFile" jdbcType="VARCHAR" />
+    <result column="MATERIAL_MICRO_PIC" property="materialMicroPic" jdbcType="VARCHAR" />
+    <result column="MATERIAL_SOURCE_FILE" property="materialSourceFile" jdbcType="VARCHAR" />
+    <result column="IS_SPECIAL" property="isSpecial" jdbcType="DECIMAL" />
+    <result column="IS_DEFAULT" property="isDefault" jdbcType="DECIMAL" />
+    <result column="ENT_RES_NO" property="entResNo" jdbcType="CHAR" />
+    <result column="ENT_CUST_ID" property="entCustId" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="CONFIRM_FILE" property="confirmFile" jdbcType="VARCHAR" />
+    <result column="IS_LOCK" property="isLock" jdbcType="DECIMAL" />
+    <result column="IS_CONFIRM" property="isConfirm" jdbcType="DECIMAL" />
+    <result column="ENABLE_STATUS" property="enableStatus" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="REQ_OPERATOR" property="reqOperator" jdbcType="VARCHAR" />
+    <result column="REQ_TIME" property="reqTime" jdbcType="TIMESTAMP" />
+    <result column="REQ_REMARK" property="reqRemark" jdbcType="VARCHAR" />
+    <result column="APPR_OPERATOR" property="apprOperator" jdbcType="VARCHAR" />
+    <result column="APPR_TIME" property="apprTime" jdbcType="TIMESTAMP" />
+    <result column="APPR_REMARK" property="apprRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CARD_STYLE_ID, CARD_STYLE_NAME, MICRO_PIC, SOURCE_FILE, MATERIAL_MICRO_PIC, MATERIAL_SOURCE_FILE, 
+    IS_SPECIAL, IS_DEFAULT, ENT_RES_NO, ENT_CUST_ID, ORDER_NO, CONFIRM_FILE, IS_LOCK, 
+    IS_CONFIRM, ENABLE_STATUS, STATUS, REQ_OPERATOR, REQ_TIME, REQ_REMARK, APPR_OPERATOR, 
+    APPR_TIME, APPR_REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyleExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_CARD_STYLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_CARD_STYLE
+    where CARD_STYLE_ID = #{cardStyleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_CARD_STYLE
+    where CARD_STYLE_ID = #{cardStyleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyleExample" >
+    delete from DBBS01.T_BS_CARD_STYLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyle" >
+    insert into DBBS01.T_BS_CARD_STYLE (CARD_STYLE_ID, CARD_STYLE_NAME, MICRO_PIC, 
+      SOURCE_FILE, MATERIAL_MICRO_PIC, MATERIAL_SOURCE_FILE, 
+      IS_SPECIAL, IS_DEFAULT, ENT_RES_NO, 
+      ENT_CUST_ID, ORDER_NO, CONFIRM_FILE, 
+      IS_LOCK, IS_CONFIRM, ENABLE_STATUS, 
+      STATUS, REQ_OPERATOR, REQ_TIME, 
+      REQ_REMARK, APPR_OPERATOR, APPR_TIME, 
+      APPR_REMARK)
+    values (#{cardStyleId,jdbcType=VARCHAR}, #{cardStyleName,jdbcType=VARCHAR}, #{microPic,jdbcType=VARCHAR}, 
+      #{sourceFile,jdbcType=VARCHAR}, #{materialMicroPic,jdbcType=VARCHAR}, #{materialSourceFile,jdbcType=VARCHAR}, 
+      #{isSpecial,jdbcType=DECIMAL}, #{isDefault,jdbcType=DECIMAL}, #{entResNo,jdbcType=CHAR}, 
+      #{entCustId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{confirmFile,jdbcType=VARCHAR}, 
+      #{isLock,jdbcType=DECIMAL}, #{isConfirm,jdbcType=DECIMAL}, #{enableStatus,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{reqOperator,jdbcType=VARCHAR}, #{reqTime,jdbcType=TIMESTAMP}, 
+      #{reqRemark,jdbcType=VARCHAR}, #{apprOperator,jdbcType=VARCHAR}, #{apprTime,jdbcType=TIMESTAMP}, 
+      #{apprRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyle" >
+    insert into DBBS01.T_BS_CARD_STYLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cardStyleId != null" >
+        CARD_STYLE_ID,
+      </if>
+      <if test="cardStyleName != null" >
+        CARD_STYLE_NAME,
+      </if>
+      <if test="microPic != null" >
+        MICRO_PIC,
+      </if>
+      <if test="sourceFile != null" >
+        SOURCE_FILE,
+      </if>
+      <if test="materialMicroPic != null" >
+        MATERIAL_MICRO_PIC,
+      </if>
+      <if test="materialSourceFile != null" >
+        MATERIAL_SOURCE_FILE,
+      </if>
+      <if test="isSpecial != null" >
+        IS_SPECIAL,
+      </if>
+      <if test="isDefault != null" >
+        IS_DEFAULT,
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO,
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="confirmFile != null" >
+        CONFIRM_FILE,
+      </if>
+      <if test="isLock != null" >
+        IS_LOCK,
+      </if>
+      <if test="isConfirm != null" >
+        IS_CONFIRM,
+      </if>
+      <if test="enableStatus != null" >
+        ENABLE_STATUS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="reqOperator != null" >
+        REQ_OPERATOR,
+      </if>
+      <if test="reqTime != null" >
+        REQ_TIME,
+      </if>
+      <if test="reqRemark != null" >
+        REQ_REMARK,
+      </if>
+      <if test="apprOperator != null" >
+        APPR_OPERATOR,
+      </if>
+      <if test="apprTime != null" >
+        APPR_TIME,
+      </if>
+      <if test="apprRemark != null" >
+        APPR_REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cardStyleId != null" >
+        #{cardStyleId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardStyleName != null" >
+        #{cardStyleName,jdbcType=VARCHAR},
+      </if>
+      <if test="microPic != null" >
+        #{microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFile != null" >
+        #{sourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="materialMicroPic != null" >
+        #{materialMicroPic,jdbcType=VARCHAR},
+      </if>
+      <if test="materialSourceFile != null" >
+        #{materialSourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null" >
+        #{isSpecial,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=DECIMAL},
+      </if>
+      <if test="entResNo != null" >
+        #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmFile != null" >
+        #{confirmFile,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        #{isLock,jdbcType=DECIMAL},
+      </if>
+      <if test="isConfirm != null" >
+        #{isConfirm,jdbcType=DECIMAL},
+      </if>
+      <if test="enableStatus != null" >
+        #{enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="reqOperator != null" >
+        #{reqOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        #{reqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqRemark != null" >
+        #{reqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="apprOperator != null" >
+        #{apprOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="apprTime != null" >
+        #{apprTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apprRemark != null" >
+        #{apprRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyleExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_CARD_STYLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_CARD_STYLE
+    <set >
+      <if test="record.cardStyleId != null" >
+        CARD_STYLE_ID = #{record.cardStyleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardStyleName != null" >
+        CARD_STYLE_NAME = #{record.cardStyleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.microPic != null" >
+        MICRO_PIC = #{record.microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceFile != null" >
+        SOURCE_FILE = #{record.sourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialMicroPic != null" >
+        MATERIAL_MICRO_PIC = #{record.materialMicroPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialSourceFile != null" >
+        MATERIAL_SOURCE_FILE = #{record.materialSourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSpecial != null" >
+        IS_SPECIAL = #{record.isSpecial,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isDefault != null" >
+        IS_DEFAULT = #{record.isDefault,jdbcType=DECIMAL},
+      </if>
+      <if test="record.entResNo != null" >
+        ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      </if>
+      <if test="record.entCustId != null" >
+        ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confirmFile != null" >
+        CONFIRM_FILE = #{record.confirmFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLock != null" >
+        IS_LOCK = #{record.isLock,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isConfirm != null" >
+        IS_CONFIRM = #{record.isConfirm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.enableStatus != null" >
+        ENABLE_STATUS = #{record.enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reqOperator != null" >
+        REQ_OPERATOR = #{record.reqOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqTime != null" >
+        REQ_TIME = #{record.reqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reqRemark != null" >
+        REQ_REMARK = #{record.reqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprOperator != null" >
+        APPR_OPERATOR = #{record.apprOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprTime != null" >
+        APPR_TIME = #{record.apprTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.apprRemark != null" >
+        APPR_REMARK = #{record.apprRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_CARD_STYLE
+    set CARD_STYLE_ID = #{record.cardStyleId,jdbcType=VARCHAR},
+      CARD_STYLE_NAME = #{record.cardStyleName,jdbcType=VARCHAR},
+      MICRO_PIC = #{record.microPic,jdbcType=VARCHAR},
+      SOURCE_FILE = #{record.sourceFile,jdbcType=VARCHAR},
+      MATERIAL_MICRO_PIC = #{record.materialMicroPic,jdbcType=VARCHAR},
+      MATERIAL_SOURCE_FILE = #{record.materialSourceFile,jdbcType=VARCHAR},
+      IS_SPECIAL = #{record.isSpecial,jdbcType=DECIMAL},
+      IS_DEFAULT = #{record.isDefault,jdbcType=DECIMAL},
+      ENT_RES_NO = #{record.entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{record.entCustId,jdbcType=VARCHAR},
+      ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      CONFIRM_FILE = #{record.confirmFile,jdbcType=VARCHAR},
+      IS_LOCK = #{record.isLock,jdbcType=DECIMAL},
+      IS_CONFIRM = #{record.isConfirm,jdbcType=DECIMAL},
+      ENABLE_STATUS = #{record.enableStatus,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      REQ_OPERATOR = #{record.reqOperator,jdbcType=VARCHAR},
+      REQ_TIME = #{record.reqTime,jdbcType=TIMESTAMP},
+      REQ_REMARK = #{record.reqRemark,jdbcType=VARCHAR},
+      APPR_OPERATOR = #{record.apprOperator,jdbcType=VARCHAR},
+      APPR_TIME = #{record.apprTime,jdbcType=TIMESTAMP},
+      APPR_REMARK = #{record.apprRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyle" >
+    update DBBS01.T_BS_CARD_STYLE
+    <set >
+      <if test="cardStyleName != null" >
+        CARD_STYLE_NAME = #{cardStyleName,jdbcType=VARCHAR},
+      </if>
+      <if test="microPic != null" >
+        MICRO_PIC = #{microPic,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFile != null" >
+        SOURCE_FILE = #{sourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="materialMicroPic != null" >
+        MATERIAL_MICRO_PIC = #{materialMicroPic,jdbcType=VARCHAR},
+      </if>
+      <if test="materialSourceFile != null" >
+        MATERIAL_SOURCE_FILE = #{materialSourceFile,jdbcType=VARCHAR},
+      </if>
+      <if test="isSpecial != null" >
+        IS_SPECIAL = #{isSpecial,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+      </if>
+      <if test="entResNo != null" >
+        ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      </if>
+      <if test="entCustId != null" >
+        ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmFile != null" >
+        CONFIRM_FILE = #{confirmFile,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        IS_LOCK = #{isLock,jdbcType=DECIMAL},
+      </if>
+      <if test="isConfirm != null" >
+        IS_CONFIRM = #{isConfirm,jdbcType=DECIMAL},
+      </if>
+      <if test="enableStatus != null" >
+        ENABLE_STATUS = #{enableStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="reqOperator != null" >
+        REQ_OPERATOR = #{reqOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        REQ_TIME = #{reqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqRemark != null" >
+        REQ_REMARK = #{reqRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="apprOperator != null" >
+        APPR_OPERATOR = #{apprOperator,jdbcType=VARCHAR},
+      </if>
+      <if test="apprTime != null" >
+        APPR_TIME = #{apprTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="apprRemark != null" >
+        APPR_REMARK = #{apprRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CARD_STYLE_ID = #{cardStyleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsCardStyle" >
+    update DBBS01.T_BS_CARD_STYLE
+    set CARD_STYLE_NAME = #{cardStyleName,jdbcType=VARCHAR},
+      MICRO_PIC = #{microPic,jdbcType=VARCHAR},
+      SOURCE_FILE = #{sourceFile,jdbcType=VARCHAR},
+      MATERIAL_MICRO_PIC = #{materialMicroPic,jdbcType=VARCHAR},
+      MATERIAL_SOURCE_FILE = #{materialSourceFile,jdbcType=VARCHAR},
+      IS_SPECIAL = #{isSpecial,jdbcType=DECIMAL},
+      IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+      ENT_RES_NO = #{entResNo,jdbcType=CHAR},
+      ENT_CUST_ID = #{entCustId,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      CONFIRM_FILE = #{confirmFile,jdbcType=VARCHAR},
+      IS_LOCK = #{isLock,jdbcType=DECIMAL},
+      IS_CONFIRM = #{isConfirm,jdbcType=DECIMAL},
+      ENABLE_STATUS = #{enableStatus,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      REQ_OPERATOR = #{reqOperator,jdbcType=VARCHAR},
+      REQ_TIME = #{reqTime,jdbcType=TIMESTAMP},
+      REQ_REMARK = #{reqRemark,jdbcType=VARCHAR},
+      APPR_OPERATOR = #{apprOperator,jdbcType=VARCHAR},
+      APPR_TIME = #{apprTime,jdbcType=TIMESTAMP},
+      APPR_REMARK = #{apprRemark,jdbcType=VARCHAR}
+    where CARD_STYLE_ID = #{cardStyleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>定时任务信息修改</title>
+	<link rel="stylesheet" href="dep/bootstrap/css/bootstrap.css" />
+	<!--[if lte IE 6]>
+	        <link rel="stylesheet" href="dep/bootstrap/css/bootstrap-ie6.css" />
+	        <![endif]-->
+	<!--[if lte IE 7]>
+	        <link rel="stylesheet" href="dep/bootstrap/css/ie.css" />
+	        <![endif]-->
+	<![if !IE]>
+	<link rel="stylesheet" href="dep/bootstrap/css/noie.css" />
+	<![endif]>
+	<link rel="stylesheet"
+		href="dep/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/project.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/menu.css" />	
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top clearfix">
+		<div class="navbar-inner zu-top">
+			<span class="header"></span>
+			<div class="nav-collapse collapse" style="margin-right: 10px;">
+				<ul class="nav pull-right">
+					<div class="login-yes" style="display: none; padding: 10px;">
+						<li style="display: inline;" class="dropdown">
+							<span style="color: #CCCCCC;">登录用户:&nbsp;&nbsp;</span> 
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> 
+								<span class="zu-top-nav-link loginName" id="username"></span> 
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="password.html" >修改密码</a></li>
+							</ul></li> &nbsp;&nbsp;&nbsp;&nbsp;
+						<li style="display: inline;" class="dropdown"><a href="#"
+							id="signout"> <span
+								class="zu-top-nav-link" title="点击退出登录">退出</span></a></li>
+					</div>
+
+					<div class="login-no" style="padding: 10px;">
+						<li style="display: inline;"><a href="login.html"> <span
+								class="zu-top-nav-link">登录</span>
+						</a></li>
+					</div>
+				</ul>
+			</div>
+		</div>
+		<div class=navtabmenu style="margin-left: 0px; margin-top: 0px;">
+			<ul>
+				<li id="unique_tab1"><a href="#" id="toHome">首页</a></li>
+				<li id="unique_tab2" class="sub_nav"><a href="main.html"
+					onclick="return true;" style="cursor: pointer;">参数配置</a>
+					<ul>
+						<li><a href="main.html">参数列表</a></li>
+						<li><a href="newapp.html">新建APP</a></li>						
+						<li><a href="newconfig_file.html">新建配置文件</a></li>
+						<li><a href="batch_upload_download.html">批量上传&下载</a></li>
+					</ul></li>
+				<li id="unique_tab3" class="current"><a href="business.html"
+					onclick="return true;" style="cursor: pointer;">调度配置</a>
+					<ul>
+						<li><a href="business.html">业务列表</a></li>					
+					    <li><a href="newservice.html">新建业务</a></li>
+						<li><a href="jobs.html">定时任务队列</a></li>
+						<li><a href="cron.html">Cron生成器</a></li>
+						<li><a href="executedetail.html">业务执行详情</a></li>
+					</ul></li>
+			</ul>
+			<div class="about">
+				<table>
+					<tbody>
+						<tr>
+							<td><img src="assets/img/ico_help.png" width="14"
+								height="14" border="0"></td>
+							<td><a href="#" target="_self">帮助</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="Wrapper" class="clearfix">
+		<div id="Main" style="margin-top: 80px;">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<ul class="breadcrumb" style="background-color: #fff;">
+						<li><a href="business.html">调度配置</a> /</li>
+						<li><a href="jobs.html">定时任务队列</a> /</li>
+						<li><span id="currentData"></span></li>
+						<li class="active">定时任务信息修改</li>
+					</ul>
+				</div>
+
+				<div class="row-fluid">
+
+					<div class="span4">
+						<div class="well sidebar-nav" style="padding: 10px; background-color: #fff">
+							<ul id="sidebarcur" class="nav nav-list"></ul>
+						</div>
+						<!--/.well -->
+					</div>
+
+					<div class="span8">
+						<div class="content oz">
+							<form id="form" class="private-form clearfix">
+								<h2 class="autoPush-detail-title">定时任务信息修改</h2>
+								<p class="private-item">
+									<span class="private-item-key">业务名称：</span> 
+									<input id="triggerName" type="text" class="private-item-value" readonly="readonly"/>
+								</p>
+
+								<p class="private-item">
+									<span class="private-item-key">DUBBO服务名：</span> 
+									<input id="triggerGroup" type="text" class="private-item-value" readonly="readonly"/>
+								</p>
+								
+								<p class="private-item">
+									<span class="private-item-key">DUBBO服务版本：</span> 
+									<input id="version" type="text" class="private-item-value" readonly="readonly"/>
+								</p>
+
+								<p class="private-item">
+									<span class="private-item-key">Cron表达式：</span> 
+									<input id="cron" type="text" class="private-item-value" /><span style="color: red;">&nbsp;&nbsp;(必填)</span>
+									&nbsp;&nbsp;
+								    <button id="openCronBtn" onclick="javascript:window.open('cron_simple.html');return false;" title="打开cron表达式生成器">cron生成器</button>
+								</p>
+																
+								<p class="private-item">
+									<span class="private-item-key">任务功能描述：</span> 
+									<textarea id="desc" class="private-item-value" style="height: 100px;"></textarea>
+								</p>
+								
+								<div id="error" class="alert alert-warning hide" role="alert">
+									表单选项不能为空或填写格式错误！
+								</div>
+								<div style="padding-top: 30px;">
+									<button id="submit" class="private-submit" onclick="return false;">修改</button>
+								</div>
+								<div id="nextFireTimesDiv" style="margin-left:100px;width:300px;"></div>	
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 详细信息单行模板-->
+	<div id="tItemTpl" class="hide">
+		<li style="font-size: 13px; overflow-wrap: break-word; word-wrap: break-word;" class="{2}">
+			<a href="{1}">{0}</a>
+		</li>
+	</div>
+
+
+	<div id="footer">
+		<div id="BottomMain">
+			<div class="inner">
+				<strong> <a href="#" class="dark">关于</a> &nbsp;
+				</strong>
+				<div class="sep10"></div>
+				<span>调度及参数配置系统</span>&nbsp;&nbsp;<span style="color:blue;">[建议使用Firefox、Google Chrome、或IE9及以上版本浏览器]</span>
+				<div class="sep10"></div>
+				<span class="myfade">© 2013-2015 Intergrowth Corporation
+					深圳市互生科技有限公司<a href="http://www.miitbeian.gov.cn/" target="_blank">
+						粤ICP备13058455号</a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<script src="assets/js/jquery-1.11.0.js"></script>
+	<script src="dep/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+	<script src="dep/bootstrap/js/bootstrap.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/common.js"></script>
+	<script src="assets/js/heartbeat.js"></script>
+	<script src="assets/js/modifycommon.js"></script>
+	<script src="assets/js/modifyJob.js"></script>
+	<script src="assets/js/footer.js"></script>
+</body>
+</html>
+

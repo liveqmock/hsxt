@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.mapper.dbbs01.TBsPerRealnameAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuth" >
+    <id column="APPLY_ID" property="applyId" jdbcType="VARCHAR" />
+    <result column="PER_RES_NO" property="perResNo" jdbcType="CHAR" />
+    <result column="PER_CUST_ID" property="perCustId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="DECIMAL" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="COUNTRY_NO" property="countryNo" jdbcType="VARCHAR" />
+    <result column="COUNTRY_NAME" property="countryName" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="BIRTH_ADDR" property="birthAddr" jdbcType="VARCHAR" />
+    <result column="LICENCE_ISSUING" property="licenceIssuing" jdbcType="VARCHAR" />
+    <result column="PROFESSION" property="profession" jdbcType="VARCHAR" />
+    <result column="CERTYPE" property="certype" jdbcType="DECIMAL" />
+    <result column="CREDENTIALS_NO" property="credentialsNo" jdbcType="VARCHAR" />
+    <result column="CERPICA" property="cerpica" jdbcType="VARCHAR" />
+    <result column="CERPICB" property="cerpicb" jdbcType="VARCHAR" />
+    <result column="CERPICH" property="cerpich" jdbcType="VARCHAR" />
+    <result column="VALID_DATE" property="validDate" jdbcType="VARCHAR" />
+    <result column="APPEAL_TYPE" property="appealType" jdbcType="VARCHAR" />
+    <result column="APPEAL_REASON" property="appealReason" jdbcType="VARCHAR" />
+    <result column="POST_SCRIPT" property="postScript" jdbcType="VARCHAR" />
+    <result column="ISSUE_PLACE" property="issuePlace" jdbcType="VARCHAR" />
+    <result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+    <result column="ENT_REG_ADDR" property="entRegAddr" jdbcType="VARCHAR" />
+    <result column="ENT_TYPE" property="entType" jdbcType="VARCHAR" />
+    <result column="ENT_BUILD_DATE" property="entBuildDate" jdbcType="TIMESTAMP" />
+    <result column="APPLY_DATE" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="APPR_CONTENT" property="apprContent" jdbcType="VARCHAR" />
+    <result column="APPR_DATE" property="apprDate" jdbcType="TIMESTAMP" />
+    <result column="CREATED_DATE" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="CREATEDBY" property="createdby" jdbcType="VARCHAR" />
+    <result column="UPDATED_DATE" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATEBY" property="updateby" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APPLY_ID, PER_RES_NO, PER_CUST_ID, NAME, SEX, MOBILE, COUNTRY_NO, COUNTRY_NAME, NATION, 
+    BIRTH_ADDR, LICENCE_ISSUING, PROFESSION, CERTYPE, CREDENTIALS_NO, CERPICA, CERPICB, 
+    CERPICH, VALID_DATE, APPEAL_TYPE, APPEAL_REASON, POST_SCRIPT, ISSUE_PLACE, ENT_NAME, 
+    ENT_REG_ADDR, ENT_TYPE, ENT_BUILD_DATE, APPLY_DATE, STATUS, APPR_CONTENT, APPR_DATE, 
+    CREATED_DATE, CREATEDBY, UPDATED_DATE, UPDATEBY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuthExample" >
+    select * from (
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    ROWNUM rn,
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_PER_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    ) 
+	    <![CDATA[
+		where rn >= #{start} and rn <= #{end}
+		]]>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DBBS01.T_BS_PER_REALNAME_AUTH
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DBBS01.T_BS_PER_REALNAME_AUTH
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuthExample" >
+    delete from DBBS01.T_BS_PER_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuth" >
+    insert into DBBS01.T_BS_PER_REALNAME_AUTH (APPLY_ID, PER_RES_NO, PER_CUST_ID, 
+      NAME, SEX, MOBILE, 
+      COUNTRY_NO, COUNTRY_NAME, NATION, 
+      BIRTH_ADDR, LICENCE_ISSUING, PROFESSION, 
+      CERTYPE, CREDENTIALS_NO, CERPICA, 
+      CERPICB, CERPICH, VALID_DATE, 
+      APPEAL_TYPE, APPEAL_REASON, POST_SCRIPT, 
+      ISSUE_PLACE, ENT_NAME, ENT_REG_ADDR, 
+      ENT_TYPE, ENT_BUILD_DATE, APPLY_DATE, 
+      STATUS, APPR_CONTENT, APPR_DATE, 
+      CREATED_DATE, CREATEDBY, UPDATED_DATE, 
+      UPDATEBY)
+    values (#{applyId,jdbcType=VARCHAR}, #{perResNo,jdbcType=CHAR}, #{perCustId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=DECIMAL}, #{mobile,jdbcType=VARCHAR}, 
+      #{countryNo,jdbcType=VARCHAR}, #{countryName,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{birthAddr,jdbcType=VARCHAR}, #{licenceIssuing,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{certype,jdbcType=DECIMAL}, #{credentialsNo,jdbcType=VARCHAR}, #{cerpica,jdbcType=VARCHAR}, 
+      #{cerpicb,jdbcType=VARCHAR}, #{cerpich,jdbcType=VARCHAR}, #{validDate,jdbcType=VARCHAR}, 
+      #{appealType,jdbcType=VARCHAR}, #{appealReason,jdbcType=VARCHAR}, #{postScript,jdbcType=VARCHAR}, 
+      #{issuePlace,jdbcType=VARCHAR}, #{entName,jdbcType=VARCHAR}, #{entRegAddr,jdbcType=VARCHAR}, 
+      #{entType,jdbcType=VARCHAR}, #{entBuildDate,jdbcType=TIMESTAMP}, #{applyDate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=DECIMAL}, #{apprContent,jdbcType=VARCHAR}, #{apprDate,jdbcType=TIMESTAMP}, 
+      #{createdDate,jdbcType=TIMESTAMP}, #{createdby,jdbcType=VARCHAR}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{updateby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuth" >
+    insert into DBBS01.T_BS_PER_REALNAME_AUTH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="perResNo != null" >
+        PER_RES_NO,
+      </if>
+      <if test="perCustId != null" >
+        PER_CUST_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO,
+      </if>
+      <if test="countryName != null" >
+        COUNTRY_NAME,
+      </if>
+      <if test="nation != null" >
+        NATION,
+      </if>
+      <if test="birthAddr != null" >
+        BIRTH_ADDR,
+      </if>
+      <if test="licenceIssuing != null" >
+        LICENCE_ISSUING,
+      </if>
+      <if test="profession != null" >
+        PROFESSION,
+      </if>
+      <if test="certype != null" >
+        CERTYPE,
+      </if>
+      <if test="credentialsNo != null" >
+        CREDENTIALS_NO,
+      </if>
+      <if test="cerpica != null" >
+        CERPICA,
+      </if>
+      <if test="cerpicb != null" >
+        CERPICB,
+      </if>
+      <if test="cerpich != null" >
+        CERPICH,
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE,
+      </if>
+      <if test="appealType != null" >
+        APPEAL_TYPE,
+      </if>
+      <if test="appealReason != null" >
+        APPEAL_REASON,
+      </if>
+      <if test="postScript != null" >
+        POST_SCRIPT,
+      </if>
+      <if test="issuePlace != null" >
+        ISSUE_PLACE,
+      </if>
+      <if test="entName != null" >
+        ENT_NAME,
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR,
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE,
+      </if>
+      <if test="entBuildDate != null" >
+        ENT_BUILD_DATE,
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="apprContent != null" >
+        APPR_CONTENT,
+      </if>
+      <if test="apprDate != null" >
+        APPR_DATE,
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE,
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY,
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE,
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="perResNo != null" >
+        #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="perCustId != null" >
+        #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null" >
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthAddr != null" >
+        #{birthAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceIssuing != null" >
+        #{licenceIssuing,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="certype != null" >
+        #{certype,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNo != null" >
+        #{credentialsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpica != null" >
+        #{cerpica,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpicb != null" >
+        #{cerpicb,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpich != null" >
+        #{cerpich,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="appealType != null" >
+        #{appealType,jdbcType=VARCHAR},
+      </if>
+      <if test="appealReason != null" >
+        #{appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="postScript != null" >
+        #{postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePlace != null" >
+        #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="entName != null" >
+        #{entName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="entType != null" >
+        #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="entBuildDate != null" >
+        #{entBuildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="apprContent != null" >
+        #{apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="apprDate != null" >
+        #{apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        #{updateby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuthExample" resultType="java.lang.Integer" >
+    select count(*) from DBBS01.T_BS_PER_REALNAME_AUTH
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DBBS01.T_BS_PER_REALNAME_AUTH
+    <set >
+      <if test="record.applyId != null" >
+        APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perResNo != null" >
+        PER_RES_NO = #{record.perResNo,jdbcType=CHAR},
+      </if>
+      <if test="record.perCustId != null" >
+        PER_CUST_ID = #{record.perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryNo != null" >
+        COUNTRY_NO = #{record.countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countryName != null" >
+        COUNTRY_NAME = #{record.countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        NATION = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthAddr != null" >
+        BIRTH_ADDR = #{record.birthAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenceIssuing != null" >
+        LICENCE_ISSUING = #{record.licenceIssuing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        PROFESSION = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certype != null" >
+        CERTYPE = #{record.certype,jdbcType=DECIMAL},
+      </if>
+      <if test="record.credentialsNo != null" >
+        CREDENTIALS_NO = #{record.credentialsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cerpica != null" >
+        CERPICA = #{record.cerpica,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cerpicb != null" >
+        CERPICB = #{record.cerpicb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cerpich != null" >
+        CERPICH = #{record.cerpich,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validDate != null" >
+        VALID_DATE = #{record.validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealType != null" >
+        APPEAL_TYPE = #{record.appealType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealReason != null" >
+        APPEAL_REASON = #{record.appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postScript != null" >
+        POST_SCRIPT = #{record.postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuePlace != null" >
+        ISSUE_PLACE = #{record.issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entName != null" >
+        ENT_NAME = #{record.entName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entRegAddr != null" >
+        ENT_REG_ADDR = #{record.entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entType != null" >
+        ENT_TYPE = #{record.entType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entBuildDate != null" >
+        ENT_BUILD_DATE = #{record.entBuildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyDate != null" >
+        APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.apprContent != null" >
+        APPR_CONTENT = #{record.apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprDate != null" >
+        APPR_DATE = #{record.apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdDate != null" >
+        CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdby != null" >
+        CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDate != null" >
+        UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateby != null" >
+        UPDATEBY = #{record.updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DBBS01.T_BS_PER_REALNAME_AUTH
+    set APPLY_ID = #{record.applyId,jdbcType=VARCHAR},
+      PER_RES_NO = #{record.perResNo,jdbcType=CHAR},
+      PER_CUST_ID = #{record.perCustId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=DECIMAL},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      COUNTRY_NO = #{record.countryNo,jdbcType=VARCHAR},
+      COUNTRY_NAME = #{record.countryName,jdbcType=VARCHAR},
+      NATION = #{record.nation,jdbcType=VARCHAR},
+      BIRTH_ADDR = #{record.birthAddr,jdbcType=VARCHAR},
+      LICENCE_ISSUING = #{record.licenceIssuing,jdbcType=VARCHAR},
+      PROFESSION = #{record.profession,jdbcType=VARCHAR},
+      CERTYPE = #{record.certype,jdbcType=DECIMAL},
+      CREDENTIALS_NO = #{record.credentialsNo,jdbcType=VARCHAR},
+      CERPICA = #{record.cerpica,jdbcType=VARCHAR},
+      CERPICB = #{record.cerpicb,jdbcType=VARCHAR},
+      CERPICH = #{record.cerpich,jdbcType=VARCHAR},
+      VALID_DATE = #{record.validDate,jdbcType=VARCHAR},
+      APPEAL_TYPE = #{record.appealType,jdbcType=VARCHAR},
+      APPEAL_REASON = #{record.appealReason,jdbcType=VARCHAR},
+      POST_SCRIPT = #{record.postScript,jdbcType=VARCHAR},
+      ISSUE_PLACE = #{record.issuePlace,jdbcType=VARCHAR},
+      ENT_NAME = #{record.entName,jdbcType=VARCHAR},
+      ENT_REG_ADDR = #{record.entRegAddr,jdbcType=VARCHAR},
+      ENT_TYPE = #{record.entType,jdbcType=VARCHAR},
+      ENT_BUILD_DATE = #{record.entBuildDate,jdbcType=TIMESTAMP},
+      APPLY_DATE = #{record.applyDate,jdbcType=TIMESTAMP},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      APPR_CONTENT = #{record.apprContent,jdbcType=VARCHAR},
+      APPR_DATE = #{record.apprDate,jdbcType=TIMESTAMP},
+      CREATED_DATE = #{record.createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{record.createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{record.updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{record.updateby,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuth" >
+    update DBBS01.T_BS_PER_REALNAME_AUTH
+    <set >
+      <if test="perResNo != null" >
+        PER_RES_NO = #{perResNo,jdbcType=CHAR},
+      </if>
+      <if test="perCustId != null" >
+        PER_CUST_ID = #{perCustId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="countryNo != null" >
+        COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null" >
+        COUNTRY_NAME = #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthAddr != null" >
+        BIRTH_ADDR = #{birthAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceIssuing != null" >
+        LICENCE_ISSUING = #{licenceIssuing,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        PROFESSION = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="certype != null" >
+        CERTYPE = #{certype,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNo != null" >
+        CREDENTIALS_NO = #{credentialsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpica != null" >
+        CERPICA = #{cerpica,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpicb != null" >
+        CERPICB = #{cerpicb,jdbcType=VARCHAR},
+      </if>
+      <if test="cerpich != null" >
+        CERPICH = #{cerpich,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        VALID_DATE = #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="appealType != null" >
+        APPEAL_TYPE = #{appealType,jdbcType=VARCHAR},
+      </if>
+      <if test="appealReason != null" >
+        APPEAL_REASON = #{appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="postScript != null" >
+        POST_SCRIPT = #{postScript,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePlace != null" >
+        ISSUE_PLACE = #{issuePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="entName != null" >
+        ENT_NAME = #{entName,jdbcType=VARCHAR},
+      </if>
+      <if test="entRegAddr != null" >
+        ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="entType != null" >
+        ENT_TYPE = #{entType,jdbcType=VARCHAR},
+      </if>
+      <if test="entBuildDate != null" >
+        ENT_BUILD_DATE = #{entBuildDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyDate != null" >
+        APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="apprContent != null" >
+        APPR_CONTENT = #{apprContent,jdbcType=VARCHAR},
+      </if>
+      <if test="apprDate != null" >
+        APPR_DATE = #{apprDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdby != null" >
+        CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDate != null" >
+        UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        UPDATEBY = #{updateby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy.hsi.fs.mapper.vo.dbbs01.TBsPerRealnameAuth" >
+    update DBBS01.T_BS_PER_REALNAME_AUTH
+    set PER_RES_NO = #{perResNo,jdbcType=CHAR},
+      PER_CUST_ID = #{perCustId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=DECIMAL},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      COUNTRY_NO = #{countryNo,jdbcType=VARCHAR},
+      COUNTRY_NAME = #{countryName,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      BIRTH_ADDR = #{birthAddr,jdbcType=VARCHAR},
+      LICENCE_ISSUING = #{licenceIssuing,jdbcType=VARCHAR},
+      PROFESSION = #{profession,jdbcType=VARCHAR},
+      CERTYPE = #{certype,jdbcType=DECIMAL},
+      CREDENTIALS_NO = #{credentialsNo,jdbcType=VARCHAR},
+      CERPICA = #{cerpica,jdbcType=VARCHAR},
+      CERPICB = #{cerpicb,jdbcType=VARCHAR},
+      CERPICH = #{cerpich,jdbcType=VARCHAR},
+      VALID_DATE = #{validDate,jdbcType=VARCHAR},
+      APPEAL_TYPE = #{appealType,jdbcType=VARCHAR},
+      APPEAL_REASON = #{appealReason,jdbcType=VARCHAR},
+      POST_SCRIPT = #{postScript,jdbcType=VARCHAR},
+      ISSUE_PLACE = #{issuePlace,jdbcType=VARCHAR},
+      ENT_NAME = #{entName,jdbcType=VARCHAR},
+      ENT_REG_ADDR = #{entRegAddr,jdbcType=VARCHAR},
+      ENT_TYPE = #{entType,jdbcType=VARCHAR},
+      ENT_BUILD_DATE = #{entBuildDate,jdbcType=TIMESTAMP},
+      APPLY_DATE = #{applyDate,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      APPR_CONTENT = #{apprContent,jdbcType=VARCHAR},
+      APPR_DATE = #{apprDate,jdbcType=TIMESTAMP},
+      CREATED_DATE = #{createdDate,jdbcType=TIMESTAMP},
+      CREATEDBY = #{createdby,jdbcType=VARCHAR},
+      UPDATED_DATE = #{updatedDate,jdbcType=TIMESTAMP},
+      UPDATEBY = #{updateby,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

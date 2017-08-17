@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.hsi.fs.server.common.framework.mybatis.mapper.ext.ExtendedFileMetaDataMapper">
+	<resultMap id="SimpleBaseResultMap"
+		type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.ext.SimpleFileMetaInfo">
+		<result column="FILE_STORAGE_ID" property="fileStorageId" jdbcType="CHAR" />
+		<result column="FILE_PERMISSION" property="filePermission" jdbcType="CHAR" />
+		<result column="OWNER_USER_ID" property="ownerUserId" jdbcType="CHAR" />
+		<result column="IS_ANONYMOUS" property="isAnonymous" jdbcType="BIT" />
+		<result column="FILE_SUFFIX" property="fileSuffix" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="FileNameBaseResultMap" type="com.gy.hsi.fs.server.common.framework.mybatis.mapvo.ext.FileName">
+		<result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+		<result column="FILE_SUFFIX" property="fileSuffix" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Simple_Base_Column_List">
+		FILE_STORAGE_ID, FILE_PERMISSION, FILE_SUFFIX, OWNER_USER_ID, IS_ANONYMOUS
+	</sql>
+
+	<!-- 查询文件索引信息 -->
+	<select id="querySimpleFileMetaInfo" resultMap="SimpleBaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Simple_Base_Column_List" />
+		from T_FS_FILE_META_DATA
+		where FILE_ID=#{fileId,jdbcType=CHAR}
+	</select>
+
+	<!-- 查询文件文件id是否存在 -->
+	<select id="queryFileIdCounts" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*)
+		from T_FS_FILE_META_DATA
+		where
+		FILE_ID=#{fileId,jdbcType=CHAR}
+	</select>
+
+	<!-- 根据文件存储id查询文件名称 -->
+	<select id="queryFileNameByFileStorageId" resultMap="FileNameBaseResultMap"
+		parameterType="java.lang.String">
+		select FILE_NAME, FILE_SUFFIX
+		from T_FS_FILE_META_DATA
+		where FILE_STORAGE_ID=#{fileStorageId,jdbcType=CHAR}
+	</select>
+
+	<!-- 根据文件id查询文件名称 -->
+	<select id="queryFileNameByFileId" resultMap="FileNameBaseResultMap"
+		parameterType="java.lang.String">
+		select FILE_NAME, FILE_SUFFIX
+		from T_FS_FILE_META_DATA
+		where FILE_ID=#{fileId,jdbcType=CHAR}
+	</select>
+		
+	<!-- 根据文件id查询文件权限 -->
+	<select id="queryFilePermissionByFileId" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select FILE_PERMISSION
+		from T_FS_FILE_META_DATA
+		where FILE_ID=#{fileId,jdbcType=CHAR}
+	</select>
+</mapper>

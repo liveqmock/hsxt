@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="D:/apache-maven-repository-zys/com/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar" />
+	<context id="context1" targetRuntime="MyBatis3">
+		<!-- 去除自动生成的注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.228.41:1521:orcl"
+			userId="DBBS01" password="DBBS01" />
+		
+		<javaModelGenerator
+			targetPackage="com.gy.hsi.fs.mapper.vo"
+			targetProject="D:/zys_workspace_root_branches/fs/hsi-fs-datatransfer/src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator
+			targetPackage="xml"
+			targetProject="D:/zys_workspace_root_branches/fs/hsi-fs-datatransfer/src/main/java/com/gy/hsi/fs/mapper">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator
+			targetPackage="com.gy.hsi.fs.mapper"
+			targetProject="D:/zys_workspace_root_branches/fs/hsi-fs-datatransfer/src/main/java"
+			type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<table schema="DBBS01" tableName="T_BS_CARD_STYLE" />
+		<table schema="DBBS01" tableName="T_BS_DECLARE_CORP_APTITUDE" />
+		<table schema="DBBS01" tableName="T_BS_DECLARE_ENT_LINKMAN" />
+		<table schema="DBBS01" tableName="T_BS_ENT_CHANGE_INFO_APP" />
+		<table schema="DBBS01" tableName="T_BS_PER_CHANGE_INFO_APP" />
+		<table schema="DBBS01" tableName="T_BS_TAXRATE_CHANGE" />
+		<table schema="DBBS01" tableName="T_BS_ENT_REALNAME_AUTH" />
+		<table schema="DBBS01" tableName="T_BS_FILING_APTITUDE" />
+		<table schema="DBBS01" tableName="T_BS_RESET_TRANPWDAPPLY" />
+		<table schema="DBBS01" tableName="T_BS_PER_REALNAME_AUTH" />
+		<table schema="DBBS01" tableName="T_BS_SHIPPING_METHOD" />
+		<table schema="DBBS01" tableName="T_BS_TOOL_PRODUCT" />
+		<table schema="DBBS01" tableName="T_BS_DEBIT" />
+		<table schema="DBBS01" tableName="T_BS_POINTGAME" />
+	</context>
+
+	<!-- 如果是在eclipse 中，选择pom.xml文件，击右键先择Run AS——>Maven Build… ——>在Goals框中输入：mybatis-generator:generate
+		如果在命令行输入Maven命令即可，注意：一定是当前项目目录下运行该命令： mvn mybatis-generator:generate 代码生成完，大功告别成。 -->
+</generatorConfiguration>
